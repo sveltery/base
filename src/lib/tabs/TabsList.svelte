@@ -50,10 +50,6 @@
 		return list.attachList(element);
 	}
 
-	$effect(() => {
-		return () => list.disconnect();
-	});
-
 	const state: TabsListState = $derived({
 		orientation: tabs.orientation,
 		tabActivationDirection: tabs.tabActivationDirection

@@ -25,21 +25,13 @@
 
 	let geometry = $state<IndicatorGeometry | null>(null);
 
-	// The list observer already watches the list and every tab. Upstream rerenders
-	// from registerIndicatorUpdateListener; this writes the measured geometry.
+	// Upstream rerenders from registerIndicatorUpdateListener. This effect re-measures.
 	$effect(() => {
+		list.trackLayout();
 		const selected = tabs.value;
 		const listElement = list.listElement;
 		const activeTab = selected == null || !listElement ? null : tabs.tabElement(selected);
-		const measure = () => {
-			if (!activeTab || !listElement) {
-				geometry = null;
-				return;
-			}
-			geometry = measureIndicator(activeTab, listElement);
-		};
-		measure();
-		return list.registerIndicatorUpdateListener(measure);
+		geometry = activeTab && listElement ? measureIndicator(activeTab, listElement) : null;
 	});
 
 	const display = $derived(geometry != null && geometry.width > 0 && geometry.height > 0);

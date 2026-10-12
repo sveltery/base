@@ -3,7 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getContext, setContext, untrack } from 'svelte';
-import { indicatorListeners } from './indicator-listeners.js';
+import { createSubscriber } from 'svelte/reactivity';
 import { ElementList } from '../internal/element-list.svelte.js';
 import { REASONS } from '@sveltery/utils';
 import { activationDirection } from './direction.js';
@@ -233,22 +233,26 @@ export class TabsListModel {
 
 	private observer: ResizeObserver | null = null;
 	private observed: HTMLElement[] = [];
-
-	/**
-	 * Upstream `registerIndicatorUpdateListener`. The list observer watches the
-	 * list and every tab; each callback remeasures the indicator.
-	 */
-	registerIndicatorUpdateListener(listener: () => void) {
-		const set = indicatorListeners(this);
-		set.add(listener);
+	/** Upstream `registerIndicatorUpdateListener`: one observer on the list and every tab. */
+	private readonly layout = createSubscriber((update) => {
+		if (typeof ResizeObserver === 'undefined') return;
+		const observer = new ResizeObserver(update);
+		this.observer = observer;
+		if (this.listElement) observer.observe(this.listElement);
+		for (const element of this.observed) observer.observe(element);
 		return () => {
-			set.delete(listener);
+			observer.disconnect();
+			this.observer = null;
 		};
+	});
+
+	/** Re-runs the calling effect when the list or a tab resizes. */
+	trackLayout() {
+		this.layout();
 	}
 
 	attachList(element: HTMLElement) {
 		this.listElement = element;
-		this.ensureObserver();
 		this.observer?.observe(element);
 		return () => {
 			this.observer?.unobserve(element);
@@ -263,20 +267,6 @@ export class TabsListModel {
 			this.observed = this.observed.filter((item) => item !== element);
 			this.observer?.unobserve(element);
 		};
-	}
-
-	private ensureObserver() {
-		if (this.observer || typeof ResizeObserver === 'undefined') return;
-		this.observer = new ResizeObserver(() => {
-			for (const listener of indicatorListeners(this)) listener();
-		});
-		for (const element of this.observed) this.observer.observe(element);
-		if (this.listElement) this.observer.observe(this.listElement);
-	}
-
-	disconnect() {
-		this.observer?.disconnect();
-		this.observer = null;
 	}
 }
 
