@@ -8,43 +8,60 @@ on:
     # required so marking a draft ready starts CI without a new commit.
     types: [opened, synchronize, reopened, ready_for_review]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  verify:
+  static:
+    name: Lint and types
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm lint
+      - run: pnpm check
+
+  unit:
+    name: Unit
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm test:unit
+
+  package:
+    name: Package
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm run build
+
+  component:
+    name: Component
     # Chromium's sandbox needs unprivileged user namespaces, which 24.04 runners restrict.
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
+          browser: true
+      - run: pnpm test:component
+
+  e2e:
+    name: E2E
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
         with:
-          node-version: 24
-      - name: Install
-        timeout-minutes: 8
-        run: |
-          source scripts/toolchain.sh
-          pnpm install --frozen-lockfile
-          # `playwright install --with-deps` runs apt-get. Hosted Ubuntu runners
-          # intermittently stall for tens of minutes retrying azure.archive.ubuntu.com
-          # (actions/runner-images#14594). Bound apt, and if that still does not
-          # finish, install the browser without system packages.
-          sudo tee /etc/apt/apt.conf.d/99-sveltery-acquire >/dev/null <<'EOF'
-          Acquire::Retries "1";
-          Acquire::http::Timeout "15";
-          Acquire::https::Timeout "15";
-          EOF
-          if ! timeout --signal=KILL 180 pnpm exec playwright install --with-deps chromium; then
-            echo "::warning::playwright install --with-deps did not finish; installing Chromium without apt packages"
-            pnpm exec playwright install chromium
-          fi
-      - name: Verify
-        env:
-          JSCPD_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
-        run: bash scripts/verify.sh
-      - name: Keep evidence
-        if: always()
+          browser: true
+      - run: pnpm test:e2e
+      - name: Keep traces
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: verify-evidence
-          path: .verify/
+          name: e2e-traces
+          path: test-results/
           if-no-files-found: ignore
