@@ -92,9 +92,18 @@
 	let hadExplicitId = false;
 
 	function writeValue(next: number | null, details?: NumberFieldChangeEventDetails) {
-		if (Object.is(current, next)) return;
+		const previous = current;
+		if (Object.is(previous, next)) return;
 		writeReason = details?.reason;
 		value = next;
+		// A `bind:value={get, set}` parent that keeps its value never runs the change effect.
+		if (
+			Object.is(
+				untrack(() => current),
+				previous
+			)
+		)
+			writeReason = undefined;
 	}
 
 	const model = new NumberFieldModel({

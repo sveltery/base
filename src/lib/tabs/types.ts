@@ -70,9 +70,10 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 export interface TabsRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
 	 * The selected tab value.
-	 * Use `bind:value` to share it with the parent. Pass a value without `bind:`
-	 * to set only the initial selection. The root moves it to the first enabled
-	 * tab when the selected tab is disabled or removed. `null` selects nothing.
+	 * Use `bind:value` to share it with the parent. A value passed without `bind:`
+	 * holds until the parent changes it. The root moves it to the first enabled
+	 * tab when the selected tab is disabled or removed. A value passed at mount is
+	 * held while its tab is disabled or not yet rendered. `null` selects nothing.
 	 * @default 0
 	 */
 	value?: TabsValue | null;

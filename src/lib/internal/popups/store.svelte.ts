@@ -118,7 +118,8 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 			details.trigger
 		);
 		this.domReferenceElement = next.activeTriggerElement;
-		this.readOnOpenChange()?.(nextOpen, details);
+		// `handle.open()` can run inside a consumer effect. Its callback must not subscribe it.
+		untrack(() => this.readOnOpenChange()?.(nextOpen, details));
 		if (details.isCanceled) {
 			this.domReferenceElement = previousReference;
 			return;

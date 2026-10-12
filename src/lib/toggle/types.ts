@@ -17,7 +17,7 @@ export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
 	/**
 	 * Whether the toggle is pressed.
 	 * Use `bind:pressed` to share it with the parent.
-	 * Pass a value without `bind:` to set only the initial state. Inside a group, the group value wins.
+	 * A value passed without `bind:` holds until the parent changes it. Inside a group, the group value wins.
 	 * @default false
 	 */
 	pressed?: boolean;

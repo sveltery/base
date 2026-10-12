@@ -213,6 +213,11 @@
 		dispatchClick(inputNode, event);
 	}
 
+	function handleFocusOut(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
+		enterHeld = false;
+		elementProps.onfocusout?.(event);
+	}
+
 	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
 		if (event.key === 'Enter') enterHeld = false;
 		forwardKeyUp(event, isDisabled, onkeyup, nativeButton);
@@ -315,6 +320,7 @@
 			onpointerdown: handlePointerDown,
 			onkeydown: handleKeyDown,
 			onkeyup: handleKeyUp,
+			onfocusout: handleFocusOut,
 			[rootKey]: registerRoot
 		};
 	});
