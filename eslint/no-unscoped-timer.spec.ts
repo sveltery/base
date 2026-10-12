@@ -55,7 +55,7 @@ describe('sveltery/no-unscoped-timer', () => {
 		`;
 		const messages = await messagesFor(
 			code,
-			'src/lib/internal/floating-ui-react/hooks/useClick.svelte.ts'
+			'packages/floating-ui-svelte/src/hooks/useClick.svelte.ts'
 		);
 		expect(messages).toHaveLength(5);
 	});
@@ -87,7 +87,7 @@ describe('sveltery/no-unscoped-timer', () => {
 			import { AnimationFrame } from './timeout.js';
 			AnimationFrame.request(() => {});
 		</script>`;
-		const manager = 'src/lib/internal/floating-ui-react/components/FloatingFocusManager.svelte';
+		const manager = 'packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte';
 		expect(await messagesFor(code, manager)).toHaveLength(1);
 	});
 
