@@ -47,7 +47,9 @@
 	let submitCount = 0;
 	// Plain flags. The focus effects read them when errors or the source's state change.
 	let submitted = false;
-	let awaitingSource = false;
+	// A submit the gate let through is `sent` until the source's `pending` rises. A source that
+	// leaves the submit to the browser never raises it, so only a `taken` submit settles.
+	let sourceSubmit: 'idle' | 'sent' | 'taken' = 'idle';
 
 	const formState: FormState = {};
 	const emptyErrors: FormErrors = {};
@@ -63,7 +65,7 @@
 			settle: () => {
 				submitCount = 0;
 				submitted = false;
-				awaitingSource = false;
+				sourceSubmit = 'idle';
 				issues.reset();
 				if (errors && Object.keys(errors).length > 0) errors = {};
 			}
@@ -154,7 +156,7 @@
 			event.stopImmediatePropagation();
 			return;
 		}
-		awaitingSource = source !== undefined;
+		sourceSubmit = source ? 'sent' : 'idle';
 	}
 
 	function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
@@ -249,8 +251,12 @@
 		if (!source) return;
 		const pending = source.pending;
 		void allIssues(source);
-		if (!awaitingSource || pending > 0) return;
-		awaitingSource = false;
+		if (pending > 0) {
+			if (sourceSubmit === 'sent') sourceSubmit = 'taken';
+			return;
+		}
+		if (sourceSubmit !== 'taken') return;
+		sourceSubmit = 'idle';
 		untrack(() => {
 			issues.submitSettled();
 			focusFirstInvalid(errors ?? emptyErrors);

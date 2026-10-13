@@ -180,6 +180,8 @@ export class FakeSource implements FormSource {
 	}
 
 	async #submit(event: SubmitEvent) {
+		// Like Kit, a submit into another browsing context is left to the browser.
+		if (event.submitter?.getAttribute('formtarget') === '_blank') return;
 		event.preventDefault();
 		const form = event.currentTarget as HTMLFormElement;
 		const values = read(form);

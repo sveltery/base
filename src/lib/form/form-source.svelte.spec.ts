@@ -172,6 +172,29 @@ describe('Form with a source', () => {
 			await nextTask();
 			expect(source.requests).toEqual([]);
 		});
+
+		it('does not move focus later after a submit the source left to the browser', async () => {
+			const source = new FakeSource({ schema });
+			render(BoundFormHarness, { source, mode: 'onChange' });
+			const form = control('form').element() as HTMLFormElement;
+			const external = document.createElement('button');
+			external.setAttribute('formtarget', '_blank');
+			form.append(external);
+			const stopNavigation = (event: Event) => event.preventDefault();
+			document.addEventListener('submit', stopNavigation);
+			try {
+				form.requestSubmit(external);
+				await nextTask();
+				expect(source.pending).toBe(0);
+
+				await userEvent.fill(control('age'), '36');
+				await expect.element(control('name-error')).toHaveTextContent('Name is required');
+				await nextTask();
+				expect(document.activeElement).toBe(element('age'));
+			} finally {
+				document.removeEventListener('submit', stopNavigation);
+			}
+		});
 	});
 
 	describe('validation mode', () => {
