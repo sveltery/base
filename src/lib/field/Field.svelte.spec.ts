@@ -215,6 +215,22 @@ describe('Field', () => {
 			await expect.element(page.getByText('Server error')).toBeVisible();
 		});
 
+		for (const scenario of ['length', 'length-bound']) {
+			it(`checks minlength on a typed value${scenario === 'length' ? '' : ' with bind:value'}`, async () => {
+				render(FieldHarness, { scenario });
+				await userEvent.click(page.getByTestId('control'));
+				await userEvent.keyboard('ab');
+				await page.getByRole('button', { name: 'Submit' }).click();
+				const control = page.getByTestId('control').element() as HTMLInputElement;
+				expect(control.validity.tooShort).toBe(true);
+				await expect
+					.element(page.getByTestId('error'))
+					.toHaveTextContent(control.validationMessage);
+				await expect.element(page.getByTestId('control')).toHaveAttribute('aria-invalid', 'true');
+				expect(text('submitted')).toBe('0');
+			});
+		}
+
 		it('validates when Enter is pressed outside a form', async () => {
 			render(FieldHarness, { scenario: 'enter', validate: () => null });
 			await userEvent.click(page.getByTestId('control'));

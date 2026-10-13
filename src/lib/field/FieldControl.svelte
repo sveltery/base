@@ -7,6 +7,7 @@
 	import { flushSync, untrack } from 'svelte';
 	import { ScopedTimeout, createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { createAttachmentKey } from 'svelte/attachments';
+	import { BROWSER } from 'esm-env';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
@@ -23,6 +24,7 @@
 
 	const uid = $props.id();
 	const elementKey = createAttachmentKey();
+	const valueKey = createAttachmentKey();
 
 	let {
 		id: idProp,
@@ -191,9 +193,26 @@
 		const binding = field.binding;
 		if (!binding) return undefined;
 		const props = binding.as(nativeType(field.controlType ?? 'text'), defaultValue ?? undefined);
-		const { 'aria-invalid': _, ...rest } = props as Record<string, unknown>;
-		return rest;
+		const { 'aria-invalid': _, value: boundValue, ...rest } = props as Record<string, unknown>;
+		return { props: rest, value: boundValue };
 	});
+
+	/** The value the element shows: the source's when bound, else `value`. */
+	const shownValue = $derived.by(() => {
+		if (bound) return bound.value === undefined ? undefined : textValue(bound.value as string);
+		return value != null ? textValue(value) : undefined;
+	});
+
+	// Assigning `value` makes the browser forget that the user typed it, which turns off
+	// `minlength` and `maxlength` checks, so the client writes it only when it differs, like
+	// `bind:value`. The server renders it as the `value` attribute. A value that goes away
+	// clears the element, as removing a spread `value` does.
+	let hadValue = false;
+	function syncValue(node: HTMLElement) {
+		const next = shownValue ?? (hadValue ? '' : undefined);
+		hadValue = shownValue !== undefined;
+		if (next !== undefined && isValueElement(node) && node.value !== next) node.value = next;
+	}
 
 	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
 	const hostProps: HTMLInputAttributes = $derived({
@@ -209,13 +228,14 @@
 			? { 'aria-invalid': true as const }
 			: {}),
 		...(defaultValue != null ? { defaultValue: textValue(defaultValue) } : {}),
-		...(value != null ? { value: textValue(value) } : {}),
-		...bound,
+		...(!BROWSER && shownValue !== undefined ? { value: shownValue } : {}),
+		...bound?.props,
 		oninput: handleInput,
 		onfocus: handleFocus,
 		onblur: handleBlur,
 		onkeydown: handleKeyDown,
-		[elementKey]: publish
+		[elementKey]: publish,
+		[valueKey]: syncValue
 	});
 </script>
 
