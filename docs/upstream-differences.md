@@ -231,7 +231,7 @@ Test: `src/lib/field/bound-control.svelte.spec.ts`.
 
 ## Tooltip
 
-Source: `packages/react/src/tooltip` at Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`. The other components follow v1.8.0. `Tooltip.Root` extends the shared `PopupStore` as Popover does. Hover, focus, cursor tracking and the Provider's delay group come from `packages/floating-ui-svelte`.
+Source: `packages/react/src/tooltip` at Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`. The other components follow v1.8.0. The paired React fixture runs `@base-ui/react` 1.8.0, whose Tooltip behaves the same for the covered cases. `TooltipStore` extends the shared `TriggerOwnedPopupStore` in `src/lib/internal/popups/triggerOwnedStore.svelte.ts`, which also backs PreviewCard. Hover, focus, cursor tracking and the Provider's delay group come from `packages/floating-ui-svelte`.
 
 | Upstream                                                 | Local                                                                                                    |
 | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
@@ -244,19 +244,13 @@ Source: `packages/react/src/tooltip` at Base UI v1.9.0, commit `ad7ecda5296b0295
 
 The popup has no `role` and the trigger has no `aria-describedby` or `type`, as upstream renders them.
 
-### Delay group handover
-
-Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx`. When a second tooltip in a group opens, the group closes the previous one from a layout effect. React does not track what that close reads.
-
-Local: the handover in `packages/floating-ui-svelte/src/components/delay-group.svelte.ts` runs in a `$effect`, so the close subscribed that effect to the previous tooltip's store and the next run ended the instant phase. `TooltipStore.setOpen` runs its body in `untrack`, so the close reads nothing the effect can subscribe to. The same `untrack` around the handover body in `delay-group.svelte.ts` would fix it for every group member.
-
-Test: `src/lib/tooltip/TooltipParts.svelte.spec.ts` (Provider cases) and `src/routes/fixtures/tooltip/tooltip.e2e.ts` (`a provider opens the next trigger instantly`).
+`payload`, `closeDelay` and `closeOnClick` are read live from the active trigger, and an active trigger that unmounts closes the tooltip, as described for PreviewCard under [Payload and close delay are read from the active trigger](#payload-and-close-delay-are-read-from-the-active-trigger) and [Active trigger tracking](#active-trigger-tracking).
 
 ### Behavior that waits on shared internals
 
 Each case is kept as an `it.todo` in the Tooltip specs.
 
-- `TRIGGER_DISABLED_ATTRIBUTE` in `packages/floating-ui-svelte/src/utils/constants.ts` is `data-disabled`. v1.9.0 uses `data-trigger-disabled`, which the Tooltip trigger renders, so `isTargetInsideEnabledTrigger` treats a disabled tooltip trigger as enabled. Upstream test: `closes when focusing a disabled trigger while another trigger is open`.
+- `TRIGGER_DISABLED_ATTRIBUTE` in `packages/floating-ui-svelte/src/utils/constants.ts` is `data-disabled`. v1.9.0 uses `data-trigger-disabled`, which the Tooltip trigger renders, so `isTargetInsideEnabledTrigger` treats a disabled tooltip trigger as enabled. Focus and hover both suffer: moving from an open trigger to a disabled one keeps the tooltip open. Upstream tests: `closes when focusing a disabled trigger while another trigger is open` and `closes when hovering a disabled trigger while another trigger is open`.
 - `src/lib/internal/useAnchorPositioning.svelte.ts` places the positioner with `left` and `top`. v1.9.0 uses `transform` when no Viewport is mounted. Upstream tests: `uses transform positioning without Viewport` and `updates positioning when Viewport mounts and unmounts`.
 - `src/lib/internal/usePopupViewport.svelte.ts` does not set `--popup-width` and `--popup-height` on the previous container. Upstream test: the size half of `creates morphing containers during transitions`.
 
@@ -274,7 +268,7 @@ Local: `open` and `triggerId` are `$bindable`, so the first value is the default
 
 Upstream: the store copies the active trigger's `payload` and `closeDelay` into state when the card opens or switches trigger.
 
-Local: each trigger registers a reader for `{ payload, closeDelay }` with the store. The store reads the active trigger's reader where the value is used, so a payload change on the active trigger shows at once and there is no copy to keep in step. When the active trigger unmounts while the card stays open, for example after a canceled close, the store keeps the values the trigger had at unmount.
+Local: each trigger registers a reader for `{ payload, closeDelay }` with the store. The store reads the active trigger's reader where the value is used, so a payload change on the active trigger shows at once and there is no copy to keep in step. When the active trigger unmounts while the card is mounted, for example before a canceled close or during the exit animation, the store keeps the values the trigger had at unmount until the card finishes closing.
 
 Test: `src/lib/preview-card/PreviewCardDetached.svelte.spec.ts` (`stays open when the close caused by the active trigger unmounting is canceled`).
 
@@ -282,9 +276,9 @@ Test: `src/lib/preview-card/PreviewCardDetached.svelte.spec.ts` (`stays open whe
 
 Upstream: `useImplicitActiveTrigger(store, { closeOnActiveTriggerUnmount: true })`.
 
-Local: `PreviewCardStore.reconcileActiveTrigger` does the same in one effect. A bound `triggerId` whose element registers late moves the anchor. A card opened without a trigger press claims its only trigger. An active trigger that unregisters after it resolved closes the card with reason `none`, in a microtask, so a replacement registered in the same tick keeps the card open. A canceled close leaves the old element as the anchor.
+Local: `TriggerOwnedPopupStore` in `src/lib/internal/popups/triggerOwnedStore.svelte.ts` does the same in one effect, for PreviewCard and Tooltip. A bound `triggerId` whose element registers late moves the anchor. A card opened through `bind:open` claims its only trigger. A card opened through `handle.open(null)` claims none, as upstream's `openedWithoutTrigger`, also when the trigger registers later. An active trigger that unregisters after it resolved closes the card with reason `none`, in a microtask, so a replacement registered in the same tick keeps the card open. A canceled close leaves the old element as the anchor.
 
-Test: `src/lib/preview-card/PreviewCardDetached.svelte.spec.ts` (`closes when the active trigger unmounts`).
+Test: `src/lib/preview-card/PreviewCardDetached.svelte.spec.ts` (`closes when the active trigger unmounts`), `src/lib/preview-card/PreviewCardOwnership.svelte.spec.ts` and `src/lib/tooltip/TooltipOwnership.svelte.spec.ts`.
 
 ### Inline rect positioning
 
