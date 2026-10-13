@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart for the overlay foundation harness.
+// React Base UI 1.9.0 counterpart for the overlay foundation harness.
 // Comparison only; never imported by src/lib.
 import { createElement as h, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';

@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart of FieldFixture.svelte. Comparison only; never imported by src/lib.
+// React Base UI 1.9.0 counterpart of FieldFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, useEffect, useState } from 'react';
 import { Field } from '@base-ui/react/field';
 import type { FieldCase } from './cases.js';

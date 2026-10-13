@@ -228,7 +228,7 @@
 		}
 	},
 	"devDependencies": {
-		"@base-ui/react": "1.8.0",
+		"@base-ui/react": "1.9.0",
 		"@eslint/js": "^10.0.1",
 		"@playwright/test": "^1.60.0",
 		"@sveltejs/adapter-auto": "^8.0.0",

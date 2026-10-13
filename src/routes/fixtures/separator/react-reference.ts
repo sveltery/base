@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart of SeparatorFixture.svelte. Comparison only; never imported by src/lib.
+// React Base UI 1.9.0 counterpart of SeparatorFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, Fragment, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Separator } from '@base-ui/react/separator';

@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart of ScrollAreaFixture.svelte. Comparison only; never imported by src/lib.
+// React Base UI 1.9.0 counterpart of ScrollAreaFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
