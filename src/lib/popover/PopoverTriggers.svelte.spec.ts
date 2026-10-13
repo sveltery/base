@@ -263,6 +263,68 @@ describe('trigger switch transition (Base UI v1.9.0)', () => {
 		});
 	}
 
+	/** Hovers Trigger 1, then Trigger 2, and records the instants of the close that follows. */
+	async function switchHoverTriggers({ settleTriggerChange = true, close = false } = {}) {
+		hoverTriggers({ close });
+		await page.getByRole('button', { name: 'Trigger 1' }).hover();
+		await expect.poll(content).toBe('1');
+		await page.getByRole('button', { name: 'Trigger 2' }).hover();
+		await expect.poll(content).toBe('2');
+		if (settleTriggerChange) {
+			await expect.poll(() => popup()?.getAttribute('data-instant')).toBe('trigger-change');
+		}
+		return recordEndingInstants();
+	}
+
+	it('does not apply the trigger-change instant to a hover close after switching triggers', async () => {
+		const ending = await switchHoverTriggers();
+		await userEvent.unhover(page.getByRole('button', { name: 'Trigger 2' }));
+		await expect.poll(() => popup()?.hasAttribute('data-ending-style')).toBe(true);
+		ending.stop();
+		expect(ending.instants.length).toBeGreaterThan(0);
+		expect(ending.instants).not.toContain('trigger-change');
+	});
+
+	it('does not apply the trigger-change instant to a non-hover close after switching triggers', async () => {
+		const ending = await switchHoverTriggers({ close: true });
+		page.getByRole('button', { name: 'Close' }).element().click();
+		await expect.poll(() => popup()?.hasAttribute('data-ending-style')).toBe(true);
+		ending.stop();
+		expect(ending.instants.length).toBeGreaterThan(0);
+		expect(ending.instants).not.toContain('trigger-change');
+	});
+
+	it('does not apply the trigger-change instant after switching back to the original trigger', async () => {
+		const first = await switchHoverTriggers();
+		first.stop();
+		await page.getByRole('button', { name: 'Trigger 1' }).hover();
+		await expect.poll(content).toBe('1');
+		await expect.poll(() => popup()?.getAttribute('data-instant')).toBe('trigger-change');
+		const ending = recordEndingInstants();
+		await userEvent.unhover(page.getByRole('button', { name: 'Trigger 1' }));
+		await expect.poll(() => popup()?.hasAttribute('data-ending-style')).toBe(true);
+		ending.stop();
+		expect(ending.instants.length).toBeGreaterThan(0);
+		expect(ending.instants).not.toContain('trigger-change');
+	});
+
+	it('does not restore the trigger-change instant after a hover close has started', async () => {
+		const ending = await switchHoverTriggers({ settleTriggerChange: false });
+		ending.stop();
+		const positioner = page.getByTestId('positioner').element();
+		await expect.poll(() => positioner.getAnimations().length).toBeGreaterThan(0);
+		const switchAnimations = positioner.getAnimations();
+		const closing = popup();
+
+		await userEvent.unhover(page.getByRole('button', { name: 'Trigger 2' }));
+		await expect.poll(() => closing?.hasAttribute('data-ending-style')).toBe(true);
+		await Promise.all(switchAnimations.map((animation) => animation.finished));
+
+		expect(popup()).toBe(closing);
+		expect(closing?.hasAttribute('data-ending-style')).toBe(true);
+		expect(closing?.hasAttribute('data-instant')).toBe(false);
+	});
+
 	describe('after the popup unmounts', () => {
 		function twoTriggers() {
 			return render(PopoverTriggersHarness, {
