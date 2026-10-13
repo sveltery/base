@@ -160,8 +160,10 @@ export class MenuFilterItem {
 			return this.#text;
 		};
 
+		// `options()` also reads the node and the item's other props. A filtered-out item drops its
+		// node, and re-registering it then would run the query again for nothing.
+		const label = $derived(options().label);
 		$effect(() => {
-			const { label } = options();
 			void label;
 			return untrack(() => {
 				readText();
@@ -171,21 +173,25 @@ export class MenuFilterItem {
 			});
 		});
 
-		// Re-register when the rendered text changes, so the active query runs again.
+		// Runs the active query again when the rendered text changes, including text that changed
+		// while the item was filtered out and is read once it mounts again.
 		$effect(() => {
 			const { label, node } = options();
 			if (label != null || !node) return;
-			const observer = new MutationObserver(() => {
+			const sync = () => {
 				const previous = this.#text;
 				if (readText() !== previous) owner.touch(this.#id, readText);
-			});
+			};
+			untrack(sync);
+			const observer = new MutationObserver(sync);
 			observer.observe(node, { characterData: true, childList: true, subtree: true });
 			return () => observer.disconnect();
 		});
 
+		const retained = $derived(options().retainGroup ?? false);
 		$effect(() => {
-			const retained = options().retainGroup ?? false;
-			return untrack(() => group?.register(this.#id, retained));
+			const retain = retained;
+			return untrack(() => group?.register(this.#id, retain));
 		});
 	}
 }

@@ -1542,6 +1542,42 @@ describe('Menu.FilterProvider keyboard and focus', () => {
 		expect(filter).not.toHaveBeenCalled();
 	});
 
+	it('matches each item once per query edit while items hide and show', async () => {
+		const filter = vi.fn((text: string, query: string) => text.toLowerCase().includes(query));
+		await openWithInput(items('Apple', 'Banana', 'Cherry'), { providerProps: { filter } });
+		await userEvent.keyboard('b');
+		await expect.poll(itemNames).toEqual(['Banana']);
+		await frame();
+		expect(filter.mock.calls).toEqual([
+			['Apple', 'b'],
+			['Banana', 'b'],
+			['Cherry', 'b']
+		]);
+
+		filter.mockClear();
+		await userEvent.keyboard('{Backspace}a');
+		await expect.poll(itemNames).toEqual(['Apple', 'Banana']);
+		await frame();
+		expect(filter.mock.calls).toEqual([
+			['Apple', 'a'],
+			['Banana', 'a'],
+			['Cherry', 'a']
+		]);
+	});
+
+	it('re-filters an item whose text changed while it was filtered out', async () => {
+		const fruit = (label: string): MenuItemSpec => ({ type: 'item', key: 'fruit', label });
+		const result = await openWithInput([fruit('Apple'), ...items('Avocado')]);
+		await userEvent.keyboard('v');
+		await expect.poll(itemNames).toEqual(['Avocado']);
+		await result.rerender({ items: [fruit('Cherry'), ...items('Avocado')] });
+
+		// The hidden item still matches on its last text, so it mounts and shows its new text.
+		await userEvent.keyboard('{Control>}a{/Control}a');
+		await frame();
+		expect(itemNames()).toEqual(['Avocado']);
+	});
+
 	it('does not highlight an item when another detached trigger receives focus', async () => {
 		const onItemHighlighted = vi.fn();
 		render(MenuListTriggersHarness, { filter: true, onItemHighlighted });
