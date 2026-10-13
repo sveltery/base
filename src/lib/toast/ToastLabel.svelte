@@ -7,7 +7,7 @@
 	Renders nothing without children or a renderable toast field. The id is registered with
 	the root while the element is mounted, and cleared only when it is still the current one.
 -->
-<script lang="ts" generics="Element extends HTMLElement">
+<script lang="ts" generics="Tag extends HTMLElement">
 	import type { Snippet } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -30,9 +30,9 @@
 	}: {
 		part: 'title' | 'description';
 		id?: string | null;
-		render?: Snippet<[HTMLAttributes<Element>, LabelState, RenderChildren]>;
+		render?: Snippet<[HTMLAttributes<Tag>, LabelState, RenderChildren]>;
 		children?: Snippet;
-		elementProps: HTMLAttributes<Element>;
+		elementProps: HTMLAttributes<Tag>;
 	} = $props();
 
 	const rootContext = useToastRoot();
@@ -50,10 +50,7 @@
 	const state: LabelState = $derived({ type: rootContext.toast.type });
 
 	const hostProps = $derived(
-		mergeProps(
-			{ ...getStateAttributesProps(state), id, [registerKey]: register },
-			elementProps
-		) as HTMLAttributes<Element>
+		mergeProps({ ...getStateAttributesProps(state), id, [registerKey]: register }, elementProps)
 	);
 </script>
 

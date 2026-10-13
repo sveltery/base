@@ -37,8 +37,8 @@ export class ToastStore {
 	hovering = $state(false);
 	focused = $state(false);
 	isWindowFocused = $state(true);
-	viewport = $state<HTMLElement | null>(null);
-	prevFocusElement = $state<HTMLElement | null>(null);
+	viewport = $state.raw<HTMLElement | null>(null);
+	prevFocusElement = $state.raw<HTMLElement | null>(null);
 
 	readonly #timers = new ToastTimers();
 
