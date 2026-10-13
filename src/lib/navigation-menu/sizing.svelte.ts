@@ -58,6 +58,8 @@ export class NavigationMenuSizing {
 			if (!root.mounted) this.#prevSize = DEFAULT_SIZE;
 		});
 
+		$effect(() => () => this.#cancelAutoSizeReset());
+
 		// A close keeps the last fixed size, so the closing transition starts from it.
 		$effect(() => {
 			if (root.open) return;
@@ -151,6 +153,7 @@ export class NavigationMenuSizing {
 		const popup = this.root.popupElement;
 		const positioner = this.root.positionerElement;
 		if (!popup || !positioner) return;
+		this.#resizeFrame.cancel();
 		this.#cancelAutoSizeReset();
 		const targets = this.#targets(popup, positioner);
 		clearFixedSizes(targets);
@@ -212,6 +215,7 @@ export class NavigationMenuSizing {
 	) {
 		this.#sizeFrame.cancel();
 		this.#mutationFrame.cancel();
+		this.#resizeFrame.cancel();
 		this.#cancelAutoSizeReset();
 
 		if (current.width === 0 || current.height === 0) return;

@@ -352,14 +352,6 @@ Upstream: the navigation menu imports `safePolygon` pointer-events helpers, `get
 
 Local: `packages/floating-ui-svelte/src/sharedInternals.ts` re-exports the existing helpers, and the package entry `packages/floating-ui-svelte/src/index.ts` gains one named export of them. The pointer-events lock keeps one owner per scope element in a module map, so a copy outside the package would not see the lock that hover interactions applied.
 
-### The exit transition follows the last trigger
-
-Upstream: a close clears the floating context at once. `useFloating` keeps the last coordinates until the popup unmounts, so the positioner stays where it was.
-
-Local: the positioner keeps the last active trigger as its reference until the popup unmounts, and anchor tracking keeps running during the exit. A popup whose size changes during the exit and whose CSS does not read the size variables re-aligns to the trigger instead of keeping its old offset.
-
-Test: `src/lib/navigation-menu/NavigationMenuRoot.svelte.spec.ts` (`keeps the positioner at the trigger while the popup exits`).
-
 ### Object item values compare by identity
 
 Upstream: `value === itemValue` compares the object the consumer passed.
