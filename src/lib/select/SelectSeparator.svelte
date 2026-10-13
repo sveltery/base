@@ -7,7 +7,7 @@
 	import ListboxSeparator from '../internal/listbox/ListboxSeparator.svelte';
 	import type { SelectSeparatorProps } from './types.js';
 
-	let props: SelectSeparatorProps = $props();
+	let { ...props }: SelectSeparatorProps = $props();
 </script>
 
 <ListboxSeparator {...props} />

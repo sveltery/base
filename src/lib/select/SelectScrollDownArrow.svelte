@@ -7,7 +7,7 @@
 	import SelectScrollArrow from './SelectScrollArrow.svelte';
 	import type { SelectScrollArrowProps } from './types.js';
 
-	let props: SelectScrollArrowProps = $props();
+	let { ...props }: SelectScrollArrowProps = $props();
 </script>
 
 <SelectScrollArrow {...props} direction="down" />
