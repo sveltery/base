@@ -7,7 +7,7 @@
 
 import type { HTMLInputAttributes } from 'svelte/elements';
 import type { FieldContext } from '../field/model.svelte.js';
-import type { FormContextValue } from '../form/context.js';
+import type { FormContextValue } from '../internal/form-context.js';
 import {
 	createChangeEventDetails,
 	createGenericEventDetails,

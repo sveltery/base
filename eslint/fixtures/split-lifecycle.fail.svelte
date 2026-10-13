@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Copied from FieldControl and NumberFieldRoot: register in one effect,
-	// cleanup in another. Copied from NumberFieldModel and press-and-hold:
+	// cleanup in another. Copied from NumberFieldModel and usePressAndHold:
 	// addEventListener inside an effect, or removed from a later empty effect.
 	const labelable = {
 		registerControlId(_source: symbol, _id: string | undefined) {}

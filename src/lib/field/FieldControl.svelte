@@ -9,15 +9,19 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { BROWSER } from 'esm-env';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
-	import { useFormContext } from '../form/context.js';
+	import { useFormContext } from '../internal/form-context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { nativeType } from '../form/source.js';
 	import { fieldValidityMapping } from './attributes.js';
-	import { useFieldContext } from './context.svelte.js';
-	import { Labelable, LabelableId, findLabelableContext } from './labelable.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import {
+		Labelable,
+		LabelableId,
+		findLabelableContext
+	} from '../internal/labelable-provider.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
 	type ValueElement = HTMLElement & { value: string; form?: HTMLFormElement | null };

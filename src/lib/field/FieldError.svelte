@@ -13,8 +13,8 @@
 		transitionStatusMapping
 	} from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
-	import { useFieldContext } from './context.svelte.js';
-	import { useLabelableContext } from './labelable.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import type { FieldErrorProps, FieldErrorState } from './types.js';
 
