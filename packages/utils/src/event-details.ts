@@ -25,6 +25,7 @@ export const REASONS = {
 	closePress: 'close-press',
 	closeWatcher: 'close-watcher',
 	imperativeAction: 'imperative-action',
+	listNavigation: 'list-navigation',
 	swipe: 'swipe'
 } as const;
 

@@ -279,6 +279,15 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `packages/utils/src/event-details.ts` `closeWatcher` and `swipe` reasons from `packages/react/src/internals/reason-parts.ts`
 - `src/lib/dialog/store.svelte.ts` `nestedOpenDrawerCount` and `outsidePressEnabled`, and their reporting in `src/lib/dialog/root.svelte.ts`, from `packages/react/src/dialog/root/useDialogRoot.ts` and `packages/react/src/drawer/swipe-area/DrawerSwipeArea.tsx`
 - `src/lib/drawer/*.svelte.spec.ts`, `src/lib/drawer/snap-points.spec.ts`, `src/lib/drawer/ssr.spec.ts`, `src/tests/drawer-gestures.ts`, and the `src/tests/Drawer*.svelte` harnesses from `packages/react/src/drawer/**/*.test.tsx` and `useDrawerSnapPoints.test.ts`
+- `packages/utils/src/event-details.ts` also exports `REASONS.listNavigation` from `packages/react/src/internals/reason-parts.ts`
+- `packages/floating-ui-svelte/src/utils/enqueueFocus.ts` from `packages/react/src/floating-ui-react/utils/enqueueFocus.ts` (the `sync` option and one queued focus per page)
+- `packages/floating-ui-svelte/src/hooks/useListNavigation.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useListNavigation.ts` as `ListNavigation` (no `grid` option)
+- `packages/floating-ui-svelte/src/utils/listIndex.ts` from the list helpers in `packages/react/src/floating-ui-react/utils/composite.ts`
+- `packages/floating-ui-svelte/src/utils/listOrientation.ts` from the orientation-key helpers in `packages/react/src/floating-ui-react/hooks/useListNavigation.ts`
+- `packages/floating-ui-svelte/src/utils/focusTarget.ts` from `getFloatingFocusElement` and `isTypeableCombobox` in `packages/react/src/floating-ui-react/utils/element.ts`
+- `src/tests/list-navigation/useListNavigation.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useListNavigation.test.tsx` that do not require grid navigation, with harnesses from `packages/react/test/floating-ui-tests/ListboxFocus.tsx` and `Menu.tsx`
+- `packages/floating-ui-svelte/src/hooks/useTypeahead.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useTypeahead.ts` as `Typeahead`
+- `src/tests/list-navigation/useTypeahead.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useTypeahead.test.tsx`
 
 MIT License
 
