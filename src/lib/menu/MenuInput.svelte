@@ -105,9 +105,6 @@
 			}
 			commitValue(input, event);
 		},
-		onkeydown() {
-			filter.keyboardModality = true;
-		},
 		onpointerdown() {
 			filter.keyboardModality = false;
 		},
@@ -131,6 +128,7 @@
 
 	const menuProps = {
 		onkeydown(event: KeyboardEvent) {
+			filter.keyboardModality = true;
 			handleMenuFilterKeyDown(keys, event, filter.value !== '');
 		},
 		onfocus() {
