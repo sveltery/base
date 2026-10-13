@@ -34,42 +34,27 @@ export async function withAnimations(body: () => Promise<void>) {
 }
 
 /**
- * Fakes the clock for every test in the calling suite. Animation frames stay real so the
- * browser keeps painting; with animations disabled no toast waits for one.
+ * Fakes the clock for every test in the calling suite, after parking the mouse away from the
+ * viewport. Animation frames stay real so the browser keeps painting; with animations disabled
+ * no toast waits for one.
  */
 export function useFakeClock() {
-	let stopRealBlur: (() => void) | undefined;
 	beforeEach(async () => {
 		await parkMouse();
 		vi.useFakeTimers({
 			toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date']
 		});
-		stopRealBlur = ignoreRealWindowBlur();
 	});
 	afterEach(() => {
-		stopRealBlur?.();
 		vi.useRealTimers();
 	});
 }
 
 /**
- * Vitest runs spec files side by side in one browser, so another file can take focus and blur
- * this window, which pauses every toast timer. Registered before any viewport mounts, this
- * listener runs first and drops the browser's own blur. Blur events a test dispatches still reach
- * the viewport.
- */
-function ignoreRealWindowBlur() {
-	const drop = (event: FocusEvent) => {
-		if (event.isTrusted && event.target === window) event.stopImmediatePropagation();
-	};
-	window.addEventListener('blur', drop, { capture: true });
-	return () => window.removeEventListener('blur', drop, { capture: true });
-}
-
-/**
- * The browser's mouse stays where the last test, in any spec file, left it. A viewport that
- * renders under it gets a real `mousemove`, which pauses every toast timer as a hover does.
- * Moving the mouse to the far corner first keeps the timers running until a test hovers.
+ * The browser's mouse stays where the last test in the same tab left it, whatever its spec
+ * file. A viewport that renders under it gets a real `mousemove`, which pauses every toast
+ * timer as a hover does. Moving the mouse to the far corner first keeps the timers running
+ * until a test hovers.
  */
 async function parkMouse() {
 	const corner = document.createElement('div');
