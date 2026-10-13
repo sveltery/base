@@ -449,6 +449,27 @@ describe('Menu.FilterProvider', () => {
 			expect(focused()).toBe(input());
 		});
 
+		it('releases the highlight when the query is cleared', async () => {
+			const onApple = vi.fn();
+			await openWithInput(
+				[{ type: 'item', label: 'Apple', props: { onclick: onApple } }, ...items('Banana')],
+				{ clear: true }
+			);
+			await userEvent.keyboard('ban');
+			await expect.poll(() => queryItem('Apple')).toBe(null);
+			// Banana is now index 0.
+			await userEvent.keyboard('{ArrowDown}');
+			expect(activeDescendant()).toBe(item('Banana').id);
+
+			await userEvent.click(
+				page.getByRole('button', { name: 'Clear filter', includeHidden: true })
+			);
+			// Apple takes index 0 back, so a kept highlight would activate the wrong item.
+			await expect.poll(() => activeDescendant()).toBe(null);
+			await userEvent.keyboard('{Enter}');
+			expect(onApple).toHaveBeenCalledTimes(0);
+		});
+
 		it('restores the first item when an always-highlighted query is cleared', async () => {
 			await openWithInput(items('Rename', 'Delete'), {
 				providerProps: { autoHighlight: 'always' }
@@ -676,6 +697,15 @@ describe('Menu.FilterProvider', () => {
 				['r', 'input-change'],
 				['', 'popup-close']
 			]);
+		});
+
+		it('reports popup-close when a controlled close discards the query', async () => {
+			const onValueChange = vi.fn();
+			const result = filterable(items('Rename'), {
+				filter: { providerProps: { value: 'ren', onValueChange } }
+			});
+			await result.rerender({ open: false });
+			await expect.poll(() => reasons(onValueChange)).toEqual([['', 'popup-close']]);
 		});
 
 		it('leaves the query and visible items unchanged when a change is canceled', async () => {
