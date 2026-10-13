@@ -120,6 +120,42 @@ describe('FocusInteraction', () => {
 		removed.mockRestore();
 	});
 
+	it('keeps the Escape close when a pending blur check runs after the popup unmounts', async () => {
+		const { component } = render(FocusHarness, {});
+		const { store } = component;
+		await tabToTrigger();
+		const first = page.getByTestId('first').element() as HTMLElement;
+		expect(store.open).toBe(true);
+
+		// Focus leaves and comes back before the blur check's timer runs.
+		(page.getByTestId('outside').element() as HTMLElement).focus();
+		first.focus();
+		store.setOpen(false, createChangeEventDetails(REASONS.escapeKey));
+		// A popup store drops its trigger once the closed popup unmounts.
+		store.domReferenceElement = null;
+		await wait(50);
+
+		expect(document.activeElement).toBe(first);
+		expect(store.lastReason).toBe('escape-key');
+	});
+
+	it('does not reopen when focus returns to the tab after the closed popup unmounts', async () => {
+		const { component } = render(FocusHarness, {});
+		const { store } = component;
+		await tabToTrigger();
+		const first = page.getByTestId('first').element();
+		expect(store.open).toBe(true);
+
+		store.setOpen(false, createChangeEventDetails(REASONS.outsidePress));
+		store.domReferenceElement = null;
+		window.dispatchEvent(new Event('blur'));
+		first.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+
+		expect(document.activeElement).toBe(first);
+		expect(store.open).toBe(false);
+		expect(store.lastReason).toBe('outside-press');
+	});
+
 	it('does not reopen on refocus after Escape until the pointer leaves', async () => {
 		const { component } = render(FocusHarness, {});
 		const { store } = component;
