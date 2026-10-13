@@ -79,11 +79,15 @@ Bind `open` to read and change whether the tooltip is open. Without `bind:`, the
 </script>
 
 <div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<label class="flex items-center gap-2">
-		<input type="checkbox" bind:checked={open} />
+	<button
+		type="button"
+		class="rounded-md border border-gray-200 px-3 py-1.5 font-medium hover:bg-gray-100 disabled:opacity-50 dark:border-gray-700 dark:hover:bg-gray-800"
+		disabled={open}
+		onclick={() => (open = true)}
+	>
 		Open from outside
-	</label>
-	<p>Last change reason: {reason}</p>
+	</button>
+	<p>Open: {open}. Last change reason: {reason}</p>
 	<Tooltip.Root bind:open onOpenChange={(_open, eventDetails) => (reason = eventDetails.reason)}>
 		<Tooltip.Trigger
 			class="rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 font-medium hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
@@ -95,7 +99,7 @@ Bind `open` to read and change whether the tooltip is open. Without `bind:`, the
 				<Tooltip.Popup
 					class="origin-[var(--transform-origin)] rounded-md bg-gray-50 px-2 py-1 text-sm text-gray-900 shadow-md outline outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700"
 				>
-					Press Escape to close.
+					Press Escape or click outside to close.
 				</Tooltip.Popup>
 			</Tooltip.Positioner>
 		</Tooltip.Portal>
