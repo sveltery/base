@@ -565,11 +565,11 @@ describe('Collapsible', () => {
 					}
 					.animation-test-panel[data-open] {
 						overflow: hidden;
-						animation: panel-slide-down 100ms linear;
+						animation: panel-slide-down 999ms linear;
 					}
 					.animation-test-panel[data-closed] {
 						overflow: hidden;
-						animation: panel-slide-up 100ms linear;
+						animation: panel-slide-up 999ms linear;
 					}
 				`
 			});
@@ -746,7 +746,7 @@ describe('Collapsible', () => {
 					}
 					.animation-test-panel {
 						overflow: hidden;
-						animation-duration: 123ms;
+						animation-duration: 999ms;
 					}
 					.animation-test-panel[data-open] {
 						animation-name: panel-slide-down;
@@ -772,7 +772,7 @@ describe('Collapsible', () => {
 					animations: panel.element().getAnimations().length
 				}))
 				.toEqual({ closed: true, animations: 1 });
-			expect(getComputedStyle(panel.element()).animationDuration).toBe('0.123s');
+			expect(getComputedStyle(panel.element()).animationDuration).toBe('0.999s');
 		});
 
 		it('restores the transition duration before the first close after a beforematch open', async () => {
