@@ -47,6 +47,8 @@ describe('Field focused state', () => {
 
 			await view.rerender({ firstDisabled: true });
 			await expect.element(root()).not.toHaveAttribute('data-focused');
+			// Chromium moves focus off a disabled control only at its next rendering update.
+			await focus('outside');
 
 			await view.rerender({ firstDisabled: false });
 			expect(root().element()).not.toHaveAttribute('data-focused');
