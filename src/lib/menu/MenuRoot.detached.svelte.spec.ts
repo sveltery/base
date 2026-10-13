@@ -337,8 +337,11 @@ describe('Menu multiple detached triggers opened on hover', () => {
 		};
 	}
 
-	/** Hands an open menu from trigger 1 to trigger 2, so its instant is `trigger-change`. */
-	async function renderHoverDetachedTriggers() {
+	/**
+	 * Hands an open menu from trigger 1 to trigger 2, so its instant is `trigger-change`.
+	 * `settleTriggerChange: false` returns while the positioner still animates to trigger 2.
+	 */
+	async function renderHoverDetachedTriggers({ settleTriggerChange = true } = {}) {
 		const instantsWhileEnding: (string | undefined)[] = [];
 		render(MenuDetachedHarness, {
 			handle: Menu.createHandle<number>(),
@@ -361,7 +364,9 @@ describe('Menu multiple detached triggers opened on hover', () => {
 		moveMouse(trigger(1), trigger(2));
 		await expect.poll(contentText).toBe('2');
 
-		await expect.poll(() => popup()?.getAttribute('data-instant')).toBe('trigger-change');
+		if (settleTriggerChange) {
+			await expect.poll(() => popup()?.getAttribute('data-instant')).toBe('trigger-change');
+		}
 		// The handoff renders `trigger-change` while it closes the previous trigger's popup. Only
 		// the close that follows matters.
 		instantsWhileEnding.length = 0;
@@ -432,10 +437,23 @@ describe('Menu multiple detached triggers opened on hover', () => {
 		expect(instantsWhileEnding).not.toContain('trigger-change');
 	});
 
-	// The shared position engine drops its coordinates when the anchor changes, so a switch
-	// starts its transition from the unpositioned origin and a later frame cancels it. The
-	// switch transitions this case waits on never finish.
-	it.todo('does not restore the trigger-change instant after a hover close has started');
+	it('does not restore the trigger-change instant after a hover close has started', async () => {
+		const { popup: popupElement } = await renderHoverDetachedTriggers({
+			settleTriggerChange: false
+		});
+		const positioner = byTestId('positioner')!;
+		await expect.poll(() => positioner.getAnimations().length).toBeGreaterThan(0);
+		const switchAnimations = positioner.getAnimations();
+
+		leaveToBody(trigger(2));
+		await expect.poll(() => popupElement.hasAttribute('data-ending-style')).toBe(true);
+		await Promise.all(switchAnimations.map((animation) => animation.finished));
+
+		// Still mid-exit: a stale restore must not have marked it instant.
+		expect(popup()).toBe(popupElement);
+		expect(popupElement.hasAttribute('data-ending-style')).toBe(true);
+		expect(popupElement.hasAttribute('data-instant')).toBe(false);
+	});
 });
 
 describe.each<{ mode: Mode }>([{ mode: 'contained' }, { mode: 'detached' }])(
