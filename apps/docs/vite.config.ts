@@ -17,6 +17,9 @@ const demos = path('./dist/demos');
 
 export default defineConfig({
 	// tsconfig.json maps the same paths for type checking.
+	// Vite's dev watcher skips `build.outDir`, which defaults to `dist`. SvelteKit sets its own outDir
+	// for builds, so this only lets the dev server see demo edits.
+	build: { outDir: '.svelte-kit/output' },
 	resolve: { alias: [{ find: /^@sveltery\/base(?=\/|$)/, replacement: lib }] },
 	plugins: [
 		tailwindcss(),
