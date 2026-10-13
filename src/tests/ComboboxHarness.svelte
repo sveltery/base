@@ -84,6 +84,8 @@
 		filteredItems,
 		staticFilter,
 		noInput = false,
+		chipLimit,
+		inputElement,
 		fieldAwareInput = false,
 		onOuterKeydown,
 		popupRenderId
@@ -158,6 +160,10 @@
 		staticFilter?: (item: HarnessItem, inputValue: string) => boolean;
 		/** Renders no input; with `trigger`, the trigger is the only control. */
 		noInput?: boolean;
+		/** Renders chips for only this many selected values. */
+		chipLimit?: number;
+		/** Renders the input as a `<textarea>` or an `<input type="number">`. */
+		inputElement?: 'textarea' | 'number';
 		/** Renders the input through `Input`, which is itself field-aware. */
 		fieldAwareInput?: boolean;
 		/** Wraps everything in a `<div>` with this keydown listener. */
@@ -278,7 +284,15 @@
 {/snippet}
 
 {#snippet theInput()}
-	{#if fieldAwareInput}
+	{#if inputElement === 'textarea'}
+		<Combobox.Input data-testid="input" {...input}>
+			{#snippet render(props)}<textarea {...props as Record<string, unknown>}></textarea>{/snippet}
+		</Combobox.Input>
+	{:else if inputElement === 'number'}
+		<Combobox.Input data-testid="input" {...input}>
+			{#snippet render(props)}<input {...props} type="number" />{/snippet}
+		</Combobox.Input>
+	{:else if fieldAwareInput}
 		<Combobox.Input {...input}>
 			{#snippet render(props)}<Input {...props} data-testid="input" />{/snippet}
 		</Combobox.Input>
@@ -325,7 +339,7 @@
 {#snippet control()}
 	{#if chips}
 		<Combobox.Chips data-testid="chips">
-			{#each selectedValues as selected, index (index)}
+			{#each selectedValues.slice(0, chipLimit) as selected, index (index)}
 				<Combobox.Chip data-testid="chip-{labelOf(selected)}">
 					{labelOf(selected)}
 					{#if chipRemove}
