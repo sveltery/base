@@ -541,6 +541,17 @@ describe('Menu.FilterProvider', () => {
 			expect(activeDescendant()).toBe(item('Rename').id);
 		});
 
+		it('clears a navigated highlight when a query edit keeps the same matches', async () => {
+			await openWithInput(items('Apple', 'Apricot'));
+			await userEvent.keyboard('a{ArrowDown}{ArrowDown}');
+			expect(activeDescendant()).toBe(item('Apricot').id);
+			await userEvent.keyboard('p');
+			await frame();
+			expect(itemNames()).toEqual(['Apple', 'Apricot']);
+			expect(activeDescendant()).toBe(null);
+			expect(highlightedNames()).toEqual([]);
+		});
+
 		it('does not move the highlight while typing into the input', async () => {
 			await openWithInput(items('Apple', 'Banana', 'Cherry'));
 			await userEvent.keyboard('{ArrowDown}');
