@@ -526,7 +526,6 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
 | Menu               | Filter parts, ContextMenu component, `actionsRef`, refs                                                |
 | Menubar            | the `MenubarDataAttributes` namespace, refs                                                            |
-| Menu               | Filter parts, Menubar and ContextMenu components, `actionsRef`, refs                                   |
 | Toast              | refs, `className` and `style` callbacks                                                                |
 
 ## Shared floating internals
