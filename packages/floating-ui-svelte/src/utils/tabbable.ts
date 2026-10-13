@@ -227,6 +227,16 @@ export function getTabbableNearElement(
 	return list[index];
 }
 
+export function getTabbableAfterElement(referenceElement: Element | null): FocusableElement | null {
+	return getTabbableNearElement(referenceElement, 1);
+}
+
+export function getTabbableBeforeElement(
+	referenceElement: Element | null
+): FocusableElement | null {
+	return getTabbableNearElement(referenceElement, -1);
+}
+
 export function isOutsideEvent(event: FocusEvent, container?: Element | null) {
 	const containerElement = container || (event.currentTarget as Element | null);
 	if (!containerElement) return true;
