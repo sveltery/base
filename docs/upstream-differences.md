@@ -374,7 +374,7 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | CheckboxGroup      | Disabled or other-form values filtered out of the Field value                                          |
 | Collapsible        | React.Activity animation resume, refs                                                                  |
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                                    |
-| Field              | Select integration; refs                                                                               |
+| Field              | refs                                                                                                   |
 | Input              | refs                                                                                                   |
 | Toggle             | Toolbar integration, `nativeButton={false}`                                                            |
 | ToggleGroup        | Toolbar integration, grid composite, scroll-into-view                                                  |
@@ -399,8 +399,13 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |
 | Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
-<<<<<<< HEAD
-| Select             | `inputRef`, `ReactNode` labels and placeholder                                                         |
-=======
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
->>>>>>> origin/main
+| Select             | `inputRef`, `ReactNode` labels and placeholder                                                         |
+
+## Shared floating internals
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx` and `hooks/useDismiss.ts`. Each popup root creates its own `FloatingTree`. A press or a focus change inside a portaled descendant counts as inside a popup through `insideReactTree`, which React sets because portal events bubble through the React tree.
+
+Local: nested popups share one floating tree, and the DOM has no React tree. `DismissInteraction` counts a press inside a tree child's portal, which holds that child's internal backdrop, as inside the parent. `FloatingFocusManager` treats focus that leaves a portaled popup without an outside press as staying inside, as upstream's `markInsideReactTree` does.
+
+Test: `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts`, `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` and `src/lib/internal/overlay-audit.svelte.spec.ts` (`closes only the inner modal popover on an outside touch tap`).

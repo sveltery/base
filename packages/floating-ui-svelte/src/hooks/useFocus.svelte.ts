@@ -2,7 +2,6 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // React's `onFocus`/`onBlur` bubble, so the handlers are `focusin`/`focusout`. A nested
 // trigger's focus then reaches the parent trigger, as in upstream.
-// `REASONS` has no `triggerFocus` yet, so the string lives here.
 
 import { isElement, isHTMLElement } from '@floating-ui/utils/dom';
 import { untrack } from 'svelte';
@@ -21,7 +20,7 @@ import {
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import { isTargetInsideEnabledTrigger, isTypeableElement } from '../utils/element.js';
 
-export const TRIGGER_FOCUS_REASON = 'trigger-focus';
+export const TRIGGER_FOCUS_REASON = REASONS.triggerFocus;
 
 const isMacSafari = platform.os.mac && platform.engine.webkit;
 
