@@ -103,7 +103,12 @@
 		disabledProp || (live?.disabled ?? false) || (menubar?.disabled ?? false)
 	);
 	const partState: MenuTriggerState = $derived({ disabled, open: opened });
-	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
+	// Upstream `useButton` makes a trigger inside the menubar's CompositeRoot a composite item.
+	const button = new ButtonBehavior(() => ({
+		disabled,
+		native: nativeButton,
+		composite: menubar != null
+	}));
 	const menubarItem = menubar?.createItem(() => disabled);
 
 	// Upstream trigger data forwarding: a trigger in a menubar takes over the menu's parent while
@@ -210,6 +215,9 @@
 				},
 				ownProps,
 				menubar ? { role: 'menuitem' as const } : {},
+				// A composite native button keeps `disabled` and also gets `aria-disabled`, which
+				// `ButtonBehavior` has no option for.
+				menubar && nativeButton ? { 'aria-disabled': disabled } : {},
 				menubarItem?.props,
 				elementProps
 			])
