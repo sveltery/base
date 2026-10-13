@@ -563,6 +563,32 @@ for (const detached of [false, true]) {
 				expect(byTestId('menu')).not.toBeNull();
 			});
 
+			it('renders root menu portal ownership without an accessibility role', async () => {
+				render(MenuHarness, menu());
+				await userEvent.click(toggle());
+				await expect.poll(() => byTestId('menu')).not.toBeNull();
+				const menuPortalId = byTestId('menu')!.closest('[data-base-ui-portal]')?.id ?? '';
+				const owner = document.querySelector('span[aria-owns]');
+				expect(menuPortalId).not.toBe('');
+				expect(owner?.getAttribute('aria-owns')).toBe(menuPortalId);
+				expect(owner?.hasAttribute('role')).toBe(false);
+			});
+
+			it('renders submenu portal ownership as an allowed menu child', async () => {
+				render(MenuHarness, menu({ submenuTriggerProps: { openOnHover: false } }));
+				await userEvent.click(toggle());
+				await expect.poll(() => byTestId('menu')).not.toBeNull();
+				const submenuTrigger = byTestId('submenu-trigger')!;
+				await userEvent.click(submenuTrigger);
+				await expect.poll(() => byTestId('submenu')).not.toBeNull();
+				const submenuPortalId = byTestId('submenu')!.closest('[data-base-ui-portal]')?.id ?? '';
+				const owner = byTestId('menu')!.querySelector('span[aria-owns]');
+				expect(submenuPortalId).not.toBe('');
+				expect(owner?.getAttribute('role')).toBe('group');
+				expect(owner?.getAttribute('aria-owns')).toBe(submenuPortalId);
+				expect(submenuTrigger.hasAttribute('aria-owns')).toBe(false);
+			});
+
 			it('keeps the root menu open when a submenu opens and the trigger has a custom id', async () => {
 				const onOpenChange = vi.fn();
 				render(

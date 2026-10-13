@@ -360,7 +360,6 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 - `packages/floating-ui-svelte/src/usePosition.svelte.ts` resets its data whenever the reference changes. Upstream keeps the coordinates and resets only on close. Hover switches between detached triggers therefore start from `0, 0`, and the switch transition is canceled. `it.todo` in `src/lib/menu/MenuRoot.detached.svelte.spec.ts` keeps the third instant of the hover trigger change case.
 - The shared `FloatingFocusManager` has no counterpart to upstream's `markInsideReactTree`. When the pointer highlight moves focus from a portaled submenu into its parent, the submenu closes with `focus-out` before the click on a sibling submenu trigger. `it.todo` in `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` keeps `closes a sibling submenu without closing the root on click`.
-- `FloatingPortal` has no `portalOwnerRole`, so the trigger does not set `aria-owns` on a portaled popup.
 - The `data-base-ui-click-trigger` marker is not rendered. Upstream sets it only on Dialog and Popover triggers.
 
 ### Not covered
@@ -405,7 +404,7 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
-| Menu               | Filter parts, Menubar and ContextMenu components, `actionsRef`, `aria-owns`, refs                      |
+| Menu               | Filter parts, Menubar and ContextMenu components, `actionsRef`, refs                                   |
 
 ## Shared floating internals
 
