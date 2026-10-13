@@ -263,6 +263,11 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/alert-dialog/handle.svelte.ts` from `packages/react/src/alert-dialog/handle.ts`
 - `src/lib/alert-dialog/types.ts` and `src/lib/alert-dialog/index.ts` from `packages/react/src/alert-dialog/index.ts`, `index.parts.ts`, `root/AlertDialogRoot.tsx`, and `trigger/AlertDialogTrigger.tsx` (the other parts are the Dialog components)
 - `src/lib/alert-dialog/AlertDialog.svelte.spec.ts` assertions from `packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx`, the handle-type checks in `AlertDialogRoot.spec.tsx`, `packages/react/test/popupConformanceTests.tsx`, `packages/react/test/dialogRootSharedTests.tsx`, and `packages/react/test/detachedTriggersConformanceTests.tsx`
+- `packages/floating-ui-svelte/src/hooks/useListNavigation.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useListNavigation.ts` as `ListNavigation` (no `grid` option)
+- `packages/floating-ui-svelte/src/utils/listIndex.ts` from the list helpers in `packages/react/src/floating-ui-react/utils/composite.ts`
+- `packages/floating-ui-svelte/src/utils/listOrientation.ts` from the orientation-key helpers in `packages/react/src/floating-ui-react/hooks/useListNavigation.ts`
+- `packages/floating-ui-svelte/src/utils/focusTarget.ts` from `getFloatingFocusElement` and `isTypeableCombobox` in `packages/react/src/floating-ui-react/utils/element.ts` and from `packages/react/src/floating-ui-react/utils/enqueueFocus.ts`
+- `packages/floating-ui-svelte/src/hooks/useListNavigation.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useListNavigation.test.tsx` that do not require grid navigation, with harnesses from `packages/react/test/floating-ui-tests/ListboxFocus.tsx` and `Menu.tsx`
 
 MIT License
 
