@@ -25,7 +25,8 @@
 		keepMounted = false,
 		popupClass,
 		positionerClass,
-		css = ''
+		css = '',
+		viewport = false
 	}: {
 		handle?: PopoverHandle<number | string>;
 		triggers?: TriggerSpec[];
@@ -41,10 +42,11 @@
 		popupClass?: string;
 		positionerClass?: string;
 		css?: string;
+		viewport?: boolean;
 	} = $props();
 </script>
 
-<svelte:element this={'style'}>{css}</svelte:element>
+<svelte:element this={"style"}>{css}</svelte:element>
 <div style="position: relative; width: 400px; height: 200px">
 	{#if before}<input data-testid="before" />{/if}
 	{#each triggers as trigger (trigger.id)}
@@ -68,7 +70,12 @@
 		<Popover.Portal {keepMounted}>
 			<Popover.Positioner data-testid="positioner" class={positionerClass}>
 				<Popover.Popup data-testid="popup" class={popupClass}>
-					<span data-testid="content">{payload}</span>
+					{#if viewport}
+						<Popover.Viewport><span data-testid="content">Content {payload}</span></Popover.Viewport
+						>
+					{:else}
+						<span data-testid="content">{payload}</span>
+					{/if}
 					{#if inside}<input data-testid="input-inside" />{/if}
 					{#if closeButton}<Popover.Close>Close</Popover.Close>{/if}
 				</Popover.Popup>

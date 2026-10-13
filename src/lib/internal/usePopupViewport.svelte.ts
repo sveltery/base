@@ -29,6 +29,8 @@ export interface PopupViewportStore extends PopupAutoResizeStore {
 export class PopupViewport {
 	currentEl = $state<HTMLDivElement | null>(null);
 	previousNode = $state<HTMLElement | null>(null);
+	/** The popup's size before the switch, for the previous pane's `--popup-*` variables. */
+	previousSize = $state<{ width: number; height: number } | null>(null);
 	activationDirection = $state<string | undefined>(undefined);
 	showStarting = $state(false);
 	// The pane remounts when the active trigger id changes. Upstream usePopupViewport also
@@ -59,12 +61,16 @@ export class PopupViewport {
 			untrack(() => this.beginSwitch(signal));
 			return () => {
 				this.frame.cancel();
-				this.previousNode = null;
-				this.activationDirection = undefined;
+				this.clearPrevious();
 			};
 		});
 
-		new PopupAutoResize(store, readSide, () => direction.direction);
+		new PopupAutoResize(
+			store,
+			readSide,
+			() => direction.direction,
+			(previous) => (this.previousSize = previous)
+		);
 	}
 
 	get transitioning() {
@@ -74,8 +80,18 @@ export class PopupViewport {
 	mountPrevious = (host: HTMLElement) => {
 		const node = this.previousNode;
 		if (!node) return;
-		host.replaceChildren(node);
+		if (host.firstChild !== node) host.replaceChildren(node);
+		const size = this.previousSize;
+		if (!size) return;
+		host.style.setProperty('--popup-width', `${size.width}px`);
+		host.style.setProperty('--popup-height', `${size.height}px`);
 	};
+
+	private clearPrevious() {
+		this.previousNode = null;
+		this.previousSize = null;
+		this.activationDirection = undefined;
+	}
 
 	private beginSwitch(signal: AbortSignal) {
 		const source = this.currentEl;
@@ -94,8 +110,7 @@ export class PopupViewport {
 				node,
 				() => {
 					if (signal.aborted) return;
-					this.previousNode = null;
-					this.activationDirection = undefined;
+					this.clearPrevious();
 				},
 				signal,
 				false

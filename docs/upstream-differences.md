@@ -252,12 +252,6 @@ The popup has no `role` and the trigger has no `aria-describedby` or `type`, as 
 
 `payload`, `closeDelay` and `closeOnClick` are read live from the active trigger, and an active trigger that unmounts closes the tooltip, as described for PreviewCard under [Payload and close delay are read from the active trigger](#payload-and-close-delay-are-read-from-the-active-trigger) and [Active trigger tracking](#active-trigger-tracking).
 
-### Behavior that waits on shared internals
-
-Each case is kept as an `it.todo` in the Tooltip specs.
-
-- `src/lib/internal/usePopupViewport.svelte.ts` does not set `--popup-width` and `--popup-height` on the previous container. Upstream test: the size half of `creates morphing containers during transitions`.
-
 ## PreviewCard
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/preview-card/**` and `packages/react/src/utils/popups/inlineRect.ts`. The rest of this file pins v1.8.0. The paired React fixture runs `@base-ui/react` 1.8.0, whose PreviewCard behaves the same for the covered cases.

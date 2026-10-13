@@ -329,3 +329,27 @@ describe('trigger switch transition (Base UI v1.9.0)', () => {
 		expect(ending.instants).not.toContain('trigger-change');
 	});
 });
+
+describe('viewport (Base UI v1.9.0)', () => {
+	it('sets --popup-width and --popup-height on the previous container', async () => {
+		render(PopoverTriggersHarness, {
+			triggers: [
+				{ id: 'trigger-1', label: 'Trigger 1', payload: 0 },
+				{ id: 'trigger-2', label: 'Trigger 2', payload: 1 }
+			],
+			inside: false,
+			viewport: true,
+			css: '[data-current], [data-previous] { transition: opacity 300ms; } [data-starting-style], [data-ending-style] { opacity: 0; }'
+		});
+		await page.getByRole('button', { name: 'Trigger 1' }).click();
+		await expect.poll(content).toBe('Content 0');
+		const { width, height } = getComputedStyle(page.getByTestId('popup').element());
+
+		await page.getByRole('button', { name: 'Trigger 2' }).click();
+		const previous = () => document.querySelector<HTMLElement>('[data-previous]');
+		await expect.poll(previous).not.toBeNull();
+		expect(previous()!.textContent).toBe('Content 0');
+		expect(previous()!.style.getPropertyValue('--popup-width')).toBe(width);
+		expect(previous()!.style.getPropertyValue('--popup-height')).toBe(height);
+	});
+});
