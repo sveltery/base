@@ -38,4 +38,29 @@ describe('FieldHandle blur', () => {
 			expect(handle.blurs).toBe(2);
 		});
 	}
+
+	it('leaves a Kit-style handle alone, whose proxy answers `blur` with another field', async () => {
+		const errors: unknown[] = [];
+		const onError = (event: ErrorEvent) => errors.push(event.error);
+		window.addEventListener('error', onError);
+		const methods: Record<string, unknown> = {
+			as: () => ({ name: 'email' }),
+			issues: () => undefined,
+			value: () => undefined,
+			set: () => undefined,
+			touched: () => false,
+			dirty: () => false
+		};
+		const handle = new Proxy(methods, {
+			get: (target, key) => (typeof key === 'string' && key in target ? target[key] : {})
+		}) as unknown as FieldHandle;
+		render(BlurHandleHarness, { handle, control: 'input' });
+
+		await userEvent.click(page.getByTestId('control'));
+		await userEvent.click(page.getByRole('button', { name: 'Elsewhere' }));
+		window.removeEventListener('error', onError);
+
+		expect(errors).toEqual([]);
+		await expect.element(page.getByTestId('control')).toHaveAttribute('data-touched', '');
+	});
 });

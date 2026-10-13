@@ -139,7 +139,10 @@ export function resolveField(fields: object, name: string): FieldHandle {
 
 /** Every issue a source holds. Kit's root `fields.allIssues()`. */
 export function allIssues(source: FormSource): FormIssue[] {
-	return (source.fields as { allIssues?: () => FormIssue[] | undefined }).allIssues?.() ?? [];
+	const read: unknown = (source.fields as { allIssues?: unknown }).allIssues;
+	return typeof read === 'function'
+		? ((Reflect.apply(read, source.fields, []) as FormIssue[] | undefined) ?? [])
+		: [];
 }
 
 /** Kit's path string for an issue path: `items[0].name`. */
