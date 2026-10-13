@@ -70,6 +70,14 @@ describe('composite root', () => {
 		});
 	});
 
+	it('keeps the tab stop on an item whose element is replaced', async () => {
+		render(CompositeClaimHarness);
+		await userEvent.click(page.getByRole('button', { name: 'Swap' }));
+		expect(JSON.parse(page.getByTestId('report').element().textContent ?? '{}')).toEqual({
+			tab: -1
+		});
+	});
+
 	it('keeps the activation click when the value write is flushed', async () => {
 		render(CompositeRootHarness, { scenario: 'radio-flush' });
 		await userEvent.keyboard('{Shift>}');

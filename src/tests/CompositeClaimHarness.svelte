@@ -5,7 +5,7 @@
 	const claimA = roving.claim(false);
 	const claimB = roving.claim(true);
 	const claimC = roving.claim(true);
-	const removeA = roving.register(
+	let removeA = roving.register(
 		document.createElement('button'),
 		() => ({ disabled: false }),
 		claimA
@@ -22,7 +22,20 @@
 		const tab = roving.tabIndex(null, claimE, { disabled: false });
 		report = JSON.stringify({ indexC: claimC.index, indexD: claimD.index, tab });
 	}
+
+	function swap() {
+		removeA();
+		removeA = roving.register(
+			document.createElement('button'),
+			() => ({ disabled: false }),
+			claimA
+		);
+		const claimD = roving.claim(false);
+		const tab = roving.tabIndex(null, claimD, { disabled: false });
+		report = JSON.stringify({ tab });
+	}
 </script>
 
 <button type="button" onclick={leave}>Leave</button>
+<button type="button" onclick={swap}>Swap</button>
 <output data-testid="report">{report}</output>

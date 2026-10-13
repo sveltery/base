@@ -113,6 +113,8 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 		claim?: RenderClaim
 	) {
 		const unregister = super.register(node, read);
+		// An item whose element is replaced registers again with the claim its last teardown dropped.
+		if (claim && !this.claims.includes(claim)) this.claims.push(claim);
 		untrack(() => {
 			this.observe(this.measure());
 		});
