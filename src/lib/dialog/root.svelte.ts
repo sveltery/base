@@ -83,6 +83,15 @@ export function createDialogRoot<Payload>(
 		if (node && store.domReferenceElement !== node) store.domReferenceElement = node;
 	});
 
+	// Upstream useImplicitActiveTrigger: a dialog opened without naming a trigger, such as through
+	// `bind:open`, claims its only trigger. The trigger stays active until the dialog unmounts.
+	$effect(() => {
+		if (!store.open || store.openedWithoutTrigger || store.domReferenceElement) return;
+		if (store.triggers.size !== 1) return;
+		const [only] = store.triggers.elements();
+		store.domReferenceElement = only;
+	});
+
 	$effect(() => {
 		const current = options.readHandle();
 		if (!current) return;

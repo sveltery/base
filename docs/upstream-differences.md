@@ -65,6 +65,14 @@ Local: `Dialog.Portal` and `Popover.Portal` take a `render` snippet `(props, sta
 
 Test: `src/lib/dialog/Dialog.svelte.spec.ts` and `src/lib/popover/Popover.svelte.spec.ts` (`applies a render snippet to the portal element`, `does not mount while container is null`, `returns focus to the trigger when an open container returns to null`). `src/lib/popover/portal-props.spec.ts`.
 
+### Closed shadow roots
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/hooks/useDismiss.ts`. React events bubble through the component tree, so the floating element's capture handlers mark every press inside it (`insideReactTree`). In a closed shadow root that marker is the only inside-press signal, because a document listener sees only the shadow host.
+
+Local: the floating element's own capture listeners set the same marker. Svelte delegates `onclick` and similar handlers to the app root and the document, and neither sees into a closed shadow root that the app root is outside of. A portal host moved into a closed shadow root therefore mounts as its own delegation root.
+
+Test: `src/lib/dialog/DialogShadowRoot.svelte.spec.ts`.
+
 ### Server trigger labels
 
 Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/popover/trigger/PopoverTrigger.tsx` (lines 62 and 144) and `packages/react/src/dialog/trigger/DialogTrigger.tsx`. `renderToStaticMarkup` of a `defaultOpen` dialog or popover prints the trigger with `aria-expanded="false"` and no `aria-controls`. The portal host is absent. On the client, both triggers keep `aria-controls`. `triggerPopupId` is `popupElement?.id ?? floatingId`, so after the popup element is gone they still point at the floating id.
@@ -130,11 +138,23 @@ Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps copied viewport controls 
 
 ### Tabbing out of a non-modal popup
 
-Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx` and `packages/react/src/popover/popup/PopoverPopup.tsx`. A non-modal popup inside a portal renders a leading guard and a trailing guard. `previousFocusableElement` is the trigger. `nextFocusableElement` is the trigger's trailing guard. The focus manager's leading guard is not merged with the trigger's `beforeContentFocusGuardRef`.
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`, `packages/react/src/popover/popup/PopoverPopup.tsx`, `packages/react/src/popover/trigger/PopoverTrigger.tsx` and `packages/react/src/utils/popups/useTriggerFocusGuards.ts`. A non-modal popup inside a portal renders a leading guard and a trailing guard. `previousFocusableElement` is the trigger. `nextFocusableElement` is the trigger's trailing guard. The focus manager's leading guard is merged with the trigger's `beforeContentFocusGuardRef`. `getInsideElements` counts the trigger's leading guard as inside, so Shift+Tab from the trigger does not close the popup before that guard's own handler runs.
 
 Shift+Tab from the popup's first control focuses the trigger and leaves the popup open, for the default `document.body` container and an inline container, including when `open` is set from another button. Tab from that open trigger focuses the first control again. That matches upstream.
 
-Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the trigger that opened the popup still closes onto the control before the trigger. Shift+Tab from the trigger of a popup opened through `open` focuses the previous control and leaves the popup open. Main does the same. React closes a popover there because `useImplicitActiveTrigger` makes the popup's only trigger its active trigger, even when something else opened it, and leaves a dialog open. The port takes only the trigger state from that rule: the only trigger of a popup opened through `open` reports `aria-expanded="true"` and `data-popup-open`, and a dialog's only trigger supplies the payload while it is open, but it does not become the focus reference. A focus-out close does not return focus, including when `finalFocus` is `null`, an element, or a function. The function is not called. React calls that function and ignores the result. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once.
+Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the trigger that opened the popup still closes onto the control before the trigger. A popup opened through `open` claims its only trigger, as upstream `useImplicitActiveTrigger` does, so Shift+Tab from that trigger closes a popover and leaves a dialog open, as React does. A focus-out close does not return focus, including when `finalFocus` is `null`, an element, or a function. The function is not called. React calls that function and ignores the result. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once. The port's focus manager does not merge its leading guard with `beforeContentFocusGuardRef`, and it counts every Base UI focus guard as inside instead of taking `getInsideElements`.
+
+Test: `src/lib/popover/PopoverFocusGuards.svelte.spec.ts`.
+
+### Disabled trigger in a hover switch
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/popover/trigger/PopoverTrigger.tsx` and `packages/react/src/floating-ui-react/utils/element.ts`.
+
+Upstream: a disabled Popover trigger renders only `data-disabled`. `isTargetInsideEnabledTrigger` looks for `data-trigger-disabled`, so a pointer that leaves the open trigger for a disabled one does not close the popover.
+
+Local: a disabled `Popover.Trigger` also renders `data-trigger-disabled`, so that move closes the popover, as it closes a Tooltip.
+
+Test: `src/lib/popover/PopoverTriggers.svelte.spec.ts` (`closes when hovering a disabled trigger while another trigger is open`).
 
 ## Dialog
 
@@ -256,14 +276,6 @@ The popup has no `role` and the trigger has no `aria-describedby` or `type`, as 
 
 `payload`, `closeDelay` and `closeOnClick` are read live from the active trigger, and an active trigger that unmounts closes the tooltip, as described for PreviewCard under [Payload and close delay are read from the active trigger](#payload-and-close-delay-are-read-from-the-active-trigger) and [Active trigger tracking](#active-trigger-tracking).
 
-### Behavior that waits on shared internals
-
-Each case is kept as an `it.todo` in the Tooltip specs.
-
-- `TRIGGER_DISABLED_ATTRIBUTE` in `packages/floating-ui-svelte/src/utils/constants.ts` is `data-disabled`. v1.9.0 uses `data-trigger-disabled`, which the Tooltip trigger renders, so `isTargetInsideEnabledTrigger` treats a disabled tooltip trigger as enabled. Focus and hover both suffer: moving from an open trigger to a disabled one keeps the tooltip open. Upstream tests: `closes when focusing a disabled trigger while another trigger is open` and `closes when hovering a disabled trigger while another trigger is open`.
-- `src/lib/internal/useAnchorPositioning.svelte.ts` places the positioner with `left` and `top`. v1.9.0 uses `transform` when no Viewport is mounted. Upstream tests: `uses transform positioning without Viewport` and `updates positioning when Viewport mounts and unmounts`.
-- `src/lib/internal/usePopupViewport.svelte.ts` does not set `--popup-width` and `--popup-height` on the previous container. Upstream test: the size half of `creates morphing containers during transitions`.
-
 ## PreviewCard
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/preview-card/**` and `packages/react/src/utils/popups/inlineRect.ts`. The rest of this file pins v1.8.0. The paired React fixture runs `@base-ui/react` 1.8.0, whose PreviewCard behaves the same for the covered cases.
@@ -297,18 +309,6 @@ Upstream: the positioner calls `updatePosition()` from an effect when the card o
 Local: no `update()` is exposed. The positioner replaces the inline middleware object when the card opens and is mounted, and `FloatingPosition` measures again when its options change. Hover coordinates live in a plain holder on the store, not in state, as upstream keeps them in a ref.
 
 Test: `src/lib/preview-card/PreviewCardPositioner.svelte.spec.ts` (`multiline inline trigger`).
-
-### Positioner uses top and left
-
-Upstream: `positionerConformanceTests` asserts `transform: translate(x, y)` on the positioner when no Viewport is mounted.
-
-Local: the shared `AnchorPositioning` always positions with `top` and `left`. The offset, collision and Viewport cases assert the bounding rectangle relative to the trigger instead, and the `transform` assertions are not ported.
-
-### Viewport previous pane
-
-Upstream: the previous container carries `--popup-width` and `--popup-height`.
-
-Local: the shared `PopupViewport` leaves them off the previous pane, as Popover does. `it.todo` in `PreviewCardViewport.svelte.spec.ts` keeps the case.
 
 ### Not covered
 
@@ -565,7 +565,7 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
 | Dialog             | ref objects                                                                                            |
 | AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |
-| Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
+| Tooltip            | refs                                                                                                   |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                         |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
@@ -581,3 +581,11 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui
 Local: nested popups share one floating tree, and the DOM has no React tree. `DismissInteraction` counts a press inside a tree child's portal, which holds that child's internal backdrop, as inside the parent. `FloatingFocusManager` treats focus that leaves a portaled popup without an outside press as staying inside, as upstream's `markInsideReactTree` does.
 
 Test: `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts`, `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` and `src/lib/internal/overlay-audit.svelte.spec.ts` (`closes only the inner modal popover on an outside touch tap`).
+
+### Queued list focus after close
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/hooks/useListNavigation.ts`. `focusItem` calls `enqueueFocus(item, { sync, preventScroll: true })` with no `shouldFocus`. A deferred item focus runs on the next frame even when the popup has closed in between.
+
+Local: the queued focus passes `shouldFocus: () => store.isOpen()`. A Tab or Escape that closes the popup before the frame drops the focus, so it does not land on an item of a closed popup that stays mounted.
+
+Test: `src/tests/list-navigation/useListNavigation.svelte.spec.ts` (`drops a queued item focus when the list closes before it lands`).

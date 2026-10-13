@@ -41,6 +41,7 @@
 	const store = usePopoverRoot();
 	usePopoverPortal();
 	useFloatingNodeId(store);
+	store.trackTriggerSwitch();
 	const attachKey = createAttachmentKey();
 
 	const positioning = new AnchorPositioning(store, () => ({
