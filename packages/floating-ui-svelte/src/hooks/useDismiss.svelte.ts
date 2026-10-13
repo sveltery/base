@@ -69,9 +69,12 @@ export class DismissInteraction {
 	readonly #tree = useFloatingTree();
 	readonly #compositionTimeout = new ScopedTimeout();
 	readonly #cancelDismissOnEndTimeout = new ScopedTimeout();
+	readonly #insideTreeTimeout = new ScopedTimeout();
 	#composing = false;
 	#sawPressWhileOpen = false;
 	#pressStartedInside = false;
+	/** A press reached the floating element this task. Upstream `insideReactTree`. */
+	#insideTree = false;
 	/** The click after an inside press still belongs to that press. A cancel has no click. */
 	#ignoreInsideReleaseClick = false;
 	/** Pointer type from the last pointerdown. A later mousedown is still that gesture. */
@@ -109,7 +112,16 @@ export class DismissInteraction {
 			}
 
 			const doc = ownerDocument(this.store.floatingElement ?? this.store.portalElement);
+			const floating = this.store.floatingElement;
+			// Upstream marks presses through React's tree. A document listener sees only the
+			// host of a closed shadow root, so the floating element reports its own presses.
+			const markers = floating
+				? (['pointerdown', 'mousedown', 'mouseup', 'click', 'touchmove', 'touchend'] as const).map(
+						(type) => on(floating, type, this.#markInsideTree, { capture: true, passive: true })
+					)
+				: [];
 			const cleanups = [
+				...markers,
 				on(doc, 'compositionstart', () => {
 					this.#compositionTimeout.clear();
 					this.#composing = true;
@@ -254,6 +266,13 @@ export class DismissInteraction {
 		});
 	}
 
+	#markInsideTree = () => {
+		this.#insideTree = true;
+		this.#insideTreeTimeout.start(0, () => {
+			this.#insideTree = false;
+		});
+	};
+
 	#options() {
 		const value = this.props();
 		const outsidePressEvent = value.outsidePressEvent ?? 'sloppy';
@@ -290,6 +309,7 @@ export class DismissInteraction {
 	}
 
 	#insideDismissTree(event: Event) {
+		if (this.#insideTree) return true;
 		if (pressIsInside(this.store, event) || this.#targetIsTrigger(event)) return true;
 		if (!this.#tree || !this.store.nodeId) return false;
 		const target = getTarget(event);
