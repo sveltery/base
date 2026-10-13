@@ -17,6 +17,7 @@ const visuallyHiddenBase: Record<string, string | number> = {
 export const visuallyHidden: Record<string, string | number> = {
 	...visuallyHiddenBase,
 	position: 'fixed',
+	margin: 0,
 	top: 0,
 	left: 0
 };
@@ -28,4 +29,4 @@ export const visuallyHiddenInput: Record<string, string | number> = {
 
 /** `visuallyHidden` as a `style` attribute, for elements that take no style object. */
 export const visuallyHiddenStyle =
-	'clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px; position: fixed; top: 0px; left: 0px';
+	'clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: 0px; position: fixed; top: 0px; left: 0px';

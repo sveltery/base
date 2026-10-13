@@ -11,7 +11,7 @@ describe('visuallyHidden', () => {
 			padding: 0,
 			width: '1px',
 			height: '1px',
-			margin: '-1px',
+			margin: 0,
 			position: 'fixed',
 			top: 0,
 			left: 0
@@ -35,7 +35,7 @@ describe('visuallyHidden', () => {
 	it('gives nonzero lengths a unit a native style attribute can use', () => {
 		expect(visuallyHidden.width).toBe('1px');
 		expect(visuallyHidden.height).toBe('1px');
-		expect(visuallyHidden.margin).toBe('-1px');
+		expect(visuallyHiddenInput.margin).toBe('-1px');
 		expect(visuallyHiddenInput.width).toBe('1px');
 	});
 });

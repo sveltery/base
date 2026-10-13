@@ -365,7 +365,7 @@ describe('Progress', () => {
 			expect(hidden.style.position).toBe('fixed');
 			expect(hidden.style.width).toBe('1px');
 			expect(hidden.style.height).toBe('1px');
-			expect(hidden.style.margin).toBe('-1px');
+			expect(hidden.style.margin).toBe('0px');
 		});
 
 		it('passes consumer attachments to the default root', async () => {
