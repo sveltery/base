@@ -322,7 +322,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup`, `actionsRef`, and the `*DataAttributes` and `*CssVars` namespaces.
 
-Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem` and `value` on `Menu.RadioGroup` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`.
+Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem` and `value` on `Menu.RadioGroup` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
 
 ### Labels are trimmed
 
