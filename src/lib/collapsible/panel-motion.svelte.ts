@@ -53,9 +53,13 @@ export class CollapsiblePanelMotion {
 			const open = this.root.open;
 			const mounted = this.root.mounted;
 			const transitionStatus = this.root.transitionStatus;
+			if (!open) {
+				// A render function can remove the panel on close. Clear the one-shot mount
+				// suppression even without an element, so the next open animates.
+				this.suppressMountAnimation = false;
+				this.skipDuration = null;
+			}
 			if (!panel) return;
-
-			if (!open) this.skipDuration = null;
 
 			const shouldPrevent = open && this.suppressMountAnimation;
 			const animationType = getAnimationType(panel, shouldPrevent);
@@ -119,7 +123,6 @@ export class CollapsiblePanelMotion {
 			}
 
 			if (!open && mounted && (transitionStatus === 'idle' || transitionStatus === 'starting')) {
-				this.suppressMountAnimation = false;
 				if (animationType === 'none') {
 					this.setDimensions(EMPTY_DIMENSIONS, false);
 					this.root.setMounted(false);

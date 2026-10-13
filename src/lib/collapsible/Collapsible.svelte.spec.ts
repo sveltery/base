@@ -459,6 +459,36 @@ describe('Collapsible', () => {
 			expect(page.getByTestId('panel').elements()).toHaveLength(0);
 		});
 
+		it('animates on reopen after an initially open panel is removed by the render function', async () => {
+			render(CollapsibleHarness, {
+				open: true,
+				removeWhenClosed: true,
+				css: `
+					@keyframes removable-panel-open {
+						from { opacity: 0; }
+						to { opacity: 1; }
+					}
+					.removable-animation-panel[data-open] {
+						animation: removable-panel-open 10s linear;
+					}
+				`,
+				panelClass: 'removable-animation-panel'
+			});
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+			await expect.element(page.getByTestId('panel')).toHaveAttribute('data-open', '');
+			expect(page.getByTestId('panel').element().getAnimations()).toHaveLength(0);
+
+			await trigger.click();
+			await expect.element(page.getByTestId('panel')).not.toBeInTheDocument();
+
+			await trigger.click();
+
+			const panel = page.getByTestId('panel');
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			expect(getComputedStyle(panel.element()).animationName).toBe('removable-panel-open');
+			expect(panel.element().getAnimations()).toHaveLength(1);
+		});
+
 		it('preserves inline alignment styles while measuring an opening panel', async () => {
 			const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 			try {
