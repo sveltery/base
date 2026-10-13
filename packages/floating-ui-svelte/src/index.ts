@@ -77,3 +77,4 @@ export {
 	type ListOrientation
 } from './utils/listOrientation.js';
 export { Typeahead, type UseTypeaheadProps } from './hooks/useTypeahead.svelte.js';
+export * from './sharedInternals.js';
