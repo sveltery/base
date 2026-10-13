@@ -1,6 +1,7 @@
 // Derived from Base UI v1.9.0 packages/react/src/dialog/root/useRenderDialogRoot.tsx
 // and useDialogRoot.ts (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
-// MIT, see THIRD_PARTY_NOTICES.md.
+// MIT, see THIRD_PARTY_NOTICES.md. The nested-dialog count keeps the v1.8.0 logic; v1.9.0's
+// closed-state changes to it are not ported yet.
 // Dialog.Root and AlertDialog.Root share this setup. AlertDialog.Root passes the alert
 // dialog role, `modal: true`, and disabled pointer dismissal.
 // Call it during component init: it sets context and registers effects.

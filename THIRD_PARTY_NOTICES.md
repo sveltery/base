@@ -255,11 +255,11 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 
 Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 
-- `src/lib/dialog/root.svelte.ts` from `packages/react/src/dialog/root/useRenderDialogRoot.tsx` and `useDialogRoot.ts` (the setup Dialog and Alert Dialog roots share)
+- `src/lib/dialog/root.svelte.ts` from `packages/react/src/dialog/root/useRenderDialogRoot.tsx` and `useDialogRoot.ts` (the setup Dialog and Alert Dialog roots share; its nested-dialog count is the v1.8.0 logic)
 - `src/lib/alert-dialog/AlertDialogRoot.svelte` from `packages/react/src/alert-dialog/root/AlertDialogRoot.tsx`
 - `src/lib/alert-dialog/handle.svelte.ts` from `packages/react/src/alert-dialog/handle.ts`
 - `src/lib/alert-dialog/types.ts` and `src/lib/alert-dialog/index.ts` from `packages/react/src/alert-dialog/index.ts`, `index.parts.ts`, `root/AlertDialogRoot.tsx`, and `trigger/AlertDialogTrigger.tsx` (the other parts are the Dialog components)
-- `src/lib/alert-dialog/AlertDialog.svelte.spec.ts` assertions from `packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx`, `AlertDialogRoot.spec.tsx`, `packages/react/test/popupConformanceTests.tsx`, `packages/react/test/dialogRootSharedTests.tsx`, and `packages/react/test/detachedTriggersConformanceTests.tsx`
+- `src/lib/alert-dialog/AlertDialog.svelte.spec.ts` assertions from `packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx`, the handle-type checks in `AlertDialogRoot.spec.tsx`, `packages/react/test/popupConformanceTests.tsx`, `packages/react/test/dialogRootSharedTests.tsx`, and `packages/react/test/detachedTriggersConformanceTests.tsx`
 
 MIT License
 

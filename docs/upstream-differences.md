@@ -247,4 +247,4 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Overlay foundation | Internal only. No public component                                                                     |
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
 | Dialog             | Drawer, ref objects                                                                                    |
-| AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces, payload from the active trigger     |
+| AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces, typed and active-trigger payload    |
