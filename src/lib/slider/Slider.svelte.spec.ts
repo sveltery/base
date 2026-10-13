@@ -792,3 +792,33 @@ describe('<Slider />', () => {
 			.toBe('false');
 	});
 });
+
+describe('single-element array value', () => {
+	it('stays an array on track press', async () => {
+		const onValueChange = vi.fn();
+		const onValueCommitted = vi.fn();
+		render(SliderHarness, { defaultValue: [25], onValueChange, onValueCommitted });
+		mockControlRect();
+
+		pointer(control(), 'pointerdown', 50);
+		pointer(document.body, 'pointerup', 50);
+
+		expect(onValueChange.mock.calls[0][0]).toEqual([50]);
+		expect(onValueCommitted.mock.calls[0][0]).toEqual([50]);
+	});
+
+	it('stays an array when validated on blur', async () => {
+		const validate = vi.fn(() => null);
+		render(SliderHarness, {
+			scenario: 'field',
+			validationMode: 'onBlur',
+			defaultValue: [25],
+			validate
+		});
+
+		slider().dispatchEvent(new FocusEvent('blur', { bubbles: true }));
+
+		await expect.poll(() => validate.mock.calls.length).toBe(1);
+		expect(validate.mock.calls[0]).toEqual([[25], expect.anything()]);
+	});
+});

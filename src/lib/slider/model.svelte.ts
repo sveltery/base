@@ -711,7 +711,9 @@ export class SliderRootModel {
 		newValue = roundValueToStep(newValue, this.step, this.min);
 		newValue = clamp(newValue, this.min, this.max);
 
-		if (!this.range) return { value: newValue, thumbIndex, didSwap: false };
+		if (values.length <= 1) {
+			return { value: this.range ? [newValue] : newValue, thumbIndex, didSwap: false };
+		}
 
 		return resolveThumbCollision(
 			this.options.getCollision(),
