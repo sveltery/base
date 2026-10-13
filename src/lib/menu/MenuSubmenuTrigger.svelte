@@ -158,7 +158,9 @@
 
 	// Chrome performs a screen reader activation as a 1x1, zero-pressure mouse `pointerdown` with
 	// no pressed button. Upstream `useClick` opens on it at once. The shared click interaction
-	// waits a frame, so the trigger opens it itself.
+	// waits a frame, so the trigger opens it itself. These handlers run after the click
+	// interaction's, which then decides from the state before this press, as upstream's handler
+	// does from its render.
 	let screenReaderPress = false;
 	const screenReaderProps = {
 		onpointerdown(event: PointerEvent) {
@@ -228,8 +230,8 @@
 	const hostProps = $derived(
 		item.props(
 			[
-				click.reference,
 				screenReaderProps,
+				click.reference,
 				hover.reference,
 				childTriggerProps,
 				// A filterable submenu's entry and exit depend on both menus' orientations.
