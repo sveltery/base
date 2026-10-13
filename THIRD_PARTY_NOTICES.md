@@ -325,6 +325,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` outside presses bubble by default and a press in a child's portal counts as inside, from `normalizeProp` and `insideReactTree` in `packages/react/src/floating-ui-react/hooks/useDismiss.ts`, with `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts` assertions from `useDismiss.test.tsx`
 - `packages/floating-ui-svelte/src/components/FloatingPortal.svelte` the generated host `id`, `portalOwnerRole`, and the owner element styles from `packages/react/src/floating-ui-react/components/FloatingPortal.tsx` and `ownerVisuallyHidden` in `packages/react/src/internals/constants.ts`, with `packages/floating-ui-svelte/src/components/FloatingPortal.svelte.spec.ts` assertions from `FloatingFocusManager.test.tsx`
 - `src/lib/internal/popups/triggerFocusGuards.ts` and `getTabbableNearElement` in `packages/floating-ui-svelte/src/utils/tabbable.ts` from `packages/react/src/utils/popups/useTriggerFocusGuards.ts` and `packages/react/src/floating-ui-react/utils/tabbable.ts`, with `src/lib/internal/popups/triggerFocusGuards.svelte.spec.ts` and `packages/floating-ui-svelte/src/utils/tabbable.svelte.spec.ts` assertions from `useTriggerFocusGuards.test.tsx` and `tabbable.test.ts`
+- `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte` `preferPreviousFocus` and `markInsideReactTree` from `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`
 
 MIT License
 

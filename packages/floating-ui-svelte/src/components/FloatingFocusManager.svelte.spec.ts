@@ -42,4 +42,32 @@ describe('FloatingFocusManager', () => {
 			await expect.poll(focusedTestId).toBe('reference');
 		});
 	});
+
+	describe('non-modal portaled popup', () => {
+		const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+		it('stays open when focus leaves it without an outside press', async () => {
+			const { component } = render(PortalFocusHarness);
+			flushSync(() => component.show('mouse'));
+			await expect.poll(focusedTestId).toBe('inside');
+
+			(page.getByTestId('after').element() as HTMLElement).focus();
+			await wait(20);
+
+			expect(component.store.open).toBe(true);
+		});
+
+		it('closes when an outside press moves focus out of it', async () => {
+			const { component } = render(PortalFocusHarness);
+			flushSync(() => component.show('mouse'));
+			await expect.poll(focusedTestId).toBe('inside');
+
+			const after = page.getByTestId('after').element() as HTMLElement;
+			after.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'mouse' }));
+			after.focus();
+
+			await expect.poll(() => component.store.open).toBe(false);
+			expect(component.store.lastReason).toBe('focus-out');
+		});
+	});
 });
