@@ -154,11 +154,7 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 
 	const dismiss = new DismissInteraction(store, () => ({
 		enabled: !store.disabled,
-		// Upstream's outside presses bubble by default. The internal default here does not.
-		bubbles: {
-			escapeKey: options.readCloseParentOnEsc() && store.parent.type === 'menu',
-			outsidePress: true
-		},
+		bubbles: { escapeKey: options.readCloseParentOnEsc() && store.parent.type === 'menu' },
 		outsidePress: () =>
 			store.parent.type !== 'context-menu' ||
 			store.openEvent?.type === 'contextmenu' ||
