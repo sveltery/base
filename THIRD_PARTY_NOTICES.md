@@ -309,6 +309,16 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `packages/floating-ui-svelte/src/hooks/useTypeahead.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useTypeahead.ts` as `Typeahead`
 - `src/tests/list-navigation/useTypeahead.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useTypeahead.test.tsx`
 - `src/lib/internal/composite-root.svelte.ts` render claims from `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (each item keeps the index it guessed, and `unregister` drops only that item's entry)
+- `src/lib/select/*.svelte` from the matching parts in `packages/react/src/select/**` of Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`): Root, Label, Trigger, Value, Icon, Portal, Backdrop, Positioner, Popup, List, Item, ItemIndicator, ItemText, Arrow, ScrollUpArrow, ScrollDownArrow, Group, GroupLabel and Separator
+- `src/lib/select/store.svelte.ts` from `packages/react/src/select/store.ts` and the state, refs and callbacks of `packages/react/src/select/root/SelectRoot.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/context.svelte.ts` from `SelectRootContext.ts`, `SelectPositionerContext.ts`, `SelectItemContext.ts` and `SelectGroupContext.ts` in `packages/react/src/select/` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/popup-utils.ts` from `packages/react/src/select/popup/utils.ts`, the helpers of `SelectPopup.tsx` and `SelectScrollArrow.tsx`, and `packages/react/src/utils/getPseudoElementBounds.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/constants.ts` from `packages/react/src/internals/constants.ts` and `packages/react/src/select/trigger/SelectTrigger.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/internal/listbox/itemEquality.ts` and `resolveValueLabel.ts` from `packages/react/src/internals/itemEquality.ts` and `resolveValueLabel.tsx`, with their specs from the matching `*.test.ts` files (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/internal/listbox/ItemIndicator.svelte` from `packages/react/src/utils/ItemIndicator.tsx`, and `ListboxSeparator.svelte` from `packages/react/src/utils/listbox-separator/ListboxSeparator.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/internal/listbox/virtualClick.ts` from `packages/react/src/floating-ui-react/utils/event.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `packages/utils/src/event-details.ts` also exports `REASONS.itemPress`, `REASONS.cancelOpen` and `REASONS.windowResize` from `packages/react/src/internals/reasons.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/*.svelte.spec.ts` assertions from `packages/react/src/select/**/*.test.tsx`, and the Select cases of `src/lib/field/bound-control.svelte.spec.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 
 MIT License
 

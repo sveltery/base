@@ -300,6 +300,54 @@ Local: the shared `PopupViewport` leaves them off the previous pane, as Popover 
 
 The "does not re-render inactive triggers" cases count React renders. "Cleans up the transition when a lagging payload remounts the current container" depends on a payload that arrives a render after the trigger id. Both have no Svelte counterpart.
 
+## Select
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/select/**`, with the shared helpers in `packages/react/src/internals/itemEquality.ts`, `resolveValueLabel.tsx`, `packages/react/src/utils/ItemIndicator.tsx` and `listbox-separator/`. The paired fixture runs `@base-ui/react` 1.9.0.
+
+### Public surface
+
+Upstream: `value`/`defaultValue`/`onValueChange`, `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, and `ReactNode` labels in `items` and on `Select.Value`'s `placeholder`.
+
+Local: `value` and `open` are `$bindable`. `defaultValue` stays, because Select is a form control: it is the value an empty binding starts from and the value a native reset restores. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`, and `unmount()` does nothing while the popup is open. `inputRef` is not ported. The root takes `readonly`, the HTML spelling. Labels, `placeholder`, and what `itemToStringLabel` returns are strings, because a part renders them as text. A `Select.Value` `children` snippet receives the value in place of the children function.
+
+### Multiple values submit through one hidden select
+
+Upstream: a `multiple` select renders one hidden `<input>` per value.
+
+Local: one hidden `<select multiple>` holds an `<option>` per current value and per `defaultValue` entry. The current values are the options' selectedness, set after Svelte renders them. The `selected` attribute marks the defaults, so a native reset restores them. `FormData` holds the same entries as upstream. The select stays in the form when nothing is selected, so a form source still hears the edit that cleared it. A user edit fires `input` and `change` from it once the options are written. The helper is `src/lib/select/native-select.ts`.
+
+Test: `src/lib/select/SelectRoot.multiple.svelte.spec.ts`, the `bound Select` cases of `src/lib/field/bound-control.svelte.spec.ts`.
+
+### Native reset and form sources
+
+Upstream: nothing listens for `reset`, as described under [Form reset](#form-reset).
+
+Local: Select joins the other form controls. A native reset restores `defaultValue` through the binding and calls no `onValueChange`. Inside a `Field.Root` bound to a form source, Select is kind `select`, or `select multiple` with `multiple`, per [Composite controls bound to a form source](#composite-controls-bound-to-a-form-source). A source value names an item by its serialized value, so an object or number item stays selected after the source echoes a string.
+
+Test: `src/lib/select/SelectRoot.field.svelte.spec.ts`, `src/routes/fixtures/select/select.e2e.ts` (`restores the default value on a native form reset`).
+
+### Event handling
+
+Upstream: a consumer handler calls `event.preventBaseUIHandler()` to skip a part's own handling, and the popup's typeahead runs through the merged props.
+
+Local: `event.preventDefault()` is the skip signal, as everywhere in this port. An item prevents a Space typed inside a typeahead match so that it does not select, and the merged popup handlers would skip a prevented event, so the popup chains the typeahead handler after the merged handlers instead of merging it.
+
+### Focus and nesting
+
+Upstream: closing returns focus to the element focused before the popup opened. Presses inside a select nested in another popup bubble through the React tree to the parent.
+
+Local: the popup records the element focused when it opens and returns focus there after the focus manager's teardown, not inside it, because Svelte does not keep a derived recomputed during a teardown. The select joins the parent popup's floating tree, so a parent popover treats the select's popup as its child.
+
+### Open method and alignment
+
+Upstream: the positioner keeps `alignItemWithTrigger` in state and resets it to the prop only while unmounted.
+
+Local: the interaction that opened the popup is kept until the popup unmounts, so a touch-opened popup keeps regular anchoring while it animates out. A fallback to regular anchoring lasts until the popup mounts or unmounts again, and a change of the `alignItemWithTrigger` prop applies at once.
+
+### Not covered
+
+`describeConformance` and the popup conformance suites (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions), the Strict Mode, `React.startTransition`, `ReactDOM.createPortal` and render-count cases, and the requestAnimationFrame-mocked touch reopen case have no Svelte counterpart. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Upstream's jsdom-only keyboard, quick-selection and style-hook item cases run in Chromium with real timers.
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -337,3 +385,4 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |
 | Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
+| Select             | `inputRef`, `ReactNode` labels and placeholder                                                         |
