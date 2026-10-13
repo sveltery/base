@@ -406,6 +406,40 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The menubar and context-menu positioner cases have no public components here. The filter, `Menu.List` and lazy flipping cases wait on the filter parts. The shadow-root focus-guard case depends on React portal ownership.
 
+## Toast
+
+Source: `packages/react/src/toast` at Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`). The React fixture runs `@base-ui/react@1.9.0`. Portal, positioning, button behavior, `mergeProps`, and the state attribute helpers are the landed shared code. The store's auto-dismiss timers are plain `Timeout`s that `Toast.Provider` clears when it is destroyed. A toast added during a server render schedules no timer, since the provider's cleanup never runs there.
+
+### Toast object, manager, and provider
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/toast/useToastManager.ts`, `createToastManager.ts`, `store.ts`, and `provider/ToastProvider.tsx`.
+
+| Upstream                                                                                                                        | Local                                                                                                                                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useToastManager()` returns `{ toasts, add, close, update, promise }`                                                           | `getToastManager()` (also `Toast.getToastManager`) returns the same methods and a `toasts` getter. Call it during component init. Read `manager.toasts`. Destructuring `toasts` stops it updating. The return type is `GetToastManagerReturnValue` |
+| `title`, `description`, and `actionProps.children` are `React.ReactNode`                                                        | `string \| Snippet`. A snippet renders with `{@render}`. `''` and `undefined` render nothing                                                                                                                                                       |
+| `ref` on the toast object                                                                                                       | `element`, the root element. `Toast.Root` writes it. Focus management reads it                                                                                                                                                                     |
+| `actionProps` is `React.ComponentPropsWithoutRef<'button'>`                                                                     | `HTMLButtonAttributes` with `children: string \| Snippet`                                                                                                                                                                                          |
+| `positionerProps` is `ToastPositioner.Props` without `anchor` and `toast`. Only the positioning options take effect             | `ToastManagerPositionerProps` holds only those options and `anchor`                                                                                                                                                                                |
+| `createToastManager()` exposes the provider subscription as the string key `' subscribe'`                                       | A module symbol that only `Toast.Provider` imports. `ToastManagerEvent` is a union discriminated by `action`                                                                                                                                       |
+| The store keeps `timeout` and `limit` in state, and a layout effect syncs them from the provider props and recomputes `limited` | The store reads `timeout` and `limit` from the provider props through a getter, and `toasts` derives each toast's `limited` flag from the current limit. A changed prop is current before any descendant effect runs                               |
+| The promise handoff probes the options for `setPromise`                                                                         | The store returns the handled promise. The provider passes it to the manager's `setPromise`                                                                                                                                                        |
+| The provider handles a manager `update` with an empty id as an `add`, so it adds a toast built from that event's options        | The store ignores an update for an id it does not hold, so an empty id changes nothing                                                                                                                                                             |
+| The `*DataAttributes` and `*CssVars` exports are module namespaces                                                              | Constant objects with the same names and keys, such as `ToastRootDataAttributes.swipeDirection`                                                                                                                                                    |
+
+### Parts
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/toast/**`.
+
+- `Toast.Viewport` listens for `focusin` and `focusout`, which bubble only through the DOM. React's `onFocus` and `onBlur` also bubble through portals. When focus moves into content portaled out of a toast, the viewport sees only the `focusout`, so the timers resume. Upstream's `onFocus` then pauses them again when the focus is visible.
+- `Toast.Title` and `Toast.Description` inside a `render` snippet register their id with the root, for `aria-labelledby` and `aria-describedby`, only when the snippet spreads the host props onto an element. The registration is an attachment in those props. Upstream registers the id whenever the part renders.
+- `Toast.Title`, `Toast.Description`, and `Toast.Action` render nothing unless they have children or the toast field has content. Upstream also inspects a `render` element's own children. A `render` snippet cannot be inspected, so its own text does not count. Pass that text as children instead.
+- `Toast.Portal` is the shared `FloatingPortal`, which renders focus guards only for a focus manager, so it behaves like upstream's `FloatingPortalLite`. It has no `keepMounted`, as upstream.
+- `Toast.Root` reads the drag start transform, including scale, with a toast-local `getElementTransform`. The shared helper returns translation only.
+- `class` and `style` take no function of state, as in every other component.
+
+Test: `src/lib/toast/store.svelte.spec.ts`, `src/lib/toast/toast-ssr.spec.ts`, `src/lib/toast/manager.svelte.spec.ts`, `src/lib/toast/manager-types.spec.ts`, `src/lib/toast/Toast.svelte.spec.ts`, `src/lib/toast/ToastRoot.svelte.spec.ts`, and `src/lib/toast/parts.svelte.spec.ts`. `src/lib/toast/Toast.svelte.spec.ts` (`keeps timers paused on mouseleave while the window is blurred`, `collapses a deferred mouseleave after a closing toast is removed while blurred`, `syncs a changed limit before descendant effects`). `src/lib/toast/manager.svelte.spec.ts` (`recomputes limited toasts when the limit prop changes`). `src/lib/toast/parts.svelte.spec.ts` (`renders content passed through the render snippet`, `does not render a childless render snippet when there is no content`).
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -446,6 +480,7 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                         |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
 | Menu               | Filter parts, Menubar and ContextMenu components, `actionsRef`, refs                                   |
+| Toast              | refs, `className` and `style` callbacks                                                                |
 
 ## Shared floating internals
 
