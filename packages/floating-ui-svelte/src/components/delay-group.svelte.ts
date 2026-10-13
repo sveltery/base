@@ -118,26 +118,29 @@ export class DelayGroupMember {
 
 		$effect(() => {
 			if (!this.props().open) return;
-			const previous = group.currentMember;
-			const previousId = group.currentId;
+			// Closing the previous member reads its store. Only `open` may re-run this effect.
+			untrack(() => {
+				const previous = group.currentMember;
+				const previousId = group.currentId;
 
-			// The pending reset would put the delay back while this element is open.
-			group.timeout.clear();
-			group.currentMember = {
-				onOpenChange: (next, details) => store.setOpen(next, details),
-				setInstantPhase: (value) => (this.isInstantPhase = value)
-			};
-			group.currentId = id;
-			group.delay = { open: 0, close: getDelay(group.initialDelay, 'close') };
+				// The pending reset would put the delay back while this element is open.
+				group.timeout.clear();
+				group.currentMember = {
+					onOpenChange: (next, details) => store.setOpen(next, details),
+					setInstantPhase: (value) => (this.isInstantPhase = value)
+				};
+				group.currentId = id;
+				group.delay = { open: 0, close: getDelay(group.initialDelay, 'close') };
 
-			if (previousId !== null && previousId !== id) {
-				this.isInstantPhase = true;
-				previous?.setInstantPhase(true);
-				previous?.onOpenChange(false, createChangeEventDetails(REASONS.none));
-			} else {
-				this.isInstantPhase = false;
-				previous?.setInstantPhase(false);
-			}
+				if (previousId !== null && previousId !== id) {
+					this.isInstantPhase = true;
+					previous?.setInstantPhase(true);
+					previous?.onOpenChange(false, createChangeEventDetails(REASONS.none));
+				} else {
+					this.isInstantPhase = false;
+					previous?.setInstantPhase(false);
+				}
+			});
 		});
 
 		$effect(() => () => {

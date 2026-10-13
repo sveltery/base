@@ -257,12 +257,7 @@ export class TooltipStore extends PopupStore<TooltipChangeReason> {
 		eventDetails:
 			TooltipChangeEventDetails | Parameters<PopupStore<TooltipChangeReason>['setOpen']>[1]
 	) {
-		// A delay group closes the previous tooltip from inside an effect. Reading this store there
-		// would subscribe that effect to it.
-		untrack(() => this.applyOpen(nextOpen, eventDetails as TooltipChangeEventDetails));
-	}
-
-	private applyOpen(nextOpen: boolean, details: TooltipChangeEventDetails) {
+		const details = eventDetails as TooltipChangeEventDetails;
 		const reason = details.reason;
 		const wasOpen = this.open;
 		const previousElement = this.domReferenceElement;
