@@ -53,8 +53,7 @@
 		separator = false,
 		itemStyle,
 		before,
-		after,
-		select = $bindable()
+		after
 	}: {
 		value?: unknown;
 		open?: boolean;
@@ -82,10 +81,19 @@
 		itemStyle?: string;
 		before?: Snippet;
 		after?: Snippet;
-		select?: { close(): void; unmount(): void };
 	} = $props();
 
 	const textOf = (item: HarnessItem) => item.text ?? String(item.value);
+
+	let select = $state<{ close(): void; unmount(): void }>();
+
+	export function close() {
+		select?.close();
+	}
+
+	export function unmount() {
+		select?.unmount();
+	}
 </script>
 
 {#snippet item(entry: HarnessItem)}

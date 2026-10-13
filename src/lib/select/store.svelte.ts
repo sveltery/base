@@ -120,6 +120,19 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 			const trigger = this.triggerElement;
 			if (this.domReferenceElement !== trigger) this.domReferenceElement = trigger;
 		});
+
+		// A reopen from the binding cancels a pending `preventUnmountOnClose`.
+		$effect.pre(() => {
+			if (this.open && untrack(() => this.preventUnmountingOnClose)) {
+				this.preventUnmountingOnClose = false;
+			}
+		});
+
+		$effect.pre(() => {
+			const { value, multiple, isItemEqualToValue } = this.root;
+			const next = findSelectionIndex(this.values, value, isItemEqualToValue, multiple);
+			if (!this.open) this.selectedIndex = next;
+		});
 	}
 
 	protected override preventUnmountTiming(): 'immediate' | 'deferred' {
@@ -163,14 +176,11 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 	}
 
 	/**
-	 * The first selected item. While open it follows registered items only: a value change from
-	 * a click in `multiple` mode must not move the highlight to the first selected item.
+	 * The selected item the popup aligns with and the list starts from. While closed it is the
+	 * first selected item. While open only items that mount or change move it, so a click in
+	 * `multiple` mode does not move it.
 	 */
-	readonly selectedIndex = $derived.by(() => {
-		const { multiple, isItemEqualToValue } = this.root;
-		const value = this.open ? untrack(() => this.value) : this.value;
-		return findSelectionIndex(this.values, value, isItemEqualToValue, multiple);
-	});
+	selectedIndex = $state<number | null>(null);
 
 	readonly hasSelectedValue = $derived.by(() => {
 		const { value, multiple, itemToStringValue } = this.root;

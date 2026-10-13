@@ -280,8 +280,11 @@
 	/** Browser autofill writes a scalar into the hidden input. */
 	function handleAutofill(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (dispatchingValueEvent()) return;
-		if (event.defaultPrevented || disabled || readOnly) return;
 		const input = event.currentTarget;
+		if (event.defaultPrevented || disabled || readOnly) {
+			input.value = multiple ? '' : serialize(current);
+			return;
+		}
 		const nextValue = input.value;
 		const details = createChangeEventDetails(REASONS.none, event);
 

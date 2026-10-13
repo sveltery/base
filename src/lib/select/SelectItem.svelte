@@ -4,11 +4,16 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { createChangeEventDetails } from '@sveltery/utils';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
-	import { removeItem } from '../internal/listbox/itemEquality.js';
+	import {
+		compareItemEquality,
+		removeItem,
+		resolveSelectedIndex
+	} from '../internal/listbox/itemEquality.js';
 	import { isVirtualClick } from '../internal/listbox/virtualClick.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -37,6 +42,33 @@
 	const highlighted = $derived(index !== -1 && store.activeIndex === index);
 	const selected = $derived(store.isSelected(itemValue));
 	const selectedByFocus = $derived(index !== -1 && store.selectedIndex === index);
+
+	// Upstream claims the selected index from each item as it mounts or changes.
+	$effect.pre(() => {
+		const itemIndex = index;
+		const value = itemValue;
+		const { multiple, isItemEqualToValue } = store.root;
+		if (itemIndex === -1) return;
+		untrack(() => {
+			const selectedValue = store.value;
+			const current = store.selectedIndex;
+			if (multiple && Array.isArray(selectedValue)) {
+				store.selectedIndex = resolveSelectedIndex(
+					itemIndex,
+					value,
+					store.values,
+					selectedValue,
+					isItemEqualToValue,
+					current
+				);
+			} else if (
+				selectedValue !== undefined &&
+				compareItemEquality(value, selectedValue, isItemEqualToValue)
+			) {
+				store.selectedIndex = itemIndex;
+			}
+		});
+	});
 
 	const button = new ButtonBehavior(() => ({
 		disabled,
