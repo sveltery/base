@@ -13,7 +13,7 @@ import NavigationMenuTrigger from './NavigationMenuTrigger.svelte';
 import NavigationMenuViewport from './NavigationMenuViewport.svelte';
 
 export const NavigationMenu = {
-	Root: NavigationMenuRoot,
+	Root: NavigationMenuRoot as typeof NavigationMenuRoot,
 	List: NavigationMenuList,
 	Item: NavigationMenuItem,
 	Trigger: NavigationMenuTrigger,
