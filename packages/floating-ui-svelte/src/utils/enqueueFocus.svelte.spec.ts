@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { enqueueFocus } from './enqueueFocus.js';
+import { enqueueFocus as enqueueListFocus } from './focusTarget.js';
 
 function button() {
 	const element = document.createElement('button');
@@ -65,5 +66,27 @@ describe('enqueueFocus', () => {
 		await frame();
 		await frame();
 		expect(document.activeElement).toBe(document.body);
+	});
+
+	it('shares one slot between list navigation and the focus manager', async () => {
+		const manager = button();
+		const item = button();
+		const queuedItem = button();
+		const focused: string[] = [];
+		manager.addEventListener('focus', () => focused.push('manager'));
+		item.addEventListener('focus', () => focused.push('item'));
+		queuedItem.addEventListener('focus', () => focused.push('queued item'));
+
+		enqueueFocus(manager);
+		enqueueListFocus(item, { sync: true });
+		await frame();
+		await frame();
+		expect(focused).toEqual(['item']);
+
+		enqueueListFocus(queuedItem);
+		enqueueFocus(manager, { sync: true });
+		await frame();
+		await frame();
+		expect(focused).toEqual(['item', 'manager']);
 	});
 });
