@@ -98,6 +98,7 @@
 		const css = [
 			dimensionStyle(motion.renderedHeight, motion.renderedWidth),
 			style ?? undefined,
+			motion.skipStyle,
 			motion.shouldPreventOpenAnimation ? 'animation-name:none' : undefined
 		].reduce<string | undefined>((base, part) => mergeCssStyle(base, part), undefined);
 		if (css !== undefined) props.style = css;

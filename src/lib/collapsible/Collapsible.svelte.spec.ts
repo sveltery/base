@@ -541,6 +541,129 @@ describe('Collapsible', () => {
 		});
 	});
 
+	describe('interrupted beforematch opens', () => {
+		const SLOW_TRANSITION_CSS = `
+			.transition-test-panel {
+				overflow: hidden;
+				height: var(--collapsible-panel-height);
+				transition-property: height;
+				transition-duration: 999ms;
+				transition-timing-function: linear;
+			}
+			.transition-test-panel[data-starting-style],
+			.transition-test-panel[data-ending-style] {
+				height: 0;
+			}
+		`;
+
+		it('keeps the temporary zero animation duration until the panel closes', async () => {
+			render(CollapsibleHarness, {
+				hiddenUntilFound: true,
+				keepMounted: true,
+				panelClass: 'animation-test-panel',
+				css: `
+					@keyframes panel-slide-down {
+						from { height: 0; }
+						to { height: var(--collapsible-panel-height); }
+					}
+					@keyframes panel-slide-up {
+						from { height: var(--collapsible-panel-height); }
+						to { height: 0; }
+					}
+					.animation-test-panel {
+						overflow: hidden;
+						animation-duration: 123ms;
+					}
+					.animation-test-panel[data-open] {
+						animation-name: panel-slide-down;
+					}
+					.animation-test-panel[data-closed] {
+						animation-name: panel-slide-up;
+					}
+				`
+			});
+			const panel = page.getByTestId('panel');
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			panel.element().dispatchEvent(new Event('beforematch', { bubbles: true }));
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			await frames(2);
+
+			expect(getComputedStyle(panel.element()).animationDuration).toBe('0s');
+
+			await trigger.click();
+			await expect
+				.poll(() => ({
+					closed: panel.element().hasAttribute('data-closed'),
+					animations: panel.element().getAnimations().length
+				}))
+				.toEqual({ closed: true, animations: 1 });
+			expect(getComputedStyle(panel.element()).animationDuration).toBe('0.123s');
+		});
+
+		it('restores the transition duration before the first close after a beforematch open', async () => {
+			render(CollapsibleHarness, {
+				hiddenUntilFound: true,
+				keepMounted: true,
+				panelClass: 'transition-test-panel',
+				panelStyle: 'transition-duration: 123ms',
+				css: SLOW_TRANSITION_CSS
+			});
+			const panel = page.getByTestId('panel');
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			panel.element().dispatchEvent(new Event('beforematch', { bubbles: true }));
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			await frames(2);
+
+			expect(getComputedStyle(panel.element()).transitionDuration).toBe('0s');
+
+			await trigger.click();
+			await expect
+				.poll(() => ({
+					endingStyle: panel.element().hasAttribute('data-ending-style'),
+					transitionDuration: panel.element().style.transitionDuration,
+					animations: panel.element().getAnimations().length
+				}))
+				.toEqual({ endingStyle: true, transitionDuration: '123ms', animations: 1 });
+		});
+
+		it('does not suppress a later animated open after a no-motion beforematch open', async () => {
+			const view = render(CollapsibleHarness, {
+				hiddenUntilFound: true,
+				keepMounted: true,
+				css: `
+					.transition-test-panel {
+						overflow: hidden;
+						height: var(--collapsible-panel-height);
+						transition: height 100ms linear;
+					}
+					.transition-test-panel[data-starting-style],
+					.transition-test-panel[data-ending-style] {
+						height: 0;
+					}
+				`
+			});
+			const panel = page.getByTestId('panel');
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			panel.element().dispatchEvent(new Event('beforematch', { bubbles: true }));
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			await trigger.click();
+			await expect.element(panel).toHaveAttribute('data-closed', '');
+
+			await view.rerender({
+				panelClass: 'transition-test-panel',
+				panelStyle: 'transition-duration: 123ms'
+			});
+			(trigger.element() as HTMLButtonElement).click();
+			await tick();
+
+			expect(panel.element()).toHaveAttribute('data-open', '');
+			expect(panel.element().style.transitionDuration).toBe('123ms');
+		});
+	});
+
 	describe('context', () => {
 		it('throws when Trigger is rendered outside Collapsible.Root', async () => {
 			await expect(async () => {

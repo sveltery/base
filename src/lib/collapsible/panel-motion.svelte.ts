@@ -32,7 +32,8 @@ export class CollapsiblePanelMotion {
 
 	private lastMeasured: Dimensions = EMPTY_DIMENSIONS;
 	private skipNextOpen = false;
-	private pendingRestore: (() => void) | null = null;
+	/** Zeroes the open motion after a beforematch reveal, until the panel closes. */
+	private skipDuration = $state<'transition-duration' | 'animation-duration' | null>(null);
 	private layoutRestore: (() => void) | null = null;
 	private readonly root: CollapsibleRoot;
 
@@ -47,19 +48,13 @@ export class CollapsiblePanelMotion {
 		});
 
 		$effect(() => {
-			return () => this.restorePending();
-		});
-
-		$effect(() => {
 			const panel = this.panel;
 			const open = this.root.open;
 			const mounted = this.root.mounted;
 			const transitionStatus = this.root.transitionStatus;
 			if (!panel) return;
 
-			// A beforematch open can leave a 0s duration. Restore it before detecting
-			// the close, or that close is misread as no motion.
-			if (!open && this.pendingRestore) this.restorePending();
+			if (!open) this.skipDuration = null;
 
 			const shouldPrevent = open && this.suppressMountAnimation;
 			const animationType = getAnimationType(panel, shouldPrevent);
@@ -101,8 +96,7 @@ export class CollapsiblePanelMotion {
 						this.layoutRestore = resetLayoutStyles(panelEl);
 					});
 					if (skip) {
-						const restoreDuration = setTemporaryStyle(panel, 'transition-duration', '0s');
-						this.setPendingRestore(restoreDuration);
+						this.skipDuration = 'transition-duration';
 						this.forcePanelIdle = true;
 					}
 					return () => {
@@ -117,9 +111,8 @@ export class CollapsiblePanelMotion {
 					restoreName();
 					return;
 				}
-				const restoreDuration = setTemporaryStyle(panel, 'animation-duration', '0s');
+				this.skipDuration = 'animation-duration';
 				restoreName();
-				this.setPendingRestore(restoreDuration);
 				this.forcePanelIdle = true;
 				return;
 			}
@@ -206,6 +199,11 @@ export class CollapsiblePanelMotion {
 		return this.forcePanelIdle ? 'idle' : this.root.transitionStatus;
 	}
 
+	/** Read only while open, so the close is detected with the author's real duration. */
+	get skipStyle(): string | undefined {
+		return this.root.open && this.skipDuration ? `${this.skipDuration}:0s` : undefined;
+	}
+
 	get shouldPreventOpenAnimation(): boolean {
 		return this.root.open && this.suppressMountAnimation;
 	}
@@ -242,18 +240,5 @@ export class CollapsiblePanelMotion {
 		if (cache) this.lastMeasured = { height: next.height, width: next.width };
 		this.height = next.height;
 		this.width = next.width;
-	}
-
-	private restorePending() {
-		this.pendingRestore?.();
-		this.pendingRestore = null;
-	}
-
-	private setPendingRestore(restore: () => void) {
-		this.restorePending();
-		this.pendingRestore = () => {
-			this.pendingRestore = null;
-			restore();
-		};
 	}
 }
