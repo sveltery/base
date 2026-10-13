@@ -7,7 +7,9 @@
 		| 'toggle-trigger'
 		| 'remove-outside-chip'
 		| 'div-chip-remove'
-		| 'chips-popup-input';
+		| 'chips-popup-input'
+		| 'clear-outside-popup-input'
+		| 'popup-clear';
 
 	let {
 		scenario,
@@ -81,6 +83,38 @@
 							{/snippet}
 						</Combobox.Collection>
 					</Combobox.List>
+				</Combobox.Popup>
+			</Combobox.Positioner>
+		</Combobox.Portal>
+	</Combobox.Root>
+{:else if scenario === 'clear-outside-popup-input'}
+	<Combobox.Root items={['a', 'b']} defaultValue="a" {...root}>
+		<Combobox.Trigger><Combobox.Value /></Combobox.Trigger>
+		<Combobox.Clear data-testid="clear" />
+		<Combobox.Portal>
+			<Combobox.Positioner>
+				<Combobox.Popup>
+					<Combobox.Input data-testid="input" />
+					<Combobox.List>
+						<Combobox.Collection>
+							{#snippet children(item: string)}
+								<Combobox.Item value={item}>{item}</Combobox.Item>
+							{/snippet}
+						</Combobox.Collection>
+					</Combobox.List>
+				</Combobox.Popup>
+			</Combobox.Positioner>
+		</Combobox.Portal>
+	</Combobox.Root>
+{:else if scenario === 'popup-clear'}
+	<Combobox.Root defaultValue="a" {...root}>
+		<Combobox.Trigger data-testid="trigger"><Combobox.Value placeholder="None" /></Combobox.Trigger>
+		<Combobox.Portal>
+			<Combobox.Positioner data-testid="positioner">
+				<Combobox.Popup>
+					<Combobox.Input data-testid="input" />
+					<Combobox.Clear keepMounted data-testid="clear" />
+					<Combobox.List><Combobox.Item value="a">a</Combobox.Item></Combobox.List>
 				</Combobox.Popup>
 			</Combobox.Positioner>
 		</Combobox.Portal>
