@@ -36,6 +36,12 @@
 	export function useFloatingPortal() {
 		return hasPortal() ? getPortal() : null;
 	}
+
+	function insideClosedShadowRoot(node: Node) {
+		for (let root = node.getRootNode(); root instanceof ShadowRoot; root = root.host.getRootNode())
+			if (root.mode === 'closed') return true;
+		return false;
+	}
 </script>
 
 <script lang="ts">
@@ -196,12 +202,11 @@
 		const target = container ?? parent?.node ?? document.body;
 		target.append(node);
 		// Svelte handles `onclick` and other delegated events at the app root and the document.
-		// Neither sees into a closed shadow root that the app root is outside of.
-		const root = node.getRootNode();
-		const delegation =
-			root instanceof ShadowRoot && root.mode === 'closed'
-				? mountRoot(DelegationRoot, { target: node })
-				: null;
+		// Neither sees into a closed shadow root that the app root is outside of, nor into any
+		// shadow root nested inside one.
+		const delegation = insideClosedShadowRoot(node)
+			? mountRoot(DelegationRoot, { target: node })
+			: null;
 		portalNode = node;
 		store.portalElement = node;
 		const restore = carriedFocus;

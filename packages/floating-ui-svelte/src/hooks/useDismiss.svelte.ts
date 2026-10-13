@@ -124,8 +124,18 @@ export class DismissInteraction {
 			// Upstream marks presses through React's tree. A document listener sees only the
 			// host of a closed shadow root, so the floating element reports its own presses.
 			const markers = floating
-				? (['pointerdown', 'mousedown', 'mouseup', 'click', 'touchmove', 'touchend'] as const).map(
-						(type) => on(floating, type, this.#markInsideTree, { capture: true, passive: true })
+				? (
+						[
+							'pointerdown',
+							'mousedown',
+							'mouseup',
+							'click',
+							'touchstart',
+							'touchmove',
+							'touchend'
+						] as const
+					).map((type) =>
+						on(floating, type, this.#markInsideTree, { capture: true, passive: true })
 					)
 				: [];
 			const cleanups = [
@@ -168,7 +178,7 @@ export class DismissInteraction {
 						// A plain tap closes here. A finger still down after 1000ms does not.
 						if (this.#lastPointerType !== 'touch') return;
 						if (this.#touchState && !this.#touchState.dismissOnMouseDown) return;
-						this.#closeOnOutside(event);
+						onTargetOnce(event, () => this.#closeOnOutside(event));
 					},
 					{ capture: true }
 				),
@@ -179,25 +189,27 @@ export class DismissInteraction {
 						// Upstream records the pointer on touchstart capture (`DismissInteraction.ts` 574–576).
 						this.#lastPointerType = 'touch';
 						this.#cancelDismissOnEndTimeout.clear();
-						if (
-							this.#pressMode(event) !== 'sloppy' ||
-							!this.store.isOpen() ||
-							!this.#options().enabled
-						)
-							return;
-						if (this.#insideDismissTree(event)) return;
-						const touch = event.touches[0];
-						if (!touch) return;
-						this.#touchState = {
-							startX: touch.clientX,
-							startY: touch.clientY,
-							dismissOnTouchEnd: false,
-							dismissOnMouseDown: true
-						};
-						this.#cancelDismissOnEndTimeout.start(1000, () => {
-							if (!this.#touchState) return;
-							this.#touchState.dismissOnTouchEnd = false;
-							this.#touchState.dismissOnMouseDown = false;
+						onTargetOnce(event, () => {
+							if (
+								this.#pressMode(event) !== 'sloppy' ||
+								!this.store.isOpen() ||
+								!this.#options().enabled ||
+								this.#insideDismissTree(event)
+							)
+								return;
+							const touch = event.touches[0];
+							if (!touch) return;
+							this.#touchState = {
+								startX: touch.clientX,
+								startY: touch.clientY,
+								dismissOnTouchEnd: false,
+								dismissOnMouseDown: true
+							};
+							this.#cancelDismissOnEndTimeout.start(1000, () => {
+								if (!this.#touchState) return;
+								this.#touchState.dismissOnTouchEnd = false;
+								this.#touchState.dismissOnMouseDown = false;
+							});
 						});
 					},
 					{ capture: true, passive: true }
@@ -205,44 +217,37 @@ export class DismissInteraction {
 				on(
 					doc,
 					'touchmove',
-					(event) => {
-						if (
-							this.#pressMode(event) !== 'sloppy' ||
-							!this.#touchState ||
-							this.#insideDismissTree(event)
-						)
-							return;
-						const touch = event.touches[0];
-						if (!touch) return;
-						const deltaX = touch.clientX - this.#touchState.startX;
-						const deltaY = touch.clientY - this.#touchState.startY;
-						const distance = Math.hypot(deltaX, deltaY);
-						if (distance > 5) this.#touchState.dismissOnTouchEnd = true;
-						if (distance > 10) {
-							this.#closeOnOutside(event);
-							this.#cancelDismissOnEndTimeout.clear();
-							this.#touchState = null;
-						}
-					},
+					(event) =>
+						onTargetOnce(event, () => {
+							if (
+								this.#pressMode(event) !== 'sloppy' ||
+								!this.#touchState ||
+								this.#insideDismissTree(event)
+							)
+								return;
+							const touch = event.touches[0];
+							if (!touch) return;
+							const deltaX = touch.clientX - this.#touchState.startX;
+							const deltaY = touch.clientY - this.#touchState.startY;
+							const distance = Math.hypot(deltaX, deltaY);
+							if (distance > 5) this.#touchState.dismissOnTouchEnd = true;
+							if (distance > 10) {
+								this.#closeOnOutside(event);
+								this.#cancelDismissOnEndTimeout.clear();
+								this.#touchState = null;
+							}
+						}),
 					{ capture: true, passive: true }
 				),
 				on(
 					doc,
 					'touchend',
-					(event) => {
-						if (
-							this.#pressMode(event) !== 'sloppy' ||
-							!this.#touchState ||
-							this.#insideDismissTree(event)
-						) {
+					(event) =>
+						onTargetOnce(event, () => {
+							if (this.#touchState?.dismissOnTouchEnd) this.#closeOnOutside(event);
 							this.#cancelDismissOnEndTimeout.clear();
 							this.#touchState = null;
-							return;
-						}
-						if (this.#touchState.dismissOnTouchEnd) this.#closeOnOutside(event);
-						this.#cancelDismissOnEndTimeout.clear();
-						this.#touchState = null;
-					},
+						}),
 					{ capture: true, passive: true }
 				),
 				on(
@@ -284,6 +289,7 @@ export class DismissInteraction {
 				this.#compositionTimeout.clear();
 				this.#cancelDismissOnEndTimeout.clear();
 				this.#touchState = null;
+				this.#insideEvent = null;
 			};
 		});
 	}

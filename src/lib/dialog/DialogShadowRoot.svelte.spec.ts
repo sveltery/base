@@ -8,6 +8,8 @@ import DialogShadowRootHarness from '../../tests/DialogShadowRootHarness.svelte'
 describe('closed shadow root', () => {
 	let host: HTMLElement;
 	let shadowRoot: ShadowRoot;
+	/** An open shadow root whose host sits inside the closed one. */
+	let innerRoot: ShadowRoot;
 	let container: HTMLElement;
 	let mounted: Record<string, unknown> | undefined;
 
@@ -15,6 +17,9 @@ describe('closed shadow root', () => {
 		host = document.body.appendChild(document.createElement('div'));
 		shadowRoot = host.attachShadow({ mode: 'closed' });
 		container = shadowRoot.appendChild(document.createElement('div'));
+		innerRoot = shadowRoot
+			.appendChild(document.createElement('div'))
+			.attachShadow({ mode: 'open' });
 	});
 
 	afterEach(async () => {
@@ -33,6 +38,7 @@ describe('closed shadow root', () => {
 		const selector = `[data-testid="${testId}"]`;
 		return (
 			shadowRoot.querySelector<HTMLElement>(selector) ??
+			innerRoot.querySelector<HTMLElement>(selector) ??
 			document.querySelector<HTMLElement>(selector)
 		);
 	}
@@ -49,10 +55,11 @@ describe('closed shadow root', () => {
 		await Promise.resolve();
 	}
 
-	type PortalContainer = 'shadow root' | 'body' | undefined;
+	type PortalContainer = 'shadow root' | 'open root inside' | 'body' | undefined;
 
 	function resolveContainer(target: PortalContainer) {
 		if (target === 'shadow root') return shadowRoot;
+		if (target === 'open root inside') return innerRoot;
 		if (target === 'body') return document.body;
 		return undefined;
 	}
@@ -62,6 +69,7 @@ describe('closed shadow root', () => {
 		{ outer: 'shadow root', nested: undefined },
 		{ outer: 'shadow root', nested: 'shadow root' },
 		{ outer: 'shadow root', nested: 'body' },
+		{ outer: 'open root inside', nested: undefined },
 		{ outer: undefined, nested: undefined },
 		{ outer: undefined, nested: 'shadow root' }
 	];
@@ -135,5 +143,56 @@ describe('closed shadow root', () => {
 		await new Promise((resolve) => setTimeout(resolve, 50));
 		expect(find('outer')).not.toBeNull();
 		expect(onOpenChange).not.toHaveBeenCalled();
+	});
+
+	describe('touch inside the popup', () => {
+		const init = { bubbles: true, composed: true, button: 0 };
+
+		function touchEvent(type: string, target: HTMLElement, clientY: number) {
+			const point = new Touch({ identifier: 1, target, clientX: 10, clientY });
+			const touches = type === 'touchend' ? [] : [point];
+			return new TouchEvent(type, {
+				bubbles: true,
+				composed: true,
+				touches,
+				changedTouches: [point]
+			});
+		}
+
+		it('stays open on a tap', async () => {
+			const onOpenChange = vi.fn();
+			render({ outerContainer: shadowRoot, onOpenChange });
+			const popup = await query('outer');
+
+			popup.dispatchEvent(touchEvent('touchstart', popup, 10));
+			popup.dispatchEvent(new PointerEvent('pointerdown', { ...init, pointerType: 'touch' }));
+			popup.dispatchEvent(new PointerEvent('pointerup', { ...init, pointerType: 'touch' }));
+			popup.dispatchEvent(touchEvent('touchend', popup, 10));
+			popup.dispatchEvent(new MouseEvent('mousedown', init));
+			popup.dispatchEvent(new MouseEvent('mouseup', init));
+			popup.dispatchEvent(new MouseEvent('click', { ...init, detail: 1 }));
+			flushSync();
+
+			await new Promise((resolve) => setTimeout(resolve, 50));
+			expect(find('outer')).not.toBeNull();
+			expect(onOpenChange).not.toHaveBeenCalled();
+		});
+
+		it('stays open when the finger scrolls more than 10px', async () => {
+			const onOpenChange = vi.fn();
+			render({ outerContainer: shadowRoot, onOpenChange });
+			const popup = await query('outer');
+
+			popup.dispatchEvent(touchEvent('touchstart', popup, 10));
+			popup.dispatchEvent(new PointerEvent('pointerdown', { ...init, pointerType: 'touch' }));
+			popup.dispatchEvent(touchEvent('touchmove', popup, 40));
+			popup.dispatchEvent(new PointerEvent('pointercancel', { ...init, pointerType: 'touch' }));
+			popup.dispatchEvent(touchEvent('touchend', popup, 40));
+			flushSync();
+
+			await new Promise((resolve) => setTimeout(resolve, 50));
+			expect(find('outer')).not.toBeNull();
+			expect(onOpenChange).not.toHaveBeenCalled();
+		});
 	});
 });
