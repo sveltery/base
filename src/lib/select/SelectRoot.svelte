@@ -37,7 +37,7 @@
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { dispatchingValueEvent, queueValueEvent } from '../internal/value-events.js';
 	import { setSelectRoot } from './context.svelte.js';
-	import { queueSelectEvents, sameStrings } from './native-select.js';
+	import { queueSelectEvents, sameStrings } from '../internal/listbox/native-select.js';
 	import { SelectStore } from './store.svelte.js';
 	import type { SelectChangeEventDetails, SelectRootProps, SelectValueOf } from './types.js';
 
