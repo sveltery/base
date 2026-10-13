@@ -4,6 +4,10 @@ import { createRoot } from 'react-dom/client';
 import { PreviewCard } from '@base-ui/react/preview-card';
 import type { PreviewCardCase } from './cases.js';
 
+function partProps(props: object) {
+	return props as never;
+}
+
 type Call = { open: boolean; reason: string; canceled: boolean };
 
 export function mountPreviewCardReference(
@@ -46,7 +50,7 @@ export function mountPreviewCardReference(
 				h(
 					PreviewCard.Positioner,
 					{ sideOffset: 8 },
-					h(PreviewCard.Popup, { 'data-testid': 'popup' }, `Content ${payload ?? ''}`)
+					h(PreviewCard.Popup, partProps({ 'data-testid': 'popup' }), `Content ${payload ?? ''}`)
 				)
 			);
 		}
@@ -58,37 +62,33 @@ export function mountPreviewCardReference(
 			return h(PreviewCard.Trigger, { href: '#', delay, closeDelay, ...props }, text);
 		}
 
+		type Render = (state: { payload: string | undefined }) => unknown;
+		function root(props: object, render: Render) {
+			return h(PreviewCard.Root, partProps({ ...props, children: render }));
+		}
+
 		let body;
 		if (scenario === 'detached') {
 			body = h(
 				Fragment,
 				null,
 				trigger({ id: 'trigger', handle }, 'Link'),
-				h(PreviewCard.Root, { handle, onOpenChange: onOpen }, ({ payload }) =>
-					popup(payload as string | undefined)
-				)
+				root({ handle, onOpenChange: onOpen }, ({ payload }) => popup(payload))
 			);
 		} else if (scenario === 'payload') {
-			body = h(PreviewCard.Root, { onOpenChange: onOpen }, ({ payload }) =>
+			body = root({ onOpenChange: onOpen }, ({ payload }) =>
 				h(
 					Fragment,
 					null,
 					trigger({ id: 'first', payload: 'one' }, 'First'),
 					trigger({ id: 'second', payload: 'two' }, 'Second'),
-					popup(payload as string | undefined)
+					popup(payload)
 				)
 			);
 		} else {
-			body = h(
-				PreviewCard.Root,
+			body = root(
 				bound ? { open: owner, onOpenChange: onOpen } : { onOpenChange: onOpen },
-				({ payload }) =>
-					h(
-						Fragment,
-						null,
-						trigger({ id: 'trigger' }, 'Link'),
-						popup(payload as string | undefined)
-					)
+				({ payload }) => h(Fragment, null, trigger({ id: 'trigger' }, 'Link'), popup(payload))
 			);
 		}
 
