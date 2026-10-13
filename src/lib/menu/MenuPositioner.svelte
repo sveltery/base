@@ -180,7 +180,10 @@
 		});
 	});
 
-	$effect(() => {
+	// Before the DOM update, so listeners such as a menubar see the change before a closing
+	// popup's focus manager returns focus. Upstream emits from a layout effect and returns focus
+	// a microtask later.
+	$effect.pre(() => {
 		const details: MenuOpenEventDetails = {
 			open: store.open,
 			nodeId: store.nodeId,
