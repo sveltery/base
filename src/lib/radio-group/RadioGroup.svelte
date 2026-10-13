@@ -16,15 +16,15 @@
 	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
-	import { useFieldContext } from '../field/context.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
 	import { BoundControl } from '../field/bound-control.svelte.js';
-	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
-	import { useFormContext } from '../form/context.js';
+	import { useFormContext } from '../internal/form-context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
-	import { serializeValue } from '../radio/serialize-value.js';
+	import { serializeValue } from '../internal/serializeValue.js';
 	import type { RadioRootChangeEventDetails } from '../radio/types.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
 

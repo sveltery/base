@@ -35,11 +35,13 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/field/FieldError.svelte` from `packages/react/src/field/error/FieldError.tsx`
 - `src/lib/field/FieldItem.svelte` from `packages/react/src/field/item/FieldItem.tsx`
 - `src/lib/field/FieldValidity.svelte` from `packages/react/src/field/validity/FieldValidity.tsx`
-- `src/lib/field/labelable.svelte.ts` from `packages/react/src/internals/labelable-provider/LabelableProvider.tsx`, `useLabelableId.ts` and `useAriaLabelledBy.ts`
+- `src/lib/internal/labelable-provider.svelte.ts` from `packages/react/src/internals/labelable-provider/LabelableProvider.tsx`, `useLabelableId.ts` and `useAriaLabelledBy.ts`
 - `src/lib/field/choice-controls.svelte.spec.ts` assertions from the Field cases of `packages/react/src/checkbox/root/CheckboxRoot.test.tsx`, `switch/root/SwitchRoot.test.tsx`, `radio-group/RadioGroup.test.tsx` and `checkbox-group/CheckboxGroup.test.tsx`
 - `src/lib/field/validity.ts` from `packages/react/src/field/utils/getCombinedFieldValidityData.ts` and `isEligibleInput` in `useFieldValidation.ts`
 - `src/lib/field/attributes.ts` from `packages/react/src/internals/field-constants/constants.ts` and `packages/react/src/internals/stateAttributesMapping.ts`
-- `src/lib/field/context.svelte.ts` from `packages/react/src/internals/field-root-context/FieldRootContext.ts` and `packages/react/src/field/item/FieldItemContext.ts`
+- `src/lib/internal/field-constants.ts` from `packages/react/src/internals/field-constants/constants.ts`
+- `src/lib/internal/field-root-context.ts` from `packages/react/src/internals/field-root-context/FieldRootContext.ts`
+- `src/lib/field/item-context.ts` from `packages/react/src/field/item/FieldItemContext.ts`
 - `src/lib/field/Field.svelte.spec.ts` assertions from `packages/react/src/field/**/*.test.tsx` that do not require Checkbox, Radio, or NumberField
 - `src/lib/input/Input.svelte` from `packages/react/src/input/Input.tsx` (delegates to `Field.Control`)
 - `src/lib/input/Input.svelte.spec.ts` assertions from `packages/react/src/input/Input.test.tsx` and the textarea host in `packages/react/src/input/Input.spec.tsx`
@@ -87,7 +89,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/progress/Progress.svelte.spec.ts` assertions from `packages/react/src/progress/**/*.test.tsx`
 - `src/lib/progress/compute.spec.ts` assertions from the value math in `packages/react/src/progress/root/ProgressRoot.test.tsx`
 - `src/lib/form/Form.svelte` from `packages/react/src/form/Form.tsx`
-- `src/lib/form/context.ts` from `packages/react/src/internals/form-context/FormContext.ts`
+- `src/lib/internal/form-context.ts` from `packages/react/src/internals/form-context/FormContext.ts`
 - `src/lib/form/document-order.ts` from `comesBeforeInSameTree` in `packages/react/src/form/Form.tsx`
 - `src/lib/form/Form.svelte.spec.ts` assertions from `packages/react/src/form/Form.test.tsx` that Form can observe without Field
 - `packages/utils/src/event-details.ts` also includes `createGenericEventDetails` from `packages/react/src/internals/createBaseUIEventDetails.ts`
@@ -101,7 +103,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/checkbox/CheckboxIndicator.svelte` from `packages/react/src/checkbox/indicator/CheckboxIndicator.tsx`
 - `src/lib/internal/animations-finished.ts` from `packages/react/src/internals/useAnimationsFinished.ts` (checkbox, radio, tabs, field error, and collapsible)
 - `src/lib/internal/composite-skip.ts` from the skip rule in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (Tabs and Toolbar; RadioGroup keeps its own `aria-disabled` skip)
-- `src/lib/checkbox/submitter.ts` from `packages/utils/src/getDefaultFormSubmitter.ts`
+- `src/lib/internal/getDefaultFormSubmitter.ts` from `packages/utils/src/getDefaultFormSubmitter.ts`
 - `src/lib/checkbox/context.ts` from `packages/react/src/checkbox/root/CheckboxRootContext.ts`
 - `src/lib/checkbox/attributes.ts` from `packages/react/src/checkbox/utils/getCheckboxStateAttributesMapping.ts` (Field validity attributes omitted)
 - `src/lib/checkbox/Checkbox.svelte.spec.ts` assertions from `packages/react/src/checkbox/root/CheckboxRoot.test.tsx` and `packages/react/src/checkbox/indicator/CheckboxIndicator.test.tsx` that do not require Field or CheckboxGroup
@@ -117,7 +119,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/radio-group/RadioGroup.svelte` from `packages/react/src/radio-group/RadioGroup.tsx`
 - `src/lib/radio-group/RadioGroup.svelte.spec.ts` assertions from `packages/react/src/radio-group/RadioGroup.test.tsx` that do not require Field or `inputRef`
 - `src/lib/radio/attributes.ts` from `packages/react/src/radio/utils/stateAttributesMapping.ts` (Field validity attributes omitted)
-- `src/lib/radio/serialize-value.ts` from `packages/react/src/internals/serializeValue.ts`
+- `src/lib/internal/serializeValue.ts` from `packages/react/src/internals/serializeValue.ts`
 - `src/lib/radio/Radio.svelte.spec.ts` assertions from `packages/react/src/radio/root/RadioRoot.test.tsx` and `packages/react/src/radio/indicator/RadioIndicator.test.tsx` that do not require Field or RadioGroup
 - `packages/utils/src/event-details.ts` also exports `REASONS.disabled`, `REASONS.missing`, and `REASONS.initial` from `packages/react/src/internals/reason-parts.ts`
 - `src/lib/tabs/TabsRoot.svelte` from `packages/react/src/tabs/root/TabsRoot.tsx`
@@ -143,7 +145,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/number-field/NumberFieldStepper.svelte`, `NumberFieldIncrement.svelte`, and `NumberFieldDecrement.svelte` from `packages/react/src/number-field/root/useNumberFieldStepperButton.ts`, `packages/react/src/number-field/increment/NumberFieldIncrement.tsx`, and `packages/react/src/number-field/decrement/NumberFieldDecrement.tsx`
 - `src/lib/number-field/NumberFieldScrubArea.svelte` from `packages/react/src/number-field/scrub-area/NumberFieldScrubArea.tsx`
 - `src/lib/number-field/NumberFieldScrubAreaCursor.svelte` from `packages/react/src/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.tsx`
-- `src/lib/number-field/press-and-hold.svelte.ts` from `packages/react/src/internals/usePressAndHold.ts`
+- `src/lib/internal/usePressAndHold.svelte.ts` from `packages/react/src/internals/usePressAndHold.ts`
 - `src/lib/number-field/parse.ts` and `validate.ts` from `packages/react/src/number-field/utils/parse.ts` and `validate.ts`
 - `src/lib/number-field/viewport.ts` from `packages/react/src/number-field/utils/getViewportRect.ts`
 - `src/lib/number-field/NumberField.svelte.spec.ts` assertions from `packages/react/src/number-field/**/*.test.tsx` that do not require React refs or `className` callbacks
@@ -167,6 +169,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/slider/SliderTrack.svelte` from `packages/react/src/slider/track/SliderTrack.tsx`
 - `src/lib/slider/SliderIndicator.svelte` and `src/lib/slider/indicator-style.ts` from `packages/react/src/slider/indicator/SliderIndicator.tsx`
 - `src/lib/slider/SliderThumb.svelte` and `src/lib/slider/prehydration.ts` from `packages/react/src/slider/thumb/SliderThumb.tsx` and `prehydrationScript.min.ts`
+- `src/lib/internal/PrehydrationScript.ts` from `packages/react/src/internals/PrehydrationScript.tsx`
 - `src/lib/slider/SliderLabel.svelte` from `packages/react/src/slider/label/SliderLabel.tsx` and the non-native path of `packages/react/src/internals/labelable-provider/useLabel.ts`
 - `src/lib/slider/SliderValue.svelte` from `packages/react/src/slider/value/SliderValue.tsx`
 - `src/lib/slider/asc.ts`, `roundValueToStep.ts`, `getSliderValue.ts`, `validateMinimumDistance.ts`, `getMidpoint.ts`, `getPushedThumbValues.ts`, and `resolveThumbCollision.ts` from the matching files in `packages/react/src/slider/utils`
@@ -247,7 +250,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/dialog/DialogClose.svelte` and `src/lib/dialog/DialogAction.svelte` from `packages/react/src/dialog/close/DialogClose.tsx` and `packages/react/src/dialog/trigger/DialogTrigger.tsx`
 - `src/lib/dialog/DialogViewport.svelte` from `packages/react/src/dialog/viewport/DialogViewport.tsx`
 - `src/lib/dialog/store.svelte.ts` from `packages/react/src/dialog/store/DialogStore.ts` (extends the landed `PopupStore`)
-- `src/lib/internal/popups/popupHandle.svelte.ts` from `packages/react/src/utils/popups/popupHandle.ts` and `src/lib/dialog/handle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` (`openWithPayload` stays on `Dialog.Handle`; payload is stored on the registered trigger)
+- `src/lib/internal/popups/popupHandle.svelte.ts` from `packages/react/src/utils/popups/popupHandle.ts` and `src/lib/dialog/handle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` (`openWithPayload` stays on `Dialog.Handle`)
 - `src/lib/dialog/context.svelte.ts` from `packages/react/src/dialog/root/DialogRootContext.ts` and `packages/react/src/dialog/portal/DialogPortalContext.ts`
 - `src/lib/dialog/attributes.ts` from `packages/react/src/dialog/utils/stateAttributesMapping.ts` and the dialog `*DataAttributes.ts` files
 - `src/lib/dialog/Dialog.svelte.spec.ts` assertions from `packages/react/src/dialog/**/*.test.tsx` that do not require Alert Dialog, Drawer, Menu, or Select
@@ -264,15 +267,28 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/preview-card/constants.ts` and `context.svelte.ts` from `packages/react/src/preview-card/utils/constants.ts` and the preview card root, portal, and positioner context modules
 - `src/lib/preview-card/inline-rect.spec.ts` assertions from `packages/react/src/utils/popups/inlineRect.test.ts`
 - `src/lib/preview-card/PreviewCard*.svelte.spec.ts` assertions from `packages/react/src/preview-card/**/*.test.tsx`, `packages/react/test/popupConformanceTests.tsx`, `detachedTriggersConformanceTests.tsx`, `positionerConformanceTests.tsx` and `viewportConformanceTests.tsx`
-- `src/lib/internal/popups/triggerOwnedStore.svelte.ts`, the trigger ownership Tooltip and PreviewCard share, from `useImplicitActiveTrigger`, `useTriggerDataForwarding` and `createPopupOpenState` in `packages/react/src/utils/popups/popupStoreUtils.ts` of that commit
+- `src/lib/internal/popups/triggerOwnedStore.svelte.ts`, the trigger ownership Tooltip and PreviewCard share, from `useImplicitActiveTrigger` and `useTriggerDataForwarding` in `packages/react/src/utils/popups/popupStoreUtils.ts` of that commit
 
 Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 
-- `src/lib/dialog/root.svelte.ts` from `packages/react/src/dialog/root/useRenderDialogRoot.tsx` and `useDialogRoot.ts` (the setup Dialog and Alert Dialog roots share; its nested-dialog count is the v1.8.0 logic)
+- `src/lib/dialog/root.svelte.ts` from `packages/react/src/dialog/root/useRenderDialogRoot.tsx` and `useDialogRoot.ts` (the setup Dialog and Alert Dialog roots share, including the nested-dialog count)
 - `src/lib/alert-dialog/AlertDialogRoot.svelte` from `packages/react/src/alert-dialog/root/AlertDialogRoot.tsx`
 - `src/lib/alert-dialog/handle.svelte.ts` from `packages/react/src/alert-dialog/handle.ts`
 - `src/lib/alert-dialog/types.ts` and `src/lib/alert-dialog/index.ts` from `packages/react/src/alert-dialog/index.ts`, `index.parts.ts`, `root/AlertDialogRoot.tsx`, and `trigger/AlertDialogTrigger.tsx` (the other parts are the Dialog components)
 - `src/lib/alert-dialog/AlertDialog.svelte.spec.ts` assertions from `packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx`, the handle-type checks in `AlertDialogRoot.spec.tsx`, `packages/react/test/popupConformanceTests.tsx`, `packages/react/test/dialogRootSharedTests.tsx`, and `packages/react/test/detachedTriggersConformanceTests.tsx`
+- `src/lib/alert-dialog/AlertDialogTrigger.svelte` from `packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx` (renders `Dialog.Trigger`)
+- `src/tests/PayloadTypes.svelte` type checks from `packages/react/src/dialog/root/DialogRoot.spec.tsx`, `packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx`, and `packages/react/src/popover/root/PopoverRoot.spec.tsx`
+- `src/lib/dialog/DialogTrigger.svelte` payload forwarding from `packages/react/src/utils/popups/popupStoreUtils.ts` (`useTriggerDataForwarding` and `useImplicitActiveTrigger`: the trigger that owns the mounted popup, or the only trigger of a popup not opened deliberately without one, supplies the payload)
+- `openedWithoutTrigger` in `src/lib/internal/popups/popupStoreUtils.ts` `createPopupOpenState` and `src/lib/internal/popups/store.svelte.ts` from `packages/react/src/utils/popups/popupStoreUtils.ts` and `store.ts`
+- `src/lib/dialog/Dialog.svelte.spec.ts` programmatic payload cases from `packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx`, and the `openedWithoutTrigger` cases in `src/lib/internal/popups/popupStoreUtils.spec.ts` from `packages/react/src/utils/popups/popupStoreUtils.test.tsx`
+- `src/lib/dialog/store.svelte.ts` `onNestedDialogOpen` from `packages/react/src/dialog/root/useDialogRoot.ts` (a closed, unmounted root ignores nested counts)
+- `packages/floating-ui-svelte/src/hooks/useListNavigation.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useListNavigation.ts` as `ListNavigation` (no `grid` option)
+- `packages/floating-ui-svelte/src/utils/listIndex.ts` from the list helpers in `packages/react/src/floating-ui-react/utils/composite.ts`
+- `packages/floating-ui-svelte/src/utils/listOrientation.ts` from the orientation-key helpers in `packages/react/src/floating-ui-react/hooks/useListNavigation.ts`
+- `packages/floating-ui-svelte/src/utils/focusTarget.ts` from `getFloatingFocusElement` and `isTypeableCombobox` in `packages/react/src/floating-ui-react/utils/element.ts` and from `packages/react/src/floating-ui-react/utils/enqueueFocus.ts`
+- `src/tests/list-navigation/useListNavigation.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useListNavigation.test.tsx` that do not require grid navigation, with harnesses from `packages/react/test/floating-ui-tests/ListboxFocus.tsx` and `Menu.tsx`
+- `packages/floating-ui-svelte/src/hooks/useTypeahead.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useTypeahead.ts` as `Typeahead`
+- `src/tests/list-navigation/useTypeahead.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useTypeahead.test.tsx`
 
 MIT License
 

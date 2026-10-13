@@ -6,12 +6,16 @@
 -->
 <script lang="ts" generics="F extends FieldHandle = FieldHandle">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { useFormContext } from '../form/context.js';
+	import { useFormContext } from '../internal/form-context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
-	import { setFieldContext } from './context.svelte.js';
-	import { Labelable, setLabelableContext, findLabelableContext } from './labelable.svelte.js';
+	import { setFieldContext } from '../internal/field-root-context.js';
+	import {
+		Labelable,
+		setLabelableContext,
+		findLabelableContext
+	} from '../internal/labelable-provider.svelte.js';
 	import { FieldRootModel } from './model.svelte.js';
 	import type { FieldHandle } from '../form/source.js';
 	import type { FieldRootProps, FieldRootState } from './types.js';

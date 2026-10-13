@@ -10,10 +10,14 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { useFieldContext } from '../field/context.svelte.js';
-	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import {
+		AriaLabelledBy,
+		LabelableId,
+		findLabelableContext
+	} from '../internal/labelable-provider.svelte.js';
 	import { BoundControl } from '../field/bound-control.svelte.js';
-	import { useFormContext } from '../form/context.js';
+	import { useFormContext } from '../internal/form-context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { dispatchingValueEvent } from '../internal/value-events.js';

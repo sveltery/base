@@ -1,10 +1,13 @@
 // Derived from Base UI v1.8.0 packages/react/src/dialog/store/DialogStore.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). `onNestedDialogOpen` follows v1.9.0
+// packages/react/src/dialog/root/useDialogRoot.ts (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// MIT, see THIRD_PARTY_NOTICES.md.
 // Extends the landed PopupStore. Elements are held here, not in ref bags.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
 // Focus return is FloatingFocusManager after close. This store does not focus.
 // How the dialog opened is the inherited `PopupStore.openMethod`. `ClickInteraction` writes it.
 
+import { untrack } from 'svelte';
 import type { BaseUIChangeEventDetails } from '@sveltery/utils';
 import { PopupStore, type PopupChangeEventDetails } from '../internal/popups/store.svelte.js';
 import type { DialogChangeEventReason } from './types.js';
@@ -76,6 +79,9 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 	}
 
 	onNestedDialogOpen(dialogCount: number) {
+		// A closed root keeps listening, so a nested root that opens meanwhile is ignored and its
+		// count does not carry into the next open. Untracked: a nested root's effect calls this.
+		if (untrack(() => !this.open && !this.mounted)) return;
 		this.nestedOpenDialogCount = dialogCount;
 	}
 

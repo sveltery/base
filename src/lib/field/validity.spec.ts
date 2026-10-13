@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_VALIDITY_STATE } from './constants.js';
+import { DEFAULT_VALIDITY_STATE } from '../internal/field-constants.js';
 import { getCombinedFieldValidityData } from './validity.js';
 
 describe('getCombinedFieldValidityData', () => {

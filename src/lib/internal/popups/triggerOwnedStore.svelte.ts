@@ -1,6 +1,6 @@
 // Derived from Base UI v1.9.0 packages/react/src/utils/popups/popupStoreUtils.ts
 // (`useImplicitActiveTrigger` with `closeOnActiveTriggerUnmount`, `useTriggerDataForwarding`,
-// `createPopupOpenState`) and packages/react/src/internals/useUnmountAfterClose.ts
+// and the `openedWithoutTrigger` reads) and packages/react/src/internals/useUnmountAfterClose.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Trigger ownership for hover popups whose triggers each own values such as a payload.
 // Each trigger registers a reader, so the active trigger's values are read where they are
@@ -32,8 +32,6 @@ export abstract class TriggerOwnedPopupStore<
 	private claimedTriggerId: string | null = null;
 	/** Values of the owning trigger that unmounted. Kept until the popup finishes closing. */
 	private retained = $state.raw<{ id: string; owned: Owned } | null>(null);
-	/** A handle opened the popup with no trigger, so no lone trigger claims it. */
-	private openedWithoutTrigger = false;
 	/** The active id once it matched a registered trigger. Tells a lost trigger from a pending one. */
 	private resolvedTriggerId: string | null = null;
 	private destroyed = false;
@@ -156,8 +154,7 @@ export abstract class TriggerOwnedPopupStore<
 
 		const registered = this.triggers.idOf(this.domReferenceElement);
 		this.writeTriggerId(registered ?? (this.domReferenceElement?.id || null));
-		if (nextOpen) this.openedWithoutTrigger = eventDetails.trigger == null;
-		else this.claimedTriggerId = null;
+		if (!nextOpen) this.claimedTriggerId = null;
 
 		const nextElement = this.domReferenceElement;
 		if (wasOpen && nextOpen && previousElement && nextElement && previousElement !== nextElement) {
@@ -180,7 +177,6 @@ export abstract class TriggerOwnedPopupStore<
 	private reconcileActiveTrigger(open: boolean) {
 		if (!open) {
 			this.resolvedTriggerId = null;
-			this.openedWithoutTrigger = false;
 			return;
 		}
 

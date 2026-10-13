@@ -11,9 +11,10 @@
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
-	import { useFieldContext, useFieldItemContext } from './context.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { useFieldItemContext } from './item-context.js';
 	import { registerLabelId } from '../internal/register-label-id.svelte.js';
-	import { useLabelableContext } from './labelable.svelte.js';
+	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import type { FieldLabelProps, FieldLabelState } from './types.js';
 
 	const uid = $props.id();

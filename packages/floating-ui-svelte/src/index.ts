@@ -58,3 +58,22 @@ export {
 export { ClientPointInteraction, type UseClientPointProps } from './hooks/useClientPoint.svelte.js';
 export { getDelay } from './hooks/useHoverShared.js';
 export { isMouseLikePointerType } from './utils/event.js';
+export { ListNavigation, type UseListNavigationProps } from './hooks/useListNavigation.svelte.js';
+export {
+	findNonDisabledListIndex,
+	getMaxListIndex,
+	getMinListIndex,
+	getNextListIndex,
+	isIndexOutOfListBounds,
+	isListIndexDisabled,
+	type DisabledIndices,
+	type ListStepOptions
+} from './utils/listIndex.js';
+export {
+	isCrossOrientationCloseKey,
+	isCrossOrientationOpenKey,
+	isMainOrientationKey,
+	isMainOrientationToEndKey,
+	type ListOrientation
+} from './utils/listOrientation.js';
+export { Typeahead, type UseTypeaheadProps } from './hooks/useTypeahead.svelte.js';
