@@ -57,6 +57,12 @@ export interface FormField {
 	getValue: () => unknown;
 }
 
+/** The first invalid control in document order, and the field it belongs to. */
+export interface FormFocusInvalidDetail {
+	control: HTMLElement;
+	field: FormField;
+}
+
 /** Methods on the `Form` instance. Reach them with `bind:this`. */
 export interface FormActions {
 	/**
@@ -106,6 +112,14 @@ export interface FormProps<
 	 * instead, so use `enhance`.
 	 */
 	onFormSubmit?: (formValues: FormValues, eventDetails: FormSubmitEventDetails) => void;
+	/**
+	 * Called in place of focusing the first invalid control, after a blocked submit or once
+	 * errors or source issues arrive. Use it to reveal a control that is hidden, such as one on
+	 * an inactive step. Form waits for the returned promise and the next DOM update, then
+	 * focuses the control unless it is focused already. With `novalidate={false}`, the browser
+	 * handles a native constraint before Form sees the submit, so this is not called for it.
+	 */
+	onFocusInvalid?: (detail: FormFocusInvalidDetail) => void | Promise<void>;
 	/**
 	 * When true (the default), the browser's built-in constraint validation is off.
 	 * Registered fields still validate through the form. It is set once the form is

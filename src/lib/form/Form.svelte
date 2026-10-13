@@ -15,7 +15,7 @@
 	lang="ts"
 	generics="FormValues extends Record<string, unknown> = Record<string, unknown>, S extends FormSource = FormSource"
 >
-	import { untrack } from 'svelte';
+	import { tick, untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
 	import type { HTMLFormAttributes } from 'svelte/elements';
@@ -33,7 +33,13 @@
 		type EnhanceInstanceOf
 	} from './source.js';
 	import { onFormReset } from '../internal/form-reset.svelte.js';
-	import type { FormErrors, FormField, FormProps, FormState } from './types.js';
+	import type {
+		FormErrors,
+		FormField,
+		FormFocusInvalidDetail,
+		FormProps,
+		FormState
+	} from './types.js';
 
 	let {
 		form: source,
@@ -42,6 +48,7 @@
 		errors = $bindable(),
 		onsubmit,
 		onFormSubmit,
+		onFocusInvalid,
 		novalidate = true,
 		render,
 		children,
@@ -97,22 +104,31 @@
 	function focusFirst(invalid: (field: FormField) => boolean) {
 		// Registration order can diverge from DOM order. Disconnected trees keep registration order.
 		let hasInvalid = false;
-		let firstControl: HTMLElement | null = null;
+		let first: FormFocusInvalidDetail | null = null;
 		for (const field of fields.values()) {
 			if (!invalid(field)) continue;
 			hasInvalid = true;
 			const control = field.control;
-			if (control && (!firstControl || comesBeforeInSameTree(control, firstControl))) {
-				firstControl = control;
+			if (control && (!first || comesBeforeInSameTree(control, first.control))) {
+				first = { control, field };
 			}
 		}
-		if (firstControl) {
-			firstControl.focus();
-			if (firstControl.tagName === 'INPUT') {
-				(firstControl as HTMLInputElement).select();
-			}
-		}
+		if (first) void focusInvalid(first);
 		return hasInvalid;
+	}
+
+	async function focusInvalid(detail: FormFocusInvalidDetail) {
+		const { control } = detail;
+		if (onFocusInvalid) {
+			await untrack(() => onFocusInvalid(detail));
+			// A reveal that only sets state has not reached the DOM yet.
+			await tick();
+			if (control.matches(':focus')) return;
+		}
+		control.focus();
+		if (control.tagName === 'INPUT') {
+			(control as HTMLInputElement).select();
+		}
 	}
 
 	function focusFirstInvalid(formErrors: FormErrors) {
