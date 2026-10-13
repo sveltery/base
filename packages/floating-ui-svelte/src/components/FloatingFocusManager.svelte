@@ -21,8 +21,9 @@
 	} from '@sveltery/utils';
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
 	import { isElementVisible } from '../utils/composite.js';
-	import { CLICK_TRIGGER_IDENTIFIER, FOCUSABLE_ATTRIBUTE } from '../utils/constants.js';
+	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
+	import { getFloatingFocusElement } from '../utils/focusTarget.js';
 	import { markOthers } from '../utils/markOthers.js';
 	import {
 		getNextTabbableInDocument,
@@ -244,8 +245,6 @@
 		// a close: the portal may be moving to another container. A `flushSync` here
 		// commits a viewport switch before its pre-effect can copy the previous pane,
 		// and it drops the close-completion effect so the popup never unmounts.
-		// `closeReason` is set in `noteClose` before `open` flips when a flush runs
-		// mid-`setOpen`, so this still lands inside the caller's `flushSync`.
 		const closed = closeReason !== '' || !store.isOpen();
 		if (closed) {
 			apply();
@@ -320,7 +319,8 @@
 		const first = tabbables(floating).find(
 			(node): node is HTMLElement => node instanceof HTMLElement
 		);
-		return first ?? floating;
+		// A positioner wrapper hands focus to the popup inside it, as upstream.
+		return first ?? getFloatingFocusElement(floating) ?? floating;
 	}
 
 	function takeInitial(floating: HTMLElement): HTMLElement | false {
@@ -333,12 +333,6 @@
 	function hasOpenChild() {
 		if (!tree || !store.nodeId) return false;
 		return getNodeChildren(tree.nodes, store.nodeId).length > 0;
-	}
-
-	function floatingFocusElement(element: HTMLElement | null | undefined): HTMLElement | null {
-		if (!element) return null;
-		if (element.hasAttribute(FOCUSABLE_ATTRIBUTE)) return element;
-		return element.querySelector(`[${FOCUSABLE_ATTRIBUTE}]`) ?? element;
 	}
 
 	function triggersContain(target: Node) {
@@ -376,7 +370,7 @@
 				const ancestorFloating = node.context?.floatingElement ?? null;
 				return (
 					related === ancestorFloating ||
-					related === floatingFocusElement(ancestorFloating) ||
+					related === getFloatingFocusElement(ancestorFloating) ||
 					related === node.context?.domReferenceElement
 				);
 			});
@@ -449,7 +443,7 @@
 		hasOpenedBefore = true;
 		if (initialTarget === false) return;
 		const cancelFocus = enqueueFocus(initialTarget, {
-			preventScroll: initialTarget === floating,
+			preventScroll: initialTarget === getFloatingFocusElement(floating),
 			shouldFocus: () =>
 				store.isOpen() && !contains(floating, activeElement(doc)) && !skipForOpenChild
 		});
@@ -593,7 +587,9 @@
 			restoreFrame.cancel();
 			stopOpenChange();
 			const endedBy = closeType;
-			restoreReturnFocus(endedBy);
+			// A teardown reads the values from before this update, so `returnFocus` and the
+			// open state are read once it has finished.
+			queueMicrotask(() => restoreReturnFocus(endedBy));
 		};
 	});
 </script>

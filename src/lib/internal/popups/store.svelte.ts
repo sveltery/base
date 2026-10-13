@@ -57,6 +57,15 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 			if (!this.open) this.openedWithoutTrigger = false;
 		});
 
+		// Any open starts a new close cycle, also one through `bind:open` that skips `setOpen`.
+		// Upstream `useUnmountAfterClose` clears the flag when `open` changes only, so an opt-out
+		// recorded on a canceled close while open stays.
+		$effect.pre(() => {
+			if (this.open && untrack(() => this.preventUnmountingOnClose)) {
+				this.preventUnmountingOnClose = false;
+			}
+		});
+
 		useOpenChangeComplete(() => ({
 			enabled: this.mounted && !this.open && !this.preventUnmountingOnClose,
 			open: this.open,

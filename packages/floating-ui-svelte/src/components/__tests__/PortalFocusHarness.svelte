@@ -5,8 +5,16 @@
 	import FloatingPortal from '../FloatingPortal.svelte';
 	import { TestStore } from '../../hooks/__tests__/TestStore.svelte.js';
 
-	let { modal = false, portalOwnerRole }: { modal?: boolean; portalOwnerRole?: AriaRole } =
-		$props();
+	let {
+		modal = false,
+		portalOwnerRole,
+		wrapped = false
+	}: {
+		modal?: boolean;
+		portalOwnerRole?: AriaRole;
+		/** The floating element is a positioner around a focusable popup with no tabbable content. */
+		wrapped?: boolean;
+	} = $props();
 
 	export const store = new TestStore();
 	let reference = $state<HTMLButtonElement | null>(null);
@@ -20,7 +28,11 @@
 		);
 	}
 
-	export function hide() {
+	let returnFocus = $state<true | HTMLElement>(true);
+
+	/** Closes the popup. `returnTo` replaces the return focus target in the same update. */
+	export function hide(returnTo?: HTMLElement) {
+		if (returnTo) returnFocus = returnTo;
 		store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
 		store.openMethod = null;
 	}
@@ -33,9 +45,13 @@
 <button data-testid="after">after</button>
 <FloatingPortal {store} {portalOwnerRole}>
 	{#if store.open}
-		<FloatingFocusManager {store} {modal}>
+		<FloatingFocusManager {store} {modal} {returnFocus}>
 			<div data-testid="floating" {@attach store.registerFloating}>
-				<button data-testid="inside">inside</button>
+				{#if wrapped}
+					<div data-testid="popup" tabindex="-1" data-base-ui-focusable>popup</div>
+				{:else}
+					<button data-testid="inside">inside</button>
+				{/if}
 			</div>
 		</FloatingFocusManager>
 	{/if}

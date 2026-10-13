@@ -41,6 +41,26 @@ describe('FloatingFocusManager', () => {
 			flushSync(() => component.hide());
 			await expect.poll(focusedTestId).toBe('reference');
 		});
+
+		it('returns focus to a target set in the same update as the close', async () => {
+			const { component } = render(PortalFocusHarness);
+			flushSync(() => component.show('mouse'));
+			await expect.poll(focusedTestId).toBe('inside');
+
+			flushSync(() => component.hide(page.getByTestId('after').element() as HTMLElement));
+
+			await expect.poll(focusedTestId).toBe('after');
+		});
+	});
+
+	describe('initial focus', () => {
+		it('focuses the popup inside a positioner when nothing inside is tabbable', async () => {
+			const { component } = render(PortalFocusHarness, { wrapped: true });
+
+			flushSync(() => component.show('mouse'));
+
+			await expect.poll(focusedTestId).toBe('popup');
+		});
 	});
 
 	describe('non-modal portaled popup', () => {

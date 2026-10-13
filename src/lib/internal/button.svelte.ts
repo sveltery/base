@@ -75,15 +75,21 @@ export class ButtonBehavior {
 	props<T extends object>(external: T): WithButtonBehavior<T> {
 		const { onclick, onmousedown, onpointerdown, onkeydown, onkeyup, ...rest } = external as T &
 			ButtonHandlers;
-		const { disabled, native, focusableWhenDisabled = false, composite = false } = this.options();
+		const { disabled, native, focusableWhenDisabled, composite = false } = this.options();
+		// Upstream `useFocusableWhenDisabled`: a composite item that leaves the option unset is
+		// focusable when disabled for `aria-disabled`, and still gets native `disabled`.
+		const focusableComposite = composite && focusableWhenDisabled !== false;
+		const nonFocusableComposite = composite && focusableWhenDisabled === false;
 
 		return {
 			...(native ? { type: 'button' as const } : { role: 'button' as const }),
 			...(composite ? {} : { tabindex: !native && disabled && !focusableWhenDisabled ? -1 : 0 }),
-			...((native && focusableWhenDisabled) || (!native && disabled)
+			...((native && (focusableWhenDisabled || focusableComposite)) || (!native && disabled)
 				? { 'aria-disabled': disabled }
 				: {}),
-			...(native && !focusableWhenDisabled && disabled ? { disabled: true as const } : {}),
+			...(native && (!focusableWhenDisabled || nonFocusableComposite) && disabled
+				? { disabled: true as const }
+				: {}),
 			...(DEV ? { [this.#checkKey]: this.#checkHost } : {}),
 			...rest,
 			onclick: (event: MouseEvent) => {

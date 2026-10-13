@@ -148,14 +148,14 @@ Local: Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`) fixes this, a
 
 Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`nested dialog count (Base UI v1.9.0)`).
 
-| Upstream                                                             | Local                                                                                               |
-| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                            |
-| `actionsRef`                                                         | `bind:this` on `Dialog.Root` (`close` and `unmount`)                                                |
-| `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                        |
-| `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                                      |
-| React `useButton`                                                    | existing `Button`                                                                                   |
-| `useDismiss` outside press, including separate mouse and touch modes | the same modes on `DismissInteraction`. A press is inside the floating element, not the portal host |
+| Upstream                                                             | Local                                                                                                           |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                                        |
+| `actionsRef`                                                         | `bind:this` on `Dialog.Root` (`close` and `unmount`)                                                            |
+| `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                                    |
+| `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                                                  |
+| React `useButton`                                                    | existing `Button`                                                                                               |
+| `useDismiss` outside press, including separate mouse and touch modes | the same modes on `DismissInteraction`. Inside presses: [Shared floating internals](#shared-floating-internals) |
 
 Not ported: ref objects. Mouse and touch use separate outside-press modes on `DismissInteraction`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s, touchend does not close, and a mousedown while the finger is still down does not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
 
@@ -360,3 +360,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui
 Local: nested popups share one floating tree, and the DOM has no React tree. `DismissInteraction` counts a press inside a tree child's portal, which holds that child's internal backdrop, as inside the parent. `FloatingFocusManager` treats focus that leaves a portaled popup without an outside press as staying inside, as upstream's `markInsideReactTree` does.
 
 Test: `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts`, `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` and `src/lib/internal/overlay-audit.svelte.spec.ts` (`closes only the inner modal popover on an outside touch tap`).
+
+`setFloatingTree({ fresh: true })` starts a new tree instead of joining the enclosing one, as upstream `<FloatingTree>` does. The nested root still records the enclosing node as its parent, as upstream's node context does.
+
+Test: `packages/floating-ui-svelte/src/components/FloatingTree.svelte.spec.ts` (`starts a fresh tree instead of joining the enclosing one`).
