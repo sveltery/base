@@ -1,11 +1,13 @@
 // Trigger ownership rules of Base UI v1.9.0 packages/react/src/utils/popups/popupStoreUtils.ts
 // (`useImplicitActiveTrigger`, `useTriggerDataForwarding`, `createPopupOpenState`),
-// and packages/react/src/internals/useUnmountAfterClose.ts
+// packages/react/src/internals/useUnmountAfterClose.ts, and the handle-first store choice of
+// packages/react/src/tooltip/trigger/TooltipTrigger.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { tick } from 'svelte';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import TooltipHandleInRootHarness from '../../tests/TooltipHandleInRootHarness.svelte';
 import TooltipOwnershipHarness from '../../tests/TooltipOwnershipHarness.svelte';
 import { parkPointer } from '../../tests/pointer.js';
 import { byTestId, hoverWithMouse } from '../../tests/tooltip-events.js';
@@ -125,5 +127,17 @@ describe('Tooltip.Root opened through a handle without a trigger', () => {
 		await view.rerender({ open: true });
 		await expect.poll(popupText).toBe('Payload: from trigger');
 		expect(trigger().hasAttribute('data-popup-open')).toBe(true);
+	});
+});
+
+describe('Tooltip.Trigger with a handle inside another Tooltip.Root', () => {
+	it('opens the handle tooltip, not the enclosing root', async () => {
+		render(TooltipHandleInRootHarness);
+		const inner = byTestId('inner-trigger');
+		if (!inner) throw new Error('inner trigger missing');
+		hoverWithMouse(inner);
+		await expect.element(page.getByText('Inner content')).toBeVisible();
+		expect(page.getByText('Outer content').query()).toBeNull();
+		expect(inner.hasAttribute('data-popup-open')).toBe(true);
 	});
 });

@@ -12,7 +12,6 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { TOOLTIP_TRIGGER_IDENTIFIER } from './constants.js';
 	import { findTooltipRoot } from './context.svelte.js';
-	import type { TooltipHandle } from './handle.svelte.js';
 	import { TooltipStore } from './store.svelte.js';
 	import type { TooltipTriggerArmed } from './trigger-armed.js';
 	import TooltipTriggerInteractions from './TooltipTriggerInteractions.svelte';
@@ -45,7 +44,7 @@
 	let triggerEl = $state<HTMLElement | null>(null);
 	let armed = $state.raw<TooltipTriggerArmed | null>(null);
 
-	const live = $derived(root ?? (handle as TooltipHandle | undefined)?.attached ?? null);
+	const live = $derived(handle ? handle.attached : (root ?? null));
 	const disabled = $derived(disabledProp ?? live?.disabled ?? false);
 
 	function owned() {
