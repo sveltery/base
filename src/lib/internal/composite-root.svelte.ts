@@ -1,7 +1,10 @@
 // Keyboard roving for ToggleGroup, Toolbar, RadioGroup, and Tabs, from the linear
 // path of Base UI v1.8.0 packages/react/src/internals/composite/root/useCompositeRoot.ts
 // and packages/react/src/internals/composite/item/useCompositeItem.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). Render claims follow Base UI v1.9.0
+// packages/react/src/internals/composite/list/useCompositeListItem.ts and CompositeList.tsx
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099): each item keeps the index it guessed,
+// and unregistering drops only that item's entry. MIT, see THIRD_PARTY_NOTICES.md.
 //
 // One list. Constructor getters supply orientation, looping, direction, and
 // which items are disabled or selected. Items register with an attachment.
@@ -59,8 +62,9 @@ export interface CompositeRegistration {
 export type CompositeItemProps = HTMLAttributes<HTMLElement> &
 	Record<symbol, Attachment<HTMLElement>>;
 
-interface RenderClaim {
-	index: number;
+/** One item's render-order slot. Indexes repeat after an item leaves, so the item holds the object. */
+export interface RenderClaim {
+	readonly index: number;
 	disabled: boolean;
 }
 
@@ -93,14 +97,21 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 		});
 	}
 
-	/** Render-order slot for SSR, before the node is registered. */
-	claim() {
-		const index = super.claim();
-		this.claims.push({ index, disabled: false });
-		return index;
+	/**
+	 * Render-order slot for SSR, before the node is registered. `disabled` lets a later
+	 * item's guess skip this one before this one renders.
+	 */
+	claim(disabled = false): RenderClaim {
+		const claim = { index: this.claimIndex(), disabled };
+		this.claims.push(claim);
+		return claim;
 	}
 
-	override register(node: HTMLElement, read: () => CompositeRegistration = () => ({})) {
+	override register(
+		node: HTMLElement,
+		read: () => CompositeRegistration = () => ({}),
+		claim?: RenderClaim
+	) {
 		const unregister = super.register(node, read);
 		untrack(() => {
 			this.observe(this.measure());
@@ -110,6 +121,7 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 				const index = this.elements.indexOf(node);
 				const removedStop = this.stop === node;
 				unregister();
+				this.claims = this.claims.filter((item) => item !== claim);
 				if (removedStop) {
 					this.stop = null;
 					if (index !== -1) this.stopIndex = index;
@@ -138,13 +150,12 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 	 * Before registration, a disabled item is never the stop. An explicit selection
 	 * wins. Otherwise the first enabled item in render order is the stop.
 	 */
-	tabIndex(node: HTMLElement | null, renderIndex: number, meta: CompositeMeta = {}): 0 | -1 {
-		const claim = this.claims.find((item) => item.index === renderIndex);
-		if (claim) claim.disabled = Boolean(meta.disabled);
+	tabIndex(node: HTMLElement | null, claim: RenderClaim, meta: CompositeMeta = {}): 0 | -1 {
+		claim.disabled = Boolean(meta.disabled);
 		if (node && this.elements.includes(node)) return node === this.stop ? 0 : -1;
 		if (meta.disabled) return -1;
 		if (meta.hasSelection) return meta.selected ? 0 : -1;
-		const earlier = this.claims.some((item) => item.index < renderIndex && !item.disabled);
+		const earlier = this.claims.some((item) => item.index < claim.index && !item.disabled);
 		return earlier ? -1 : 0;
 	}
 
@@ -157,11 +168,11 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 		node: HTMLElement | null,
 		register: Attachment<HTMLElement>,
 		handlers: CompositeHandlers,
-		renderIndex: number,
+		claim: RenderClaim,
 		meta: CompositeMeta = {}
 	): CompositeItemProps {
 		const props: CompositeItemProps = {
-			tabindex: this.tabIndex(node, renderIndex, meta),
+			tabindex: this.tabIndex(node, claim, meta),
 			onfocus: (event) => {
 				handlers.onfocus?.(event);
 				if (event.currentTarget instanceof HTMLElement) this.highlight(event.currentTarget);

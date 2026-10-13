@@ -39,7 +39,7 @@
 	const model = useOTPFieldContext();
 	const reading = useDirection();
 	let el = $state<HTMLInputElement | null>(null);
-	const renderIndex = model.slots.claim();
+	const renderIndex = model.slots.claimIndex();
 
 	const index = $derived.by(() => {
 		if (!el) return renderIndex;

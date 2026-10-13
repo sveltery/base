@@ -3,6 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // RadioGroup sets this context. A test harness can set it without roving focus.
 import type { RadioRootChangeEventDetails } from './types.js';
+import type { RenderClaim } from '../internal/composite-root.svelte.js';
 import type { Labelable } from '../internal/labelable-provider.svelte.js';
 import { defineOptionalContext } from '../internal/context.js';
 
@@ -13,12 +14,16 @@ import { defineOptionalContext } from '../internal/context.js';
  * nothing selected, the first rendered radio is the stop until registration.
  */
 export interface RadioGroupRovingFocus {
-	claim(): number;
-	register(element: HTMLElement, read?: () => { value?: unknown; disabled?: boolean }): () => void;
+	claim(disabled?: boolean): RenderClaim;
+	register(
+		element: HTMLElement,
+		read?: () => { value?: unknown; disabled?: boolean },
+		claim?: RenderClaim
+	): () => void;
 	highlight(element: HTMLElement): void;
 	tabIndex(
 		node: HTMLElement | null,
-		renderIndex: number,
+		claim: RenderClaim,
 		meta: { disabled?: boolean; selected?: boolean; hasSelection?: boolean }
 	): 0 | -1;
 }

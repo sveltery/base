@@ -276,6 +276,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/tests/list-navigation/useListNavigation.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useListNavigation.test.tsx` that do not require grid navigation, with harnesses from `packages/react/test/floating-ui-tests/ListboxFocus.tsx` and `Menu.tsx`
 - `packages/floating-ui-svelte/src/hooks/useTypeahead.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useTypeahead.ts` as `Typeahead`
 - `src/tests/list-navigation/useTypeahead.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useTypeahead.test.tsx`
+- `src/lib/internal/composite-root.svelte.ts` render claims from `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (each item keeps the index it guessed, and `unregister` drops only that item's entry)
 
 MIT License
 
