@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Combobox } from '#lib';
+	import { Combobox, Field } from '#lib';
 
 	type Scenario =
 		| 'textarea-reference'
@@ -9,7 +9,8 @@
 		| 'div-chip-remove'
 		| 'chips-popup-input'
 		| 'clear-outside-popup-input'
-		| 'popup-clear';
+		| 'popup-clear'
+		| 'field-disabled-chips';
 
 	let {
 		scenario,
@@ -119,4 +120,23 @@
 			</Combobox.Positioner>
 		</Combobox.Portal>
 	</Combobox.Root>
+{:else if scenario === 'field-disabled-chips'}
+	<Field.Root disabled>
+		<Combobox.Root items={['apple', 'banana']} multiple defaultValue={['apple']} {...root}>
+			<Combobox.Chips data-testid="chips">
+				<Combobox.Chip>apple</Combobox.Chip>
+				<Combobox.Input data-testid="input" />
+			</Combobox.Chips>
+			<Combobox.Portal>
+				<Combobox.Positioner>
+					<Combobox.Popup>
+						<Combobox.List>
+							<Combobox.Item value="apple">apple</Combobox.Item>
+							<Combobox.Item value="banana">banana</Combobox.Item>
+						</Combobox.List>
+					</Combobox.Popup>
+				</Combobox.Positioner>
+			</Combobox.Portal>
+		</Combobox.Root>
+	</Field.Root>
 {/if}

@@ -14,6 +14,9 @@ export function handleInputPress(
 	disabled: boolean,
 	shouldIgnoreTarget?: (target: Element | null) => boolean
 ) {
+	// A nested part's handler that prevented the press also opts out of this one, as upstream's
+	// bubbling `preventBaseUIHandler()` flag does.
+	if (event.defaultPrevented) return;
 	const target = getTarget(event);
 	const element = target instanceof Element ? target : null;
 	if (
