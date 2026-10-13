@@ -155,13 +155,23 @@ describe('Field', () => {
 		});
 
 		it('debounces onChange validation', async () => {
-			render(FieldHarness, { scenario: 'debounce' });
-			const control = page.getByTestId('control');
-			await userEvent.click(control);
-			await userEvent.keyboard('ab');
-			expect(text('calls')).toBe('0');
-			await expect.poll(() => text('calls')).toBe('1');
-			await expect.element(page.getByText('bad')).toBeVisible();
+			vi.useFakeTimers();
+			try {
+				render(FieldHarness, { scenario: 'debounce' });
+				const control = page.getByTestId('control').element() as HTMLInputElement;
+				control.focus();
+				for (const value of ['a', 'ab']) {
+					control.value = value;
+					control.dispatchEvent(new InputEvent('input', { bubbles: true }));
+					await vi.advanceTimersByTimeAsync(59);
+					expect(text('calls')).toBe('0');
+				}
+				await vi.advanceTimersByTimeAsync(1);
+				expect(text('calls')).toBe('1');
+				expect(text('error')).toBe('bad');
+			} finally {
+				vi.useRealTimers();
+			}
 		});
 
 		it('submits while an async validator is still pending', async () => {
