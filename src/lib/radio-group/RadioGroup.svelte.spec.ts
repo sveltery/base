@@ -4,9 +4,10 @@
 // describeConformance are not ported.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import RadioGroupComponentHarness from '../../tests/RadioGroupComponentHarness.svelte';
+import RadioIgnoredArrowHarness from '../../tests/RadioIgnoredArrowHarness.svelte';
 
 function radio(name: string) {
 	return page.getByRole('radio', { name, exact: true });
@@ -204,6 +205,32 @@ describe('RadioGroup', () => {
 			await userEvent.keyboard('{ArrowLeft}');
 			expect(document.activeElement).toBe(b.element());
 		});
+
+		it.each(['Meta', 'Control', 'Alt', 'single'])(
+			'does not select on refocus after an ignored arrow (%s)',
+			async (scenario) => {
+				const onValueChange = vi.fn();
+				render(RadioIgnoredArrowHarness, { disableSecond: scenario === 'single', onValueChange });
+				const a = page.getByRole('radio', { name: 'A' });
+				(a.element() as HTMLElement).focus();
+
+				await userEvent.keyboard(
+					scenario === 'single' ? '{ArrowDown}' : `{${scenario}>}{ArrowDown}{/${scenario}}`
+				);
+				expect(document.activeElement).toBe(a.element());
+				await expect.element(a).toHaveAttribute('aria-checked', 'false');
+
+				await userEvent.tab();
+				expect(document.activeElement).toBe(
+					page.getByRole('button', { name: 'Outside' }).element()
+				);
+
+				await userEvent.tab({ shift: true });
+				expect(document.activeElement).toBe(a.element());
+				await expect.element(a).toHaveAttribute('aria-checked', 'false');
+				expect(onValueChange).not.toHaveBeenCalled();
+			}
+		);
 
 		it('still moves and selects when Shift is held', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'keys' });
