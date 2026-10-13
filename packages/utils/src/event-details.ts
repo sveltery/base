@@ -1,32 +1,44 @@
-// Derived from Base UI v1.8.0 packages/react/src/internals/createBaseUIEventDetails.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/react/src/internals/createBaseUIEventDetails.ts
+// and packages/react/src/internals/reason-parts.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 export const REASONS = {
 	none: 'none',
 	triggerPress: 'trigger-press',
-	disabled: 'disabled',
-	missing: 'missing',
-	initial: 'initial',
+	triggerHover: 'trigger-hover',
+	triggerFocus: 'trigger-focus',
+	outsidePress: 'outside-press',
+	itemPress: 'item-press',
+	closePress: 'close-press',
+	linkPress: 'link-press',
+	clearPress: 'clear-press',
+	chipRemovePress: 'chip-remove-press',
+	trackPress: 'track-press',
+	incrementPress: 'increment-press',
+	decrementPress: 'decrement-press',
 	inputChange: 'input-change',
 	inputClear: 'input-clear',
 	inputBlur: 'input-blur',
 	inputPaste: 'input-paste',
+	inputPress: 'input-press',
+	focusOut: 'focus-out',
+	escapeKey: 'escape-key',
+	closeWatcher: 'close-watcher',
+	listNavigation: 'list-navigation',
 	keyboard: 'keyboard',
-	incrementPress: 'increment-press',
-	decrementPress: 'decrement-press',
-	trackPress: 'track-press',
+	pointer: 'pointer',
 	drag: 'drag',
 	wheel: 'wheel',
 	scrub: 'scrub',
-	triggerHover: 'trigger-hover',
-	escapeKey: 'escape-key',
-	outsidePress: 'outside-press',
-	focusOut: 'focus-out',
-	closePress: 'close-press',
-	closeWatcher: 'close-watcher',
+	popupClose: 'popup-close',
+	cancelOpen: 'cancel-open',
+	siblingOpen: 'sibling-open',
+	disabled: 'disabled',
+	missing: 'missing',
+	initial: 'initial',
 	imperativeAction: 'imperative-action',
-	listNavigation: 'list-navigation',
-	swipe: 'swipe'
+	swipe: 'swipe',
+	windowResize: 'window-resize'
 } as const;
 
 export type BaseUIChangeEventDetails<Reason extends string> = {
@@ -75,17 +87,27 @@ export function createChangeEventDetails<
  * Form submit uses this. The full upstream reason-to-event map is not ported;
  * the event is the native event the caller passes.
  */
-export type BaseUIGenericEventDetails<Reason extends string> = {
+export type BaseUIGenericEventDetails<Reason extends string, Extra extends object = object> = {
 	reason: Reason;
 	event: Event;
-};
+} & Extra;
 
-export function createGenericEventDetails<Reason extends string>(
+/** Highlight navigation uses mouse events for hover and pointer events for leaving an item. */
+export type BaseUIHighlightEventDetails<
+	Reason extends string,
+	Extra extends object = object
+> = Reason extends typeof REASONS.pointer
+	? { reason: Reason; event: MouseEvent | PointerEvent } & Extra
+	: BaseUIGenericEventDetails<Reason, Extra>;
+
+export function createGenericEventDetails<Reason extends string, Extra extends object = object>(
 	reason: Reason,
-	event?: Event
-): BaseUIGenericEventDetails<Reason> {
+	event?: Event,
+	custom?: Extra
+): BaseUIGenericEventDetails<Reason, Extra> {
 	return {
 		reason,
-		event: event ?? new Event('base-ui')
-	};
+		event: event ?? new Event('base-ui'),
+		...((custom ?? {}) as Extra)
+	} as BaseUIGenericEventDetails<Reason, Extra>;
 }
