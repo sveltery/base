@@ -370,6 +370,30 @@ describe('NavigationMenu.Root', () => {
 			expect(document.activeElement).toBe(trigger);
 		});
 
+		it('treats a press inside the list as inside the menu', async () => {
+			vi.useRealTimers();
+			render(NavigationMenuHarness, { variant: 'topLevelLink', outside: true });
+			click(byId('trigger-1')!);
+			await tick();
+			expect(byId('popup-1')).not.toBeNull();
+
+			// The popup covers the list, so the presses are dispatched on their targets.
+			const press = (element: Element) => {
+				pointer(element, 'pointerdown', 'mouse');
+				dispatch(element, 'mousedown');
+				pointer(element, 'pointerup', 'mouse');
+				dispatch(element, 'mouseup');
+				click(element);
+			};
+			press(byId('top-level-link')!);
+			press(byId('list')!);
+			await settlePositioning();
+			expect(byId('popup-1')).not.toBeNull();
+
+			await userEvent.click(byId('last')!);
+			await expect.poll(() => byId('popup-1')).toBeNull();
+		});
+
 		it('keeps the positioner at the trigger while the popup exits', async () => {
 			const restore = withAnimations();
 			try {

@@ -8,13 +8,20 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { DismissInteraction, useHoverFloatingInteraction } from '@sveltery/floating-ui-svelte';
-	import { closest, getTarget } from '@sveltery/utils';
+	import { closest, contains, getTarget } from '@sveltery/utils';
 	import { NAVIGATION_MENU_TRIGGER_IDENTIFIER } from './constants.js';
 	import type { NavigationMenuRootStore } from './root-store.svelte.js';
 	import type { NavigationMenuTriggerFloating } from './trigger-floating.svelte.js';
 
-	let { root, store }: { root: NavigationMenuRootStore; store: NavigationMenuTriggerFloating } =
-		$props();
+	let {
+		root,
+		store,
+		listElement
+	}: {
+		root: NavigationMenuRootStore;
+		store: NavigationMenuTriggerFloating;
+		listElement: HTMLElement | null;
+	} = $props();
 
 	const owner = untrack(() => store);
 
@@ -26,8 +33,14 @@
 	const dismiss = new DismissInteraction(owner, () => ({
 		enabled: root.positionerElement != null || root.value == null,
 		outsidePressEvent: 'intentional',
-		outsidePress: (event) =>
-			closest(getTarget(event), `[${NAVIGATION_MENU_TRIGGER_IDENTIFIER}]`) === null
+		// Upstream marks presses in the whole list subtree as inside, links and padding included.
+		outsidePress: (event) => {
+			const target = getTarget(event);
+			return (
+				!contains(listElement, target) &&
+				closest(target, `[${NAVIGATION_MENU_TRIGGER_IDENTIFIER}]`) === null
+			);
+		}
 	}));
 
 	const reference = dismiss.reference;

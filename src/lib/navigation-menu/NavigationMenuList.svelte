@@ -6,6 +6,7 @@
 	around it, and the arrow keys reach that composite.
 -->
 <script lang="ts">
+	import { createAttachmentKey } from 'svelte/attachments';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { mergeProps } from '../internal/mergeProps.js';
@@ -42,12 +43,22 @@
 		}
 	}
 
-	const state: NavigationMenuListState = $derived({ open: root.open });
+	let listElement = $state<HTMLElement | null>(null);
+	const listKey = createAttachmentKey();
+	function bindList(node: HTMLElement) {
+		listElement = node;
+		return () => {
+			if (listElement === node) listElement = null;
+		};
+	}
+
+	const listState: NavigationMenuListState = $derived({ open: root.open });
 	const hostProps = $derived(
 		mergeProps(
 			root.activeTrigger ? root.dismissFloating : {},
 			root.nested ? {} : { onkeydown: handleKeyDown },
-			getStateAttributesProps(state),
+			getStateAttributesProps(listState),
+			{ [listKey]: bindList },
 			elementProps
 		)
 	);
@@ -55,11 +66,11 @@
 
 {#if root.activeTrigger}
 	{#key root.activeTrigger}
-		<NavigationMenuListInteractions {root} store={root.activeTrigger} />
+		<NavigationMenuListInteractions {root} store={root.activeTrigger} {listElement} />
 	{/key}
 {/if}
 {#if render}
-	{@render render(hostProps, state, children)}
+	{@render render(hostProps, listState, children)}
 {:else}
 	<ul {...hostProps}>{@render children?.()}</ul>
 {/if}
