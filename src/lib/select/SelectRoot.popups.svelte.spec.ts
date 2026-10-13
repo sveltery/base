@@ -3,7 +3,7 @@
 // Modal backdrop, touch, scroll lock, unmount(), scroll arrows, nesting in a popover, disabled,
 // read-only and id cases. Not ported: the requestAnimationFrame-mocked touch reopen case
 // (React scheduling) and `strict` (React StrictMode).
-import { tick } from 'svelte';
+import { flushSync, tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -177,6 +177,32 @@ describe('Select.Root', () => {
 			await expect.element(page.getByTestId('after')).toHaveFocus();
 			expect(document.querySelector('[role="listbox"]')?.hasAttribute('data-open')).toBe(false);
 			expect(first.getAttribute('tabindex')).toBe('-1');
+		});
+
+		it('keeps focus outside when the popup closes before its open focus lands', async () => {
+			const { component } = render(SelectHarness, {
+				around: true,
+				root: {
+					defaultValue: '1',
+					modal: false,
+					onOpenChange: (_open, details) => details.preventUnmountOnClose()
+				},
+				items: [{ value: '1' }, { value: '2' }]
+			});
+			const element = trigger().element() as HTMLElement;
+			const after = page.getByTestId('after').element() as HTMLElement;
+			element.focus();
+			flushSync(() => element.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })));
+			await wait(0);
+			expect(element.getAttribute('aria-expanded')).toBe('true');
+
+			after.focus();
+			component.close();
+			await nextFrame();
+			await nextFrame();
+
+			expect(element.getAttribute('aria-expanded')).toBe('false');
+			expect(document.activeElement).toBe(after);
 		});
 	});
 
