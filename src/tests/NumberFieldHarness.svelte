@@ -128,6 +128,14 @@
 			<NumberField.Input data-testid="control" />
 		</NumberField.Root>
 	</Field.Root>
+{:else if scenario === 'field-out-of-range'}
+	<Field.Root validationMode="onChange">
+		<NumberField.Root locale="en-US" defaultValue={1} min={0} max={5} allowOutOfRange>
+			<NumberField.Input data-testid="control" />
+		</NumberField.Root>
+		<Field.Error match="rangeUnderflow">too small</Field.Error>
+		<Field.Error match="rangeOverflow">too large</Field.Error>
+	</Field.Root>
 {:else if scenario === 'form-required'}
 	<NumberRequired {accept} {submitted} />
 {:else if scenario === 'form-values'}
