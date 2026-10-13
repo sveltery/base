@@ -9,7 +9,7 @@ import type { HTMLAttributes } from 'svelte/elements';
 import type { Attachment } from 'svelte/attachments';
 import { defineContext } from '../internal/context.js';
 import type { MenuStore } from './store.svelte.js';
-import type { MenuChangeEventDetails, MenuOrientation } from './types.js';
+import type { MenuOrientation } from './types.js';
 
 /** Shared flag: a press that opened a menu may activate an item on mouseup. */
 export interface MouseUpGate {
@@ -39,7 +39,7 @@ export interface MenubarParentContext {
 }
 
 export interface ContextMenuTarget {
-	setOpen(open: boolean, details: MenuChangeEventDetails): void;
+	setOpen: MenuStore['setOpen'];
 	readonly positionerElement: HTMLElement | null;
 }
 
