@@ -445,6 +445,28 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The menubar and context-menu positioner cases have no public components here. Filter cases that need exit animations (`keeps submenu filtering updated during the exit transition`, `ignores %s in the input while the popup animates out`, the scoping cases that assert `data-ending-style`) are not ported, since the specs run without CSS transitions. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
 
+### Filterable trigger keys skip the trigger's handlers
+
+Upstream: while a filterable menu is open, ArrowLeft and ArrowRight on its trigger call `preventBaseUIHandler()`, which skips the trigger's own handlers and keeps the browser's handling of the key.
+
+Local: `mergeProps` has no such signal. A handler's `preventDefault()` is the only way to skip the handlers to its left, and it also cancels the key. The filter's trigger props are a function bag that wraps the trigger handlers merged before it, so a cross-axis key skips them without `preventDefault()`.
+
+Test: `src/lib/menu/MenuFilterRoot.svelte.spec.ts` (`leaves the cross-axis keys on the trigger to the browser while open`).
+
+### Submenu trigger press type
+
+Upstream: a filterable submenu trigger types its click with `useEnhancedClickHandler`.
+
+Local: it uses the shared `useOpenInteractionType` and skips a `pointerdown` that was already prevented, as upstream does. The shared helper differs in two ways. A click whose own `pointerType` is empty takes the type of the `pointerdown` before it, where upstream keeps the empty type. On iOS an empty type counts as a touch. A touch and an empty type both leave focus where it is, so only the first can change the result.
+
+Test: `src/lib/menu/MenuFilterSubmenuRoot.pointerFocus.svelte.spec.ts` (`submenu press type in a plain parent`).
+
+### Initial live-region text
+
+Upstream: `useInitialLiveRegionTextMutation` is a hook that returns a ref, tested in `internals/useInitialLiveRegionTextMutation.test.tsx`.
+
+Local: `Menu.Empty` marks its text in an attachment. The cases run against `Menu.Empty` in `src/lib/menu/MenuEmpty.liveRegion.svelte.spec.ts`. `does nothing when its ref is not attached` is not ported: an attachment runs only on the element it is attached to, so there is no unattached state to test.
+
 ## Toast
 
 Source: `packages/react/src/toast` at Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`). The React fixture runs `@base-ui/react@1.9.0`. Portal, positioning, button behavior, `mergeProps`, and the state attribute helpers are the landed shared code. The store's auto-dismiss timers are plain `Timeout`s that `Toast.Provider` clears when it is destroyed. A toast added during a server render schedules no timer, since the provider's cleanup never runs there.
