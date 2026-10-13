@@ -583,6 +583,7 @@ export class SliderRootModel {
 
 	private listen(doc: Document, touch: boolean) {
 		// Not `on()`: it attaches pointer listeners a microtask late.
+		this.listening?.abort();
 		this.listening = new AbortController();
 		const { signal } = this.listening;
 		const move = (event: PointerEvent | TouchEvent) => this.handleMove(event);
