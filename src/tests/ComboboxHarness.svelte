@@ -81,6 +81,7 @@
 		rows,
 		rowGroups,
 		filteredItems,
+		staticFilter,
 		onOuterKeydown,
 		popupRenderId
 	}: {
@@ -150,6 +151,8 @@
 		rowGroups?: { label?: string; rows: string[][] }[];
 		/** Derives the root's `filteredItems` from the bound input value and value, as a parent would. */
 		filteredItems?: (inputValue: string, value: unknown) => unknown[];
+		/** Renders only the static items this keeps for the bound input value, as a parent filtering its own children. */
+		staticFilter?: (item: HarnessItem, inputValue: string) => boolean;
 		/** Wraps everything in a `<div>` with this keydown listener. */
 		onOuterKeydown?: (event: KeyboardEvent) => void;
 		/** Renders the popup through a `render` snippet whose element sets this id. */
@@ -259,7 +262,7 @@
 				</Combobox.Group>
 			{/each}
 		{:else}
-			{#each staticItems as entry, index (entry.value)}
+			{#each staticFilter ? staticItems.filter((entry) => staticFilter(entry, inputValue ?? '')) : staticItems as entry, index (entry.value)}
 				{@render staticItem(entry, index)}
 			{/each}
 		{/if}

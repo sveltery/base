@@ -209,12 +209,14 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 		});
 
 		this.#syncSelectedIndex();
-		this.#syncHighlight();
 
-		// A controlled close can bypass `setOpen`.
+		// A controlled close can bypass `setOpen`. Runs before the highlight sync, which would
+		// otherwise resolve the request against the closing list.
 		$effect.pre(() => {
 			if (!this.open && this.#pendingQueryHighlight?.hasQuery) this.#pendingQueryHighlight = null;
 		});
+
+		this.#syncHighlight();
 
 		// Keeps the active index off an empty list, so one ArrowDown reaches the first item.
 		$effect(() => {
@@ -863,6 +865,10 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 			this.#emitHighlight(undefined, -1, REASONS.none);
 			return;
 		}
+
+		// Individually rendered items register after this runs, so an empty registry is not yet
+		// a reason to drop the highlight.
+		if (candidates.length === 0 && !this.hasItems && this.root.filteredItems === undefined) return;
 
 		if (current >= candidates.length) {
 			this.#emitHighlight(undefined, -1, REASONS.none);
