@@ -76,6 +76,8 @@
 		api,
 		staticGroups,
 		refuseValue = false,
+		mapValue,
+		refuseOpen = false,
 		onOuterKeydown,
 		popupRenderId
 	}: {
@@ -135,6 +137,10 @@
 		staticGroups?: { label: string; items: HarnessItem[] }[];
 		/** Binds `value` through a setter that ignores writes, as a parent refusing a change. */
 		refuseValue?: boolean;
+		/** Binds `value` through a setter that stores this mapping of each write, as a parent remapping a change. */
+		mapValue?: (next: unknown) => unknown;
+		/** Binds `open` through a setter that ignores writes, as a parent ignoring a request. */
+		refuseOpen?: boolean;
 		/** Wraps everything in a `<div>` with this keydown listener. */
 		onOuterKeydown?: (event: KeyboardEvent) => void;
 		/** Renders the popup through a `render` snippet whose element sets this id. */
@@ -308,10 +314,12 @@
 	<Combobox.Root
 		bind:this={combobox}
 		bind:value={() => value, (next) => {
-			if (!refuseValue) value = next;
+			if (!refuseValue) value = mapValue ? mapValue(next) : next;
 		}}
 		bind:inputValue
-		bind:open
+		bind:open={() => open, (next) => {
+			if (!refuseOpen) open = next;
+		}}
 		{...items !== undefined ? { items: items as never } : {}}
 		{inline}
 		{...root}
