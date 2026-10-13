@@ -21,7 +21,7 @@
 	import type { HTMLFormAttributes } from 'svelte/elements';
 	import { DEV } from 'esm-env';
 	import { createGenericEventDetails, REASONS, warn } from '@sveltery/utils';
-	import { setFormContext, type FormContextValue } from './context.js';
+	import { setFormContext, type FormContextValue } from '../internal/form-context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
 	import { IssueSession } from './issues.svelte.js';
 	import { isRemoteForm, replayResets } from './kit-reset-replay.js';

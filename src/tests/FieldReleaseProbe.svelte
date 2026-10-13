@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Field } from '#lib';
-	import { useFormContext } from '../lib/form/context.js';
+	import { useFormContext } from '../lib/internal/form-context.js';
 
 	let { seen = $bindable(-1) }: { seen?: number } = $props();
 

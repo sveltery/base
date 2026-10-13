@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useFormContext } from '#lib/form/context.js';
+	import { useFormContext } from '#lib/internal/form-context.js';
 
 	const form = useFormContext();
 </script>

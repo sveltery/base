@@ -12,10 +12,10 @@
 	import { areArraysEqual } from '@sveltery/utils';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
-	import { useFieldContext } from '../field/context.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
 	import { BoundControl } from '../field/bound-control.svelte.js';
-	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
-	import { useFormContext } from '../form/context.js';
+	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { useFormContext } from '../internal/form-context.js';
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
