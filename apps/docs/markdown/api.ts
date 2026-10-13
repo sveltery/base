@@ -144,10 +144,16 @@ function partFiles(source: ts.SourceFile, dir: string): Array<{ name: string; fi
 				for (const property of declaration.initializer.properties) {
 					const key =
 						property.name && ts.isIdentifier(property.name) ? property.name.text : undefined;
+					// A generic part is written `Root: DialogRoot as typeof DialogRoot`.
+					const initializer = ts.isPropertyAssignment(property)
+						? ts.isAsExpression(property.initializer)
+							? property.initializer.expression
+							: property.initializer
+						: undefined;
 					const value = ts.isShorthandPropertyAssignment(property)
 						? property.name.text
-						: ts.isPropertyAssignment(property) && ts.isIdentifier(property.initializer)
-							? property.initializer.text
+						: initializer && ts.isIdentifier(initializer)
+							? initializer.text
 							: undefined;
 					const file = value && imports.get(value);
 					if (key && file) namespaces.push({ name: `${declaration.name.text}.${key}`, file });

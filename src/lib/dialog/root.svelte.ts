@@ -18,16 +18,18 @@ import { findDialogRoot, setDialogRootContext } from './context.svelte.js';
 import type { DialogHandle } from './handle.svelte.js';
 import { DialogStore, type DialogStoreOptions } from './store.svelte.js';
 
-export interface DialogRootOptions extends Omit<DialogStoreOptions, 'nested'> {
+export interface DialogRootOptions<Payload> extends Omit<DialogStoreOptions, 'nested'> {
 	readTriggerId: () => string | null | undefined;
-	readHandle: () => DialogHandle<unknown> | undefined;
+	readHandle: () => DialogHandle<Payload> | undefined;
 }
 
-export function createDialogRoot(options: DialogRootOptions): DialogStore<unknown> {
+export function createDialogRoot<Payload>(
+	options: DialogRootOptions<Payload>
+): DialogStore<Payload> {
 	const parent = findDialogRoot()?.store;
 	setFloatingTree();
 
-	const store = new DialogStore({ ...options, nested: parent != null });
+	const store = new DialogStore<Payload>({ ...options, nested: parent != null });
 	useFloatingNodeId(store);
 	const click = new ClickInteraction(store).reference;
 	store.click = click;

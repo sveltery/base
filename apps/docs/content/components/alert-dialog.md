@@ -318,7 +318,7 @@ Bind `triggerId` next to `open` to know which trigger owns the alert dialog. Giv
 
 Setting a bound `triggerId` yourself does not replace the payload. Open with `handle.open(id)` when the content depends on the payload.
 
-You can also put several triggers inside one `AlertDialog.Root` without a handle. Each trigger still takes its own `payload`, and the snippet you pass as the children of `AlertDialog.Root` receives it as `{ payload }`. That snippet argument is typed `unknown`, so narrow it yourself.
+You can also put several triggers inside one `AlertDialog.Root` without a handle. Each trigger still takes its own `payload`, and the snippet you pass as the children of `AlertDialog.Root` receives it as `{ payload }`. Without a handle, that snippet argument is typed `unknown`, so narrow it yourself. With a handle, it has the handle's payload type.
 
 ```svelte
 <AlertDialog.Root>
@@ -374,9 +374,9 @@ You can also put several triggers inside one `AlertDialog.Root` without a handle
 
 ### Trigger
 
-A button that opens the alert dialog. Renders a `<button>` element.
+<ApiPart name="alert-dialog" part="Trigger" />
 
-`AlertDialog.Trigger` is `Dialog.Trigger` typed to take an `AlertDialog.Handle`. Its props and state are those of [`Dialog.Trigger`](/components/dialog#trigger), except that `handle` is an `AlertDialogHandle<Payload>`.
+`AlertDialog.Trigger` renders [`Dialog.Trigger`](/components/dialog#trigger) and takes an `AlertDialog.Handle`.
 
 | Attribute         | Description                                                       |
 | ----------------- | ----------------------------------------------------------------- |

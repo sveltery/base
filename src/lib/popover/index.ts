@@ -11,9 +11,10 @@ import PopoverTrigger from './PopoverTrigger.svelte';
 import PopoverViewport from './PopoverViewport.svelte';
 import { PopoverHandle, createPopoverHandle } from './handle.svelte.js';
 
+// A generic component needs `as typeof` so the emitted .d.ts can name its type.
 export const Popover = {
-	Root: PopoverRoot,
-	Trigger: PopoverTrigger,
+	Root: PopoverRoot as typeof PopoverRoot,
+	Trigger: PopoverTrigger as typeof PopoverTrigger,
 	Portal: PopoverPortal,
 	Positioner: PopoverPositioner,
 	Popup: PopoverPopup,

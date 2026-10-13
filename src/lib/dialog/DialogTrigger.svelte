@@ -4,7 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	Button behavior comes from Button. The trigger does not reimplement it.
 -->
-<script lang="ts">
+<script lang="ts" generics="Payload = unknown">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { CLICK_TRIGGER_IDENTIFIER } from '@sveltery/floating-ui-svelte';
@@ -30,7 +30,7 @@
 		render,
 		children,
 		...elementProps
-	}: DialogTriggerProps = $props();
+	}: DialogTriggerProps<Payload> = $props();
 
 	const dialogRoot = findDialogRoot();
 	const readHandle = () => handle;

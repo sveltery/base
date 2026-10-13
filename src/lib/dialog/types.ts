@@ -125,10 +125,10 @@ type DialogControlProps = Omit<HTMLButtonAttributes, 'children'> & {
 };
 
 export interface DialogTriggerProps<Payload = unknown> extends DialogControlProps {
-	/** Passed to the dialog when this trigger opens it. */
-	payload?: Payload;
 	/** Associates this trigger with a dialog that is not its parent. */
 	handle?: DialogHandle<Payload>;
+	/** Passed to the dialog when this trigger opens it. */
+	payload?: Payload;
 	id?: string;
 	render?: Snippet<
 		[props: DialogTriggerHostProps, state: DialogTriggerState, children: RenderChildren]

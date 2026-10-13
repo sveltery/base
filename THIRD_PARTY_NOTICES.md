@@ -260,6 +260,8 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/alert-dialog/handle.svelte.ts` from `packages/react/src/alert-dialog/handle.ts`
 - `src/lib/alert-dialog/types.ts` and `src/lib/alert-dialog/index.ts` from `packages/react/src/alert-dialog/index.ts`, `index.parts.ts`, `root/AlertDialogRoot.tsx`, and `trigger/AlertDialogTrigger.tsx` (the other parts are the Dialog components)
 - `src/lib/alert-dialog/AlertDialog.svelte.spec.ts` assertions from `packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx`, the handle-type checks in `AlertDialogRoot.spec.tsx`, `packages/react/test/popupConformanceTests.tsx`, `packages/react/test/dialogRootSharedTests.tsx`, and `packages/react/test/detachedTriggersConformanceTests.tsx`
+- `src/lib/alert-dialog/AlertDialogTrigger.svelte` from `packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx` (renders `Dialog.Trigger`)
+- `src/tests/PayloadTypes.svelte` type checks from `packages/react/src/dialog/root/DialogRoot.spec.tsx`, `packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx`, and `packages/react/src/popover/root/PopoverRoot.spec.tsx`
 
 MIT License
 

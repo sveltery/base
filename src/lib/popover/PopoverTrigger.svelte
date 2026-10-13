@@ -4,7 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	The button stays mounted when a handle receives its root store.
 -->
-<script lang="ts">
+<script lang="ts" generics="Payload = unknown">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { FocusGuard } from '@sveltery/utils';
@@ -33,7 +33,7 @@
 		render,
 		children,
 		...elementProps
-	}: PopoverTriggerProps = $props();
+	}: PopoverTriggerProps<Payload> = $props();
 
 	const root = findPopoverRoot();
 	if (!handle && !root) {

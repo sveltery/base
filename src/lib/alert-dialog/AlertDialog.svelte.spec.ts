@@ -3,8 +3,8 @@
 // dialogRootSharedTests.tsx, and detachedTriggersConformanceTests.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Not ported: `defaultOpen` with `open={false}` (there is no `defaultOpen`), and the render count of
-// an inactive detached trigger (Svelte has no component re-render to count), and the payload type
-// checks in AlertDialogRoot.spec.tsx (Dialog roots and triggers are not generic over the payload yet).
+// an inactive detached trigger (Svelte has no component re-render to count). The payload type checks
+// in AlertDialogRoot.spec.tsx are in src/tests/PayloadTypes.svelte, which `pnpm check` verifies.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
