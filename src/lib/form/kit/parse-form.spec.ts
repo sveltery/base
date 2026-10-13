@@ -3,10 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { signupSchema } from '../../../tests/signup-schema.js';
 import { parseForm } from './parse-form.js';
 
-function post(url: string, entries: [string, string | File][]) {
+function post(url: string, entries: [string, string | File][], headers?: HeadersInit) {
 	const body = new FormData();
 	for (const [key, value] of entries) body.append(key, value);
-	return new Request(url, { method: 'POST', body });
+	return new Request(url, { method: 'POST', body, headers });
 }
 
 const valid: [string, string][] = [
@@ -61,6 +61,23 @@ describe('parseForm', () => {
 				{ path: ['email'], message: 'Invalid email' },
 				{ path: ['name'], message: 'Name is required' },
 				{ path: ['age'], message: 'At least 18' }
+			]
+		});
+	});
+
+	it('does not echo the input of a request sent by use:enhance', async () => {
+		const submission = await parseForm(
+			post('http://localhost/signup?/register', [['email', 'nope']], {
+				'x-sveltekit-action': 'true'
+			}),
+			signupSchema
+		);
+		expect(submission.fail().data).toEqual({
+			action: 'register',
+			issues: [
+				{ path: ['email'], message: 'Invalid email' },
+				{ path: ['name'], message: 'Name is required' },
+				{ path: ['age'], message: 'Age must be a number' }
 			]
 		});
 	});

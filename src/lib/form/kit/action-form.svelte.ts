@@ -153,7 +153,7 @@ export class ActionForm<Input extends RemoteFormInput, Result> implements FormSo
 		// snapshot, because edits must not write into the page's `form`, which may be a proxy.
 		const form = getForm();
 		this.#input = $state(
-			isFailure(form) && form.action === action ? $state.snapshot(form.input) : {}
+			isFailure(form) && form.action === action ? ($state.snapshot(form.input) ?? {}) : {}
 		);
 
 		const store: FieldStore = {
