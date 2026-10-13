@@ -7,7 +7,7 @@
 import { DEV } from 'esm-env';
 import { getAbortSignal, untrack } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import { REASONS, ScopedTimeout, getHighlightReason } from '@sveltery/utils';
+import { REASONS, ScopedTimeout } from '@sveltery/utils';
 import {
 	DismissInteraction,
 	ListNavigation,
@@ -18,6 +18,7 @@ import {
 } from '@sveltery/floating-ui-svelte';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { useDirection } from '../internal/direction-context.js';
+import { getHighlightReason } from '../internal/getHighlightReason.js';
 import { mergeProps } from '../internal/mergeProps.js';
 import { FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
 import { TYPEAHEAD_RESET_MS } from './constants.js';
