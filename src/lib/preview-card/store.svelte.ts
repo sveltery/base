@@ -63,6 +63,8 @@ export class PreviewCardStore extends PopupStore<PreviewCardChangeReason> {
 	private openedFrom: Element | null = null;
 	/** The active trigger id once its element was found registered. Tells a lost trigger from a pending one. */
 	private resolvedTriggerId: string | null = null;
+	/** Values of an active trigger that unmounted while the card stayed open. */
+	private retained: { id: string; owned: TriggerOwned } | undefined;
 	private destroyed = false;
 
 	constructor(options: PreviewCardStoreOptions) {
@@ -132,7 +134,9 @@ export class PreviewCardStore extends PopupStore<PreviewCardChangeReason> {
 	owned(): TriggerOwned | undefined {
 		const id = this.resolvedActiveTriggerId();
 		if (!id) return undefined;
-		return this.readers.get(id)?.();
+		const read = this.readers.get(id);
+		if (read) return read();
+		return this.retained?.id === id ? this.retained.owned : undefined;
 	}
 
 	get payload() {
@@ -161,6 +165,10 @@ export class PreviewCardStore extends PopupStore<PreviewCardChangeReason> {
 	}
 
 	forgetTrigger(id: string, element: HTMLElement) {
+		const read = this.readers.get(id);
+		if (read && this.open && this.resolvedActiveTriggerId() === id) {
+			this.retained = { id, owned: { ...read() } };
+		}
 		if (this.triggers.getById(id) === element) this.triggers.delete(id);
 		this.readers.delete(id);
 	}
@@ -242,6 +250,7 @@ export class PreviewCardStore extends PopupStore<PreviewCardChangeReason> {
 	private reconcileActiveTrigger(open: boolean) {
 		if (!open) {
 			this.resolvedTriggerId = null;
+			this.retained = undefined;
 			return;
 		}
 

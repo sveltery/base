@@ -44,10 +44,10 @@
 	useFloatingNodeId(store);
 	const attachKey = createAttachmentKey();
 
-	const opening = $derived(store.open && store.mounted);
-	const inline = $derived.by(() => {
-		void opening;
-		return createInlineMiddleware(store.inlineHover);
+	let inline = $state.raw(createInlineMiddleware(store.inlineHover));
+	// A new middleware object makes the position recompute with the coordinates captured for this open.
+	$effect.pre(() => {
+		if (store.open && store.mounted) inline = createInlineMiddleware(store.inlineHover);
 	});
 
 	const positioning = new AnchorPositioning(store, () => ({
@@ -72,7 +72,7 @@
 		store.setPlacement(positioning.physicalSide);
 	});
 
-	const state: PreviewCardPositionerState = $derived({
+	const partState: PreviewCardPositionerState = $derived({
 		open: store.open,
 		side: positioning.side,
 		align: positioning.align,
@@ -91,7 +91,7 @@
 					...(store.open ? {} : { pointerEvents: 'none' }),
 					...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
 				}),
-				...getStateAttributesProps(state, popupStateMapping),
+				...getStateAttributesProps(partState, popupStateMapping),
 				[attachKey]: positioning.positionerProps.attach
 			},
 			elementProps
@@ -99,6 +99,6 @@
 	);
 </script>
 
-{#if render}{@render render(hostProps, state, children)}{:else}<div {...hostProps}>
+{#if render}{@render render(hostProps, partState, children)}{:else}<div {...hostProps}>
 		{@render children?.()}
 	</div>{/if}
