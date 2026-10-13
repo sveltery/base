@@ -63,6 +63,13 @@ function pointer(type: string, init: PointerEventInit & { button?: number } = {}
 }
 
 describe('<ScrollArea />', () => {
+	it('does not give the focusable viewport a presentational role', async () => {
+		render(ScrollAreaHarness, { scenario: 'both' });
+
+		await expect.element(viewport()).toHaveAttribute('tabindex', '0');
+		await expect.element(viewport()).not.toHaveAttribute('role');
+	});
+
 	it('hides scrollbars until content overflows and exposes the viewport', async () => {
 		render(ScrollAreaHarness, { scenario: 'both' });
 

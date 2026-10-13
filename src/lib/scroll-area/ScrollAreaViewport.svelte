@@ -65,7 +65,6 @@
 
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
 		...getStateAttributesProps(partState, scrollAreaStateAttributesMapping),
-		role: 'presentation',
 		...(model.rootId ? { 'data-id': `${model.rootId}-viewport` } : {}),
 		tabindex: model.hiddenState.x && model.hiddenState.y ? -1 : 0,
 		...elementProps,
