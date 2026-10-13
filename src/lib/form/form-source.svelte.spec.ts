@@ -199,6 +199,22 @@ describe('Form with a source', () => {
 		});
 	});
 
+	describe('bound control props', () => {
+		it("does not read the source's aria-invalid, so an issue change leaves the control's props alone", async () => {
+			const source = new FakeSource({ schema });
+			render(BoundFormHarness, { source, mode: 'onChange' });
+			const as = vi.spyOn(source.fields.name, 'as');
+
+			await userEvent.fill(control('age'), '36');
+			await expect
+				.poll(() => source.fields.name.issues())
+				.toEqual([{ path: ['name'], message: 'Name is required' }]);
+
+			expect(as).not.toHaveBeenCalled();
+			expect(element('name').name).toBe('name/fake');
+		});
+	});
+
 	describe('validation mode', () => {
 		it('onChange shows a schema issue once its field is dirty, not for fields the user has not reached', async () => {
 			const source = new FakeSource({ schema });

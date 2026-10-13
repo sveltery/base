@@ -191,8 +191,10 @@
 		const binding = field.binding;
 		if (!binding) return undefined;
 		const props = binding.as(nativeType(field.controlType ?? 'text'), defaultValue ?? undefined);
-		const { 'aria-invalid': _, ...rest } = props as Record<string, unknown>;
-		return rest;
+		// Copy the getters, not their values. Reading `aria-invalid` would track every issue.
+		const descriptors = Object.getOwnPropertyDescriptors(props);
+		delete descriptors['aria-invalid'];
+		return Object.defineProperties({}, descriptors) as Record<string, unknown>;
 	});
 
 	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
