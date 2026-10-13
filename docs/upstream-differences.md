@@ -491,3 +491,11 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui
 Local: nested popups share one floating tree, and the DOM has no React tree. `DismissInteraction` counts a press inside a tree child's portal, which holds that child's internal backdrop, as inside the parent. `FloatingFocusManager` treats focus that leaves a portaled popup without an outside press as staying inside, as upstream's `markInsideReactTree` does.
 
 Test: `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts`, `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` and `src/lib/internal/overlay-audit.svelte.spec.ts` (`closes only the inner modal popover on an outside touch tap`).
+
+### Queued list focus after close
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/hooks/useListNavigation.ts`. `focusItem` calls `enqueueFocus(item, { sync, preventScroll: true })` with no `shouldFocus`. A deferred item focus runs on the next frame even when the popup has closed in between.
+
+Local: the queued focus passes `shouldFocus: () => store.isOpen()`. A Tab or Escape that closes the popup before the frame drops the focus, so it does not land on an item of a closed popup that stays mounted.
+
+Test: `src/tests/list-navigation/useListNavigation.svelte.spec.ts` (`drops a queued item focus when the list closes before it lands`).
