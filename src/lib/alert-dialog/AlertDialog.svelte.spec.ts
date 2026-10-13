@@ -486,10 +486,7 @@ describe('AlertDialog', () => {
 				expectActiveTrigger(null);
 			});
 
-			// Upstream reads the payload from the active trigger. The Dialog store this part shares
-			// sets it only when a trigger opens a closed popup, so a switch or a bound `triggerId`
-			// keeps the previous payload. Dialog has the same gap.
-			it.skip('renders the payload of a trigger switched to while open or named by `triggerId`', async () => {
+			it('renders the payload of a trigger switched to while open or named by `triggerId`', async () => {
 				const screen = render(AlertDialogFixture, {
 					...props(),
 					open: true,
