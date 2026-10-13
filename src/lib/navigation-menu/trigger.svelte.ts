@@ -2,7 +2,8 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // The trigger's open logic and focus guards. The component renders the button.
 // The root's `NavigationMenuSizing` sizes the popup.
-// Upstream reads `value` from the render before the event: handlers here read it once at the start.
+// Upstream reads `value` from the render before the event. Handlers here read it once at the start,
+// and the keyboard handler reads it before it opens the item.
 
 import { flushSync, untrack } from 'svelte';
 import {
@@ -187,10 +188,9 @@ export class NavigationMenuTriggerController {
 		if (isHover) flushSync();
 	}
 
-	#handleActivation(event: OpenEvent) {
+	#handleActivation(event: OpenEvent, value: unknown) {
 		const root = this.root;
 		const currentTarget = event.currentTarget as HTMLElement;
-		const value = root.value;
 		const itemValue = this.#itemValue;
 		const prevTriggerRect = root.prevTriggerElement?.getBoundingClientRect();
 		const element = this.element;
@@ -249,24 +249,24 @@ export class NavigationMenuTriggerController {
 		flushSync();
 	}
 
-	#handleOpenEvent(event: OpenEvent) {
+	/** `value` is the value before the event, which a keyboard open has already changed. */
+	#handleOpenEvent(event: OpenEvent, value: unknown = this.root.value) {
 		if (this.disabled) return;
 		const popup = this.root.popupElement;
 		const positioner = this.root.positionerElement;
 
 		if (!popup || !positioner) {
-			this.#handleActivation(event);
+			this.#handleActivation(event, value);
 			return;
 		}
 
 		const size = getCssDimensions(popup);
-		const value = this.root.value;
 		const shouldSkipAutoSizeSync =
 			value != null &&
 			value !== this.#itemValue &&
 			(event.type === 'click' || this.#pointerType !== 'touch');
 
-		this.#handleActivation(event);
+		this.#handleActivation(event, value);
 		if (shouldSkipAutoSizeSync) this.root.sizing.skipNextAutoSizeSync();
 		this.root.sizing.resize(this.#itemValue, size);
 	}
@@ -300,8 +300,9 @@ export class NavigationMenuTriggerController {
 			const openHorizontal = this.root.orientation === 'horizontal' && event.key === 'ArrowDown';
 			const openVertical = this.root.orientation === 'vertical' && event.key === verticalOpenKey;
 			if (!openHorizontal && !openVertical) return;
+			const value = this.root.value;
 			this.root.setValue(this.#itemValue, createChangeEventDetails(REASONS.listNavigation, event));
-			this.#handleOpenEvent(event as OpenEvent);
+			this.#handleOpenEvent(event as OpenEvent, value);
 			event.preventDefault();
 			event.stopPropagation();
 		},
