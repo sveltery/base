@@ -6,9 +6,11 @@
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
+	import type { HTMLAttributes } from 'svelte/elements';
 	import {
 		safePolygon,
 		ClickInteraction,
+		FocusInteraction,
 		HoverReferenceInteraction
 	} from '@sveltery/floating-ui-svelte';
 	import { TriggerFocusGuards } from '../internal/popups/index.js';
@@ -66,6 +68,10 @@
 		delay: { close: closeDelay },
 		placement: () => owner.placement
 	}));
+	// With a menubar menu open, focusing another trigger opens its menu.
+	const focus = new FocusInteraction(owner, () => ({
+		enabled: !disabled && (menubar?.hasSubmenuOpen ?? false)
+	}));
 	const guards = new TriggerFocusGuards(
 		owner,
 		untrack(() => triggerEl)
@@ -76,6 +82,7 @@
 			onArmed({
 				click: click.reference,
 				hover: hover.reference,
+				focus: focus.reference as HTMLAttributes<HTMLElement>,
 				attach: hover.attachReference,
 				guards
 			})

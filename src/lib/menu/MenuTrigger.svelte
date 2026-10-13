@@ -9,7 +9,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
-	import { FocusGuard, contains, createChangeEventDetails, ownerDocument } from '@sveltery/utils';
+	import { FocusGuard, contains, ownerDocument } from '@sveltery/utils';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { mergePropsN } from '../internal/mergeProps.js';
 	import { pressableTriggerOpenStateMapping } from '../internal/popupStateMapping.js';
@@ -189,19 +189,6 @@
 			if (!ignoreNextClick) return;
 			ignoreNextClick = false;
 			event.preventDefault();
-		},
-		onfocus(event: FocusEvent) {
-			// With a menubar submenu open, focusing another trigger opens its menu.
-			const current = live;
-			if (!current || disabled || !menubarHasSubmenuOpen || current.open) return;
-			current.setOpen(
-				true,
-				createChangeEventDetails(
-					MENU_REASONS.triggerFocus,
-					event,
-					event.currentTarget as HTMLElement
-				)
-			);
 		}
 	};
 
@@ -210,6 +197,7 @@
 	const hostProps = $derived.by(() =>
 		button.props(
 			mergePropsN([
+				armed?.focus,
 				armed?.click,
 				armed?.hover,
 				live?.triggerProps(mountedByThis),
