@@ -9,6 +9,7 @@ import DialogActionsHarness from '../../tests/DialogActionsHarness.svelte';
 import DisabledNonNativeHarness from '../../tests/DisabledNonNativeHarness.svelte';
 import DialogHandleHarness from '../../tests/DialogHandleHarness.svelte';
 import DialogHarness from '../../tests/DialogHarness.svelte';
+import DialogNestedCountHarness from '../../tests/DialogNestedCountHarness.svelte';
 import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
 import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.svelte';
 import DialogOpenCompleteStateHarness from '../../tests/DialogOpenCompleteStateHarness.svelte';
@@ -281,6 +282,65 @@ describe('Dialog', () => {
 		expect(openDialogs[1]).toHaveAttribute('data-nested', '');
 		expect(openDialogs[0].style.getPropertyValue('--nested-dialogs')).toBe('1');
 		expect(openDialogs[0]).toHaveAttribute('data-nested-dialog-open', '');
+	});
+
+	describe('nested dialog count (Base UI v1.9.0)', () => {
+		function parentPopup() {
+			return page.getByTestId('parent');
+		}
+
+		async function expectNestedCount(count: string) {
+			await expect
+				.poll(() => parentPopup().element().style.getPropertyValue('--nested-dialogs'))
+				.toBe(count);
+		}
+
+		it('keeps counting an open nested dialog while a closed sibling mounts and unmounts', async () => {
+			const screen = render(DialogNestedCountHarness);
+			await expect.element(page.getByTestId('open-child')).toBeVisible();
+			await expectNestedCount('1');
+
+			await screen.rerender({ closedChildInPopup: true });
+			await expect.element(button('Closed child')).toBeVisible();
+			await frame();
+			await expectNestedCount('1');
+			await expect.element(parentPopup()).toHaveAttribute('data-nested-dialog-open', '');
+
+			await screen.rerender({ closedChildInPopup: false });
+			await frame();
+			await expectNestedCount('1');
+			await expect.element(parentPopup()).toHaveAttribute('data-nested-dialog-open', '');
+		});
+
+		it('ignores a nested dialog that opens while the parent is closed', async () => {
+			const screen = render(DialogNestedCountHarness, {
+				parentOpen: false,
+				openChildInPopup: false,
+				openChildOutsidePopup: true
+			});
+			await expect.element(page.getByTestId('outside-child')).toBeVisible();
+
+			await screen.rerender({ parentOpen: true });
+			await expect.element(parentPopup()).toBeVisible();
+			await frame();
+			await expectNestedCount('0');
+			await expect.element(parentPopup()).not.toHaveAttribute('data-nested-dialog-open');
+		});
+
+		it('drops the nested count once the parent closes', async () => {
+			const screen = render(DialogNestedCountHarness, {
+				openChildInPopup: false,
+				openChildOutsidePopup: true
+			});
+			await expectNestedCount('1');
+
+			await screen.rerender({ parentOpen: false });
+			await expect.poll(() => parentPopup().query()).toBeNull();
+			await screen.rerender({ parentOpen: true });
+			await expect.element(parentPopup()).toBeVisible();
+			await frame();
+			await expectNestedCount('0');
+		});
 	});
 
 	it('omits the internal backdrop when modal is false', async () => {
