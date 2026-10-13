@@ -1,0 +1,69 @@
+// Assertions follow Base UI v1.9.0 packages/react/src/navigation-menu/content/NavigationMenuContent.test.tsx
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+// The server-side rendering cases are in content-ssr.spec.ts.
+import { tick } from 'svelte';
+import { userEvent } from 'vitest/browser';
+import { afterEach, describe, expect, it } from 'vitest';
+import { render } from 'vitest-browser-svelte';
+import NavigationMenuContentHarness from '../../tests/NavigationMenuContentHarness.svelte';
+import { byId, resetBrowserPointer, settlePositioning } from '../../tests/previewCardEvents.js';
+
+afterEach(async () => {
+	await resetBrowserPointer();
+	await settlePositioning();
+});
+
+function contents(testId: string) {
+	return document.querySelectorAll<HTMLElement>(`[data-testid="${testId}"]`);
+}
+
+describe('NavigationMenu.Content', () => {
+	it('keeps the content mounted (hidden) post-hydration when keepMounted is true', () => {
+		render(NavigationMenuContentHarness, { keepMounted: true });
+
+		expect(contents('content-1').length).toBe(1);
+		expect(contents('content-1')[0].hasAttribute('hidden')).toBe(true);
+	});
+
+	it('does not keep the content mounted post-hydration when keepMounted is false', () => {
+		render(NavigationMenuContentHarness, { keepMounted: false });
+
+		expect(contents('content-1').length).toBe(0);
+	});
+
+	it('moves content into the popup and keeps it there when switching triggers', async () => {
+		render(NavigationMenuContentHarness, { keepMounted: true, twoItems: true });
+		const list = byId('list')!;
+
+		byId('trigger-1')!.click();
+		await tick();
+
+		await expect.poll(() => byId('viewport')).not.toBeNull();
+		const viewport = byId('viewport')!;
+		const content1 = byId('content-1')!;
+		expect(viewport.contains(content1)).toBe(true);
+		expect(list.contains(content1)).toBe(false);
+
+		byId('trigger-2')!.click();
+		await tick();
+
+		await expect.poll(() => byId('content-2')).not.toBeNull();
+		expect(viewport.contains(byId('content-1'))).toBe(true);
+		expect(viewport.contains(byId('content-2'))).toBe(true);
+	});
+
+	it('keeps content mounted inside the popup when closed if the portal is kept mounted', async () => {
+		render(NavigationMenuContentHarness, { keepMounted: true, keepMountedPortal: true });
+
+		await userEvent.click(byId('trigger-1')!);
+		await tick();
+
+		const viewport = byId('viewport')!;
+		await expect.poll(() => viewport.contains(byId('content-1'))).toBe(true);
+
+		await userEvent.keyboard('{Escape}');
+
+		await expect.poll(() => byId('content-1')!.hasAttribute('hidden')).toBe(true);
+		expect(viewport.contains(byId('content-1'))).toBe(true);
+	});
+});
