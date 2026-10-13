@@ -4,7 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	The shared setup is `createDialogRoot` in root.svelte.ts.
 -->
-<script lang="ts">
+<script lang="ts" generics="Payload = unknown">
 	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { createDialogRoot } from './root.svelte.js';
 	import type { DialogRootProps } from './types.js';
@@ -18,7 +18,7 @@
 		handle,
 		triggerId = $bindable(),
 		children
-	}: DialogRootProps = $props();
+	}: DialogRootProps<Payload> = $props();
 
 	const uid = $props.id();
 	const store = createDialogRoot({

@@ -8,7 +8,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { findLabelableContext } from '../field/labelable.svelte.js';
+	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { getControlById } from '../internal/label-control.js';
 	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';

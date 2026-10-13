@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/utils/popups/store.ts
 // and packages/react/src/dialog/store/DialogStore.ts setOpen
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). `openedWithoutTrigger` follows v1.9.0
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Immediate preventUnmountOnClose writes the flag before cancellation is checked.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
 
@@ -29,6 +30,8 @@ export interface PopupStoreOptions<Reason extends string> {
 
 export class PopupStore<Reason extends string> extends FloatingRootStore {
 	preventUnmountingOnClose = $state(false);
+	/** Opened by a request that named no trigger, such as `openWithPayload()`. */
+	openedWithoutTrigger = $state(false);
 	private readonly readOpen: PopupStoreOptions<Reason>['readOpen'];
 	private readonly writeOpen: PopupStoreOptions<Reason>['writeOpen'];
 	private readonly readOnOpenChange: PopupStoreOptions<Reason>['onOpenChange'];
@@ -47,6 +50,11 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		this.readOnOpenChangeComplete = options.onOpenChangeComplete;
 		this.transition = new TransitionStatus(() => this.open, {
 			animateInitialOpen: options.animateInitialOpen
+		});
+
+		// Cleared once the popup is closed, not on a close request a controlled root may decline.
+		$effect.pre(() => {
+			if (!this.open) this.openedWithoutTrigger = false;
 		});
 
 		useOpenChangeComplete(() => ({
@@ -117,7 +125,8 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 				open: this.open,
 				preventUnmountingOnClose: this.preventUnmountingOnClose,
 				activeTriggerId: this.activeTriggerId,
-				activeTriggerElement: this.activeTriggerElement
+				activeTriggerElement: this.activeTriggerElement,
+				openedWithoutTrigger: this.openedWithoutTrigger
 			},
 			nextOpen,
 			details.trigger
@@ -129,6 +138,7 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 			this.domReferenceElement = previousReference;
 			return;
 		}
+		this.openedWithoutTrigger = next.openedWithoutTrigger;
 
 		if (!nextOpen) this.openMethod = null;
 		this.dispatchOpenChange(nextOpen, details);

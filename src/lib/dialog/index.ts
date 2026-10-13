@@ -9,9 +9,10 @@ import DialogTrigger from './DialogTrigger.svelte';
 import DialogViewport from './DialogViewport.svelte';
 import { DialogHandle, createDialogHandle } from './handle.svelte.js';
 
+// A generic component needs `as typeof` so the emitted .d.ts can name its type.
 export const Dialog = {
-	Root: DialogRoot,
-	Trigger: DialogTrigger,
+	Root: DialogRoot as typeof DialogRoot,
+	Trigger: DialogTrigger as typeof DialogTrigger,
 	Portal: DialogPortal,
 	Popup: DialogPopup,
 	Backdrop: DialogBackdrop,

@@ -1,10 +1,12 @@
 <!--
 	A button that opens the dialog. Renders a `<button>` element.
 	Derived from Base UI v1.8.0 packages/react/src/dialog/trigger/DialogTrigger.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The payload forwarding follows v1.9.0
+	packages/react/src/utils/popups/popupStoreUtils.ts `useTriggerDataForwarding`
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	Button behavior comes from Button. The trigger does not reimplement it.
 -->
-<script lang="ts">
+<script lang="ts" generics="Payload = unknown">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { CLICK_TRIGGER_IDENTIFIER } from '@sveltery/floating-ui-svelte';
@@ -30,7 +32,7 @@
 		render,
 		children,
 		...elementProps
-	}: DialogTriggerProps = $props();
+	}: DialogTriggerProps<Payload> = $props();
 
 	const dialogRoot = findDialogRoot();
 	const readHandle = () => handle;
@@ -45,31 +47,26 @@
 	const attachmentKey = createAttachmentKey();
 	const store = $derived((handle?.store as DialogStore<unknown> | null) ?? dialogRoot?.store);
 
-	// Upstream useImplicitActiveTrigger: a dialog opened without a trigger press,
-	// such as through `bind:open`, belongs to its only trigger.
-	const openedByThis = $derived(
+	// Upstream useImplicitActiveTrigger: a dialog opened without a trigger press, such as through
+	// `bind:open`, belongs to its only trigger. Not one opened deliberately without a trigger.
+	const ownsPopup = $derived(
 		!!store &&
-			store.open &&
 			(store.activeTriggerId === triggerId ||
-				(store.activeTriggerId == null && store.triggerCount === 1))
+				(store.activeTriggerId == null && !store.openedWithoutTrigger && store.triggerCount === 1))
 	);
-	const controls = $derived.by(() => {
-		if (!store || !store.open) return undefined;
-		const popup = store.popupElement;
-		if (popup == null || popup.id === '') return undefined;
-		if (store.activeTriggerId === triggerId) return popup.id;
-		if (store.activeTriggerId == null && store.triggerCount === 1) return popup.id;
-		return undefined;
-	});
+	const openedByThis = $derived(ownsPopup && !!store?.open);
+	const controls = $derived((openedByThis && store?.popupElement?.id) || undefined);
 	const state: DialogTriggerState = $derived({ disabled: disabled === true, open: openedByThis });
 
-	$effect(() => {
-		const id = triggerId;
-		const value = payload;
-		const current = handle;
-		if (!current || value === undefined) return;
-		if (!current.setPayload(id, value)) return;
-		return () => current.forgetPayload(id);
+	// The active trigger supplies the payload while the popup is mounted, including one switched to
+	// while open or named by `triggerId`. The only trigger supplies it only while open, so a closing
+	// popup keeps its payload. A pre-effect sets it before the DOM updates, as upstream's layout
+	// effect does.
+	$effect.pre(() => {
+		const current = store;
+		if (current?.mounted && (current.activeTriggerId === triggerId || openedByThis)) {
+			current.payload = payload;
+		}
 	});
 
 	function clickHandlers(current: DialogStore<unknown> | null | undefined) {
@@ -87,9 +84,8 @@
 			const detach = registerTrigger(triggers, () => id)(node);
 			if (current?.open) {
 				const active = current.domReferenceElement;
-				if ((active == null && current.triggers.size === 1) || active?.id === id) {
-					current.domReferenceElement = node;
-				}
+				const lone = active == null && !current.openedWithoutTrigger && current.triggers.size === 1;
+				if (lone || active?.id === id) current.domReferenceElement = node;
 			}
 			return () => {
 				if (typeof detach === 'function') detach();
@@ -100,10 +96,7 @@
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onclick?.(event);
 		if (event.defaultPrevented) return;
-		const current = store;
-		if (!current) return;
-		if (!current.open && payload !== undefined) current.payload = payload;
-		clickHandlers(current)?.onclick?.(event);
+		clickHandlers(store)?.onclick?.(event);
 	}
 
 	function handlePointerDown(

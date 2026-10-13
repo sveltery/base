@@ -8,8 +8,13 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
-	import { setFieldItemContext, useFieldContext } from './context.svelte.js';
-	import { Labelable, setLabelableContext, findLabelableContext } from './labelable.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { setFieldItemContext } from './item-context.js';
+	import {
+		Labelable,
+		setLabelableContext,
+		findLabelableContext
+	} from '../internal/labelable-provider.svelte.js';
 	import type { FieldItemProps, FieldItemState } from './types.js';
 
 	const uid = $props.id();

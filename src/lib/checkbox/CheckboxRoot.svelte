@@ -23,17 +23,22 @@
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { queueValueEvent } from '../internal/value-events.js';
-	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { useFieldItemContext } from '../field/item-context.js';
 	import {
 		BoundControl,
 		boundInputProps,
 		sourceBoolean,
 		type BoundInputProps
 	} from '../field/bound-control.svelte.js';
-	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import {
+		AriaLabelledBy,
+		LabelableId,
+		findLabelableContext
+	} from '../internal/labelable-provider.svelte.js';
+	import { useFormContext } from '../internal/form-context.js';
+	import { getDefaultFormSubmitter } from '../internal/getDefaultFormSubmitter.js';
 	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
-	import { useFormContext } from '../form/context.js';
-	import { getDefaultFormSubmitter } from './submitter.js';
 	import type { CheckboxHostProps, CheckboxRootProps, CheckboxRootState } from './types.js';
 
 	const uid = $props.id();

@@ -8,7 +8,8 @@ const base = {
 	open: true,
 	preventUnmountingOnClose: false,
 	activeTriggerId: 'open-trigger',
-	activeTriggerElement: { id: 'open-trigger' } as Element
+	activeTriggerElement: { id: 'open-trigger' } as Element,
+	openedWithoutTrigger: false
 };
 
 describe('createPopupOpenState', () => {
@@ -32,6 +33,17 @@ describe('createPopupOpenState', () => {
 	it('sets the flag when the close asks to prevent unmount', () => {
 		const next = createPopupOpenState(base, false, undefined, true);
 		expect(next.preventUnmountingOnClose).toBe(true);
+	});
+
+	it('records whether an open request carried a trigger', () => {
+		const trigger = { id: 'trigger-id' } as Element;
+		expect(createPopupOpenState(base, true, undefined).openedWithoutTrigger).toBe(true);
+		expect(createPopupOpenState(base, true, trigger).openedWithoutTrigger).toBe(false);
+	});
+
+	it('keeps the trigger-less open flag through a close request', () => {
+		const state = { ...base, openedWithoutTrigger: true };
+		expect(createPopupOpenState(state, false, undefined).openedWithoutTrigger).toBe(true);
 	});
 });
 

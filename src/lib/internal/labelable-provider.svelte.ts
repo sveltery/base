@@ -4,8 +4,8 @@
 
 import { getAbortSignal, tick, untrack } from 'svelte';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
-import { findAssociatedLabel } from '../internal/associated-label.js';
-import { defineContext } from '../internal/context.js';
+import { findAssociatedLabel } from './associated-label.js';
+import { defineContext } from './context.js';
 
 /**
  * Accessible name and description for one labelable scope.

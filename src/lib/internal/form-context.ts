@@ -1,9 +1,9 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/form-context/FormContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-import type { FormErrors, FormField, FormValidationMode } from './types.js';
-import type { FormSource } from './source.js';
-import { IssueSession } from './issues.svelte.js';
-import { defineOptionalContext } from '../internal/context.js';
+import type { FormErrors, FormField, FormValidationMode } from '../form/types.js';
+import type { FormSource } from '../form/source.js';
+import { IssueSession } from '../form/issues.svelte.js';
+import { defineOptionalContext } from './context.js';
 
 export interface FormContextValue {
 	/** Form element, or null before the host mounts and after it unmounts. */

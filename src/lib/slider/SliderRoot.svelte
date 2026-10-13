@@ -10,10 +10,10 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { useFieldContext } from '../field/context.svelte.js';
-	import { findLabelableContext } from '../field/labelable.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { BoundControl, sourceNumber } from '../field/bound-control.svelte.js';
-	import { useFormContext } from '../form/context.js';
+	import { useFormContext } from '../internal/form-context.js';
 	import { clamp } from '../internal/clamp.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';

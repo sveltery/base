@@ -5,13 +5,13 @@
 import { untrack } from 'svelte';
 import { ScopedTimeout } from '@sveltery/utils';
 import { SvelteMap } from 'svelte/reactivity';
-import type { FormContextValue } from '../form/context.js';
+import type { FormContextValue } from '../internal/form-context.js';
 import { onFormReset, ownerForm } from '../internal/form-reset.svelte.js';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
 import { resolveField, type ControlKind, type FieldHandle } from '../form/source.js';
 import { FieldIssues, handlePath } from '../form/issues.svelte.js';
-import { DEFAULT_VALIDITY_STATE, VALIDITY_KEYS } from './constants.js';
-import type { Labelable } from './labelable.svelte.js';
+import { DEFAULT_VALIDITY_STATE, VALIDITY_KEYS } from '../internal/field-constants.js';
+import type { Labelable } from '../internal/labelable-provider.svelte.js';
 import type { FieldRootState, FieldValidate, FieldValidateResult } from './types.js';
 import { getCombinedFieldValidityData, isConstraintElement, isEligibleInput } from './validity.js';
 

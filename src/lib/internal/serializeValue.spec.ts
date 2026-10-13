@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { serializeValue } from './serialize-value.js';
+import { serializeValue } from './serializeValue.js';
 
 describe('serializeValue', () => {
 	it('turns null and undefined into an empty string', () => {

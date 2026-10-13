@@ -1,7 +1,6 @@
 // Derived from Base UI v1.9.0 packages/react/src/dialog/root/useRenderDialogRoot.tsx
 // and useDialogRoot.ts (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
-// MIT, see THIRD_PARTY_NOTICES.md. The nested-dialog count keeps the v1.8.0 logic; v1.9.0's
-// closed-state changes to it are not ported yet.
+// MIT, see THIRD_PARTY_NOTICES.md.
 // Dialog.Root and AlertDialog.Root share this setup. AlertDialog.Root passes the alert
 // dialog role, `modal: true`, and disabled pointer dismissal.
 // Call it during component init: it sets context and registers effects.
@@ -18,16 +17,18 @@ import { findDialogRoot, setDialogRootContext } from './context.svelte.js';
 import type { DialogHandle } from './handle.svelte.js';
 import { DialogStore, type DialogStoreOptions } from './store.svelte.js';
 
-export interface DialogRootOptions extends Omit<DialogStoreOptions, 'nested'> {
+export interface DialogRootOptions<Payload> extends Omit<DialogStoreOptions, 'nested'> {
 	readTriggerId: () => string | null | undefined;
-	readHandle: () => DialogHandle<unknown> | undefined;
+	readHandle: () => DialogHandle<Payload> | undefined;
 }
 
-export function createDialogRoot(options: DialogRootOptions): DialogStore<unknown> {
+export function createDialogRoot<Payload>(
+	options: DialogRootOptions<Payload>
+): DialogStore<Payload> {
 	const parent = findDialogRoot()?.store;
 	setFloatingTree();
 
-	const store = new DialogStore({ ...options, nested: parent != null });
+	const store = new DialogStore<Payload>({ ...options, nested: parent != null });
 	useFloatingNodeId(store);
 	const click = new ClickInteraction(store).reference;
 	store.click = click;
@@ -88,14 +89,14 @@ export function createDialogRoot(options: DialogRootOptions): DialogStore<unknow
 	});
 
 	$effect(() => {
-		const notify = parent?.onNestedDialogOpen.bind(parent);
-		if (!notify) return;
-		const openNow = store.open;
-		const dialogs = openNow ? store.nestedOpenDialogCount + 1 : 0;
-		notify(dialogs);
-		return () => {
-			if (openNow) notify(0);
-		};
+		if (!store.open && !store.mounted) store.nestedOpenDialogCount = 0;
+	});
+
+	// Only an open root reports to its parent. A closed sibling must not reset the count.
+	$effect(() => {
+		if (!parent || !store.open) return;
+		parent.onNestedDialogOpen(store.nestedOpenDialogCount + 1);
+		return () => parent.onNestedDialogOpen(0);
 	});
 
 	return store;

@@ -20,11 +20,11 @@ import {
 } from '@sveltery/utils';
 import { clamp } from '../internal/clamp.js';
 import { ElementList } from '../internal/element-list.svelte.js';
-import { isTouchLikePointerType } from '../number-field/press-and-hold.svelte.js';
+import { isTouchLikePointerType } from '../internal/usePressAndHold.svelte.js';
 import { queueValueEvent } from '../internal/value-events.js';
 import type { BoundInputProps } from '../field/bound-control.svelte.js';
 import type { FieldContext } from '../field/model.svelte.js';
-import type { FormContextValue } from '../form/context.js';
+import type { FormContextValue } from '../internal/form-context.js';
 import { asc } from './asc.js';
 import { focusElement, isElement, matchesFocusVisible } from './dom.js';
 import { getMidpoint } from './getMidpoint.js';
@@ -192,7 +192,7 @@ export class SliderRootModel {
 	private latestValues: readonly number[] = [];
 	private styles: CSSStyleDeclaration | null = null;
 	private readonly focusFrame = new ScopedAnimationFrame();
-	private listeningDoc: Document | null = null;
+	private listening: AbortController | null = null;
 	private pinnedFieldInput = false;
 	private readonly options: SliderModelOptions;
 	/** The thumb values a form reset returns to. With no default, every thumb starts at `min`. */
@@ -581,20 +581,12 @@ export class SliderRootModel {
 			this.setValueFromPointer(finger, REASONS.trackPress, event);
 			this.moveCount = 0;
 		}
-		this.listen(ownerDocument(this.control), true);
+		this.listen(ownerDocument(this.control), true, startedByPointer);
 	}
 
 	stopListening() {
-		const doc = this.listeningDoc;
-		if (doc) {
-			doc.removeEventListener('pointermove', this.onMove);
-			doc.removeEventListener('pointerup', this.onUp);
-			doc.removeEventListener('pointercancel', this.onPointerCancel);
-			doc.removeEventListener('touchmove', this.onMove);
-			doc.removeEventListener('touchend', this.onUp);
-			doc.removeEventListener('touchcancel', this.onUp);
-			this.listeningDoc = null;
-		}
+		this.listening?.abort();
+		this.listening = null;
 		this.touchId = null;
 		this.pressedValues = null;
 		this.currentInteractionValue = null;
@@ -605,32 +597,32 @@ export class SliderRootModel {
 		this.focusFrame.cancel();
 	}
 
-	private onMove = (event: Event) => {
-		this.handleMove(event as PointerEvent | TouchEvent);
-	};
-
-	private onUp = (event: Event) => {
-		this.handleEnd(event as PointerEvent | TouchEvent);
-	};
-
-	private onPointerCancel = (event: Event) => {
+	private onPointerCancel = (event: PointerEvent) => {
 		// The browser cancels a touch pointer once it starts panning, but the touch listeners
 		// keep tracking the finger until `touchend` or `touchcancel`.
 		if (this.touchId != null) return;
-		this.handleEnd(event as PointerEvent);
+		this.handleEnd(event);
 	};
 
-	private listen(doc: Document, touch: boolean) {
-		this.listeningDoc = doc;
+	/** `join` adds touch listeners to the pointer gesture that the touch belongs to. */
+	private listen(doc: Document, touch: boolean, join = false) {
+		// Not `on()`: it attaches pointer listeners a microtask late.
+		if (!join || !this.listening) {
+			this.listening?.abort();
+			this.listening = new AbortController();
+		}
+		const { signal } = this.listening;
+		const move = (event: PointerEvent | TouchEvent) => this.handleMove(event);
+		const end = (event: PointerEvent | TouchEvent) => this.handleEnd(event);
 		if (touch) {
-			doc.addEventListener('touchmove', this.onMove, { passive: true });
-			doc.addEventListener('touchend', this.onUp, { passive: true });
-			doc.addEventListener('touchcancel', this.onUp, { passive: true });
+			doc.addEventListener('touchmove', move, { passive: true, signal });
+			doc.addEventListener('touchend', end, { passive: true, signal });
+			doc.addEventListener('touchcancel', end, { passive: true, signal });
 			return;
 		}
-		doc.addEventListener('pointermove', this.onMove, { passive: true });
-		doc.addEventListener('pointerup', this.onUp, { once: true });
-		doc.addEventListener('pointercancel', this.onPointerCancel, { once: true });
+		doc.addEventListener('pointermove', move, { passive: true, signal });
+		doc.addEventListener('pointerup', end, { once: true, signal });
+		doc.addEventListener('pointercancel', this.onPointerCancel, { once: true, signal });
 	}
 
 	private isTargetDisabledThumb(target: EventTarget | null) {

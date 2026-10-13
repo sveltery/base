@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useFieldContext } from '../lib/field/context.svelte.js';
+	import { useFieldContext } from '../lib/internal/field-root-context.js';
 
 	const field = useFieldContext();
 	let status = $state('idle');
