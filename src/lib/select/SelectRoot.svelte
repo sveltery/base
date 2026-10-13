@@ -86,19 +86,6 @@
 		);
 	}
 
-	// svelte-ignore state_referenced_locally
-	const bound: BoundControl<SelectValue> = new BoundControl<SelectValue>(field, {
-		kind: multipleProp === true ? 'select multiple' : 'select',
-		read: () => current,
-		write: (next) => selection.set(next),
-		fromSource: (raw) => {
-			if (multiple) return (Array.isArray(raw) ? raw.map(optionFor) : []) as SelectValue;
-			return (raw == null ? null : optionFor(raw)) as SelectValue;
-		},
-		equals: (a, b) => (Array.isArray(a) && Array.isArray(b) ? sameStrings(a, b) : Object.is(a, b))
-	});
-
-	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// Svelte proxies an object or array written to the prop. Items compare the written one.
 	const selection = new WrittenReference<SelectValue | undefined>(
 		() => value,
@@ -106,10 +93,6 @@
 			value = next;
 		}
 	);
-
-	// `defaultValue` is the initial value of an empty binding, as in HTML.
-	// svelte-ignore state_referenced_locally
-	if (value === undefined) selection.set(bound.initial(defaultValue ?? emptyValue()));
 
 	const current: SelectValue = $derived(selection.current ?? emptyValue());
 	const disabled = $derived(field.disabled || disabledProp);
@@ -133,6 +116,20 @@
 	const serializedValues = $derived(
 		multiple && Array.isArray(current) ? current.map(serialize) : (EMPTY as string[])
 	);
+	const serializedDefaults = $derived(
+		multiple && Array.isArray(defaultValue) ? defaultValue.map(serialize) : (EMPTY as string[])
+	);
+	/** Every value the hidden select may hold: the current ones and those a reset restores. */
+	const submitOptions = $derived([...new Set([...serializedValues, ...serializedDefaults])]);
+
+	// An option's `selected` attribute is what a native reset restores, so it marks the defaults.
+	// The current values are the options' live selectedness, set once Svelte has rendered them.
+	$effect(() => {
+		const values = serializedValues;
+		void serializedDefaults;
+		if (!valuesSelect) return;
+		for (const option of valuesSelect.options) option.selected = values.includes(option.value);
+	});
 
 	function commitValue(next: unknown, details: SelectChangeEventDetails) {
 		onValueChange?.(next as SelectValue, details);
@@ -204,6 +201,23 @@
 		readPopupTypeahead: () => typeahead.floating,
 		readItemProps: () => listNavigation.item
 	});
+	// The binding reads item values from the store, so it starts once the store exists.
+	// svelte-ignore state_referenced_locally
+	const bound: BoundControl<SelectValue> = new BoundControl<SelectValue>(field, {
+		kind: multipleProp === true ? 'select multiple' : 'select',
+		read: () => current,
+		write: (next) => selection.set(next),
+		fromSource: (raw) => {
+			if (multiple) return (Array.isArray(raw) ? raw.map(optionFor) : []) as SelectValue;
+			return (raw == null ? null : optionFor(raw)) as SelectValue;
+		},
+		equals: (a, b) => (Array.isArray(a) && Array.isArray(b) ? sameStrings(a, b) : Object.is(a, b))
+	});
+
+	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	// svelte-ignore state_referenced_locally
+	if (value === undefined) selection.set(bound.initial(defaultValue ?? emptyValue()));
+
 	// svelte-ignore state_referenced_locally
 	store.initialValue = current;
 	setSelectRoot(store);
@@ -379,8 +393,10 @@
 		{disabled}
 		{...boundProps as Record<string | symbol, unknown>}
 	>
-		{#each serializedValues as serialized, index (index)}
-			<option value={serialized} selected>{serialized}</option>
+		{#each submitOptions as serialized (serialized)}
+			<option value={serialized} selected={serializedDefaults.includes(serialized)}
+				>{serialized}</option
+			>
 		{/each}
 	</select>
 {/if}

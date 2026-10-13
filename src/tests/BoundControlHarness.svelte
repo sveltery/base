@@ -8,6 +8,7 @@
 		OTPField,
 		Radio,
 		RadioGroup,
+		Select,
 		Slider,
 		Switch
 	} from '#lib';
@@ -24,7 +25,9 @@
 		| 'number-field'
 		| 'slider'
 		| 'range-slider'
-		| 'otp-field';
+		| 'otp-field'
+		| 'select'
+		| 'select-multiple';
 
 	let {
 		source,
@@ -49,7 +52,9 @@
 		'number-field': ['seats', 'number'],
 		slider: ['volume', 'range'],
 		'range-slider': ['volume', 'range'],
-		'otp-field': ['code', 'text']
+		'otp-field': ['code', 'text'],
+		select: ['fruit', 'select'],
+		'select-multiple': ['fruits', 'select multiple']
 	};
 	const [path, kind] = $derived(paths[scenario]);
 </script>
@@ -93,6 +98,21 @@
 				<OTPField.Input data-testid={`slot-${index}`} />
 			{/each}
 		</OTPField.Root>
+	{:else if scenario === 'select' || scenario === 'select-multiple'}
+		<Select.Root
+			multiple={scenario === 'select-multiple'}
+			defaultValue={scenario === 'select' ? 'apple' : ['apple']}
+		>
+			<Select.Trigger data-testid="control"><Select.Value /></Select.Trigger>
+			<Select.Portal>
+				<Select.Positioner>
+					<Select.Popup>
+						<Select.Item value="apple">apple</Select.Item>
+						<Select.Item value="banana">banana</Select.Item>
+					</Select.Popup>
+				</Select.Positioner>
+			</Select.Portal>
+		</Select.Root>
 	{/if}
 {/snippet}
 
