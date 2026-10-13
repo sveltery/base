@@ -3,7 +3,7 @@
 	Renders a `<div>` element and a visually hidden number input for form submission.
 	Derived from Base UI v1.8.0 packages/react/src/number-field/root/NumberFieldRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	The hidden input is not a ref. Field registration uses the visible input inside NumberField.Input.
+	The hidden input is not a ref. Field validates it, and registers the visible input inside NumberField.Input.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -139,6 +139,14 @@
 		getNameProp: () => nameProp
 	});
 	setNumberFieldContext(model);
+
+	// Field reads validity from the hidden number input, as upstream does. Its `min` and `max`
+	// report an out-of-range value that `allowOutOfRange` keeps. Form focuses the visible input.
+	$effect(() => {
+		const input = model.hiddenInput;
+		if (!input) return;
+		return field.registerInput(input, { element: model.inputElement, value: undefined });
+	});
 
 	const rootState: NumberFieldRootState = $derived(model.state);
 	const hiddenStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
