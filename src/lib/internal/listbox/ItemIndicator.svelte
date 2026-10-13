@@ -43,14 +43,14 @@
 		};
 	}
 
-	const state: ItemIndicatorState = $derived({
+	const partState: ItemIndicatorState = $derived({
 		selected,
 		transitionStatus: transition.transitionStatus
 	});
 
 	const hostProps: HTMLAttributes<HTMLSpanElement> & Record<symbol, Attachment<HTMLElement>> =
 		$derived({
-			...getStateAttributesProps(state, transitionStatusMapping),
+			...getStateAttributesProps(partState, transitionStatusMapping),
 			'aria-hidden': true,
 			...elementProps,
 			[indicatorKey]: remember
@@ -60,7 +60,7 @@
 {#snippet check()}✔️{/snippet}
 
 {#if render}
-	{@render render(hostProps, state, children ?? check)}
+	{@render render(hostProps, partState, children ?? check)}
 {:else}
 	<span {...hostProps}>{@render (children ?? check)()}</span>
 {/if}
