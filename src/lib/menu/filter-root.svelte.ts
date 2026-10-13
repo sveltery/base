@@ -10,9 +10,9 @@
 // `MutationObserver`, since a Svelte snippet has no children value to compare.
 
 import { untrack } from 'svelte';
-import type { HTMLAttributes } from 'svelte/elements';
 import { REASONS, createChangeEventDetails, type BaseUIChangeEventDetails } from '@sveltery/utils';
 import { defineOptionalContext } from '../internal/context.js';
+import type { PropsGetter } from '../internal/mergeProps.js';
 import { getFilter } from './filter.js';
 import {
 	handleMenuFilterKeyDown,
@@ -202,8 +202,6 @@ export interface MenuFilterOptions {
 	/** Base for the generated list id. */
 	readonly id: string;
 }
-
-type Props = HTMLAttributes<HTMLElement>;
 
 /**
  * Holds the filter query, matches it against the registered items, and moves the menu's
@@ -404,33 +402,46 @@ export class MenuFilter {
 
 	/**
 	 * Props the menu adds to its triggers: dialog semantics, screen reader press tracking, and a
-	 * relay of list navigation typed on the trigger to the input, which holds real focus.
+	 * relay of list navigation typed on the trigger to the input, which holds real focus. A
+	 * function bag, so a key can skip the trigger's own handlers without cancelling its default.
 	 */
-	readonly triggerProps: Props = {
-		'aria-haspopup': 'dialog',
-		onpointerdown: (event) => {
-			this.store.virtualPress = isVirtualPointerEvent(event);
-		},
-		onkeydown: (event) => {
-			const owner = this.store.focusOwner;
-			if (!this.store.open || !owner || this.#inMenubar) return;
-			if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-				owner.focus({ preventScroll: true });
-				handleMenuFilterKeyDown(this.#keys, event, this.value !== '');
-				// Skips the trigger's own list navigation.
-				event.preventDefault();
-			} else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-				// Cross-axis keys drive submenus, which the trigger must not relay.
-				event.preventDefault();
-			} else if (
-				event.key.length === 1 &&
-				event.key !== ' ' &&
-				!event.ctrlKey &&
-				!event.metaKey &&
-				!event.altKey
-			) {
-				owner.focus({ preventScroll: true });
+	readonly triggerProps: PropsGetter = (previous) => {
+		const ownPointerDown = previous.onpointerdown as ((event: PointerEvent) => void) | undefined;
+		const ownKeyDown = previous.onkeydown as ((event: KeyboardEvent) => void) | undefined;
+		return {
+			...previous,
+			'aria-haspopup': 'dialog',
+			onpointerdown: (event: PointerEvent) => {
+				this.store.virtualPress = isVirtualPointerEvent(event);
+				ownPointerDown?.(event);
+			},
+			onkeydown: (event: KeyboardEvent) => {
+				if (!this.#relayTriggerKey(event)) ownKeyDown?.(event);
 			}
-		}
+		};
 	};
+
+	/** Handles a key typed on the trigger. Returns whether the trigger's own handlers skip it. */
+	#relayTriggerKey(event: KeyboardEvent): boolean {
+		const owner = this.store.focusOwner;
+		if (!this.store.open || !owner || this.#inMenubar) return false;
+		if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+			owner.focus({ preventScroll: true });
+			handleMenuFilterKeyDown(this.#keys, event, this.value !== '');
+			event.preventDefault();
+			return true;
+		}
+		// Cross-axis keys drive submenus, which the trigger must not relay.
+		if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') return true;
+		if (
+			event.key.length === 1 &&
+			event.key !== ' ' &&
+			!event.ctrlKey &&
+			!event.metaKey &&
+			!event.altKey
+		) {
+			owner.focus({ preventScroll: true });
+		}
+		return false;
+	}
 }

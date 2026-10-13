@@ -1483,6 +1483,39 @@ describe('Menu.FilterProvider keyboard and focus', () => {
 		expect(item('Rename').hasAttribute('data-highlighted')).toBe(false);
 	});
 
+	it('leaves the cross-axis keys on the trigger to the browser while open', async () => {
+		filterable(
+			[
+				{
+					type: 'submenu',
+					label: 'Share',
+					triggerProps: { openOnHover: false },
+					filter: { inputLabel: 'Filter sharing options' },
+					items: items('Email')
+				},
+				...items('Rename')
+			],
+			{ open: false, rootProps: { orientation: 'horizontal' } }
+		);
+		const trigger = page.getByRole('button', { name: 'Actions' }).element() as HTMLElement;
+		await userEvent.click(trigger);
+		await expect.poll(() => focused()).toBe(input());
+		await userEvent.keyboard('{ArrowDown}');
+		expect(activeDescendant()).toBe(item('Share').id);
+
+		trigger.focus();
+		const prevented = ['ArrowRight', 'ArrowLeft'].map((key) => {
+			const event = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+			trigger.dispatchEvent(event);
+			return event.defaultPrevented;
+		});
+		await frame();
+		expect(prevented).toEqual([false, false]);
+		expect(focused()).toBe(trigger);
+		expect(document.querySelector('input[aria-label="Filter sharing options"]')).toBe(null);
+		expect(highlightedNames()).toEqual(['Share']);
+	});
+
 	it('labels the list with the trigger when no label is given', () => {
 		filterable(items('Rename'));
 		const trigger = page.getByRole('button', { name: 'Actions' }).element();
