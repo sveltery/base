@@ -48,12 +48,6 @@
 	const live = $derived(root ?? (handle as TooltipHandle | undefined)?.attached ?? null);
 	const disabled = $derived(disabledProp ?? live?.disabled ?? false);
 
-	const seedStore = root;
-	const seedId = untrack(() => id) ?? `base-ui-${uid}`;
-	if (seedStore?.open && seedStore.resolvedActiveTriggerId() == null) {
-		seedStore.writeTriggerId(seedId);
-	}
-
 	function owned() {
 		return { payload, closeDelay: closeDelay ?? 0, closeOnClick };
 	}

@@ -53,10 +53,6 @@
 	});
 
 	$effect.pre(() => {
-		store.reconcileActiveTrigger();
-	});
-
-	$effect.pre(() => {
 		if (open === true && disabled) {
 			untrack(() => store.setOpen(false, createChangeEventDetails(REASONS.disabled)));
 		}
