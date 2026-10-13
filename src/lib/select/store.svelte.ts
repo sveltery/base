@@ -62,6 +62,8 @@ export interface SelectStoreOptions {
 	onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
 	readTriggerProps: () => HTMLAttributes<HTMLElement>;
 	readPopupProps: () => HTMLAttributes<HTMLElement>;
+	/** Typeahead on the open popup. It sees every keydown, also one an item prevented. */
+	readPopupTypeahead: () => HTMLAttributes<HTMLElement>;
 	readItemProps: () => HTMLAttributes<HTMLElement>;
 }
 
@@ -158,6 +160,10 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 
 	get popupProps() {
 		return this.#options.readPopupProps();
+	}
+
+	get popupTypeahead() {
+		return this.#options.readPopupTypeahead();
 	}
 
 	get itemProps() {

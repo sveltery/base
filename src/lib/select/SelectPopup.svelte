@@ -455,9 +455,28 @@
 				...getStateAttributesProps(partState, popupTransitionStateMapping),
 				[bindKey]: bindPopup
 			},
-			elementProps
+			elementProps,
+			withTypeahead
 		)
 	);
+
+	type Handler = (event: Event) => void;
+
+	/**
+	 * Typeahead runs after the other handlers, even for a keydown an item prevented: a Space
+	 * typed inside a match is prevented so it does not select the item. mergeProps would skip it.
+	 */
+	function withTypeahead(merged: Record<string, unknown>) {
+		const next = { ...merged };
+		for (const [key, handler] of Object.entries(store.popupTypeahead)) {
+			const before = merged[key] as Handler | undefined;
+			next[key] = (event: Event) => {
+				before?.(event);
+				(handler as Handler)(event);
+			};
+		}
+		return next;
+	}
 </script>
 
 {#if csp.disableStyleElements !== true}

@@ -195,6 +195,7 @@
 		onOpenChangeComplete: () => onOpenChangeComplete,
 		readTriggerProps: () => triggerProps,
 		readPopupProps: () => popupProps,
+		readPopupTypeahead: () => typeahead.floating,
 		readItemProps: () => listNavigation.item
 	});
 	// svelte-ignore state_referenced_locally
@@ -243,12 +244,7 @@
 		mergeProps(typeahead.reference, listNavigation.reference, dismiss.reference, click.reference)
 	);
 	const popupProps = $derived(
-		mergeProps(
-			{ ...FOCUSABLE_POPUP_PROPS },
-			typeahead.floating,
-			listNavigation.floating,
-			dismiss.floating
-		)
+		mergeProps({ ...FOCUSABLE_POPUP_PROPS }, listNavigation.floating, dismiss.floating)
 	);
 
 	watchFieldControl(field, {
