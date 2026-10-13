@@ -68,6 +68,7 @@ Import the components and wrap your fields in a form:
 </script>
 
 <Form>
+	<Form.Error />
 	<Field.Root name="email">
 		<Field.Label />
 		<Field.Control />
@@ -76,7 +77,9 @@ Import the components and wrap your fields in a form:
 </Form>
 ```
 
-`Form` renders a native `<form>`. Each `Field.Root` inside it registers with the form. On submit, the form validates every registered field, focuses the first invalid control, and blocks the submission while any field is invalid.
+`Form` renders a native `<form>`. Each `Field.Root` inside it registers with the form. On submit, the form validates every registered field, focuses the first invalid control, and blocks the submission while any field is invalid. `Form.Error` shows the messages that no field shows.
+
+[Forms](/handbook/forms) is the guide to validation, server errors, and form sources.
 
 ## Examples
 
@@ -212,9 +215,91 @@ A form reset clears `errors`.
 <Form onFormSubmit={(values: { product: string; quantity: number | null }) => save(values)}>…</Form>
 ```
 
+### Bind a form source
+
+`form` takes a form source: a SvelteKit remote form, or a form action through `actionForm()` from `@sveltery/base/form/kit`. Form spreads the source's `method`, `action`, and attachment onto the `<form>`, and the source sends the submit. Pass each of the source's fields to `field` on a `Field.Root`:
+
+```svelte
+<script lang="ts">
+	import { Field } from '@sveltery/base/field';
+	import { Form } from '@sveltery/base/form';
+	import { signupSchema } from './schema.js';
+	import { signup } from './signup.remote.js';
+
+	const f = signup.preflight(signupSchema);
+</script>
+
+<Form form={f}>
+	<Form.Error />
+	<Field.Root field={f.fields.email} type="email">
+		<Field.Label>Email</Field.Label>
+		<Field.Control required />
+		<Field.Error />
+	</Field.Root>
+	<button disabled={f.pending > 0}>Sign up</button>
+</Form>
+```
+
+The fields validate before the source sees the submit. An invalid field stops the submit, and no request is sent. Do not combine `form` with `onFormSubmit`. In development, Form warns when you do. [Bind a SvelteKit remote form](/handbook/forms#bind-a-sveltekit-remote-form) and [Bind a form action](/handbook/forms#bind-a-form-action) show the server side.
+
+### Customize a source submit
+
+Without `enhance`, a source submit sends the request and resets the form when it succeeds. `enhance` replaces that step. It receives the source's enhance instance. Nothing is sent until the callback calls `submit()`, which resolves to `true` on success:
+
+```svelte
+<Form
+	form={f}
+	enhance={async ({ submit }) => {
+		if (await submit()) toast('Saved');
+	}}
+>
+	…
+</Form>
+```
+
+This form keeps its values after a successful submit. Pass the callback to Form, not to the source's own `enhance()` method, because Form installs its own callback on the source and calls yours from there.
+
+### Show errors for the whole form
+
+`Form.Error` shows the messages that no `Field.Error` shows: issues on the whole form, issues on a path that no mounted field binds, and `errors` entries whose key no field has as its `name`. It renders a `<div>` with `role="alert"`, and renders nothing while there is no message. Submit this form to see a message for the whole form.
+
+```svelte demo
+<script lang="ts">
+	import { Field } from '@sveltery/base/field';
+	import { Form, type FormErrors } from '@sveltery/base/form';
+
+	let errors = $state<FormErrors>({});
+</script>
+
+<Form
+	bind:errors
+	onFormSubmit={() => (errors = { form: 'The shop is closed for maintenance.' })}
+	class="flex w-72 flex-col gap-4 text-sm text-gray-900 dark:text-gray-100"
+>
+	<Form.Error
+		class="rounded-md border border-red-200 bg-red-50 p-3 text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-300"
+	/>
+	<Field.Root name="product" class="flex flex-col items-start gap-1">
+		<Field.Label class="font-medium">Product</Field.Label>
+		<Field.Control
+			required
+			defaultValue="Coffee beans"
+			class="h-10 w-full rounded-md border border-gray-200 bg-white pl-3.5 text-base focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-600 dark:border-gray-700 dark:bg-gray-900"
+		/>
+		<Field.Error class="text-red-700 dark:text-red-400" />
+	</Field.Root>
+	<button
+		type="submit"
+		class="h-10 rounded-md border border-gray-200 bg-gray-50 px-3.5 font-medium hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+	>
+		Order
+	</button>
+</Form>
+```
+
 ### Native submit
 
-Without `onFormSubmit`, the form submits natively after validation, and `onsubmit` runs first. Use this for plain `method="post"` forms and for a SvelteKit form action. An invalid form stops the submit before any later `submit` listener on the form runs, including the one SvelteKit's `enhance` adds. A submit button with `formnovalidate` skips validation, as it does in a native form. Read [Forms](/handbook/forms) for the full pattern and [SvelteKit](/handbook/sveltekit) for form actions.
+Without `onFormSubmit` or `form`, the form submits natively after validation, and `onsubmit` runs first. Use this for plain `method="post"` forms. An invalid form stops the submit before any later `submit` listener on the form runs. A submit button with `formnovalidate` skips validation, as it does in a native form. For a SvelteKit form action, pass `actionForm()` to `form` instead. Read [Forms](/handbook/forms) for the full pattern.
 
 ### Validate by hand
 
@@ -267,7 +352,8 @@ Run your schema in `onFormSubmit` and map its issues to `errors`. This example u
 
 - `errors` is a bindable prop. Use `bind:errors` so the form can clear a key when the user edits that field.
 - Upstream takes an `actionsRef` prop. In Svelte, use `bind:this` on `Form` and call `validate()`.
-- Upstream can pass a React action to `Form`. In Svelte, use a SvelteKit form action or a remote form function, and leave `onFormSubmit` unset. `onFormSubmit` always cancels the native submit.
+- Upstream can pass a React action to `Form`. In Svelte, pass a SvelteKit remote form or `actionForm()` to `form`, and leave `onFormSubmit` unset. `onFormSubmit` always cancels the native submit.
+- `form`, `enhance`, and `Form.Error` have no upstream counterpart.
 - The form validates in a capture-phase `submit` listener. An invalid submit calls `preventDefault()` and `stopImmediatePropagation()`, so SvelteKit's `enhance` and other later listeners do not run. Upstream blocks only with `preventDefault()`.
 - A submitter with `formnovalidate` skips validation. Upstream validates anyway.
 - `novalidate` is on by default and the form sets it after hydration. The server renders no `novalidate`, so a page without JavaScript keeps the browser's validation.
@@ -285,3 +371,12 @@ Run your schema in `onFormSubmit` and map its issues to `errors`. This example u
 <ApiPart name="form" part="Form" />
 
 `Form` sets no data attributes.
+
+### Error
+
+<ApiPart name="form" part="Error" />
+
+| Attribute             | Description                                 |
+| --------------------- | ------------------------------------------- |
+| `data-starting-style` | Present when the error begins animating in. |
+| `data-ending-style`   | Present when the error is animating out.    |
