@@ -191,8 +191,17 @@ describe('Tooltip.Viewport conformance', () => {
 			expect(byTestId('content')?.textContent).toBe('Content 1');
 		});
 
-		// PopupViewport in src/lib/internal does not measure the previous content.
-		it.todo('sets --popup-width and --popup-height on the previous container');
+		it('sets --popup-width and --popup-height on the previous container', async () => {
+			renderPositioned([10, 10], [100, 200], '0.3s');
+			await activate('trigger1');
+			await expect.poll(() => byTestId('content')?.textContent).toBe('Content 0');
+			const { width, height } = getComputedStyle(byTestId('popup')!);
+
+			await activate('trigger2');
+			await expect.poll(previous).not.toBeNull();
+			expect(previous()!.style.getPropertyValue('--popup-width')).toBe(width);
+			expect(previous()!.style.getPropertyValue('--popup-height')).toBe(height);
+		});
 
 		it('sets data-activation-direction from the previous to the new trigger', async () => {
 			renderPositioned([100, 200], [10, 10], '0.2s');

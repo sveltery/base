@@ -172,10 +172,7 @@ for (const reference of [false, true]) {
 				await expect(popup).toBeVisible();
 				await page.keyboard.press('Shift+Tab');
 				await expect(page.getByTestId('ext')).toBeFocused();
-				// React closes. Main leaves the popup open: the trigger is not the reference,
-				// so this Shift+Tab is not a focus-out close.
-				if (reference) await expect(popup).toHaveCount(0);
-				else await expect(popup).toBeVisible();
+				await expect(popup).toHaveCount(0);
 			});
 		}
 

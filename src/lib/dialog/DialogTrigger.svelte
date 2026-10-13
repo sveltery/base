@@ -59,9 +59,9 @@
 	const state: DialogTriggerState = $derived({ disabled: disabled === true, open: openedByThis });
 
 	// The active trigger supplies the payload while the popup is mounted, including one switched to
-	// while open or named by `triggerId`. The only trigger supplies it only while open, so a closing
-	// popup keeps its payload. A pre-effect sets it before the DOM updates, as upstream's layout
-	// effect does.
+	// while open, named by `triggerId`, or claimed as the only trigger. `openedByThis` covers the
+	// only trigger before the root claims it. A pre-effect sets it before the DOM updates, as
+	// upstream's layout effect does.
 	$effect.pre(() => {
 		const current = store;
 		if (current?.mounted && (current.activeTriggerId === triggerId || openedByThis)) {
