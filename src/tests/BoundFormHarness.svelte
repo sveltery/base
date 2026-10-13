@@ -8,7 +8,9 @@
 		mode,
 		required = false,
 		byName,
+		bio = false,
 		errors,
+		errorRole,
 		cancelReset = false,
 		enhance,
 		onFormSubmit
@@ -17,7 +19,9 @@
 		mode?: FormValidationMode;
 		required?: boolean;
 		byName?: string;
+		bio?: boolean;
 		errors?: FormErrors;
+		errorRole?: string;
 		cancelReset?: boolean;
 		enhance?: (instance: EnhanceInstance) => unknown;
 		onFormSubmit?: () => void;
@@ -57,7 +61,18 @@
 			<Field.Error data-testid="named-error" />
 		</Field.Root>
 	{/if}
-	<Form.Error data-testid="form-error" />
+	{#if bio}
+		<Field.Root field={source?.fields.bio}>
+			<Field.Label>Bio</Field.Label>
+			<Field.Control data-testid="bio">
+				{#snippet render(props)}
+					<textarea {...props}></textarea>
+				{/snippet}
+			</Field.Control>
+			<Field.Error data-testid="bio-error" />
+		</Field.Root>
+	{/if}
+	<Form.Error data-testid="form-error" role={errorRole} />
 	<button>Submit</button>
 	<button type="reset">Reset</button>
 </Form>
