@@ -27,6 +27,9 @@
 		get name() {
 			return name;
 		},
+		get blocksSubmit() {
+			return valid === false;
+		},
 		get control() {
 			return control;
 		},

@@ -38,6 +38,15 @@ jobs:
       - uses: ./.github/actions/setup
       - run: pnpm run build
 
+  docs:
+    name: Docs
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      # Builds the site, then type-checks it and every demo.
+      - run: pnpm --filter @sveltery/base-docs check
+
   component:
     name: Component
     # Chromium's sandbox needs unprivileged user namespaces, which 24.04 runners restrict.

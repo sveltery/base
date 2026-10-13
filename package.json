@@ -19,7 +19,7 @@
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"prepack": "svelte-kit sync && pnpm --filter './packages/*' run prepack && svelte-package && node scripts/bundle-packages.mjs && node scripts/check-exported-props.mjs && publint --strict",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && node scripts/check-form-types.mjs",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint . && node scripts/sync-exports.mjs --check",
 		"format": "prettier --write .",
@@ -34,6 +34,7 @@
 		"dist",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*",
+		"!dist/**/*.test-d.*",
 		"THIRD_PARTY_NOTICES.md"
 	],
 	"sideEffects": [
@@ -51,6 +52,11 @@
 			"types": "./dist/accordion/index.d.ts",
 			"svelte": "./dist/accordion/index.js",
 			"default": "./dist/accordion/index.js"
+		},
+		"./alert-dialog": {
+			"types": "./dist/alert-dialog/index.d.ts",
+			"svelte": "./dist/alert-dialog/index.js",
+			"default": "./dist/alert-dialog/index.js"
 		},
 		"./avatar": {
 			"types": "./dist/avatar/index.d.ts",
@@ -106,6 +112,16 @@
 			"types": "./dist/form/index.d.ts",
 			"svelte": "./dist/form/index.js",
 			"default": "./dist/form/index.js"
+		},
+		"./form/kit": {
+			"types": "./dist/form/kit/index.d.ts",
+			"svelte": "./dist/form/kit/index.js",
+			"default": "./dist/form/kit/index.js"
+		},
+		"./form/tanstack": {
+			"types": "./dist/form/tanstack/index.d.ts",
+			"svelte": "./dist/form/tanstack/index.js",
+			"default": "./dist/form/tanstack/index.js"
 		},
 		"./input": {
 			"types": "./dist/input/index.d.ts",
@@ -209,7 +225,17 @@
 		}
 	},
 	"peerDependencies": {
+		"@sveltejs/kit": "^3.0.0",
+		"@tanstack/svelte-form": "^1.33.5",
 		"svelte": "^5.57.1"
+	},
+	"peerDependenciesMeta": {
+		"@sveltejs/kit": {
+			"optional": true
+		},
+		"@tanstack/svelte-form": {
+			"optional": true
+		}
 	},
 	"devDependencies": {
 		"@base-ui/react": "1.8.0",
@@ -221,6 +247,7 @@
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",
 		"@sveltery/floating-ui-svelte": "workspace:*",
 		"@sveltery/utils": "workspace:*",
+		"@tanstack/svelte-form": "^1.33.5",
 		"@types/node": "^24",
 		"@types/react": "19.2.18",
 		"@types/react-dom": "19.2.4",
@@ -239,6 +266,7 @@
 		"svelte-check": "^4.6.0",
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.60.1",
+		"valibot": "^1.5.0",
 		"vite": "^8.3.0",
 		"vitest": "^4.1.8",
 		"vitest-browser-svelte": "^2.1.1"
@@ -255,6 +283,7 @@
 	"dependencies": {
 		"@floating-ui/dom": "^1.8.0",
 		"@floating-ui/utils": "^0.2.12",
+		"@standard-schema/spec": "^1.1.0",
 		"esm-env": "1.2.2"
 	}
 }

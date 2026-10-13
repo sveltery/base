@@ -282,6 +282,19 @@ describe('<NumberField />', () => {
 		await expect.element(control()).toHaveValue('5');
 	});
 
+	it('reports an out-of-range value to Field when allowOutOfRange is set', async () => {
+		render(NumberFieldHarness, { scenario: 'field-out-of-range' });
+		const input = control().element() as HTMLInputElement;
+		input.focus();
+		await userEvent.fill(input, '9');
+		await expect.element(page.getByText('too large')).toBeVisible();
+		await expect.element(control()).toHaveAttribute('data-invalid', '');
+		await userEvent.fill(input, '-1');
+		await expect.element(page.getByText('too small')).toBeVisible();
+		await userEvent.fill(input, '3');
+		await expect.element(control()).toHaveAttribute('data-valid', '');
+	});
+
 	it('pastes a number over the selection', async () => {
 		const onValueChange = vi.fn();
 		render(NumberFieldHarness, { scenario: 'paste', onValueChange });

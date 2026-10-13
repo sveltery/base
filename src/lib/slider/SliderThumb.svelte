@@ -245,7 +245,7 @@
 		id: inputId,
 		max: model.max,
 		min: model.min,
-		...(model.linkedName ? { name: model.linkedName } : {}),
+		...model.inputProps,
 		step: model.step,
 		style: inputStyle,
 		tabindex,

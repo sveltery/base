@@ -51,7 +51,9 @@ const INERT_FIELD: FieldContext = {
 	registerControl: inert,
 	registerInput: () => inert,
 	change: inert,
-	commit: inert
+	commit: inert,
+	binding: undefined,
+	controlType: undefined
 };
 
 export const [useFieldContext, setFieldContext] = defineOptionalContext<FieldContext>(INERT_FIELD);
