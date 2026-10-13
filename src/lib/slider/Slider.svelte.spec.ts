@@ -500,6 +500,12 @@ describe('<Slider />', () => {
 			await valueNow(slider(), '30');
 		});
 
+		it('marks the Field filled, as a range input always has a value', async () => {
+			render(SliderHarness, { scenario: 'field', defaultValue: 30 });
+			await expect.element(page.getByTestId('field')).toHaveAttribute('data-filled', '');
+			await expect.element(page.getByTestId('root')).toHaveAttribute('data-filled', '');
+		});
+
 		it('receives disabled from Field', async () => {
 			render(SliderHarness, { scenario: 'field', fieldDisabled: true, defaultValue: 30 });
 			expect(root()).toHaveAttribute('data-disabled', '');

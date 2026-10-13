@@ -1,7 +1,9 @@
 import type { Snippet } from 'svelte';
-import type { HTMLFormAttributes } from 'svelte/elements';
+import type { HTMLAttributes, HTMLFormAttributes } from 'svelte/elements';
 import type { BaseUIGenericEventDetails, REASONS } from '@sveltery/utils';
 import type { RenderChildren } from '../internal/render-children.js';
+import type { EnhanceInstanceOf, FormSource } from './source.js';
+import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 
 export type FormValidationMode = 'onSubmit' | 'onBlur' | 'onChange';
 
@@ -44,6 +46,12 @@ export interface FormField {
 	 */
 	validate: () => void;
 	validityData: FieldValidityData;
+	/**
+	 * Whether the field stops a submit before it reaches the source: native constraints,
+	 * `validate`, `invalid` or `errors`. Source issues never do, because the source re-checks
+	 * its own schema and only the server can clear a server issue.
+	 */
+	readonly blocksSubmit: boolean;
 	/** Focusable control, or null when this field has none. Read when submitting. */
 	control: HTMLElement | null;
 	getValue: () => unknown;
@@ -62,8 +70,19 @@ export interface FormActions {
 export type FormState = Record<string, never>;
 
 export interface FormProps<
-	FormValues extends Record<string, unknown> = Record<string, unknown>
+	FormValues extends Record<string, unknown> = Record<string, unknown>,
+	S extends FormSource = FormSource
 > extends Omit<HTMLFormAttributes, 'children' | 'onsubmit' | 'novalidate'> {
+	/**
+	 * The external owner of form state, such as a SvelteKit remote form or `actionForm()`.
+	 * Its attributes and attachment go on the `<form>`. Fields bind to its `fields`.
+	 */
+	form?: S;
+	/**
+	 * Runs once the source has validated a submit, with the source's `enhance` contract.
+	 * Call `submit()` to send it. Without this prop, a successful submit resets the form.
+	 */
+	enhance?: (instance: EnhanceInstanceOf<S>) => unknown;
 	/**
 	 * When fields should validate. A `<Field.Root validationMode>` takes precedence.
 	 * @default 'onSubmit'
@@ -83,7 +102,8 @@ export interface FormProps<
 	onsubmit?: HTMLFormAttributes['onsubmit'];
 	/**
 	 * Called with each named field's value when submit is not blocked.
-	 * The native submit is cancelled before this runs.
+	 * The native submit is cancelled before this runs. With `form`, the source submits
+	 * instead, so use `enhance`.
 	 */
 	onFormSubmit?: (formValues: FormValues, eventDetails: FormSubmitEventDetails) => void;
 	/**
@@ -95,5 +115,25 @@ export interface FormProps<
 	novalidate?: boolean;
 	/** Replace the default `<form>`. Spread `props` onto the host and render `children`. */
 	render?: Snippet<[props: HTMLFormAttributes, state: FormState, children: RenderChildren]>;
+	children?: Snippet;
+}
+
+export interface FormErrorState {
+	/** The transition status of the error message. */
+	transitionStatus: TransitionStatusValue;
+}
+
+export interface FormErrorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * The host's role. Focus moves to no field when only form-level messages fail a submit,
+	 * so the messages are announced.
+	 * @default 'alert'
+	 */
+	role?: HTMLAttributes<HTMLDivElement>['role'];
+	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLElement>, state: FormErrorState, children: RenderChildren]
+	>;
+	/** Replaces the messages. */
 	children?: Snippet;
 }

@@ -22,5 +22,7 @@ export const rootStateAttributes: StateAttributesMapping<OTPFieldRootState> = {
 export const inputStateAttributes: StateAttributesMapping<OTPFieldInputState> = {
 	value: () => null,
 	index: () => null,
+	// Upstream keeps this, so its slots render `data-length`. Its documented slot attributes omit it.
+	length: () => null,
 	...fieldValidityMapping
 };

@@ -54,6 +54,16 @@ describe('<OTPField />', () => {
 		expect(page.getByTestId('root').element()).toHaveAttribute('data-complete', '');
 	});
 
+	it('gives each slot its state attributes without the root length', async () => {
+		render(OTPFieldHarness, { scenario: 'default' });
+		await expect.poll(() => values()).toBe('123456');
+		for (const input of inputs()) {
+			const data = input.getAttributeNames().filter((name) => name.startsWith('data-'));
+			expect(data.sort()).toEqual(['data-complete', 'data-filled']);
+		}
+		expect(page.getByTestId('root').element()).not.toHaveAttribute('data-length');
+	});
+
 	it('clamps an overlong default onto the hidden input', async () => {
 		render(OTPFieldHarness, { scenario: 'overlong' });
 		await expect.poll(() => values()).toBe('123456');
