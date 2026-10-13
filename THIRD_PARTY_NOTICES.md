@@ -255,7 +255,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 
 Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 
-- `src/lib/dialog/root.svelte.ts` from `packages/react/src/dialog/root/useRenderDialogRoot.tsx` and `useDialogRoot.ts` (the setup Dialog and Alert Dialog roots share; its nested-dialog count is the v1.8.0 logic)
+- `src/lib/dialog/root.svelte.ts` from `packages/react/src/dialog/root/useRenderDialogRoot.tsx` and `useDialogRoot.ts` (the setup Dialog and Alert Dialog roots share, including the nested-dialog count)
 - `src/lib/alert-dialog/AlertDialogRoot.svelte` from `packages/react/src/alert-dialog/root/AlertDialogRoot.tsx`
 - `src/lib/alert-dialog/handle.svelte.ts` from `packages/react/src/alert-dialog/handle.ts`
 - `src/lib/alert-dialog/types.ts` and `src/lib/alert-dialog/index.ts` from `packages/react/src/alert-dialog/index.ts`, `index.parts.ts`, `root/AlertDialogRoot.tsx`, and `trigger/AlertDialogTrigger.tsx` (the other parts are the Dialog components)
@@ -263,6 +263,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/alert-dialog/AlertDialogTrigger.svelte` from `packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx` (renders `Dialog.Trigger`)
 - `src/tests/PayloadTypes.svelte` type checks from `packages/react/src/dialog/root/DialogRoot.spec.tsx`, `packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx`, and `packages/react/src/popover/root/PopoverRoot.spec.tsx`
 - `src/lib/dialog/DialogTrigger.svelte` payload forwarding from `packages/react/src/utils/popups/popupStoreUtils.ts` (`useTriggerDataForwarding`: the trigger that owns the mounted popup supplies the payload)
+- `src/lib/dialog/store.svelte.ts` `onNestedDialogOpen` from `packages/react/src/dialog/root/useDialogRoot.ts` (a closed, unmounted root ignores nested counts)
 
 MIT License
 

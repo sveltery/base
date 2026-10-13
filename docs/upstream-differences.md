@@ -140,6 +140,14 @@ Local: Tab from the open trigger focuses the first control inside the popup and 
 
 Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed. `finalFocus={null}` does not return focus. A function that returns `null` focuses the trigger. `openWithPayload` stays on `Dialog.Handle`. Popover does not have it.
 
+### Nested dialog count follows v1.9.0
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/dialog/root/useDialogRoot.ts`. Every nested root reports to its parent, and a closed one reports 0. A closed nested root that mounts next to an open one resets the parent's `--nested-dialogs` to 0 and removes `data-nested-dialog-open`.
+
+Local: Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`) fixes this, and the port follows it. Only an open nested root reports, and it reports 0 when it closes or unmounts. A parent that is closed and unmounted ignores reports and drops its count, so a nested root that opened in the meantime is not counted when the parent opens again.
+
+Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`nested dialog count (Base UI v1.9.0)`).
+
 | Upstream                                                             | Local                                                                                               |
 | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                            |
