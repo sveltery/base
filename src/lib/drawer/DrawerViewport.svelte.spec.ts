@@ -11,7 +11,14 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import DrawerNestedProgressHarness from '../../tests/DrawerNestedProgressHarness.svelte';
 import DrawerViewportHarness from '../../tests/DrawerViewportHarness.svelte';
-import { fireTouch, firePointer, frame, type TouchPoint } from '../../tests/drawer-gestures.js';
+import {
+	byTestId,
+	fireTouch,
+	firePointer,
+	frame,
+	pointAt,
+	type TouchPoint
+} from '../../tests/drawer-gestures.js';
 
 const cleanups: Array<() => void> = [];
 afterEach(() => {
@@ -19,23 +26,8 @@ afterEach(() => {
 	document.getSelection()?.removeAllRanges();
 });
 
-type HitTest = (x: number, y: number) => Element | null;
-
-function hitTest(resolve: Element | HitTest, root: Document | ShadowRoot = document) {
-	root.elementFromPoint = typeof resolve === 'function' ? resolve : () => resolve;
-	cleanups.push(() => {
-		if (root === document) {
-			document.elementFromPoint = Document.prototype.elementFromPoint;
-		} else {
-			delete (root as Partial<ShadowRoot>).elementFromPoint;
-		}
-	});
-}
-
-function byTestId(id: string, root: ParentNode = document) {
-	const element = root.querySelector<HTMLElement>(`[data-testid="${id}"]`);
-	if (!element) throw new Error(`No element with data-testid="${id}"`);
-	return element;
+function hitTest(...args: Parameters<typeof pointAt>) {
+	cleanups.push(pointAt(...args));
 }
 
 const backdrop = () => byTestId('backdrop');

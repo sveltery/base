@@ -7,18 +7,12 @@ import { tick } from 'svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import DrawerKeyboardHarness from '../../tests/DrawerKeyboardHarness.svelte';
-import { firePointer, fireTouch, frame } from '../../tests/drawer-gestures.js';
+import { byTestId, firePointer, fireTouch, frame, pointAt } from '../../tests/drawer-gestures.js';
 
 const cleanups: Array<() => void> = [];
 afterEach(() => {
 	while (cleanups.length > 0) cleanups.pop()!();
 });
-
-function byTestId<T extends HTMLElement = HTMLElement>(id: string, root: ParentNode = document) {
-	const element = root.querySelector<T>(`[data-testid="${id}"]`);
-	if (!element) throw new Error(`No element with data-testid="${id}"`);
-	return element;
-}
 
 // Chromium defines these window properties on the instance, so the original descriptor exists.
 function overrideOn<T extends object>(
@@ -76,15 +70,8 @@ function mockKeyboard(height = 800) {
 	return mockVisualViewport(height);
 }
 
-function hitTest(
-	resolve: Element | null | ((x: number, y: number) => Element | null),
-	root: Document | ShadowRoot = document
-) {
-	root.elementFromPoint = typeof resolve === 'function' ? resolve : () => resolve;
-	cleanups.push(() => {
-		if (root === document) document.elementFromPoint = Document.prototype.elementFromPoint;
-		else delete (root as Partial<ShadowRoot>).elementFromPoint;
-	});
+function hitTest(...args: Parameters<typeof pointAt>) {
+	cleanups.push(pointAt(...args));
 }
 
 function spyFocus(element: HTMLElement) {

@@ -11,7 +11,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import type { DialogStore } from '../dialog/store.svelte.js';
 import DrawerSwipeAreaHarness from '../../tests/DrawerSwipeAreaHarness.svelte';
-import { firePointer, fireTouch } from '../../tests/drawer-gestures.js';
+import { byTestId, firePointer, fireTouch } from '../../tests/drawer-gestures.js';
 
 const cleanups: Array<() => void> = [];
 afterEach(() => {
@@ -28,12 +28,6 @@ type SwipeOptions = {
 	timeStepMs?: number;
 	startTimeMs?: number;
 };
-
-function byTestId(id: string) {
-	const element = document.querySelector<HTMLElement>(`[data-testid="${id}"]`);
-	if (!element) throw new Error(`No element with data-testid="${id}"`);
-	return element;
-}
 
 const area = () => byTestId('swipe-area');
 const popup = () => byTestId('popup');

@@ -108,13 +108,24 @@ export function fireTouch(
 	return event;
 }
 
-/** Points hit testing at `element`, as a swipe that starts on the popup would. */
-export function pointAt(element: Element) {
-	const original = document.elementFromPoint;
-	document.elementFromPoint = () => element;
+export type HitTest = (x: number, y: number) => Element | null;
+
+/** Points hit testing in `root` at an element, or through a resolver. Returns the restore. */
+export function pointAt(resolve: Element | null | HitTest, root: Document | ShadowRoot = document) {
+	root.elementFromPoint = typeof resolve === 'function' ? resolve : () => resolve;
 	return () => {
-		document.elementFromPoint = original;
+		if (root === document) document.elementFromPoint = Document.prototype.elementFromPoint;
+		else delete (root as Partial<ShadowRoot>).elementFromPoint;
 	};
+}
+
+export function byTestId<T extends HTMLElement = HTMLElement>(
+	id: string,
+	root: ParentNode = document
+) {
+	const element = root.querySelector<T>(`[data-testid="${id}"]`);
+	if (!element) throw new Error(`No element with data-testid="${id}"`);
+	return element;
 }
 
 export async function frame() {
