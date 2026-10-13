@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import DismissBubblesHarness from './__tests__/DismissBubblesHarness.svelte';
 import DismissNode from './__tests__/DismissNode.svelte';
+import DismissOrderHarness from './__tests__/DismissOrderHarness.svelte';
 
 function pressOutside() {
 	flushSync(() => {
@@ -16,7 +17,9 @@ function pressOutside() {
 /** The inner node opens after the outer one, as a nested popup does. */
 function renderNested(props: Parameters<typeof render<typeof DismissBubblesHarness>>[1] = {}) {
 	render(DismissBubblesHarness, props);
-	flushSync(() => page.getByRole('button', { name: 'open inner' }).element().click());
+	flushSync(() =>
+		(page.getByRole('button', { name: 'open inner' }).element() as HTMLElement).click()
+	);
 }
 
 function mounted() {
@@ -73,6 +76,31 @@ describe('DismissInteraction', () => {
 			});
 
 			expect(mounted()).toEqual([]);
+		});
+	});
+
+	describe('outside press order', () => {
+		it('dismisses on a click before the pressed control closes a bound popup', () => {
+			const { component } = render(DismissOrderHarness, { outsidePressEvent: 'intentional' });
+
+			flushSync(() => (page.getByTestId('hide').element() as HTMLElement).click());
+
+			expect(component.store.lastReason).toBe('outside-press');
+		});
+
+		it('dismisses on a pointerdown before the pressed control closes a bound popup', () => {
+			const { component } = render(DismissOrderHarness, { outsidePressEvent: 'sloppy' });
+
+			flushSync(() =>
+				page
+					.getByTestId('hide')
+					.element()
+					.dispatchEvent(
+						new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerType: 'mouse' })
+					)
+			);
+
+			expect(component.store.lastReason).toBe('outside-press');
 		});
 	});
 });

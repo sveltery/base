@@ -45,6 +45,15 @@ function pressIsInside(store: FloatingRootStore, event: Event) {
 	return false;
 }
 
+/**
+ * Runs `listener` when `event` reaches its target, as upstream `addTargetEventListenerOnce`.
+ * The press closes the popup before the page's own handlers for it, including Svelte's
+ * delegated ones, which a native listener on the target precedes.
+ */
+function onTargetOnce(event: Event, listener: () => void) {
+	getTarget(event)?.addEventListener(event.type, listener, { once: true });
+}
+
 function pointerIsTouch(event: Event, lastPointerType: string) {
 	if (event instanceof PointerEvent && event.pointerType === 'touch') return true;
 	if (event instanceof PointerEvent && event.pointerType) return false;
@@ -120,17 +129,22 @@ export class DismissInteraction {
 					});
 				}),
 				on(doc, 'keydown', this.#closeOnEscape),
-				on(doc, 'pointerdown', (event) => {
-					this.#lastPointerType = event.pointerType;
-					if (event.button !== 0) return;
-					this.#ignoreInsideReleaseClick = false;
-					if (this.#insideDismissTree(event)) this.#pressStartedInside = true;
-					else this.#sawPressWhileOpen = true;
-					// Upstream `handlePointerDown` (DismissInteraction.ts 515–524): touch waits for
-					// touchend, for the finger to scroll away, or for the compatibility mousedown.
-					if (event.pointerType === 'touch') return;
-					this.#closeOnOutside(event);
-				}),
+				on(
+					doc,
+					'pointerdown',
+					(event) => {
+						this.#lastPointerType = event.pointerType;
+						if (event.button !== 0) return;
+						this.#ignoreInsideReleaseClick = false;
+						if (this.#insideDismissTree(event)) this.#pressStartedInside = true;
+						else this.#sawPressWhileOpen = true;
+						// Upstream `handlePointerDown` (DismissInteraction.ts 515–524): touch waits for
+						// touchend, for the finger to scroll away, or for the compatibility mousedown.
+						if (event.pointerType === 'touch') return;
+						onTargetOnce(event, () => this.#closeOnOutside(event));
+					},
+					{ capture: true }
+				),
 				on(
 					doc,
 					'mousedown',
@@ -237,13 +251,18 @@ export class DismissInteraction {
 					},
 					{ capture: true }
 				),
-				on(doc, 'click', (event) => {
-					const startedInside = this.#pressStartedInside || this.#ignoreInsideReleaseClick;
-					this.#pressStartedInside = false;
-					this.#ignoreInsideReleaseClick = false;
-					if (startedInside) return;
-					this.#closeOnOutside(event);
-				})
+				on(
+					doc,
+					'click',
+					(event) => {
+						const startedInside = this.#pressStartedInside || this.#ignoreInsideReleaseClick;
+						this.#pressStartedInside = false;
+						this.#ignoreInsideReleaseClick = false;
+						if (startedInside) return;
+						onTargetOnce(event, () => this.#closeOnOutside(event));
+					},
+					{ capture: true }
+				)
 			];
 			return () => {
 				for (const cleanup of cleanups) cleanup();
