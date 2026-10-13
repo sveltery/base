@@ -47,22 +47,15 @@
 	const attachmentKey = createAttachmentKey();
 	const store = $derived((handle?.store as DialogStore<unknown> | null) ?? dialogRoot?.store);
 
-	// Upstream useImplicitActiveTrigger: a dialog opened without a trigger press,
-	// such as through `bind:open`, belongs to its only trigger.
-	const openedByThis = $derived(
+	// Upstream useImplicitActiveTrigger: a dialog opened without a trigger press, such as through
+	// `bind:open`, belongs to its only trigger. Not one opened deliberately without a trigger.
+	const ownsPopup = $derived(
 		!!store &&
-			store.open &&
 			(store.activeTriggerId === triggerId ||
-				(store.activeTriggerId == null && store.triggerCount === 1))
+				(store.activeTriggerId == null && !store.openedWithoutTrigger && store.triggerCount === 1))
 	);
-	const controls = $derived.by(() => {
-		if (!store || !store.open) return undefined;
-		const popup = store.popupElement;
-		if (popup == null || popup.id === '') return undefined;
-		if (store.activeTriggerId === triggerId) return popup.id;
-		if (store.activeTriggerId == null && store.triggerCount === 1) return popup.id;
-		return undefined;
-	});
+	const openedByThis = $derived(ownsPopup && !!store?.open);
+	const controls = $derived((openedByThis && store?.popupElement?.id) || undefined);
 	const state: DialogTriggerState = $derived({ disabled: disabled === true, open: openedByThis });
 
 	// The trigger that owns the mounted popup supplies the payload, including one switched to while
@@ -70,7 +63,7 @@
 	// layout effect does.
 	$effect.pre(() => {
 		const current = store;
-		if (current?.mounted && current.activeTriggerId === triggerId) current.payload = payload;
+		if (ownsPopup && current?.mounted) current.payload = payload;
 	});
 
 	function clickHandlers(current: DialogStore<unknown> | null | undefined) {
@@ -88,9 +81,8 @@
 			const detach = registerTrigger(triggers, () => id)(node);
 			if (current?.open) {
 				const active = current.domReferenceElement;
-				if ((active == null && current.triggers.size === 1) || active?.id === id) {
-					current.domReferenceElement = node;
-				}
+				const lone = active == null && !current.openedWithoutTrigger && current.triggers.size === 1;
+				if (lone || active?.id === id) current.domReferenceElement = node;
 			}
 			return () => {
 				if (typeof detach === 'function') detach();

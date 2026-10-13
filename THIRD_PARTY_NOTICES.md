@@ -262,7 +262,9 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/alert-dialog/AlertDialog.svelte.spec.ts` assertions from `packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx`, the handle-type checks in `AlertDialogRoot.spec.tsx`, `packages/react/test/popupConformanceTests.tsx`, `packages/react/test/dialogRootSharedTests.tsx`, and `packages/react/test/detachedTriggersConformanceTests.tsx`
 - `src/lib/alert-dialog/AlertDialogTrigger.svelte` from `packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx` (renders `Dialog.Trigger`)
 - `src/tests/PayloadTypes.svelte` type checks from `packages/react/src/dialog/root/DialogRoot.spec.tsx`, `packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx`, and `packages/react/src/popover/root/PopoverRoot.spec.tsx`
-- `src/lib/dialog/DialogTrigger.svelte` payload forwarding from `packages/react/src/utils/popups/popupStoreUtils.ts` (`useTriggerDataForwarding`: the trigger that owns the mounted popup supplies the payload)
+- `src/lib/dialog/DialogTrigger.svelte` payload forwarding from `packages/react/src/utils/popups/popupStoreUtils.ts` (`useTriggerDataForwarding` and `useImplicitActiveTrigger`: the trigger that owns the mounted popup, or the only trigger of a popup not opened deliberately without one, supplies the payload)
+- `openedWithoutTrigger` in `src/lib/internal/popups/popupStoreUtils.ts` `createPopupOpenState` and `src/lib/internal/popups/store.svelte.ts` from `packages/react/src/utils/popups/popupStoreUtils.ts` and `store.ts`
+- `src/lib/dialog/Dialog.svelte.spec.ts` programmatic payload cases from `packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx`, and the `openedWithoutTrigger` cases in `src/lib/internal/popups/popupStoreUtils.spec.ts` from `packages/react/src/utils/popups/popupStoreUtils.test.tsx`
 - `src/lib/dialog/store.svelte.ts` `onNestedDialogOpen` from `packages/react/src/dialog/root/useDialogRoot.ts` (a closed, unmounted root ignores nested counts)
 
 MIT License
