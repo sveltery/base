@@ -7,6 +7,7 @@
 	roving focus, this root registers as a composite item.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { dispatchClick } from '../internal/click.js';
@@ -39,7 +40,6 @@
 	const field = useFieldContext();
 	const fieldItem = useFieldItemContext();
 	const labelable = findLabelableContext();
-	const renderIndex = group?.roving ? group.roving.claim() : 0;
 
 	let {
 		value,
@@ -74,6 +74,7 @@
 	const disabled = $derived(
 		field.disabled || fieldItem.disabled || Boolean(group?.disabled) || disabledProp
 	);
+	const renderClaim = group?.roving?.claim(untrack(() => disabled));
 	const readOnly = $derived(Boolean(group?.readOnly) || readOnlyProp);
 	const required = $derived(Boolean(group?.required) || requiredProp);
 	const serialized = $derived(value !== undefined ? serializeValue(value) : undefined);
@@ -135,7 +136,7 @@
 
 	function registerRoot(element: HTMLElement) {
 		rootNode = element;
-		const remove = group?.roving?.register(element, () => ({ value, disabled }));
+		const remove = group?.roving?.register(element, () => ({ value, disabled }), renderClaim);
 		return () => {
 			remove?.();
 			if (rootNode === element) rootNode = null;
@@ -235,9 +236,9 @@
 		const labelledBy = ariaLabelledBy.current;
 		return button.props({
 			...radioRootAttributes(radioState),
-			...(group?.roving
+			...(group?.roving && renderClaim
 				? {
-						tabindex: group.roving.tabIndex(rootNode, renderIndex, {
+						tabindex: group.roving.tabIndex(rootNode, renderClaim, {
 							disabled,
 							selected: checked,
 							hasSelection: group.checkedValue !== undefined

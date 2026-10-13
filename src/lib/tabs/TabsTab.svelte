@@ -32,7 +32,7 @@
 
 	const tabs = useTabsRootContext();
 	const list = useTabsListContext();
-	const slot = list.roving.claim();
+	const claim = list.roving.claim();
 	const generatedId = $derived(`base-ui-${uid}`);
 	const tabId = $derived(id ?? generatedId);
 
@@ -56,7 +56,7 @@
 
 	function register(element: HTMLElement) {
 		node = element;
-		const removeRoving = list.roving.register(element, () => ({ value, disabled }));
+		const removeRoving = list.roving.register(element, () => ({ value, disabled }), claim);
 		const unregister = untrack(() =>
 			tabs.registerTab(element, () => ({ element, value, disabled, id: tabId }))
 		);
@@ -142,7 +142,7 @@
 					else if (event.key === 'Enter' || event.key === ' ') event.preventDefault();
 				}
 			},
-			slot,
+			claim,
 			{ selected: active, hasSelection: tabs.value != null }
 		);
 		return {
