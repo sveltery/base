@@ -365,7 +365,7 @@ Local: the polygon scopes to the parent popup through `getScope`. A detached tri
 
 ### Not covered
 
-React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases have no public component here. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter, `Menu.List` and lazy flipping cases wait on the filter parts. The shadow-root focus-guard case depends on React portal ownership.
+React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter, `Menu.List` and lazy flipping cases wait on the filter parts. The shadow-root focus-guard case depends on React portal ownership.
 
 ## Menubar
 
@@ -410,6 +410,48 @@ Local: the shared `CompositeRoot` focuses the next trigger synchronously. The po
 
 React-only cases: `describeConformance` (refs, `className` and style functions). The two portal ownership cases need `aria-owns`, which `FloatingPortal` does not render yet (see Menu). The `filterable menubar menus` case waits on the Menu filter parts.
 
+## ContextMenu
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/context-menu/**`. The paired React fixture runs `@base-ui/react` 1.9.0. `ContextMenu.Root` provides the `ContextMenuParentContext` that `src/lib/menu/parent.svelte.ts` defines, and renders a `Menu.Root` under it. Every part but `Root` and `Trigger` is the Menu part.
+
+### Public surface
+
+Upstream: `ContextMenu.Root` accepts the deprecated `closeParentOnEsc`, and `ContextMenu.Positioner` the deprecated `positionMethod`. Neither has an effect. The entry also exports the `ContextMenu*DataAttributes` and `ContextMenuPositionerCssVariables` namespaces.
+
+Local: the deprecated props are not in the types. The namespaces are not exported. The attribute and variable names are those of Menu.
+
+### The right-click mouseup listener is on the window
+
+Upstream: the trigger adds a one-time `mouseup` listener to the document. React's root and portal listeners sit below the document, so an item's `onMouseUp` runs first and reads the gesture's mouse-up gate before the listener clears it.
+
+Local: Svelte delegates the item handlers to the document and can add that listener only when the first item mounts, after the trigger's listener. The trigger listens on the window, so the item still runs first.
+
+### A right press outside closes the menu
+
+Upstream: `useDismiss` closes on an outside `pointerdown` with any mouse button. A right click elsewhere closes the open context menu, its backdrop turns inert, and the `contextmenu` event that follows reaches the trigger and reopens the menu at the pointer.
+
+Local: the shared `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` ignores non-primary presses. `ContextMenu.Trigger` closes the open menu on a non-primary, non-touch `pointerdown` outside it, with reason `outside-press`, so the sequence matches. The long-press grace before outside dismissal does not apply to this press.
+
+Test: `src/lib/context-menu/ContextMenu.svelte.spec.ts` (`closes on a right press over the backdrop and reopens where the pointer is`) and the paired fixture case `a right click elsewhere in the area moves the open menu`.
+
+### Shift+Tab returns focus to the element focused before opening
+
+Upstream: list navigation closes the menu on Shift+Tab with `focus-out` and focuses the trigger element, which a context menu does not have. The focus manager then returns focus to the element focused before the menu opened.
+
+Local: the shared `FloatingFocusManager` skips return focus after `focus-out`. A context menu's `Menu.Root` records the element focused when the menu opens and passes it to list navigation as `nestedReturnFocus` (`src/lib/menu/root.svelte.ts`).
+
+Test: `src/lib/context-menu/ContextMenuRoot.svelte.spec.ts` (`returns focus to the focused surface when closing with Shift+Tab`).
+
+### Floating tree
+
+Upstream: each menu root owns its floating tree, and a menu's node becomes the parent node only inside its positioner. A context menu inside another context menu's trigger is a separate root.
+
+Local: `@sveltery/floating-ui-svelte` publishes the tree and parent node id from the root, so a context menu or menu inside a trigger joins the outer context menu's tree as its child node. `ContextMenu.Root` resets the menu root context as upstream does, so the inner menu is still a root (`parent.type` is `context-menu` or `undefined`), opens at its own anchor and does not render `data-nested`. The tree link means the inner menu closes when the outer one closes, and two menus inside one trigger close each other when one opens. The ported nested cases pass with it.
+
+### Not covered
+
+React-only cases: `describeConformance` (refs, `className` and style functions). Upstream's positioner cases spy on `useAnchorPositioning` arguments. The local spec asserts the placement instead: the pointer anchor, explicit placement and offsets, fixed positioning, the alignment flip at the viewport edge, and a submenu against its trigger. The `uses the visual viewport for a context menu submenu` case has no observable result in the test viewport. `-webkit-touch-callout: none` is set on the trigger, but Chromium drops it, so no spec reads it.
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -448,5 +490,6 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
-| Menu               | Filter parts, ContextMenu component, `actionsRef`, `aria-owns`, refs                                   |
+| Menu               | Filter parts, `actionsRef`, `aria-owns`, refs                                                          |
 | Menubar            | `aria-owns` portal ownership, the `MenubarDataAttributes` namespace, refs                              |
+| ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                               |
