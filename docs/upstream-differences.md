@@ -314,6 +314,54 @@ Local: the shared `PopupViewport` leaves them off the previous pane, as Popover 
 
 The "does not re-render inactive triggers" cases count React renders. "Cleans up the transition when a lagging payload remounts the current container" depends on a payload that arrives a render after the trigger id. Both have no Svelte counterpart.
 
+## NavigationMenu
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/navigation-menu/**`. The paired React fixture runs `@base-ui/react` 1.9.0.
+
+### Public surface
+
+Upstream: `value` and `defaultValue`, `actionsRef`, the `NavigationMenu*DataAttributes` and `NavigationMenu*CssVars` namespaces.
+
+Local: `value` is `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The namespaces are not exported.
+
+### Content moves into the viewport by an attachment
+
+Upstream: `NavigationMenu.Content` renders through a React portal into the viewport, and React events bubble along the component tree.
+
+Local: the content element stays in its item's component tree and an attachment moves it into the viewport while the item is active. DOM events from the content bubble through the viewport and the popup, which is where the DOM places it.
+
+### Size variables live in state
+
+Upstream: `--popup-width`, `--popup-height`, `--positioner-width` and `--positioner-height` are written with `style.setProperty`, and React patches other style properties around them.
+
+Local: Svelte replaces the whole `style` attribute when a part's style changes, which dropped those variables. `StyleVars` in `src/lib/navigation-menu/style-vars.svelte.ts` writes each variable to the element at once and to state, and the popup and positioner render that state in their style. A value written to `style` directly by other code is still replaced by the next style change. `does not collapse auto-sized popup to zero on close if measurement temporarily returns 0` primes its size by mocking the popup's measured size before opening instead of calling `setProperty`.
+
+Test: `src/lib/navigation-menu/NavigationMenuRoot.svelte.spec.ts` (`preserves popup size when controlled value closes externally`) and `NavigationMenuNested.svelte.spec.ts`.
+
+### Focus guards listen for focusin
+
+Upstream: the guards use React `onFocus`, which React attaches as `focusin`.
+
+Local: the guards listen for `focusin`, so the positioner's capture listener re-enables the tabbables in the popup before a guard moves focus into it.
+
+Test: `src/lib/navigation-menu/NavigationMenuTrigger.svelte.spec.ts` (`handles focus and positioner height`).
+
+### Shared floating-ui internals
+
+Upstream: the navigation menu imports `safePolygon` pointer-events helpers, `getNodeChildren`, `enableFocusInside`, `disableFocusInside`, `getNextTabbable` and `getPreviousTabbable` from `floating-ui-react` internals.
+
+Local: `packages/floating-ui-svelte/src/sharedInternals.ts` re-exports the existing helpers, and the package entry `packages/floating-ui-svelte/src/index.ts` gains one named export of them. The pointer-events lock keeps one owner per scope element in a module map, so a copy outside the package would not see the lock that hover interactions applied.
+
+### Object item values compare by identity
+
+Upstream: `value === itemValue` compares the object the consumer passed.
+
+Local: the same comparison runs, but a `$state` object is a deep proxy, so an item value read from `$state` is not the object stored in a bound `$state` value. Use primitives, or keep object values in `$state.raw`.
+
+### Not covered
+
+The positioner case that spies on the arguments of the anchor positioning hook asserts an implementation detail. The conformance cases for `ref`, the `className` function and the React render prop have no Svelte counterpart. `NavigationMenuParts.svelte.spec.ts` checks each part's host element, `class`, attributes, attachments and `render` snippet instead.
+
 ## Menu
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/menu/**` without the filter parts. The paired React fixture runs `@base-ui/react` 1.9.0. `MenuStore` extends `PopupStore<MenuChangeReason>`. List navigation and typeahead come from `packages/floating-ui-svelte`.
@@ -431,6 +479,7 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |
 | Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
+| NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                         |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
 | Menu               | Filter parts, Menubar and ContextMenu components, `actionsRef`, refs                                   |
 | Toast              | refs, `className` and `style` callbacks                                                                |
