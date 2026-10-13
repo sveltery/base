@@ -8,12 +8,14 @@
 	let {
 		modal = false,
 		portalOwnerRole,
-		wrapped = false
+		wrapped = false,
+		returnUnlessOutsidePress = false
 	}: {
 		modal?: boolean;
 		portalOwnerRole?: AriaRole;
 		/** The floating element is a positioner around a focusable popup with no tabbable content. */
 		wrapped?: boolean;
+		returnUnlessOutsidePress?: boolean;
 	} = $props();
 
 	export const store = new TestStore();
@@ -28,13 +30,22 @@
 		);
 	}
 
-	let returnFocus = $state<true | HTMLElement>(true);
+	let returnTo = $state<true | HTMLElement>(true);
+	// A consumer that decides from the close reason, as Menu does after an outside press.
+	const returnFocus = $derived(
+		returnUnlessOutsidePress ? store.lastReason !== REASONS.outsidePress : returnTo
+	);
 
-	/** Closes the popup. `returnTo` replaces the return focus target in the same update. */
-	export function hide(returnTo?: HTMLElement) {
-		if (returnTo) returnFocus = returnTo;
+	/** Closes the popup. `target` replaces the return focus target in the same update. */
+	export function hide(target?: HTMLElement) {
+		if (target) returnTo = target;
 		store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
 		store.openMethod = null;
+	}
+
+	/** Closes the popup as `reason` would, from `event` and an optional `trigger` element. */
+	export function close(reason: string, event: Event, trigger?: Element) {
+		store.setOpen(false, createChangeEventDetails(reason, event, trigger));
 	}
 </script>
 

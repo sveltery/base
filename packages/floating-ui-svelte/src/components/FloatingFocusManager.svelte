@@ -172,14 +172,19 @@
 			if (reference instanceof Element) getPreviousTabbable(reference)?.focus();
 			return;
 		}
+		if (closeOnFocusOut) preventReturn = true;
 		const next = store.triggerFocusTarget ?? portal?.guards.afterOutside;
 		if (next instanceof HTMLElement) next.focus();
 	}
 
 	/** How this open session closed. Not state: the trap effect must not depend on it. */
 	let closeType: OpenInteractionType = '';
-	/** `focus-out` skips return focus so a Tab that has not landed yet is not cancelled. */
 	let closeReason = '';
+	/**
+	 * Upstream `preventReturnFocusRef`: a focus-out close that moves focus itself skips return
+	 * focus so the Tab is not cancelled. A focus-out close from elsewhere still returns it.
+	 */
+	let preventReturn = false;
 	let lastInteraction: OpenInteractionType = '';
 	/** One initial-focus result per open. A later result must not rebuild the trap. */
 	let initialSettled = false;
@@ -231,14 +236,11 @@
 
 	function restoreReturnFocus(endedBy: OpenInteractionType) {
 		const spec = returnFocus;
-		// Upstream sets `preventReturnFocusRef` before every focus-out close and reads it
-		// before resolving the target (`FloatingFocusManager.tsx` 550–552, 872, 888).
-		// Pointer and keyboard both take this path. The return function is not called;
-		// React calls it and ignores the result.
-		const skipReturn = closeReason === REASONS.focusOut;
+		// The return function is not called when the return is prevented. React calls it and
+		// ignores the result.
 		let returned: HTMLElement | null = null;
 		const apply = () => {
-			if (spec === false || skipReturn) return;
+			if (spec === false || preventReturn) return;
 			returned = moveReturnFocus(endedBy, spec) ?? null;
 		};
 		// Focus now only when a close is already committed. A disconnected popup is not
@@ -255,7 +257,7 @@
 			return;
 		}
 		queueMicrotask(() => {
-			if (spec === false || closeReason === REASONS.focusOut) return;
+			if (spec === false || preventReturn) return;
 			if (!store.isOpen()) {
 				apply();
 				return;
@@ -392,6 +394,13 @@
 		if (!payload || payload.open || !payload.nativeEvent) return;
 		closeType = eventInteraction(payload.nativeEvent, lastInteraction);
 		closeReason = payload.reason;
+		// Upstream `onOpenChangeLocal`: a focus guard moves focus on from a focus-out close.
+		if (
+			payload.reason === REASONS.focusOut &&
+			payload.triggerElement?.hasAttribute('data-base-ui-focus-guard')
+		) {
+			preventReturn = true;
+		}
 	}
 
 	function markedInside(floating: HTMLElement) {
@@ -442,6 +451,7 @@
 		captureReturnTarget(doc, floating);
 		closeType = '';
 		closeReason = '';
+		preventReturn = false;
 		bodyReturnFrame.cancel();
 		lastInteraction = '';
 		const initialTarget = takeInitial(floating);
@@ -472,6 +482,7 @@
 				closeOnFocusOut,
 				domReference: store.domReferenceElement,
 				close(event) {
+					preventReturn = true;
 					store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
 				}
 			});
@@ -542,7 +553,7 @@
 				if (focusStaysInTree(relatedTarget)) return;
 				if (highlightMovedOff && insideOpenAncestor(relatedTarget)) return;
 				// Upstream sets this before the close so return focus does not cancel the Tab.
-				closeReason = REASONS.focusOut;
+				preventReturn = true;
 				store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
 			});
 		}

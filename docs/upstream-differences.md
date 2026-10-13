@@ -382,7 +382,7 @@ Local: the label is trimmed, because Svelte templates keep the whitespace around
 
 Upstream: a hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
 
-Local: the shared `FloatingFocusManager` skips return focus only for `focus-out`. `MenuPopup` passes a `returnFocus` that skips it after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
+Local: the shared `FloatingFocusManager` skips return focus only for a `focus-out` close that moves focus on itself, as upstream's `preventReturnFocusRef` does. `MenuPopup` passes a `returnFocus` that skips it after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
 
 Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`does not return focus to the element focused before a hover open when the pointer leaves`).
 
