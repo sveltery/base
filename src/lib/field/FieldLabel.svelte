@@ -9,6 +9,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
+	import { getControlById } from '../internal/label-control.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext, useFieldItemContext } from './context.svelte.js';
@@ -77,9 +78,8 @@
 		const controlId = labelable.controlId;
 		if (!controlId) return;
 		const current = event.currentTarget;
-		if (!(current instanceof Node)) return;
-		const root = current.getRootNode() as Document | ShadowRoot;
-		const control = root.getElementById(controlId);
+		if (!(current instanceof Element)) return;
+		const control = getControlById(current, controlId);
 		if (control instanceof HTMLElement) {
 			control.focus({ focusVisible: true } as FocusOptions);
 		}

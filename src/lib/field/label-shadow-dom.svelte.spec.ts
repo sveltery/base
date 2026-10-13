@@ -1,6 +1,7 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/internals/labelable-provider/useLabel.test.tsx
 // and slider/label/SliderLabel.test.tsx cases from 4ba59eeb7 and ec6bf32d3
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+import { flushSync, mount, unmount } from 'svelte';
 import { describe, expect, it, onTestFinished } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import LabelShadowHarness from '../../tests/LabelShadowHarness.svelte';
@@ -44,5 +45,45 @@ describe.each(['field', 'slider'] as const)('%s label in a shadow root', (contro
 
 		expect(shadowRoot.activeElement).toBe(target);
 		expect(document.activeElement).not.toBe(unrelated);
+	});
+
+	it('focuses a control in the light DOM', async () => {
+		const { shadowRoot, container } = shadowContainer();
+		const view = render(LabelShadowHarness, { control, labelContainer: container });
+
+		labelIn(shadowRoot, control).click();
+
+		expect(document.activeElement).toBe(controlIn(view.container, control));
+	});
+
+	it('focuses a control in an ancestor shadow root from a nested shadow root', async () => {
+		const outer = shadowContainer();
+		const inner = shadowContainer(outer.shadowRoot);
+		render(LabelShadowHarness, {
+			control,
+			labelContainer: inner.container,
+			controlContainer: outer.container
+		});
+
+		labelIn(inner.shadowRoot, control).click();
+
+		expect(outer.shadowRoot.activeElement).toBe(controlIn(outer.shadowRoot, control));
+	});
+
+	it('does not throw when the label is clicked in a detached tree', async () => {
+		const target = document.createElement('div');
+		const component = mount(LabelShadowHarness, { target, props: { control } });
+		onTestFinished(() => unmount(component));
+		flushSync();
+		const errors: ErrorEvent[] = [];
+		const onError = (event: ErrorEvent) => {
+			event.preventDefault();
+			errors.push(event);
+		};
+		window.addEventListener('error', onError);
+		onTestFinished(() => window.removeEventListener('error', onError));
+
+		expect(() => labelIn(target, control).click()).not.toThrow();
+		expect(errors).toEqual([]);
 	});
 });

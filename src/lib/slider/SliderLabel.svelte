@@ -9,6 +9,7 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { findLabelableContext } from '../field/labelable.svelte.js';
+	import { getControlById } from '../internal/label-control.js';
 	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
@@ -40,8 +41,7 @@
 	function focusControl(event: MouseEvent) {
 		const controlId = labelable?.controlId;
 		if (controlId) {
-			const root = (event.currentTarget as Node).getRootNode() as Document | ShadowRoot;
-			const controlElement = root.getElementById(controlId);
+			const controlElement = getControlById(event.currentTarget as Element, controlId);
 			if (controlElement instanceof HTMLElement) {
 				focusElement(controlElement, { focusVisible: true });
 				return;
