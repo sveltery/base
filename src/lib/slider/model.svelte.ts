@@ -189,7 +189,7 @@ export class SliderRootModel {
 	private latestValues: readonly number[] = [];
 	private styles: CSSStyleDeclaration | null = null;
 	private readonly focusFrame = new ScopedAnimationFrame();
-	private listeningDoc: Document | null = null;
+	private listening: AbortController | null = null;
 	private pinnedFieldInput = false;
 	private readonly options: SliderModelOptions;
 	/** The thumb values a form reset returns to. With no default, every thumb starts at `min`. */
@@ -571,14 +571,8 @@ export class SliderRootModel {
 	}
 
 	stopListening() {
-		const doc = this.listeningDoc;
-		if (doc) {
-			doc.removeEventListener('pointermove', this.onMove);
-			doc.removeEventListener('pointerup', this.onUp);
-			doc.removeEventListener('touchmove', this.onMove);
-			doc.removeEventListener('touchend', this.onUp);
-			this.listeningDoc = null;
-		}
+		this.listening?.abort();
+		this.listening = null;
 		this.pressedValues = null;
 		this.currentInteractionValue = null;
 	}
@@ -587,23 +581,19 @@ export class SliderRootModel {
 		this.focusFrame.cancel();
 	}
 
-	private onMove = (event: Event) => {
-		this.handleMove(event as PointerEvent | TouchEvent);
-	};
-
-	private onUp = (event: Event) => {
-		this.handleEnd(event as PointerEvent | TouchEvent);
-	};
-
 	private listen(doc: Document, touch: boolean) {
-		this.listeningDoc = doc;
+		// Not `on()`: it attaches pointer listeners a microtask late.
+		this.listening = new AbortController();
+		const { signal } = this.listening;
+		const move = (event: PointerEvent | TouchEvent) => this.handleMove(event);
+		const end = (event: PointerEvent | TouchEvent) => this.handleEnd(event);
 		if (touch) {
-			doc.addEventListener('touchmove', this.onMove, { passive: true });
-			doc.addEventListener('touchend', this.onUp, { passive: true });
+			doc.addEventListener('touchmove', move, { passive: true, signal });
+			doc.addEventListener('touchend', end, { passive: true, signal });
 			return;
 		}
-		doc.addEventListener('pointermove', this.onMove, { passive: true });
-		doc.addEventListener('pointerup', this.onUp, { once: true });
+		doc.addEventListener('pointermove', move, { passive: true, signal });
+		doc.addEventListener('pointerup', end, { once: true, signal });
 	}
 
 	private isTargetDisabledThumb(target: EventTarget | null) {
