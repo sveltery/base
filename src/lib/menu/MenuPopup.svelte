@@ -97,20 +97,17 @@
 	// always prefers the trigger, so the popup names that element itself. It is a snapshot of
 	// focus at the moment of opening, so it cannot be derived.
 	let previousFocus = $state<HTMLElement | null>(null);
-	let wasOpen = false;
+	// Tracks only `store.open`, so it runs once per opening.
 	$effect.pre(() => {
-		const open = store.open;
-		if (open === wasOpen) return;
-		wasOpen = open;
-		if (!open) return;
-		const doc = ownerDocument(untrack(() => store.domReferenceElement) ?? null);
-		const active = activeElement(doc);
-		previousFocus =
-			untrack(() => store.openMethod) == null &&
-			active instanceof HTMLElement &&
-			active !== doc.body
-				? active
-				: null;
+		if (!store.open) return;
+		untrack(() => {
+			const doc = ownerDocument(store.domReferenceElement ?? null);
+			const active = activeElement(doc);
+			previousFocus =
+				store.openMethod == null && active instanceof HTMLElement && active !== doc.body
+					? active
+					: null;
+		});
 	});
 
 	/** The boolean `returnFocus` path, aimed at `previousFocus`: return only while focus is inside. */
