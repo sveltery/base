@@ -1,0 +1,12 @@
+{
+	"extends": "$app/tsconfig",
+	"compilerOptions": {
+		"strict": true,
+		"types": ["$app/types", "node"],
+		"paths": {
+			"@sveltery/base": ["../../src/lib"],
+			"@sveltery/base/*": ["../../src/lib/*"]
+		}
+	},
+	"include": ["src", "markdown", "vite.config.ts", "dist/demos"]
+}
