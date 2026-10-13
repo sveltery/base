@@ -18,12 +18,10 @@ export function contains(
 	if (!parent || !child || !(child instanceof Node)) return false;
 	if (parent.contains(child)) return true;
 
-	let node: Node | null = child;
-	while (node) {
-		if (node === parent) return true;
-		const root = node.getRootNode();
-		if (root instanceof ShadowRoot) node = root.host;
-		else break;
+	let root = child.getRootNode();
+	while (root instanceof ShadowRoot) {
+		if (parent.contains(root.host)) return true;
+		root = root.host.getRootNode();
 	}
 	return false;
 }
