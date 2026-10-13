@@ -1,7 +1,7 @@
 <!--
 	The native input control in the number field. Renders an `<input>` element.
-	Derived from Base UI v1.8.0 packages/react/src/number-field/input/NumberFieldInput.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/number-field/input/NumberFieldInput.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	This is not Field.Control. Upstream renders its own text input and registers it with Field.
 -->
 <script lang="ts">
@@ -9,6 +9,7 @@
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
@@ -35,6 +36,10 @@
 	const labelable = findLabelableContext();
 
 	const state: NumberFieldInputState = $derived(model.state);
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => state.disabled,
+		target: () => model.inputElement
+	});
 	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
 	const ariaInvalid = $derived(
 		!state.disabled && (field.invalid || field.state.valid === false) ? true : undefined
@@ -58,12 +63,13 @@
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onfocus?.(event);
 		if (event.defaultPrevented) return;
-		model.handleFocus();
+		focusOwner.set(true);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onblur?.(event);
 		if (event.defaultPrevented) return;
+		focusOwner.set(false);
 		model.handleBlur(event);
 	}
 

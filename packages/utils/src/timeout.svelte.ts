@@ -1,6 +1,6 @@
-// Derived from Base UI v1.8.0 packages/utils/src/useTimeout.ts (`useTimeout`) and
+// Derived from Base UI v1.9.0 packages/utils/src/useTimeout.ts (`useTimeout`) and
 // packages/utils/src/useAnimationFrame.ts (`useAnimationFrame`)
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Upstream disposes the timer with `useOnMount`. These register the same cleanup with
 // `$effect`, so construct them during component init. Svelte throws `effect_orphan`
 // anywhere else. A timer whose owner is not a component is a plain `Timeout` or

@@ -1,7 +1,7 @@
-// Derived from Base UI v1.8.0 packages/react/src/slider/root/SliderRoot.tsx,
+// Derived from Base UI v1.9.0 packages/react/src/slider/root/SliderRoot.tsx,
 // packages/react/src/slider/control/SliderControl.tsx, and
 // packages/react/src/slider/thumb/SliderThumb.tsx
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Thumb order is a local list (the CompositeList registration Slider uses).
 // Arrow keys change the value. They do not rove focus between thumbs.
 // Text direction is `useDirection()`, read through `getDirection`.
@@ -20,6 +20,7 @@ import {
 } from '@sveltery/utils';
 import { clamp } from '../internal/clamp.js';
 import { ElementList } from '../internal/element-list.svelte.js';
+import { isTouchLikePointerType } from '../internal/usePressAndHold.svelte.js';
 import { queueValueEvent } from '../internal/value-events.js';
 import type { BoundInputProps } from '../field/bound-control.svelte.js';
 import type { FieldContext } from '../field/model.svelte.js';
@@ -183,6 +184,8 @@ export class SliderRootModel {
 	restoringFocusVisible = false;
 
 	private touchId: number | null = null;
+	/** `pointerdown` started this gesture, so the `touchstart` after it must not restart it. */
+	private pointerGesture = false;
 	private moveCount = 0;
 	private insetThumbOffset = 0;
 	private currentInteractionValue: number | number[] | null = null;
@@ -388,11 +391,11 @@ export class SliderRootModel {
 	 * @returns true when the focus event is the internal focus-visible restore and
 	 * must not be forwarded.
 	 */
-	onThumbFocus(event: FocusEvent, index: number) {
+	onThumbFocus(event: FocusEvent, index: number, setFocused: (focused: boolean) => void) {
 		const restoring = this.restoringFocusVisible;
 		this.restoringFocusVisible = false;
 		this.setActive(index);
-		this.options.getField().setFocused(true);
+		setFocused(true);
 		const input = event.currentTarget;
 		if (input instanceof HTMLInputElement) {
 			this.fieldInput = input;
@@ -403,7 +406,7 @@ export class SliderRootModel {
 	}
 
 	/** @returns true when the blur is internal and must not be forwarded. */
-	onThumbBlur(event: FocusEvent, index: number) {
+	onThumbBlur(event: FocusEvent, index: number, setFocused: (focused: boolean) => void) {
 		if (this.restoringFocusVisible) {
 			event.stopPropagation();
 			return true;
@@ -414,7 +417,7 @@ export class SliderRootModel {
 
 		const field = this.options.getField();
 		field.setTouched(true);
-		field.setFocused(false);
+		setFocused(false);
 		if (field.validationMode === 'onBlur') {
 			const thumbValue = this.values[index];
 			field.commit(getSliderValue(thumbValue, index, this.min, this.max, this.range, this.values));
@@ -492,6 +495,8 @@ export class SliderRootModel {
 	}
 
 	onPointerDown(event: PointerEvent) {
+		// Replaces a flag left by a cancelled gesture that had no `touchstart` to consume it.
+		this.pointerGesture = false;
 		const control = this.control;
 		const target = getTarget(event);
 		if (
@@ -535,6 +540,8 @@ export class SliderRootModel {
 		}
 
 		this.moveCount = 0;
+		// Touch and pen presses can be followed by a compatibility `touchstart` (Apple Pencil).
+		this.pointerGesture = isTouchLikePointerType(event.pointerType);
 		this.listen(ownerDocument(control), false);
 	}
 
@@ -548,6 +555,9 @@ export class SliderRootModel {
 	}
 
 	onTouchStart(event: TouchEvent) {
+		// Only the `touchstart` right after `pointerdown` belongs to the pointer gesture.
+		const startedByPointer = this.pointerGesture;
+		this.pointerGesture = false;
 		if (this.disabled) return;
 		if (this.isTargetDisabledThumb(getTarget(event) as EventTarget | null)) {
 			this.resetPressedThumb();
@@ -556,6 +566,15 @@ export class SliderRootModel {
 
 		const touch = event.changedTouches[0];
 		if (touch == null) return;
+
+		const doc = ownerDocument(this.control);
+		if (startedByPointer) {
+			// The pointer handlers already started this gesture. The touch listeners keep
+			// tracking the finger if the browser cancels the pointer.
+			this.touchId = touch.identifier;
+			this.listen(doc, true, true);
+			return;
+		}
 
 		this.stopListening();
 		this.touchId = touch.identifier;
@@ -567,34 +586,48 @@ export class SliderRootModel {
 		this.focusThumb(finger.thumbIndex);
 		this.setValueFromPointer(finger, REASONS.trackPress, event);
 		this.moveCount = 0;
-		this.listen(ownerDocument(this.control), true);
+		this.listen(doc, true);
 	}
 
 	stopListening() {
 		this.listening?.abort();
 		this.listening = null;
+		this.touchId = null;
 		this.pressedValues = null;
 		this.currentInteractionValue = null;
+		this.pointerGesture = false;
 	}
 
 	cancelFocusFrame() {
 		this.focusFrame.cancel();
 	}
 
-	private listen(doc: Document, touch: boolean) {
+	private onPointerCancel = (event: PointerEvent) => {
+		// The browser cancels a touch pointer once it starts panning, but the touch listeners
+		// keep tracking the finger until `touchend` or `touchcancel`.
+		if (this.touchId != null) return;
+		this.handleEnd(event);
+	};
+
+	/** `join` adds touch listeners to the pointer gesture that the touch belongs to. */
+	private listen(doc: Document, touch: boolean, join = false) {
 		// Not `on()`: it attaches pointer listeners a microtask late.
-		this.listening?.abort();
-		this.listening = new AbortController();
+		if (!join || !this.listening) {
+			this.listening?.abort();
+			this.listening = new AbortController();
+		}
 		const { signal } = this.listening;
 		const move = (event: PointerEvent | TouchEvent) => this.handleMove(event);
 		const end = (event: PointerEvent | TouchEvent) => this.handleEnd(event);
 		if (touch) {
 			doc.addEventListener('touchmove', move, { passive: true, signal });
 			doc.addEventListener('touchend', end, { passive: true, signal });
+			doc.addEventListener('touchcancel', end, { passive: true, signal });
 			return;
 		}
 		doc.addEventListener('pointermove', move, { passive: true, signal });
 		doc.addEventListener('pointerup', end, { once: true, signal });
+		doc.addEventListener('pointercancel', this.onPointerCancel, { once: true, signal });
 	}
 
 	private isTargetDisabledThumb(target: EventTarget | null) {
@@ -702,7 +735,9 @@ export class SliderRootModel {
 		newValue = roundValueToStep(newValue, this.step, this.min);
 		newValue = clamp(newValue, this.min, this.max);
 
-		if (!this.range) return { value: newValue, thumbIndex, didSwap: false };
+		if (values.length <= 1) {
+			return { value: this.range ? [newValue] : newValue, thumbIndex, didSwap: false };
+		}
 
 		return resolveThumbCollision(
 			this.options.getCollision(),
@@ -759,6 +794,8 @@ export class SliderRootModel {
 	}
 
 	private handleEnd(nativeEvent: TouchEvent | PointerEvent) {
+		// Another finger's touch ends or cancels without ending this drag.
+		if (getFingerCoords(nativeEvent, this.touchId) == null) return;
 		this.setActive(-1);
 		this.dragging = false;
 		this.pressedThumbCenterOffset = null;
@@ -788,7 +825,6 @@ export class SliderRootModel {
 		}
 
 		this.pressedThumbIndex = -1;
-		this.touchId = null;
 		this.stopListening();
 	}
 }

@@ -1,8 +1,8 @@
 <!--
 	A custom element to display instead of the native cursor while using the scrub area.
 	Renders a `<span>` element, moved to `document.body` while scrubbing.
-	Derived from Base UI v1.8.0 packages/react/src/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The portal is an attachment, not a floating-ui overlay. It is omitted on WebKit.
 -->
 <script lang="ts">

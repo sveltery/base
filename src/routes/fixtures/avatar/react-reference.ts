@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart of AvatarFixture.svelte. Comparison only; never imported by src/lib.
+// React Base UI 1.9.0 counterpart of AvatarFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Avatar } from '@base-ui/react/avatar';

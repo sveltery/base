@@ -4,7 +4,7 @@
 
 <main>
 	<h1>Sveltery Base</h1>
-	<p>Experimental Svelte 5 port of Base UI v1.8.0. Fixture routes for verification:</p>
+	<p>Experimental Svelte 5 port of Base UI v1.9.0. Fixture routes for verification:</p>
 	<ul>
 		<li>
 			<a href="/fixtures/accordion">Accordion</a> (add <code>&amp;reference</code> for React Base UI)

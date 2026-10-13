@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart of InputFixture.svelte. Comparison only; never imported by src/lib.
+// React Base UI 1.9.0 counterpart of InputFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, Fragment, useEffect, useState } from 'react';
 import { Field } from '@base-ui/react/field';
 import { Input } from '@base-ui/react/input';

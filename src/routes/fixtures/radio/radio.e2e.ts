@@ -1,4 +1,4 @@
-// Each case runs against the Svelte Radio and the React Base UI 1.8.0 reference.
+// Each case runs against the Svelte Radio and the React Base UI 1.9.0 reference.
 // These cases are the standalone radio. RadioGroup is not ported, so a radio is
 // selected only when its value is the empty string, matching Base UI without a group.
 import { expect, test, type Page } from '@playwright/test';
