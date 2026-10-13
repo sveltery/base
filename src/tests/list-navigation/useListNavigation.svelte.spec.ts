@@ -470,6 +470,36 @@ describe('ListNavigation', () => {
 		});
 	});
 
+	it('drops a queued item focus when the list closes before it lands', async () => {
+		render(ListNavigationHarness, { options: { focusItemOnOpen: true }, keepMounted: true });
+
+		const frames = new Map<number, FrameRequestCallback>();
+		let frameId = 0;
+		vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
+			frameId += 1;
+			frames.set(frameId, callback);
+			return frameId;
+		});
+		vi.spyOn(window, 'cancelAnimationFrame').mockImplementation((id) => {
+			frames.delete(id);
+		});
+
+		click(reference());
+		await Promise.resolve();
+		flushSync();
+		expect(document.activeElement).not.toBe(el('item-0'));
+
+		click(reference());
+		expect(reference().getAttribute('aria-expanded') ?? 'false').not.toBe('true');
+
+		const callbacks = [...frames.values()];
+		frames.clear();
+		for (const callback of callbacks) callback(performance.now());
+		flushSync();
+
+		expect(document.activeElement).not.toBe(el('item-0'));
+	});
+
 	describe('prop: focusItemOnHover', () => {
 		it('cancels pending item focus when the pointer leaves before focus lands', async () => {
 			const onNavigate = vi.fn();
