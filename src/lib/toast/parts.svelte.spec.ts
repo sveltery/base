@@ -20,6 +20,9 @@ import {
 	click,
 	closeButton,
 	disableAnimations,
+	holdExit,
+	mouseEnter,
+	mouseLeave,
 	renderToasts,
 	textOf,
 	withAnimations
@@ -185,11 +188,11 @@ describe('<Toast.Close />', () => {
 		expect(close.getAttribute('type')).toBe('button');
 		expect(close.getAttribute('aria-hidden')).toBe('true');
 
-		viewport().dispatchEvent(new MouseEvent('mouseenter'));
+		mouseEnter(viewport());
 		await tick();
 		expect(close.getAttribute('aria-hidden')).toBe('false');
 
-		viewport().dispatchEvent(new MouseEvent('mouseleave'));
+		mouseLeave(viewport());
 		await tick();
 		expect(close.getAttribute('aria-hidden')).toBe('true');
 
@@ -284,7 +287,7 @@ describe('<Toast.Content />', () => {
 		const content = byTestId('content-toast-1')!;
 		expect(content.hasAttribute('data-expanded')).toBe(false);
 
-		byTestId('viewport')!.dispatchEvent(new MouseEvent('mouseenter'));
+		mouseEnter(byTestId('viewport')!);
 		await tick();
 		expect(content.hasAttribute('data-expanded')).toBe(true);
 	});
@@ -371,11 +374,7 @@ describe('<Toast.Positioner />', () => {
 
 				const newest = byTestId('newest')!;
 				const oldest = byTestId('oldest')!;
-				// Keep the closing toast mounted: its exit animation never finishes.
-				Object.defineProperty(byTestId('root-newest'), 'getAnimations', {
-					value: () => [{ finished: new Promise(() => {}) }],
-					configurable: true
-				});
+				holdExit(byTestId('root-newest')!);
 
 				expect(newest.style.getPropertyValue('--toast-index')).toBe('0');
 				expect(oldest.style.getPropertyValue('--toast-index')).toBe('1');

@@ -20,7 +20,11 @@ import {
 	closeButton,
 	css,
 	disableAnimations,
+	holdExit,
+	mouseEnter,
+	mouseLeave,
 	renderToasts,
+	stubPointerCapture,
 	useFakeClock,
 	withAnimations
 } from '../../tests/toast.js';
@@ -36,14 +40,6 @@ function viewport() {
 	return byTestId('viewport')!;
 }
 
-function mouseEnter(element: HTMLElement) {
-	element.dispatchEvent(new MouseEvent('mouseenter'));
-}
-
-function mouseLeave(element: HTMLElement) {
-	element.dispatchEvent(new MouseEvent('mouseleave'));
-}
-
 function keyDown(element: EventTarget, key: string, init: KeyboardEventInit = {}) {
 	element.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, ...init }));
 }
@@ -54,12 +50,6 @@ function pointer(
 	init: PointerEventInit & { clientX?: number; clientY?: number }
 ) {
 	element.dispatchEvent(new PointerEvent(type, { bubbles: true, ...init }));
-}
-
-/** Synthetic pointer ids have no active pointer to capture, so capture is a no-op. */
-function stubPointerCapture(element: HTMLElement) {
-	Object.defineProperty(element, 'setPointerCapture', { value: () => {}, configurable: true });
-	Object.defineProperty(element, 'releasePointerCapture', { value: () => {}, configurable: true });
 }
 
 async function addToast() {
@@ -686,14 +676,6 @@ describe('<Toast.Viewport />', () => {
 
 	describe('focus management', () => {
 		useFakeClock();
-
-		/** An exit animation that never finishes, so the toast stays mounted while ending. */
-		function holdExit(element: HTMLElement) {
-			Object.defineProperty(element, 'getAnimations', {
-				value: () => [{ finished: new Promise(() => {}) }],
-				configurable: true
-			});
-		}
 
 		it('skips toasts animating out when tabbing into the viewport', async () => {
 			await withAnimations(async () => {

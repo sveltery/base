@@ -19,6 +19,7 @@ import {
 	css,
 	disableAnimations,
 	renderToasts,
+	stubPointerCapture,
 	textOf,
 	withAnimations
 } from '../../tests/toast.js';
@@ -30,11 +31,6 @@ disableAnimations();
 function exitTransition(selector: string) {
 	return `${selector} { opacity: 1; transition: opacity 10s; }
 		${selector}[data-ending-style] { opacity: 0; }`;
-}
-
-function stubPointerCapture(element: HTMLElement) {
-	Object.defineProperty(element, 'setPointerCapture', { value: () => {}, configurable: true });
-	Object.defineProperty(element, 'releasePointerCapture', { value: () => {}, configurable: true });
 }
 
 function pointer(type: string, target: EventTarget, init: PointerEventInit) {

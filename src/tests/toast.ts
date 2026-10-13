@@ -102,3 +102,26 @@ export function renderToasts(props: Omit<ComponentProps<typeof ToastHarness>, 'o
 export function css(element: HTMLElement, property: string) {
 	return element.style.getPropertyValue(property);
 }
+
+/** Synthetic pointer ids have no active pointer to capture, so capture is a no-op. */
+export function stubPointerCapture(element: HTMLElement) {
+	Object.defineProperty(element, 'setPointerCapture', { value: () => {}, configurable: true });
+	Object.defineProperty(element, 'releasePointerCapture', { value: () => {}, configurable: true });
+}
+
+/** An exit animation that never finishes, so a closed toast stays mounted while ending. */
+export function holdExit(element: HTMLElement) {
+	Object.defineProperty(element, 'getAnimations', {
+		value: () => [{ finished: new Promise(() => {}) }],
+		configurable: true
+	});
+}
+
+/** `mouseenter` and `mouseleave` do not bubble, so these target the viewport itself. */
+export function mouseEnter(element: HTMLElement) {
+	element.dispatchEvent(new MouseEvent('mouseenter'));
+}
+
+export function mouseLeave(element: HTMLElement) {
+	element.dispatchEvent(new MouseEvent('mouseleave'));
+}
