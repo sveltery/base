@@ -34,8 +34,7 @@
 	const registeredId = $derived(id ? id : undefined);
 	const button = new ButtonBehavior(() => ({
 		disabled,
-		native: nativeButton,
-		focusableWhenDisabled: true
+		native: nativeButton
 	}));
 
 	$effect(() => {

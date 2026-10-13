@@ -24,8 +24,7 @@
 	const state = $derived(root.state);
 	const button = new ButtonBehavior(() => ({
 		disabled,
-		native: nativeButton,
-		focusableWhenDisabled: true
+		native: nativeButton
 	}));
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {

@@ -87,17 +87,27 @@ describe('Collapsible', () => {
 	});
 
 	describe('disabled', () => {
-		it('sets data-disabled and stays focusable', async () => {
+		it('renders the disabled attribute when disabled', async () => {
 			render(CollapsibleHarness, { disabled: true });
 			const trigger = page.getByRole('button', { name: 'Trigger' });
 			const root = trigger.element().parentElement as HTMLElement;
 
 			await expect.element(trigger).toHaveAttribute('data-disabled', '');
-			await expect.element(trigger).toHaveAttribute('aria-disabled', 'true');
-			await expect.element(trigger).not.toHaveAttribute('disabled');
+			await expect.element(trigger).toHaveAttribute('disabled', '');
+			await expect.element(trigger).not.toHaveAttribute('aria-disabled');
 			expect(root).toHaveAttribute('data-disabled', '');
-			trigger.element().focus();
-			expect(document.activeElement).toBe(trigger.element());
+		});
+
+		it('removes a disabled non-native trigger from the tab order', async () => {
+			render(CollapsibleHarness, { disabled: true, triggerAs: 'span' });
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			await expect.element(trigger).toHaveAttribute('aria-disabled', 'true');
+			await expect.element(trigger).toHaveAttribute('tabindex', '-1');
+			await expect.element(trigger).not.toHaveAttribute('disabled');
+
+			await userEvent.keyboard('{Tab}');
+			expect(document.activeElement).not.toBe(trigger.element());
 		});
 
 		it('does not toggle or call onOpenChange when clicked while disabled', async () => {

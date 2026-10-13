@@ -350,8 +350,8 @@ describe('Accordion', () => {
 				});
 				const trigger = page.getByRole('button', { name: 'Trigger 1' });
 
-				await expect.element(trigger).toHaveAttribute('aria-disabled', 'true');
-				await expect.element(trigger).not.toHaveAttribute('disabled');
+				await expect.element(trigger).toHaveAttribute('disabled', '');
+				await expect.element(trigger).not.toHaveAttribute('aria-disabled');
 				(trigger.element() as HTMLButtonElement).click();
 				trigger.element().focus();
 				await userEvent.keyboard('{Space}');
@@ -364,6 +364,22 @@ describe('Accordion', () => {
 				expect(onOpenChange).not.toHaveBeenCalled();
 			}
 		);
+
+		it('removes a disabled non-native trigger from the tab order', async () => {
+			render(AccordionHarness, {
+				items: [
+					{ value: 0, label: 'Trigger 1', content: PANEL_1, disabled: true, triggerAs: 'span' }
+				]
+			});
+			const trigger = page.getByRole('button', { name: 'Trigger 1' });
+
+			await expect.element(trigger).toHaveAttribute('aria-disabled', 'true');
+			await expect.element(trigger).toHaveAttribute('tabindex', '-1');
+			await expect.element(trigger).not.toHaveAttribute('disabled');
+
+			await userEvent.keyboard('{Tab}');
+			expect(document.activeElement).not.toBe(trigger.element());
+		});
 	});
 
 	describe('keyboard', () => {

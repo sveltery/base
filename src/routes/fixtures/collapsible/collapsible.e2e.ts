@@ -75,14 +75,13 @@ for (const reference of [false, true]) {
 			expect(await calls(page)).toEqual([{ open: true, reason: 'trigger-press', canceled: true }]);
 		});
 
-		test('disabled stays focusable and does not open', async ({ page }) => {
+		test('disabled is not focusable and does not open', async ({ page }) => {
 			const { trigger, panel } = await open(page, 'disabled', reference);
-			await expect(trigger).toHaveAttribute('aria-disabled', 'true');
+			await expect(trigger).toBeDisabled();
+			await expect(trigger).not.toHaveAttribute('aria-disabled');
 			await expect(trigger).toHaveAttribute('data-disabled', '');
 			await trigger.focus();
-			await expect(trigger).toBeFocused();
-			await page.keyboard.press('Enter');
-			// Playwright will not click an aria-disabled button unless forced.
+			await expect(trigger).not.toBeFocused();
 			await trigger.click({ force: true });
 			await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 			await expect(panel).toHaveCount(0);
