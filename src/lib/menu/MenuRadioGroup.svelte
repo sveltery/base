@@ -4,6 +4,7 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { setMenuGroup, setMenuRadioGroup } from './context.svelte.js';
 	import type { MenuRadioGroupProps, MenuRadioGroupState } from './types.js';
 
@@ -44,6 +45,7 @@
 		role: 'group' as const,
 		'aria-labelledby': ariaLabelledBy ?? labelId,
 		'aria-disabled': disabled || undefined,
+		...getStateAttributesProps(partState),
 		...elementProps
 	});
 </script>
