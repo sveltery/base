@@ -911,8 +911,31 @@ for (const detached of [false, true]) {
 				toggle().focus();
 				enterWithMouse(toggle());
 				await expect.poll(() => menus().length).toBe(1);
+				await expect.poll(() => focused()).toBe(menus()[0]);
 				moveMouse(toggle(), document.body);
 				await expect.poll(() => menus().length).toBe(0);
+				await settle();
+				expect(focused()).toBe(document.body);
+			});
+
+			it('does not return focus to the element focused before a hover open when the pointer leaves', async () => {
+				await parkPointer();
+				const input = document.createElement('input');
+				input.setAttribute('aria-label', 'Outside');
+				document.body.append(input);
+				try {
+					render(MenuHarness, menu({ trigger: { openOnHover: true, delay: 0 } }));
+					input.focus();
+					enterWithMouse(toggle());
+					await expect.poll(() => menus().length).toBe(1);
+					await expect.poll(() => focused()).toBe(menus()[0]);
+					moveMouse(toggle(), document.body);
+					await expect.poll(() => menus().length).toBe(0);
+					await settle();
+					expect(focused()).toBe(document.body);
+				} finally {
+					input.remove();
+				}
 			});
 
 			it('opens the submenu on hover with zero delay', async () => {

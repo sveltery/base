@@ -586,12 +586,36 @@ describe('Menu.CheckboxItem', () => {
 	});
 
 	it('closes the menu on click with closeOnClick', async () => {
+		const calls: [string, boolean, string][] = [];
 		render(MenuHarness, {
-			items: [{ type: 'checkbox', label: 'Item', props: { closeOnClick: true } }]
+			rootProps: {
+				onOpenChange: (open: boolean, details: { reason: string }) =>
+					calls.push(['onOpenChange', open, details.reason])
+			},
+			portalProps: { keepMounted: true },
+			items: [
+				{
+					type: 'checkbox',
+					label: 'Item',
+					props: {
+						closeOnClick: true,
+						onCheckedChange: (checked: boolean, details: { reason: string }) =>
+							calls.push(['onCheckedChange', checked, details.reason])
+					}
+				}
+			]
 		});
 		await userEvent.click(trigger());
 		await userEvent.click(checkbox());
-		await expect.poll(() => menus().length).toBe(0);
+		await expect.poll(() => trigger().getAttribute('aria-expanded')).toBe('false');
+		const item = document.querySelector('[role="menuitemcheckbox"]')!;
+		expect(item.getAttribute('aria-checked')).toBe('true');
+		expect(item.hasAttribute('data-checked')).toBe(true);
+		expect(calls).toEqual([
+			['onOpenChange', true, 'trigger-press'],
+			['onCheckedChange', true, 'item-press'],
+			['onOpenChange', false, 'item-press']
+		]);
 	});
 
 	it('keeps the menu open on click by default', async () => {
@@ -749,6 +773,14 @@ describe('Menu.RadioGroup and Menu.RadioItem', () => {
 		render(MenuHarness, { open: true, trigger: false, items: group({ disabled: true }) });
 		const node = page.getByRole('group').element();
 		expect(node.getAttribute('aria-disabled')).toBe('true');
+		expect(node.getAttribute('data-disabled')).toBe('');
+	});
+
+	it('omits the disabled state from an enabled group', async () => {
+		render(MenuHarness, { open: true, trigger: false, items: group() });
+		const node = page.getByRole('group').element();
+		expect(node.getAttribute('aria-disabled')).toBe(null);
+		expect(node.getAttribute('data-disabled')).toBe(null);
 	});
 
 	it('throws a radio item outside Menu.RadioGroup', () => {
@@ -947,6 +979,24 @@ describe('Menu.Popup', () => {
 		expect(() => render(MenuOrphan, { part: 'popup' })).toThrow(
 			'Base UI: MenuPositionerContext is missing. MenuPositioner parts must be placed within <Menu.Positioner>.'
 		);
+	});
+
+	it('keeps its own size variables when the consumer style changes', async () => {
+		const view = render(MenuHarness, {
+			open: true,
+			viewport: true,
+			items: items('One'),
+			popupProps: { style: 'color: rgb(255, 0, 0)' }
+		});
+		const popup = menus()[0] as HTMLElement;
+		const sizeVars = () =>
+			`${popup.style.getPropertyValue('--popup-width')} ${popup.style.getPropertyValue('--popup-height')}`;
+		// A resize that started from a measured size settles back on `auto`.
+		await view.rerender({ popupProps: { style: 'color: rgb(0, 128, 0)' } });
+		await expect.poll(() => sizeVars()).toBe('auto auto');
+		await view.rerender({ popupProps: { style: 'color: rgb(0, 0, 255)' } });
+		expect(popup.style.color).toBe('rgb(0, 0, 255)');
+		expect(sizeVars()).toBe('auto auto');
 	});
 
 	it('is labelled by the trigger', async () => {

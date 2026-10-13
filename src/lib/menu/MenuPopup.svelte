@@ -14,7 +14,11 @@
 		createChangeEventDetails,
 		ownerDocument
 	} from '@sveltery/utils';
-	import { FloatingFocusManager, useHoverFloatingInteraction } from '@sveltery/floating-ui-svelte';
+	import {
+		FloatingFocusManager,
+		useHoverFloatingInteraction,
+		type OpenChangePayload
+	} from '@sveltery/floating-ui-svelte';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
@@ -32,10 +36,13 @@
 	const positioning = useMenuPositioner();
 	const bindKey = createAttachmentKey();
 	const styleKey = createAttachmentKey();
-	const ownStyle = liveStyle(() => ({
-		...store.popupVars,
-		...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
-	}));
+	const ownStyle = liveStyle(
+		() => ({
+			...store.popupVars,
+			...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
+		}),
+		() => elementProps.style
+	);
 
 	useOpenChangeComplete(() => ({
 		enabled: store.open && store.mounted,
@@ -97,10 +104,16 @@
 	// always prefers the trigger, so the popup names that element itself. It is a snapshot of
 	// focus at the moment of opening, so it cannot be derived.
 	let previousFocus = $state<HTMLElement | null>(null);
+	// Upstream returns focus nowhere when a hover menu closes because the pointer left, whatever
+	// `finalFocus` says. The manager resolves `returnFocus` in an effect teardown, where Svelte
+	// reads state as it was before the close. This flag is set during the close, so it is a plain
+	// variable that `returnFocus` reads when the manager calls it.
+	let leftByPointer = false;
 	// Tracks only `store.open`, so it runs once per opening.
 	$effect.pre(() => {
 		if (!store.open) return;
 		untrack(() => {
+			leftByPointer = false;
 			const doc = ownerDocument(store.domReferenceElement ?? null);
 			const active = activeElement(doc);
 			previousFocus =
@@ -110,14 +123,29 @@
 		});
 	});
 
-	/** The boolean `returnFocus` path, aimed at `previousFocus`: return only while focus is inside. */
+	$effect(() => {
+		const stop = store.events.on('openchange', (data) => {
+			const { open, reason, nativeEvent } = data as OpenChangePayload;
+			if (!open && reason === MENU_REASONS.triggerHover && nativeEvent?.type === 'mouseleave') {
+				leftByPointer = true;
+			}
+		});
+		return () => {
+			stop();
+		};
+	});
+
+	/** The manager's boolean `returnFocus` rule: return only while focus is still inside. */
+	function focusInside(): boolean {
+		const doc = ownerDocument(store.floatingElement);
+		const active = activeElement(doc);
+		return contains(store.floatingElement, active) || active === doc.body || active == null;
+	}
+
+	/** The boolean `returnFocus` path, aimed at `previousFocus`. */
 	function returnToPreviousFocus(): HTMLElement | false {
 		const target = previousFocus;
-		if (!target?.isConnected) return false;
-		const doc = ownerDocument(target);
-		const active = activeElement(doc);
-		const inside = contains(store.floatingElement, active) || active === doc.body || active == null;
-		return inside ? target : false;
+		return target?.isConnected && focusInside() ? target : false;
 	}
 
 	const returnFocusDefault = $derived.by(() => {
@@ -136,6 +164,23 @@
 		return (resolved === true || resolved === null) && previousFocus?.isConnected
 			? previousFocus
 			: resolved;
+	}
+
+	const returnSpec = $derived(
+		finalFocus === undefined
+			? returnFocusDefault
+			: typeof finalFocus === 'function'
+				? focusReturn
+				: finalFocus
+	);
+
+	function returnFocus(closeType: string | null): boolean | HTMLElement | null | void {
+		if (leftByPointer) return false;
+		const spec = returnSpec;
+		if (typeof spec === 'function') return spec(closeType);
+		// The manager treats a function result as explicit, so `true` keeps its inside check here.
+		// A `null` spec does not move focus.
+		return spec === true ? focusInside() : (spec ?? false);
 	}
 
 	function stopInToolbar(event: KeyboardEvent) {
@@ -184,11 +229,7 @@
 	modal={parentType === 'context-menu'}
 	disabled={!store.mounted}
 	initialFocus={parentType !== 'menu'}
-	returnFocus={finalFocus === undefined
-		? returnFocusDefault
-		: typeof finalFocus === 'function'
-			? focusReturn
-			: finalFocus}
+	returnFocus={returnSpec === false ? false : returnFocus}
 	restoreFocus={true}
 	previousFocusableElement={store.activeTriggerElement instanceof HTMLElement
 		? store.activeTriggerElement

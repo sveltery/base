@@ -322,7 +322,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup`, `actionsRef`, and the `*DataAttributes` and `*CssVars` namespaces.
 
-Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem` and `value` on `Menu.RadioGroup` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`.
+Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem` and `value` on `Menu.RadioGroup` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
 
 ### Labels are trimmed
 
@@ -338,11 +338,11 @@ Local: the shared guards need their own element, so they stay until the popup un
 
 ### Return focus after an open with no interaction type
 
-Upstream: `FloatingFocusManager` takes `openInteractionType` and, when it is `null`, returns focus to the element focused before opening ahead of the trigger.
+Upstream: `FloatingFocusManager` takes `openInteractionType` and, when it is `null`, returns focus to the element focused before opening ahead of the trigger. A hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
 
-Local: the shared `FloatingFocusManager` always prefers the trigger. `MenuPopup` records the element focused when the menu opens without an interaction type, such as a programmatic or hover open, and passes it as `returnFocus`.
+Local: the shared `FloatingFocusManager` always prefers the trigger, and skips return focus only for `focus-out`. `MenuPopup` records the element focused when the menu opens without an interaction type, such as a programmatic or hover open, and passes it as `returnFocus`. It also skips return focus after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
 
-Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`returns focus to the opener when a menu is opened programmatically`).
+Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`returns focus to the opener when a menu is opened programmatically`, `does not return focus to the element focused before a hover open when the pointer leaves`).
 
 ### Touch close guard
 
