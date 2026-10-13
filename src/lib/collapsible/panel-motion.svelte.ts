@@ -167,7 +167,13 @@ export class CollapsiblePanelMotion {
 			const open = this.root.open;
 			const mounted = this.root.mounted;
 			const status = this.panelStatus;
-			if (!panel || open || !mounted || status !== 'ending') return;
+			if (open || !mounted || status !== 'ending') return;
+			if (!panel) {
+				// A render function can drop the panel while it closes. Nothing is left to animate.
+				this.root.setMounted(false);
+				this.setDimensions(EMPTY_DIMENSIONS, false);
+				return;
+			}
 
 			const signal = getAbortSignal();
 			this.endingFrame.request(() => {

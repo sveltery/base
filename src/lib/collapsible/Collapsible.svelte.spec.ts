@@ -442,6 +442,23 @@ describe('Collapsible', () => {
 			expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything());
 		});
 
+		it('finishes closing when the render function removes the panel element', async () => {
+			render(CollapsibleHarness, {
+				open: true,
+				removeWhenClosed: true,
+				panelStyle: 'transition: height 100ms linear'
+			});
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			await expect.element(page.getByText(PANEL_CONTENT)).toHaveAttribute('data-open', '');
+			await trigger.click();
+
+			await expect.element(trigger).not.toHaveAttribute('data-panel-open');
+			await frames(2);
+			expect(trigger.element()).not.toHaveAttribute('data-ending-style');
+			expect(page.getByTestId('panel').elements()).toHaveLength(0);
+		});
+
 		it('preserves inline alignment styles while measuring an opening panel', async () => {
 			const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 			try {
