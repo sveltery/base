@@ -11,6 +11,7 @@ import {
 	contains,
 	createChangeEventDetails,
 	getTarget,
+	matchesFocusVisible,
 	ownerDocument,
 	ownerWindow,
 	platform,
@@ -28,15 +29,6 @@ export interface UseFocusProps {
 	enabled?: boolean;
 	/** Milliseconds to wait before opening. Opens at once when 0 or unset. */
 	delay?: number | (() => number);
-}
-
-function matchesFocusVisible(element: Element) {
-	if (platform.env.jsdom) return true;
-	try {
-		return element.matches(':focus-visible');
-	} catch {
-		return true;
-	}
 }
 
 /** Opens the popup while a trigger has focus, like CSS `:focus`. */

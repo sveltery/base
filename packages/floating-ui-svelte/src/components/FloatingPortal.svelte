@@ -85,7 +85,8 @@
 		portalOwnerRole,
 		...rest
 	}: {
-		store: FloatingRootStore;
+		/** The popup store that records the portal element. A portal without a popup omits it. */
+		store?: FloatingRootStore;
 		children?: Snippet;
 		container?: HTMLElement | ShadowRoot | null;
 		render?: Snippet<[props: PortalHostProps, state: PortalState, children: Snippet]>;
@@ -211,14 +212,14 @@
 			? mountRoot(DelegationRoot, { target: node })
 			: null;
 		portalNode = node;
-		store.portalElement = node;
+		if (store) store.portalElement = node;
 		const restore = carriedFocus;
 		carriedFocus = null;
 		if (restore?.isConnected) restore.focus({ preventScroll: true });
 		return () => {
 			const active = document.activeElement;
 			if (active instanceof HTMLElement && node.contains(active)) carriedFocus = active;
-			if (store.portalElement === node) store.portalElement = null;
+			if (store?.portalElement === node) store.portalElement = null;
 			if (portalNode === node) portalNode = null;
 			if (delegation) void unmount(delegation);
 			node.remove();
