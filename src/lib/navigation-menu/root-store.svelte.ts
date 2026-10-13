@@ -104,10 +104,7 @@ export class NavigationMenuRootStore {
 	dismissFloating = $state.raw<HTMLAttributes<HTMLElement>>({});
 	preventUnmountOnClose = $state(false);
 	/** Set when focus leaves an inline viewport, so Tab cannot loop into it. Clears when the value changes. */
-	viewportInert = $derived.by(() => {
-		void this.value;
-		return false;
-	});
+	viewportInert = $state(false);
 
 	closeReason: string | undefined;
 	prevTriggerElement = $state.raw<Element | null | undefined>(null);
@@ -130,6 +127,12 @@ export class NavigationMenuRootStore {
 		this.parent = options.parent;
 		this.floating = new NavigationMenuFloating(this, options.nested, options.floatingId);
 		this.#transition = new TransitionStatus(() => this.open);
+
+		// A bound value can change without `setValue`, so the reset follows the value itself.
+		$effect.pre(() => {
+			void this.value;
+			untrack(() => (this.viewportInert = false));
+		});
 
 		// Opening starts a new close cycle.
 		$effect.pre(() => {

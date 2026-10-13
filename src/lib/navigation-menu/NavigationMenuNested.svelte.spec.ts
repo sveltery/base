@@ -172,6 +172,32 @@ describe('NavigationMenu.Root nested', () => {
 			expect(expanded('nested-trigger-1')).toBe('true');
 		});
 
+		it('makes an inline viewport inert when focus leaves it, until the value changes', async () => {
+			render(NavigationMenuNestedHarness);
+			click(byId('trigger-1')!);
+			await flush();
+
+			const viewport = byId('inline-nested-viewport')!;
+			const nestedLink1 = byId('nested-popup-1')!.querySelector('a')!;
+			const topLink1 = byId('popup-1')!.querySelector('a')!;
+			const nestedTrigger1 = byId('nested-trigger-1')!;
+
+			nestedLink1.focus();
+			nestedTrigger1.focus();
+			await flush();
+			expect(viewport.hasAttribute('inert')).toBe(false);
+
+			nestedLink1.focus();
+			topLink1.focus();
+			await flush();
+			expect(viewport.hasAttribute('inert')).toBe(true);
+
+			click(byId('nested-trigger-2')!);
+			await flush();
+			expect(expanded('nested-trigger-2')).toBe('true');
+			expect(viewport.hasAttribute('inert')).toBe(false);
+		});
+
 		it('handles inline nested menu without positioner/popup correctly', async () => {
 			render(NavigationMenuNestedHarness);
 

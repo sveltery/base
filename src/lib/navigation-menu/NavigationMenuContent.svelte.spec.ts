@@ -3,9 +3,10 @@
 // The server-side rendering cases are in content-ssr.spec.ts.
 import { tick } from 'svelte';
 import { userEvent } from 'vitest/browser';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, onTestFinished } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import NavigationMenuContentHarness from '../../tests/NavigationMenuContentHarness.svelte';
+import { mockAnimations, withAnimations } from '../../tests/navigationMenuEvents.js';
 import { byId, resetBrowserPointer, settlePositioning } from '../../tests/previewCardEvents.js';
 
 afterEach(async () => {
@@ -71,6 +72,44 @@ describe('NavigationMenu.Content', () => {
 
 		expect(byId('content-1-sibling')).toBeNull();
 		expect(viewport.contains(byId('content-2'))).toBe(true);
+	});
+
+	it('lays exiting content over the entering content and makes it inert unless it holds focus', async () => {
+		const restore = withAnimations();
+		onTestFinished(restore);
+		render(NavigationMenuContentHarness, { twoItems: true });
+
+		byId('trigger-1')!.click();
+		await expect.poll(() => byId('content-1')).not.toBeNull();
+		const content1 = byId('content-1')!;
+		const animations = mockAnimations(content1);
+		const exit = animations.start();
+
+		byId('trigger-2')!.click();
+		await expect.poll(() => byId('content-2')).not.toBeNull();
+
+		expect(content1.hasAttribute('data-ending-style')).toBe(true);
+		expect(content1.hasAttribute('inert')).toBe(true);
+		const { position, top, left } = content1.style;
+		expect({ position, top, left }).toEqual({ position: 'absolute', top: '0px', left: '0px' });
+		expect(byId('content-2')!.hasAttribute('inert')).toBe(false);
+		expect(byId('content-2')!.getAttribute('style')).toBeNull();
+
+		await animations.finish(exit);
+		await expect.poll(() => byId('content-1')).toBeNull();
+
+		byId('trigger-1')!.click();
+		await expect.poll(() => byId('content-1')).not.toBeNull();
+		const focused = byId('content-1')!;
+		const focusedAnimations = mockAnimations(focused);
+		const focusedExit = focusedAnimations.start();
+		focused.querySelector('a')!.focus();
+
+		byId('trigger-2')!.click();
+		await expect.poll(() => focused.hasAttribute('data-ending-style')).toBe(true);
+		expect(focused.hasAttribute('inert')).toBe(false);
+
+		await focusedAnimations.finish(focusedExit);
 	});
 
 	it('keeps content mounted inside the popup when closed if the portal is kept mounted', async () => {
