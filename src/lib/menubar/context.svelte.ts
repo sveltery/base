@@ -13,6 +13,7 @@ import type {
 	MenubarParentContext,
 	MouseUpGate
 } from '../menu/parent.svelte.js';
+import type { FloatingTreeStore } from './floating-tree.svelte.js';
 import type { MenubarOrientation } from './types.js';
 
 export interface MenubarOptions {
@@ -35,7 +36,11 @@ export class MenubarContext implements MenubarParentContext {
 	readonly mouseUpGate: MouseUpGate = { allow: false };
 	readonly roving: CompositeRoot;
 
-	constructor(private readonly options: () => MenubarOptions) {
+	constructor(
+		private readonly options: () => MenubarOptions,
+		readonly floatingTree: FloatingTreeStore,
+		readonly nodeId: string
+	) {
 		const reading = useDirection();
 		this.roving = new CompositeRoot({
 			orientation: () => this.orientation,

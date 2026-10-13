@@ -154,6 +154,49 @@ describe('Menubar', () => {
 		expect(focused()).toBe(document.body);
 	});
 
+	describe('inside a popover', () => {
+		function renderInPopover() {
+			const calls: string[] = [];
+			render(MenubarCasesHarness, {
+				scenario: 'in-popover',
+				onOpenChange: (label, open, reason) => calls.push(`${label} ${open} ${reason}`)
+			});
+			return calls;
+		}
+
+		it('ignores a standalone menu that opens beside the menubar', async () => {
+			const calls = renderInPopover();
+			await userEvent.click(get('standalone-trigger'));
+			await expect.poll(shown('standalone-menu')).toBe(true);
+			await settle();
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(false);
+
+			await userEvent.hover(get('file-trigger'));
+			await settle();
+			expect(byTestId('file-menu')).toBe(null);
+			expect(byTestId('standalone-menu')).not.toBe(null);
+			expect(calls).toEqual(['Standalone true trigger-press']);
+		});
+
+		it('keeps a standalone menu out of the menubar menus', async () => {
+			const calls = renderInPopover();
+			await userEvent.click(get('file-trigger'));
+			await expect.poll(shown('file-menu')).toBe(true);
+			await expect.poll(() => menubar().hasAttribute('data-has-submenu-open')).toBe(true);
+
+			get('standalone-trigger').focus();
+			await userEvent.keyboard('{Enter}');
+			await expect.poll(shown('standalone-menu')).toBe(true);
+			await expect.poll(shown('file-menu')).toBe(false);
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(false);
+			expect(calls).toEqual([
+				'File true trigger-press',
+				'File false focus-out',
+				'Standalone true trigger-press'
+			]);
+		});
+	});
+
 	describe.each([
 		{ name: 'contained triggers', variant: 'contained' },
 		{ name: 'detached triggers', variant: 'detached' },
