@@ -85,6 +85,7 @@
 		staticFilter,
 		noInput = false,
 		chipLimit,
+		inputOnlyWhenOpen = false,
 		inputElement,
 		fieldAwareInput = false,
 		onOuterKeydown,
@@ -162,6 +163,8 @@
 		noInput?: boolean;
 		/** Renders chips for only this many selected values. */
 		chipLimit?: number;
+		/** Renders the input only while the bound `open` is true. */
+		inputOnlyWhenOpen?: boolean;
 		/** Renders the input as a `<textarea>` or an `<input type="number">`. */
 		inputElement?: 'textarea' | 'number';
 		/** Renders the input through `Input`, which is itself field-aware. */
@@ -296,7 +299,7 @@
 		<Combobox.Input {...input}>
 			{#snippet render(props)}<Input {...props} data-testid="input" />{/snippet}
 		</Combobox.Input>
-	{:else if !noInput}
+	{:else if !noInput && (!inputOnlyWhenOpen || open)}
 		<Combobox.Input data-testid="input" {...input} />
 	{/if}
 {/snippet}
