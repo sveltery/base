@@ -49,14 +49,7 @@
 		stickIfOpen: menubar ? false : owner.stickIfOpen
 	}));
 	// One polygon per trigger. The options getter runs on every event.
-	const polygon = safePolygon({ blockPointerEvents: !untrack(() => menubar) });
-	// A detached trigger sits outside the menu's floating tree, and upstream hands the hover its
-	// tree. The polygon needs it to keep the menu open while one of its submenus is open.
-	const handleClose: typeof polygon = Object.assign(
-		(context: Parameters<typeof polygon>[0]) =>
-			polygon({ ...context, tree: context.tree ?? owner.tree }),
-		{ __options: polygon.__options, clear: polygon.clear }
-	);
+	const handleClose = safePolygon({ blockPointerEvents: !untrack(() => menubar) });
 	const hover = new HoverReferenceInteraction(owner, () => ({
 		enabled: openOnHover && !disabled && (!menubar || (menubar.hasSubmenuOpen && !mountedByThis)),
 		mouseOnly: true,
@@ -64,7 +57,9 @@
 		handleClose,
 		restMs: menubar ? undefined : delay,
 		delay: { close: closeDelay },
-		placement: () => owner.placement
+		placement: () => owner.placement,
+		// A detached trigger sits outside the menu's floating tree.
+		externalTree: owner.tree ?? undefined
 	}));
 	const guards = new TriggerFocusGuards(
 		owner,

@@ -354,7 +354,7 @@ Local: the store ignores it before `onOpenChange`, so the callback does not see 
 
 Upstream: the submenu's safe polygon reaches the parent popup through the floating tree.
 
-Local: the polygon scopes to the parent popup through `getScope`. A detached trigger passes the menu's tree to the polygon, which keeps the menu open while one of its submenus is open.
+Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Behavior that waits on shared internals
 
