@@ -9,9 +9,6 @@ export const CLOSE_DELAY = 50;
 export const PATIENT_CLICK_THRESHOLD = 500;
 export const NAVIGATION_MENU_TRIGGER_IDENTIFIER = 'data-base-ui-navigation-menu-trigger';
 
-/** Upstream `REASONS.linkPress`. `@sveltery/utils` has no entry for it yet. */
-export const LINK_PRESS_REASON = 'link-press';
-
 export const POPUP_WIDTH_VAR = '--popup-width';
 export const POPUP_HEIGHT_VAR = '--popup-height';
 export const POSITIONER_WIDTH_VAR = '--positioner-width';

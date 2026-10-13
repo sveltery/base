@@ -14,7 +14,6 @@ import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { RenderChildren } from '../internal/render-children.js';
-import type { LINK_PRESS_REASON } from './constants.js';
 
 export type { Align, Side };
 
@@ -28,7 +27,7 @@ export type NavigationMenuChangeReason =
 	| typeof REASONS.listNavigation
 	| typeof REASONS.focusOut
 	| typeof REASONS.escapeKey
-	| typeof LINK_PRESS_REASON
+	| typeof REASONS.linkPress
 	| typeof REASONS.imperativeAction
 	| typeof REASONS.none;
 

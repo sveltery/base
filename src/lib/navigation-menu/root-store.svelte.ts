@@ -20,7 +20,6 @@ import {
 import { attachPreventUnmountOnClose, type AnchorPositioning } from '../internal/popups/index.js';
 import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
 import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
-import { LINK_PRESS_REASON } from './constants.js';
 import type { NavigationMenuTriggerFloating } from './trigger-floating.svelte.js';
 import type {
 	NavigationMenuActivationDirection,
@@ -237,7 +236,7 @@ export class NavigationMenuRootStore {
 
 		this.options.writeValue(next);
 
-		if (this.nested && next == null && details.reason === LINK_PRESS_REASON && this.parent) {
+		if (this.nested && next == null && details.reason === REASONS.linkPress && this.parent) {
 			this.parent.setValue(null, details);
 		}
 	}

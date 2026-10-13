@@ -320,9 +320,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `value` and `defaultValue`, `actionsRef`, the `NavigationMenu*DataAttributes` and `NavigationMenu*CssVars` namespaces, and `REASONS.linkPress` from the shared reason table.
+Upstream: `value` and `defaultValue`, `actionsRef`, the `NavigationMenu*DataAttributes` and `NavigationMenu*CssVars` namespaces.
 
-Local: `value` is `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The namespaces are not exported. `@sveltery/utils` `REASONS` has no `linkPress`, so `src/lib/navigation-menu/constants.ts` defines `LINK_PRESS_REASON = 'link-press'`.
+Local: `value` is `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The namespaces are not exported.
 
 ### Content moves into the viewport by an attachment
 

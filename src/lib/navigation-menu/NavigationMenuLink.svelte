@@ -10,7 +10,6 @@
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { compositeItem } from './composite-item.svelte.js';
-	import { LINK_PRESS_REASON } from './constants.js';
 	import { useNavigationMenuComposite, useNavigationMenuRoot } from './context.svelte.js';
 	import type { NavigationMenuLinkProps, NavigationMenuLinkState } from './types.js';
 	import { isOutsideMenuEvent } from './utils.js';
@@ -29,7 +28,7 @@
 	const itemKey = createAttachmentKey();
 
 	function handleClick(event: MouseEvent) {
-		if (closeOnClick) root.setValue(null, createChangeEventDetails(LINK_PRESS_REASON, event));
+		if (closeOnClick) root.setValue(null, createChangeEventDetails(REASONS.linkPress, event));
 	}
 
 	function handleBlur(event: FocusEvent) {

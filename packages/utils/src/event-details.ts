@@ -26,7 +26,8 @@ export const REASONS = {
 	closeWatcher: 'close-watcher',
 	imperativeAction: 'imperative-action',
 	listNavigation: 'list-navigation',
-	swipe: 'swipe'
+	swipe: 'swipe',
+	linkPress: 'link-press'
 } as const;
 
 export type BaseUIChangeEventDetails<Reason extends string> = {
