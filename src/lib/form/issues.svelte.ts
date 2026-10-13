@@ -144,11 +144,16 @@ export interface FieldIssuesOptions {
 /**
  * One Field's view of the session. Server issues follow Base UI's clear-on-change rule:
  * hidden once the field's value changes, until the next round trip. Issues the source found
- * by validating ahead show by mode: `onChange` once dirty, `onBlur` once touched, and every
+ * by validating ahead show by mode: `onChange` once edited, `onBlur` once touched, and every
  * issue after a submit.
  */
 export class FieldIssues {
 	private snapshot = $state.raw<Snapshot | null>(null);
+	/**
+	 * The value changed since the last reset. Unlike `dirty`, it stays true when the value goes
+	 * back to its initial one, as Base's own `onChange` validation does for a cleared input.
+	 */
+	private edited = $state(false);
 
 	constructor(
 		private readonly session: IssueSession,
@@ -174,7 +179,7 @@ export class FieldIssues {
 	private reached() {
 		switch (this.options.validationMode()) {
 			case 'onChange':
-				return this.options.dirty();
+				return this.edited || this.options.dirty();
 			case 'onBlur':
 				return this.options.touched();
 			default:
@@ -183,6 +188,7 @@ export class FieldIssues {
 	}
 
 	markChanged() {
+		this.edited = true;
 		const snapshot = this.snapshot;
 		if (snapshot && !snapshot.changed) this.snapshot = { ...snapshot, changed: true };
 	}
@@ -200,5 +206,6 @@ export class FieldIssues {
 
 	clear() {
 		this.snapshot = null;
+		this.edited = false;
 	}
 }
