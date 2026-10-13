@@ -74,8 +74,10 @@
 		[attachmentKey]: remember
 	});
 
+	const thumbStyle = $derived(hostProps.style);
+
 	$effect(() => {
-		model.holdThumb(vertical, hostProps.style);
+		model.repaint(vertical ? model.thumbYElement : model.thumbXElement, thumbStyle);
 	});
 </script>
 

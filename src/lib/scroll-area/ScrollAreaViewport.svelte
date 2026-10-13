@@ -82,8 +82,16 @@
 		[attachmentKey]: remember
 	});
 
+	const viewportStyle = $derived(hostProps.style);
+
 	$effect(() => {
-		model.queueThumb(model.hiddenState, hostProps.style);
+		model.repaint(model.viewportElement, viewportStyle);
+	});
+
+	$effect(() => {
+		// Any host prop change queues a recompute, not just a new style string.
+		void hostProps;
+		model.queueThumb(model.hiddenState);
 	});
 </script>
 
