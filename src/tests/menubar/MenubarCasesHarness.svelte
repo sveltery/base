@@ -12,7 +12,8 @@
 		scenario,
 		direction = 'ltr',
 		menubarProps = {},
-		onItemClick
+		onItemClick,
+		open = $bindable(true)
 	}: {
 		scenario:
 			| 'triggerless'
@@ -29,9 +30,9 @@
 		direction?: TextDirection;
 		menubarProps?: MenubarProps;
 		onItemClick?: () => void;
+		/** The open state of the triggerless menu. */
+		open?: boolean;
 	} = $props();
-
-	let triggerlessOpen = $state(true);
 </script>
 
 {#snippet menu(
@@ -59,7 +60,7 @@
 	{#if scenario === 'triggerless'}
 		<button data-testid="outside" type="button">Outside</button>
 		<Menubar {...menubarProps}>
-			<Menu.Root bind:open={triggerlessOpen}>
+			<Menu.Root bind:open>
 				<Menu.Portal keepMounted>
 					<Menu.Positioner>
 						<Menu.Popup data-testid="triggerless-menu">

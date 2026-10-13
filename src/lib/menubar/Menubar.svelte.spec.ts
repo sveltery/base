@@ -130,6 +130,30 @@ describe('Menubar', () => {
 		expect(focused()).toBe(outside);
 	});
 
+	it('does not return focus when an outside press closes a triggerless menubar menu', async () => {
+		let open = $state(false);
+		render(MenubarCasesHarness, {
+			scenario: 'triggerless',
+			get open() {
+				return open;
+			},
+			set open(next: boolean) {
+				open = next;
+			}
+		});
+		const outside = get('outside');
+		outside.focus();
+		open = true;
+		await expect.poll(() => get('triggerless-menu').hasAttribute('data-open')).toBe(true);
+		await expect.poll(() => get('triggerless-menu').contains(focused())).toBe(true);
+
+		// A press on the page background moves focus to the body and closes the menu.
+		await userEvent.click(document.body, { position: { x: 5, y: window.innerHeight - 5 } });
+		await expect.poll(() => get('triggerless-menu').hasAttribute('data-open')).toBe(false);
+		await settle();
+		expect(focused()).toBe(document.body);
+	});
+
 	describe.each([
 		{ name: 'contained triggers', variant: 'contained' },
 		{ name: 'detached triggers', variant: 'detached' },
