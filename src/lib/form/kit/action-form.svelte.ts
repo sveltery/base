@@ -10,7 +10,7 @@ import { tick } from 'svelte';
 import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 import { on } from 'svelte/events';
 import { onFormReset } from '../../internal/form-reset.svelte.js';
-import { pathKey, type EnhanceCallback, type FormSource } from '../source.js';
+import { defaultEnhance, pathKey, type EnhanceCallback, type FormSource } from '../source.js';
 import {
 	convertFormData,
 	coerceFormValue,
@@ -60,15 +60,6 @@ function isFailure(value: unknown): value is FormFailure {
 		'input' in value &&
 		Array.isArray((value as { issues?: unknown }).issues)
 	);
-}
-
-/** Kit's default for a remote form: reset after a successful submit. */
-async function defaultCallback(instance: { element: HTMLFormElement; submit(): Promise<boolean> }) {
-	if (await instance.submit()) {
-		await tick();
-		// The prototype's reset, so an input named `reset` cannot shadow it.
-		if (instance.element.isConnected) HTMLFormElement.prototype.reset.call(instance.element);
-	}
 }
 
 /** Kit's enhance instance: the source's state, plus the form element and `submit()`. */
@@ -130,7 +121,7 @@ export class ActionForm<Input extends RemoteFormInput, Result> implements FormSo
 	#pending = $state(0);
 	#submitted = $state(false);
 	#element: HTMLFormElement | null = null;
-	#enhance: ActionFormEnhanceCallback<Input, Result> = defaultCallback;
+	#enhance: ActionFormEnhanceCallback<Input, Result> = defaultEnhance;
 	#validateId = 0;
 
 	#failure = $derived.by(() => {

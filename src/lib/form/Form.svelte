@@ -4,11 +4,18 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	`validate` is an export. Bind the form with `bind:this`.
 -->
+<script module lang="ts">
+	import type { EnhanceCallback, FormSource } from './source.js';
+
+	/** The callback a mounted Form installed on each source, so an older Form does not undo a newer one's. */
+	const installed = new WeakMap<FormSource, EnhanceCallback>();
+</script>
+
 <script
 	lang="ts"
 	generics="FormValues extends Record<string, unknown> = Record<string, unknown>, S extends FormSource = FormSource"
 >
-	import { tick, untrack } from 'svelte';
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
 	import type { HTMLFormAttributes } from 'svelte/elements';
@@ -17,13 +24,13 @@
 	import { setFormContext, type FormContextValue } from './context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
 	import { IssueSession } from './issues.svelte.js';
-	import { isRemoteForm, replayResets, resetForm } from './kit-reset-replay.js';
+	import { isRemoteForm, replayResets } from './kit-reset-replay.js';
 	import {
 		allIssues,
+		defaultEnhance,
 		pathKey,
 		type EnhanceInstance,
-		type EnhanceInstanceOf,
-		type FormSource
+		type EnhanceInstanceOf
 	} from './source.js';
 	import { onFormReset } from '../internal/form-reset.svelte.js';
 	import type { FormErrors, FormField, FormProps, FormState } from './types.js';
@@ -175,43 +182,33 @@
 		}
 	}
 
-	/** Kit's default: reset the form after a successful submit. */
-	async function submitAndReset(instance: EnhanceInstance) {
-		if (await instance.submit()) {
-			await tick();
-			if (instance.element.isConnected) resetForm(instance.element);
-		}
-	}
-
 	// Form owns the source's callback so it learns when a server round trip ends. That is the
 	// only way to tell server issues from client ones. `enhance` customizes the callback.
 	$effect.pre(() => {
 		const current = source;
 		if (!current?.enhance) return;
-		untrack(() =>
-			current.enhance!(async (instance) => {
-				const tracked: EnhanceInstance = Object.create(instance, {
-					submit: {
-						value: () => {
-							const submission = instance.submit();
-							const ended = () => issues.roundTripEnded();
-							void submission.then(ended, ended);
-							return submission;
-						}
+		const callback: EnhanceCallback = async (instance) => {
+			const tracked: EnhanceInstance = Object.create(instance, {
+				submit: {
+					value: () => {
+						const submission = instance.submit();
+						const ended = () => issues.roundTripEnded();
+						void submission.then(ended, ended);
+						return submission;
 					}
-				});
-				if (enhance) await enhance(tracked as EnhanceInstanceOf<S>);
-				else await submitAndReset(tracked);
-			})
-		);
-		// The source keeps one callback. Hand back the default when this Form lets go of it.
-		return () => {
-			current.enhance!(async (instance) => {
-				if (await instance.submit()) {
-					await tick();
-					if (instance.element.isConnected) HTMLFormElement.prototype.reset.call(instance.element);
 				}
 			});
+			if (enhance) await enhance(tracked as EnhanceInstanceOf<S>);
+			else await defaultEnhance(tracked);
+		};
+		untrack(() => current.enhance!(callback));
+		installed.set(current, callback);
+		// The source keeps one callback. Hand back the default when this Form lets go of it,
+		// unless a Form mounted since has replaced it.
+		return () => {
+			if (installed.get(current) !== callback) return;
+			installed.delete(current);
+			current.enhance!(defaultEnhance);
 		};
 	});
 

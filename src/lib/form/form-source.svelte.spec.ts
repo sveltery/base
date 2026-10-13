@@ -5,8 +5,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { resetLogged } from '@sveltery/utils';
 import BoundFormHarness from '../../tests/BoundFormHarness.svelte';
+import FormSuccessionHarness from '../../tests/FormSuccessionHarness.svelte';
 import { FakeSource } from '../../tests/fake-form-source.svelte.js';
-import type { FormIssue } from './source.js';
+import type { EnhanceInstance, FormIssue } from './source.js';
 
 type Values = Record<string, unknown>;
 
@@ -506,6 +507,22 @@ describe('Form with a source', () => {
 
 			await userEvent.type(control('name'), 'x');
 			await expect.element(control('name-error')).not.toBeInTheDocument();
+		});
+
+		it("keeps a later Form's callback when an earlier Form on the same source unmounts", async () => {
+			const source = new FakeSource();
+			const elements: HTMLFormElement[] = [];
+			const enhance = async (instance: EnhanceInstance) => {
+				elements.push(instance.element);
+				await instance.submit();
+			};
+			render(FormSuccessionHarness, { source, enhance });
+			await page.getByRole('button', { name: 'Mount second' }).click();
+			await page.getByRole('button', { name: 'Unmount first' }).click();
+
+			await page.getByRole('button', { name: 'Submit second' }).click();
+			await expect.poll(() => source.requests).toEqual([{}]);
+			expect(elements).toEqual([control('second').element()]);
 		});
 	});
 
