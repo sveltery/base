@@ -383,11 +383,11 @@ Upstream: `Menubar` renders a `FloatingTree` and a `FloatingNode`, so each top-l
 
 Local: the behavior is the same. A Menubar inside a Dialog, Popover or another popup still starts its own tree, so a standalone menu beside it neither marks it open nor closes its menus. `setFloatingTree` in `@sveltery/floating-ui-svelte` reuses an enclosing tree and the package exports no way to start a new one. So `src/lib/menubar/floating-tree.svelte.ts` puts a new tree under the enclosing tree's context key, then registers the menubar's node with a `FloatingRootStore` that never opens.
 
-### Detached menus report through their trigger
+### Detached menus take the menubar's tree for events only
 
-Upstream: a trigger lends its floating tree to the detached menu it opens, so the menubar hears that menu open and close.
+Upstream: a trigger lends its floating tree, node id and parent node id to the detached menu it opens. The menu's nodes then live in the menubar's tree.
 
-Local: a `MenuStore` keeps the tree it was created with. A menubar trigger that owns a detached menu re-emits the menu's open changes on the menubar's tree (`src/lib/menu/MenuTrigger.svelte`).
+Local: a menubar trigger that owns a detached menu sets the menu's parent to the menubar, and `MenuStore.tree` and `MenuStore.parentNodeId` follow that parent. The menu emits and hears `menuopenchange`, `itemhover` and `close` on the menubar's tree, so separate detached menus close each other with `sibling-open` and the menubar keeps `data-has-submenu-open`. Svelte context does not change after init, so the menu's floating nodes stay in the tree its root was created in. The focus manager, dismiss and hover hooks read that tree.
 
 ### Menu open events are emitted before the DOM update
 

@@ -10,7 +10,6 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
 	import { REASONS, FocusGuard, contains, ownerDocument } from '@sveltery/utils';
-	import { useFloatingParentNodeId, useFloatingTree } from '@sveltery/floating-ui-svelte';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { mergePropsN } from '../internal/mergeProps.js';
 	import { pressableTriggerOpenStateMapping } from '../internal/popupStateMapping.js';
@@ -109,8 +108,9 @@
 	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
 	const menubarItem = menubar?.createItem(() => disabled);
 
-	// A trigger in a menubar takes over the menu's parent while it owns the menu, so a detached
-	// popup still forwards keys to the menubar.
+	// Upstream trigger data forwarding: a trigger in a menubar takes over the menu's parent while
+	// it owns the menu. A detached menu then forwards keys to the menubar and emits its open
+	// changes on the menubar's tree.
 	$effect(() => {
 		const current = live;
 		if (!menubar || !current || !mountedByThis) return;
@@ -118,25 +118,6 @@
 			current.parent = { type: 'menubar', context: menubar };
 			current.ownKeyboardEventRelay = menubar.relayKeyboardEvent;
 		});
-	});
-
-	// Upstream hands a detached menu the trigger's floating tree. Here the menu keeps its own
-	// tree, so the owning trigger reports the menu's open state to the menubar's tree. A menu
-	// inside the menubar already shares that tree.
-	const menubarTree = menubar ? useFloatingTree() : null;
-	const menubarParentNodeId = useFloatingParentNodeId();
-	$effect.pre(() => {
-		const current = live;
-		if (!menubarTree || !current || current.tree === menubarTree || !mountedByThis) return;
-		const open = current.open;
-		untrack(() =>
-			menubarTree.events.emit('menuopenchange', {
-				open,
-				nodeId: current.nodeId,
-				parentNodeId: menubarParentNodeId,
-				reason: current.openChangeReason
-			})
-		);
 	});
 
 	$effect(() => {

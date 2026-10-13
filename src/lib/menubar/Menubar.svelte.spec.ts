@@ -197,9 +197,68 @@ describe('Menubar', () => {
 		});
 	});
 
+	describe('detached menus with separate handles', () => {
+		function renderSeparate() {
+			const calls: string[] = [];
+			render(MenubarHarness, {
+				variant: 'separate',
+				onOpenChange: (label, open, reason) => calls.push(`${label} ${open} ${reason}`)
+			});
+			return calls;
+		}
+
+		it('closes the open menu as a sibling when hovering another trigger', async () => {
+			const calls = renderSeparate();
+			await userEvent.click(get('file-trigger'));
+			await expect.poll(shown('file-menu')).toBe(true);
+
+			await userEvent.hover(get('edit-trigger'));
+			await expect.poll(shown('edit-menu')).toBe(true);
+			await expect.poll(shown('file-menu')).toBe(false);
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(true);
+
+			await userEvent.hover(get('view-trigger'));
+			await expect.poll(shown('view-menu')).toBe(true);
+			await expect.poll(shown('edit-menu')).toBe(false);
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(true);
+			expect(calls).toEqual([
+				'File true trigger-press',
+				'Edit true trigger-hover',
+				'File false sibling-open',
+				'View true trigger-hover',
+				'Edit false sibling-open'
+			]);
+		});
+
+		it('moves through every menu with ArrowRight', async () => {
+			const calls = renderSeparate();
+			get('file-trigger').focus();
+			await userEvent.keyboard('{Enter}');
+			await expect.poll(focused).toBe(get('file-item-1'));
+
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(shown('edit-menu')).toBe(true);
+			await expect.poll(focused).toBe(get('edit-menu').querySelector('[role="menu"]'));
+			expect(byTestId('file-menu')).toBe(null);
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(true);
+
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(shown('view-menu')).toBe(true);
+			expect(byTestId('edit-menu')).toBe(null);
+			expect(calls).toEqual([
+				'File true trigger-press',
+				'Edit true trigger-focus',
+				'File false sibling-open',
+				'View true trigger-focus',
+				'Edit false sibling-open'
+			]);
+		});
+	});
+
 	describe.each([
 		{ name: 'contained triggers', variant: 'contained' },
 		{ name: 'detached triggers', variant: 'detached' },
+		{ name: 'detached triggers with separate handles', variant: 'separate' },
 		{ name: 'multiple contained triggers', variant: 'multiple' }
 	] as const)('when using $name', ({ variant }) => {
 		describe('click interactions', () => {
