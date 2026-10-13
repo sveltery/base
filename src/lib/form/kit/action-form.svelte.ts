@@ -57,8 +57,7 @@ function isFailure(value: unknown): value is FormFailure {
 	return (
 		typeof value === 'object' &&
 		value !== null &&
-		'action' in value &&
-		'input' in value &&
+		typeof (value as { action?: unknown }).action === 'string' &&
 		Array.isArray((value as { issues?: unknown }).issues)
 	);
 }

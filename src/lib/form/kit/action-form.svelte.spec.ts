@@ -40,6 +40,11 @@ function failure(input: Record<string, unknown>, issues: { path: string[]; messa
 	return { action: 'default', input, issues };
 }
 
+/** What `parseForm().fail()` returns to `use:enhance`: no echo, as the page keeps the input. */
+function enhancedFailure(issues: { path: string[]; message: string }[]) {
+	return { action: 'default', issues };
+}
+
 beforeEach(resetServer);
 
 describe('actionForm', () => {
@@ -166,9 +171,7 @@ describe('actionForm', () => {
 		server.respond = () => ({
 			type: 'failure',
 			status: 400,
-			data: failure({ email: 'ada@example.com' }, [
-				{ path: ['email'], message: 'Email already taken' }
-			]),
+			data: enhancedFailure([{ path: ['email'], message: 'Email already taken' }]),
 			location: '/'
 		});
 		render(ActionFormHarness, {
@@ -194,9 +197,7 @@ describe('actionForm', () => {
 					resolve({
 						type: 'failure',
 						status: 400,
-						data: failure({ email: 'ada@example.com' }, [
-							{ path: ['email'], message: 'Email already taken' }
-						]),
+						data: enhancedFailure([{ path: ['email'], message: 'Email already taken' }]),
 						location: '/'
 					});
 			});
@@ -231,9 +232,7 @@ describe('actionForm', () => {
 					resolve({
 						type: 'failure',
 						status: 400,
-						data: failure({ email: 'ada@example.com', name: 'Ada', age: 36 }, [
-							{ path: ['email'], message: 'Email already taken' }
-						]),
+						data: enhancedFailure([{ path: ['email'], message: 'Email already taken' }]),
 						location: '/'
 					});
 			});
