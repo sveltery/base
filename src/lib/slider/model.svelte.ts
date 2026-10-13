@@ -20,6 +20,7 @@ import {
 } from '@sveltery/utils';
 import { clamp } from '../internal/clamp.js';
 import { ElementList } from '../internal/element-list.svelte.js';
+import { isTouchLikePointerType } from '../number-field/press-and-hold.svelte.js';
 import { queueValueEvent } from '../internal/value-events.js';
 import type { BoundInputProps } from '../field/bound-control.svelte.js';
 import type { FieldContext } from '../field/model.svelte.js';
@@ -183,6 +184,8 @@ export class SliderRootModel {
 	restoringFocusVisible = false;
 
 	private touchId: number | null = null;
+	/** `pointerdown` started this gesture, so the `touchstart` after it must not restart it. */
+	private pointerGesture = false;
 	private moveCount = 0;
 	private insetThumbOffset = 0;
 	private currentInteractionValue: number | number[] | null = null;
@@ -492,6 +495,8 @@ export class SliderRootModel {
 	}
 
 	onPointerDown(event: PointerEvent) {
+		// Replaces a flag left by a cancelled gesture that had no `touchstart` to consume it.
+		this.pointerGesture = false;
 		const control = this.control;
 		const target = getTarget(event);
 		if (
@@ -535,6 +540,8 @@ export class SliderRootModel {
 		}
 
 		this.moveCount = 0;
+		// Touch and pen presses can be followed by a compatibility `touchstart` (Apple Pencil).
+		this.pointerGesture = isTouchLikePointerType(event.pointerType);
 		this.listen(ownerDocument(control), false);
 	}
 
@@ -548,6 +555,9 @@ export class SliderRootModel {
 	}
 
 	onTouchStart(event: TouchEvent) {
+		// Only the `touchstart` right after `pointerdown` belongs to the pointer gesture.
+		const startedByPointer = this.pointerGesture;
+		this.pointerGesture = false;
 		if (this.disabled) return;
 		if (this.isTargetDisabledThumb(getTarget(event) as EventTarget | null)) {
 			this.resetPressedThumb();
@@ -557,16 +567,20 @@ export class SliderRootModel {
 		const touch = event.changedTouches[0];
 		if (touch == null) return;
 
-		this.stopListening();
+		// The pointer handlers already started this gesture. Keep its state and add the touch
+		// listeners, which keep tracking the finger if the browser cancels the pointer.
+		if (!startedByPointer) this.stopListening();
 		this.touchId = touch.identifier;
-		const fingerCoords = { x: touch.clientX, y: touch.clientY };
-		this.startPressing(fingerCoords);
-		const finger = this.getFingerState(fingerCoords);
-		if (finger == null) return;
+		if (!startedByPointer) {
+			const fingerCoords = { x: touch.clientX, y: touch.clientY };
+			this.startPressing(fingerCoords);
+			const finger = this.getFingerState(fingerCoords);
+			if (finger == null) return;
 
-		this.focusThumb(finger.thumbIndex);
-		this.setValueFromPointer(finger, REASONS.trackPress, event);
-		this.moveCount = 0;
+			this.focusThumb(finger.thumbIndex);
+			this.setValueFromPointer(finger, REASONS.trackPress, event);
+			this.moveCount = 0;
+		}
 		this.listen(ownerDocument(this.control), true);
 	}
 
@@ -581,6 +595,7 @@ export class SliderRootModel {
 		}
 		this.pressedValues = null;
 		this.currentInteractionValue = null;
+		this.pointerGesture = false;
 	}
 
 	cancelFocusFrame() {
