@@ -165,6 +165,13 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/preview-card/inline-rect.spec.ts` assertions from `packages/react/src/utils/popups/inlineRect.test.ts`
 - `src/lib/preview-card/PreviewCard*.svelte.spec.ts` assertions from `packages/react/src/preview-card/**/*.test.tsx`, `packages/react/test/popupConformanceTests.tsx`, `detachedTriggersConformanceTests.tsx`, `positionerConformanceTests.tsx` and `viewportConformanceTests.tsx`
 - `src/lib/internal/popups/triggerOwnedStore.svelte.ts`, the trigger ownership Tooltip and PreviewCard share, from `useImplicitActiveTrigger` and `useTriggerDataForwarding` in `packages/react/src/utils/popups/popupStoreUtils.ts` of that commit
+- NavigationMenu derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/navigation-menu/NavigationMenu*.svelte` from the matching part files under `packages/react/src/navigation-menu/` (Root, List, Item, Trigger, Icon, Content, Link, Portal, Backdrop, Positioner, Popup, Arrow and Viewport; `NavigationMenuListInteractions.svelte` from the dismiss and hover hooks of `list/NavigationMenuList.tsx`)
+- `src/lib/navigation-menu/root-store.svelte.ts` from `packages/react/src/navigation-menu/root/NavigationMenuRoot.tsx`, `NavigationMenuRootContext.ts` and `packages/react/src/internals/useUnmountAfterClose.ts`
+- `src/lib/navigation-menu/trigger.svelte.ts` and `trigger-floating.svelte.ts` from `packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.tsx` and the `setOpen` of `packages/react/src/floating-ui-react/components/FloatingRootStore.ts`
+- `src/lib/navigation-menu/constants.ts`, `context.svelte.ts`, `utils.ts`, `composite-item.svelte.ts` and `types.ts` from `packages/react/src/navigation-menu/utils/*`, the navigation menu context modules, the `*CssVars.ts` files, the part prop and state types, and `packages/react/src/internals/composite/item/useCompositeItem.ts`
+- `packages/floating-ui-svelte/src/sharedInternals.ts` re-exports existing helpers of that package for NavigationMenu
+- `src/lib/navigation-menu/*.spec.ts` assertions from `packages/react/src/navigation-menu/**/*.test.tsx`, and `src/tests/NavigationMenu*Harness.svelte` from the test components in those files
 
 Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 
@@ -348,6 +355,27 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/menubar/Menubar.svelte`, `context.svelte.ts`, `types.ts` and `index.ts` from `packages/react/src/menubar/Menubar.tsx`, `MenubarContext.ts`, `MenubarDataAttributes.ts` and `index.ts`, with the item hover highlight from `packages/react/src/internals/composite/item/useCompositeItem.ts`
 - `src/lib/menubar/Menubar.svelte.spec.ts` assertions from `packages/react/src/menubar/Menubar.test.tsx` that do not require the filter parts or `aria-owns`, and the `Menubar parent` cases of `packages/react/src/menu/positioner/MenuPositioner.test.tsx`
 - `src/tests/menubar/**` harnesses from the fixtures of those tests
+
+Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+
+- `src/lib/toast/ToastProvider.svelte` from `packages/react/src/toast/provider/ToastProvider.tsx`
+- `src/lib/toast/ToastViewport.svelte` from `packages/react/src/toast/viewport/ToastViewport.tsx`
+- `src/lib/toast/ToastRoot.svelte` from `packages/react/src/toast/root/ToastRoot.tsx`
+- `src/lib/toast/swipe.svelte.ts` from the swipe handling in `packages/react/src/toast/root/ToastRoot.tsx`
+- `src/lib/toast/ToastContent.svelte` from `packages/react/src/toast/content/ToastContent.tsx`
+- `src/lib/toast/ToastTitle.svelte`, `ToastDescription.svelte`, and `ToastLabel.svelte` from `packages/react/src/toast/title/ToastTitle.tsx`, `packages/react/src/toast/description/ToastDescription.tsx`, and `packages/react/src/toast/utils/useToastLabelPart.ts`
+- `src/lib/toast/ToastAction.svelte` from `packages/react/src/toast/action/ToastAction.tsx` (button behavior is the existing `ButtonBehavior`)
+- `src/lib/toast/ToastClose.svelte` from `packages/react/src/toast/close/ToastClose.tsx` (button behavior is the existing `ButtonBehavior`)
+- `src/lib/toast/ToastPortal.svelte` from `packages/react/src/toast/portal/ToastPortal.tsx` (the portal is the existing `FloatingPortal`)
+- `src/lib/toast/ToastPositioner.svelte` from `packages/react/src/toast/positioner/ToastPositioner.tsx` and `packages/react/src/utils/usePositioner.ts` (positioning is the existing `AnchorPositioning`)
+- `src/lib/toast/ToastArrow.svelte` from `packages/react/src/toast/arrow/ToastArrow.tsx`
+- `src/lib/toast/ToastText.svelte` from how the toast parts render a toast's `title` and `description` nodes
+- `src/lib/toast/store.svelte.ts`, `list.ts`, and `timers.ts` from `packages/react/src/toast/store.ts`
+- `src/lib/toast/create-toast-manager.ts` from `packages/react/src/toast/createToastManager.ts`
+- `src/lib/toast/context.ts` from `packages/react/src/toast/provider/ToastProviderContext.ts`, `packages/react/src/toast/root/ToastRootContext.ts`, `packages/react/src/toast/positioner/ToastPositionerContext.ts`, and `packages/react/src/toast/useToastManager.ts`
+- `src/lib/toast/types.ts` from `packages/react/src/toast/useToastManager.ts`, `packages/react/src/toast/createToastManager.ts`, and the part prop and state types
+- `src/lib/toast/constants.ts` from `packages/react/src/toast/**/*DataAttributes.ts` and `*CssVars.ts`
+- `src/lib/toast/utils.ts` from `packages/react/src/toast/utils/isRenderableNode.ts`, `packages/react/src/toast/utils/resolvePromiseOptions.ts`, `packages/utils/src/generateId.ts`, `closest` in `packages/utils/src/shadowDom.ts`, `matchesFocusVisible` in `packages/react/src/floating-ui-react/utils/element.ts`, `getDisplacement` in `packages/react/src/utils/useSwipeDismiss.ts`, `packages/react/src/utils/getElementTransform.ts`, and the swipe-ignore selectors in `packages/react/src/internals/constants.ts`
 
 MIT License
 
