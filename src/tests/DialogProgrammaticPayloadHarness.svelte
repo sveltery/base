@@ -5,11 +5,13 @@
 		handle,
 		showTrigger = false,
 		declineClose = false,
+		holdExit = false,
 		open = $bindable(false)
 	}: {
 		handle: DialogHandle<string>;
 		showTrigger?: boolean;
 		declineClose?: boolean;
+		holdExit?: boolean;
 		open?: boolean;
 	} = $props();
 </script>
@@ -26,7 +28,24 @@
 >
 	{#snippet children({ payload })}
 		<Dialog.Portal>
-			<Dialog.Popup data-testid="content">{payload}</Dialog.Popup>
+			<Dialog.Popup data-testid="content" class={holdExit ? 'hold' : undefined}
+				>{payload}</Dialog.Popup
+			>
 		</Dialog.Portal>
 	{/snippet}
 </Dialog.Root>
+
+<style>
+	:global(.hold[data-ending-style]) {
+		animation: sveltery-dialog-exit-hold 3s linear both;
+	}
+
+	@keyframes -global-sveltery-dialog-exit-hold {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0.5;
+		}
+	}
+</style>

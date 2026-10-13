@@ -376,6 +376,19 @@ describe('Dialog', () => {
 				.toHaveAttribute('aria-controls', content().element().id);
 		});
 
+		it('keeps the programmatic payload while the dialog animates out', async () => {
+			const handle = Dialog.createHandle<string>();
+			render(DialogProgrammaticPayloadHarness, { handle, showTrigger: true, holdExit: true });
+
+			handle.openWithPayload('from openWithPayload');
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+
+			handle.close();
+			await expect.element(content()).toHaveAttribute('data-ending-style');
+			await frame();
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+		});
+
 		it('does not let a trigger that mounts while open replace the programmatic payload', async () => {
 			const handle = Dialog.createHandle<string>();
 			const screen = render(DialogProgrammaticPayloadHarness, { handle });
