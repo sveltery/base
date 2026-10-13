@@ -41,3 +41,9 @@ describe('createGenericEventDetails', () => {
 		expect(createGenericEventDetails(REASONS.none).event.type).toBe('base-ui');
 	});
 });
+
+describe('REASONS', () => {
+	it('names the list navigation reason as upstream does', () => {
+		expect(REASONS.listNavigation).toBe('list-navigation');
+	});
+});
