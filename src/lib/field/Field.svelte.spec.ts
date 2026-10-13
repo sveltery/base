@@ -1,10 +1,12 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/field/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commit fa6c17d32 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // Checkbox, Switch, Radio and group cases are in choice-controls.svelte.spec.ts. React 17 id fallbacks,
 // StrictMode and render-count tests are not recreated.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import FieldControlDefaultHarness from '../../tests/FieldControlDefaultHarness.svelte';
 import FieldHarness from '../../tests/FieldHarness.svelte';
 import FieldLowHarness from '../../tests/FieldLowHarness.svelte';
 import { Field } from './index.js';
@@ -153,13 +155,23 @@ describe('Field', () => {
 		});
 
 		it('debounces onChange validation', async () => {
-			render(FieldHarness, { scenario: 'debounce' });
-			const control = page.getByTestId('control');
-			await userEvent.click(control);
-			await userEvent.keyboard('ab');
-			expect(text('calls')).toBe('0');
-			await expect.poll(() => text('calls')).toBe('1');
-			await expect.element(page.getByText('bad')).toBeVisible();
+			vi.useFakeTimers();
+			try {
+				render(FieldHarness, { scenario: 'debounce' });
+				const control = page.getByTestId('control').element() as HTMLInputElement;
+				control.focus();
+				for (const value of ['a', 'ab']) {
+					control.value = value;
+					control.dispatchEvent(new InputEvent('input', { bubbles: true }));
+					await vi.advanceTimersByTimeAsync(59);
+					expect(text('calls')).toBe('0');
+				}
+				await vi.advanceTimersByTimeAsync(1);
+				expect(text('calls')).toBe('1');
+				expect(text('error')).toBe('bad');
+			} finally {
+				vi.useRealTimers();
+			}
 		});
 
 		it('submits while an async validator is still pending', async () => {
@@ -405,6 +417,18 @@ describe('Field', () => {
 			expect(() => render(Field.Label)).toThrow(/LabelableContext is missing/);
 		});
 
+		it('throws when Field.Validity is rendered outside Field.Root', () => {
+			expect(() => render(Field.Validity)).toThrow(
+				'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
+			);
+		});
+
+		it('throws when Field.Item is rendered outside Field.Root', () => {
+			expect(() => render(Field.Item)).toThrow(
+				'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
+			);
+		});
+
 		it('warns when nativeLabel does not match the host', async () => {
 			const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 			try {
@@ -541,5 +565,33 @@ describe('Field', () => {
 		await expect.element(page.getByTestId('control')).toHaveValue('x');
 		await page.getByRole('button', { name: 'Submit' }).click();
 		await expect.poll(() => text('values')).toBe(JSON.stringify({ letter: 'x' }));
+	});
+});
+
+describe('Field.Control defaultValue changes', () => {
+	it('shows a new defaultValue in an unedited control and marks the field filled', async () => {
+		const errorSpy = vi.spyOn(console, 'error');
+		const { rerender } = render(FieldControlDefaultHarness, { defaultValue: '' });
+		const root = page.getByTestId('root');
+		expect(root.element()).not.toHaveAttribute('data-filled');
+
+		await rerender({ defaultValue: 'value' });
+
+		await expect.element(page.getByRole('textbox')).toHaveValue('value');
+		await expect.element(root).toHaveAttribute('data-filled', '');
+		expect(errorSpy).not.toHaveBeenCalled();
+	});
+
+	it('keeps the filled state of an edited control when defaultValue changes', async () => {
+		const { rerender } = render(FieldControlDefaultHarness, { defaultValue: '' });
+		const root = page.getByTestId('root');
+		await userEvent.type(page.getByRole('textbox'), 'typed');
+		await expect.element(root).toHaveAttribute('data-filled', '');
+
+		await rerender({ defaultValue: 'next' });
+		await rerender({ defaultValue: '' });
+
+		await expect.element(page.getByRole('textbox')).toHaveValue('typed');
+		await expect.element(root).toHaveAttribute('data-filled', '');
 	});
 });

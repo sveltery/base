@@ -77,7 +77,7 @@ Import the components and wrap your fields in a form:
 </Form>
 ```
 
-`Form` renders a native `<form>`. Each `Field.Root` inside it registers with the form. On submit, the form validates every registered field, focuses the first invalid control, and blocks the submission while any field is invalid. `Form.Error` shows the messages that no field shows.
+`Form` renders a native `<form>`. Each `Field.Root` inside it registers with the form. On submit, the form validates every registered field, focuses the first invalid control, and blocks the submission while any field is invalid. `Form.Error` shows the messages that no field shows. When the first invalid control can be hidden, such as on an inactive step, pass `onFocusInvalid` to reveal it. Form calls it with the `control` and its `field` in place of focusing, waits for it, and then focuses the control unless focus moved meanwhile. Keep inactive steps mounted and hidden, because a field that is not rendered does not register.
 
 [Forms](/handbook/forms) is the guide to validation, server errors, and form sources.
 
@@ -353,7 +353,7 @@ Run your schema in `onFormSubmit` and map its issues to `errors`. This example u
 - `errors` is a bindable prop. Use `bind:errors` so the form can clear a key when the user edits that field.
 - Upstream takes an `actionsRef` prop. In Svelte, use `bind:this` on `Form` and call `validate()`.
 - Upstream can pass a React action to `Form`. In Svelte, pass a SvelteKit remote form or `actionForm()` to `form`, and leave `onFormSubmit` unset. `onFormSubmit` always cancels the native submit.
-- `form`, `enhance`, and `Form.Error` have no upstream counterpart.
+- `form`, `enhance`, `onFocusInvalid`, and `Form.Error` have no upstream counterpart.
 - The form validates in a capture-phase `submit` listener. An invalid submit calls `preventDefault()` and `stopImmediatePropagation()`, so SvelteKit's `enhance` and other later listeners do not run. Upstream blocks only with `preventDefault()`.
 - A submitter with `formnovalidate` skips validation. Upstream validates anyway.
 - `novalidate` is on by default and the form sets it after hydration. The server renders no `novalidate`, so a page without JavaScript keeps the browser's validation.

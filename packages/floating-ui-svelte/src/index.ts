@@ -30,6 +30,8 @@ export {
 	FOCUSABLE_ATTRIBUTE,
 	TRIGGER_DISABLED_ATTRIBUTE
 } from './utils/constants.js';
+export { isInteractiveElement } from './utils/element.js';
+export { isVirtualClick } from './utils/event.js';
 export { PopupTriggerMap } from './utils/popupTriggerMap.js';
 export {
 	focusable,
@@ -40,3 +42,44 @@ export {
 	tabbable,
 	type FocusableElement
 } from './utils/tabbable.js';
+export { default as FloatingDelayGroup } from './components/FloatingDelayGroup.svelte';
+export {
+	DelayGroup,
+	DelayGroupMember,
+	getDelayGroup,
+	hasDelayGroup,
+	setDelayGroup,
+	type Delay,
+	type DelayGroupProps
+} from './components/delay-group.svelte.js';
+export {
+	FocusInteraction,
+	TRIGGER_FOCUS_REASON,
+	type UseFocusProps
+} from './hooks/useFocus.svelte.js';
+export { ClientPointInteraction, type UseClientPointProps } from './hooks/useClientPoint.svelte.js';
+export { getDelay } from './hooks/useHoverShared.js';
+export { isMouseLikePointerType } from './utils/event.js';
+export {
+	ListNavigation,
+	type GridNavigator,
+	type UseListNavigationProps
+} from './hooks/useListNavigation.svelte.js';
+export {
+	findNonDisabledListIndex,
+	getMaxListIndex,
+	getMinListIndex,
+	getNextListIndex,
+	isIndexOutOfListBounds,
+	isListIndexDisabled,
+	type DisabledIndices,
+	type ListStepOptions
+} from './utils/listIndex.js';
+export {
+	isCrossOrientationCloseKey,
+	isCrossOrientationOpenKey,
+	isMainOrientationKey,
+	isMainOrientationToEndKey,
+	type ListOrientation
+} from './utils/listOrientation.js';
+export { Typeahead, type UseTypeaheadProps } from './hooks/useTypeahead.svelte.js';

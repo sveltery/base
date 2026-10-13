@@ -1,8 +1,9 @@
-// Derived from the fields Radio.Root reads in Base UI v1.8.0
+// Derived from the fields Radio.Root reads in Base UI v1.9.0
 // packages/react/src/radio-group/RadioGroupContext.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // RadioGroup sets this context. A test harness can set it without roving focus.
 import type { RadioRootChangeEventDetails } from './types.js';
+import type { RenderClaim } from '../internal/composite-root.svelte.js';
 import type { Labelable } from '../internal/labelable-provider.svelte.js';
 import { defineOptionalContext } from '../internal/context.js';
 
@@ -13,12 +14,16 @@ import { defineOptionalContext } from '../internal/context.js';
  * nothing selected, the first rendered radio is the stop until registration.
  */
 export interface RadioGroupRovingFocus {
-	claim(): number;
-	register(element: HTMLElement, read?: () => { value?: unknown; disabled?: boolean }): () => void;
+	claim(disabled?: boolean): RenderClaim;
+	register(
+		element: HTMLElement,
+		read?: () => { value?: unknown; disabled?: boolean },
+		claim?: RenderClaim
+	): () => void;
 	highlight(element: HTMLElement): void;
 	tabIndex(
 		node: HTMLElement | null,
-		renderIndex: number,
+		claim: RenderClaim,
 		meta: { disabled?: boolean; selected?: boolean; hasSelection?: boolean }
 	): 0 | -1;
 }
@@ -43,6 +48,12 @@ export interface RadioGroupContextValue {
 	readonly roving?: RadioGroupRovingFocus;
 	setCheckedValue: (value: unknown, eventDetails: RadioRootChangeEventDetails) => void;
 	setTouched: (touched: boolean) => void;
+	/**
+	 * Checking one named native radio unchecks its siblings, so a change the group
+	 * did not take resyncs every radio's input, not only the clicked one.
+	 */
+	registerInputSync?: (sync: () => void) => () => void;
+	syncInputs?: () => void;
 }
 
 export const [useRadioGroupContext, setRadioGroupContext] = defineOptionalContext<

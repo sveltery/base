@@ -28,7 +28,6 @@ describe('Popover', () => {
 		expect(handle).toBeInstanceOf(Popover.Handle);
 		expect(new Popover.Handle()).toBeInstanceOf(PopoverHandle);
 		expect('openWithPayload' in handle).toBe(false);
-		expect('setPayload' in handle).toBe(false);
 		expect('payloads' in handle).toBe(false);
 		expect(handle.payload).toBeUndefined();
 	});

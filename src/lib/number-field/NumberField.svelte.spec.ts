@@ -1,5 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/number-field/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commit 7d93b487f follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance, ref, inputRef, and className callbacks are not ported.
 import { page, userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -110,7 +111,8 @@ describe('<NumberField />', () => {
 	});
 
 	it('repeats a held increment and stops when the field unmounts', async () => {
-		const view = render(NumberFieldHarness, { scenario: 'plain' });
+		const onValueChange = vi.fn();
+		const view = render(NumberFieldHarness, { scenario: 'plain', onValueChange });
 		const button = increase().element() as HTMLElement;
 		button.dispatchEvent(
 			new PointerEvent('pointerdown', {
@@ -122,9 +124,12 @@ describe('<NumberField />', () => {
 			})
 		);
 		await expect.element(control()).toHaveValue('6');
+		const callsAtUnmount = onValueChange.mock.calls.length;
+		expect(callsAtUnmount).toBeGreaterThan(0);
 		view.unmount();
 		await new Promise((resolve) => setTimeout(resolve, 180));
 		expect(document.querySelector('[data-testid="control"]')).toBeNull();
+		expect(onValueChange.mock.calls.length).toBe(callsAtUnmount);
 	});
 
 	it('steps up and down from a click', async () => {
@@ -406,6 +411,15 @@ describe('<NumberField />', () => {
 		await expect(async () => {
 			render(NumberFieldHarness, { scenario: 'orphan-cursor' });
 		}).rejects.toThrow(/NumberFieldScrubAreaContext is missing/);
+	});
+
+	it('fires the scrub area onclick once when clicked without scrubbing', async () => {
+		const onScrubClick = vi.fn();
+		render(NumberFieldHarness, { scenario: 'scrub-click', onScrubClick });
+		await userEvent.click(page.getByTestId('scrub'));
+		// The synthesized click waits one task, and Firefox adds 20ms before it.
+		await new Promise((resolve) => setTimeout(resolve, 50));
+		expect(onScrubClick).toHaveBeenCalledTimes(1);
 	});
 
 	describe('scrub area', () => {

@@ -1,7 +1,7 @@
 <!--
 	The form control to label and validate. Renders an `<input>` element.
-	Derived from Base UI v1.8.0 packages/react/src/field/control/FieldControl.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/field/control/FieldControl.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
 	import { flushSync, untrack } from 'svelte';
@@ -22,6 +22,7 @@
 		LabelableId,
 		findLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
 	type ValueElement = HTMLElement & { value: string; form?: HTMLFormElement | null };
@@ -111,6 +112,14 @@
 		else if (element) field.setFilled(element.value !== '');
 	});
 
+	// An unedited input shows a new `defaultValue`, as in HTML, so read its filled state back.
+	useValueChanged(
+		() => defaultValue,
+		() => {
+			if (inputEl) field.setFilled(inputEl.value !== '');
+		}
+	);
+
 	const registration = attachFieldControl(field, {
 		enabled: () => !disabled,
 		id: () => controlId.current,
@@ -135,10 +144,9 @@
 		};
 	}
 
-	$effect(() => {
-		if (!autofocus || !inputEl) return;
-		const view = inputEl.ownerDocument.defaultView ?? window;
-		if (view.document.activeElement === inputEl) field.setFocused(true);
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => disabled,
+		target: () => inputEl
 	});
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -158,13 +166,13 @@
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onfocus?.(event);
-		field.setFocused(true);
+		focusOwner.set(true);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onblur?.(event);
 		field.setTouched(true);
-		field.setFocused(false);
+		focusOwner.set(false);
 
 		if (field.validationMode !== 'onBlur') return;
 		// `onblur` may have written `bind:value` without flushing. Commit that value.

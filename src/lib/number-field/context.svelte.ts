@@ -1,6 +1,6 @@
-// Derived from Base UI v1.8.0 packages/react/src/number-field/root/NumberFieldRootContext.ts
+// Derived from Base UI v1.9.0 packages/react/src/number-field/root/NumberFieldRootContext.ts
 // and packages/react/src/number-field/scrub-area/NumberFieldScrubAreaContext.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { NumberFieldModel } from './model.svelte.js';
 import { defineContext } from '../internal/context.js';

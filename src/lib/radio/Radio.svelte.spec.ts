@@ -2,6 +2,7 @@
 // packages/react/src/radio/root/RadioRoot.test.tsx and
 // packages/react/src/radio/indicator/RadioIndicator.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commit d8afb3717 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // Field cases are in src/lib/field/choice-controls.svelte.spec.ts. Group cases below set the context Radio.Root already reads,
 // without RadioGroup's roving tabindex. Arrow keys are covered by RadioGroup.
 // Cases under "native Svelte" have no upstream counterpart.
@@ -9,6 +10,7 @@ import { flushSync } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { ariaLabelPreferenceCases } from '../../tests/aria-label-preference-cases.js';
 import RadioAttachHarness from '../../tests/RadioAttachHarness.svelte';
 import RadioClickHarness from '../../tests/RadioClickHarness.svelte';
 import RadioFormHarness from '../../tests/RadioFormHarness.svelte';
@@ -602,4 +604,8 @@ describe('Radio', () => {
 			await expect.element(host).toHaveAttribute('aria-checked', 'true');
 		});
 	});
+});
+
+describe('Radio labels', () => {
+	ariaLabelPreferenceCases('radio');
 });

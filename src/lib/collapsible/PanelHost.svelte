@@ -1,7 +1,7 @@
 <!--
 	Shared panel host for Collapsible and Accordion. Renders a `<div>`.
-	Derived from Base UI v1.8.0 packages/react/src/collapsible/panel/CollapsiblePanel.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/collapsible/panel/CollapsiblePanel.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts" generics="State extends object">
 	import { createAttachmentKey } from 'svelte/attachments';
@@ -98,6 +98,7 @@
 		const css = [
 			dimensionStyle(motion.renderedHeight, motion.renderedWidth),
 			style ?? undefined,
+			motion.skipStyle,
 			motion.shouldPreventOpenAnimation ? 'animation-name:none' : undefined
 		].reduce<string | undefined>((base, part) => mergeCssStyle(base, part), undefined);
 		if (css !== undefined) props.style = css;

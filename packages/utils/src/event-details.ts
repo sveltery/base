@@ -23,7 +23,10 @@ export const REASONS = {
 	outsidePress: 'outside-press',
 	focusOut: 'focus-out',
 	closePress: 'close-press',
-	imperativeAction: 'imperative-action'
+	closeWatcher: 'close-watcher',
+	imperativeAction: 'imperative-action',
+	listNavigation: 'list-navigation',
+	swipe: 'swipe'
 } as const;
 
 export type BaseUIChangeEventDetails<Reason extends string> = {

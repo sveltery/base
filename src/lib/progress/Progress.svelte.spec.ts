@@ -1,5 +1,5 @@
-// Assertions follow Base UI v1.8.0 packages/react/src/progress/**/*.test.tsx
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Assertions follow Base UI v1.9.0 packages/react/src/progress/**/*.test.tsx
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
@@ -365,7 +365,7 @@ describe('Progress', () => {
 			expect(hidden.style.position).toBe('fixed');
 			expect(hidden.style.width).toBe('1px');
 			expect(hidden.style.height).toBe('1px');
-			expect(hidden.style.margin).toBe('-1px');
+			expect(hidden.style.margin).toBe('0px');
 		});
 
 		it('passes consumer attachments to the default root', async () => {

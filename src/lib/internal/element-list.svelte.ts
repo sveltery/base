@@ -44,7 +44,7 @@ export class ElementList<T extends Element = HTMLElement, Meta = undefined> {
 	readonly #order = new RenderOrder();
 
 	/** Render-order index for SSR, before the element is registered. */
-	claim() {
+	claimIndex() {
 		return this.#order.claim();
 	}
 

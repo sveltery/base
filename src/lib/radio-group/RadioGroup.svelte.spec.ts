@@ -1,12 +1,14 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/radio-group/RadioGroup.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commit e6d1d4050 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // Field cases are in src/lib/field/choice-controls.svelte.spec.ts. inputRef and
 // describeConformance are not ported.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import RadioGroupComponentHarness from '../../tests/RadioGroupComponentHarness.svelte';
+import RadioIgnoredArrowHarness from '../../tests/RadioIgnoredArrowHarness.svelte';
 
 function radio(name: string) {
 	return page.getByRole('radio', { name, exact: true });
@@ -110,6 +112,23 @@ describe('RadioGroup', () => {
 			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: true, shiftKey: false }]);
 		});
 
+		it('keeps the selected named radio checked when a change to another is canceled', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'cancel-selected' });
+			expect(hiddenInput('B').checked).toBe(true);
+			await radio('A').click();
+			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: true, shiftKey: false }]);
+			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			expect(hiddenInput('A').checked).toBe(false);
+			expect(hiddenInput('B').checked).toBe(true);
+		});
+
+		it('keeps submitting the selected value when a read-only radio is clicked through its label', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'readonly-label' });
+			await page.getByText('Label A').click();
+			const form = page.getByTestId('form').element() as HTMLFormElement;
+			expect(new FormData(form).getAll('color')).toEqual(['b']);
+		});
+
 		it('moves focus on an arrow key without selecting when the change is canceled', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'cancel' });
 			radio('A').element().focus();
@@ -204,6 +223,32 @@ describe('RadioGroup', () => {
 			await userEvent.keyboard('{ArrowLeft}');
 			expect(document.activeElement).toBe(b.element());
 		});
+
+		it.each(['Meta', 'Control', 'Alt', 'single'])(
+			'does not select on refocus after an ignored arrow (%s)',
+			async (scenario) => {
+				const onValueChange = vi.fn();
+				render(RadioIgnoredArrowHarness, { disableSecond: scenario === 'single', onValueChange });
+				const a = page.getByRole('radio', { name: 'A' });
+				(a.element() as HTMLElement).focus();
+
+				await userEvent.keyboard(
+					scenario === 'single' ? '{ArrowDown}' : `{${scenario}>}{ArrowDown}{/${scenario}}`
+				);
+				expect(document.activeElement).toBe(a.element());
+				await expect.element(a).toHaveAttribute('aria-checked', 'false');
+
+				await userEvent.tab();
+				expect(document.activeElement).toBe(
+					page.getByRole('button', { name: 'Outside' }).element()
+				);
+
+				await userEvent.tab({ shift: true });
+				expect(document.activeElement).toBe(a.element());
+				await expect.element(a).toHaveAttribute('aria-checked', 'false');
+				expect(onValueChange).not.toHaveBeenCalled();
+			}
+		);
 
 		it('still moves and selects when Shift is held', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'keys' });

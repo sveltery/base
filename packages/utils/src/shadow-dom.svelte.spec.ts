@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { activeElement, contains, getTarget } from './shadow-dom.js';
+import { activeElement, closest, contains, getTarget } from './shadow-dom.js';
 
 describe('shadow-dom', () => {
 	it('returns the active element inside an open shadow root', () => {
@@ -25,6 +25,17 @@ describe('shadow-dom', () => {
 		host.remove();
 	});
 
+	it('treats a node inside a shadow root as contained by an ancestor of the host', () => {
+		const ancestor = document.createElement('section');
+		const host = ancestor.appendChild(document.createElement('div'));
+		const inner = document.createElement('input');
+		host.attachShadow({ mode: 'open' }).append(inner);
+		document.body.append(ancestor);
+		expect(contains(ancestor, inner)).toBe(true);
+		expect(contains(document.createElement('div'), inner)).toBe(false);
+		ancestor.remove();
+	});
+
 	it('falls back to target when the composed path is empty', () => {
 		const button = document.createElement('button');
 		document.body.append(button);
@@ -37,5 +48,28 @@ describe('shadow-dom', () => {
 		if (!seen) throw new Error('click was not dispatched');
 		expect(getTarget(seen)).toBe(button);
 		button.remove();
+	});
+
+	it('finds the closest match across shadow roots and slots', () => {
+		const outer = document.createElement('section');
+		const host = document.createElement('div');
+		const slotted = document.createElement('p');
+		host.append(slotted);
+		outer.append(host);
+		const shadow = host.attachShadow({ mode: 'open' });
+		const wrapper = document.createElement('article');
+		const slot = document.createElement('slot');
+		const inner = document.createElement('span');
+		wrapper.append(slot, inner);
+		shadow.append(wrapper);
+		document.body.append(outer);
+
+		expect(closest(inner, 'section')).toBe(outer);
+		expect(closest(inner, 'article')).toBe(wrapper);
+		expect(closest(slotted, 'article')).toBe(wrapper);
+		expect(closest(inner, 'span')).toBe(inner);
+		expect(closest(inner, 'table')).toBeNull();
+		expect(closest(null, 'section')).toBeNull();
+		outer.remove();
 	});
 });

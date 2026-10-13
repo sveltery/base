@@ -1,8 +1,9 @@
-// Derived from Base UI v1.8.0 packages/react/src/internals/useAnimationsFinished.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/react/src/internals/useAnimationsFinished.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Completions that become ready in the same turn unmount together.
 
 import { AnimationFrame } from '@sveltery/utils';
+import { animationSettled, getFiniteAnimations } from './getFiniteAnimations.js';
 
 let pending: Array<() => void> | null = null;
 
@@ -24,8 +25,8 @@ const STARTING_STYLE = 'data-starting-style';
  * Runs `fn` once animations on `element` finish. A canceled animation waits for
  * its replacement. `batch` groups completions that become ready in the same turn.
  * `waitForStartingStyleRemoved` waits for an opening element's `data-starting-style`
- * to leave before watching animations. Callers that batch pass `batch` and leave
- * the fifth argument false. Callers that wait pass `batch` false and the wait flag.
+ * to leave before watching animations. The two flags are independent.
+ * `useOpenChangeComplete` passes its `batch` option and waits whenever it opens.
  */
 export function runOnceAnimationsFinish(
 	element: HTMLElement,
@@ -56,11 +57,11 @@ export function runOnceAnimationsFinish(
 
 	const exec = () => {
 		if (signal?.aborted) return;
-		Promise.all(element.getAnimations().map((animation) => animation.finished)).then(
+		Promise.all(getFiniteAnimations(element).map(animationSettled)).then(
 			() => done(),
 			() => {
 				if (signal?.aborted) return;
-				const current = element.getAnimations();
+				const current = getFiniteAnimations(element);
 				if (current.some((animation) => animation.pending || animation.playState !== 'finished')) {
 					exec();
 					return;

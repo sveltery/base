@@ -1,8 +1,8 @@
-// Derived from Base UI v1.8.0 packages/react/src/collapsible/panel/useCollapsiblePanel.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/react/src/collapsible/panel/useCollapsiblePanel.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // React.Activity's resume-animation suppression is not recreated.
 
-import { getAbortSignal } from 'svelte';
+import { flushSync, getAbortSignal } from 'svelte';
 import { on } from 'svelte/events';
 import { ScopedAnimationFrame, REASONS } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
@@ -21,6 +21,7 @@ import type { TransitionStatus } from './types.js';
 
 export class CollapsiblePanelMotion {
 	private readonly endingFrame = new ScopedAnimationFrame();
+	private readonly revealFrame = new ScopedAnimationFrame();
 	height = $state<number | undefined>(undefined);
 	width = $state<number | undefined>(undefined);
 	panel = $state<HTMLElement | null>(null);
@@ -32,7 +33,8 @@ export class CollapsiblePanelMotion {
 
 	private lastMeasured: Dimensions = EMPTY_DIMENSIONS;
 	private skipNextOpen = false;
-	private pendingRestore: (() => void) | null = null;
+	/** Zeroes the open motion after a beforematch reveal, until the panel closes. */
+	private skipDuration = $state<'transition-duration' | 'animation-duration' | null>(null);
 	private layoutRestore: (() => void) | null = null;
 	private readonly root: CollapsibleRoot;
 
@@ -47,19 +49,17 @@ export class CollapsiblePanelMotion {
 		});
 
 		$effect(() => {
-			return () => this.restorePending();
-		});
-
-		$effect(() => {
 			const panel = this.panel;
 			const open = this.root.open;
 			const mounted = this.root.mounted;
 			const transitionStatus = this.root.transitionStatus;
+			if (!open) {
+				// A render function can remove the panel on close. Clear the one-shot mount
+				// suppression even without an element, so the next open animates.
+				this.suppressMountAnimation = false;
+				this.skipDuration = null;
+			}
 			if (!panel) return;
-
-			// A beforematch open can leave a 0s duration. Restore it before detecting
-			// the close, or that close is misread as no motion.
-			if (!open && this.pendingRestore) this.restorePending();
 
 			const shouldPrevent = open && this.suppressMountAnimation;
 			const animationType = getAnimationType(panel, shouldPrevent);
@@ -101,8 +101,7 @@ export class CollapsiblePanelMotion {
 						this.layoutRestore = resetLayoutStyles(panelEl);
 					});
 					if (skip) {
-						const restoreDuration = setTemporaryStyle(panel, 'transition-duration', '0s');
-						this.setPendingRestore(restoreDuration);
+						this.skipDuration = 'transition-duration';
 						this.forcePanelIdle = true;
 					}
 					return () => {
@@ -117,15 +116,13 @@ export class CollapsiblePanelMotion {
 					restoreName();
 					return;
 				}
-				const restoreDuration = setTemporaryStyle(panel, 'animation-duration', '0s');
+				this.skipDuration = 'animation-duration';
 				restoreName();
-				this.setPendingRestore(restoreDuration);
 				this.forcePanelIdle = true;
 				return;
 			}
 
 			if (!open && mounted && (transitionStatus === 'idle' || transitionStatus === 'starting')) {
-				this.suppressMountAnimation = false;
 				if (animationType === 'none') {
 					this.setDimensions(EMPTY_DIMENSIONS, false);
 					this.root.setMounted(false);
@@ -173,7 +170,13 @@ export class CollapsiblePanelMotion {
 			const open = this.root.open;
 			const mounted = this.root.mounted;
 			const status = this.panelStatus;
-			if (!panel || open || !mounted || status !== 'ending') return;
+			if (open || !mounted || status !== 'ending') return;
+			if (!panel) {
+				// A render function can drop the panel while it closes. Nothing is left to animate.
+				this.root.setMounted(false);
+				this.setDimensions(EMPTY_DIMENSIONS, false);
+				return;
+			}
 
 			const signal = getAbortSignal();
 			this.endingFrame.request(() => {
@@ -195,15 +198,29 @@ export class CollapsiblePanelMotion {
 			const panel = this.panel;
 			if (!panel) return;
 			return on(panel, 'beforematch', (event) => {
-				const accepted = this.root.requestOpen(true, event, REASONS.none);
-				if (!accepted) return;
-				this.skipNextOpen = true;
+				if (this.root.requestOpen(true, event, REASONS.none)) {
+					this.skipNextOpen = true;
+					// The browser measures the match in this task, right after the event.
+					flushSync();
+				}
+				if (this.root.open) return;
+				// Canceled, or the owner ignored the open. The browser still removes
+				// `hidden`, so put it back once it has measured.
+				this.skipNextOpen = false;
+				this.revealFrame.request(() => {
+					if (!this.root.open) panel.setAttribute('hidden', 'until-found');
+				});
 			});
 		});
 	}
 
 	get panelStatus(): TransitionStatus {
 		return this.forcePanelIdle ? 'idle' : this.root.transitionStatus;
+	}
+
+	/** Read only while open, so the close is detected with the author's real duration. */
+	get skipStyle(): string | undefined {
+		return this.root.open && this.skipDuration ? `${this.skipDuration}:0s` : undefined;
 	}
 
 	get shouldPreventOpenAnimation(): boolean {
@@ -242,18 +259,5 @@ export class CollapsiblePanelMotion {
 		if (cache) this.lastMeasured = { height: next.height, width: next.width };
 		this.height = next.height;
 		this.width = next.width;
-	}
-
-	private restorePending() {
-		this.pendingRestore?.();
-		this.pendingRestore = null;
-	}
-
-	private setPendingRestore(restore: () => void) {
-		this.restorePending();
-		this.pendingRestore = () => {
-			this.pendingRestore = null;
-			restore();
-		};
 	}
 }

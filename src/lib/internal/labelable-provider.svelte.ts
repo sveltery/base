@@ -1,8 +1,8 @@
-// Derived from Base UI v1.8.0 packages/react/src/internals/labelable-provider/LabelableProvider.tsx,
+// Derived from Base UI v1.9.0 packages/react/src/internals/labelable-provider/LabelableProvider.tsx,
 // useLabelableId.ts and useAriaLabelledBy.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { untrack } from 'svelte';
+import { getAbortSignal, tick, untrack } from 'svelte';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import { findAssociatedLabel } from './associated-label.js';
 import { defineContext } from './context.js';
@@ -131,7 +131,8 @@ export class LabelableId<Fallback extends string | undefined = undefined> {
 
 /**
  * `aria-labelledby` for a non-native control: the explicit value, then the Field label,
- * then a native `<label>` wrapped around or pointing at its hidden input.
+ * then a native `<label>` wrapped around or pointing at its hidden input. A non-blank
+ * `aria-label` replaces the last two, as it does on a native input.
  */
 export class AriaLabelledBy {
 	private fallback = $state<string | undefined>(undefined);
@@ -144,6 +145,7 @@ export class AriaLabelledBy {
 			input: () => HTMLInputElement | null;
 			/** Id for a native label that has none. */
 			labelId: () => string | undefined;
+			ariaLabel?: () => string | null | undefined;
 		}
 	) {
 		// Client-only: a wrapping or sibling <label> is not known during SSR. Assigning
@@ -151,17 +153,28 @@ export class AriaLabelledBy {
 		$effect(() => {
 			const input = this.read.input();
 			const sourceId = this.read.labelId();
-			if (this.read.explicit() || this.labelable?.labelId || !input) {
+			if (this.read.explicit() || this.labelable?.labelId || this.hasAriaLabel || !input) {
 				this.fallback = undefined;
 				return;
 			}
-			const label = findAssociatedLabel(input);
-			if (label && !label.id && sourceId) label.id = sourceId;
-			this.fallback = label?.id || undefined;
+			const signal = getAbortSignal();
+			// A control id claimed in this flush reaches the input's `id` attribute only after
+			// this effect, and the label lookup reads the DOM.
+			void tick().then(() => {
+				if (signal.aborted) return;
+				const label = findAssociatedLabel(input);
+				if (label && !label.id && sourceId) label.id = sourceId;
+				this.fallback = label?.id || undefined;
+			});
 		});
 	}
 
+	private get hasAriaLabel(): boolean {
+		return Boolean(this.read.ariaLabel?.()?.trim());
+	}
+
 	get current(): string | undefined {
-		return this.read.explicit() ?? this.labelable?.labelId ?? this.fallback;
+		const implicit = this.hasAriaLabel ? undefined : this.labelable?.labelId;
+		return this.read.explicit() ?? implicit ?? this.fallback;
 	}
 }

@@ -17,6 +17,8 @@
 		| 'readonly'
 		| 'required'
 		| 'cancel'
+		| 'cancel-selected'
+		| 'readonly-label'
 		| 'style'
 		| 'name'
 		| 'keys'
@@ -64,7 +66,9 @@
 	}
 
 	function record(next: unknown, details: RadioGroupChangeEventDetails) {
-		if (scenario === 'cancel' || scenario === 'removal') details.cancel();
+		if (scenario === 'cancel' || scenario === 'cancel-selected' || scenario === 'removal') {
+			details.cancel();
+		}
 		calls = [
 			...calls,
 			{
@@ -251,6 +255,21 @@
 				<Radio.Root value="a" data-testid="a">A</Radio.Root>
 				<Radio.Root value="b" data-testid="b">B</Radio.Root>
 			</RadioGroup>
+		{:else if scenario === 'cancel-selected'}
+			<RadioGroup aria-label="Colors" name="color" defaultValue="b" onValueChange={record}>
+				<Radio.Root value="a">A</Radio.Root>
+				<Radio.Root value="b">B</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'readonly-label'}
+			<form data-testid="form">
+				<RadioGroup aria-label="Colors" name="color" defaultValue="b" readonly>
+					<label>
+						<Radio.Root value="a" />
+						Label A
+					</label>
+					<Radio.Root value="b">B</Radio.Root>
+				</RadioGroup>
+			</form>
 		{:else if scenario === 'initial'}
 			<InitialColorGroup />
 		{:else}

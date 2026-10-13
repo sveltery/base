@@ -1,8 +1,8 @@
 <!--
 	An individual interactive tab button that toggles the corresponding panel.
 	Renders a `<button>` element.
-	Derived from Base UI v1.8.0 packages/react/src/tabs/tab/TabsTab.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/tabs/tab/TabsTab.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -32,7 +32,7 @@
 
 	const tabs = useTabsRootContext();
 	const list = useTabsListContext();
-	const slot = list.roving.claim();
+	const claim = list.roving.claim();
 	const generatedId = $derived(`base-ui-${uid}`);
 	const tabId = $derived(id ?? generatedId);
 
@@ -56,7 +56,7 @@
 
 	function register(element: HTMLElement) {
 		node = element;
-		const removeRoving = list.roving.register(element, () => ({ value, disabled }));
+		const removeRoving = list.roving.register(element, () => ({ value, disabled }), claim);
 		const unregister = untrack(() =>
 			tabs.registerTab(element, () => ({ element, value, disabled, id: tabId }))
 		);
@@ -142,7 +142,7 @@
 					else if (event.key === 'Enter' || event.key === ' ') event.preventDefault();
 				}
 			},
-			slot,
+			claim,
 			{ selected: active, hasSelection: tabs.value != null }
 		);
 		return {

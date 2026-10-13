@@ -1,5 +1,5 @@
-// Assertions follow Base UI v1.8.0 meter tests
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Assertions follow Base UI v1.9.0 meter tests
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // packages/react/src/meter/root/MeterRoot.test.tsx
 // packages/react/src/meter/indicator/MeterIndicator.test.tsx
 // packages/react/src/meter/label/MeterLabel.test.tsx

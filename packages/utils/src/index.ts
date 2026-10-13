@@ -15,7 +15,7 @@ export {
 } from './openInteraction.js';
 export { ownerDocument, ownerWindow } from './owner.js';
 export { platform } from './platform.js';
-export { activeElement, contains, getTarget } from './shadow-dom.js';
+export { activeElement, closest, contains, getTarget } from './shadow-dom.js';
 export {
 	AnimationFrame,
 	Interval,
