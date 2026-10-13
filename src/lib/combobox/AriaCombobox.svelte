@@ -194,7 +194,7 @@
 		writeOpen: (next) => {
 			open = next;
 		},
-		floatingId: `base-ui-${uid}`,
+		floatingId: `base-ui-${uid}-list`,
 		// Getters, so a reader tracks only the fields it reads.
 		root: {
 			get id() {
@@ -334,6 +334,7 @@
 					? store.stringifyLabel(current)
 					: '';
 		}
+		store.seedSelectedIndex();
 	});
 	// svelte-ignore state_referenced_locally
 	const initialInputValue = currentInput;

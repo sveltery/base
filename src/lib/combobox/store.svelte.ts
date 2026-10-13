@@ -185,20 +185,6 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 		});
 		this.#options = options;
 
-		// An inline list open from the start never gets a closed pass of the index sync below,
-		// and `items` lists do not claim their index, so seed it.
-		untrack(() => {
-			const { inline, selectionMode, selectedValue, isItemEqualToValue } = this.root;
-			if (inline && this.open && this.hasItems && selectionMode !== 'none') {
-				this.selectedIndex = findSelectionIndex(
-					this.flatFilteredValues,
-					selectedValue,
-					isItemEqualToValue,
-					selectionMode === 'multiple'
-				);
-			}
-		});
-
 		// A reopen through the binding skips `setOpen`, so it cancels a pending
 		// `preventUnmountOnClose` here, as Select does.
 		$effect.pre(() => {
@@ -234,6 +220,25 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 			const empty = this.flatFilteredValues.length === 0;
 			if (this.hasItems && this.root.autoHighlight && empty) {
 				untrack(() => this.setIndices({ activeIndex: null }));
+			}
+		});
+	}
+
+	/**
+	 * Seeds the selected index of an inline list open from the start. It never gets a closed
+	 * pass of the index sync, and `items` lists do not claim their index. Call once the initial
+	 * value is written.
+	 */
+	seedSelectedIndex() {
+		untrack(() => {
+			const { inline, selectionMode, selectedValue, isItemEqualToValue } = this.root;
+			if (inline && this.open && this.hasItems && selectionMode !== 'none') {
+				this.selectedIndex = findSelectionIndex(
+					this.flatFilteredValues,
+					selectedValue,
+					isItemEqualToValue,
+					selectionMode === 'multiple'
+				);
 			}
 		});
 	}
@@ -759,8 +764,9 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 			const open = this.open;
 			const closeQuery = this.closeQuery;
 			const { selectionMode, selectedValue, isItemEqualToValue } = this.root;
-			const registry = this.hasItems ? this.flatFilteredValues : this.registeredValues;
 			const hasItems = this.hasItems;
+			// Mounted items claim their own index. Their unmount after a close must not reset it.
+			const registry = hasItems ? this.flatFilteredValues : untrack(() => this.registeredValues);
 			untrack(() => {
 				const released = previousCloseQuery !== null && closeQuery === null;
 				previousCloseQuery = closeQuery;
