@@ -20,13 +20,6 @@ export function getMaxScrollTop(scroller: HTMLElement) {
 /** Inline styles the aligned popup writes onto the positioner, keyed by CSS property. */
 export type InlineStyles = Partial<Record<string, string>>;
 
-export function clearStyles(element: HTMLElement | null | undefined, styles: InlineStyles) {
-	if (!element) return;
-	for (const [property, value] of Object.entries(styles)) {
-		element.style.setProperty(property, value ?? '');
-	}
-}
-
 export const LIST_FUNCTIONAL_STYLES = {
 	position: 'relative',
 	maxHeight: '100%',

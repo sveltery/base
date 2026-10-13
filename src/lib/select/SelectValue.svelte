@@ -51,9 +51,13 @@
 </script>
 
 {#snippet content()}
-	{#if children}{@render children(
-			store.value
-		)}{:else if showPlaceholder}{placeholder}{:else}{label}{/if}
+	{#if children}
+		{@render children(store.value)}
+	{:else if showPlaceholder}
+		{placeholder}
+	{:else}
+		{label}
+	{/if}
 {/snippet}
 
 {#if render}
