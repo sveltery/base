@@ -294,13 +294,13 @@ The panel sets `--accordion-panel-height` and `--accordion-panel-width` to its m
 
 <ApiPart name="accordion" part="Trigger" />
 
-| Attribute          | Description                                                                 |
-| ------------------ | --------------------------------------------------------------------------- |
-| `data-panel-open`  | Present when the item is open.                                              |
-| `data-hidden`      | Present when the item is closed and its panel has finished closing.         |
-| `data-disabled`    | Present when the item or the accordion is disabled.                         |
-| `data-orientation` | The `orientation` prop of the root.                                         |
-| `data-index`       | The index of the item in DOM order. The trigger of the first item omits it. |
+| Attribute          | Description                                                         |
+| ------------------ | ------------------------------------------------------------------- |
+| `data-panel-open`  | Present when the item is open.                                      |
+| `data-hidden`      | Present when the item is closed and its panel has finished closing. |
+| `data-disabled`    | Present when the item or the accordion is disabled.                 |
+| `data-orientation` | The `orientation` prop of the root.                                 |
+| `data-index`       | The index of the item in DOM order.                                 |
 
 ### Panel
 
