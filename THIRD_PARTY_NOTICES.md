@@ -327,6 +327,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/internal/popups/triggerFocusGuards.ts` and `getTabbableNearElement` in `packages/floating-ui-svelte/src/utils/tabbable.ts` from `packages/react/src/utils/popups/useTriggerFocusGuards.ts` and `packages/react/src/floating-ui-react/utils/tabbable.ts`, with `src/lib/internal/popups/triggerFocusGuards.svelte.spec.ts` and `packages/floating-ui-svelte/src/utils/tabbable.svelte.spec.ts` assertions from `useTriggerFocusGuards.test.tsx` and `tabbable.test.ts`
 - `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte` `preferPreviousFocus` and `markInsideReactTree` from `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`
 - `packages/floating-ui-svelte/src/hooks/useHoverReferenceInteraction.svelte.ts` `isOverInactiveTrigger` and `externalTree` from `packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts`, and the open-method record on `pointerdown` in `packages/floating-ui-svelte/src/hooks/useClick.svelte.ts` from `packages/react/src/utils/useOpenInteractionType.ts` and `packages/utils/src/useEnhancedClickHandler.ts`
+- `packages/floating-ui-svelte/src/components/FloatingTree.svelte.ts` tree nodes without a floating context and the `externalTree` argument of `useFloatingNodeId` from `packages/react/src/floating-ui-react/components/FloatingTree.tsx`
 
 MIT License
 
