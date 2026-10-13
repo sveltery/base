@@ -75,7 +75,9 @@ export class FocusInteraction {
 			return this.store.events.on('openchange', (payload) => {
 				const reason = (payload as { reason?: string } | undefined)?.reason;
 				if (reason !== REASONS.triggerPress && reason !== REASONS.escapeKey) return;
-				const reference = this.store.domReferenceElement;
+				// Upstream's floating root keeps the last trigger. A popup opened without one
+				// still blocks the refocus of that trigger after Escape.
+				const reference = this.store.lastDomReferenceElement;
 				if (isElement(reference)) {
 					this.#blockedReference = reference;
 					this.#blockFocus = true;
