@@ -24,8 +24,8 @@
 		copy?: boolean;
 		/** Wrap the parts in Toast.Content. */
 		content?: boolean;
-		/** The root's `data-testid`: `root`, or `toast-<id>` / `toast-<title>`. */
-		rootTestId?: 'root' | 'id' | 'title';
+		/** The root's `data-testid`: `root`, `toast-<id>`, `toast-<title>`, or `root-<index>`. */
+		rootTestId?: 'root' | 'id' | 'title' | 'index';
 		rootStyle?: string;
 		css?: string;
 		/** Portals the viewport into this element. */
@@ -61,7 +61,8 @@
 
 	const toasts = $derived(copy ? manager.toasts.map((toast) => ({ ...toast })) : manager.toasts);
 
-	function testId(toast: ToastObject) {
+	function testId(toast: ToastObject, index: number) {
+		if (rootTestId === 'index') return `root-${index}`;
 		if (rootTestId === 'id') return `toast-${toast.id}`;
 		if (rootTestId === 'title') return `toast-${toast.title}`;
 		return 'root';
@@ -80,8 +81,8 @@
 	<Toast.Close aria-label="close-press" />
 	<Toast.Action data-testid="action" />
 {/snippet}
-{#snippet root(toast: ToastObject)}
-	<Toast.Root {toast} {swipeDirection} data-testid={testId(toast)} style={rootStyle}>
+{#snippet root(toast: ToastObject, index: number)}
+	<Toast.Root {toast} {swipeDirection} data-testid={testId(toast, index)} style={rootStyle}>
 		{#if content}
 			<Toast.Content data-testid="content-{toast.id}">{@render parts()}</Toast.Content>
 		{:else}
@@ -94,11 +95,11 @@
 		{#if keyByIndex}
 			<!-- eslint-disable-next-line svelte/require-each-key -- index keys reuse roots on purpose -->
 			{#each toasts as toast, index (index)}
-				{@render root(toast)}
+				{@render root(toast, index)}
 			{/each}
 		{:else}
-			{#each toasts as toast (toast.id)}
-				{@render root(toast)}
+			{#each toasts as toast, index (toast.id)}
+				{@render root(toast, index)}
 			{/each}
 		{/if}
 	</Toast.Viewport>
