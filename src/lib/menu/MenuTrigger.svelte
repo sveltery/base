@@ -10,7 +10,6 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
 	import { FocusGuard, contains, createChangeEventDetails, ownerDocument } from '@sveltery/utils';
-	import { CLICK_TRIGGER_IDENTIFIER } from '@sveltery/floating-ui-svelte';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { mergePropsN } from '../internal/mergeProps.js';
 	import { pressableTriggerOpenStateMapping } from '../internal/popupStateMapping.js';
@@ -219,7 +218,6 @@
 					'aria-haspopup': 'menu' as const,
 					'aria-expanded': triggerEl != null && opened,
 					...(live?.popupIdFor(triggerId) ? { 'aria-controls': live.popupIdFor(triggerId) } : {}),
-					[CLICK_TRIGGER_IDENTIFIER]: '',
 					...getStateAttributesProps(partState, pressableTriggerOpenStateMapping),
 					[bindKey]: bindTrigger,
 					[hoverKey]: attachReference

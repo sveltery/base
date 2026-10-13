@@ -185,6 +185,17 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 			if (!this.mounted) this.allowMouseEnter = false;
 		});
 
+		// Upstream useImplicitActiveTrigger: a trigger id set from outside while open anchors the
+		// menu to that trigger.
+		$effect(() => {
+			if (!this.open) return;
+			const id = this.readTriggerId();
+			const element = id ? this.triggers.getById(id) : undefined;
+			if (element && element !== untrack(() => this.domReferenceElement)) {
+				this.domReferenceElement = element;
+			}
+		});
+
 		// The open of this menu commits, or the registry settles under the same index.
 		$effect(() => {
 			void this.activeIndex;
@@ -378,11 +389,15 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		this.readers.set(id, read);
 		untrack(() => {
 			const active = this.domReferenceElement;
-			const count = this.triggerCount;
+			const activeId = this.readTriggerId();
 			if (
 				active === element ||
-				this.readTriggerId() === id ||
-				(this.open && active == null && count === 1 && !this.openedWithoutTrigger)
+				activeId === id ||
+				(this.open &&
+					active == null &&
+					activeId == null &&
+					this.triggerCount === 1 &&
+					!this.openedWithoutTrigger)
 			) {
 				this.domReferenceElement = element;
 				this.writeTriggerId(id);
