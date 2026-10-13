@@ -327,7 +327,6 @@ export class DismissInteraction {
 		if (mode === 'sloppy' && event.type === 'click') return;
 		if (event.type === 'pointerdown' && 'button' in event && event.button !== 0) return;
 		if (this.#insideDismissTree(event)) return;
-		if (this.#pressStartedInside) return;
 		if (mode === 'intentional' && !this.#sawPressWhileOpen && event.detail !== 0) return;
 		if (typeof current.outsidePress === 'function' && !current.outsidePress(event)) return;
 		// Upstream reads only the children here. A parent's own flag does not skip the check.

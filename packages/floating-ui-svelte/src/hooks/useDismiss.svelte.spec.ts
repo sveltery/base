@@ -5,6 +5,7 @@ import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import DismissBubblesHarness from './__tests__/DismissBubblesHarness.svelte';
+import DismissNode from './__tests__/DismissNode.svelte';
 
 function pressOutside() {
 	flushSync(() => {
@@ -56,6 +57,21 @@ describe('DismissInteraction', () => {
 			expect(mounted()).toEqual(['outer']);
 
 			pressOutside();
+			expect(mounted()).toEqual([]);
+		});
+	});
+
+	describe('prop: outsidePressEvent', () => {
+		it('dismisses on a sloppy outside tap while a touch that began inside is still down', () => {
+			render(DismissNode, { testId: 'outer', open: true });
+			const touch = { bubbles: true, button: 0, pointerType: 'touch' };
+
+			flushSync(() => {
+				page.getByTestId('outer').element().dispatchEvent(new PointerEvent('pointerdown', touch));
+				document.body.dispatchEvent(new PointerEvent('pointerdown', touch));
+				document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, button: 0 }));
+			});
+
 			expect(mounted()).toEqual([]);
 		});
 	});
