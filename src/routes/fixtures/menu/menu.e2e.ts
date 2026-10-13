@@ -243,6 +243,64 @@ forEachFramework((reference, framework) => {
 			expect(await json(page, 'choices')).toEqual({ bold: false, size: 'large' });
 		});
 
+		test('typing filters the items and Enter activates the highlighted match', async ({ page }) => {
+			const { trigger, item, errors } = await open(page, 'filter', reference);
+			const input = page.getByRole('searchbox', { name: 'Filter fruits' });
+			await trigger.click();
+			await expect(input).toBeFocused();
+			await expect(page.getByRole('dialog')).toBeVisible();
+			await expect(page.getByRole('menuitem')).toHaveText(['Apple', 'Banana', 'Lemon', 'Lime']);
+
+			await page.keyboard.type('l');
+			await expect(page.getByRole('menuitem')).toHaveText(['Apple', 'Lemon', 'Lime']);
+			await expect(page.getByText('Citrus')).toBeVisible();
+			await page.keyboard.press('Backspace');
+			await page.keyboard.type('ban');
+			await expect(page.getByRole('menuitem')).toHaveText(['Banana']);
+			await expect(page.getByText('Citrus')).toBeHidden();
+
+			await page.keyboard.press('ArrowDown');
+			await expect(input).toBeFocused();
+			await expect(item('Banana')).toHaveAttribute('data-highlighted', '');
+			const id = await item('Banana').getAttribute('id');
+			await expect(input).toHaveAttribute('aria-activedescendant', id!);
+
+			await page.keyboard.press('Enter');
+			await expect(input).toHaveCount(0);
+			await expect(trigger).toBeFocused();
+			expect(await json(page, 'clicks')).toEqual(['Banana']);
+			expect(await json(page, 'queries')).toEqual([
+				{ value: 'l', reason: 'input-change' },
+				{ value: '', reason: 'input-clear' },
+				{ value: 'b', reason: 'input-change' },
+				{ value: 'ba', reason: 'input-change' },
+				{ value: 'ban', reason: 'input-change' },
+				{ value: '', reason: 'popup-close' }
+			]);
+			expect(errors).toEqual([]);
+		});
+
+		test('a query with no match shows the empty state until Clear resets it', async ({ page }) => {
+			const { trigger } = await open(page, 'filter', reference);
+			const input = page.getByRole('searchbox', { name: 'Filter fruits' });
+			await trigger.click();
+			await expect(input).toBeFocused();
+			await page.keyboard.type('zz');
+			await expect(page.getByRole('menuitem')).toHaveCount(0);
+			await expect(page.getByText('No fruits')).toBeVisible();
+
+			await page.locator('[aria-label="Clear filter"]').click();
+			await expect(input).toHaveValue('');
+			await expect(input).toBeFocused();
+			await expect(page.getByRole('menuitem')).toHaveText(['Apple', 'Banana', 'Lemon', 'Lime']);
+			await expect(page.getByText('No fruits')).toHaveCount(0);
+			expect(await json(page, 'queries')).toEqual([
+				{ value: 'z', reason: 'input-change' },
+				{ value: 'zz', reason: 'input-change' },
+				{ value: '', reason: 'clear-press' }
+			]);
+		});
+
 		test('hover on an openOnHover trigger opens the menu', async ({ page }) => {
 			const { trigger, menu } = await open(page, 'hover', reference);
 			await trigger.hover();
