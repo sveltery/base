@@ -330,12 +330,6 @@ Upstream: typeahead and `onItemHighlighted` read an item's `textContent` as it i
 
 Local: the label is trimmed, because Svelte templates keep the whitespace around a text child.
 
-### Focus guards stay mounted
-
-Upstream: the trigger renders its focus guards only while the menu is open, and anchors the next tabbable on the trigger once a guard is gone.
-
-Local: the shared guards need their own element, so they stay until the popup unmounts.
-
 ### Return focus after a hover close
 
 Upstream: a hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
