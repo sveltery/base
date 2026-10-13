@@ -407,6 +407,18 @@ describe('Field', () => {
 			expect(() => render(Field.Label)).toThrow(/LabelableContext is missing/);
 		});
 
+		it('throws when Field.Validity is rendered outside Field.Root', () => {
+			expect(() => render(Field.Validity)).toThrow(
+				'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
+			);
+		});
+
+		it('throws when Field.Item is rendered outside Field.Root', () => {
+			expect(() => render(Field.Item)).toThrow(
+				'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
+			);
+		});
+
 		it('warns when nativeLabel does not match the host', async () => {
 			const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 			try {

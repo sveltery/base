@@ -53,4 +53,8 @@ const INERT_FIELD: FieldContext = {
 	controlType: undefined
 };
 
-export const [useFieldContext, setFieldContext] = defineOptionalContext<FieldContext>(INERT_FIELD);
+export const [useFieldContext, setFieldContext, needFieldContext] =
+	defineOptionalContext<FieldContext>(
+		INERT_FIELD,
+		'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
+	);
