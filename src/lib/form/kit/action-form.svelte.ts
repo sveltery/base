@@ -10,7 +10,7 @@ import { tick } from 'svelte';
 import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 import { on } from 'svelte/events';
 import { onFormReset } from '../../internal/form-reset.svelte.js';
-import { pathKey } from '../source.js';
+import { pathKey, type EnhanceCallback, type FormSource } from '../source.js';
 import {
 	convertFormData,
 	coerceFormValue,
@@ -29,8 +29,6 @@ import {
 } from './codec.js';
 import type { FormFailure, FormSchema } from './parse-form.js';
 
-type MaybePromise<T> = T | Promise<T>;
-
 /** What `submit()` returns inside `enhance`: whether the action succeeded or redirected. */
 export type ActionFormSubmission = Promise<boolean> & {
 	/** Skip the data refresh that follows a successful action, like a remote form's `updates()`. */
@@ -47,9 +45,9 @@ export type ActionFormEnhanceInstance<Input extends RemoteFormInput, Result> = P
 	submit(): ActionFormSubmission;
 };
 
-export type ActionFormEnhanceCallback<Input extends RemoteFormInput, Result> = (
-	instance: ActionFormEnhanceInstance<Input, Result>
-) => MaybePromise<void>;
+export type ActionFormEnhanceCallback<Input extends RemoteFormInput, Result> = EnhanceCallback<
+	ActionFormEnhanceInstance<Input, Result>
+>;
 
 /** The page's `form` without the failures `parseForm` returns: what a successful action returned. */
 export type ActionResultOf<F> = Exclude<NonNullable<F>, FormFailure<never>>;
@@ -111,7 +109,7 @@ function readForm(form: HTMLFormElement): Record<string, unknown> {
  * Spread onto a `<form>` (or pass to `<Form form={...}>`), it adds `method`, `action` and an
  * attachment that runs `use:enhance`.
  */
-export class ActionForm<Input extends RemoteFormInput, Result> {
+export class ActionForm<Input extends RemoteFormInput, Result> implements FormSource {
 	readonly method = 'POST' as const;
 	/** `?/name` for a named action. */
 	readonly action: string | undefined;
@@ -160,10 +158,11 @@ export class ActionForm<Input extends RemoteFormInput, Result> {
 		this.#name = action;
 		this.action = action === 'default' ? undefined : `?/${action}`;
 
-		// The echo of a submission made without JavaScript, read once like a remote form's.
+		// The echo of a submission made without JavaScript, read once like a remote form's. A
+		// snapshot, because edits must not write into the page's `form`, which may be a proxy.
 		const form = getForm();
 		this.#input = $state(
-			isFailure(form) && form.action === action ? structuredClone(form.input) : {}
+			isFailure(form) && form.action === action ? $state.snapshot(form.input) : {}
 		);
 
 		const store: FieldStore = {
@@ -186,7 +185,11 @@ export class ActionForm<Input extends RemoteFormInput, Result> {
 		return this.#fields;
 	}
 
-	/** What the action returned on success, read from the page's `form`. */
+	/**
+	 * What the action returned on success, read from the page's `form`. A page has one `form`,
+	 * so with several `actionForm`s on a page this is the last successful action's result,
+	 * whichever form sent it. Failures are kept apart by action name, successes are not.
+	 */
 	get result(): Result | undefined {
 		const form = this.#getForm();
 		return form != null && !isFailure(form) ? (form as Result) : undefined;
@@ -276,6 +279,9 @@ export class ActionForm<Input extends RemoteFormInput, Result> {
 		const applied = response.then(async ({ result, update }) => {
 			// The DOM keeps what the user typed while the request was in flight.
 			await update({ reset: false, refreshAll });
+			// Like a remote form, the server's answer replaces every client issue, so Form can
+			// tell server issues apart by when they arrived.
+			this.#clientIssues = [];
 			return result.type === 'success' || result.type === 'redirect';
 		});
 		const submission: ActionFormSubmission = Object.assign(applied, {

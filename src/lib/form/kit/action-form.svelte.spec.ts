@@ -65,7 +65,8 @@ describe('actionForm', () => {
 
 	it('runs the schema before submitting and sends nothing when it fails', async () => {
 		render(ActionFormHarness);
-		await userEvent.fill(page.getByTestId('email'), 'nope');
+		// Values the browser accepts, so the form is not blocked by constraint validation first.
+		await userEvent.fill(page.getByTestId('age'), '12');
 		await submit();
 
 		await expect
@@ -73,7 +74,7 @@ describe('actionForm', () => {
 			.toEqual([
 				{ path: ['email'], message: 'Invalid email' },
 				{ path: ['name'], message: 'Name is required' },
-				{ path: ['age'], message: 'Age must be a number' }
+				{ path: ['age'], message: 'At least 18' }
 			]);
 		expect(state().submitted).toBe(true);
 		expect(state().pending).toBe(0);
@@ -147,6 +148,43 @@ describe('actionForm', () => {
 		expect(input('email').value).toBe('ada@example.com');
 	});
 
+	it('holds exactly the server issues when submit() resolves', async () => {
+		let release!: () => void;
+		server.respond = () =>
+			new Promise((resolve) => {
+				release = () =>
+					resolve({
+						type: 'failure',
+						status: 400,
+						data: failure({ email: 'ada@example.com' }, [
+							{ path: ['email'], message: 'Email already taken' }
+						]),
+						location: '/'
+					});
+			});
+		const atResolution: unknown[] = [];
+		const { component } = render(ActionFormHarness, {
+			enhance: async ({ submit, fields }) => {
+				await submit();
+				atResolution.push(fields.allIssues());
+			}
+		});
+		await fillValid();
+		await submit();
+		await expect.poll(() => state().pending).toBe(1);
+
+		await userEvent.fill(page.getByTestId('name'), '');
+		await component.source().validate({ all: true });
+		await expect
+			.poll(() => state().issues)
+			.toEqual([{ path: ['name'], message: 'Name is required' }]);
+		release();
+
+		await expect
+			.poll(() => atResolution)
+			.toEqual([[{ path: ['email'], message: 'Email already taken' }]]);
+	});
+
 	it('keeps edits made while the request is in flight', async () => {
 		let release!: () => void;
 		server.respond = () =>
@@ -176,8 +214,11 @@ describe('actionForm', () => {
 	});
 
 	it('dismisses the failure and clears its state on reset', async () => {
-		server.form = failure({ email: 'nope' }, [{ path: ['email'], message: 'Invalid email' }]);
+		server.form = failure({ email: 'ada@example.com' }, [
+			{ path: ['email'], message: 'Email already taken' }
+		]);
 		render(ActionFormHarness);
+		expect(state().email.issues).toEqual([{ path: ['email'], message: 'Email already taken' }]);
 		await submit();
 		await expect.poll(() => state().submitted).toBe(true);
 

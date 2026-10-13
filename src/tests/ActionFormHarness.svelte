@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { actionForm, type ActionFormEnhanceCallback } from '../lib/form/kit/index.js';
 	import { server } from './kit-forms-mock.svelte.js';
 	import { signupSchema, type SignupInput } from './signup-schema.js';
@@ -16,7 +17,8 @@
 			return action;
 		}
 	});
-	if (enhance) f.enhance(enhance);
+	// The callback is set once, as an app would set it.
+	untrack(() => enhance && f.enhance(enhance));
 
 	const state = $derived({
 		pending: f.pending,

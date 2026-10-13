@@ -1,7 +1,8 @@
 // A Standard Schema written by hand, so form specs need no validation library.
+// The input is a type alias, not an interface: only an alias satisfies Kit's `RemoteFormInput`.
 import type { StandardSchemaV1 } from '@standard-schema/spec';
 
-export interface SignupInput {
+export type SignupInput = {
 	email: string;
 	name: string;
 	age: number;
@@ -9,7 +10,7 @@ export interface SignupInput {
 	agree?: boolean;
 	_password?: string;
 	address?: { city?: string; _note?: string };
-}
+};
 
 export type SignupOutput = SignupInput;
 

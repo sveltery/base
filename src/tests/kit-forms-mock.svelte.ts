@@ -27,6 +27,7 @@ export function enhance(form: HTMLFormElement, submit: SubmitFunction) {
 		event.preventDefault();
 		const formData = new FormData(form, event.submitter);
 		let cancelled = false;
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- a request URL, never mutated
 		const action = new URL(form.action);
 		const callback = await submit({
 			action,
