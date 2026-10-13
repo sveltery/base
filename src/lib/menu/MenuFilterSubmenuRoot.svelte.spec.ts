@@ -581,3 +581,34 @@ describe('Menu.FilterProvider around Menu.SubmenuRoot', () => {
 		}
 	});
 });
+
+describe('a hover close after the keyboard entered a hover-opened submenu', () => {
+	beforeEach(parkPointer);
+
+	for (const parent of ['filterable', 'plain'] as const) {
+		it(`does not strand focus on the body (${parent} parent)`, async () => {
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				open: false,
+				filter: parent === 'filterable' ? {} : undefined,
+				items: [
+					...items('Rename'),
+					{ type: 'button', label: 'Elsewhere' },
+					folders({ triggerProps: { delay: 0, closeDelay: 0 } })
+				]
+			});
+			await userEvent.click(page.getByRole('button', { name: 'Actions' }));
+			await userEvent.hover(item('Move to folder'));
+			await expect.poll(() => searchbox(FOLDERS)).not.toBe(null);
+			await expect.poll(() => item('Move to folder').hasAttribute('data-highlighted')).toBe(true);
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(() => focused()).toBe(searchbox(FOLDERS));
+
+			// The pointer leaves the trigger without heading into the submenu.
+			await userEvent.hover(page.getByRole('button', { name: 'Elsewhere' }));
+			await expect.poll(() => searchbox(FOLDERS)).toBe(null);
+			await frame();
+			expect(focused()).toBe(parent === 'filterable' ? searchbox(PARENT) : item('Move to folder'));
+		});
+	}
+});
