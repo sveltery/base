@@ -23,7 +23,8 @@
 			| 'positioner'
 			| 'input'
 			| 'clear'
-			| 'empty';
+			| 'empty'
+			| 'filter-without-input';
 	} = $props();
 </script>
 
@@ -67,6 +68,18 @@
 	<Menu.Root open>
 		<Menu.Empty />
 	</Menu.Root>
+{:else if part === 'filter-without-input'}
+	<Menu.FilterProvider>
+		<Menu.Root open>
+			<Menu.Portal>
+				<Menu.Positioner>
+					<Menu.Popup>
+						<Menu.List><Menu.Item>Rename</Menu.Item></Menu.List>
+					</Menu.Popup>
+				</Menu.Positioner>
+			</Menu.Portal>
+		</Menu.Root>
+	</Menu.FilterProvider>
 {:else if part === 'positioner'}
 	<Menu.Root open>
 		<Menu.Positioner />
