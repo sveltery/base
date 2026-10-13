@@ -66,8 +66,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	/** Id written for this open. Survives a bound trigger id that the parent sets back. */
 	private claimedTriggerId: string | null = null;
 	private readonly readers = new SvelteMap<string, () => TriggerOwned>();
-	/** The last trigger that owned the popup. A different one means the popup moved. */
-	private previousTrigger: Element | null = null;
 	private pendingSwitch: AbortController | null = null;
 	/** Trigger that opened the popup. Click remembers the next node before setOpen. */
 	private openedFrom: Element | null = null;
@@ -128,10 +126,23 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		});
 
 		$effect(() => {
+			return () => {
+				this.stickTimeout.clear();
+			};
+		});
+	}
+
+	/**
+	 * Upstream runs this in the positioner, so the previous trigger is forgotten whenever the
+	 * positioner unmounts. A fresh open from another trigger after a full close is not a move.
+	 */
+	trackTriggerSwitch() {
+		let previousTrigger: Element | null = null;
+		$effect(() => {
 			const current = this.domReferenceElement;
 			return untrack(() => {
-				const previous = this.previousTrigger;
-				if (current) this.previousTrigger = current;
+				const previous = previousTrigger;
+				if (current) previousTrigger = current;
 				if (!previous || !current || current === previous || !this.open) return;
 				this.#instantType = undefined;
 				const controller = new AbortController();
@@ -145,12 +156,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 				else restore();
 				return () => controller.abort();
 			});
-		});
-
-		$effect(() => {
-			return () => {
-				this.stickTimeout.clear();
-			};
 		});
 	}
 

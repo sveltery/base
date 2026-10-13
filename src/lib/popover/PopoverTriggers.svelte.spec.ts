@@ -263,6 +263,44 @@ describe('trigger switch transition (Base UI v1.9.0)', () => {
 		});
 	}
 
+	describe('after the popup unmounts', () => {
+		function twoTriggers() {
+			return render(PopoverTriggersHarness, {
+				triggers: [
+					{ id: 't1', label: 'Trigger 1', payload: 1 },
+					{ id: 't2', label: 'Trigger 2', payload: 2 }
+				],
+				inside: false
+			});
+		}
+
+		async function openAndUnmountFromTrigger1() {
+			await page.getByRole('button', { name: 'Trigger 1' }).click();
+			await expect.poll(content).toBe('1');
+			await userEvent.keyboard('{Escape}');
+			await expect.poll(popup).toBeNull();
+		}
+
+		it('does not mark a pointer open from another trigger as a trigger change', async () => {
+			twoTriggers();
+			await openAndUnmountFromTrigger1();
+			await page.getByRole('button', { name: 'Trigger 2' }).click();
+			await expect.poll(content).toBe('2');
+			await new Promise((resolve) => setTimeout(resolve, 100));
+			expect(popup()?.getAttribute('data-instant')).toBe(null);
+		});
+
+		it('keeps the click instant on a keyboard open from another trigger', async () => {
+			twoTriggers();
+			await openAndUnmountFromTrigger1();
+			page.getByRole('button', { name: 'Trigger 2' }).element().focus();
+			await userEvent.keyboard('{Enter}');
+			await expect.poll(content).toBe('2');
+			await new Promise((resolve) => setTimeout(resolve, 100));
+			expect(popup()?.getAttribute('data-instant')).toBe('click');
+		});
+	});
+
 	it('does not restore the trigger-change instant after a reopen on the same trigger', async () => {
 		hoverTriggers({}, { switchDuration: 500, exitDuration: 400 });
 		await page.getByRole('button', { name: 'Trigger 1' }).hover();
