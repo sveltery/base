@@ -64,6 +64,25 @@ describe('Combobox.Popup', () => {
 		await expect.element(page.getByTestId('trigger')).toHaveFocus();
 	});
 
+	it.each(['Escape', 'Tab'])(
+		'keeps focus off the options when %s closes the popup before its open focus lands',
+		async (key) => {
+			render(ComboboxHarness, {
+				inputInside: true,
+				staticItems: [{ value: 'a' }, { value: 'b' }],
+				root: { defaultValue: 'b' }
+			});
+			const trigger = page.getByTestId('trigger').element() as HTMLElement;
+			trigger.focus();
+
+			trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+			await userEvent.keyboard(`{${key}}`);
+			await new Promise((resolve) => setTimeout(resolve, 100));
+
+			expect(document.activeElement?.getAttribute('role')).not.toBe('option');
+		}
+	);
+
 	it('returns focus to an explicitly provided element when the popup closes', async () => {
 		render(ComboboxHarness, {
 			open: true,
