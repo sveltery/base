@@ -749,6 +749,14 @@ describe('Menu.RadioGroup and Menu.RadioItem', () => {
 		render(MenuHarness, { open: true, trigger: false, items: group({ disabled: true }) });
 		const node = page.getByRole('group').element();
 		expect(node.getAttribute('aria-disabled')).toBe('true');
+		expect(node.getAttribute('data-disabled')).toBe('');
+	});
+
+	it('omits the disabled state from an enabled group', async () => {
+		render(MenuHarness, { open: true, trigger: false, items: group() });
+		const node = page.getByRole('group').element();
+		expect(node.getAttribute('aria-disabled')).toBe(null);
+		expect(node.getAttribute('data-disabled')).toBe(null);
 	});
 
 	it('throws a radio item outside Menu.RadioGroup', () => {
