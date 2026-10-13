@@ -1,5 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/number-field/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commit 7d93b487f follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance, ref, inputRef, and className callbacks are not ported.
 import { page, userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';

@@ -1,8 +1,8 @@
 <!--
 	The draggable part of the slider at the tip of the indicator.
 	Renders a `<div>` element and a nested `<input type="range">`.
-	Derived from Base UI v1.8.0 packages/react/src/slider/thumb/SliderThumb.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/slider/thumb/SliderThumb.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	There is no inputRef. The input is in the DOM. Pass `{@attach}` to this part for the thumb.
 -->
 <script lang="ts">

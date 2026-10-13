@@ -1,5 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/accordion/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commits c1dc31e10 and fee18df7a follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance and React.Activity are not ported. `preventDefault()` is the skip signal.
 // Cases under "native Svelte" have no upstream counterpart.
 import { tick } from 'svelte';

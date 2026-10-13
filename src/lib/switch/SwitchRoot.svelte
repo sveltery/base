@@ -1,8 +1,8 @@
 <!--
 	Represents the switch itself. Renders a `<span>` and a hidden checkbox beside it.
-	Derived from Base UI v1.8.0 packages/react/src/switch/root/SwitchRoot.tsx
+	Derived from Base UI v1.9.0 packages/react/src/switch/root/SwitchRoot.tsx
 	and the native-label fallback of useAriaLabelledBy.ts
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';

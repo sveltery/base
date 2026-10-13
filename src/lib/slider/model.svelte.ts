@@ -1,7 +1,7 @@
-// Derived from Base UI v1.8.0 packages/react/src/slider/root/SliderRoot.tsx,
+// Derived from Base UI v1.9.0 packages/react/src/slider/root/SliderRoot.tsx,
 // packages/react/src/slider/control/SliderControl.tsx, and
 // packages/react/src/slider/thumb/SliderThumb.tsx
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Thumb order is a local list (the CompositeList registration Slider uses).
 // Arrow keys change the value. They do not rove focus between thumbs.
 // Text direction is `useDirection()`, read through `getDirection`.

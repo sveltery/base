@@ -1,9 +1,9 @@
 <!--
 	An accessible label that is automatically associated with the slider thumbs.
 	Renders a `<div>` element.
-	Derived from Base UI v1.8.0 packages/react/src/slider/label/SliderLabel.tsx
+	Derived from Base UI v1.9.0 packages/react/src/slider/label/SliderLabel.tsx
 	and packages/react/src/internals/labelable-provider/useLabel.ts
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The label id is registered after mount, so server HTML does not set aria-labelledby yet.
 -->
 <script lang="ts">

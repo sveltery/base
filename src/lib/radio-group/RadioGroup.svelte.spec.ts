@@ -1,5 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/radio-group/RadioGroup.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commit e6d1d4050 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // Field cases are in src/lib/field/choice-controls.svelte.spec.ts. inputRef and
 // describeConformance are not ported.
 // Cases under "native Svelte" have no upstream counterpart.

@@ -1,5 +1,5 @@
-// Derived from Base UI v1.8.0 packages/utils/src/shadowDom.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/utils/src/shadowDom.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // `contains` and `closest` also accept a non-node event target and return false or null,
 // which is the guard Slider and OTP Field already used before these helpers existed.
 

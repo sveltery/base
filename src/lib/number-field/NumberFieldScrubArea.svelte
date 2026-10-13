@@ -1,8 +1,8 @@
 <!--
 	An interactive area where the user can click and drag to change the field value.
 	Renders a `<span>` element.
-	Derived from Base UI v1.8.0 packages/react/src/number-field/scrub-area/NumberFieldScrubArea.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/number-field/scrub-area/NumberFieldScrubArea.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The virtual cursor is portaled by NumberField.ScrubAreaCursor. This is not a floating overlay.
 -->
 <script lang="ts">

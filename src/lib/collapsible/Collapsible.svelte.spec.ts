@@ -1,5 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/collapsible/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commits c1dc31e10, 227da5ecd, 87b2a9faf, 24c2cb585 and 810c458b5 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance, className/style callbacks, and React.Activity are not ported.
 // Cases under "native Svelte" have no upstream counterpart.
 import { tick } from 'svelte';

@@ -1,8 +1,8 @@
 <!--
 	Provides shared state to a series of radio buttons. Renders a `<div>`.
-	Derived from Base UI v1.8.0 packages/react/src/radio-group/RadioGroup.tsx
+	Derived from Base UI v1.9.0 packages/react/src/radio-group/RadioGroup.tsx
 	and the linear composite path it mounts
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	Inside a Field, the group is the field's control. `inputRef` is not ported.
 	The radios are the existing Radio parts.
 -->

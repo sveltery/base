@@ -1,5 +1,5 @@
-// Derived from Base UI v1.8.0 packages/utils/src/visuallyHidden.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/utils/src/visuallyHidden.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // React's style object uses unitless 1 and -1, which it treats as pixels.
 // These strings include the unit so a native Svelte `style` attribute can use them.
 
