@@ -234,6 +234,27 @@ describe('Menu.FilterProvider around Menu.SubmenuRoot', () => {
 			expect(focused()).toBe(item('Delete'));
 		});
 
+		it('keeps focus in the submenu input when the pointer crosses the trigger again', async () => {
+			plainParent({ triggerProps: { delay: 0, 'data-testid': 'submenu-trigger' } });
+			const trigger = page.getByTestId('submenu-trigger').element() as HTMLElement;
+			await userEvent.hover(trigger);
+			await expect.poll(() => searchbox(FOLDERS)).not.toBe(null);
+			const input = searchbox(FOLDERS)!;
+
+			mouse(input, 'mousemove');
+			await expect.poll(() => focused()).toBe(input);
+			await userEvent.keyboard('ar');
+			expect(input.value).toBe('ar');
+
+			mouse(trigger, 'mousemove');
+			await frame();
+			await frame();
+			expect(focused()).toBe(input);
+			await userEvent.keyboard('c');
+			expect(input.value).toBe('arc');
+			expect(queryItem('Archive')).not.toBe(null);
+		});
+
 		it('leaves a key that is neither an axis nor an activation key to the parent', async () => {
 			plainParent();
 			(page.getByTestId('submenu-trigger').element() as HTMLElement).focus();

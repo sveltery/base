@@ -323,6 +323,54 @@ describe('filterable menu initial highlight', () => {
 		await expect.poll(() => focused()).toBe(searchbox());
 	});
 
+	it('focuses a submenu input when a screen reader press opens the submenu', async () => {
+		render(MenuHarness, {
+			triggerLabel: 'Actions',
+			open: true,
+			items: [
+				{
+					type: 'submenu',
+					label: 'Move to',
+					triggerProps: { openOnHover: false },
+					filter: { inputLabel: 'Filter destinations' },
+					items: items('Documents')
+				}
+			]
+		});
+		const submenuTrigger = item('Move to');
+		const init = { pointerType: 'touch', width: 0.333, height: 0.333, pressure: 0 };
+		pointer(submenuTrigger, 'pointerdown', init);
+		mouse(submenuTrigger, 'mousedown', { detail: 1 });
+		pointer(submenuTrigger, 'pointerup', init);
+		mouse(submenuTrigger, 'mouseup', { detail: 1 });
+		mouse(submenuTrigger, 'click', { detail: 1 });
+		await expect.poll(() => searchbox('Filter destinations')).not.toBe(null);
+		await expect.poll(() => focused()).toBe(searchbox('Filter destinations'));
+	});
+
+	it('does not focus the input when an item is tapped after a touch open', async () => {
+		const onfocus = vi.fn();
+		menu(actions, { ...withEmpty, inputProps: { onfocus } });
+		const button = trigger();
+		const touch = { pointerType: 'touch', isPrimary: true, width: 20, height: 20 };
+		pointer(button, 'pointerdown', touch);
+		mouse(button, 'mousedown', { detail: 1 });
+		pointer(button, 'pointerup', touch);
+		mouse(button, 'mouseup', { detail: 1 });
+		mouse(button, 'click', { detail: 1 });
+		await expect.poll(() => queryItem('Rename')).not.toBe(null);
+		await frame();
+
+		const rename = item('Rename');
+		pointer(rename, 'pointerdown', touch);
+		pointer(rename, 'pointerup', touch);
+		mouse(rename, 'mouseover');
+		mouse(rename, 'mousemove');
+		await frame();
+		expect(focused()).not.toBe(searchbox());
+		expect(onfocus).not.toHaveBeenCalled();
+	});
+
 	it('does not focus the input when opened on hover', async () => {
 		const onfocus = vi.fn();
 		menu(

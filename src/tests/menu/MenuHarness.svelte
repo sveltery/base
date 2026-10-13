@@ -67,7 +67,8 @@
 
 	// Keyed by label, like React children that keep their element when an entry is inserted before.
 	function keyOf(entries: MenuItemSpec[], index: number) {
-		const label = (entry: MenuItemSpec) => ('label' in entry ? entry.label : entry.type);
+		const label = (entry: MenuItemSpec) =>
+			entry.type === 'item' && entry.key ? entry.key : 'label' in entry ? entry.label : entry.type;
 		const own = label(entries[index]);
 		const seen = entries.slice(0, index).filter((entry) => label(entry) === own).length;
 		return `${own}#${seen}`;

@@ -5,6 +5,7 @@ import { page, userEvent } from 'vitest/browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
+import MenuIndependentHarness from '../../tests/menu/MenuIndependentHarness.svelte';
 import MenuOrphan from '../../tests/menu/MenuOrphan.svelte';
 import { mouse, pointer } from '../../tests/menu/mouse.js';
 import { parkPointer } from '../../tests/pointer.js';
@@ -132,6 +133,17 @@ describe('Menu.FilterProvider scoping', () => {
 		const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
 		try {
 			expect(() => render(MenuOrphan, { part: 'input' })).toThrow(
+				'Base UI: <Menu.Input> must be placed in a menu wrapped in <Menu.FilterProvider>.'
+			);
+		} finally {
+			spy.mockRestore();
+		}
+	});
+
+	it('throws when a filter part is rendered in a plain submenu of a filterable menu', () => {
+		const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
+		try {
+			expect(() => render(MenuOrphan, { part: 'input-in-plain-submenu' })).toThrow(
 				'Base UI: <Menu.Input> must be placed in a menu wrapped in <Menu.FilterProvider>.'
 			);
 		} finally {
@@ -532,5 +544,21 @@ describe('focus navigation in a filterable menu', () => {
 		expect(
 			isHiddenFromAssistiveTechnology(document.querySelector('[data-testid="submenu-popup"]')!)
 		).toBe(false);
+	});
+});
+
+describe('independent menu focus inside a filterable menu', () => {
+	beforeEach(parkPointer);
+
+	it('returns to its own trigger on Shift+Tab', async () => {
+		render(MenuIndependentHarness);
+		const action = page.getByRole('menuitem', { name: 'Independent action' });
+		await expect.poll(() => action.query()).not.toBe(null);
+		(action.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => action.query()).toBe(null);
+		await expect
+			.poll(() => document.activeElement)
+			.toBe(page.getByRole('button', { name: 'Independent' }).element());
 	});
 });

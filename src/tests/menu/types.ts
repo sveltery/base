@@ -18,7 +18,14 @@ export interface MenuFilterSpec {
 }
 
 export type MenuItemSpec =
-	| { type: 'item'; label: string; props?: Bag; as?: 'button' }
+	| {
+			type: 'item';
+			label: string;
+			props?: Bag;
+			as?: 'button';
+			/** Keeps the item mounted across a label change. Defaults to the label. */
+			key?: string;
+	  }
 	| { type: 'link'; label: string; props?: Bag }
 	| { type: 'checkbox'; label: string; props?: Bag; indicator?: Bag }
 	| {

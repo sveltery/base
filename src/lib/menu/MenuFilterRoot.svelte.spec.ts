@@ -5,6 +5,8 @@ import { page, userEvent } from 'vitest/browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
+import MenuListTriggersHarness from '../../tests/menu/MenuListTriggersHarness.svelte';
+import MenuPaletteHarness from '../../tests/menu/MenuPaletteHarness.svelte';
 import { mouse, pointer } from '../../tests/menu/mouse.js';
 import { parkPointer } from '../../tests/pointer.js';
 import { items, type MenuFilterSpec, type MenuItemSpec } from '../../tests/menu/types.js';
@@ -1054,4 +1056,755 @@ describe('Menu.FilterProvider', () => {
 			expect(focused()).toBe(input());
 		});
 	});
+});
+
+describe('Menu.FilterProvider submenus', () => {
+	beforeEach(parkPointer);
+
+	const share = (extra: MenuItemSpec = { type: 'item', label: 'Email' }): MenuItemSpec => ({
+		type: 'submenu',
+		label: 'Share',
+		triggerProps: { openOnHover: false },
+		filter: { inputLabel: 'Filter sharing options' },
+		items: [extra]
+	});
+
+	it('focuses a click-opened filterable submenu input so typing filters the submenu', async () => {
+		render(MenuHarness, {
+			triggerLabel: 'Actions',
+			filter: {},
+			items: [
+				{
+					type: 'submenu',
+					label: 'Share',
+					triggerProps: { openOnHover: false },
+					filter: { inputLabel: 'Filter sharing options' },
+					items: items('Email', 'Link')
+				},
+				...items('Delete')
+			]
+		});
+		await userEvent.click(page.getByRole('button', { name: 'Actions' }));
+		await userEvent.click(page.getByRole('menuitem', { name: 'Share' }));
+		const submenuInput = input('Filter sharing options');
+		await expect.poll(() => focused()).toBe(submenuInput);
+
+		await userEvent.keyboard('em');
+		expect(submenuInput.value).toBe('em');
+		await expect.poll(() => queryItem('Link')).toBe(null);
+		expect(itemNames()).toEqual(['Share', 'Delete', 'Email']);
+	});
+
+	describe('inside an ordinary parent menu', () => {
+		const folders: MenuItemSpec = {
+			type: 'submenu',
+			label: 'Move to folder',
+			triggerProps: { delay: 0 },
+			filter: { inputLabel: 'Filter folders' },
+			items: items('Documents', 'Downloads')
+		};
+
+		function parentNavigation(loopFocus: boolean, triggerLast: boolean) {
+			const submenu: MenuItemSpec = { ...folders, items: [] };
+			const rest: MenuItemSpec[] = [
+				{ type: 'item', label: 'Disabled', props: { disabled: true } },
+				{ type: 'item', label: 'Next' }
+			];
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				open: true,
+				rootProps: { loopFocus },
+				items: triggerLast ? [...rest, submenu] : [submenu, ...rest]
+			});
+		}
+
+		it('uses dialog semantics for a filterable submenu', async () => {
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				open: true,
+				items: [...items('Rename'), folders]
+			});
+			const submenuTrigger = item('Move to folder');
+			expect(submenuTrigger.getAttribute('aria-haspopup')).toBe('dialog');
+
+			await userEvent.hover(submenuTrigger);
+			await expect.poll(() => document.querySelector('[role="dialog"]')).not.toBe(null);
+			const popup = document.querySelector('[role="dialog"]')!;
+			expect(submenuTrigger.getAttribute('aria-controls')).toBe(popup.id);
+			expect(popup.getAttribute('aria-labelledby')).toBe(submenuTrigger.id);
+		});
+
+		it('lets the ordinary parent menu own its main-axis navigation keys', async () => {
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				open: true,
+				items: [...items('Rename'), folders]
+			});
+			const submenuTrigger = item('Move to folder');
+			await expect.poll(() => submenuTrigger.isConnected).toBe(true);
+			submenuTrigger.focus();
+			await userEvent.keyboard('{ArrowUp}');
+			await expect.poll(() => focused()).toBe(item('Rename'));
+			expect(document.querySelector('[role="dialog"]')).toBe(null);
+		});
+
+		it('keeps disabled parent items reachable during main-axis navigation', async () => {
+			parentNavigation(true, false);
+			item('Move to folder').focus();
+			await userEvent.keyboard('{ArrowDown}');
+			await expect.poll(() => focused()).toBe(item('Disabled'));
+		});
+
+		it('wraps parent navigation when loopFocus is enabled', async () => {
+			parentNavigation(true, true);
+			item('Move to folder').focus();
+			await userEvent.keyboard('{ArrowDown}');
+			await expect.poll(() => focused()).toBe(item('Disabled'));
+		});
+
+		it('stops parent navigation at the boundary when loopFocus is disabled', async () => {
+			parentNavigation(false, true);
+			const submenuTrigger = item('Move to folder');
+			submenuTrigger.focus();
+			await userEvent.keyboard('{ArrowDown}');
+			await frame();
+			expect(focused()).toBe(submenuTrigger);
+		});
+
+		it('supports persistent always highlighting inside a filterable submenu', async () => {
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				open: true,
+				items: [
+					{
+						type: 'submenu',
+						label: 'Move to',
+						rootProps: { open: true },
+						filter: {
+							inputLabel: 'Filter destinations',
+							providerProps: { autoHighlight: 'always' }
+						},
+						items: items('Documents', 'Downloads')
+					}
+				]
+			});
+			const field = input('Filter destinations');
+			await expect.poll(() => item('Documents').hasAttribute('data-highlighted')).toBe(true);
+			expect(field.getAttribute('aria-activedescendant')).toBe(item('Documents').id);
+
+			field.focus();
+			await userEvent.keyboard('{ArrowUp}');
+			await expect.poll(() => item('Downloads').hasAttribute('data-highlighted')).toBe(true);
+			expect(field.getAttribute('aria-activedescendant')).toBe(item('Downloads').id);
+		});
+	});
+
+	it('does not reopen a stale submenu with a cross-axis key', async () => {
+		await openWithInput([
+			...items('Rename'),
+			{ ...share(), triggerProps: {} },
+			{
+				type: 'submenu',
+				label: 'Export',
+				filter: { inputLabel: 'Filter export options' },
+				items: items('PDF')
+			}
+		]);
+		await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowRight}');
+		await expect.poll(() => focused()).toBe(input('Filter sharing options'));
+
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => focused()).toBe(input());
+		expect(activeDescendant()).toBe(item('Share').id);
+
+		await userEvent.keyboard('{ArrowUp}');
+		expect(focused()).toBe(input());
+		expect(activeDescendant()).toBe(item('Rename').id);
+
+		await userEvent.keyboard('{ArrowRight}');
+		expect(document.querySelector('input[aria-label="Filter sharing options"]')).toBe(null);
+
+		await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowRight}');
+		expect(document.querySelector('input[aria-label="Filter sharing options"]')).toBe(null);
+		await expect.poll(() => focused()).toBe(input('Filter export options'));
+	});
+
+	it('focuses the first item when entering a hover-opened submenu from a filterable menu', async () => {
+		await openWithInput([
+			{
+				type: 'submenu',
+				label: 'Move to folder',
+				triggerProps: { delay: 0 },
+				items: items('Documents', 'Downloads')
+			}
+		]);
+		await userEvent.keyboard('{ArrowDown}');
+		await userEvent.hover(item('Move to folder'));
+		await expect.poll(() => queryItem('Documents')).not.toBe(null);
+		await frame();
+		expect(focused()).toBe(input());
+
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.poll(() => focused()).toBe(item('Documents'));
+	});
+
+	it('does not forward submenu navigation keys while composing text', async () => {
+		await openWithInput([{ ...share(), label: 'Move to folder' }]);
+		await userEvent.keyboard('{ArrowDown}');
+		input().dispatchEvent(
+			new KeyboardEvent('keydown', {
+				key: 'ArrowRight',
+				keyCode: 229,
+				bubbles: true,
+				cancelable: true
+			})
+		);
+		await frame();
+		expect(document.querySelector('input[aria-label="Filter sharing options"]')).toBe(null);
+	});
+
+	it('does not reclaim focus when a controlled submenu closes after focus moves outside', async () => {
+		const result = render(MenuHarness, {
+			triggerLabel: 'Actions',
+			open: true,
+			rootProps: { modal: false },
+			filter: {},
+			items: [
+				{
+					type: 'submenu',
+					label: 'Move to folder',
+					filter: { inputLabel: 'Filter folders' },
+					items: items('Documents')
+				}
+			]
+		});
+		await expect.poll(() => focused()).toBe(input());
+		await userEvent.keyboard('{ArrowDown}{ArrowRight}');
+		await expect.poll(() => focused()).toBe(input('Filter folders'));
+
+		const outside = page.getByRole('button', { name: 'Outside' }).element() as HTMLElement;
+		outside.focus();
+		await result.rerender({
+			items: [
+				{
+					type: 'submenu',
+					label: 'Move to folder',
+					rootProps: { open: false },
+					filter: { inputLabel: 'Filter folders' },
+					items: items('Documents')
+				}
+			]
+		});
+		await frame();
+		await frame();
+		expect(focused()).toBe(outside);
+	});
+});
+
+describe('Menu.FilterProvider query and labels', () => {
+	beforeEach(parkPointer);
+
+	it('clears a positional highlight when a controlled query replaces the visible item', async () => {
+		const onAppleClick = vi.fn();
+		const entries: MenuItemSpec[] = [
+			{ type: 'item', label: 'Apple', props: { onclick: onAppleClick } },
+			...items('Banana')
+		];
+		const result = await openWithInput(entries, { providerProps: { value: 'ban' } });
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(() => activeDescendant()).toBe(item('Banana').id);
+
+		await result.rerender({ filter: { providerProps: { value: 'app' } } });
+		await expect.poll(itemNames).toEqual(['Apple']);
+		expect(input().hasAttribute('aria-activedescendant')).toBe(false);
+		await userEvent.keyboard('{Enter}');
+		expect(onAppleClick).not.toHaveBeenCalled();
+	});
+
+	it('supports a detached trigger in a filterable menu', async () => {
+		render(MenuHarness, {
+			triggerLabel: 'Fruit',
+			detached: true,
+			trigger: { id: 'fruit-trigger' },
+			filter: {
+				inputLabel: 'Filter fruit',
+				listProps: { 'data-testid': 'list' },
+				empty: 'No fruit found'
+			},
+			items: items('Apple')
+		});
+		const trigger = page.getByRole('button', { name: 'Fruit' }).element() as HTMLElement;
+		expect(trigger.getAttribute('aria-haspopup')).toBe('dialog');
+
+		await userEvent.click(trigger);
+		const popup = page.getByRole('dialog', { name: 'Fruit' }).element();
+		const list = page.getByTestId('list').element();
+		expect(trigger.getAttribute('aria-controls')).toBe(popup.id);
+		expect(popup.getAttribute('aria-labelledby')).toBe('fruit-trigger');
+		expect(list.getAttribute('aria-labelledby')).toBe('fruit-trigger');
+		expect(document.querySelector('[role="status"]')).toBe(null);
+
+		await userEvent.type(input('Filter fruit'), 'zz');
+		await expect
+			.poll(() => document.querySelector('[role="status"]')?.textContent?.trim())
+			.toBe('No fruit found');
+	});
+
+	it('uses an explicit popup label instead of the trigger label', async () => {
+		render(MenuHarness, {
+			triggerLabel: 'Fruit',
+			popupProps: { 'aria-label': 'Available commands' },
+			filter: { inputLabel: 'Filter fruit' },
+			items: items('Apple')
+		});
+		await userEvent.click(page.getByRole('button', { name: 'Fruit' }));
+		const popup = page.getByRole('dialog', { name: 'Available commands' }).element();
+		expect(popup.hasAttribute('aria-labelledby')).toBe(false);
+	});
+
+	it('releases a popup id override when the prop is removed', async () => {
+		const result = filterable(items('Apple'), { popupProps: { id: 'custom-popup' } });
+		const trigger = page.getByRole('button', { name: 'Actions' }).element();
+		const popup = page.getByRole('dialog').element();
+		expect(popup.id).toBe('custom-popup');
+
+		await result.rerender({ popupProps: {} });
+		await expect.poll(() => popup.id).not.toBe('custom-popup');
+		expect(popup.id).not.toBe('');
+		expect(trigger.getAttribute('aria-controls')).toBe(popup.id);
+		expect(item('Apple').id).not.toBe('');
+	});
+});
+
+describe('Menu.FilterProvider keyboard and focus', () => {
+	beforeEach(parkPointer);
+
+	async function openWithKeyboard() {
+		filterable(items('Rename', 'Duplicate', 'Delete'), { open: false });
+		page.getByRole('button', { name: 'Actions' }).element().focus();
+		await userEvent.keyboard('{Enter}');
+		await expect
+			.poll(() => document.activeElement?.getAttribute('aria-label'))
+			.toBe('Filter actions');
+		return input();
+	}
+
+	it('keeps the highlight index in step with the highlighted item after the input is refocused', async () => {
+		const field = await openWithKeyboard();
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(() => highlightedNames()).toEqual(['Duplicate']);
+
+		field.blur();
+		field.focus();
+		await frame();
+		expect(activeDescendant()).toBe(item('Duplicate').id);
+
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(() => highlightedNames()).toEqual(['Delete']);
+	});
+
+	it('returns focus to the input with the RTL submenu close key', async () => {
+		render(MenuHarness, {
+			triggerLabel: 'Actions',
+			open: true,
+			direction: 'rtl',
+			filter: { extra: 'Auxiliary action' },
+			items: items('Rename')
+		});
+		await expect.poll(() => focused()).toBe(input());
+		const auxiliary = page.getByRole('button', { name: 'Auxiliary action' }).element();
+		(auxiliary as HTMLElement).focus();
+		auxiliary.dispatchEvent(
+			new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true })
+		);
+		expect(focused()).toBe(input());
+	});
+
+	it('does not open a highlighted submenu with a modified cross-axis key from the input', async () => {
+		await openWithInput([
+			{
+				type: 'submenu',
+				label: 'Share',
+				triggerProps: { delay: 0 },
+				popupProps: { 'data-testid': 'submenu-list' },
+				items: items('Email')
+			}
+		]);
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(() => item('Share').hasAttribute('data-highlighted')).toBe(true);
+
+		input().dispatchEvent(
+			new KeyboardEvent('keydown', {
+				key: 'ArrowRight',
+				metaKey: true,
+				bubbles: true,
+				cancelable: true
+			})
+		);
+		await frame();
+		expect(document.querySelector('[data-testid="submenu-list"]')).toBe(null);
+
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.poll(() => document.querySelector('[data-testid="submenu-list"]')).not.toBe(null);
+	});
+
+	it('calls onOpenChangeComplete when the menu opens and closes', async () => {
+		const onOpenChangeComplete = vi.fn();
+		filterable(items('Rename'), { open: false, rootProps: { onOpenChangeComplete } });
+		await userEvent.click(page.getByRole('button', { name: 'Actions' }));
+		await expect.poll(() => onOpenChangeComplete.mock.calls).toEqual([[true]]);
+
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => onOpenChangeComplete.mock.calls).toEqual([[true], [false]]);
+	});
+
+	it('does not seed a highlight when the trigger regains focus while open', async () => {
+		filterable(items('Rename'), { open: false });
+		const trigger = page.getByRole('button', { name: 'Actions' }).element() as HTMLElement;
+		await userEvent.click(trigger);
+		await expect.poll(() => focused()).toBe(input());
+
+		trigger.focus();
+		await frame();
+		expect(input().hasAttribute('aria-activedescendant')).toBe(false);
+		expect(trigger.hasAttribute('aria-activedescendant')).toBe(false);
+		expect(item('Rename').hasAttribute('data-highlighted')).toBe(false);
+	});
+
+	it('labels the list with the trigger when no label is given', () => {
+		filterable(items('Rename'));
+		const trigger = page.getByRole('button', { name: 'Actions' }).element();
+		expect(page.getByRole('menu').element().getAttribute('aria-labelledby')).toBe(trigger.id);
+	});
+
+	it('stays closed when onOpenChange is canceled', async () => {
+		filterable(items('Rename'), {
+			open: false,
+			rootProps: {
+				onOpenChange: (_: boolean, details: { cancel(): void }) => details.cancel()
+			}
+		});
+		await userEvent.click(page.getByRole('button', { name: 'Actions' }));
+		await frame();
+		expect(document.querySelector('[role="menu"]')).toBe(null);
+	});
+
+	it('leaves a checkbox item unchecked when onCheckedChange is canceled', async () => {
+		await openWithInput([
+			{
+				type: 'checkbox',
+				label: 'Show hidden',
+				props: {
+					closeOnClick: false,
+					onCheckedChange: (_: boolean, details: { cancel(): void }) => details.cancel()
+				}
+			}
+		]);
+		const checkbox = page.getByRole('menuitemcheckbox', { name: 'Show hidden' });
+		await userEvent.click(checkbox);
+		expect(checkbox.element().getAttribute('aria-checked')).toBe('false');
+	});
+
+	it('applies a custom filter to item text', async () => {
+		const filter = vi.fn((text: string, query: string) => text.toLowerCase().startsWith(query));
+		await openWithInput(items('Delete', 'Rename'), { providerProps: { filter } });
+		await userEvent.keyboard('de');
+		await expect.poll(itemNames).toEqual(['Delete']);
+		expect(filter).toHaveBeenCalledWith('Delete', 'de');
+		expect(filter).toHaveBeenCalledWith('Rename', 'de');
+		expect(filter.mock.calls.every((args) => args.length === 2)).toBe(true);
+	});
+
+	it('does not run the filter again when navigating past hidden items', async () => {
+		const filter = vi.fn((text: string, query: string) => text.includes(query));
+		const labels = Array.from({ length: 20 }, (_, index) =>
+			index < 2 ? `Match ${index}` : `Hidden ${index}`
+		);
+		await openWithInput(items(...labels), {
+			providerProps: { filter, autoHighlight: 'always', value: 'Match' }
+		});
+		await expect.poll(itemNames).toEqual(['Match 0', 'Match 1']);
+		filter.mockClear();
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(() => highlightedNames()).toEqual(['Match 1']);
+		expect(filter).not.toHaveBeenCalled();
+	});
+
+	it('does not highlight an item when another detached trigger receives focus', async () => {
+		const onItemHighlighted = vi.fn();
+		render(MenuListTriggersHarness, { filter: true, onItemHighlighted });
+		await userEvent.click(page.getByRole('button', { name: 'First' }));
+		await expect.poll(() => focused()).toBe(input());
+		onItemHighlighted.mockClear();
+
+		(page.getByRole('button', { name: 'Second' }).element() as HTMLElement).focus();
+		await frame();
+		expect(input().hasAttribute('aria-activedescendant')).toBe(false);
+		expect(item('Rename').hasAttribute('data-highlighted')).toBe(false);
+		expect(onItemHighlighted).not.toHaveBeenCalled();
+	});
+});
+
+describe('Menu.FilterProvider hover-opened submenu ownership', () => {
+	beforeEach(parkPointer);
+
+	const hoverMenu: MenuItemSpec[] = [
+		...items('Rename', 'Duplicate'),
+		{
+			type: 'submenu',
+			label: 'Share',
+			triggerProps: { delay: 0 },
+			positionerProps: { sideOffset: 4 },
+			filter: { inputLabel: 'Filter sharing options' },
+			items: items('Email')
+		}
+	];
+
+	const submenuInput = () => document.querySelector('input[aria-label="Filter sharing options"]');
+
+	async function openAndHoverTrigger() {
+		filterable(hoverMenu, { open: false, positionerProps: { sideOffset: 8 } });
+		await userEvent.click(page.getByRole('button', { name: 'Actions' }));
+		await expect.poll(() => focused()).toBe(input());
+		await userEvent.hover(item('Share'));
+		await expect.poll(submenuInput).not.toBe(null);
+		const field = submenuInput() as HTMLInputElement;
+		mouse(field, 'mousemove');
+		return field;
+	}
+
+	it('closes when the pointer sweeps off the trigger', async () => {
+		await openAndHoverTrigger();
+		await userEvent.hover(item('Rename'));
+		await expect.poll(submenuInput).toBe(null);
+	});
+
+	it('closes when the pointer leaves the submenu popup', async () => {
+		await openAndHoverTrigger();
+		await userEvent.hover(item('Email'));
+		await userEvent.hover(item('Duplicate'));
+		await expect.poll(submenuInput).toBe(null);
+	});
+
+	it('closes and resets after a query was typed into the hover-opened submenu', async () => {
+		const field = await openAndHoverTrigger();
+		await expect.poll(() => focused()).toBe(field);
+		await userEvent.keyboard('em');
+		await expect.poll(() => field.value).toBe('em');
+
+		await userEvent.hover(item('Rename'));
+		await expect.poll(submenuInput).toBe(null);
+
+		await userEvent.hover(item('Share'));
+		await expect.poll(submenuInput).not.toBe(null);
+		expect((submenuInput() as HTMLInputElement).value).toBe('');
+	});
+});
+
+describe('Menu.FilterProvider submenu highlight details', () => {
+	beforeEach(parkPointer);
+
+	function submenuHighlightMenu(onItemHighlighted: (...args: unknown[]) => void) {
+		filterable(
+			[
+				{
+					type: 'submenu',
+					label: 'Share',
+					filter: { inputLabel: 'Filter sharing options' },
+					items: items('Email')
+				}
+			],
+			{ rootProps: { onItemHighlighted } }
+		);
+	}
+
+	it('passes the keydown events when entering and leaving a filterable submenu', async () => {
+		const onItemHighlighted = vi.fn();
+		submenuHighlightMenu(onItemHighlighted);
+		await expect.poll(() => focused()).toBe(input());
+		await userEvent.keyboard('{ArrowDown}{ArrowRight}');
+		await expect.poll(() => focused()).toBe(input('Filter sharing options'));
+
+		const [enterItem, enterDetails] = onItemHighlighted.mock.lastCall!;
+		expect(enterItem).toBe(undefined);
+		expect(enterDetails.reason).toBe('keyboard');
+		expect(enterDetails.event.key).toBe('ArrowRight');
+
+		await userEvent.keyboard('{ArrowLeft}');
+		await expect.poll(() => onItemHighlighted.mock.lastCall?.[0]).toBe(item('Share'));
+		const exitDetails = onItemHighlighted.mock.lastCall![1];
+		expect(exitDetails.reason).toBe('keyboard');
+		expect(exitDetails.event.key).toBe('ArrowLeft');
+	});
+
+	it('reports no keyboard reason when Enter opens a filterable submenu', async () => {
+		const onItemHighlighted = vi.fn();
+		submenuHighlightMenu(onItemHighlighted);
+		await expect.poll(() => focused()).toBe(input());
+		await userEvent.keyboard('{ArrowDown}{Enter}');
+		await expect.poll(() => focused()).toBe(input('Filter sharing options'));
+		expect(onItemHighlighted.mock.lastCall?.[0]).toBe(undefined);
+		expect(onItemHighlighted.mock.lastCall?.[1].reason).toBe('none');
+	});
+});
+
+describe('filterable menu navigation regressions', () => {
+	beforeEach(parkPointer);
+
+	describe.each([false, true])('with a filtered submenu: %s', (filterSubmenu) => {
+		it.each([
+			['{ArrowRight}', '{ArrowLeft}'],
+			['{ArrowRight}', '{Shift>}{Tab}{/Shift}'],
+			['{Enter}', '{Escape}']
+		])(
+			'restores input focus after opening with %s and closing with %s',
+			async (openKey, closeKey) => {
+				await openWithInput([
+					{
+						type: 'submenu',
+						label: 'More',
+						triggerProps: { openOnHover: false },
+						filter: filterSubmenu ? { inputLabel: 'Filter child actions' } : undefined,
+						items: items('Child action')
+					},
+					...items('Rename')
+				]);
+				await userEvent.keyboard(`{ArrowDown}${openKey}`);
+				await expect
+					.poll(() => focused())
+					.toBe(filterSubmenu ? input('Filter child actions') : item('Child action'));
+				await userEvent.keyboard(closeKey);
+				await expect.poll(() => queryItem('Child action')).toBe(null);
+				await expect.poll(() => focused()).toBe(input());
+				await userEvent.keyboard('ren');
+				expect(input().value).toBe('ren');
+				expect(itemNames()).toEqual(['Rename']);
+			}
+		);
+	});
+});
+
+describe('Menu.FilterProvider automatic highlight', () => {
+	beforeEach(parkPointer);
+
+	it.each([true, 'always'] as const)(
+		'does not allow arrow navigation to escape when autoHighlight is %s',
+		async (autoHighlight) => {
+			filterable(items('Rename', 'Delete'), { filter: { providerProps: { autoHighlight } } });
+			await expect.poll(() => focused()).toBe(input());
+			if (autoHighlight === true) await userEvent.keyboard('e');
+			await expect.poll(() => highlightedNames()).toEqual(['Rename']);
+
+			await userEvent.keyboard('{ArrowUp}');
+			await expect.poll(() => highlightedNames()).toEqual(['Delete']);
+			expect(activeDescendant()).toBe(item('Delete').id);
+
+			await userEvent.keyboard('{ArrowDown}');
+			await expect.poll(() => highlightedNames()).toEqual(['Rename']);
+			expect(activeDescendant()).toBe(item('Rename').id);
+		}
+	);
+
+	it('always highlights the first item when mounted inside an opened dialog', async () => {
+		render(MenuPaletteHarness);
+		await userEvent.click(page.getByRole('button', { name: 'Open palette' }));
+		await expect.poll(() => queryItem('Linear')).not.toBe(null);
+		await expect.poll(() => highlightedNames()).toEqual(['Linear']);
+		expect(input('Search commands').getAttribute('aria-activedescendant')).toBe(item('Linear').id);
+	});
+
+	it('preserves navigation with an inline filter and a highlighted-item preview', async () => {
+		const onActivate = vi.fn();
+		const onItemHighlighted = vi.fn();
+		filterable(
+			[
+				{ type: 'item', label: 'Rename', props: { onclick: () => onActivate('Rename') } },
+				{ type: 'item', label: 'Delete', props: { onclick: () => onActivate('Delete') } }
+			],
+			{
+				rootProps: { onItemHighlighted },
+				filter: {
+					providerProps: {
+						autoHighlight: 'always',
+						filter: (text: string, query: string) => text.includes(query)
+					}
+				}
+			}
+		);
+		await expect.poll(() => focused()).toBe(input());
+		await expect.poll(() => onItemHighlighted.mock.lastCall?.[1].label).toBe('Rename');
+
+		await userEvent.keyboard('{ArrowDown}');
+		expect(activeDescendant()).toBe(item('Delete').id);
+		expect(onItemHighlighted.mock.lastCall?.[1].label).toBe('Delete');
+
+		await userEvent.keyboard('{Enter}');
+		expect(onActivate.mock.calls).toEqual([['Delete']]);
+	});
+
+	it('keeps the highlight when an item\'s text changes with autoHighlight="always"', async () => {
+		const entries = (count: number): MenuItemSpec[] => [
+			{ type: 'item', label: `Inbox (${count})`, key: 'inbox' },
+			...items('Archive', 'Delete')
+		];
+		const result = filterable(entries(1), {
+			filter: { providerProps: { autoHighlight: 'always' } }
+		});
+		await expect.poll(() => focused()).toBe(input());
+		await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+		await expect.poll(() => highlightedNames()).toEqual(['Delete']);
+		const deleteItem = item('Delete');
+
+		await result.rerender({ items: entries(2) });
+		await expect.poll(() => queryItem('Inbox (2)')).not.toBe(null);
+		await frame();
+		expect(highlightedNames()).toEqual(['Delete']);
+		expect(activeDescendant()).toBe(deleteItem.id);
+	});
+
+	it('keeps the automatic highlight when typing moves it out from under the pointer', async () => {
+		filterable(items('Rename', 'Delete'), { filter: { providerProps: { autoHighlight: true } } });
+		await expect.poll(() => focused()).toBe(input());
+		await userEvent.keyboard('e');
+		const deleteItem = item('Delete');
+		await userEvent.hover(deleteItem);
+		await expect.poll(() => activeDescendant()).toBe(deleteItem.id);
+
+		await userEvent.keyboard('l');
+		await expect.poll(() => queryItem('Rename')).toBe(null);
+		pointer(deleteItem, 'pointerleave', { pointerType: 'mouse', bubbles: false });
+		await frame();
+		expect(activeDescendant()).toBe(deleteItem.id);
+	});
+
+	it('does not set aria-selected on highlighted items outside WebKit', async () => {
+		await openWithInput(items('Rename'));
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(() => highlightedNames()).toEqual(['Rename']);
+		expect(item('Rename').hasAttribute('aria-selected')).toBe(false);
+	});
+
+	it('never mounts the Empty children while items match', async () => {
+		filterable(items('Rename', 'Delete'), { open: false, filter: { empty: 'No results' } });
+		await userEvent.click(page.getByRole('button', { name: 'Actions' }));
+		await expect.poll(() => queryItem('Rename')).not.toBe(null);
+		await frame();
+		expect(page.getByText('No results').query()).toBe(null);
+		expect(document.querySelector('[role="status"]')).toBe(null);
+	});
+
+	it.each(['vertical', 'horizontal'] as const)(
+		'passes the keydown event to onItemHighlighted in a %s menu',
+		async (orientation) => {
+			const onItemHighlighted = vi.fn();
+			filterable(items('Rename', 'Delete'), { rootProps: { orientation, onItemHighlighted } });
+			await expect.poll(() => focused()).toBe(input());
+			await userEvent.keyboard('{ArrowDown}');
+			await expect.poll(() => onItemHighlighted.mock.lastCall?.[0]).toBe(item('Rename'));
+			const details = onItemHighlighted.mock.lastCall![1];
+			expect(details.reason).toBe('keyboard');
+			expect(details.event).toBeInstanceOf(KeyboardEvent);
+			expect(details.event.key).toBe('ArrowDown');
+		}
+	);
 });

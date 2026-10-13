@@ -24,7 +24,8 @@
 			| 'input'
 			| 'clear'
 			| 'empty'
-			| 'filter-without-input';
+			| 'filter-without-input'
+			| 'input-in-plain-submenu';
 	} = $props();
 </script>
 
@@ -75,6 +76,31 @@
 				<Menu.Positioner>
 					<Menu.Popup>
 						<Menu.List><Menu.Item>Rename</Menu.Item></Menu.List>
+					</Menu.Popup>
+				</Menu.Positioner>
+			</Menu.Portal>
+		</Menu.Root>
+	</Menu.FilterProvider>
+{:else if part === 'input-in-plain-submenu'}
+	<Menu.FilterProvider>
+		<Menu.Root open>
+			<Menu.Portal>
+				<Menu.Positioner>
+					<Menu.Popup>
+						<Menu.Input aria-label="Filter actions" />
+						<Menu.List>
+							<Menu.SubmenuRoot open>
+								<Menu.SubmenuTrigger>Move to</Menu.SubmenuTrigger>
+								<Menu.Portal>
+									<Menu.Positioner>
+										<Menu.Popup>
+											<Menu.Input aria-label="Filter folders" />
+											<Menu.Item>Projects</Menu.Item>
+										</Menu.Popup>
+									</Menu.Positioner>
+								</Menu.Portal>
+							</Menu.SubmenuRoot>
+						</Menu.List>
 					</Menu.Popup>
 				</Menu.Positioner>
 			</Menu.Portal>
