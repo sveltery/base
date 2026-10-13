@@ -1,7 +1,11 @@
 import type { Attachment } from 'svelte/attachments';
 import type { Snippet } from 'svelte';
 import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
-import type { REASONS, BaseUIChangeEventDetails, BaseUIGenericEventDetails } from '@sveltery/utils';
+import type {
+	REASONS,
+	BaseUIChangeEventDetails,
+	BaseUIHighlightEventDetails
+} from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { RenderChildren } from '../internal/render-children.js';
@@ -33,10 +37,13 @@ export type MenuChangeEventDetails = BaseUIChangeEventDetails<MenuChangeReason> 
 export type MenuHighlightReason =
 	typeof REASONS.keyboard | typeof REASONS.pointer | typeof REASONS.none;
 
-export type MenuHighlightEventDetails = BaseUIGenericEventDetails<MenuHighlightReason> & {
-	/** The highlighted item's `label` prop, or its text content when the prop is not set. */
-	label: string | undefined;
-};
+export type MenuHighlightEventDetails = BaseUIHighlightEventDetails<
+	MenuHighlightReason,
+	{
+		/** The highlighted item's `label` prop, or its text content when the prop is not set. */
+		label: string | undefined;
+	}
+>;
 
 export type MenuOrientation = 'horizontal' | 'vertical';
 export type MenuInstant = 'dismiss' | 'click' | 'group' | 'trigger-change';

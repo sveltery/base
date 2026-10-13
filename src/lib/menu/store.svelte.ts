@@ -11,8 +11,13 @@ import type { Middleware } from '@floating-ui/dom';
 import { untrack } from 'svelte';
 import { SvelteMap } from 'svelte/reactivity';
 import type { HTMLAttributes } from 'svelte/elements';
-import { REASONS, createChangeEventDetails, ScopedTimeout } from '@sveltery/utils';
-import type { setFloatingTree } from '@sveltery/floating-ui-svelte';
+import {
+	REASONS,
+	createChangeEventDetails,
+	createGenericEventDetails,
+	ScopedTimeout
+} from '@sveltery/utils';
+import type { FloatingTreeStore } from '@sveltery/floating-ui-svelte';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { ElementList } from '../internal/element-list.svelte.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
@@ -26,8 +31,6 @@ import type {
 	MenuHighlightReason,
 	MenuInstant
 } from './types.js';
-
-type FloatingTreeStore = ReturnType<typeof setFloatingTree>;
 
 export interface MenuItemRecord {
 	/** The `label` prop, or the item's text content. Typeahead matches against it. */
@@ -312,11 +315,10 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		this.highlightEvent = undefined;
 		const callback = this.readOnItemHighlighted();
 		if (!callback) return;
-		const details: MenuHighlightEventDetails = {
-			reason,
-			event: event ?? new Event('base-ui'),
+		// Every `pointer` write comes from a mouse or pointer event, as the details type promises.
+		const details = createGenericEventDetails(reason, event, {
 			label: item === undefined ? undefined : (this.items.meta(item)?.label ?? undefined)
-		};
+		}) as MenuHighlightEventDetails;
 		callback(item, details);
 	}
 
