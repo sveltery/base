@@ -23,7 +23,8 @@
 		positionerClass,
 		css = '',
 		viewport = false,
-		close = false
+		close = false,
+		keepMounted = false
 	}: {
 		handle?: PopoverHandle<number | string>;
 		triggers?: TriggerSpec[];
@@ -37,6 +38,7 @@
 		css?: string;
 		viewport?: boolean;
 		close?: boolean;
+		keepMounted?: boolean;
 	} = $props();
 </script>
 
@@ -60,7 +62,7 @@
 
 <Popover.Root {handle} bind:open bind:triggerId {onOpenChange}>
 	{#snippet children({ payload })}
-		<Popover.Portal>
+		<Popover.Portal {keepMounted}>
 			<Popover.Positioner data-testid="positioner" class={positionerClass}>
 				<Popover.Popup data-testid="popup" class={popupClass}>
 					{#if viewport}

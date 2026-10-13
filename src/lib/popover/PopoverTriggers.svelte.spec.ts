@@ -68,6 +68,34 @@ describe('focus manager', () => {
 			[false, 'outside-press']
 		]);
 	});
+
+	it('returns focus to the bound trigger, not the trigger of an earlier open, after an open without an interaction', async () => {
+		const view = render(PopoverTriggersHarness, {
+			triggers: [
+				{ id: 't1', label: 'Trigger 1', payload: 1 },
+				{ id: 't2', label: 'Trigger 2', payload: 2 }
+			],
+			inside: false,
+			keepMounted: true
+		});
+		const trigger1 = page.getByRole('button', { name: 'Trigger 1' });
+		await trigger1.click();
+		await expect.element(trigger1).toHaveAttribute('aria-expanded', 'true');
+		await trigger1.click();
+		await expect.element(trigger1).toHaveAttribute('aria-expanded', 'false');
+		(document.activeElement as HTMLElement).blur();
+		expect(document.activeElement).toBe(document.body);
+
+		await view.rerender({ triggerId: 't2', open: true });
+		await expect.poll(content).toBe('2');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('popup').element());
+		await userEvent.keyboard('{Escape}');
+
+		await expect
+			.element(page.getByRole('button', { name: 'Trigger 2' }))
+			.toHaveAttribute('aria-expanded', 'false');
+		expect(document.activeElement).toBe(page.getByRole('button', { name: 'Trigger 2' }).element());
+	});
 });
 
 describe('hover', () => {

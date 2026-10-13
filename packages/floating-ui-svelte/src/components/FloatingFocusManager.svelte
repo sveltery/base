@@ -102,15 +102,14 @@
 	const restoreFrame = new ScopedAnimationFrame();
 	const bodyReturnFrame = new ScopedAnimationFrame();
 	let suppressFocusOut = false;
-	/** Trigger (or the element focused before open). Not refreshed after focus moves inside. */
-	let returnTarget: HTMLElement | null = null;
+	/** Focus before this open. A re-run while open sees focus inside, so it keeps the first. */
+	let focusedBeforeOpen: HTMLElement | null = null;
+	let preferPreviousFocus = false;
 
-	function captureReturnTarget(doc: Document, floating: HTMLElement) {
-		const reference = store.domReferenceElement;
-		const referenceTarget =
-			reference instanceof HTMLElement && reference.isConnected ? reference : null;
+	function captureFocusBeforeOpen(doc: Document, floating: HTMLElement) {
+		if (initialSettled) return;
 		const active = activeElement(doc);
-		const previousTarget =
+		focusedBeforeOpen =
 			active instanceof HTMLElement &&
 			active !== doc.body &&
 			!contains(floating, active) &&
@@ -119,10 +118,21 @@
 				: null;
 		// Upstream `preferPreviousFocus`: an open with no interaction, such as `bind:open`,
 		// returns focus to where it was before, not to the trigger it claimed.
-		returnTarget =
-			store.openMethod == null
-				? (previousTarget ?? returnTarget ?? referenceTarget)
-				: (referenceTarget ?? returnTarget ?? previousTarget);
+		preferPreviousFocus = untrack(() => store.openMethod) == null;
+	}
+
+	/** Upstream `getReturnElement`, resolved at close so a trigger switch while open counts. */
+	function defaultReturnTarget(): HTMLElement | null {
+		const reference = store.domReferenceElement;
+		const referenceTarget =
+			reference instanceof HTMLElement && reference.isConnected ? reference : null;
+		const previousTarget = focusedBeforeOpen?.isConnected ? focusedBeforeOpen : null;
+		const target = preferPreviousFocus
+			? (previousTarget ?? referenceTarget)
+			: (referenceTarget ?? previousTarget);
+		if (target) return target;
+		const lastFocused = getPreviouslyFocusedElement();
+		return lastFocused instanceof HTMLElement ? lastFocused : null;
 	}
 
 	function tabbables(floating: HTMLElement) {
@@ -290,7 +300,7 @@
 		// A function result of `null` falls back to the trigger, matching an empty ref.
 		// Only a boolean `true` requires focus to still be inside.
 		const explicit = fromFunction || spec instanceof HTMLElement;
-		const target = resolved instanceof HTMLElement ? resolved : returnTarget;
+		const target = resolved instanceof HTMLElement ? resolved : defaultReturnTarget();
 		if (!target?.isConnected) return null;
 		if (!explicit) {
 			const doc = ownerDocument(target);
@@ -303,7 +313,6 @@
 			if (!inside) return null;
 		}
 		target.focus({ preventScroll: true });
-		returnTarget = null;
 		return target;
 	}
 
@@ -437,7 +446,7 @@
 		if (!floating || portalHome === null) return;
 		const doc = ownerDocument(floating);
 		addPreviouslyFocusedElement(activeElement(doc));
-		captureReturnTarget(doc, floating);
+		captureFocusBeforeOpen(doc, floating);
 		closeType = '';
 		closeReason = '';
 		bodyReturnFrame.cancel();
