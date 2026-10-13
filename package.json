@@ -138,6 +138,11 @@
 			"svelte": "./dist/meter/index.js",
 			"default": "./dist/meter/index.js"
 		},
+		"./navigation-menu": {
+			"types": "./dist/navigation-menu/index.d.ts",
+			"svelte": "./dist/navigation-menu/index.js",
+			"default": "./dist/navigation-menu/index.js"
+		},
 		"./number-field": {
 			"types": "./dist/number-field/index.d.ts",
 			"svelte": "./dist/number-field/index.js",
