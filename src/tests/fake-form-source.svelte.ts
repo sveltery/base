@@ -59,11 +59,11 @@ export class FakeSource implements FormSource {
 			if (instance.element.isConnected) HTMLFormElement.prototype.reset.call(instance.element);
 		}
 	};
-	#handles = new Map<string, FieldHandle>();
+	// A plain cache, filled while a template reads `fields`, where reactive writes are not allowed.
+	#handles: Record<string, FieldHandle> = Object.create(null);
 	#schema: Check;
 	#server: Check;
-	/** Values of each request that reached the server. */
-	readonly requests: Values[] = [];
+	#requests: Values[] = [];
 	/** Issues present at construction, like a page rendered after a submit without JavaScript. */
 	constructor(options: { schema?: Check; server?: Check; initialIssues?: FormIssue[] } = {}) {
 		this.#schema = options.schema ?? (() => []);
@@ -73,6 +73,11 @@ export class FakeSource implements FormSource {
 			enumerable: true,
 			value: (form: HTMLFormElement) => this.#attach(form)
 		});
+	}
+
+	/** Values of each request that reached the server. A getter, so the spread onto `<form>` skips it. */
+	get requests(): readonly Values[] {
+		return this.#requests;
 	}
 
 	get pending() {
@@ -112,7 +117,7 @@ export class FakeSource implements FormSource {
 	}
 
 	#handle(key: string): FieldHandle {
-		let handle = this.#handles.get(key);
+		let handle = this.#handles[key];
 		if (handle) return handle;
 		// eslint-disable-next-line @typescript-eslint/no-this-alias -- the handle is a plain object
 		const source = this;
@@ -144,7 +149,7 @@ export class FakeSource implements FormSource {
 			touched: () => false,
 			dirty: () => false
 		};
-		this.#handles.set(key, handle);
+		this.#handles[key] = handle;
 		return handle;
 	}
 
@@ -189,7 +194,7 @@ export class FakeSource implements FormSource {
 				submit: () => {
 					const submission = (async () => {
 						await Promise.resolve();
-						this.requests.push(values);
+						this.#requests.push(values);
 						this.#issues = this.#server(values).map((issue) => ({ ...issue, server: true }));
 						return this.#issues.length === 0;
 					})() as EnhanceSubmission;

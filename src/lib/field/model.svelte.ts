@@ -272,8 +272,10 @@ export class FieldRootModel implements FieldContext {
 	}
 
 	setTouched(value: boolean) {
-		if (value && this.binding && this.validationMode === 'onBlur') {
-			this.options.form.issues.revalidate();
+		if (value && this.binding) {
+			// Composites focus a visible element with no name, so a source cannot see the blur itself.
+			this.binding.blur?.();
+			if (this.validationMode === 'onBlur') this.options.form.issues.revalidate();
 		}
 		if (this.options.getTouchedProp() !== undefined) return;
 		this.touchedState = value;

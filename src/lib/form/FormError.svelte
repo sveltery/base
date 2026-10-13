@@ -5,7 +5,7 @@
 	because Fields later in the markup have not claimed their paths yet.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
@@ -18,11 +18,11 @@
 
 	const elementKey = createAttachmentKey();
 
-	let { render, children, ...elementProps }: FormErrorProps = $props();
+	let { role = 'alert', render, children, ...elementProps }: FormErrorProps = $props();
 
 	const form = useFormContext();
 	let mounted = $state(false);
-	$effect(() => {
+	onMount(() => {
 		mounted = true;
 	});
 
@@ -59,6 +59,7 @@
 
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
 		...elementProps,
+		role,
 		...getStateAttributesProps(errorState, transitionStatusMapping),
 		[elementKey]: remember
 	});
