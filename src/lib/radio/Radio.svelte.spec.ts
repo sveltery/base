@@ -9,6 +9,7 @@ import { flushSync } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { ariaLabelPreferenceCases } from '../../tests/aria-label-preference-cases.js';
 import RadioAttachHarness from '../../tests/RadioAttachHarness.svelte';
 import RadioClickHarness from '../../tests/RadioClickHarness.svelte';
 import RadioFormHarness from '../../tests/RadioFormHarness.svelte';
@@ -602,4 +603,8 @@ describe('Radio', () => {
 			await expect.element(host).toHaveAttribute('aria-checked', 'true');
 		});
 	});
+});
+
+describe('Radio labels', () => {
+	ariaLabelPreferenceCases('radio');
 });

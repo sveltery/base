@@ -8,6 +8,7 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { ariaLabelPreferenceCases } from '../../tests/aria-label-preference-cases.js';
 import SwitchAttachHarness from '../../tests/SwitchAttachHarness.svelte';
 import SwitchBindHarness from '../../tests/SwitchBindHarness.svelte';
 import SwitchClickHarness from '../../tests/SwitchClickHarness.svelte';
@@ -492,4 +493,8 @@ describe('Switch', () => {
 describe('controllable value', () => {
 	controllableRootCases('switch');
 	controllableCopyCases();
+});
+
+describe('Switch labels', () => {
+	ariaLabelPreferenceCases('switch');
 });

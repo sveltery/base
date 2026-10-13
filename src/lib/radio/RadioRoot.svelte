@@ -105,7 +105,8 @@
 	const ariaLabelledBy = new AriaLabelledBy(labelable, {
 		explicit: () => ariaLabelledByProp ?? undefined,
 		input: () => (nativeButton ? null : inputNode),
-		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined)
+		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined),
+		ariaLabel: () => elementProps['aria-label']
 	});
 	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
 	const invalid = $derived(group !== undefined && field.valid === false && !disabled);

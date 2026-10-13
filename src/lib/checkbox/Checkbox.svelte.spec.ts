@@ -9,6 +9,7 @@ import { flushSync } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { ariaLabelPreferenceCases } from '../../tests/aria-label-preference-cases.js';
 import CheckboxAttachHarness from '../../tests/CheckboxAttachHarness.svelte';
 import CheckboxBindHarness from '../../tests/CheckboxBindHarness.svelte';
 import CheckboxClickHarness from '../../tests/CheckboxClickHarness.svelte';
@@ -726,4 +727,8 @@ describe('Checkbox', () => {
 
 describe('controllable value', () => {
 	controllableRootCases('checkbox');
+});
+
+describe('Checkbox labels', () => {
+	ariaLabelPreferenceCases('checkbox');
 });
