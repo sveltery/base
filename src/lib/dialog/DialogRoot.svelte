@@ -1,20 +1,12 @@
 <!--
 	Groups all parts of the dialog. Doesn't render its own HTML element.
-	Derived from Base UI v1.8.0 packages/react/src/dialog/root/DialogRoot.tsx,
-	useRenderDialogRoot.tsx, and useDialogRoot.ts
+	Derived from Base UI v1.8.0 packages/react/src/dialog/root/DialogRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	The shared setup is `createDialogRoot` in root.svelte.ts.
 -->
 <script lang="ts">
-	import { createChangeEventDetails, REASONS, contains, getTarget } from '@sveltery/utils';
-	import {
-		setFloatingTree,
-		ClickInteraction,
-		DismissInteraction,
-		useFloatingNodeId
-	} from '@sveltery/floating-ui-svelte';
-	import { useScrollLock } from '../internal/popups/index.js';
-	import { findDialogRoot, setDialogRootContext } from './context.svelte.js';
-	import { DialogStore } from './store.svelte.js';
+	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
+	import { createDialogRoot } from './root.svelte.js';
 	import type { DialogRootProps } from './types.js';
 
 	let {
@@ -28,94 +20,23 @@
 		children
 	}: DialogRootProps = $props();
 
-	const parent = findDialogRoot()?.store;
-	setFloatingTree();
 	const uid = $props.id();
-	const floatingId = `base-ui-${uid}`;
-
-	const store = new DialogStore({
+	const store = createDialogRoot({
+		role: 'dialog',
+		floatingId: `base-ui-${uid}`,
 		readOpen: () => open,
 		writeOpen: (next) => {
 			open = next;
 		},
-		floatingId,
-		nested: parent != null,
 		onOpenChange: () => onOpenChange,
 		onOpenChangeComplete: () => onOpenChangeComplete,
 		readModal: () => modal,
 		readDisablePointerDismissal: () => disablePointerDismissal,
+		readTriggerId: () => triggerId,
 		publishTriggerId: (id) => {
 			if ((triggerId ?? null) !== id) triggerId = id;
-		}
-	});
-	useFloatingNodeId(store);
-	const click = new ClickInteraction(store).reference;
-	store.click = click;
-	setDialogRootContext({ store: store as DialogStore<unknown>, click });
-
-	new DismissInteraction(store, () => ({
-		escapeKey: store.nestedOpenDialogCount === 0,
-		outsidePress(event) {
-			if ('button' in event && event.button !== 0) return false;
-			if ('touches' in event) {
-				const touch = event as unknown as TouchEvent;
-				if (touch.type === 'touchend') {
-					if (touch.changedTouches.length !== 1 || touch.touches.length !== 0) return false;
-				} else if (touch.touches.length !== 1) return false;
-			}
-			if (store.nestedOpenDialogCount !== 0 || store.disablePointerDismissal) return false;
-			const target = getTarget(event);
-			if (!(target instanceof Element)) return false;
-			if (contains(store.popupElement, target)) return false;
-			if (store.modal) {
-				const internalBackdrop = store.internalBackdropElement;
-				const backdrop = store.backdropElement;
-				if (internalBackdrop || backdrop) {
-					return (
-						target === internalBackdrop ||
-						target === backdrop ||
-						(contains(target, store.popupElement) && !target.hasAttribute('data-base-ui-portal'))
-					);
-				}
-			}
-			return true;
 		},
-		outsidePressEvent() {
-			if (store.internalBackdropElement || store.backdropElement) return 'intentional';
-			return {
-				mouse: store.modal === 'trap-focus' ? 'sloppy' : 'intentional',
-				touch: 'sloppy' as const
-			};
-		}
-	}));
-
-	useScrollLock(() => ({
-		enabled: store.open && store.modal === true,
-		referenceElement: store.popupElement
-	}));
-
-	$effect(() => {
-		const id = triggerId;
-		if (id == null) return;
-		const node = store.triggers.getById(id);
-		if (node && store.domReferenceElement !== node) store.domReferenceElement = node;
-	});
-
-	$effect(() => {
-		const current = handle;
-		if (!current) return;
-		return current.attach(store);
-	});
-
-	$effect(() => {
-		const notify = parent?.onNestedDialogOpen.bind(parent);
-		if (!notify) return;
-		const openNow = store.open;
-		const dialogs = openNow ? store.nestedOpenDialogCount + 1 : 0;
-		notify(dialogs);
-		return () => {
-			if (openNow) notify(0);
-		};
+		readHandle: () => handle
 	});
 
 	export function close() {

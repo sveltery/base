@@ -563,7 +563,7 @@ Set `modal` to `false` to leave the rest of the page usable. A non-modal dialog 
 - Handlers use lowercase names, such as `onclick`. Call `event.preventDefault()` in a handler on `Dialog.Trigger` or `Dialog.Close` to skip its own handling.
 - `Dialog.Portal` renders a `div` that keeps `data-base-ui-portal` even if you pass your own value. The attribute lets the dialog tell the portal host from its content. A `container` of `null` does not mount the dialog until you set an element or shadow root.
 - A payload is stored only for a trigger that is mounted with the handle. `handle.open(id)` with an unknown id warns and still opens the dialog, and it keeps the current payload.
-- Alert Dialog and Drawer are not available. Refs are not supported.
+- Drawer is not available yet; see [Alert Dialog](/components/alert-dialog) for confirmations. Refs are not supported.
 
 ## API reference
 

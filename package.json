@@ -53,6 +53,11 @@
 			"svelte": "./dist/accordion/index.js",
 			"default": "./dist/accordion/index.js"
 		},
+		"./alert-dialog": {
+			"types": "./dist/alert-dialog/index.d.ts",
+			"svelte": "./dist/alert-dialog/index.js",
+			"default": "./dist/alert-dialog/index.js"
+		},
 		"./avatar": {
 			"types": "./dist/avatar/index.d.ts",
 			"svelte": "./dist/avatar/index.js",
