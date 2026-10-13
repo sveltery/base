@@ -224,6 +224,7 @@
 					[hoverKey]: attachReference
 				},
 				ownProps,
+				live?.filter?.triggerProps,
 				menubar ? { role: 'menuitem' as const } : {},
 				menubarItem?.props,
 				elementProps

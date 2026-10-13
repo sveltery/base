@@ -36,8 +36,10 @@
 	);
 </script>
 
-{#if render}
-	{@render render(hostProps, state, children)}
-{:else}
-	<a {...hostProps}>{@render children?.()}</a>
+{#if item.visible}
+	{#if render}
+		{@render render(hostProps, state, children)}
+	{:else}
+		<a {...hostProps}>{@render children?.()}</a>
+	{/if}
 {/if}

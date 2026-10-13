@@ -1,7 +1,9 @@
 <!--
 	A menu item that opens a submenu. Renders a `<div>` element.
-	Derived from Base UI v1.9.0 packages/react/src/menu/submenu-trigger/MenuSubmenuTrigger.tsx
+	Derived from Base UI v1.9.0 packages/react/src/menu/submenu-trigger/MenuSubmenuTrigger.tsx and
+	packages/react/src/menu/filter-root/useMenuFilterSubmenuTrigger.ts
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+	The trigger is an item of the parent list, so a filterable parent filters it.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -16,6 +18,7 @@
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { findMenuRoot } from './context.svelte.js';
+	import { isVirtualPointerEvent } from './filter-keydown.js';
 	import { MenuItemBehavior } from './item.svelte.js';
 	import type { MenuSubmenuTriggerProps, MenuSubmenuTriggerState } from './types.js';
 
@@ -46,9 +49,62 @@
 
 	const item = new MenuItemBehavior(
 		parentStore,
-		() => ({ id: triggerId, label, disabled, closeOnClick: false, nativeButton }),
+		() => ({
+			id: triggerId,
+			label,
+			disabled,
+			closeOnClick: false,
+			nativeButton,
+			retainGroup: store.mounted
+		}),
 		'submenu-trigger'
 	);
+
+	// A trigger stays while its submenu is mounted, even once the query filters it out.
+	const visible = $derived(item.visible || store.mounted);
+
+	// Filtering the trigger out leaves its submenu with no anchor, so the submenu closes.
+	$effect(() => {
+		if (item.visible || !store.open) return;
+		untrack(() => store.setOpen(false, createChangeEventDetails(REASONS.none)));
+	});
+
+	// The submenu or the parent keeps real focus on a filter input.
+	const filterable = store.virtualFocus || parentStore.virtualFocus;
+	let clickPointerType = '';
+	const filterProps = filterable
+		? {
+				// Omitted on a plain submenu, whose root sets `'menu'`.
+				...(store.virtualFocus ? { 'aria-haspopup': 'dialog' as const } : {}),
+				onpointerdown(event: PointerEvent) {
+					clickPointerType = event.pointerType;
+					store.virtualPress = isVirtualPointerEvent(event);
+				},
+				onclick(event: MouseEvent) {
+					const interaction = event.detail === 0 ? 'keyboard' : clickPointerType || 'mouse';
+					clickPointerType = '';
+					if (
+						store.open &&
+						(interaction === 'keyboard' ||
+							(interaction === 'mouse' && store.openChangeReason === REASONS.triggerPress))
+					) {
+						store.focusOwner?.focus({ preventScroll: true });
+					}
+				}
+			}
+		: undefined;
+
+	/**
+	 * A plain parent moves focus to whichever item the pointer crosses. While the submenu is open
+	 * and its input held focus, focus goes straight back so crossing the trigger does not
+	 * interrupt typing.
+	 */
+	function handBackFocus(event: FocusEvent) {
+		const owner = store.focusOwner;
+		if (!filterable || !owner || !store.open || event.relatedTarget !== owner) return false;
+		owner.focus({ preventScroll: true });
+		return true;
+	}
 
 	function owned() {
 		return { payload: undefined, closeDelay };
@@ -176,12 +232,15 @@
 				screenReaderProps,
 				hover.reference,
 				childTriggerProps,
+				// A filterable submenu's entry and exit depend on both menus' orientations.
+				store.submenu ? { onkeydown: store.submenu.onTriggerKeyDown } : {},
 				{
 					'aria-haspopup': 'menu' as const,
 					'aria-expanded': omitExpanded ? undefined : open,
 					'aria-controls': store.popupIdFor(triggerId),
-					// The item takes focus only while its submenu is open or it is highlighted.
-					tabindex: open || highlighted ? 0 : -1,
+					// The item takes focus only while its submenu is open or it is highlighted. A
+					// filterable parent keeps real focus on its input, so the trigger stays untabbable.
+					tabindex: parentStore.virtualFocus || !(open || highlighted) ? -1 : 0,
 					onfocus(event: FocusEvent) {
 						if (!store.open || !returnedThroughGuard) return;
 						returnedThroughGuard = false;
@@ -197,15 +256,28 @@
 					},
 					...getStateAttributesProps(state, triggerOpenStateMapping),
 					[hoverKey]: attachHover
-				}
+				},
+				filterProps ?? {}
 			],
 			elementProps
 		)
 	);
+
+	const hostPropsWithHandBack = $derived.by(() => {
+		const { onfocus } = hostProps;
+		return {
+			...hostProps,
+			onfocus(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+				if (!handBackFocus(event)) onfocus?.(event);
+			}
+		};
+	});
 </script>
 
-{#if render}
-	{@render render(hostProps, state, children)}
-{:else}
-	<div {...hostProps}>{@render children?.()}</div>
+{#if visible}
+	{#if render}
+		{@render render(hostPropsWithHandBack, state, children)}
+	{:else}
+		<div {...hostPropsWithHandBack}>{@render children?.()}</div>
+	{/if}
 {/if}

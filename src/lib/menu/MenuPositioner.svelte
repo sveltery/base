@@ -107,6 +107,8 @@
 			collisionAvoidance: collision,
 			mounted: store.mounted,
 			adaptiveOrigin: store.adaptiveOrigin,
+			// Filtering resizes the popup, which must not flip it on every keystroke.
+			lazyFlip: store.virtualFocus,
 			shift: current.contextMenu
 				? {
 						crossAxis: !('side' in collision && collision.side === 'flip'),
