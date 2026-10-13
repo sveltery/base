@@ -52,6 +52,27 @@ describe('NavigationMenu.Content', () => {
 		expect(viewport.contains(byId('content-2'))).toBe(true);
 	});
 
+	it('unmounts content rendered through a multi-node snippet without removing other viewport children', async () => {
+		render(NavigationMenuContentHarness, {
+			twoItems: true,
+			multiNode: true,
+			keepSecondMounted: true
+		});
+
+		byId('trigger-1')!.click();
+		await expect.poll(() => byId('content-1')).not.toBeNull();
+		const viewport = byId('viewport')!;
+		expect(viewport.contains(byId('content-1'))).toBe(true);
+		// The kept-mounted second content follows the moved element in the viewport.
+		expect(byId('content-1')!.nextElementSibling).toBe(byId('content-2'));
+
+		byId('trigger-2')!.click();
+		await expect.poll(() => byId('content-1')).toBeNull();
+
+		expect(byId('content-1-sibling')).toBeNull();
+		expect(viewport.contains(byId('content-2'))).toBe(true);
+	});
+
 	it('keeps content mounted inside the popup when closed if the portal is kept mounted', async () => {
 		render(NavigationMenuContentHarness, { keepMounted: true, keepMountedPortal: true });
 
