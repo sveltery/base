@@ -112,6 +112,16 @@ describe('RadioGroup', () => {
 			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: true, shiftKey: false }]);
 		});
 
+		it('keeps the selected named radio checked when a change to another is canceled', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'cancel-selected' });
+			expect(hiddenInput('B').checked).toBe(true);
+			await radio('A').click();
+			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: true, shiftKey: false }]);
+			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			expect(hiddenInput('A').checked).toBe(false);
+			expect(hiddenInput('B').checked).toBe(true);
+		});
+
 		it('moves focus on an arrow key without selecting when the change is canceled', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'cancel' });
 			radio('A').element().focus();

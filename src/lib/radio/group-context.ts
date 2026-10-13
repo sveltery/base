@@ -43,6 +43,12 @@ export interface RadioGroupContextValue {
 	readonly roving?: RadioGroupRovingFocus;
 	setCheckedValue: (value: unknown, eventDetails: RadioRootChangeEventDetails) => void;
 	setTouched: (touched: boolean) => void;
+	/**
+	 * Checking one named native radio unchecks its siblings, so a change the group
+	 * did not take resyncs every radio's input, not only the clicked one.
+	 */
+	registerInputSync?: (sync: () => void) => () => void;
+	syncInputs?: () => void;
 }
 
 export const [useRadioGroupContext, setRadioGroupContext] = defineOptionalContext<
