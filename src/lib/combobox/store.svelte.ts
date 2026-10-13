@@ -153,6 +153,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 	queryChangedAfterOpen = $state(false);
 	/** The query frozen while the popup animates out. */
 	closeQuery = $state<string | null>(null);
+	#closingQuery: string | null = null;
 
 	/** The item that received the last `pointerdown`, to tell a drag-select from a click. */
 	pointerDownItem: Element | null = null;
@@ -594,7 +595,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 			eventDetails.allowPropagation();
 		}
 
-		const query = this.query;
+		const query = this.#closingQuery ?? this.query;
 		const reference = this.domReferenceElement;
 		super.setOpen(nextOpen, eventDetails);
 		this.domReferenceElement = reference ?? this.defaultReference;
@@ -700,9 +701,12 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 				this.setOpen(false, details);
 			}
 		} else {
+			// The selection syncs the input to its label, but the exit animation keeps the
+			// typed filter, as it was when the item was pressed.
+			this.#closingQuery = this.query;
 			this.setSelectedValue(itemValue, details);
-			if (details.isCanceled) return;
-			this.setOpen(false, details);
+			if (!details.isCanceled) this.setOpen(false, details);
+			this.#closingQuery = null;
 		}
 	}
 
