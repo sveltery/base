@@ -229,7 +229,6 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Input              | refs                                                                                                   |
 | Toggle             | Toolbar integration, `nativeButton={false}`                                                            |
 | ToggleGroup        | Toolbar integration, grid composite, scroll-into-view                                                  |
-| Avatar             | Enter/exit transitions and animation completion                                                        |
 | Separator          | React render-element cloning, `ref`, Menu/Select/Toolbar separators                                    |
 | Meter              | React `ref`, numeric production error codes                                                            |
 | Progress           | refs                                                                                                   |
