@@ -223,24 +223,23 @@ describe('ContextMenu.Trigger', () => {
 		expect(outsideEvent.defaultPrevented).toBe(false);
 	});
 
-	it('blocks native context menus in a portal mounted inside the trigger DOM subtree', async () => {
-		render(ContextMenuHarness, { scenario: 'portal-in-trigger', open: true });
-		await expect.poll(() => byTestId('popup')).not.toBeNull();
-		const event = contextMenu(get('popup'));
-		expect(event.defaultPrevented).toBe(true);
-	});
-
-	it('blocks the native context menu when a consumer handler skips the trigger handler', async () => {
+	it('blocks the native context menu when the rendered element replaces the trigger handler', async () => {
 		const { calls, onOpenChange } = recorder();
-		render(ContextMenuHarness, {
-			rootProps: { onOpenChange },
-			triggerProps: { oncontextmenu: (event: MouseEvent) => event.preventDefault() }
-		});
+		render(ContextMenuHarness, { scenario: 'replaced-handler', rootProps: { onOpenChange } });
 		const event = contextMenu(get('trigger'));
 		await tick();
 		expect(event.defaultPrevented).toBe(true);
 		expect(calls).toEqual([]);
 		expect(menu()).toBeNull();
+	});
+
+	it('blocks native context menus in a portal mounted inside the trigger DOM subtree', async () => {
+		render(ContextMenuHarness, { scenario: 'replaced-handler', open: true });
+		await expect.poll(() => byTestId('popup')).not.toBeNull();
+		expect(get('trigger').contains(get('popup'))).toBe(true);
+
+		const event = contextMenu(get('popup'));
+		expect(event.defaultPrevented).toBe(true);
 	});
 
 	describe('long press', () => {

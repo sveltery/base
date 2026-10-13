@@ -37,7 +37,7 @@
 			| 'nested'
 			| 'in-popup'
 			| 'surface-button'
-			| 'portal-in-trigger'
+			| 'replaced-handler'
 			| 'with-menu'
 			| 'with-menubar'
 			| 'popup-only'
@@ -168,11 +168,17 @@
 			</ContextMenu.Positioner>
 		</ContextMenu.Portal>
 	</ContextMenu.Root>
-{:else if scenario === 'portal-in-trigger'}
+{:else if scenario === 'replaced-handler'}
+	<!-- The render element replaces the trigger's own contextmenu handler and does not prevent default. -->
 	<ContextMenu.Root bind:open {...rootProps}>
-		<ContextMenu.Trigger>
+		<ContextMenu.Trigger data-testid="trigger">
+			{#snippet render(props, _state, children)}
+				<div {...props} oncontextmenu={() => {}}>
+					{@render children?.()}
+					<div bind:this={portalContainer}></div>
+				</div>
+			{/snippet}
 			Right click me
-			<div bind:this={portalContainer}></div>
 		</ContextMenu.Trigger>
 		<ContextMenu.Portal container={portalContainer}>
 			<ContextMenu.Positioner>
