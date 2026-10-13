@@ -60,6 +60,28 @@ describe('Form onFocusInvalid', () => {
 		expect(source.requests).toEqual([{ name: 'taken', email: 'ada@example.com' }]);
 	});
 
+	it('still focuses the control when the callback rejects, and leaves the error unhandled', async () => {
+		const reasons: unknown[] = [];
+		const catchRejection = (event: PromiseRejectionEvent) => {
+			event.preventDefault();
+			reasons.push(event.reason);
+		};
+		window.addEventListener('unhandledrejection', catchRejection);
+		try {
+			render(FormRevealHarness, { fail: true });
+			await userEvent.fill(control('name'), 'Ada');
+			await submit();
+
+			await expect.element(control('email')).toHaveFocus();
+			expect(text('step')).toBe('2');
+			await expect
+				.poll(() => reasons.map((reason) => (reason as Error).message))
+				.toEqual(['reveal failed']);
+		} finally {
+			window.removeEventListener('unhandledrejection', catchRejection);
+		}
+	});
+
 	it('leaves focus and selection to a callback that focused the control', async () => {
 		const focus = vi.spyOn(HTMLElement.prototype, 'focus');
 		const select = vi.spyOn(HTMLInputElement.prototype, 'select');

@@ -118,13 +118,18 @@
 	}
 
 	async function focusInvalid(detail: FormFocusInvalidDetail) {
-		const { control } = detail;
-		if (onFocusInvalid) {
+		if (!onFocusInvalid) return focusControl(detail.control);
+		try {
 			await untrack(() => onFocusInvalid(detail));
-			// A reveal that only sets state has not reached the DOM yet.
+		} finally {
+			// A reveal that only sets state has not reached the DOM yet. A failed reveal still
+			// moves focus, and its error stays unhandled like any other callback's.
 			await tick();
-			if (control.matches(':focus')) return;
+			if (!detail.control.matches(':focus')) focusControl(detail.control);
 		}
+	}
+
+	function focusControl(control: HTMLElement) {
 		control.focus();
 		if (control.tagName === 'INPUT') {
 			(control as HTMLInputElement).select();

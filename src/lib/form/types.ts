@@ -116,8 +116,9 @@ export interface FormProps<
 	 * Called in place of focusing the first invalid control, after a blocked submit or once
 	 * errors or source issues arrive. Use it to reveal a control that is hidden, such as one on
 	 * an inactive step. Form waits for the returned promise and the next DOM update, then
-	 * focuses the control unless it is focused already. With `novalidate={false}`, the browser
-	 * handles a native constraint before Form sees the submit, so this is not called for it.
+	 * focuses the control unless it is focused already, also when the callback throws or
+	 * rejects. With `novalidate={false}`, the browser handles a native constraint before Form
+	 * sees the submit, so this is not called for it.
 	 */
 	onFocusInvalid?: (detail: FormFocusInvalidDetail) => void | Promise<void>;
 	/**

@@ -7,12 +7,14 @@
 		source,
 		reveal = true,
 		revealAfter,
-		focusInCallback = false
+		focusInCallback = false,
+		fail = false
 	}: {
 		source?: FakeSource;
 		reveal?: boolean;
 		revealAfter?: Promise<void>;
 		focusInCallback?: boolean;
+		fail?: boolean;
 	} = $props();
 
 	let step = $state(1);
@@ -22,6 +24,7 @@
 		calls = [...calls, `${field.name}@${step}`];
 		await revealAfter;
 		step = Number(control.closest('[data-step]')?.getAttribute('data-step'));
+		if (fail) throw new Error('reveal failed');
 		if (!focusInCallback) return;
 		await tick();
 		const input = control as HTMLInputElement;
