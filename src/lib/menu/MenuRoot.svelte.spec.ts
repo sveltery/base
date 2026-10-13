@@ -8,6 +8,8 @@ import { render } from 'vitest-browser-svelte';
 import MenuDialogHarness from '../../tests/menu/MenuDialogHarness.svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
 import MenuLateItemsHarness from '../../tests/menu/MenuLateItemsHarness.svelte';
+import MenuNestedDialogHarness from '../../tests/menu/MenuNestedDialogHarness.svelte';
+import MenuProgrammaticHarness from '../../tests/menu/MenuProgrammaticHarness.svelte';
 import { testMenu } from '../../tests/menu/test-menu.js';
 import { enterWithMouse, mouse, moveMouse, pointer } from '../../tests/menu/mouse.js';
 import { items } from '../../tests/menu/types.js';
@@ -1348,6 +1350,58 @@ describe.skipIf(!platform.engine.blink)('Menu.Root opening a dialog from an item
 		} finally {
 			document.removeEventListener('click', recordClick, true);
 		}
+	});
+});
+
+describe('Menu.Root nested popups', () => {
+	async function openNested(kind: 'dialog' | 'alert-dialog') {
+		render(MenuNestedDialogHarness, { kind });
+		await userEvent.click(page.getByTestId('menu-trigger'));
+		await expect.poll(() => byTestId('menu-popup')).not.toBeNull();
+		const dialogTrigger = byTestId('dialog-trigger')!;
+		await userEvent.click(dialogTrigger);
+		await expect.poll(() => byTestId('dialog-popup')).not.toBeNull();
+		return dialogTrigger;
+	}
+
+	it('keeps the menu and dialog open when pressing Shift+Tab inside a nested dialog', async () => {
+		await openNested('dialog');
+		const dialogButton = byTestId('dialog-button')!;
+		dialogButton.focus();
+		await expect.poll(focused).toBe(dialogButton);
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await settle();
+		expect(byTestId('menu-popup')).not.toBeNull();
+		expect(byTestId('dialog-popup')).not.toBeNull();
+	});
+
+	it.each(['dialog', 'alert-dialog'] as const)(
+		'keeps focus in a nested %s when the pointer leaves the triggering menu item',
+		async (kind) => {
+			const dialogTrigger = await openNested(kind);
+			const popup = byTestId('dialog-popup')!;
+			await expect.poll(() => popup.contains(focused())).toBe(true);
+			pointer(dialogTrigger, 'pointerleave', {
+				pointerType: 'mouse',
+				relatedTarget: document.body,
+				bubbles: false
+			});
+			await settle();
+			expect(popup.contains(focused())).toBe(true);
+			expect(byTestId('menu-popup')!.contains(focused())).toBe(false);
+		}
+	);
+});
+
+describe('Menu.Root controlled open', () => {
+	it('returns focus to the opener when a menu is opened programmatically', async () => {
+		render(MenuProgrammaticHarness);
+		const opener = page.getByRole('button', { name: 'Open menu programmatically' }).element();
+		await userEvent.click(opener);
+		await expect.poll(() => page.getByRole('menu').query()).not.toBeNull();
+		await userEvent.click(page.getByRole('menuitem', { name: 'Close menu' }));
+		await expect.poll(() => page.getByRole('menu').query()).toBeNull();
+		expect(focused()).toBe(opener);
 	});
 });
 

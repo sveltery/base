@@ -7,7 +7,13 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { createChangeEventDetails } from '@sveltery/utils';
+	import { untrack } from 'svelte';
+	import {
+		activeElement,
+		contains,
+		createChangeEventDetails,
+		ownerDocument
+	} from '@sveltery/utils';
 	import { FloatingFocusManager, useHoverFloatingInteraction } from '@sveltery/floating-ui-svelte';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
 	import { mergeProps } from '../internal/mergeProps.js';
@@ -86,17 +92,53 @@
 		return trigger ? trigger.id || undefined : store.resolvedActiveTriggerId() || undefined;
 	});
 
-	const returnFocusDefault = $derived(
-		store.activeTriggerElement != null ||
+	// Upstream's focus manager returns focus to the element focused before an open with no
+	// interaction type (a programmatic or hover open) ahead of the trigger. The shared manager
+	// always prefers the trigger, so the popup names that element itself. It is a snapshot of
+	// focus at the moment of opening, so it cannot be derived.
+	let previousFocus = $state<HTMLElement | null>(null);
+	let wasOpen = false;
+	$effect.pre(() => {
+		const open = store.open;
+		if (open === wasOpen) return;
+		wasOpen = open;
+		if (!open) return;
+		const doc = ownerDocument(untrack(() => store.domReferenceElement) ?? null);
+		const active = activeElement(doc);
+		previousFocus =
+			untrack(() => store.openMethod) == null &&
+			active instanceof HTMLElement &&
+			active !== doc.body
+				? active
+				: null;
+	});
+
+	/** The boolean `returnFocus` path, aimed at `previousFocus`: return only while focus is inside. */
+	function returnToPreviousFocus(): HTMLElement | false {
+		const target = previousFocus;
+		if (!target?.isConnected) return false;
+		const doc = ownerDocument(target);
+		const active = activeElement(doc);
+		const inside = contains(store.floatingElement, active) || active === doc.body || active == null;
+		return inside ? target : false;
+	}
+
+	const returnFocusDefault = $derived.by(() => {
+		const returns =
+			store.activeTriggerElement != null ||
 			parentType === undefined ||
 			parentType === 'context-menu' ||
-			(parentType === 'menubar' && store.openChangeReason !== MENU_REASONS.outsidePress)
-	);
+			(parentType === 'menubar' && store.openChangeReason !== MENU_REASONS.outsidePress);
+		return returns && previousFocus ? returnToPreviousFocus : returns;
+	});
 
 	function focusReturn(closeType: string | null): boolean | HTMLElement | null | void {
 		const spec = finalFocus;
 		if (typeof spec !== 'function') return spec;
-		return spec(closeType ?? '');
+		const resolved = spec(closeType ?? '');
+		return (resolved === true || resolved === null) && previousFocus?.isConnected
+			? previousFocus
+			: resolved;
 	}
 
 	function stopInToolbar(event: KeyboardEvent) {
