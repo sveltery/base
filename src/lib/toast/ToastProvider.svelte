@@ -6,6 +6,7 @@
 	before any descendant effect runs, which is what upstream's synchronizer layout effect ensures.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { toastManagerSubscribe } from './create-toast-manager.js';
 	import { setToastStore } from './context.js';
 	import { ToastStore } from './store.svelte.js';
@@ -20,18 +21,22 @@
 
 	$effect(() => {
 		if (!toastManager) return;
-		return toastManager[toastManagerSubscribe]((event) => {
-			if (event.action === 'promise') {
-				const { promise, setPromise, ...options } = event.options;
-				setPromise(store.promiseToast(promise, options));
-			} else if (event.action === 'update') {
-				store.updateToast(event.options.id, event.options.updates);
-			} else if (event.action === 'close') {
-				store.closeToast(event.options.id);
-			} else {
-				store.addToast(event.options);
-			}
-		});
+		// A manager call can come from inside a consumer's effect. Reading store state there
+		// must not subscribe that effect, so each event runs untracked.
+		return toastManager[toastManagerSubscribe]((event) =>
+			untrack(() => {
+				if (event.action === 'promise') {
+					const { promise, setPromise, ...options } = event.options;
+					setPromise(store.promiseToast(promise, options));
+				} else if (event.action === 'update') {
+					store.updateToast(event.options.id, event.options.updates);
+				} else if (event.action === 'close') {
+					store.closeToast(event.options.id);
+				} else {
+					store.addToast(event.options);
+				}
+			})
+		);
 	});
 </script>
 

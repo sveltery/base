@@ -4,6 +4,7 @@
 // packages/react/src/toast/useToastManager.ts (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // MIT, see THIRD_PARTY_NOTICES.md.
 
+import { untrack } from 'svelte';
 import { defineContext } from '../internal/context.js';
 import type { AnchorPositioning } from '../internal/popups/index.js';
 import type { LabelIdHost } from '../internal/popups/labelId.js';
@@ -33,6 +34,8 @@ export const [useToastPositioner, setToastPositioner] = defineContext<AnchorPosi
 /**
  * Returns the toasts and the methods that manage them. Call it during component init
  * inside `Toast.Provider`. Read `toasts` from the returned object; do not destructure it.
+ * The methods read store state, so they run untracked: calling one from an effect must not
+ * make the effect re-run on every toast change, as React's `add` does not subscribe its caller.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- upstream's default, see types.ts
 export function getToastManager<Data extends object = any>(): GetToastManagerReturnValue<Data> {
@@ -41,9 +44,9 @@ export function getToastManager<Data extends object = any>(): GetToastManagerRet
 		get toasts() {
 			return store.toasts as ToastObject<Data>[];
 		},
-		add: store.addToast,
-		close: store.closeToast,
-		update: store.updateToast,
-		promise: store.promiseToast
+		add: (options) => untrack(() => store.addToast(options)),
+		close: (toastId) => untrack(() => store.closeToast(toastId)),
+		update: (toastId, options) => untrack(() => store.updateToast(toastId, options)),
+		promise: (promise, options) => untrack(() => store.promiseToast(promise, options))
 	};
 }
