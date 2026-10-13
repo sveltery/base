@@ -4,7 +4,7 @@
 // MIT, see THIRD_PARTY_NOTICES.md.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
 import MenuAnchorHarness from '../../tests/menu/MenuAnchorHarness.svelte';
@@ -12,6 +12,7 @@ import MenuFocusHarness from '../../tests/menu/MenuFocusHarness.svelte';
 import MenuToolbarHarness from '../../tests/menu/MenuToolbarHarness.svelte';
 import MenuGroupHarness from '../../tests/menu/MenuGroupHarness.svelte';
 import MenuOrphan from '../../tests/menu/MenuOrphan.svelte';
+import { enterWithMouse, mouse } from '../../tests/menu/mouse.js';
 import { items } from '../../tests/menu/types.js';
 
 function menus() {
@@ -171,6 +172,111 @@ describe('Menu.Trigger', () => {
 		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
 		await expect.poll(() => document.activeElement?.textContent).toBe('Before');
 		await expect.poll(() => menus().length).toBe(0);
+	});
+
+	it('removes the hover mouseup listener when unmounted before mouseup', async () => {
+		const add = vi.spyOn(document, 'addEventListener');
+		const remove = vi.spyOn(document, 'removeEventListener');
+		try {
+			const view = render(MenuHarness, {
+				trigger: { openOnHover: true, delay: 0 },
+				items: items('One')
+			});
+			add.mockClear();
+			enterWithMouse(trigger());
+			await expect.poll(() => menus().length).toBe(1);
+			const listener = add.mock.calls.find((call) => call[0] === 'mouseup')?.[1];
+			expect(listener).toBeTypeOf('function');
+			view.unmount();
+			expect(remove.mock.calls.some((call) => call[0] === 'mouseup' && call[1] === listener)).toBe(
+				true
+			);
+		} finally {
+			add.mockRestore();
+			remove.mockRestore();
+		}
+	});
+
+	describe('impatient clicks with openOnHover', () => {
+		const PATIENT_CLICK_THRESHOLD = 500;
+
+		async function advance(ms: number) {
+			await vi.advanceTimersByTimeAsync(ms);
+			await tick();
+		}
+
+		function isOpen() {
+			return trigger().hasAttribute('data-popup-open');
+		}
+
+		beforeEach(() => {
+			vi.useFakeTimers();
+		});
+
+		afterEach(() => {
+			vi.useRealTimers();
+		});
+
+		it('does not close the menu if the user clicks too quickly', async () => {
+			render(MenuHarness, { trigger: { openOnHover: true, delay: 0 }, items: items('One') });
+			mouse(trigger(), 'mousemove');
+			await advance(PATIENT_CLICK_THRESHOLD - 1);
+			mouse(trigger(), 'click');
+			await advance(0);
+			expect(isOpen()).toBe(true);
+		});
+
+		it('closes the menu if the user clicks patiently', async () => {
+			render(MenuHarness, { trigger: { openOnHover: true, delay: 0 }, items: items('One') });
+			mouse(trigger(), 'mouseenter', { bubbles: false });
+			await advance(PATIENT_CLICK_THRESHOLD);
+			mouse(trigger(), 'click');
+			await advance(0);
+			expect(isOpen()).toBe(false);
+			mouse(trigger(), 'mouseleave', { bubbles: false });
+			await advance(0);
+			expect(isOpen()).toBe(false);
+		});
+
+		it('sticks if the user clicks impatiently', async () => {
+			render(MenuHarness, { trigger: { openOnHover: true, delay: 0 }, items: items('One') });
+			mouse(trigger(), 'mouseenter', { bubbles: false });
+			await advance(PATIENT_CLICK_THRESHOLD - 1);
+			mouse(trigger(), 'click');
+			mouse(trigger(), 'mouseleave', { bubbles: false });
+			await advance(0);
+			expect(isOpen()).toBe(true);
+			await advance(1);
+			expect(isOpen()).toBe(true);
+		});
+
+		it('sticks when clicked before the hover delay completes', async () => {
+			render(MenuHarness, { trigger: { openOnHover: true, delay: 300 }, items: items('One') });
+			mouse(trigger(), 'mouseenter', { bubbles: false });
+			mouse(trigger(), 'mousemove');
+			await advance(100);
+			mouse(trigger(), 'click');
+			await advance(0);
+			expect(isOpen()).toBe(true);
+			mouse(trigger(), 'mouseleave', { bubbles: false });
+			await advance(0);
+			expect(isOpen()).toBe(true);
+		});
+
+		it('keeps the menu open when re-hovered and clicked within the patient threshold', async () => {
+			render(MenuHarness, { trigger: { openOnHover: true, delay: 100 }, items: items('One') });
+			mouse(trigger(), 'mouseenter', { bubbles: false });
+			mouse(trigger(), 'mousemove');
+			await advance(100);
+			expect(menus().length).toBe(1);
+			await advance(PATIENT_CLICK_THRESHOLD);
+			mouse(trigger(), 'mouseleave', { bubbles: false });
+			mouse(trigger(), 'mouseenter', { bubbles: false });
+			mouse(trigger(), 'mousemove');
+			mouse(trigger(), 'click');
+			await advance(0);
+			expect(menus().length).toBe(1);
+		});
 	});
 });
 
@@ -860,6 +966,24 @@ describe('Menu.Popup', () => {
 		expect(popup.hasAttribute('aria-labelledby')).toBe(false);
 	});
 
+	it('uses a provided aria-labelledby', async () => {
+		const label = document.createElement('span');
+		label.id = 'commands-label';
+		label.textContent = 'Commands';
+		document.body.append(label);
+		try {
+			render(MenuHarness, {
+				open: true,
+				triggerLabel: 'Actions',
+				popupProps: { 'aria-labelledby': 'commands-label' }
+			});
+			const popup = page.getByRole('menu', { name: 'Commands' }).element();
+			expect(popup.getAttribute('aria-labelledby')).toBe('commands-label');
+		} finally {
+			label.remove();
+		}
+	});
+
 	it('sets aria-orientation only on a horizontal popup', async () => {
 		const view = render(MenuHarness, {
 			open: true,
@@ -981,6 +1105,23 @@ describe('Menu.Popup', () => {
 				.poll(() => document.activeElement)
 				.toBe(page.getByTestId('outside-target').element());
 			expect(spy).toHaveBeenLastCalledWith('keyboard');
+		});
+
+		it('receives the mouse interaction type after a drag-release item selection', async () => {
+			const spy = vi.fn();
+			render(MenuFocusHarness, {
+				pick: () => (closeType: string) => {
+					spy(closeType);
+					return true;
+				}
+			});
+			mouse(trigger(), 'mousedown');
+			await expect.poll(() => menus().length).toBe(1);
+			// Item mouseup activates only 200ms after the opening press.
+			await new Promise((resolve) => setTimeout(resolve, 200));
+			mouse(item('Close'), 'mouseup');
+			await expect.poll(() => menus().length).toBe(0);
+			expect(spy).toHaveBeenLastCalledWith('mouse');
 		});
 	});
 });
