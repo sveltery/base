@@ -18,6 +18,7 @@
 		| 'required'
 		| 'cancel'
 		| 'cancel-selected'
+		| 'readonly-label'
 		| 'style'
 		| 'name'
 		| 'keys'
@@ -259,6 +260,16 @@
 				<Radio.Root value="a">A</Radio.Root>
 				<Radio.Root value="b">B</Radio.Root>
 			</RadioGroup>
+		{:else if scenario === 'readonly-label'}
+			<form data-testid="form">
+				<RadioGroup aria-label="Colors" name="color" defaultValue="b" readonly>
+					<label>
+						<Radio.Root value="a" />
+						Label A
+					</label>
+					<Radio.Root value="b">B</Radio.Root>
+				</RadioGroup>
+			</form>
 		{:else if scenario === 'initial'}
 			<InitialColorGroup />
 		{:else}

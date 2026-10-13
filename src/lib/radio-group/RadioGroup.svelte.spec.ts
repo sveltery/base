@@ -122,6 +122,13 @@ describe('RadioGroup', () => {
 			expect(hiddenInput('B').checked).toBe(true);
 		});
 
+		it('keeps submitting the selected value when a read-only radio is clicked through its label', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'readonly-label' });
+			await page.getByText('Label A').click();
+			const form = page.getByTestId('form').element() as HTMLFormElement;
+			expect(new FormData(form).getAll('color')).toEqual(['b']);
+		});
+
 		it('moves focus on an arrow key without selecting when the change is canceled', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'cancel' });
 			radio('A').element().focus();
