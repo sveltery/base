@@ -12,6 +12,7 @@ import { parkPointer } from '../../tests/pointer.js';
 import { items, type MenuFilterSpec, type MenuItemSpec } from '../../tests/menu/types.js';
 
 type Bag = Record<string, unknown>;
+type Submenu = Extract<MenuItemSpec, { type: 'submenu' }>;
 
 function input(name = 'Filter actions') {
 	return page.getByRole('searchbox', { name }).element() as HTMLInputElement;
@@ -1061,7 +1062,7 @@ describe('Menu.FilterProvider', () => {
 describe('Menu.FilterProvider submenus', () => {
 	beforeEach(parkPointer);
 
-	const share = (extra: MenuItemSpec = { type: 'item', label: 'Email' }): MenuItemSpec => ({
+	const share = (extra: MenuItemSpec = { type: 'item', label: 'Email' }): Submenu => ({
 		type: 'submenu',
 		label: 'Share',
 		triggerProps: { openOnHover: false },
@@ -1096,7 +1097,7 @@ describe('Menu.FilterProvider submenus', () => {
 	});
 
 	describe('inside an ordinary parent menu', () => {
-		const folders: MenuItemSpec = {
+		const folders: Submenu = {
 			type: 'submenu',
 			label: 'Move to folder',
 			triggerProps: { delay: 0 },

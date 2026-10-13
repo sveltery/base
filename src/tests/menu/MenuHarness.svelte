@@ -198,20 +198,21 @@
 	</Menu.Portal>
 {/snippet}
 
+{#snippet menuRoot()}
+	{#if bindOpen}
+		<Menu.Root bind:this={root} bind:open handle={detached ? handle : undefined} {...rootProps}
+			>{@render body()}</Menu.Root
+		>
+	{:else}
+		<Menu.Root bind:this={root} {open} handle={detached ? handle : undefined} {...rootProps}
+			>{@render body()}</Menu.Root
+		>
+	{/if}
+{/snippet}
+
 <DirectionProvider {direction}>
 	{#if before}<button type="button">Before</button>{/if}
 	{#if opener}<button type="button" onclick={() => (open = true)}>Show</button>{/if}
-	{#snippet menuRoot()}
-		{#if bindOpen}
-			<Menu.Root bind:this={root} bind:open handle={detached ? handle : undefined} {...rootProps}
-				>{@render body()}</Menu.Root
-			>
-		{:else}
-			<Menu.Root bind:this={root} {open} handle={detached ? handle : undefined} {...rootProps}
-				>{@render body()}</Menu.Root
-			>
-		{/if}
-	{/snippet}
 	{@render filterable(filter, menuRoot)}
 	{#if detached}{@render triggerPart()}{/if}
 	{#if after}<button type="button">After</button>{/if}
