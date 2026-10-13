@@ -1,6 +1,6 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/popover/**/*.test.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PopoverTriggersHarness from '../../tests/PopoverTriggersHarness.svelte';
@@ -165,5 +165,150 @@ describe('opened without a trigger (Base UI v1.9.0)', () => {
 		await view.rerender({ open: true });
 		await expect.poll(content).toBe('1');
 		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+	});
+});
+
+describe('trigger switch transition (Base UI v1.9.0)', () => {
+	function switchCss(switchDuration: number, exitDuration: number) {
+		return `
+			.switch-positioner {
+				transition: top ${switchDuration}ms linear, left ${switchDuration}ms linear,
+					transform ${switchDuration}ms linear;
+			}
+			.switch-popup { opacity: 1; transition: opacity ${exitDuration}ms linear; }
+			.switch-popup[data-ending-style] { opacity: 0; }
+			.switch-positioner[data-instant], .switch-popup[data-instant] { transition: none; }
+		`;
+	}
+
+	function popup() {
+		return document.querySelector<HTMLElement>('[data-testid="popup"]');
+	}
+
+	/** The `data-instant` value of every popup mutation while it is ending. */
+	function recordEndingInstants() {
+		const instants: (string | null)[] = [];
+		const observer = new MutationObserver(() => {
+			const element = popup();
+			if (element?.hasAttribute('data-ending-style')) {
+				instants.push(element.getAttribute('data-instant'));
+			}
+		});
+		observer.observe(document.body, { subtree: true, attributes: true, childList: true });
+		return { instants, stop: () => observer.disconnect() };
+	}
+
+	function hoverTriggers(
+		props: Record<string, unknown> = {},
+		{ switchDuration = 120, exitDuration = 250 } = {}
+	) {
+		return render(PopoverTriggersHarness, {
+			triggers: [
+				{
+					id: 'trigger-1',
+					label: 'Trigger 1',
+					payload: 1,
+					openOnHover: true,
+					style: 'position: absolute; top: 20px; left: 20px'
+				},
+				{
+					id: 'trigger-2',
+					label: 'Trigger 2',
+					payload: 2,
+					openOnHover: true,
+					style: 'position: absolute; top: 20px; left: 220px'
+				}
+			],
+			inside: false,
+			positionerClass: 'switch-positioner',
+			popupClass: 'switch-popup',
+			css: switchCss(switchDuration, exitDuration),
+			...props
+		});
+	}
+
+	it('does not restore the trigger-change instant after a reopen on the same trigger', async () => {
+		hoverTriggers({}, { switchDuration: 500, exitDuration: 400 });
+		await page.getByRole('button', { name: 'Trigger 1' }).hover();
+		await expect.poll(content).toBe('1');
+		await page.getByRole('button', { name: 'Trigger 2' }).hover();
+		await expect.poll(content).toBe('2');
+		await userEvent.unhover(page.getByRole('button', { name: 'Trigger 2' }));
+		await expect.poll(() => popup()?.hasAttribute('data-ending-style')).toBe(true);
+		await page.getByRole('button', { name: 'Trigger 2' }).hover();
+		await expect.poll(() => popup()?.hasAttribute('data-ending-style')).toBe(false);
+		const reopened = popup();
+		await new Promise((resolve) => setTimeout(resolve, 650));
+		expect(popup()).toBe(reopened);
+		expect(reopened?.hasAttribute('data-instant')).toBe(false);
+	});
+
+	it('does not apply the trigger-change instant to a prop-driven close after a switch', async () => {
+		const view = render(PopoverTriggersHarness, {
+			triggers: [
+				{ id: 't1', label: 'Trigger 1', style: 'position: absolute; top: 80px; left: 20px' },
+				{ id: 't2', label: 'Trigger 2', style: 'position: absolute; top: 80px; left: 220px' }
+			],
+			inside: false,
+			positionerClass: 'switch-positioner',
+			popupClass: 'switch-popup',
+			css: switchCss(300, 400)
+		});
+		await page.getByRole('button', { name: 'Trigger 1' }).click();
+		await expect.poll(popup).not.toBeNull();
+		await new Promise((resolve) => setTimeout(resolve, 100));
+
+		await view.rerender({ triggerId: 't2' });
+		await expect.poll(() => popup()?.getAttribute('data-instant')).toBe('trigger-change');
+
+		const ending = recordEndingInstants();
+		await view.rerender({ open: false });
+		await expect.poll(() => ending.instants.length, { timeout: 2000 }).toBeGreaterThan(0);
+		ending.stop();
+		expect(ending.instants).not.toContain('trigger-change');
+
+		await expect.poll(popup, { timeout: 2000 }).toBeNull();
+		await view.rerender({ open: true });
+		await expect.poll(popup).not.toBeNull();
+		expect(popup()?.hasAttribute('data-instant')).toBe(false);
+	});
+
+	it('does not restore the trigger-change instant when a bound close commits late', async () => {
+		const opened: (string | undefined)[] = [];
+		let view: ReturnType<typeof hoverTriggers> | undefined;
+		view = hoverTriggers(
+			{
+				onOpenChange(next: boolean, details: PopoverChangeEventDetails) {
+					if (next) {
+						opened.push(details.trigger?.id);
+						return;
+					}
+					details.cancel();
+					setTimeout(() => void view?.rerender({ open: false }), 400);
+				}
+			},
+			{ switchDuration: 200 }
+		);
+		await page.getByRole('button', { name: 'Trigger 1' }).hover();
+		await expect.poll(content).toBe('1');
+		await new Promise((resolve) => setTimeout(resolve, 100));
+		const ending = recordEndingInstants();
+		let pending: (string | null)[] = [];
+		const pendingObserver = new MutationObserver(() => {
+			const element = popup();
+			if (element && !element.hasAttribute('data-ending-style')) {
+				pending.push(element.getAttribute('data-instant'));
+			}
+		});
+		await page.getByRole('button', { name: 'Trigger 2' }).hover();
+		pending = [];
+		pendingObserver.observe(document.body, { subtree: true, attributes: true });
+		await userEvent.unhover(page.getByRole('button', { name: 'Trigger 2' }));
+		await expect.poll(() => ending.instants.length, { timeout: 2000 }).toBeGreaterThan(0);
+		ending.stop();
+		pendingObserver.disconnect();
+		expect(opened).toEqual(['trigger-1', 'trigger-2']);
+		expect(pending).toContain('trigger-change');
+		expect(ending.instants).not.toContain('trigger-change');
 	});
 });

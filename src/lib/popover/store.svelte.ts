@@ -44,7 +44,7 @@ export interface PopoverStoreOptions {
 
 export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	stickIfOpen = $state(true);
-	instantType = $state<PopoverInstant | undefined>(undefined);
+	#instantType = $state<PopoverInstant | undefined>(undefined);
 	openChangeReason = $state<PopoverChangeReason | null>(null);
 	titleElementId = $state<string | undefined>(undefined);
 	descriptionElementId = $state<string | undefined>(undefined);
@@ -66,7 +66,9 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	/** Id written for this open. Survives a bound trigger id that the parent sets back. */
 	private claimedTriggerId: string | null = null;
 	private readonly readers = new SvelteMap<string, () => TriggerOwned>();
-	private triggerChangeAbort: AbortController | null = null;
+	/** The last trigger that owned the popup. A different one means the popup moved. */
+	private previousTrigger: Element | null = null;
+	private pendingSwitch: AbortController | null = null;
 	/** Trigger that opened the popup. Click remembers the next node before setOpen. */
 	private openedFrom: Element | null = null;
 	/** Bumps when an open popup changes trigger. The viewport snapshots on this. */
@@ -94,10 +96,18 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			this.stickTimeout.clear();
 		});
 
-		// Upstream useImplicitActiveTrigger: a popup opened without naming a trigger, such as
-		// through `bind:open`, claims its only trigger until it finishes closing.
+		// Upstream useImplicitActiveTrigger: a bound trigger id moves the popup to that trigger, and
+		// a popup opened without naming a trigger, such as through `bind:open`, claims its only
+		// trigger until it finishes closing.
 		$effect(() => {
-			if (!this.open || this.openedWithoutTrigger || this.triggerCount !== 1) return;
+			if (!this.open) return;
+			const boundId = this.readTriggerId();
+			const bound = boundId ? this.triggers.getById(boundId) : undefined;
+			if (bound) {
+				if (bound !== untrack(() => this.domReferenceElement)) this.domReferenceElement = bound;
+				return;
+			}
+			if (this.openedWithoutTrigger || this.triggerCount !== 1) return;
 			if (this.resolvedActiveTriggerId() != null) return;
 			untrack(() => {
 				const [only] = this.triggers.elements();
@@ -108,16 +118,54 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			});
 		});
 
+		// Upstream useTriggerSwitchTransition. The positioner is instant while open, so it would jump
+		// between triggers. The move animates with `instant` cleared, and `trigger-change` returns
+		// once it finishes. A close cancels that, because the trigger element outlives the exit and
+		// nothing else would abort a restoration that a reopen could inherit.
+		$effect(() => {
+			if (this.open) return;
+			untrack(() => {
+				this.pendingSwitch?.abort();
+				this.pendingSwitch = null;
+				if (this.#instantType === 'trigger-change') this.#instantType = undefined;
+			});
+		});
+
+		$effect(() => {
+			const current = this.domReferenceElement;
+			return untrack(() => {
+				const previous = this.previousTrigger;
+				if (current) this.previousTrigger = current;
+				if (!previous || !current || current === previous || !this.open) return;
+				this.#instantType = undefined;
+				const controller = new AbortController();
+				this.pendingSwitch = controller;
+				const restore = () => {
+					// The animations can finish in the frame a close commits.
+					if (this.open) this.#instantType = 'trigger-change';
+				};
+				const positioner = this.positionerElement;
+				if (positioner) runOnceAnimationsFinish(positioner, restore, controller.signal, false);
+				else restore();
+				return () => controller.abort();
+			});
+		});
+
 		$effect(() => {
 			return () => {
 				this.stickTimeout.clear();
-				this.triggerChangeAbort?.abort();
 			};
 		});
 	}
 
 	protected override preventUnmountTiming(): 'immediate' | 'deferred' {
 		return 'deferred';
+	}
+
+	/** `trigger-change` describes a move between triggers, so a closed popup never reports it. */
+	get instantType(): PopoverInstant | undefined {
+		const instant = this.#instantType;
+		return instant === 'trigger-change' && !this.open ? undefined : instant;
 	}
 
 	get modal(): PopoverModal {
@@ -271,15 +319,13 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		if (wasOpen && nextOpen && previousElement && nextElement && previousElement !== nextElement) {
 			this.switchedFrom = previousElement;
 			this.triggerSwitch += 1;
-			this.armTriggerChange();
-			return;
 		}
 
 		let instant: PopoverInstant | undefined;
 		if (isKeyboardClick) instant = 'click';
 		else if (isDismissClose) instant = 'dismiss';
 		else if (reason === REASONS.focusOut) instant = 'focus';
-		this.instantType = instant;
+		this.#instantType = instant;
 	}
 
 	notifyOpened() {
@@ -293,25 +339,5 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 
 	closeImperative() {
 		this.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
-	}
-
-	private armTriggerChange() {
-		this.triggerChangeAbort?.abort();
-		this.instantType = undefined;
-		const positioner = this.positionerElement;
-		if (!positioner) {
-			this.instantType = 'trigger-change';
-			return;
-		}
-		const controller = new AbortController();
-		this.triggerChangeAbort = controller;
-		runOnceAnimationsFinish(
-			positioner,
-			() => {
-				this.instantType = 'trigger-change';
-			},
-			controller.signal,
-			false
-		);
 	}
 }
