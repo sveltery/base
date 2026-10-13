@@ -77,8 +77,9 @@
 		const controlId = labelable.controlId;
 		if (!controlId) return;
 		const current = event.currentTarget;
-		const doc = current instanceof Node ? (current.ownerDocument ?? document) : document;
-		const control = doc.getElementById(controlId);
+		if (!(current instanceof Node)) return;
+		const root = current.getRootNode() as Document | ShadowRoot;
+		const control = root.getElementById(controlId);
 		if (control instanceof HTMLElement) {
 			control.focus({ focusVisible: true } as FocusOptions);
 		}

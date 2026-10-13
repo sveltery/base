@@ -13,7 +13,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { ownerDocument, getTarget } from '@sveltery/utils';
+	import { getTarget } from '@sveltery/utils';
 	import { focusElement, isElement } from './dom.js';
 	import type { SliderLabelProps, SliderRootState } from './types.js';
 
@@ -40,7 +40,8 @@
 	function focusControl(event: MouseEvent) {
 		const controlId = labelable?.controlId;
 		if (controlId) {
-			const controlElement = ownerDocument(event.currentTarget as Node).getElementById(controlId);
+			const root = (event.currentTarget as Node).getRootNode() as Document | ShadowRoot;
+			const controlElement = root.getElementById(controlId);
 			if (controlElement instanceof HTMLElement) {
 				focusElement(controlElement, { focusVisible: true });
 				return;
