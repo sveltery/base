@@ -36,7 +36,19 @@ export async function withAnimations(body: () => Promise<void>) {
  * Fakes the clock for every test in the calling suite. Animation frames stay real so the
  * browser keeps painting; with animations disabled no toast waits for one.
  */
+const seen: string[] = [];
+const record = (event: Event) => {
+	if (event.isTrusted)
+		seen.push(
+			`${event.type}:${(event.target as Element)?.nodeName ?? 'window'}:${(event.target as Element)?.getAttribute?.('role') ?? ''}`
+		);
+};
+for (const type of ['blur', 'focus', 'mouseover', 'mousemove', 'pointerdown'])
+	window.addEventListener(type, record, true);
 export function useFakeClock() {
+	afterEach((ctx) => {
+		console.log('DIAG', ctx.task.name, document.hasFocus(), seen.splice(0).join(' '));
+	});
 	beforeEach(() => {
 		vi.useFakeTimers({
 			toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date']
