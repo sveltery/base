@@ -40,6 +40,24 @@ export {
 	tabbable,
 	type FocusableElement
 } from './utils/tabbable.js';
+export { default as FloatingDelayGroup } from './components/FloatingDelayGroup.svelte';
+export {
+	DelayGroup,
+	DelayGroupMember,
+	getDelayGroup,
+	hasDelayGroup,
+	setDelayGroup,
+	type Delay,
+	type DelayGroupProps
+} from './components/delay-group.svelte.js';
+export {
+	FocusInteraction,
+	TRIGGER_FOCUS_REASON,
+	type UseFocusProps
+} from './hooks/useFocus.svelte.js';
+export { ClientPointInteraction, type UseClientPointProps } from './hooks/useClientPoint.svelte.js';
+export { getDelay } from './hooks/useHoverShared.js';
+export { isMouseLikePointerType } from './utils/event.js';
 export { ListNavigation, type UseListNavigationProps } from './hooks/useListNavigation.svelte.js';
 export {
 	findNonDisabledListIndex,
