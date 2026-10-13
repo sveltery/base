@@ -5,7 +5,10 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	`actionsRef` is the exported `close` and `unmount`. Bind the root with `bind:this`.
 -->
-<script lang="ts" generics="Value = unknown, Multiple extends boolean | undefined = false, Item = Value">
+<script
+	lang="ts"
+	generics="Value = unknown, Multiple extends boolean | undefined = false, Item = Value"
+>
 	import AriaCombobox from './AriaCombobox.svelte';
 	import type { ComboboxRootProps } from './types.js';
 

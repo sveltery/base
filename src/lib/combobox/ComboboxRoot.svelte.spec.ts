@@ -501,7 +501,9 @@ describe('Combobox.Root', () => {
 		await tick();
 
 		await expect.element(input()).toHaveFocus();
-		await expect.element(page.getByTestId('input-group')).not.toHaveAttribute('aria-hidden', 'true');
+		await expect
+			.element(page.getByTestId('input-group'))
+			.not.toHaveAttribute('aria-hidden', 'true');
 	});
 
 	it('dismisses the popup when clicking a plain wrapper around the input', async () => {
@@ -596,9 +598,9 @@ describe('Combobox.Root', () => {
 		expect(popup.nextElementSibling).toBe(end);
 		expect(start).not.toHaveAttribute('tabindex');
 		expect(end).not.toHaveAttribute('tabindex');
-		await expect.poll(() => isElementOrAncestorInert(page.getByTestId('outside').element())).toBe(
-			true
-		);
+		await expect
+			.poll(() => isElementOrAncestorInert(page.getByTestId('outside').element()))
+			.toBe(true);
 
 		(end as HTMLElement).click();
 		await expect.element(listbox()).not.toBeInTheDocument();

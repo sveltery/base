@@ -312,8 +312,7 @@ describe('Combobox.Root', () => {
 				render(ComboboxHarness, combobox);
 			}
 
-			const errorText = () =>
-				document.querySelector('[data-testid="error"]')?.textContent ?? null;
+			const errorText = () => document.querySelector('[data-testid="error"]')?.textContent ?? null;
 			const hidden = named('test');
 			expect(hidden).not.toBeNull();
 			expect(errorText()).toBe(expectedError);
@@ -383,7 +382,9 @@ describe('Combobox.Root', () => {
 		});
 
 		await autofill(named('country'), 'CA');
-		input().element().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+		input()
+			.element()
+			.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
 		await expect.element(option('Canada')).toHaveAttribute('aria-selected', 'true');
 	});
@@ -409,7 +410,9 @@ describe('Combobox.Root', () => {
 			expect.objectContaining({ reason: REASONS.none })
 		);
 
-		input().element().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+		input()
+			.element()
+			.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 		await expect.element(option('Canada')).toHaveAttribute('aria-selected', 'true');
 	});
 
@@ -629,7 +632,9 @@ describe('Combobox.Root', () => {
 			await expect.element(input()).toHaveAttribute('disabled');
 			await expect.element(trigger()).toHaveAttribute('disabled');
 
-			trigger().element().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+			trigger()
+				.element()
+				.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 			await tick();
 			expect(document.querySelector('[role="listbox"]')).toBeNull();
 		});
@@ -657,7 +662,10 @@ describe('Combobox.Root', () => {
 		});
 
 		it('should set disabled attribute on hidden input', async () => {
-			render(ComboboxHarness, { staticItems: [{ value: 'a' }], root: { disabled: true, name: 'test' } });
+			render(ComboboxHarness, {
+				staticItems: [{ value: 'a' }],
+				root: { disabled: true, name: 'test' }
+			});
 			expect(hiddenInput().hasAttribute('disabled')).toBe(true);
 		});
 	});
@@ -734,7 +742,10 @@ describe('Combobox.Root', () => {
 		});
 
 		it('should set readOnly attribute on hidden input', async () => {
-			render(ComboboxHarness, { staticItems: [{ value: 'a' }], root: { readonly: true, name: 'test' } });
+			render(ComboboxHarness, {
+				staticItems: [{ value: 'a' }],
+				root: { readonly: true, name: 'test' }
+			});
 			expect(hiddenInput().hasAttribute('readonly')).toBe(true);
 		});
 
@@ -785,7 +796,9 @@ describe('Combobox.Root', () => {
 			await userEvent.keyboard('{ArrowDown}');
 
 			await expect
-				.poll(() => onItemHighlighted.mock.calls.some(([v, d]) => v === 'a' && d.reason === 'keyboard'))
+				.poll(() =>
+					onItemHighlighted.mock.calls.some(([v, d]) => v === 'a' && d.reason === 'keyboard')
+				)
 				.toBe(true);
 		});
 

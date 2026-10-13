@@ -71,6 +71,18 @@ export function findCollectionItem<Item, Value>(
 	return undefined;
 }
 
+/** Maps each value to its item. The first item of a duplicated value wins. */
+export function mapValuesToItems<Item, Value>(
+	values: readonly Value[],
+	items: readonly Item[]
+): Map<Value, Item> {
+	const map = new Map<Value, Item>();
+	values.forEach((value, index) => {
+		if (!map.has(value)) map.set(value, items[index]);
+	});
+	return map;
+}
+
 /**
  * Creates a collection for the root's `items`: each item's selection value and label come from
  * `getValue` and `getLabel`, derived on first use. Items cannot have an `items` array, which marks

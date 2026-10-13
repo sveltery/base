@@ -293,7 +293,10 @@ describe('Combobox.Root selection: single', () => {
 		});
 
 		// Upstream renders this button inside the popup. A DOM click is not an outside press.
-		page.getByTestId('clear-highlight').element().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+		page
+			.getByTestId('clear-highlight')
+			.element()
+			.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 		await expect.element(input()).not.toHaveAttribute('aria-activedescendant');
 		await expect.element(option('banana')).not.toHaveAttribute('data-highlighted');
 
@@ -425,9 +428,9 @@ describe('Combobox.Root selection: single', () => {
 		const scrollIntoView = spyScroll().mockImplementation(() => {});
 		const onItemHighlighted = vi.fn();
 		const all = staticFruits;
-		// The input inside the popup clears the query as it mounts, before `props` is assigned.
-		let props: { staticItems?: { value: unknown }[] } | undefined;
-		props = renderBound(ComboboxHarness, {
+		// The input inside the popup clears the query as it mounts, before `view.props` is assigned.
+		const view: { props?: { staticItems?: { value: unknown }[] } } = {};
+		view.props = renderBound(ComboboxHarness, {
 			staticItems: all,
 			inputInside: true,
 			open: true,
@@ -436,7 +439,7 @@ describe('Combobox.Root selection: single', () => {
 				autoHighlight: true,
 				onItemHighlighted,
 				onInputValueChange: (query: string) => {
-					if (props) props.staticItems = query ? [{ value: 'cherry' }] : all;
+					if (view.props) view.props.staticItems = query ? [{ value: 'cherry' }] : all;
 				}
 			}
 		});
@@ -506,7 +509,10 @@ describe('Combobox.Root selection: single', () => {
 	});
 
 	it('scrolls to programmatic highlights after the filtered list changes', async () => {
-		const items = Array.from({ length: 200 }, (_, index) => `item-${String(index).padStart(3, '0')}`);
+		const items = Array.from(
+			{ length: 200 },
+			(_, index) => `item-${String(index).padStart(3, '0')}`
+		);
 		render(ComboboxHarness, {
 			items,
 			inputInside: true,
@@ -572,10 +578,7 @@ describe('Combobox.Root selection: single', () => {
 		// A programmatic (`none`) highlight lets a virtualized list scroll the item into view.
 		await expect
 			.poll(() => onItemHighlighted.mock.calls)
-			.toContainEqual([
-				'banana',
-				expect.objectContaining({ reason: REASONS.none, index: 1 })
-			]);
+			.toContainEqual(['banana', expect.objectContaining({ reason: REASONS.none, index: 1 })]);
 	});
 
 	it('consumes a query-clear restore when the selected item is absent', async () => {
@@ -585,8 +588,8 @@ describe('Combobox.Root selection: single', () => {
 			(query ? ['apple'] : includeSelected ? fruits : ['apple', 'cherry']).map((value) => ({
 				value
 			}));
-		let props: { staticItems?: { value: unknown }[] } | undefined;
-		props = renderBound(ComboboxHarness, {
+		const view: { props?: { staticItems?: { value: unknown }[] } } = {};
+		view.props = renderBound(ComboboxHarness, {
 			staticItems: visible(''),
 			inputInside: true,
 			open: true,
@@ -596,7 +599,7 @@ describe('Combobox.Root selection: single', () => {
 				autoHighlight: true,
 				onItemHighlighted,
 				onInputValueChange: (query: string) => {
-					if (props) props.staticItems = visible(query);
+					if (view.props) view.props.staticItems = visible(query);
 				}
 			}
 		});
@@ -729,7 +732,9 @@ describe('Combobox.Root selection: single', () => {
 		await userEvent.click(input());
 		await expect.element(option('banana')).toHaveAttribute('data-highlighted');
 		expect(
-			onItemHighlighted.mock.calls.some(([value]) => value && value.id !== undefined && value.id !== 2)
+			onItemHighlighted.mock.calls.some(
+				([value]) => value && value.id !== undefined && value.id !== 2
+			)
 		).toBe(false);
 	});
 });

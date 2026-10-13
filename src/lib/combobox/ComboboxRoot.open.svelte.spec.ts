@@ -112,22 +112,20 @@ describe('Combobox.Root', () => {
 			`;
 			document.head.append(animationStyle);
 
-			let props!: { open: boolean; refuseOpen: boolean };
-			props = renderBound(ComboboxHarness, {
+			const props: { open?: boolean; refuseOpen?: boolean } = renderBound(ComboboxHarness, {
 				open: true,
 				refuseOpen: true,
 				items: ['Apple', 'Apricot', 'Banana'],
 				root: {
 					onOpenChange: (next: boolean) => {
 						if (next) return;
-						// eslint-disable-next-line sveltery/no-unscoped-timer -- the parent's deferred close
 						setTimeout(() => {
 							props.refuseOpen = false;
 							props.open = false;
 						}, 50);
 					}
 				}
-			}) as never;
+			});
 
 			await userEvent.type(input(), 'ap');
 			await userEvent.click(option('Apple'));
@@ -286,15 +284,17 @@ describe('Combobox.Root', () => {
 			});
 
 			await expect.element(option('A1')).toBeInTheDocument();
-			expect([...document.querySelectorAll('[role="option"]')].map((e) => e.textContent?.trim())).toEqual(
-				['A1', 'A2', 'B1']
-			);
+			expect(
+				[...document.querySelectorAll('[role="option"]')].map((e) => e.textContent?.trim())
+			).toEqual(['A1', 'A2', 'B1']);
 		});
 
 		it('does not limit items when not using items prop', async () => {
 			render(ComboboxHarness, {
 				open: true,
-				staticItems: ['apple', 'banana', 'cherry', 'date', 'elderberry'].map((value) => ({ value })),
+				staticItems: ['apple', 'banana', 'cherry', 'date', 'elderberry'].map((value) => ({
+					value
+				})),
 				root: { limit: 2 }
 			});
 

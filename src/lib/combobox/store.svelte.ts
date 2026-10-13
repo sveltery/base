@@ -34,6 +34,7 @@ import { isScrollable } from '../internal/scrollable.js';
 import {
 	filterItems,
 	findCollectionItem,
+	mapValuesToItems,
 	isItemCollection,
 	type ComboboxItemCollection,
 	type ComboboxItemsData,
@@ -103,12 +104,10 @@ export interface ComboboxStoreOptions {
 	/** Calls `onInputValueChange`, then writes the value unless it was canceled. */
 	commitInputValue: (next: string, details: ComboboxChangeEventDetails) => void;
 	onOpenChange: () =>
-		| ((open: boolean, details: ComboboxOpenChangeEventDetails) => void)
-		| undefined;
+		((open: boolean, details: ComboboxOpenChangeEventDetails) => void) | undefined;
 	onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
 	onItemHighlighted: () =>
-		| ((value: unknown, details: ComboboxHighlightEventDetails) => void)
-		| undefined;
+		((value: unknown, details: ComboboxHighlightEventDetails) => void) | undefined;
 	/** Field bookkeeping when focus or a press outside closes a popup that holds the input. */
 	onDismissedOutside: () => void;
 	requestSubmit: () => void;
@@ -129,6 +128,8 @@ interface PendingQueryHighlight {
 	toggledValue?: unknown;
 }
 
+type PopupSide = 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end';
+
 export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 	readonly items = new ElementList<HTMLElement, ComboboxItemMeta>();
 
@@ -147,9 +148,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 	inputInsidePopup = $state(true);
 	/** Mounts the items while closed, for typeahead on the trigger and for autofill. */
 	forceMounted = $state(false);
-	popupSide = $state<'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end' | null>(
-		null
-	);
+	#readPopupSide = $state<(() => PopupSide) | null>(null);
 	queryChangedAfterOpen = $state(false);
 	/** The query frozen while the popup animates out. */
 	closeQuery = $state<string | null>(null);
@@ -324,11 +323,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 		return {
 			values,
 			findItem(value: unknown, isEqual: ItemEqualityComparer) {
-				const map = new Map<unknown, unknown>();
-				values.forEach((item, index) => {
-					if (!map.has(item)) map.set(item, flat[index]);
-				});
-				return findCollectionItem(map, value, isEqual);
+				return findCollectionItem(mapValuesToItems(values, flat), value, isEqual);
 			}
 		};
 	});
@@ -471,9 +466,17 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 		return compareItemEquality(itemValue, selectedValue, isItemEqualToValue);
 	}
 
-	/** The side of the mounted positioner. The store keeps the last one after it unmounts. */
+	/** The side of the mounted positioner. */
 	get renderedPopupSide() {
-		return this.mounted && this.positionerElement ? this.popupSide : null;
+		return this.mounted && this.positionerElement ? (this.#readPopupSide?.() ?? null) : null;
+	}
+
+	/** The positioner publishes its side. Returns the cleanup that withdraws it. */
+	publishPopupSide(read: () => PopupSide) {
+		this.#readPopupSide = read;
+		return () => {
+			if (this.#readPopupSide === read) this.#readPopupSide = null;
+		};
 	}
 
 	forceMount() {
@@ -840,8 +843,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 					this.#pendingQueryHighlight = null;
 				} else if (
 					listIsNavigable &&
-					(candidates[0] !== undefined ||
-						(!this.hasItems && this.root.filteredItems === undefined))
+					(candidates[0] !== undefined || (!this.hasItems && this.root.filteredItems === undefined))
 				) {
 					this.activeIndex = 0;
 					this.#pendingQueryHighlight = null;
@@ -891,7 +893,10 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 		void activeIndex;
 	}
 
-	#restoreHighlightAfterClear(pending: PendingQueryHighlight, autoHighlight: ComboboxAutoHighlight) {
+	#restoreHighlightAfterClear(
+		pending: PendingQueryHighlight,
+		autoHighlight: ComboboxAutoHighlight
+	) {
 		if (
 			(!this.open && (!this.root.inline || this.#inlineDialog())) ||
 			(this.inputElement && this.inputElement.value.trim() !== '')

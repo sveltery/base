@@ -66,9 +66,7 @@
 	}));
 	setComboboxPositioner(positioning);
 
-	$effect.pre(() => {
-		store.popupSide = positioning.side;
-	});
+	$effect.pre(() => store.publishPopupSide(() => positioning.side));
 
 	useAnchoredPopupScrollLock(() => ({
 		enabled: store.open && store.root.modal,

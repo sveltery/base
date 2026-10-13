@@ -8,6 +8,7 @@ import { render } from 'vitest-browser-svelte';
 import { REASONS } from '@sveltery/utils';
 import { renderBound } from '../../tests/bound-render.svelte.js';
 import ComboboxHarness from '../../tests/ComboboxHarness.svelte';
+import type { ComboboxChangeEventDetails } from './types.js';
 
 const input = () => page.getByTestId('input');
 const trigger = () => page.getByTestId('trigger');
@@ -40,7 +41,12 @@ afterEach(() => {
 
 function renderGrid(rows: string[][], root: Record<string, unknown> = {}, extra = {}) {
 	const onItemHighlighted = vi.fn();
-	render(ComboboxHarness, { open: true, rows, root: { grid: true, onItemHighlighted, ...root }, ...extra });
+	render(ComboboxHarness, {
+		open: true,
+		rows,
+		root: { grid: true, onItemHighlighted, ...root },
+		...extra
+	});
 	const last = () => onItemHighlighted.mock.lastCall?.[0];
 	return { onItemHighlighted, last };
 }
@@ -263,9 +269,11 @@ describe('Combobox.Root', () => {
 		});
 
 		it('keeps the active item when the post-selection input clear is canceled', async () => {
-			const onInputValueChange = vi.fn((_value: string, details: { reason: string; cancel(): void }) => {
-				if (details.reason === REASONS.inputClear) details.cancel();
-			});
+			const onInputValueChange = vi.fn(
+				(_value: string, details: { reason: string; cancel(): void }) => {
+					if (details.reason === REASONS.inputClear) details.cancel();
+				}
+			);
 			render(ComboboxHarness, {
 				open: true,
 				inputInside: true,
@@ -352,7 +360,7 @@ describe('Combobox.Root', () => {
 			);
 		});
 
-		const cancelItemPressClear = (_value: string, details: { isItemPress?: boolean; cancel(): void }) => {
+		const cancelItemPressClear = (_value: string, details: ComboboxChangeEventDetails) => {
 			if (details.isItemPress) details.cancel();
 		};
 
@@ -612,7 +620,9 @@ describe('Combobox.Root', () => {
 
 			const element = input().element() as HTMLInputElement;
 			element.value = '';
-			element.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'deleteContentBackward' }));
+			element.dispatchEvent(
+				new InputEvent('input', { bubbles: true, inputType: 'deleteContentBackward' })
+			);
 			await flush();
 
 			await expect.element(option('apple')).toBeInTheDocument();
@@ -649,8 +659,7 @@ describe('Combobox.Root', () => {
 		it('does not emit another clear when controlled input is already empty on interrupted close', async () => {
 			animateClose();
 			const onInputValueChange = vi.fn();
-			let props!: { inputValue: string };
-			props = renderBound(ComboboxHarness, {
+			const props: { inputValue: string } = renderBound(ComboboxHarness, {
 				inputValue: '',
 				inputInside: true,
 				items: ['apple', 'banana'],
@@ -698,7 +707,9 @@ describe('Combobox.Root', () => {
 
 		it('does not clear popup input after canceled multiple value changes', async () => {
 			const onInputValueChange = vi.fn();
-			const onValueChange = vi.fn((_value: unknown, details: { cancel(): void }) => details.cancel());
+			const onValueChange = vi.fn((_value: unknown, details: { cancel(): void }) =>
+				details.cancel()
+			);
 			render(ComboboxHarness, {
 				inputInside: true,
 				staticItems: staticFruits,

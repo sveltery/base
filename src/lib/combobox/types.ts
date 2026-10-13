@@ -30,7 +30,10 @@ export type {
 	ComboboxPrimitiveValue,
 	CreateComboboxItemsOptions
 } from './collection.js';
-export type { Filter as ComboboxFilter, UseFilterOptions as ComboboxFilterOptions } from './filter.js';
+export type {
+	Filter as ComboboxFilter,
+	UseFilterOptions as ComboboxFilterOptions
+} from './filter.js';
 
 export type ComboboxChangeReason =
 	| typeof REASONS.triggerPress
@@ -63,9 +66,7 @@ export type ComboboxOpenChangeEventDetails = ComboboxChangeEventDetails & {
 };
 
 export type ComboboxHighlightReason =
-	| typeof REASONS.keyboard
-	| typeof REASONS.pointer
-	| typeof REASONS.none;
+	typeof REASONS.keyboard | typeof REASONS.pointer | typeof REASONS.none;
 
 export type ComboboxHighlightEventDetails = BaseUIHighlightEventDetails<
 	ComboboxHighlightReason,
@@ -79,8 +80,7 @@ export type ComboboxValueOf<Value, Multiple extends boolean | undefined> = Multi
 
 /** Flat items, groups of items, or a `createItems()` collection. */
 export type ComboboxItems<Item = unknown, Value = Item> =
-	| ComboboxItemsData<Item>
-	| ComboboxItemCollection<Item, Value>;
+	ComboboxItemsData<Item> | ComboboxItemCollection<Item, Value>;
 
 type PartRender<Element extends EventTarget, State> = Snippet<
 	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
@@ -251,8 +251,10 @@ export interface ComboboxRootProps<
  * The core every combobox-like root wraps. Combobox maps `value` and `multiple` onto it.
  * Autocomplete wraps it with `selectionMode: 'none'`.
  */
-export interface AriaComboboxProps<Value = unknown, Item = Value>
-	extends ComboboxSharedRootProps<Value, Item> {
+export interface AriaComboboxProps<Value = unknown, Item = Value> extends ComboboxSharedRootProps<
+	Value,
+	Item
+> {
 	/** How selection is remembered: one value, several, or none (input value only). */
 	selectionMode: 'single' | 'multiple' | 'none';
 	/** The selected value. Use `bind:selectedValue` to share it with the parent. */
@@ -285,7 +287,10 @@ export interface AriaComboboxProps<Value = unknown, Item = Value>
 
 export type ComboboxLabelState = FieldRootState;
 
-export interface ComboboxLabelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
+export interface ComboboxLabelProps extends Omit<
+	HTMLAttributes<HTMLDivElement>,
+	'children' | 'id'
+> {
 	render?: PartRender<HTMLDivElement, ComboboxLabelState>;
 	children?: Snippet;
 }

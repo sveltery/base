@@ -304,9 +304,14 @@
 		return store.values.find((item) => serialize(item) === key) ?? raw;
 	}
 
+	// svelte-ignore state_referenced_locally
 	const bound = new BoundControl<unknown>(field, {
-		// svelte-ignore state_referenced_locally
-		kind: selectionMode === 'none' ? 'text' : multiple ? 'select multiple' : 'select',
+		kind:
+			selectionMode === 'none'
+				? 'text'
+				: selectionMode === 'multiple'
+					? 'select multiple'
+					: 'select',
 		read: () => fieldRawValue,
 		write: (next) => {
 			if (selectionMode === 'none') inputValue = String(next ?? '');
@@ -326,7 +331,8 @@
 			if (inputValue === undefined) inputValue = String(bound.initial(defaultInputValue ?? ''));
 			return;
 		}
-		if (selectedValue === undefined) selection.set(bound.initial(defaultSelectedValue ?? emptyValue()));
+		if (selectedValue === undefined)
+			selection.set(bound.initial(defaultSelectedValue ?? emptyValue()));
 		if (inputValue === undefined) {
 			inputValue = hasInputValue
 				? (defaultInputValue ?? '')

@@ -59,6 +59,7 @@ export function announceInitialText(root: HTMLElement) {
 	const restore = () => {
 		if (node.nodeValue === marked) node.nodeValue = original;
 	};
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- the returned cleanup cancels it
 	const timeout = setTimeout(restore, MARKER_RESET_DELAY);
 	return () => {
 		clearTimeout(timeout);

@@ -202,8 +202,7 @@ describe('Combobox.createItems', () => {
 		});
 
 		it('falls back to the raw selected ID when API results are cleared', async () => {
-			let props!: { collection: unknown };
-			props = renderBound(ComboboxItemsHarness, {
+			const props: { collection: unknown } = renderBound(ComboboxItemsHarness, {
 				collection: apiCollection(apiUsers),
 				value: null as string | null,
 				open: true,
@@ -214,7 +213,7 @@ describe('Combobox.createItems', () => {
 						props.collection = apiCollection(undefined);
 					}
 				}
-			}) as never;
+			});
 
 			await userEvent.click(option('Carol'));
 

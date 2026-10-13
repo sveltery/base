@@ -11,6 +11,7 @@ import { REASONS } from '@sveltery/utils';
 import { renderBound } from '../../tests/bound-render.svelte.js';
 import ComboboxFieldHarness from '../../tests/ComboboxFieldHarness.svelte';
 import ComboboxHarness from '../../tests/ComboboxHarness.svelte';
+import type { ComboboxHighlightEventDetails } from './types.js';
 
 const input = () => page.getByTestId('input');
 const trigger = () => page.getByTestId('trigger');
@@ -31,7 +32,7 @@ function renderPopup(
 	options: {
 		items?: string[];
 		defaultValue?: string[];
-		onItemHighlighted?: (...args: never[]) => void;
+		onItemHighlighted?: (itemValue: unknown, details: ComboboxHighlightEventDetails) => void;
 	} = {}
 ) {
 	return render(ComboboxHarness, {
@@ -507,7 +508,10 @@ describe('Combobox.Root selection: multiple', () => {
 		await expect.element(page.getByTestId('chip-a')).toHaveAttribute('aria-readonly', 'true');
 
 		await expect.element(page.getByTestId('remove-a')).toBeDisabled();
-		page.getByTestId('remove-a').element().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+		page
+			.getByTestId('remove-a')
+			.element()
+			.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 		await expect.element(page.getByTestId('chip-a')).toBeInTheDocument();
 	});
 });

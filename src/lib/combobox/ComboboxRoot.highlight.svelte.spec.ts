@@ -132,7 +132,10 @@ describe('Combobox.Root', () => {
 
 			it('discards the request when an ignored typed open is followed by another open', async () => {
 				const onOpenChange = vi.fn();
-				const props = renderAsync({ items: ['32'], open: false, refuseOpen: true }, { onOpenChange });
+				const props = renderAsync(
+					{ items: ['32'], open: false, refuseOpen: true },
+					{ onOpenChange }
+				);
 				await userEvent.type(input(), '32');
 				await userEvent.click(trigger());
 				await expect
@@ -515,7 +518,7 @@ describe('Combobox.Root', () => {
 			const highlightedLabel = activeText();
 			expect(highlightedLabel).toBeTruthy();
 
-			page.getByTestId(`remove-${highlightedLabel}`).element().click();
+			(page.getByTestId(`remove-${highlightedLabel}`).element() as HTMLElement).click();
 			await expect.poll(activeId).toBeNull();
 		});
 
@@ -652,7 +655,7 @@ describe('Combobox.Root', () => {
 				.toEqual([undefined, expect.objectContaining({ reason: 'pointer', event: leaveEvent })]);
 		});
 
-		function renderHighlight(onItemHighlighted: ReturnType<typeof vi.fn>) {
+		function renderHighlight(onItemHighlighted: (...args: unknown[]) => void) {
 			render(ComboboxHarness, {
 				items: ['apple', 'apricot', 'banana'],
 				clear: true,
@@ -672,7 +675,9 @@ describe('Combobox.Root', () => {
 			renderHighlight(onItemHighlighted);
 			await highlightFirstWithKeyboard(onItemHighlighted);
 
-			option('banana').element().dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
+			option('banana')
+				.element()
+				.dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
 			await expect.poll(() => onItemHighlighted.mock.lastCall?.[0]).toBe('banana');
 			expect(onItemHighlighted.mock.lastCall?.[1].reason).toBe('pointer');
 		});
@@ -694,7 +699,10 @@ describe('Combobox.Root', () => {
 			renderHighlight(onItemHighlighted);
 			await highlightFirstWithKeyboard(onItemHighlighted);
 
-			page.getByTestId('clear').element().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+			page
+				.getByTestId('clear')
+				.element()
+				.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 			await expect
 				.poll(() => onItemHighlighted.mock.lastCall)
 				.toEqual([undefined, expect.anything()]);
@@ -781,4 +789,3 @@ describe('Combobox.Root', () => {
 		});
 	});
 });
-

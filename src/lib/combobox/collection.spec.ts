@@ -112,9 +112,9 @@ describe('createItems', () => {
 	});
 
 	it('is told apart from plain item arrays and objects', () => {
-		expect(isItemCollection(createItems(users, { getValue: getUserId, getLabel: getUserName }))).toBe(
-			true
-		);
+		expect(
+			isItemCollection(createItems(users, { getValue: getUserId, getLabel: getUserName }))
+		).toBe(true);
 		expect(isItemCollection(users)).toBe(false);
 		expect(isItemCollection({ a: 'A' })).toBe(false);
 	});

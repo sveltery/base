@@ -12,7 +12,10 @@
 	import { getHighlightReason } from '../internal/getHighlightReason.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
-	import { getStateAttributesProps, transitionStatusMapping } from '../internal/state-attributes.js';
+	import {
+		getStateAttributesProps,
+		transitionStatusMapping
+	} from '../internal/state-attributes.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { useComboboxRoot } from './context.svelte.js';
 	import type { ComboboxClearProps, ComboboxClearState } from './types.js';

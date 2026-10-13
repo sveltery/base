@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Combobox, Dialog } from '#lib';
+	import { Combobox, Dialog, type ComboboxHighlightEventDetails } from '#lib';
 
 	let {
 		pattern,
@@ -18,7 +18,7 @@
 		multiple?: boolean;
 		open?: boolean;
 		onValueChange?: (value: unknown) => void;
-		onItemHighlighted?: (...args: never[]) => void;
+		onItemHighlighted?: (itemValue: unknown, details: ComboboxHighlightEventDetails) => void;
 	} = $props();
 
 	const fruits = ['Apple', 'Apricot', 'Banana', 'Grape', 'Orange'];
@@ -93,7 +93,11 @@
 					<input id="name" disabled={loading} />
 
 					<label for="fruit">Fruit</label>
-					<Combobox.Root items={['apple', 'banana', 'cherry']} bind:value={asyncValue} disabled={loading}>
+					<Combobox.Root
+						items={['apple', 'banana', 'cherry']}
+						bind:value={asyncValue}
+						disabled={loading}
+					>
 						<Combobox.Input id="fruit" placeholder="Select fruit..." />
 						<Combobox.Trigger aria-label="Open" />
 						<Combobox.Portal>
@@ -128,7 +132,9 @@
 		<Dialog.Root bind:open>
 			<Dialog.Trigger data-testid="dialog-trigger">
 				<Combobox.Value>
-					{#snippet children(value: unknown)}{value == null ? 'Select a fruit' : String(value)}{/snippet}
+					{#snippet children(value: unknown)}{value == null
+							? 'Select a fruit'
+							: String(value)}{/snippet}
 				</Combobox.Value>
 			</Dialog.Trigger>
 			<Dialog.Portal>

@@ -94,11 +94,13 @@ describe('Combobox.Root', () => {
 			// Keeps the dialog's initial-focus frame pending until after the combobox click.
 			const frameCallbacks = new Map<number, FrameRequestCallback>();
 			let frameId = 0;
-			const requestSpy = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
-				frameId += 1;
-				frameCallbacks.set(frameId, callback);
-				return frameId;
-			});
+			const requestSpy = vi
+				.spyOn(window, 'requestAnimationFrame')
+				.mockImplementation((callback) => {
+					frameId += 1;
+					frameCallbacks.set(frameId, callback);
+					return frameId;
+				});
 			const cancelSpy = vi.spyOn(window, 'cancelAnimationFrame').mockImplementation((id) => {
 				frameCallbacks.delete(id);
 			});
@@ -176,7 +178,9 @@ describe('Combobox.Root', () => {
 				const trigger = page.getByTestId('dialog-trigger');
 				await userEvent.click(trigger);
 
-				await expect.element(page.getByRole('dialog', { name: 'Fruit chooser' })).toBeInTheDocument();
+				await expect
+					.element(page.getByRole('dialog', { name: 'Fruit chooser' }))
+					.toBeInTheDocument();
 				await userEvent.type(dialogInput(), 'ap');
 				await userEvent.click(option('Apple'));
 
@@ -195,7 +199,9 @@ describe('Combobox.Root', () => {
 				const trigger = await selectApple();
 
 				await userEvent.click(trigger);
-				await expect.element(page.getByRole('dialog', { name: 'Fruit chooser' })).toBeInTheDocument();
+				await expect
+					.element(page.getByRole('dialog', { name: 'Fruit chooser' }))
+					.toBeInTheDocument();
 
 				await expect.element(dialogInput()).toHaveValue('');
 				await expect.element(option('Banana')).toBeInTheDocument();
@@ -209,7 +215,9 @@ describe('Combobox.Root', () => {
 				await userEvent.keyboard('{ArrowDown}');
 
 				const apple = option('Apple');
-				await expect.element(dialogInput()).toHaveAttribute('aria-activedescendant', apple.element().id);
+				await expect
+					.element(dialogInput())
+					.toHaveAttribute('aria-activedescendant', apple.element().id);
 				await expect.element(apple).toHaveAttribute('data-highlighted');
 
 				const done = page.getByRole('button', { name: 'Done' }).element();
@@ -226,7 +234,9 @@ describe('Combobox.Root', () => {
 				input.dispatchEvent(new FocusEvent('focus'));
 				input.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
 
-				await expect.element(dialogInput()).toHaveAttribute('aria-activedescendant', apple.element().id);
+				await expect
+					.element(dialogInput())
+					.toHaveAttribute('aria-activedescendant', apple.element().id);
 				await expect.element(apple).toHaveAttribute('data-highlighted');
 			});
 		});

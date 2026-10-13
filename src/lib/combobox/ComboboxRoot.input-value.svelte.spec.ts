@@ -96,10 +96,7 @@ describe('Combobox.Root', () => {
 
 			// Multiple values submit through one `<select multiple>`, not one input per value.
 			const control = document.querySelector<HTMLSelectElement>('select[name="countries"]')!;
-			expect([...control.selectedOptions].map((selected) => selected.value)).toEqual([
-				'US',
-				'CA'
-			]);
+			expect([...control.selectedOptions].map((selected) => selected.value)).toEqual(['US', 'CA']);
 		});
 	});
 
@@ -309,12 +306,12 @@ describe('Combobox.Root', () => {
 			await userEvent.click(option('Banana'));
 
 			await expect.element(input()).toHaveValue('Cherry');
-			expect(onInputValueChange.mock.calls.map(([next, details]) => [next, details.reason])).toEqual(
-				[
-					['Banana', REASONS.itemPress],
-					['Cherry', REASONS.none]
-				]
-			);
+			expect(
+				onInputValueChange.mock.calls.map(([next, details]) => [next, details.reason])
+			).toEqual([
+				['Banana', REASONS.itemPress],
+				['Cherry', REASONS.none]
+			]);
 		});
 
 		it('re-syncs the input when the resolved label of an unchanged value changes', async () => {
@@ -349,8 +346,7 @@ describe('Combobox.Root', () => {
 	describe('reopening during the close animation', () => {
 		it('shows every item when a controlled reopen interrupts a canceled mirrored-selection clear', async () => {
 			animateClose();
-			let props!: { open: boolean; inputValue: string };
-			props = renderBound(ComboboxHarness, {
+			const props: { open: boolean; inputValue: string } = renderBound(ComboboxHarness, {
 				open: false,
 				inputValue: '',
 				inputInside: true,
@@ -449,8 +445,7 @@ describe('Combobox.Root', () => {
 
 		it('keeps a keystroke typed into an empty input when items refresh synchronously', async () => {
 			animateClose();
-			let props!: { items: unknown };
-			props = renderBound(ComboboxHarness, {
+			const props: { items: unknown } = renderBound(ComboboxHarness, {
 				items: ['apple', 'apricot', 'banana'] as unknown,
 				root: {
 					defaultValue: 'apple',
@@ -518,8 +513,7 @@ describe('Combobox.Root', () => {
 
 		it('opens blank when the input only mirrors the selection (single, input inside popup)', async () => {
 			animateClose();
-			let props!: { inputValue: string };
-			props = renderBound(ComboboxHarness, {
+			const props: { inputValue: string } = renderBound(ComboboxHarness, {
 				value: null as unknown,
 				inputValue: '',
 				inputInside: true,

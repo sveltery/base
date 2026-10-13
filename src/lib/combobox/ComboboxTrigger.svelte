@@ -180,9 +180,7 @@
 						field.setTouched(true);
 						focusOwner.set(false);
 						if (field.validationMode === 'onBlur') {
-							field.commit(
-								store.selectionMode === 'none' ? store.inputValue : store.selectedValue
-							);
+							field.commit(store.selectionMode === 'none' ? store.inputValue : store.selectedValue);
 						}
 					},
 					// The press focuses the input and keeps focus there, which prevents the default.

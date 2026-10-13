@@ -54,8 +54,7 @@ describe('Combobox.Root', () => {
 			const stringifyMovie = (movie: Movie | null) =>
 				movie ? `${movie.english} ${movie.romaji}` : '';
 
-			let props!: { value: unknown };
-			props = renderBound(ComboboxHarness, {
+			const props: { value: unknown } = renderBound(ComboboxHarness, {
 				value: null as unknown,
 				items: movies,
 				itemLabel: (movie: Movie) => movie.english,
