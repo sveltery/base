@@ -178,7 +178,7 @@ Pass `actionProps` to give a toast an action button. `children` is the button's 
 
 ### Promises
 
-`promise()` shows a toast with `type: 'loading'` while the promise is pending, then updates it to `type: 'success'` or `type: 'error'`. A loading toast never auto-dismisses. Each state takes a string for the title, an object of toast fields, or a function of the result or error that returns one. `promise()` returns the promise you passed, so you can keep awaiting it. A rejected promise still rejects.
+`promise()` shows a toast with `type: 'loading'` while the promise is pending, then updates it to `type: 'success'` or `type: 'error'`. A loading toast never auto-dismisses. Each state takes a string, which becomes the description, an object of toast fields, or a function of the result or error that returns one. `promise()` returns a new promise chained on the one you passed. It resolves with the same value once the success toast shows, and rejects with the same error once the error toast shows.
 
 ```svelte demo
 <script lang="ts">
@@ -522,7 +522,7 @@ The button sets `aria-hidden` while the viewport is collapsed and the button doe
 | `add`     | `(options: ToastManagerAddOptions) => string` | Adds a toast and returns its id. An existing `id` updates that toast instead. |
 | `close`   | `(toastId?: string) => void`                  | Closes a toast. Without an id, closes every toast.                            |
 | `update`  | `(toastId: string, updates) => void`          | Updates a toast. `updates` is an object or a function of the previous toast.  |
-| `promise` | `(promise, options) => Promise`               | Shows loading, then success or error toast fields. Returns the promise.       |
+| `promise` | `(promise, options) => Promise`               | Shows loading, then success or error toast fields. Returns a chained promise. |
 
 #### createToastManager
 
