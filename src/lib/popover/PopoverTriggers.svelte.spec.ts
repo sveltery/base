@@ -346,7 +346,9 @@ describe('trigger switch transition (Base UI v1.9.0)', () => {
 
 		await userEvent.unhover(page.getByRole('button', { name: 'Trigger 2' }));
 		await expect.poll(() => closing?.hasAttribute('data-ending-style')).toBe(true);
-		await Promise.all(switchAnimations.map((animation) => animation.finished));
+		// Finished explicitly: a busy runner can stall the transition past the test timeout.
+		switchAnimations.forEach((animation) => animation.finish());
+		await new Promise((resolve) => setTimeout(resolve));
 
 		expect(popup()).toBe(closing);
 		expect(closing?.hasAttribute('data-ending-style')).toBe(true);
