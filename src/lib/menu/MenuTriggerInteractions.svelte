@@ -33,7 +33,8 @@
 		store: MenuStore;
 		menubar: MenubarParentContext | undefined;
 		disabled: boolean;
-		openOnHover: boolean;
+		/** Unset in a menubar means: open on hover while a menubar menu is open. */
+		openOnHover: boolean | undefined;
 		opened: boolean;
 		mountedByThis: boolean;
 		delay: number;
@@ -60,7 +61,10 @@
 		{ __options: polygon.__options, clear: polygon.clear }
 	);
 	const hover = new HoverReferenceInteraction(owner, () => ({
-		enabled: openOnHover && !disabled && (!menubar || (menubar.hasSubmenuOpen && !mountedByThis)),
+		enabled:
+			(openOnHover ?? menubar?.hasSubmenuOpen ?? false) &&
+			!disabled &&
+			(!menubar || (menubar.hasSubmenuOpen && !mountedByThis)),
 		mouseOnly: true,
 		move: false,
 		handleClose,

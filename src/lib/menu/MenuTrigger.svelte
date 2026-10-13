@@ -30,7 +30,7 @@
 		nativeButton = true,
 		payload,
 		id,
-		openOnHover: openOnHoverProp,
+		openOnHover,
 		delay = 100,
 		closeDelay = 0,
 		render,
@@ -102,8 +102,6 @@
 	const disabled = $derived(
 		disabledProp || (live?.disabled ?? false) || (menubar?.disabled ?? false)
 	);
-	const menubarHasSubmenuOpen = $derived(menubar?.hasSubmenuOpen ?? false);
-	const openOnHover = $derived(openOnHoverProp ?? menubarHasSubmenuOpen);
 	const partState: MenuTriggerState = $derived({ disabled, open: opened });
 	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
 	const menubarItem = menubar?.createItem(() => disabled);
