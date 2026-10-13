@@ -339,7 +339,7 @@ Several triggers can open the same popover. Give each trigger a `payload` and re
 </div>
 ```
 
-You can also put several triggers inside one `Popover.Root` without a handle. Each trigger still takes its own `payload`, and the snippet you pass as the children of `Popover.Root` receives it as `{ payload }`. That snippet argument is typed `unknown`, so narrow it yourself.
+You can also put several triggers inside one `Popover.Root` without a handle. Each trigger still takes its own `payload`, and the snippet you pass as the children of `Popover.Root` receives it as `{ payload }`. Without a handle, that snippet argument is typed `unknown`, so narrow it yourself. With a handle, it has the handle's payload type.
 
 ### Controlled mode with multiple triggers
 

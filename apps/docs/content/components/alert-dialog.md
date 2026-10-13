@@ -316,9 +316,7 @@ Bind `triggerId` next to `open` to know which trigger owns the alert dialog. Giv
 </div>
 ```
 
-Setting a bound `triggerId` yourself does not replace the payload. Open with `handle.open(id)` when the content depends on the payload.
-
-You can also put several triggers inside one `AlertDialog.Root` without a handle. Each trigger still takes its own `payload`, and the snippet you pass as the children of `AlertDialog.Root` receives it as `{ payload }`. That snippet argument is typed `unknown`, so narrow it yourself.
+You can also put several triggers inside one `AlertDialog.Root` without a handle. Each trigger still takes its own `payload`, and the snippet you pass as the children of `AlertDialog.Root` receives it as `{ payload }`. Without a handle, that snippet argument is typed `unknown`, so narrow it yourself. With a handle, it has the handle's payload type.
 
 ```svelte
 <AlertDialog.Root>
@@ -356,7 +354,6 @@ You can also put several triggers inside one `AlertDialog.Root` without a handle
 - `open` and `triggerId` are bindable props. Use `bind:open` and `bind:triggerId` instead of `open`, `defaultOpen`, `triggerId`, and `defaultTriggerId` together. There are no `defaultOpen` or `defaultTriggerId` props: pass `open` or `triggerId` without `bind:` to set the initial state.
 - `onOpenChange` runs before the state changes. Call `eventDetails.cancel()` to keep the alert dialog as it is. Setting `open` yourself does not call it.
 - `AlertDialog.Trigger` and `AlertDialog.Root` take an `AlertDialog.Handle`. A `Dialog.Handle` does not type-check. Handle warnings name `Dialog.Handle`, as upstream's do.
-- A trigger named by a bound `triggerId`, or one switched to while the popup is open, does not replace the payload. `Dialog` has the same gap.
 - Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
 - `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`. `AlertDialog.Root` renders no element, so it has no `render`.
 - The `AlertDialog.Root` children snippet receives `{ payload }`, where React passes a render function.
@@ -374,9 +371,9 @@ You can also put several triggers inside one `AlertDialog.Root` without a handle
 
 ### Trigger
 
-A button that opens the alert dialog. Renders a `<button>` element.
+<ApiPart name="alert-dialog" part="Trigger" />
 
-`AlertDialog.Trigger` is `Dialog.Trigger` typed to take an `AlertDialog.Handle`. Its props and state are those of [`Dialog.Trigger`](/components/dialog#trigger), except that `handle` is an `AlertDialogHandle<Payload>`.
+`AlertDialog.Trigger` renders [`Dialog.Trigger`](/components/dialog#trigger) and takes an `AlertDialog.Handle`.
 
 | Attribute         | Description                                                       |
 | ----------------- | ----------------------------------------------------------------- |
