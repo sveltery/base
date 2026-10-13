@@ -30,6 +30,7 @@ export * from './popover/index.js';
 export * from './dialog/index.js';
 export * from './alert-dialog/index.js';
 export * from './drawer/index.js';
+export * from './menu/index.js';
 export * from './merge-props/index.js';
 export type * from './types/index.js';
 export * from './tooltip/index.js';
