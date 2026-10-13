@@ -53,7 +53,11 @@
 {#if part.props.length}
 	{@render table(part.props, 'Prop', true)}
 {:else}
-	<p class="text-muted">This part takes no props beyond its element's HTML attributes.</p>
+	<p class="text-muted">
+		{part.element
+			? "This part takes no props beyond its element's HTML attributes."
+			: 'This part takes no props.'}
+	</p>
 {/if}
 {#if part.state.length}
 	<details class="not-typeset my-4 text-sm">

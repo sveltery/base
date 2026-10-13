@@ -4,7 +4,12 @@
 	let timer: ReturnType<typeof setTimeout> | undefined;
 
 	async function copy() {
-		await navigator.clipboard.writeText(value);
+		try {
+			await navigator.clipboard.writeText(value);
+		} catch {
+			// The clipboard needs a secure origin and permission. Without them, nothing is copied.
+			return;
+		}
 		copied = true;
 		clearTimeout(timer);
 		timer = setTimeout(() => (copied = false), 2000);

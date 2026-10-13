@@ -19,7 +19,7 @@ To document a new component:
 1. Create `content/components/<folder>.md`, where `<folder>` is the component's folder in `src/lib`.
 2. Write the frontmatter, a hero demo, the anatomy, examples, and the differences from Base UI.
 3. Add an `<ApiPart>` for each part under `## API reference`.
-4. Run `pnpm --filter @sveltery/base-docs check`. It fails if a demo does not compile or type-check, or if a part has no `<ApiPart>`.
+4. Run `pnpm --filter @sveltery/base-docs check`. It fails if a demo does not compile or type-check, if a component page has no `<ApiPart>`, or if a folder the page documents has a part without one.
 
 ````md
 ---
@@ -95,6 +95,8 @@ The build reads the tables from the component types:
 - A prop's description and `@default` come from its doc comment. Without a `@default` tag, the default comes from the `$props()` destructuring. A `$bindable()` prop is marked bindable.
 - The state comes from the type with the same name ending in `State`, such as `CollapsibleRootState`.
 - The part description comes from the comment at the top of the `.svelte` file.
+- A `children` prop is left out when its type is a plain `Snippet` with no doc comment. A `children` snippet with arguments, such as `Meter.Value`'s, is listed.
+- A private type alias, such as a local `PartRender`, is shown expanded, so the Type column names only types a consumer can import.
 
 To change a table, change the doc comment in `src/lib`.
 

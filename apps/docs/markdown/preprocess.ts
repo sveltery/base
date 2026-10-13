@@ -11,7 +11,7 @@ const GLOBAL_COMPONENTS = ['CodeBlock', 'Demo', 'ApiPart', 'Callout'];
 const literal = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c');
 
 const attribute = (attrs: string, name: string) =>
-	attrs.match(new RegExp(`\\b${name}="([^"]+)"`))?.[1];
+	attrs.match(new RegExp(`(?:^|\\s)${name}="([^"]+)"`))?.[1];
 
 async function replaceAsync(
 	input: string,
@@ -35,7 +35,7 @@ export async function highlightCode(
 	meta: string | null | undefined
 ) {
 	const html = await highlight(code, lang ?? 'text');
-	if (lang === 'svelte' && /\bdemo\b/.test(meta ?? '')) {
+	if (lang === 'svelte' && (meta ?? '').split(/\s+/).includes('demo')) {
 		// base64 keeps the code out of the markdown and Svelte parsers until it is written out.
 		return `<Demo source="${Buffer.from(code).toString('base64')}" html={${literal(html)}} />`;
 	}
@@ -78,6 +78,8 @@ export function docsComponents({
 				return `<Demo id="${id}" component={${name}} raw={${literal(raw)}}`;
 			});
 
+			// A commented-out tag is not documentation.
+			code = code.replace(/<!--[\s\S]*?-->/g, '');
 			code = await replaceAsync(code, /<ApiPart\b([^>]*?)\s*\/>/g, async (_tag, attrs) => {
 				const name = attribute(attrs, 'name');
 				const partName = attribute(attrs, 'part');
@@ -95,6 +97,14 @@ export function docsComponents({
 				return `<ApiPart part={${literal(part)}} />`;
 			});
 
+			if (/<ApiPart\b(?! part=\{)/.test(code)) {
+				throw new Error(
+					`${filename}: write <ApiPart name="..." part="..." /> as a self-closing tag`
+				);
+			}
+			if (page.startsWith('components-') && !references.size) {
+				throw new Error(`${filename}: a component page needs an <ApiPart> for each part`);
+			}
 			// A page that documents a component documents every part of it.
 			for (const [name, parts] of references) {
 				const missing = parts.filter((part) => !documented.has(part.name));

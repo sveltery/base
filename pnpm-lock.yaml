@@ -285,6 +285,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.3.3(@types/node@24.19.1)(esbuild@0.28.2)(jiti@2.7.0))
+      '@types/node':
+        specifier: ^24
+        version: 24.19.1
       mdsvex:
         specifier: ^0.12.8
         version: 0.12.8(svelte@5.57.1(@typescript-eslint/types@8.71.1))

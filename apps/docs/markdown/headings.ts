@@ -33,14 +33,14 @@ export const slugify = (value: string): string =>
 export function headings() {
 	return (tree: MdNode, file: { data: { fm?: Record<string, unknown> } }) => {
 		const toc: TocItem[] = [];
-		const seen = new Map<string, number>();
+		const used = new Set<string>();
 		for (const node of tree.children ?? []) {
 			if (node.type !== 'heading' || !node.depth || node.depth < 2 || node.depth > 4) continue;
 			const title = text(node);
 			const base = slugify(title);
-			const count = seen.get(base) ?? 0;
-			seen.set(base, count + 1);
-			const id = count ? `${base}-${count}` : base;
+			let id = base;
+			for (let count = 1; used.has(id); count++) id = `${base}-${count}`;
+			used.add(id);
 			node.data = { ...node.data, hProperties: { id } };
 			// A link cannot contain a link, so a heading that already has one keeps its id without the self link.
 			if (!hasLink(node))
