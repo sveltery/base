@@ -1259,6 +1259,28 @@ describe('Drawer.Viewport', () => {
 			expect(popup().style.getPropertyValue('--drawer-swipe-strength')).toBe('0.1');
 		});
 
+		it('keeps the inline popup transition after a snap point drag settles', async () => {
+			await mount({
+				...sheet,
+				popupStyle: 'height: 300px; transition: transform 450ms',
+				swipeDirection: 'down',
+				snapPoints: ['100px', 1],
+				snapPoint: 1
+			});
+
+			hitTest(popup());
+			mouse(viewport(), 'down', 100, 100, { time: 1000 });
+			mouse(viewport(), 'move', 100, 110, { time: 1500 });
+			mouse(viewport(), 'move', 100, 120, { time: 2000 });
+			await tick();
+			expect(popup()).toHaveAttribute('data-swiping');
+			expect(popup().style.transition).toBe('none');
+			mouse(viewport(), 'up', 100, 120, { time: 2500 });
+			await tick();
+
+			expect(popup().style.transition).toBe('transform 450ms');
+		});
+
 		it('navigates snap points from a drag that was never attributed to the swipe axis', async () => {
 			const onOpenChange = vi.fn();
 			const onSnapPointChange = vi.fn();

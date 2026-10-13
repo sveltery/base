@@ -110,24 +110,36 @@ export const drawerIndentStateAttributesMapping: StateAttributesMapping<{ active
 
 /**
  * Sets inline style properties one by one, so a swipe's imperative writes survive.
- * `undefined` removes a property this helper set before. Returns the keys it set.
+ * `undefined` removes a property this helper set before, and puts back the value the
+ * consumer's own `style` gives it. Returns the keys it set.
  */
 export function applyStyleProperties(
 	element: HTMLElement,
 	styles: Record<string, string | undefined>,
-	previous: ReadonlySet<string>
+	previous: ReadonlySet<string>,
+	consumerStyle: string | null | undefined
 ): Set<string> {
 	const written = new Set<string>();
+	let declared: CSSStyleDeclaration | undefined;
+	const release = (name: string) => {
+		if (!declared) {
+			declared = element.ownerDocument.createElement('div').style;
+			declared.cssText = consumerStyle ?? '';
+		}
+		const value = declared.getPropertyValue(name);
+		if (value) element.style.setProperty(name, value);
+		else element.style.removeProperty(name);
+	};
 	for (const [name, value] of Object.entries(styles)) {
 		if (value === undefined) {
-			if (previous.has(name)) element.style.removeProperty(name);
+			if (previous.has(name)) release(name);
 			continue;
 		}
 		element.style.setProperty(name, value);
 		written.add(name);
 	}
 	for (const name of previous) {
-		if (!(name in styles)) element.style.removeProperty(name);
+		if (!(name in styles)) release(name);
 	}
 	return written;
 }

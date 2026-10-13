@@ -217,7 +217,7 @@
 	$effect(() => {
 		const node = store.popupElement;
 		if (!node) return;
-		void elementProps.style;
+		const consumerStyle = elementProps.style;
 		let styles: Record<string, string | undefined> = popupStyles;
 		let previous = untrack(() => writtenStyles);
 		// Drawer.SwipeArea owns the movement variables while its gesture opens the drawer.
@@ -227,7 +227,7 @@
 			);
 			previous = new Set([...previous].filter((name) => !movementVars.includes(name)));
 		}
-		writtenStyles = applyStyleProperties(node, styles, previous);
+		writtenStyles = applyStyleProperties(node, styles, previous, consumerStyle);
 	});
 
 	function resolveInitial(openType: OpenInteractionType): boolean | HTMLElement | null | void {
