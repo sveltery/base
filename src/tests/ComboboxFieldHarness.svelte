@@ -18,6 +18,9 @@
 		errorText,
 		submit = false,
 		reset = false,
+		mounted = true,
+		fieldLabelSpan = false,
+		labelAfter = false,
 		onsubmit
 	}: {
 		value?: unknown;
@@ -38,6 +41,12 @@
 		errorText?: string;
 		submit?: boolean;
 		reset?: boolean;
+		/** `false` unmounts the combobox, keeping the field. */
+		mounted?: boolean;
+		/** Renders Field.Label as a `<span>` with `nativeLabel={false}`. */
+		fieldLabelSpan?: boolean;
+		/** Renders Field.Label after the combobox. */
+		labelAfter?: boolean;
 		onsubmit?: (data: FormData) => void;
 	} = $props();
 </script>
@@ -46,17 +55,25 @@
 	<ComboboxHarness bind:value bind:inputValue bind:open {...combobox} />
 {/snippet}
 
+{#snippet label()}
+	{#if fieldLabelSpan}
+		<Field.Label data-testid="field-label" nativeLabel={false}>
+			{#snippet render(props)}<span {...props}>{fieldLabel}</span>{/snippet}
+		</Field.Label>
+	{:else if fieldLabel !== undefined}
+		<Field.Label data-testid="field-label">{fieldLabel}</Field.Label>
+	{/if}
+{/snippet}
+
 {#snippet content()}
 	{#if field === false}
 		{@render theCombobox()}
 	{:else}
 		<Field.Root data-testid="field" {...field}>
-			{#if fieldLabel !== undefined}
-				<Field.Label data-testid="field-label">{fieldLabel}</Field.Label>
-			{/if}
-			{@render theCombobox()}
-			{#if description}<Field.Description data-testid="description"
-					>{description}</Field.Description
+			{#if !labelAfter}{@render label()}{/if}
+			{#if mounted}{@render theCombobox()}{/if}
+			{#if labelAfter}{@render label()}{/if}
+			{#if description}<Field.Description data-testid="description">{description}</Field.Description
 				>{/if}
 			{#if errorText}
 				<Field.Error data-testid="error" match={errorMatch}>{errorText}</Field.Error>

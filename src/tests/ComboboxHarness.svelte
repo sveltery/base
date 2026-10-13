@@ -21,6 +21,7 @@
 	import {
 		Combobox,
 		DirectionProvider,
+		Input,
 		Popover,
 		type ComboboxClearProps,
 		type ComboboxInputProps,
@@ -82,6 +83,8 @@
 		rowGroups,
 		filteredItems,
 		staticFilter,
+		noInput = false,
+		fieldAwareInput = false,
 		onOuterKeydown,
 		popupRenderId
 	}: {
@@ -153,12 +156,15 @@
 		filteredItems?: (inputValue: string, value: unknown) => unknown[];
 		/** Renders only the static items this keeps for the bound input value, as a parent filtering its own children. */
 		staticFilter?: (item: HarnessItem, inputValue: string) => boolean;
+		/** Renders no input; with `trigger`, the trigger is the only control. */
+		noInput?: boolean;
+		/** Renders the input through `Input`, which is itself field-aware. */
+		fieldAwareInput?: boolean;
 		/** Wraps everything in a `<div>` with this keydown listener. */
 		onOuterKeydown?: (event: KeyboardEvent) => void;
 		/** Renders the popup through a `render` snippet whose element sets this id. */
 		popupRenderId?: string;
 	} = $props();
-
 
 	function labelOf(item: unknown): string {
 		if (itemLabel) return itemLabel(item as never);
@@ -262,7 +268,7 @@
 				</Combobox.Group>
 			{/each}
 		{:else}
-			{#each staticFilter ? staticItems.filter((entry) => staticFilter(entry, inputValue ?? '')) : staticItems as entry, index (entry.value)}
+			{#each staticFilter ? staticItems.filter( (entry) => staticFilter(entry, inputValue ?? '') ) : staticItems as entry, index (entry.value)}
 				{@render staticItem(entry, index)}
 			{/each}
 		{/if}
@@ -275,7 +281,13 @@
 {/snippet}
 
 {#snippet theInput()}
-	<Combobox.Input data-testid="input" {...input} />
+	{#if fieldAwareInput}
+		<Combobox.Input {...input}>
+			{#snippet render(props)}<Input {...props} data-testid="input" />{/snippet}
+		</Combobox.Input>
+	{:else if !noInput}
+		<Combobox.Input data-testid="input" {...input} />
+	{/if}
 {/snippet}
 
 {#snippet popupContent()}
@@ -343,13 +355,19 @@
 	{#if around}<input data-testid="before" aria-label="before" />{/if}
 	<Combobox.Root
 		bind:this={combobox}
-		bind:value={() => value, (next) => {
-			if (!refuseValue) value = mapValue ? mapValue(next) : next;
-		}}
+		bind:value={
+			() => value,
+			(next) => {
+				if (!refuseValue) value = mapValue ? mapValue(next) : next;
+			}
+		}
 		bind:inputValue
-		bind:open={() => open, (next) => {
-			if (!refuseOpen) open = next;
-		}}
+		bind:open={
+			() => open,
+			(next) => {
+				if (!refuseOpen) open = next;
+			}
+		}
 		{...items !== undefined ? { items: items as never } : {}}
 		{...filteredItems ? { filteredItems: filteredItems(inputValue ?? '', value) as never } : {}}
 		{inline}
