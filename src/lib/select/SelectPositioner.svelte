@@ -8,6 +8,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { useFloatingNodeId } from '@sveltery/floating-ui-svelte';
 	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { toCssStyle } from '../internal/css-style.js';
 	import InternalBackdrop from '../internal/InternalBackdrop.svelte';
@@ -44,6 +45,9 @@
 
 	const store = useSelectRoot();
 	const attachKey = createAttachmentKey();
+	// Upstream presses inside a portaled child bubble through the React tree to a parent popup.
+	// Here the select joins the parent's floating tree, so the parent sees it as a child.
+	useFloatingNodeId(store);
 
 	// svelte-ignore state_referenced_locally
 	let controlledAlign = $state(alignItemWithTrigger);

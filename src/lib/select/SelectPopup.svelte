@@ -371,6 +371,23 @@
 		return store.popupElement ?? true;
 	}
 
+	// Upstream returns focus to the element focused before the popup opened, which is the
+	// trigger unless something else opened the select.
+	let returnTarget: HTMLElement | null = null;
+	$effect.pre(() => {
+		if (!store.open) return;
+		untrack(() => {
+			const doc = ownerDocument(store.triggerElement);
+			const active = doc.activeElement;
+			returnTarget =
+				active instanceof HTMLElement &&
+				active !== doc.body &&
+				!contains(store.positionerElement, active)
+					? active
+					: null;
+		});
+	});
+
 	/**
 	 * Moves focus after the focus manager's teardown, where it would otherwise run the trigger's
 	 * focus handlers. Svelte does not keep a derived recomputed during a teardown, so a handler
@@ -382,7 +399,12 @@
 		const fromFunction = typeof spec === 'function';
 		const resolved = fromFunction ? spec(closeType ?? '') : (spec ?? true);
 		if (resolved === false || resolved === undefined) return false;
-		const target = resolved instanceof HTMLElement ? resolved : store.triggerElement;
+		const target =
+			resolved instanceof HTMLElement
+				? resolved
+				: returnTarget?.isConnected
+					? returnTarget
+					: store.triggerElement;
 		if (!target?.isConnected) return false;
 		if (!fromFunction && !(spec instanceof HTMLElement)) {
 			const doc = ownerDocument(target);

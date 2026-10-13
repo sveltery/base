@@ -15,7 +15,6 @@
 </script>
 
 <script lang="ts">
-	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
 		Select,
@@ -52,8 +51,7 @@
 		icon = false,
 		separator = false,
 		itemStyle,
-		before,
-		after
+		around = false
 	}: {
 		value?: unknown;
 		open?: boolean;
@@ -79,8 +77,8 @@
 		icon?: boolean;
 		separator?: boolean;
 		itemStyle?: string;
-		before?: Snippet;
-		after?: Snippet;
+		/** Renders an input before the select, and an input and a button after it. */
+		around?: boolean;
 	} = $props();
 
 	const textOf = (item: HarnessItem) => item.text ?? String(item.value);
@@ -146,7 +144,7 @@
 	</Select.Positioner>
 {/snippet}
 
-{@render before?.()}
+{#if around}<input data-testid="before" aria-label="before" />{/if}
 <Select.Root bind:this={select} bind:value bind:open {...root}>
 	{#if label}<Select.Label data-testid="label">{label}</Select.Label>{/if}
 	<Select.Trigger data-testid="trigger" {...trigger}>
@@ -161,4 +159,7 @@
 	</Select.Trigger>
 	<Select.Portal {...portal}>{@render positioned()}</Select.Portal>
 </Select.Root>
-{@render after?.()}
+{#if around}
+	<input data-testid="after" aria-label="after" />
+	<button type="button" data-testid="outside">Outside</button>
+{/if}
