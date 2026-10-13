@@ -78,8 +78,26 @@
 	let suppressFocusOut = false;
 	/** Trigger (or the element focused before open). Not refreshed after focus moves inside. */
 	let returnTarget: HTMLElement | null = null;
+	/** The element focused when this open began, and whether it wins over the trigger. */
+	let focusedBeforeOpen: HTMLElement | null = null;
+	let preferPreviousFocus = false;
+	let openCaptured = false;
 
 	function captureReturnTarget(doc: Document, floating: HTMLElement) {
+		if (!openCaptured) {
+			openCaptured = true;
+			// Only an open with no interaction type, such as a programmatic or hover open,
+			// returns focus to where it was before the trigger (upstream `preferPreviousFocus`).
+			preferPreviousFocus = untrack(() => store.openMethod) == null;
+			const active = activeElement(doc);
+			focusedBeforeOpen =
+				active instanceof HTMLElement &&
+				active !== doc.body &&
+				!contains(floating, active) &&
+				!contains(store.portalElement, active)
+					? active
+					: null;
+		}
 		const reference = store.domReferenceElement;
 		if (reference instanceof HTMLElement && reference.isConnected) {
 			returnTarget = reference;
@@ -262,7 +280,9 @@
 		// A function result of `null` falls back to the trigger, matching an empty ref.
 		// Only a boolean `true` requires focus to still be inside.
 		const explicit = fromFunction || spec instanceof HTMLElement;
-		const target = resolved instanceof HTMLElement ? resolved : returnTarget;
+		const previous =
+			preferPreviousFocus && focusedBeforeOpen?.isConnected ? focusedBeforeOpen : null;
+		const target = resolved instanceof HTMLElement ? resolved : (previous ?? returnTarget);
 		if (!target?.isConnected) return null;
 		if (!explicit) {
 			const doc = ownerDocument(target);
@@ -276,6 +296,7 @@
 		}
 		target.focus({ preventScroll: true });
 		returnTarget = null;
+		focusedBeforeOpen = null;
 		return target;
 	}
 
@@ -403,6 +424,7 @@
 		const portalHome = portal?.home;
 		if (disabled || !store.isOpen()) {
 			initialSettled = false;
+			openCaptured = false;
 			return;
 		}
 		const floating = store.floatingElement;
