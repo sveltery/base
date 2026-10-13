@@ -35,6 +35,18 @@ describe('mergeProps', () => {
 		expect(order).toEqual(['right']);
 	});
 
+	it('runs every handler for an event that was prevented before they ran', () => {
+		const order: string[] = [];
+		const props = mergeProps(
+			{ onkeydown: () => order.push('left') },
+			{ onkeydown: () => order.push('right') }
+		) as { onkeydown: (event: Event) => void };
+		const event = new Event('keydown', { cancelable: true });
+		event.preventDefault();
+		props.onkeydown(event);
+		expect(order).toEqual(['right', 'left']);
+	});
+
 	it('skips the earlier handler for any event-shaped argument, such as one from an iframe', () => {
 		const order: string[] = [];
 		const props = mergeProps(

@@ -64,12 +64,10 @@ export class FloatingPosition {
 
 	readonly data = $derived.by((): PositionData => {
 		const current = this.options();
-		const currentFor =
-			current.open !== false &&
-			current.enabled &&
-			this.#positionedFor != null &&
-			this.#positionedFor === current.reference;
-		if (currentFor && this.#data.isPositioned) return this.#data;
+		// A new reference keeps the last coordinates until it is measured, as upstream does.
+		// Hovering between detached triggers then moves the popup from where it was.
+		const positioned = current.open !== false && current.enabled && this.#positionedFor != null;
+		if (positioned && this.#data.isPositioned) return this.#data;
 		return {
 			x: 0,
 			y: 0,
@@ -102,7 +100,7 @@ export class FloatingPosition {
 		});
 	}
 
-	/** Element the stored coordinates were measured for. Null while unpositioned. */
+	/** Element the stored coordinates were measured for. Null while closed or disabled. */
 	get positionedFor() {
 		return this.#positionedFor;
 	}

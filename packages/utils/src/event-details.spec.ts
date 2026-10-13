@@ -40,9 +40,34 @@ describe('createGenericEventDetails', () => {
 	it('creates a placeholder event when none is given', () => {
 		expect(createGenericEventDetails(REASONS.none).event.type).toBe('base-ui');
 	});
+
+	it('copies extra properties onto the details', () => {
+		const event = new Event('keydown');
+		const details = createGenericEventDetails(REASONS.keyboard, event, { index: 2 });
+
+		expect(details).toEqual({ reason: 'keyboard', event, index: 2 });
+	});
 });
 
 describe('REASONS', () => {
+	it('names the menu reasons as upstream does', () => {
+		const reasons = [
+			REASONS.triggerFocus,
+			REASONS.itemPress,
+			REASONS.siblingOpen,
+			REASONS.cancelOpen,
+			REASONS.pointer
+		].map((reason) => createChangeEventDetails(reason).reason);
+
+		expect(reasons).toEqual([
+			'trigger-focus',
+			'item-press',
+			'sibling-open',
+			'cancel-open',
+			'pointer'
+		]);
+	});
+
 	it('names the list navigation reason as upstream does', () => {
 		expect(REASONS.listNavigation).toBe('list-navigation');
 	});

@@ -387,3 +387,11 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
 | Toast              | refs, `className` and `style` callbacks                                                                |
+
+## Shared floating internals
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx` and `hooks/useDismiss.ts`. Each popup root creates its own `FloatingTree`. A press or a focus change inside a portaled descendant counts as inside a popup through `insideReactTree`, which React sets because portal events bubble through the React tree.
+
+Local: nested popups share one floating tree, and the DOM has no React tree. `DismissInteraction` counts a press inside a tree child's portal, which holds that child's internal backdrop, as inside the parent. `FloatingFocusManager` treats focus that leaves a portaled popup without an outside press as staying inside, as upstream's `markInsideReactTree` does.
+
+Test: `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts`, `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` and `src/lib/internal/overlay-audit.svelte.spec.ts` (`closes only the inner modal popover on an outside touch tap`).

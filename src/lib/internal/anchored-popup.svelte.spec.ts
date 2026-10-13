@@ -153,11 +153,10 @@ describe('anchored popup', () => {
 		const firstLeft = page.getByTestId('positioner').element().getBoundingClientRect().left;
 		second.element().dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
 		await Promise.resolve();
+		// Until the new trigger is measured, the popup stays where it was instead of jumping to 0, 0.
 		const duringSwitch = page.getByTestId('positioner').element();
-		const stale =
-			duringSwitch.hasAttribute('data-positioned') &&
-			Math.abs(duringSwitch.getBoundingClientRect().left - firstLeft) < 2;
-		expect(stale).toBe(false);
+		expect(duringSwitch.hasAttribute('data-positioned')).toBe(true);
+		expect(Math.round(duringSwitch.getBoundingClientRect().left)).toBe(Math.round(firstLeft));
 		await expect.poll(() => page.getByTestId('seen').element().textContent).toBe('trigger-b');
 		await expect.poll(() => page.getByTestId('active').element().textContent).toBe('trigger-b');
 		await expect

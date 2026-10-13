@@ -39,8 +39,8 @@
 </script>
 
 <script lang="ts">
-	// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/components/FloatingPortal.tsx
-	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	// Derived from Base UI v1.9.0 packages/react/src/floating-ui-react/components/FloatingPortal.tsx
+	// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	// A nested portal mounts inside the parent portal host, as a sibling of that host's popup.
 	// Upstream `createPortal` inserts the div before refs run (`ref: [consumer ref, setPortalNodeRef]`
 	// in `useFloatingPortalNode`), so a consumer ref sees the container. The move is that portal,
@@ -55,14 +55,8 @@
 
 	import { onMount, type Snippet } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
-	import type { HTMLAttributes } from 'svelte/elements';
-	import {
-		FocusGuard,
-		ownerDocument,
-		activeElement,
-		contains,
-		visuallyHiddenStyle
-	} from '@sveltery/utils';
+	import type { AriaRole, HTMLAttributes } from 'svelte/elements';
+	import { FocusGuard, ownerDocument, activeElement, contains } from '@sveltery/utils';
 	import {
 		getNextTabbableInDocument,
 		getTabbableCandidates,
@@ -81,13 +75,19 @@
 		children,
 		container = undefined,
 		render,
+		portalOwnerRole,
 		...rest
 	}: {
 		store: FloatingRootStore;
 		children?: Snippet;
 		container?: HTMLElement | ShadowRoot | null;
 		render?: Snippet<[props: PortalHostProps, state: PortalState, children: Snippet]>;
+		/** The role of the hidden `aria-owns` owner element. */
+		portalOwnerRole?: AriaRole;
 	} & Omit<HTMLAttributes<HTMLDivElement>, 'children'> = $props();
+
+	// The host always has an id so the owner element can point at it. A consumer `id` wins.
+	const uniqueId = $props.id();
 
 	let portalNode = $state<HTMLDivElement | null>(null);
 	let client = $state(false);
@@ -211,6 +211,7 @@
 	function hostProps(): PortalHostProps {
 		return {
 			[MOUNT]: mount,
+			id: uniqueId,
 			...rest,
 			'data-base-ui-portal': ''
 		} as PortalHostProps;
@@ -228,14 +229,17 @@
 			onfocus={focusBeforeOutside}
 			attach={bindGuard('beforeOutside')}
 		/>
-		{#if portalNode?.id}
-			<span aria-owns={portalNode.id} style={visuallyHiddenStyle}></span>
-		{/if}
+		<!-- The full visually hidden styles break owned-element access in iOS VoiceControl (floating-ui#3403). -->
+		<span
+			role={portalOwnerRole}
+			aria-owns={portalNode?.id || undefined}
+			style="clip-path: inset(50%); position: fixed; top: 0px; left: 0px"
+		></span>
 	{/if}
 	{#if render}
 		{@render render(hostProps(), portalState, content)}
 	{:else}
-		<div {...{ [MOUNT]: mount }} {...rest} data-base-ui-portal="">
+		<div {...{ [MOUNT]: mount }} id={uniqueId} {...rest} data-base-ui-portal="">
 			{@render content()}
 		</div>
 	{/if}
