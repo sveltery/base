@@ -101,7 +101,14 @@ forEachFramework((reference, framework) => {
 			await expect(item('Paste')).toBeFocused();
 			await page.keyboard.press('Enter');
 			await expect(page.getByRole('menu')).toHaveCount(0);
+			await expect(trigger('Edit')).toBeFocused();
+			await page.waitForTimeout(150);
+			await expect(page.getByRole('menu')).toHaveCount(0);
 			expect(await json(page, 'clicks')).toEqual(['Paste']);
+			expect(await json(page, 'calls')).toEqual([
+				{ menu: 'Edit', open: true, reason: 'trigger-press' },
+				{ menu: 'Edit', open: false, reason: 'item-press' }
+			]);
 		});
 
 		test('Space opens a menu on keydown', async ({ page }) => {

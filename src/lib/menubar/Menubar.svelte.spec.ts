@@ -154,6 +154,64 @@ describe('Menubar', () => {
 		expect(focused()).toBe(document.body);
 	});
 
+	it('closes open submenus when navigating to the next menubar item with ArrowRight', async () => {
+		const calls: string[] = [];
+		render(MenubarHarness, {
+			onOpenChange: (label, open, reason) => calls.push(`${label} ${open} ${reason}`)
+		});
+		get('file-trigger').focus();
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(focused).toBe(get('file-item-1'));
+		await userEvent.keyboard('{ArrowDown}');
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(focused).toBe(get('share-trigger'));
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.poll(focused).toBe(get('share-item-1'));
+
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.poll(shown('edit-menu')).toBe(true);
+		await expect.poll(shown('share-menu')).toBe(false);
+		await expect.poll(shown('file-menu')).toBe(false);
+		expect(calls).toEqual([
+			'File true trigger-press',
+			'Edit true trigger-focus',
+			'File false sibling-open'
+		]);
+	});
+
+	describe('horizontal RTL', () => {
+		function expanded() {
+			return [get('first-trigger'), get('second-trigger')].map((trigger) =>
+				trigger.getAttribute('aria-expanded')
+			);
+		}
+
+		it('moves forward with ArrowLeft and back with ArrowRight', async () => {
+			render(MenubarCasesHarness, { scenario: 'two', direction: 'rtl' });
+			get('first-trigger').focus();
+			await userEvent.keyboard('{ArrowLeft}');
+			await expect.poll(focused).toBe(get('second-trigger'));
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(focused).toBe(get('first-trigger'));
+			await settle();
+			expect(document.querySelector('[role="menu"]')).toBe(null);
+		});
+
+		it('moves to the previous menu with ArrowRight inside a popup', async () => {
+			render(MenubarCasesHarness, { scenario: 'two', direction: 'rtl' });
+			get('second-trigger').focus();
+			await userEvent.keyboard('{Enter}');
+			await expect.poll(expanded).toEqual(['false', 'true']);
+
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(expanded).toEqual(['true', 'false']);
+			expect(document.querySelectorAll('[role="menu"]').length).toBe(1);
+
+			await userEvent.keyboard('{ArrowLeft}');
+			await expect.poll(expanded).toEqual(['false', 'true']);
+		});
+	});
+
 	describe('inside a popover', () => {
 		function renderInPopover() {
 			const calls: string[] = [];
@@ -432,6 +490,10 @@ describe('Menubar', () => {
 
 				await userEvent.keyboard('{Escape}');
 				await expect.poll(shown('file-menu')).toBe(false);
+				await expect.poll(focused).toBe(get('file-trigger'));
+				await settle();
+				expect(byTestId('file-menu')).toBe(null);
+				expect(menubar().hasAttribute('data-has-submenu-open')).toBe(false);
 			});
 
 			it('closes a submenu with the left arrow key and returns focus to its trigger', async () => {
@@ -513,9 +575,9 @@ describe('Menubar', () => {
 				fileTrigger.focus();
 				await userEvent.keyboard('{ArrowRight}');
 				await userEvent.keyboard('{ArrowRight}');
-				expect(focused()).toBe(get('view-trigger'));
+				await expect.poll(focused).toBe(get('view-trigger'));
 				await userEvent.keyboard('{ArrowRight}');
-				expect(focused()).toBe(fileTrigger);
+				await expect.poll(focused).toBe(fileTrigger);
 			});
 
 			it('loops to the last item before the first one', async () => {
@@ -542,6 +604,7 @@ describe('Menubar', () => {
 				const firstItem = get('file-trigger');
 				firstItem.focus();
 				await userEvent.keyboard('{ArrowLeft}');
+				await settle();
 				expect(focused()).toBe(firstItem);
 			});
 		});
@@ -551,6 +614,7 @@ describe('Menubar', () => {
 				render(MenubarHarness, { variant, menubarProps: { disabled: true } });
 				const fileTrigger = get('file-trigger');
 				expect(fileTrigger.hasAttribute('disabled')).toBe(true);
+				expect(fileTrigger.getAttribute('aria-disabled')).toBe('true');
 
 				await userEvent.tab();
 				expect(focused()).toBe(document.body);
