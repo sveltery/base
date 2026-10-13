@@ -319,6 +319,9 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `packages/floating-ui-svelte/src/hooks/useTypeahead.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useTypeahead.ts` as `Typeahead`
 - `src/tests/list-navigation/useTypeahead.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useTypeahead.test.tsx`
 - `src/lib/internal/composite-root.svelte.ts` render claims from `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (each item keeps the index it guessed, and `unregister` drops only that item's entry)
+- `packages/utils/src/event-details.ts` the remaining reasons from `packages/react/src/internals/reason-parts.ts` (including the menu reasons `trigger-focus`, `item-press`, `sibling-open`, `cancel-open`, and `pointer`) and the custom properties of `createGenericEventDetails` from `packages/react/src/internals/createBaseUIEventDetails.ts`
+- `src/lib/internal/getHighlightReason.ts` from `packages/react/src/utils/getHighlightReason.ts`
+- `src/lib/internal/click.ts` `detail` and `pointerType` options, and `packages/floating-ui-svelte/src/utils/event.ts` 1x1 screen reader presses, with `packages/floating-ui-svelte/src/utils/event.spec.ts` assertions from `packages/react/src/floating-ui-react/utils/event.test.ts`
 
 MIT License
 
