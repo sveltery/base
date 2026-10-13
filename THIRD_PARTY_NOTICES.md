@@ -165,6 +165,13 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/preview-card/inline-rect.spec.ts` assertions from `packages/react/src/utils/popups/inlineRect.test.ts`
 - `src/lib/preview-card/PreviewCard*.svelte.spec.ts` assertions from `packages/react/src/preview-card/**/*.test.tsx`, `packages/react/test/popupConformanceTests.tsx`, `detachedTriggersConformanceTests.tsx`, `positionerConformanceTests.tsx` and `viewportConformanceTests.tsx`
 - `src/lib/internal/popups/triggerOwnedStore.svelte.ts`, the trigger ownership Tooltip and PreviewCard share, from `useImplicitActiveTrigger` and `useTriggerDataForwarding` in `packages/react/src/utils/popups/popupStoreUtils.ts` of that commit
+- NavigationMenu derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/navigation-menu/NavigationMenu*.svelte` from the matching part files under `packages/react/src/navigation-menu/` (Root, List, Item, Trigger, Icon, Content, Link, Portal, Backdrop, Positioner, Popup, Arrow and Viewport; `NavigationMenuListInteractions.svelte` from the dismiss and hover hooks of `list/NavigationMenuList.tsx`)
+- `src/lib/navigation-menu/root-store.svelte.ts` from `packages/react/src/navigation-menu/root/NavigationMenuRoot.tsx`, `NavigationMenuRootContext.ts` and `packages/react/src/internals/useUnmountAfterClose.ts`
+- `src/lib/navigation-menu/trigger.svelte.ts` and `trigger-floating.svelte.ts` from `packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.tsx` and the `setOpen` of `packages/react/src/floating-ui-react/components/FloatingRootStore.ts`
+- `src/lib/navigation-menu/constants.ts`, `context.svelte.ts`, `utils.ts`, `composite-item.svelte.ts` and `types.ts` from `packages/react/src/navigation-menu/utils/*`, the navigation menu context modules, the `*CssVars.ts` files, the part prop and state types, and `packages/react/src/internals/composite/item/useCompositeItem.ts`
+- `packages/floating-ui-svelte/src/sharedInternals.ts` re-exports existing helpers of that package for NavigationMenu
+- `src/lib/navigation-menu/*.spec.ts` assertions from `packages/react/src/navigation-menu/**/*.test.tsx`, and `src/tests/NavigationMenu*Harness.svelte` from the test components in those files
 
 Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 

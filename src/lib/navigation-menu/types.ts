@@ -1,3 +1,6 @@
+// Prop and state types of the navigation menu parts.
+// Derived from the part types in Base UI v1.9.0 packages/react/src/navigation-menu/**/NavigationMenu*.tsx
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import type { Attachment } from 'svelte/attachments';
 import type { Snippet } from 'svelte';
 import type {
