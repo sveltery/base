@@ -636,6 +636,7 @@ describe('Accordion', () => {
 			await expect.element(first).toHaveAttribute('data-index', '0');
 			await expect.element(second).toHaveAttribute('data-index', '1');
 			await expect.element(first).toHaveAttribute('data-panel-open', '');
+			await expect.element(first).not.toHaveAttribute('data-open');
 			await expect.element(first).not.toHaveAttribute('data-value');
 			await expect.element(second).not.toHaveAttribute('data-value');
 		});
