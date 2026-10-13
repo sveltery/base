@@ -270,7 +270,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/dialog/Dialog.svelte.spec.ts` programmatic payload cases from `packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx`, and the `openedWithoutTrigger` cases in `src/lib/internal/popups/popupStoreUtils.spec.ts` from `packages/react/src/utils/popups/popupStoreUtils.test.tsx`
 - `src/lib/dialog/store.svelte.ts` `onNestedDialogOpen` from `packages/react/src/dialog/root/useDialogRoot.ts` (a closed, unmounted root ignores nested counts)
 - `packages/utils/src/event-details.ts` also exports `REASONS.listNavigation` from `packages/react/src/internals/reason-parts.ts`
-- `packages/floating-ui-svelte/src/utils/enqueueFocus.ts` `sync` option from `packages/react/src/floating-ui-react/utils/enqueueFocus.ts`
+- `packages/floating-ui-svelte/src/utils/enqueueFocus.ts` from `packages/react/src/floating-ui-react/utils/enqueueFocus.ts` (the `sync` option and one queued focus per page)
 
 MIT License
 

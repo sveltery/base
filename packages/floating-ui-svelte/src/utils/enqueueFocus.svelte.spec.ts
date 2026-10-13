@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { enqueueFocus } from './enqueueFocus.js';
 
 function button() {
@@ -30,10 +30,32 @@ describe('enqueueFocus', () => {
 		expect(document.activeElement).toBe(element);
 	});
 
-	it('skips a sync focus that shouldFocus declines', () => {
+	it('asks shouldFocus at once with sync and skips when it declines', () => {
 		const element = button();
-		enqueueFocus(element, { sync: true, shouldFocus: () => false });
+		const shouldFocus = vi.fn(() => false);
+		enqueueFocus(element, { sync: true, shouldFocus });
+		expect(shouldFocus).toHaveBeenCalledTimes(1);
 		expect(document.activeElement).toBe(document.body);
+	});
+
+	it('lets a sync request supersede a queued one', async () => {
+		const first = button();
+		const second = button();
+		enqueueFocus(first);
+		enqueueFocus(second, { sync: true });
+		await frame();
+		await frame();
+		expect(document.activeElement).toBe(second);
+	});
+
+	it('keeps a later request when an earlier cleanup runs', async () => {
+		const first = button();
+		const second = button();
+		const cancelFirst = enqueueFocus(first);
+		enqueueFocus(second);
+		cancelFirst();
+		await frame();
+		expect(document.activeElement).toBe(second);
 	});
 
 	it('does not focus after the returned cleanup runs', async () => {
