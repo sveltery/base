@@ -1,11 +1,11 @@
 ---
 name: verify-sveltery
-description: Verify Sveltery Base components (Svelte 5 port of Base UI v1.8.0). Use after any change to src/lib or src/routes/fixtures, before pushing, or when a component looks broken. Runs lint, types, unit, Chromium component tests and paired Svelte/React Playwright fixtures with one command.
+description: Verify Sveltery Base components (Svelte 5 port of Base UI v1.9.0). Use after any change to src/lib or src/routes/fixtures, before pushing, or when a component looks broken. Runs lint, types, unit, Chromium component tests and paired Svelte/React Playwright fixtures with one command.
 ---
 
 # Verify Sveltery components
 
-The product is the component library in `src/lib`. Verification means a rendered Svelte component produces the right business outcome: role and ARIA/`data-*` state, activation, cancellation, disabled behavior, bound and one-way updates, and cleanup. Behavior is compared against React Base UI 1.8.0 (commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`), which runs only in fixtures.
+The product is the component library in `src/lib`. Verification means a rendered Svelte component produces the right business outcome: role and ARIA/`data-*` state, activation, cancellation, disabled behavior, bound and one-way updates, and cleanup. Behavior is compared against React Base UI 1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`), which runs only in fixtures.
 
 ## Run it
 
