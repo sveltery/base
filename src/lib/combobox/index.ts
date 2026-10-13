@@ -1,3 +1,5 @@
+// Derived from Base UI v1.9.0 packages/react/src/combobox/index.parts.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import ComboboxArrow from './ComboboxArrow.svelte';
 import ComboboxBackdrop from './ComboboxBackdrop.svelte';
 import ComboboxChip from './ComboboxChip.svelte';

@@ -1,8 +1,12 @@
+<!--
+	Fixture cases for the Combobox port of Base UI v1.9.0
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+-->
 <script lang="ts">
 	import { Combobox, Field } from '#lib';
 	import FormSubmit from '../FormSubmit.svelte';
 	import { takeForm } from '../form-log.js';
-	import { fruits, type ComboboxCase } from './cases.js';
+	import { fruits, gridRows, type ComboboxCase } from './cases.js';
 
 	let { scenario }: { scenario: ComboboxCase } = $props();
 
@@ -66,6 +70,25 @@
 			<Combobox.Value placeholder="Pick a fruit" />
 		</Combobox.Trigger>
 		{@render list()}
+	</Combobox.Root>
+{:else if scenario === 'grid'}
+	<Combobox.Root grid>
+		<Combobox.Input data-testid="input" aria-label="Color" />
+		<Combobox.Portal>
+			<Combobox.Positioner data-testid="positioner">
+				<Combobox.Popup data-testid="popup">
+					<Combobox.List>
+						{#each gridRows as row (row[0])}
+							<Combobox.Row>
+								{#each row as color (color)}
+									<Combobox.Item value={color}>{color}</Combobox.Item>
+								{/each}
+							</Combobox.Row>
+						{/each}
+					</Combobox.List>
+				</Combobox.Popup>
+			</Combobox.Positioner>
+		</Combobox.Portal>
 	</Combobox.Root>
 {:else if scenario === 'form'}
 	<FormSubmit {accept} {submitted} {values}>

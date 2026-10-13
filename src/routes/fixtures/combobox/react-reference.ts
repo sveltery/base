@@ -1,9 +1,10 @@
 // React Base UI 1.9.0 counterpart of ComboboxFixture.svelte. Comparison only; never imported by src/lib.
+// Base UI v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { createElement as h, Fragment, useEffect, useState, type ReactNode } from 'react';
 import { Combobox } from '@base-ui/react/combobox';
 import { Field } from '@base-ui/react/field';
 import { Form } from '@base-ui/react/form';
-import { fruits, type ComboboxCase } from './cases.js';
+import { fruits, gridRows, type ComboboxCase } from './cases.js';
 
 import { mountApp, passProps } from '../react-fixture.js';
 
@@ -95,6 +96,36 @@ export function mountComboboxReference(
 					h(Combobox.Value, { placeholder: 'Pick a fruit' })
 				),
 				list(scenario)
+			);
+		}
+		if (scenario === 'grid') {
+			return h(
+				Combobox.Root,
+				passProps({ grid: true }),
+				h(Combobox.Input, partProps({ 'data-testid': 'input', 'aria-label': 'Color' })),
+				h(
+					Combobox.Portal,
+					null,
+					h(
+						Combobox.Positioner,
+						partProps({ 'data-testid': 'positioner' }),
+						h(
+							Combobox.Popup,
+							partProps({ 'data-testid': 'popup' }),
+							h(
+								Combobox.List,
+								null,
+								gridRows.map((row) =>
+									h(
+										Combobox.Row,
+										{ key: row[0] },
+										row.map((color) => h(Combobox.Item, { key: color, value: color }, color))
+									)
+								)
+							)
+						)
+					)
+				)
 			);
 		}
 		if (scenario === 'form') {

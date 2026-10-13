@@ -368,6 +368,58 @@ Local: the interaction that opened the popup is kept until the popup unmounts, s
 
 `describeConformance` and the popup conformance suites (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions), the Strict Mode, `React.startTransition`, `ReactDOM.createPortal` and render-count cases, and the requestAnimationFrame-mocked touch reopen case have no Svelte counterpart. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Upstream's jsdom-only keyboard, quick-selection and style-hook item cases run in Chromium with real timers.
 
+## Combobox
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/combobox/**`, with `AriaCombobox.tsx`, `packages/react/src/floating-ui-react/hooks/gridNavigation.ts` and the listbox helpers Select shares. The paired fixture runs `@base-ui/react` 1.9.0.
+
+### Public surface
+
+Upstream: `value`/`defaultValue`/`onValueChange`, `inputValue`/`defaultInputValue`/`onInputValueChange`, `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `virtualized`, the `Combobox.Item` `index` prop, `readOnly`, `autoComplete`, a `Combobox.List` children function, and `ReactNode` labels and placeholder.
+
+Local: `value`, `inputValue` and `open` are `$bindable`. `defaultValue` and `defaultInputValue` stay, because the combobox is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. `inputRef`, `virtualized` and the item `index` prop are not ported. The root takes `readonly` and `autocomplete`, the HTML spellings. `Combobox.List` takes static children, and `Combobox.Collection` renders the filtered items through its `children` snippet. Labels, `placeholder`, and what `itemToStringLabel` returns are strings. A `Combobox.Value` `children` snippet receives the value in place of the children function. `useFilter` is a plain function, called in a `$derived` when its options change. `useFilteredItems` returns `{ current }`. `createItems` derives each item's value and label on first use.
+
+### One core for Combobox and Autocomplete
+
+Upstream: `AriaCombobox` holds the behavior, and `selectionMode` (`single`, `multiple` or `none`) picks what a press commits.
+
+Local: `src/lib/combobox/AriaCombobox.svelte` holds the same behavior behind the same `selectionMode` prop. `Combobox.Root` passes `single` or `multiple`, and an Autocomplete root passes `none`, where the input text is the value and the bound control kind is `text`. `ComboboxStore` extends `PopupStore`, keeps the input text, indices and part elements in `$state`, and derives the filtered and flattened items from them.
+
+### Multiple values submit through one hidden select
+
+Upstream: a `multiple` combobox renders one hidden `<input>` per value.
+
+Local: one hidden `<select multiple>` holds the values, as Select does. `FormData` holds the same entries. The helper now lives in `src/lib/internal/listbox/native-select.ts`, shared with Select.
+
+Test: `src/lib/combobox/ComboboxRoot.form.svelte.spec.ts`, the `bound Combobox` cases of `src/lib/field/bound-control.svelte.spec.ts`.
+
+### Native reset and form sources
+
+Upstream: nothing listens for `reset`, as described under [Form reset](#form-reset).
+
+Local: a native reset restores `defaultValue` and the input text that matches it, and calls no `onValueChange`. Inside a `Field.Root` bound to a form source, the combobox is kind `select`, or `select multiple` with `multiple`, per [Composite controls bound to a form source](#composite-controls-bound-to-a-form-source).
+
+Test: `src/routes/fixtures/combobox/combobox.e2e.ts` (`restores the default value on a native form reset`).
+
+### Event handling
+
+Upstream: a consumer handler calls `event.preventBaseUIHandler()` to skip a part's own handling, and the flag travels with the synthetic event as it bubbles, so a chip's handler can also skip the chips area's press handling.
+
+Local: `event.preventDefault()` is the skip signal. The chips area and the input group skip their press handling for a `mousedown` a nested part already prevented.
+
+Test: `src/lib/combobox/ComboboxChips.svelte.spec.ts` (`lets a nested chip onmousedown prevent the built-in focus and open behavior`).
+
+### Focus, fields and positioning
+
+Upstream: with the input outside the popup, the popup's focus manager is modal and counts the internal dismiss buttons as inside through `getInsideElements`. A field-aware element rendered for an input inside the popup reads the field context of the surrounding `Field.Root`.
+
+Local: the shared focus manager has no `getInsideElements` and no mode in which the reference counts as inside, so with the input outside the popup, the popup's focus manager is non-modal and focus stays on the input. With the input inside the popup, the trigger is the field's control, so the input gives its subtree an inert field context and a field-aware `render` element there does not take the field's name or validity. The positioner does not require `Combobox.Portal`, and a portal's `keepMounted` does not reach the positioner's anchoring.
+
+Test: `src/lib/combobox/ComboboxRoot.form.svelte.spec.ts`, `src/lib/combobox/ComboboxPositioner.svelte.spec.ts`.
+
+### Not covered
+
+`describeConformance` (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions, ref callbacks during commit and hydration, all through Autocomplete), the Strict Mode, `React.memo` and render-count cases, the `virtualized` and item `index` cases, the Label `captureOwnerStack` cases, and the Autocomplete cases in the Combobox suites have no Svelte counterpart here. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Live-region reset delays run on real timers instead of fake ones.
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -407,6 +459,7 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
 | Select             | `inputRef`, `ReactNode` labels and placeholder                                                         |
+| Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder, Autocomplete parts        |
 
 ## Shared floating internals
 

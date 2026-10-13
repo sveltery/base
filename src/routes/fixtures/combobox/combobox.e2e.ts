@@ -1,4 +1,5 @@
 // Each case runs against the Svelte Combobox and the React Base UI 1.9.0 reference.
+// Base UI v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { expect, test, type Page } from '@playwright/test';
 import { openFixture } from '../open-fixture.js';
 
@@ -117,6 +118,31 @@ for (const reference of [false, true]) {
 			await expect(trigger).toHaveText('Cherry');
 			await expect(page.getByRole('dialog')).toBeHidden();
 			await expect(trigger).toBeFocused();
+		});
+
+		test('moves through a grid in two dimensions', async ({ page }) => {
+			await open(page, 'grid', reference);
+			const input = page.getByTestId('input');
+			await input.click();
+			await expect(page.getByRole('grid')).toBeVisible();
+
+			await page.keyboard.press('ArrowDown');
+			await expect(page.getByRole('row')).toHaveCount(2);
+			const highlighted = page.locator('[role="gridcell"][data-highlighted]');
+			await expect(highlighted).toHaveText('Red');
+
+			await page.keyboard.press('ArrowRight');
+			await expect(highlighted).toHaveText('Green');
+			await page.keyboard.press('ArrowDown');
+			await expect(highlighted).toHaveText('Magenta');
+			await expect(input).toHaveAttribute(
+				'aria-activedescendant',
+				(await highlighted.getAttribute('id'))!
+			);
+
+			await page.keyboard.press('Enter');
+			await expect(input).toHaveValue('Magenta');
+			await expect(page.getByRole('grid')).toBeHidden();
 		});
 
 		test('blocks an empty required submit, then submits the value', async ({ page }) => {
