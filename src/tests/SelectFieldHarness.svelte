@@ -12,6 +12,11 @@
 		fieldLabel,
 		description,
 		error = true,
+		errorMatch,
+		errorText,
+		fieldLabelProps = {},
+		fieldLabelSpan = false,
+		mounted = true,
 		submit = false
 	}: {
 		value?: unknown;
@@ -23,18 +28,36 @@
 		fieldLabel?: string;
 		description?: string;
 		error?: boolean;
+		errorMatch?: ComponentProps<typeof Field.Error>['match'];
+		/** Static error text, shown only while `errorMatch` matches. */
+		errorText?: string;
+		fieldLabelProps?: Record<string, unknown>;
+		/** Renders Field.Label as a `<span>` with `nativeLabel={false}`. */
+		fieldLabelSpan?: boolean;
+		mounted?: boolean;
 		submit?: boolean;
 	} = $props();
 </script>
 
 {#snippet fieldRoot()}
 	<Field.Root data-testid="field" {...field}>
-		{#if fieldLabel}<Field.Label data-testid="field-label">{fieldLabel}</Field.Label>{/if}
-		<SelectHarness bind:value bind:open {...select} />
+		{#if fieldLabelSpan}
+			<Field.Label data-testid="field-label" nativeLabel={false}>
+				{#snippet render(props)}<span {...props}>{fieldLabel}</span>{/snippet}
+			</Field.Label>
+		{:else if fieldLabel !== undefined}
+			<Field.Label data-testid="field-label" {...fieldLabelProps}>{fieldLabel}</Field.Label>
+		{/if}
+		{#if mounted}<SelectHarness bind:value bind:open {...select} />{/if}
 		{#if description}<Field.Description data-testid="description">{description}</Field.Description>{/if}
-		{#if error}<Field.Error data-testid="error" />{/if}
+		{#if errorText}
+			<Field.Error data-testid="error" match={errorMatch}>{errorText}</Field.Error>
+		{:else if error}
+			<Field.Error data-testid="error" />
+		{/if}
 	</Field.Root>
 	{#if submit}<button type="submit">Submit</button>{/if}
+	<button type="button" data-testid="field-outside">Outside</button>
 {/snippet}
 
 {#if form}
