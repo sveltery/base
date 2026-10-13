@@ -11,7 +11,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
-	import { BoundControl } from '../field/bound-control.svelte.js';
+	import { BoundControl, sourceNumber } from '../field/bound-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { dispatchingValueEvent } from '../internal/value-events.js';
@@ -61,7 +61,7 @@
 		kind: 'number',
 		read: (): number | null => current,
 		write: (next) => writeValue(next),
-		fromSource: (raw) => (typeof raw === 'number' ? raw : null)
+		fromSource: (raw) => sourceNumber(raw) ?? null
 	});
 
 	// `defaultValue` is the initial value of an empty binding, as in HTML.

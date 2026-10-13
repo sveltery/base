@@ -48,6 +48,25 @@ export function boundInputProps(
 	return result;
 }
 
+// After a submit without JavaScript, SvelteKit echoes the input as the raw FormData strings,
+// without decoding `n:` and `b:` names, so a source can hold a value in its submitted form.
+
+/** A source value as a boolean: `true`, or `'on'`, which a checked checkbox submits. */
+export function sourceBoolean(raw: unknown): boolean {
+	return raw === true || raw === 'on';
+}
+
+/**
+ * A source value as a number: a number as is, or a numeric string decoded with `parseFloat`, as
+ * Kit decodes an `n:` name. `undefined` for anything else.
+ */
+export function sourceNumber(raw: unknown): number | undefined {
+	if (typeof raw === 'number') return raw;
+	if (typeof raw !== 'string' || raw.trim() === '') return undefined;
+	const parsed = parseFloat(raw);
+	return Number.isNaN(parsed) ? undefined : parsed;
+}
+
 export interface BoundControlOptions<T> {
 	/** The kind this control submits as. A Field.Root `type` that differs is a dev error. */
 	kind: ControlKind;

@@ -171,15 +171,17 @@ A Field is bound when it has a form source: `<Field.Root field={f.fields.seats} 
 5. **Each control declares its kind.** In dev, a kind that differs from the Field.Root `type` logs a console error that names both.
 6. **The visible element is the focus target.** Register it through `attachFieldControl` or `watchFieldControl`, and mark the Field touched on blur, so `onBlur` validation and focus after a failed submit work.
 
-| Control       | Kind       | `fromSource(raw)`                                   | Bound input                                                                  |
-| ------------- | ---------- | --------------------------------------------------- | ---------------------------------------------------------------------------- |
-| Checkbox      | `checkbox` | `raw === true`                                      | One checkbox with no `value`, so it submits `on`. No `uncheckedValue` input. |
-| Switch        | `switch`   | `raw === true`                                      | As Checkbox. `switch` fits boolean fields only.                              |
-| RadioGroup    | `radio`    | `raw`                                               | One radio per option, with the option as `as()`'s second argument.           |
-| CheckboxGroup | `checkbox` | `raw` as `string[]`, else `[]`                      | One checkbox per option. An unticked one keeps its option value.             |
-| NumberField   | `number`   | A number as is, anything else `null`                | The hidden number input. `null` is an empty field.                           |
-| Slider        | `range`    | A number as is, anything else `defaultValue ?? min` | The thumb's range input. One thumb only. An array value is a dev error.      |
-| OTPField      | `text`     | `String(raw)`, `''` for `null` or `undefined`       | The hidden text input.                                                       |
+| Control       | Kind       | `fromSource(raw)`                             | Bound input                                                                  |
+| ------------- | ---------- | --------------------------------------------- | ---------------------------------------------------------------------------- |
+| Checkbox      | `checkbox` | `sourceBoolean(raw)`: `true` or `'on'`        | One checkbox with no `value`, so it submits `on`. No `uncheckedValue` input. |
+| Switch        | `switch`   | `sourceBoolean(raw)`                          | As Checkbox. `switch` fits boolean fields only.                              |
+| RadioGroup    | `radio`    | `raw`                                         | One radio per option, with the option as `as()`'s second argument.           |
+| CheckboxGroup | `checkbox` | `raw` as `string[]`, else `[]`                | One checkbox per option. An unticked one keeps its option value.             |
+| NumberField   | `number`   | `sourceNumber(raw) ?? null`                   | The hidden number input. `null` is an empty field.                           |
+| Slider        | `range`    | `sourceNumber(raw) ?? defaultValue ?? min`    | The thumb's range input. One thumb only. An array value is a dev error.      |
+| OTPField      | `text`     | `String(raw)`, `''` for `null` or `undefined` | The hidden text input.                                                       |
+
+SvelteKit renders a failed submit without JavaScript from the raw `FormData` strings, so a source can hold `'on'` for a boolean or `'5'` for a number. `sourceBoolean` and `sourceNumber` read both forms.
 
 NumberField maps an empty source value to `null` rather than to `defaultValue`. A remote form holds `undefined` both for a number input the user cleared and for one never set. Rule 3 handles "never set" at mount, and rule 4 handles "cleared" afterwards, so a bound NumberField can be emptied.
 

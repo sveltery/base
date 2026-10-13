@@ -12,7 +12,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { findLabelableContext } from '../field/labelable.svelte.js';
-	import { BoundControl } from '../field/bound-control.svelte.js';
+	import { BoundControl, sourceNumber } from '../field/bound-control.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { clamp } from '../internal/clamp.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
@@ -69,7 +69,7 @@
 		kind: 'range',
 		read: () => valueUnwrapped,
 		write: (next) => writeValue(next),
-		fromSource: (raw) => (typeof raw === 'number' ? raw : (defaultValue ?? min)),
+		fromSource: (raw) => sourceNumber(raw) ?? defaultValue ?? min,
 		equals: areValuesEqual
 	});
 

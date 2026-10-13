@@ -21,7 +21,7 @@
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { BoundControl } from '../field/bound-control.svelte.js';
+	import { BoundControl, sourceBoolean } from '../field/bound-control.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import type { SwitchHostProps, SwitchRootProps, SwitchRootState } from './types.js';
@@ -61,7 +61,7 @@
 		write: (next) => {
 			checked = next;
 		},
-		fromSource: (raw) => raw === true
+		fromSource: sourceBoolean
 	});
 
 	// `defaultChecked` is the initial value of an empty binding, as in HTML.

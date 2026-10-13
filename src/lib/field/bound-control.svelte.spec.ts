@@ -485,3 +485,32 @@ describe('dev kind check', () => {
 		expect(log.mock.calls).toEqual([]);
 	});
 });
+
+// SvelteKit renders a failed submit without JavaScript from the raw FormData strings.
+describe('a source holding the strings a submit without JavaScript echoes', () => {
+	it('checks a Checkbox and a Switch for "on"', async () => {
+		for (const [scenario, path] of [
+			['checkbox', 'agree'],
+			['switch', 'alerts']
+		] as const) {
+			const source = new FakeRemoteForm('fake', { [path]: 'on' });
+			const { unmount } = render(BoundControlHarness, { source, scenario });
+			await expect.element(page.getByTestId('control')).toHaveAttribute('aria-checked', 'true');
+			expect(submitted(source)).toEqual({ [path]: true });
+			unmount();
+		}
+	});
+
+	it('starts a NumberField and a Slider from a numeric string', async () => {
+		const seats = new FakeRemoteForm('fake', { seats: '5' });
+		const numberField = render(BoundControlHarness, { source: seats, scenario: 'number-field' });
+		await expect.element(page.getByTestId('control')).toHaveValue('5');
+		expect(submitted(seats)).toEqual({ seats: 5 });
+		numberField.unmount();
+
+		const volume = new FakeRemoteForm('fake', { volume: '70' });
+		render(BoundControlHarness, { source: volume, scenario: 'slider' });
+		await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '70');
+		expect(submitted(volume)).toEqual({ volume: 70 });
+	});
+});

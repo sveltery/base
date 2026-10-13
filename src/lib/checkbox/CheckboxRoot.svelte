@@ -27,6 +27,7 @@
 	import {
 		BoundControl,
 		boundInputProps,
+		sourceBoolean,
 		type BoundInputProps
 	} from '../field/bound-control.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
@@ -77,7 +78,7 @@
 				write: (next) => {
 					checked = next;
 				},
-				fromSource: (raw) => raw === true
+				fromSource: sourceBoolean
 			});
 
 	// `defaultChecked` is the initial value of an empty binding, as in HTML.
