@@ -515,13 +515,13 @@ The button sets `aria-hidden` while the viewport is collapsed and the button doe
 
 `Toast.getToastManager<Data>()` returns a `GetToastManagerReturnValue`. Call it while a component initializes, inside `Toast.Provider`.
 
-| Member    | Type                                          | Description                                                                   |
-| --------- | --------------------------------------------- | ----------------------------------------------------------------------------- |
-| `toasts`  | `ToastObject[]` (read-only getter)            | The toasts, newest first. Read it from the object. Do not destructure it.     |
-| `add`     | `(options: ToastManagerAddOptions) => string` | Adds a toast and returns its id. An existing `id` updates that toast instead. |
-| `close`   | `(toastId?: string) => void`                  | Closes a toast. Without an id, closes every toast.                            |
-| `update`  | `(toastId: string, updates) => void`          | Updates a toast. `updates` is an object or a function of the previous toast.  |
-| `promise` | `(promise, options) => Promise`               | Shows loading, then success or error toast fields. Returns a chained promise. |
+| Member    | Type                                          | Description                                                                                                                                  |
+| --------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `toasts`  | `ToastObject[]` (read-only getter)            | The toasts, newest first. Read it from the object. Do not destructure it.                                                                    |
+| `add`     | `(options: ToastManagerAddOptions) => string` | Adds a toast and returns its id. An `id` of an open toast updates that toast instead. An `id` of a closing toast replaces it with a new one. |
+| `close`   | `(toastId?: string) => void`                  | Closes a toast. Without an id, closes every toast.                                                                                           |
+| `update`  | `(toastId: string, updates) => void`          | Updates a toast. `updates` is an object or a function of the previous toast.                                                                 |
+| `promise` | `(promise, options) => Promise`               | Shows loading, then success or error toast fields. Returns a chained promise.                                                                |
 
 #### createToastManager
 

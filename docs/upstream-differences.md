@@ -386,9 +386,4 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
-
-| Dialog | Drawer, ref objects |
-| AlertDialog | ref objects, the `*DataAttributes` and `*CssVariables` namespaces, typed and active-trigger payload |
-
-| Dialog | Alert Dialog, Drawer, ref objects |
-| Toast | refs, `className` and `style` callbacks |
+| Toast              | refs, `className` and `style` callbacks                                                                |

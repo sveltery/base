@@ -411,12 +411,7 @@ for (const reference of [false, true]) {
 			expect(await cssVar(toast, '--toast-offset-y')).toBe('0px');
 			await expect(page.getByTestId('content')).not.toHaveAttribute('data-behind');
 		});
-	});
-}
 
-// Base UI v1.9.0 keeps the viewport's timers paused while hover or focus still holds them.
-for (const reference of [false, true]) {
-	test.describe(reference ? 'react' : 'svelte', () => {
 		test('a mouseleave keeps timers paused while the viewport holds focus', async ({ page }) => {
 			await openToast(page, 'timeout', reference);
 			await press(page, 'add');
