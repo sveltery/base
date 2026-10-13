@@ -931,3 +931,110 @@ describe('touch and pen gestures', () => {
 		}
 	);
 });
+
+describe('cancelled gestures', () => {
+	function setup() {
+		const onValueChange = vi.fn();
+		const onValueCommitted = vi.fn();
+		const view = render(SliderHarness, { defaultValue: 20, onValueChange, onValueCommitted });
+		mockControlRect();
+		const committed = () =>
+			onValueCommitted.mock.calls.map(([value, details]) => [value, details.reason]);
+		return { view, onValueChange, committed };
+	}
+
+	it.each(['touchend', 'touchcancel'])(
+		'ignores %s from another finger during a touch drag',
+		async (type) => {
+			const { onValueChange, committed } = setup();
+
+			pointer(control(), 'pointerdown', 40, { pointerType: 'touch' });
+			touch(control(), 'touchstart', 40);
+			touch(document.body, 'touchmove', 70);
+			touch(document.body, 'touchstart', 90, 2);
+			touch(document.body, type, 90, 2);
+
+			expect(committed()).toEqual([]);
+			await expect.poll(() => control().hasAttribute('data-dragging')).toBe(true);
+
+			touch(document.body, 'touchmove', 80);
+			expect(onValueChange.mock.lastCall?.[0]).toBe(80);
+
+			touch(document.body, 'touchcancel', 80);
+			expect(committed()).toEqual([[80, 'drag']]);
+			await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
+		}
+	);
+
+	it.each(['mouse', 'pen'])(
+		'ends a cancelled %s drag after disabling and re-enabling during a touch drag',
+		async (pointerType) => {
+			const { view, onValueChange, committed } = setup();
+
+			pointer(control(), 'pointerdown', 40, { pointerType: 'touch' });
+			touch(control(), 'touchstart', 40);
+			await view.rerender({ disabled: true });
+			touch(document.body, 'touchcancel', 40);
+			await view.rerender({ disabled: false });
+
+			const init = { pointerType, pointerId: 7 };
+			pointer(control(), 'pointerdown', 50, init);
+			pointer(document.body, 'pointermove', 70, init);
+			pointer(document.body, 'pointercancel', 70, init);
+
+			expect(committed()).toEqual([[70, 'drag']]);
+			await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
+
+			onValueChange.mockClear();
+			pointer(document.body, 'pointermove', 90, init);
+			pointer(document.body, 'pointerup', 90, init);
+			expect(onValueChange).not.toHaveBeenCalled();
+			expect(committed()).toHaveLength(1);
+		}
+	);
+
+	it.each(['mouse', 'pen'])('commits and ends a %s drag on pointercancel', async (pointerType) => {
+		const { onValueChange, committed } = setup();
+		const init = { pointerType, pointerId: 7 };
+
+		pointer(control(), 'pointerdown', 40, init);
+		pointer(document.body, 'pointermove', 70, init);
+		await expect.poll(() => control().hasAttribute('data-dragging')).toBe(true);
+
+		pointer(document.body, 'pointercancel', 70, init);
+
+		expect(committed()).toEqual([[70, 'drag']]);
+		await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
+
+		onValueChange.mockClear();
+		pointer(document.body, 'pointerdown', 90, init);
+		pointer(document.body, 'pointermove', 90, init);
+		pointer(document.body, 'pointerup', 90, init);
+		expect(onValueChange).not.toHaveBeenCalled();
+		expect(committed()).toHaveLength(1);
+	});
+
+	it('keeps a touch drag going after pointercancel and ends it on touchcancel', async () => {
+		const { onValueChange, committed } = setup();
+
+		pointer(control(), 'pointerdown', 40, { pointerType: 'touch' });
+		touch(control(), 'touchstart', 40);
+		// Without `touch-action: none`, the browser cancels the pointer once it starts panning.
+		pointer(document.body, 'pointercancel', 40, { pointerType: 'touch' });
+		touch(document.body, 'touchmove', 70);
+		expect(onValueChange.mock.lastCall?.[0]).toBe(70);
+
+		touch(document.body, 'touchcancel', 70);
+		expect(committed()).toEqual([[70, 'drag']]);
+		await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
+
+		onValueChange.mockClear();
+		pointer(document.body, 'pointerdown', 90, { pointerType: 'touch', pointerId: 2 });
+		touch(document.body, 'touchstart', 90, 2);
+		touch(document.body, 'touchmove', 90, 2);
+		pointer(document.body, 'pointerup', 90, { pointerType: 'touch', pointerId: 2 });
+		touch(document.body, 'touchend', 90, 2);
+		expect(onValueChange).not.toHaveBeenCalled();
+		expect(committed()).toHaveLength(1);
+	});
+});

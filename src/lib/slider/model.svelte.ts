@@ -589,10 +589,13 @@ export class SliderRootModel {
 		if (doc) {
 			doc.removeEventListener('pointermove', this.onMove);
 			doc.removeEventListener('pointerup', this.onUp);
+			doc.removeEventListener('pointercancel', this.onPointerCancel);
 			doc.removeEventListener('touchmove', this.onMove);
 			doc.removeEventListener('touchend', this.onUp);
+			doc.removeEventListener('touchcancel', this.onUp);
 			this.listeningDoc = null;
 		}
+		this.touchId = null;
 		this.pressedValues = null;
 		this.currentInteractionValue = null;
 		this.pointerGesture = false;
@@ -610,15 +613,24 @@ export class SliderRootModel {
 		this.handleEnd(event as PointerEvent | TouchEvent);
 	};
 
+	private onPointerCancel = (event: Event) => {
+		// The browser cancels a touch pointer once it starts panning, but the touch listeners
+		// keep tracking the finger until `touchend` or `touchcancel`.
+		if (this.touchId != null) return;
+		this.handleEnd(event as PointerEvent);
+	};
+
 	private listen(doc: Document, touch: boolean) {
 		this.listeningDoc = doc;
 		if (touch) {
 			doc.addEventListener('touchmove', this.onMove, { passive: true });
 			doc.addEventListener('touchend', this.onUp, { passive: true });
+			doc.addEventListener('touchcancel', this.onUp, { passive: true });
 			return;
 		}
 		doc.addEventListener('pointermove', this.onMove, { passive: true });
 		doc.addEventListener('pointerup', this.onUp, { once: true });
+		doc.addEventListener('pointercancel', this.onPointerCancel, { once: true });
 	}
 
 	private isTargetDisabledThumb(target: EventTarget | null) {
@@ -785,6 +797,8 @@ export class SliderRootModel {
 	}
 
 	private handleEnd(nativeEvent: TouchEvent | PointerEvent) {
+		// Another finger's touch ends or cancels without ending this drag.
+		if (getFingerCoords(nativeEvent, this.touchId) == null) return;
 		this.setActive(-1);
 		this.dragging = false;
 		this.pressedThumbCenterOffset = null;
@@ -814,7 +828,6 @@ export class SliderRootModel {
 		}
 
 		this.pressedThumbIndex = -1;
-		this.touchId = null;
 		this.stopListening();
 	}
 }
