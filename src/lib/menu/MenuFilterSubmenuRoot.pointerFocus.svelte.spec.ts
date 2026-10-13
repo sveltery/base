@@ -110,3 +110,53 @@ describe.each([false, true])('submenu pointer focus with filteredParent=%s', (fi
 		await expect.poll(() => document.activeElement).toBe(input);
 	});
 });
+
+// The trigger's click handler types the press the way upstream `useEnhancedClickHandler` does. A
+// plain parent leaves the submenu input's focus to that handler alone.
+describe('submenu press type in a plain parent', () => {
+	beforeEach(parkPointer);
+
+	async function pressWith(down: PointerEventInit, click: 'mouse' | 'touch' | null) {
+		const trigger = moreTrigger();
+		pointer(trigger, 'pointerdown', { width: 10, height: 10, pressure: 0.5, ...down });
+		mouse(trigger, 'mousedown', { detail: 1 });
+		await frame();
+		pointer(trigger, 'pointerup', { pointerType: down.pointerType });
+		mouse(trigger, 'mouseup', { detail: 1 });
+		if (click === null) mouse(trigger, 'click', { detail: 1 });
+		else pointer(trigger, 'click', { detail: 1, pointerType: click });
+		await expect.poll(submenuInput).not.toBe(null);
+		await frame();
+		return submenuInput()!.matches(':focus');
+	}
+
+	it('does not focus the input after a press with no pointer type', async () => {
+		renderMenu(false, false);
+		await waitForParentFocus(false);
+		expect(await pressWith({ pointerType: '' }, null)).toBe(false);
+	});
+
+	it('focuses the input when the click itself reports a mouse', async () => {
+		renderMenu(false, false);
+		await waitForParentFocus(false);
+		expect(await pressWith({ pointerType: 'touch' }, 'mouse')).toBe(true);
+	});
+
+	it('does not focus the input when the click itself reports a touch', async () => {
+		renderMenu(false, false);
+		await waitForParentFocus(false);
+		expect(await pressWith({ pointerType: 'mouse' }, 'touch')).toBe(false);
+	});
+
+	it('ignores the pointer type of a pointerdown that was already prevented', async () => {
+		renderMenu(false, false);
+		await waitForParentFocus(false);
+		const prevent = (event: Event) => event.preventDefault();
+		window.addEventListener('pointerdown', prevent, { capture: true });
+		try {
+			expect(await pressWith({ pointerType: 'mouse' }, null)).toBe(false);
+		} finally {
+			window.removeEventListener('pointerdown', prevent, { capture: true });
+		}
+	});
+});

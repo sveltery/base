@@ -9,7 +9,13 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
-	import { REASONS, createChangeEventDetails, platform } from '@sveltery/utils';
+	import {
+		REASONS,
+		createChangeEventDetails,
+		platform,
+		useOpenInteractionType,
+		type OpenPointerKind
+	} from '@sveltery/utils';
 	import {
 		ClickInteraction,
 		HoverReferenceInteraction,
@@ -71,18 +77,18 @@
 
 	// The submenu or the parent keeps real focus on a filter input.
 	const filterable = store.virtualFocus || parentStore.virtualFocus;
-	let clickPointerType = '';
+	let pressPointerType: OpenPointerKind;
 	const filterProps = filterable
 		? {
 				// Omitted on a plain submenu, whose root sets `'menu'`.
 				...(store.virtualFocus ? { 'aria-haspopup': 'dialog' as const } : {}),
 				onpointerdown(event: PointerEvent) {
-					clickPointerType = event.pointerType;
+					if (!event.defaultPrevented) pressPointerType = event.pointerType as OpenPointerKind;
 					store.virtualPress = isVirtualPointerEvent(event);
 				},
 				onclick(event: MouseEvent) {
-					const interaction = event.detail === 0 ? 'keyboard' : clickPointerType || 'mouse';
-					clickPointerType = '';
+					const interaction = useOpenInteractionType(event, pressPointerType);
+					pressPointerType = undefined;
 					if (
 						store.open &&
 						(interaction === 'keyboard' ||
