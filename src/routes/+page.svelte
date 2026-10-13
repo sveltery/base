@@ -115,5 +115,9 @@
 			<a href="/fixtures/preview-card">PreviewCard</a> (add <code>&amp;reference</code> for React Base
 			UI)
 		</li>
+		<li>
+			<a href="/fixtures/navigation-menu">NavigationMenu</a> (add <code>&amp;reference</code> for React
+			Base UI)
+		</li>
 	</ul>
 </main>
