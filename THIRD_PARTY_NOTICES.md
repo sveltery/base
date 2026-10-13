@@ -252,6 +252,8 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/dialog/attributes.ts` from `packages/react/src/dialog/utils/stateAttributesMapping.ts` and the dialog `*DataAttributes.ts` files
 - `src/lib/dialog/Dialog.svelte.spec.ts` assertions from `packages/react/src/dialog/**/*.test.tsx` that do not require Alert Dialog, Drawer, Menu, or Select
 - `src/lib/internal/popups/store.svelte.ts` `forceUnmount` and `notifyOpenChangeComplete` expose the close-completion path Dialog's `unmount()` and open animation use
+- `src/lib/tooltip/**` from `packages/react/src/tooltip/**` of Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Provider, Root, Trigger, Portal, Positioner, Popup, Arrow, Viewport and the handle; `store.svelte.ts` extends the shared `PopupStore` and also takes `useImplicitActiveTrigger` from `packages/react/src/utils/popups/popupStoreUtils.ts`)
+- `src/lib/tooltip/*.svelte.spec.ts` assertions from `packages/react/src/tooltip/**/*.test.tsx` of that commit that do not require React refs, StrictMode, or SSR hydration
 
 MIT License
 

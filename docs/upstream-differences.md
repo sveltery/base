@@ -203,6 +203,37 @@ Local: Form validates in a capture-phase `submit` listener. An invalid submit ge
 
 Test: `src/lib/form/form-events.svelte.spec.ts`, `src/lib/form/form-ssr.spec.ts` and `src/routes/fixtures/form/form.e2e.ts` (`svelte SSR leaves novalidate to hydration`).
 
+## Tooltip
+
+Source: `packages/react/src/tooltip` at Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`. The other components follow v1.8.0. `Tooltip.Root` extends the shared `PopupStore` as Popover does. Hover, focus, cursor tracking and the Provider's delay group come from `packages/floating-ui-svelte`.
+
+| Upstream                                                 | Local                                                                                                    |
+| -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId` | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                                 |
+| `actionsRef`                                             | `bind:this` on `Tooltip.Root` (`close` and `unmount`)                                                    |
+| `Tooltip.createHandle()`                                 | `Tooltip.createHandle()`, and `createTooltipHandle` as a named export                                    |
+| `children` render function `{ payload }`                 | snippet argument `{ payload }`                                                                           |
+| `useDismiss` `referencePress`                            | the trigger-press close lives in `TooltipRootInteractions.svelte`, because `DismissInteraction` has none |
+| `*DataAttributes` and `*CssVars` enums                   | not exported, as for Popover                                                                             |
+
+The popup has no `role` and the trigger has no `aria-describedby` or `type`, as upstream renders them.
+
+### Delay group handover
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx`. When a second tooltip in a group opens, the group closes the previous one from a layout effect. React does not track what that close reads.
+
+Local: the handover in `packages/floating-ui-svelte/src/components/delay-group.svelte.ts` runs in a `$effect`, so the close subscribed that effect to the previous tooltip's store and the next run ended the instant phase. `TooltipStore.setOpen` runs its body in `untrack`, so the close reads nothing the effect can subscribe to. The same `untrack` around the handover body in `delay-group.svelte.ts` would fix it for every group member.
+
+Test: `src/lib/tooltip/TooltipParts.svelte.spec.ts` (Provider cases) and `src/routes/fixtures/tooltip/tooltip.e2e.ts` (`a provider opens the next trigger instantly`).
+
+### Behavior that waits on shared internals
+
+Each case is kept as an `it.todo` in the Tooltip specs.
+
+- `TRIGGER_DISABLED_ATTRIBUTE` in `packages/floating-ui-svelte/src/utils/constants.ts` is `data-disabled`. v1.9.0 uses `data-trigger-disabled`, which the Tooltip trigger renders, so `isTargetInsideEnabledTrigger` treats a disabled tooltip trigger as enabled. Upstream test: `closes when focusing a disabled trigger while another trigger is open`.
+- `src/lib/internal/useAnchorPositioning.svelte.ts` places the positioner with `left` and `top`. v1.9.0 uses `transform` when no Viewport is mounted. Upstream tests: `uses transform positioning without Viewport` and `updates positioning when Viewport mounts and unmounts`.
+- `src/lib/internal/usePopupViewport.svelte.ts` does not set `--popup-width` and `--popup-height` on the previous container. Upstream test: the size half of `creates morphing containers during transitions`.
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -238,3 +269,4 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Overlay foundation | Internal only. No public component                                                                     |
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
 | Dialog             | Alert Dialog, Drawer, ref objects                                                                      |
+| Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
