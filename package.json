@@ -192,6 +192,11 @@
 			"svelte": "./dist/toolbar/index.js",
 			"default": "./dist/toolbar/index.js"
 		},
+		"./tooltip": {
+			"types": "./dist/tooltip/index.d.ts",
+			"svelte": "./dist/tooltip/index.js",
+			"default": "./dist/tooltip/index.js"
+		},
 		"./types": {
 			"types": "./dist/types/index.d.ts",
 			"svelte": "./dist/types/index.js",
