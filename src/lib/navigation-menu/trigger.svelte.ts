@@ -1,10 +1,10 @@
 // Derived from Base UI v1.9.0 packages/react/src/navigation-menu/trigger/NavigationMenuTrigger.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// The trigger's open logic, popup sizing, and focus guards. The component renders the button.
+// The trigger's open logic and focus guards. The component renders the button.
+// The root's `NavigationMenuSizing` sizes the popup.
 // Upstream reads `value` from the render before the event: handlers here read it once at the start.
 
 import { flushSync, untrack } from 'svelte';
-import { on } from 'svelte/events';
 import {
 	applySafePolygonPointerEventsMutation,
 	ClickInteraction,
@@ -22,41 +22,18 @@ import {
 	closest,
 	contains,
 	createChangeEventDetails,
-	ownerWindow,
 	REASONS,
-	ScopedAnimationFrame,
 	ScopedTimeout,
 	type BaseUIChangeEventDetails
 } from '@sveltery/utils';
 import { getCssDimensions } from '../internal/getCssDimensions.js';
-import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
-import { PATIENT_CLICK_THRESHOLD, POPUP_HEIGHT_VAR, POPUP_WIDTH_VAR } from './constants.js';
+import { PATIENT_CLICK_THRESHOLD } from './constants.js';
 import type { NavigationMenuRootStore } from './root-store.svelte.js';
 import { NavigationMenuTriggerFloating } from './trigger-floating.svelte.js';
 import type { NavigationMenuChangeReason } from './types.js';
-import {
-	getPlacementFromElements,
-	isOutsideMenuEvent,
-	setPopupSize,
-	setPositionerSize,
-	setSharedFixedSize,
-	type SizeTargets
-} from './utils.js';
+import { getPlacementFromElements, isOutsideMenuEvent } from './utils.js';
 
-const DEFAULT_SIZE = { width: 0, height: 0 };
-const STARTING_STYLE = 'data-starting-style';
-
-type Size = { width: number; height: number };
 type OpenEvent = (MouseEvent | KeyboardEvent) & { currentTarget: EventTarget | null };
-
-function setAutoSizes(targets: SizeTargets) {
-	setPopupSize(targets, 'auto', 'auto');
-}
-
-function clearFixedSizes(targets: SizeTargets) {
-	setPopupSize(targets, null, null);
-	setPositionerSize(targets, null, null);
-}
 
 export interface NavigationMenuTriggerOptions {
 	itemValue: () => unknown;
@@ -76,15 +53,10 @@ export class NavigationMenuTriggerController {
 
 	#stickIfOpen = $state(true);
 	#pointerType = $state('');
-	#prevSize: Size = DEFAULT_SIZE;
-	#skipAutoSizeSync = false;
 	/** Whether this item was active when the press started. Upstream reads it from the render. */
 	#pressToggle = false;
 	readonly #tree = useFloatingTree();
 	readonly #stickIfOpenTimeout = new ScopedTimeout();
-	readonly #mutationFrame = new ScopedAnimationFrame();
-	readonly #resizeFrame = new ScopedAnimationFrame();
-	readonly #sizeFrame = new ScopedAnimationFrame();
 	readonly #mousePolygon: ReturnType<typeof safePolygon>;
 	readonly #touchPolygon: ReturnType<typeof safePolygon>;
 
@@ -118,96 +90,9 @@ export class NavigationMenuTriggerController {
 		}));
 
 		$effect(() => {
-			if (this.isActiveItem) return;
-			this.#mutationFrame.cancel();
-			this.#sizeFrame.cancel();
-			untrack(() => this.#cancelAutoSizeReset());
-		});
-
-		$effect(() => {
 			if (root.open) return;
 			this.#stickIfOpenTimeout.clear();
-			this.#mutationFrame.cancel();
-			this.#resizeFrame.cancel();
-			this.#sizeFrame.cancel();
-			untrack(() => {
-				this.#cancelAutoSizeReset(true);
-				this.#skipAutoSizeSync = false;
-				this.#pointerType = '';
-			});
-		});
-
-		$effect(() => {
-			if (!root.mounted) this.#prevSize = DEFAULT_SIZE;
-		});
-
-		$effect(() => {
-			const popup = root.popupElement;
-			if (!popup || typeof ResizeObserver !== 'function') return;
-			const observer = new ResizeObserver(() => {
-				this.#prevSize = { width: popup.offsetWidth, height: popup.offsetHeight };
-			});
-			observer.observe(popup);
-			return () => observer.disconnect();
-		});
-
-		$effect(() => {
-			const popup = root.popupElement;
-			const positioner = root.positionerElement;
-			if (!root.open || !this.isActiveItem || !popup || !positioner) return;
-			const stop = on(ownerWindow(positioner), 'resize', () => {
-				this.#resizeFrame.cancel();
-				this.#resizeFrame.request(() => this.#syncCurrentSize(popup, positioner));
-			});
-			return () => {
-				this.#resizeFrame.cancel();
-				stop();
-			};
-		});
-
-		$effect(() => {
-			const content = root.currentContent;
-			const popup = root.popupElement;
-			const positioner = root.positionerElement;
-			if (!content || !popup || !positioner || !this.isActiveItem) return;
-			if (typeof MutationObserver !== 'function') return;
-			const observer = new MutationObserver(() => {
-				if (root.transitionStatus === 'starting' || popup.hasAttribute(STARTING_STYLE)) {
-					this.#syncCurrentSize(popup, positioner);
-					return;
-				}
-				const { size, syncPositioner } = this.#getMutationBaseline(popup);
-				if (syncPositioner) {
-					this.#handleInterruptedMutationResize(popup, positioner, size.width, size.height);
-					return;
-				}
-				this.#handleValueChange(popup, positioner, size.width, size.height);
-			});
-			// A kept-mounted submenu switch toggles `hidden` instead of inserting nodes.
-			observer.observe(content, {
-				childList: true,
-				subtree: true,
-				characterData: true,
-				attributes: true,
-				attributeFilter: ['hidden']
-			});
-			return () => observer.disconnect();
-		});
-
-		$effect(() => {
-			const open = root.open;
-			const popup = root.popupElement;
-			const positioner = root.positionerElement;
-			void root.transitionStatus;
-			untrack(() => {
-				if (!this.isActiveItem || !open || !popup || !positioner) return;
-				if (this.#skipAutoSizeSync) {
-					this.#skipAutoSizeSync = false;
-					return;
-				}
-				const { width, height } = getCssDimensions(popup);
-				this.#handleValueChange(popup, positioner, width, height);
-			});
+			untrack(() => (this.#pointerType = ''));
 		});
 
 		$effect(() => {
@@ -271,124 +156,6 @@ export class NavigationMenuTriggerController {
 	#getScope(): HTMLElement | null {
 		if (this.root.nested && this.root.positionerElement) return null;
 		return closest(this.element, 'ul') as HTMLElement | null;
-	}
-
-	#cancelAutoSizeReset(force = false) {
-		const reset = this.root.popupAutoSizeReset;
-		if (!force && reset.owner !== this.#itemValue) return;
-		reset.abortController?.abort();
-		reset.abortController = null;
-		reset.owner = null;
-	}
-
-	#scheduleAutoSizeReset(targets: SizeTargets) {
-		this.#cancelAutoSizeReset(true);
-		const reset = this.root.popupAutoSizeReset;
-		const abortController = new AbortController();
-		reset.abortController = abortController;
-		reset.owner = this.#itemValue;
-		runOnceAnimationsFinish(
-			targets.popup,
-			() => {
-				reset.abortController = null;
-				reset.owner = null;
-				setAutoSizes(targets);
-			},
-			abortController.signal,
-			false
-		);
-	}
-
-	#handleValueChange(
-		popup: HTMLElement,
-		positioner: HTMLElement,
-		currentWidth: number,
-		currentHeight: number
-	) {
-		this.#cancelAutoSizeReset(true);
-		const targets = this.root.sizeTargets(popup, positioner);
-		clearFixedSizes(targets);
-
-		const { width, height } = getCssDimensions(popup);
-		const measuredWidth = width || this.#prevSize.width;
-		const measuredHeight = height || this.#prevSize.height;
-
-		if (currentHeight === 0 || currentWidth === 0) {
-			currentWidth = measuredWidth;
-			currentHeight = measuredHeight;
-		}
-
-		setPopupSize(targets, `${currentWidth}px`, `${currentHeight}px`);
-		setPositionerSize(targets, `${measuredWidth}px`, `${measuredHeight}px`);
-
-		this.#sizeFrame.request(() => {
-			if (!this.isActiveItem) return;
-			setPopupSize(targets, `${measuredWidth}px`, `${measuredHeight}px`);
-			this.#scheduleAutoSizeReset(targets);
-		});
-	}
-
-	#handleInterruptedMutationResize(
-		popup: HTMLElement,
-		positioner: HTMLElement,
-		currentWidth: number,
-		currentHeight: number
-	) {
-		this.#sizeFrame.cancel();
-		this.#mutationFrame.cancel();
-		this.#cancelAutoSizeReset(true);
-
-		if (currentWidth === 0 || currentHeight === 0) return;
-
-		const targets = this.root.sizeTargets(popup, positioner);
-		setSharedFixedSize(targets, currentWidth, currentHeight);
-
-		this.#mutationFrame.request(() => {
-			this.#mutationFrame.request(() => {
-				clearFixedSizes(targets);
-				const { width, height } = getCssDimensions(popup);
-				const measuredWidth = width || currentWidth;
-				const measuredHeight = height || currentHeight;
-				setSharedFixedSize(targets, currentWidth, currentHeight);
-
-				this.#sizeFrame.request(() => {
-					if (!this.isActiveItem) return;
-					setSharedFixedSize(targets, measuredWidth, measuredHeight);
-					this.#scheduleAutoSizeReset(targets);
-				});
-			});
-		});
-	}
-
-	#syncCurrentSize(popup: HTMLElement, positioner: HTMLElement) {
-		this.#sizeFrame.cancel();
-		this.#cancelAutoSizeReset(true);
-		const targets = this.root.sizeTargets(popup, positioner);
-		clearFixedSizes(targets);
-
-		const { width, height } = getCssDimensions(popup);
-		if (width === 0 || height === 0) return;
-
-		this.#prevSize = { width, height };
-		setAutoSizes(targets);
-		setPositionerSize(targets, `${width}px`, `${height}px`);
-	}
-
-	#getMutationBaseline(popup: HTMLElement): { size: Size; syncPositioner: boolean } {
-		const popupWidth = popup.style.getPropertyValue(POPUP_WIDTH_VAR);
-		const popupHeight = popup.style.getPropertyValue(POPUP_HEIGHT_VAR);
-		const isResizing =
-			popupWidth !== '' && popupWidth !== 'auto' && popupHeight !== '' && popupHeight !== 'auto';
-
-		if (!isResizing) return { size: this.#prevSize, syncPositioner: false };
-
-		return {
-			size: {
-				width: popup.offsetWidth || this.#prevSize.width,
-				height: popup.offsetHeight || this.#prevSize.height
-			},
-			syncPositioner: true
-		};
 	}
 
 	#handleOpenChange(nextOpen: boolean, eventDetails: BaseUIChangeEventDetails<string>) {
@@ -492,7 +259,7 @@ export class NavigationMenuTriggerController {
 			return;
 		}
 
-		const { width, height } = getCssDimensions(popup);
+		const size = getCssDimensions(popup);
 		const value = this.root.value;
 		const shouldSkipAutoSizeSync =
 			value != null &&
@@ -500,8 +267,8 @@ export class NavigationMenuTriggerController {
 			(event.type === 'click' || this.#pointerType !== 'touch');
 
 		this.#handleActivation(event);
-		if (shouldSkipAutoSizeSync) this.#skipAutoSizeSync = true;
-		this.#handleValueChange(popup, positioner, width, height);
+		if (shouldSkipAutoSizeSync) this.root.sizing.skipNextAutoSizeSync();
+		this.root.sizing.resize(this.#itemValue, size);
 	}
 
 	/** Trigger handlers. `mergeProps` runs these before the click and hover interactions. */

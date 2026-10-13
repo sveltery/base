@@ -27,8 +27,8 @@ import type {
 	NavigationMenuChangeReason,
 	NavigationMenuOrientation
 } from './types.js';
+import { NavigationMenuSizing } from './sizing.svelte.js';
 import { StyleVars } from './style-vars.svelte.js';
-import { getPositionerFixedSize, setSharedFixedSize, type SizeTargets } from './utils.js';
 
 const BLOCKED_RETURN_FOCUS_REASONS = new Set<string>([
 	REASONS.triggerHover,
@@ -120,11 +120,7 @@ export class NavigationMenuRootStore {
 	/** Size variables of the popup and the positioner. The parts render them in their style. */
 	readonly popupVars = new StyleVars();
 	readonly positionerVars = new StyleVars();
-	/** Shared so a newly active trigger can cancel a reset the previous trigger scheduled. */
-	readonly popupAutoSizeReset: { abortController: AbortController | null; owner: unknown } = {
-		abortController: null,
-		owner: null
-	};
+	readonly sizing: NavigationMenuSizing;
 
 	#activationDirection = $state<NavigationMenuActivationDirection>(null);
 	readonly #transition: TransitionStatus;
@@ -159,22 +155,7 @@ export class NavigationMenuRootStore {
 			}
 		}));
 
-		// A close keeps the last fixed size, so the closing transition starts from it.
-		$effect(() => {
-			if (this.open) return;
-			const positioner = this.positionerElement;
-			const popup = this.popupElement;
-			if (!positioner || !popup) return;
-			const size = getPositionerFixedSize(positioner);
-			if (!size) return;
-			untrack(() =>
-				setSharedFixedSize(this.sizeTargets(popup, positioner), size.width, size.height)
-			);
-		});
-	}
-
-	sizeTargets(popup: HTMLElement, positioner: HTMLElement): SizeTargets {
-		return { popup, positioner, popupVars: this.popupVars, positionerVars: this.positionerVars };
+		this.sizing = new NavigationMenuSizing(this);
 	}
 
 	get value(): unknown {
