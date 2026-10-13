@@ -77,7 +77,7 @@ Import the components and wrap your fields in a form:
 </Form>
 ```
 
-`Form` renders a native `<form>`. Each `Field.Root` inside it registers with the form. On submit, the form validates every registered field, focuses the first invalid control, and blocks the submission while any field is invalid. `Form.Error` shows the messages that no field shows. When the first invalid control can be hidden, such as on an inactive step, pass `onFocusInvalid` to reveal it. Form calls it with the `control` and its `field` in place of focusing, waits for it, and then focuses the control unless the callback already did.
+`Form` renders a native `<form>`. Each `Field.Root` inside it registers with the form. On submit, the form validates every registered field, focuses the first invalid control, and blocks the submission while any field is invalid. `Form.Error` shows the messages that no field shows. When the first invalid control can be hidden, such as on an inactive step, pass `onFocusInvalid` to reveal it. Form calls it with the `control` and its `field` in place of focusing, waits for it, and then focuses the control unless focus moved meanwhile. Keep inactive steps mounted and hidden, because a field that is not rendered does not register.
 
 [Forms](/handbook/forms) is the guide to validation, server errors, and form sources.
 

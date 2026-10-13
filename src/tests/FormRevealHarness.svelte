@@ -49,5 +49,6 @@
 	</section>
 	<button>Submit</button>
 </Form>
+<input aria-label="Other" data-testid="other" />
 <output data-testid="step">{step}</output>
 <output data-testid="calls">{calls.join(',')}</output>

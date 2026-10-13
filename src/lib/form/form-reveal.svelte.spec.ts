@@ -49,6 +49,31 @@ describe('Form onFocusInvalid', () => {
 		expect(text('step')).toBe('2');
 	});
 
+	it('leaves focus where the user moved it while the reveal was pending', async () => {
+		const { promise, resolve } = Promise.withResolvers<void>();
+		render(FormRevealHarness, { revealAfter: promise });
+		await submit();
+		await expect.poll(() => text('calls')).toBe('email@1');
+
+		await userEvent.click(control('other'));
+		resolve();
+		await expect.poll(() => text('step')).toBe('2');
+		await expect.element(control('other')).toHaveFocus();
+	});
+
+	it('selects an invalid control that already had focus', async () => {
+		const select = vi.spyOn(HTMLInputElement.prototype, 'select');
+		render(FormRevealHarness);
+		await page.getByRole('button', { name: 'Next' }).click();
+		await userEvent.fill(control('email'), 'x');
+		await userEvent.clear(control('email'));
+		await userEvent.keyboard('{Enter}');
+
+		await expect.poll(() => text('calls')).toBe('email@2');
+		await expect.element(control('email')).toHaveFocus();
+		await expect.poll(() => select.mock.contexts).toEqual([input('email')]);
+	});
+
 	it('reveals the step of a field a remote source answers with an issue, once per submit', async () => {
 		const source = new FakeSource({ server: nameTaken });
 		render(FormRevealHarness, { source });

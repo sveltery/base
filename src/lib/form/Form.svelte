@@ -20,7 +20,7 @@
 	import { on } from 'svelte/events';
 	import type { HTMLFormAttributes } from 'svelte/elements';
 	import { DEV } from 'esm-env';
-	import { createGenericEventDetails, REASONS, warn } from '@sveltery/utils';
+	import { activeElement, createGenericEventDetails, REASONS, warn } from '@sveltery/utils';
 	import { setFormContext, type FormContextValue } from '../internal/form-context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
 	import { IssueSession } from './issues.svelte.js';
@@ -118,14 +118,21 @@
 	}
 
 	async function focusInvalid(detail: FormFocusInvalidDetail) {
-		if (!onFocusInvalid) return focusControl(detail.control);
+		const { control } = detail;
+		if (!onFocusInvalid) return focusControl(control);
+		const doc = control.ownerDocument;
+		const before = activeElement(doc);
 		try {
 			await untrack(() => onFocusInvalid(detail));
 		} finally {
 			// A reveal that only sets state has not reached the DOM yet. A failed reveal still
 			// moves focus, and its error stays unhandled like any other callback's.
 			await tick();
-			if (!detail.control.matches(':focus')) focusControl(detail.control);
+			const now = activeElement(doc);
+			// Focus that moved while the callback ran belongs to the callback or the user. Hiding
+			// the focused element only drops focus to the body.
+			const moved = now !== before && now !== null && now !== doc.body;
+			if (control.isConnected && !moved) focusControl(control);
 		}
 	}
 
