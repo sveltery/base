@@ -15,7 +15,6 @@
 		| 'basic'
 		| 'topLevelLink'
 		| 'disabled'
-		| 'sized'
 		| 'customList'
 		| 'action'
 		| 'noViewport'
@@ -33,16 +32,11 @@
 		delay,
 		closeDelay,
 		keepMountedPortal = false,
-		keepMountedContent = false,
 		outside = false,
 		withArrow = false,
-		withBackdrop = false,
 		withIcon = false,
 		side,
-		direction = 'ltr',
-		popupClass,
-		contentClass,
-		css
+		direction = 'ltr'
 	}: {
 		variant?: Variant;
 		value?: unknown;
@@ -53,16 +47,11 @@
 		delay?: number;
 		closeDelay?: number;
 		keepMountedPortal?: boolean;
-		keepMountedContent?: boolean;
 		outside?: boolean;
 		withArrow?: boolean;
-		withBackdrop?: boolean;
 		withIcon?: boolean;
 		side?: 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end';
 		direction?: TextDirection;
-		popupClass?: string;
-		contentClass?: string;
-		css?: string;
 	} = $props();
 
 	let root = $state<NavigationMenuActions | undefined>(undefined);
@@ -76,19 +65,10 @@
 	}
 </script>
 
-{#if css}
-	<svelte:element this={"style"}>{css}</svelte:element>
-{/if}
 {#if outside}<button type="button" data-testid="first">First</button>{/if}
 
 {#snippet panel(index: number)}
-	{#if variant === 'sized'}
-		{#if index === 1}
-			<div style="width: 675px; height: 220px">Product panel</div>
-		{:else}
-			<div style="width: 500px; height: 180px">Learn panel</div>
-		{/if}
-	{:else if variant === 'action'}
+	{#if variant === 'action'}
 		<button type="button" data-testid="action">Action</button>
 	{:else if variant === 'dialog'}
 		<Dialog.Root>
@@ -134,11 +114,7 @@
 			Item 1
 			{#if withIcon}<NavigationMenu.Icon data-testid="icon-1" />{/if}
 		</NavigationMenu.Trigger>
-		<NavigationMenu.Content
-			data-testid="popup-1"
-			keepMounted={keepMountedContent}
-			class={contentClass}
-		>
+		<NavigationMenu.Content data-testid="popup-1">
 			{@render panel(1)}
 		</NavigationMenu.Content>
 	</NavigationMenu.Item>
@@ -155,11 +131,7 @@
 				Item 2
 				{#if withIcon}<NavigationMenu.Icon data-testid="icon-2" />{/if}
 			</NavigationMenu.Trigger>
-			<NavigationMenu.Content
-				data-testid="popup-2"
-				keepMounted={keepMountedContent}
-				class={contentClass}
-			>
+			<NavigationMenu.Content data-testid="popup-2">
 				{@render panel(2)}
 			</NavigationMenu.Content>
 		</NavigationMenu.Item>
@@ -191,9 +163,8 @@
 		{/if}
 
 		<NavigationMenu.Portal keepMounted={keepMountedPortal}>
-			{#if withBackdrop}<NavigationMenu.Backdrop data-testid="backdrop" />{/if}
 			<NavigationMenu.Positioner data-testid="top-level-positioner" {side}>
-				<NavigationMenu.Popup data-testid="popup-root" class={popupClass}>
+				<NavigationMenu.Popup data-testid="popup-root">
 					{#if withArrow}<NavigationMenu.Arrow data-testid="arrow" />{/if}
 					{#if variant === 'noViewport'}
 						Popup

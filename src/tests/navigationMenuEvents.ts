@@ -1,5 +1,4 @@
 import { tick } from 'svelte';
-import { userEvent } from 'vitest/browser';
 import { OPEN_DELAY } from '../lib/navigation-menu/constants.js';
 import { advance, byId, enter } from './previewCardEvents.js';
 
@@ -42,11 +41,6 @@ export function observeValue<T>(read: () => T, expected: T, timeout = 2000): Pro
 	});
 }
 
-/** Hovers with the real pointer. `force` skips the hit-target check the safe polygon lock fails. */
-export function hoverForce(element: Element) {
-	return userEvent.hover(element, { force: true } as never);
-}
-
 let hovered: Element | null = null;
 
 function center(element: Element) {
@@ -73,7 +67,7 @@ export function hover(element: Element, pointerType = 'mouse') {
 }
 
 /** Leave events on `element`, the way `user.unhover` dispatches them. */
-export function unhover(element: Element, relatedTarget: Element | null = null) {
+function unhover(element: Element, relatedTarget: Element | null = null) {
 	const init = { ...center(element), pointerType: 'mouse', bubbles: true, relatedTarget };
 	if (hovered === element) hovered = null;
 	element.dispatchEvent(new PointerEvent('pointermove', init));
