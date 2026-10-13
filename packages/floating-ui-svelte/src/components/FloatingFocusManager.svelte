@@ -1,6 +1,8 @@
 <script lang="ts">
 	// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx
-	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The initial focus fallback, the microtask
+	// return focus and `preventReturnFocusRef` follow v1.9.0
+	// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	// The trap is focus guards plus aria-hidden on outside nodes. It does not set the inert attribute.
 
 	import { untrack } from 'svelte';
@@ -75,6 +77,7 @@
 	const portal = useFloatingPortal();
 	const pointerDownTimeout = new ScopedTimeout();
 	const insideTreeTimeout = new ScopedTimeout();
+	const focusOutTimeout = new ScopedTimeout();
 	/** The last press began outside this popup, its trigger and its portal. */
 	let pointerDownOutside = false;
 	/** Focus left a portaled popup without an outside press, as upstream `insideReactTree`. */
@@ -149,6 +152,7 @@
 	function enterThroughBeforeGuard(event: FocusEvent) {
 		const portalNode = store.portalElement;
 		if (!portalNode) return;
+		preventReturn = false;
 		if (isOutsideEvent(event, portalNode)) {
 			const reference = store.domReferenceElement;
 			if (reference instanceof Element) getNextTabbableInDocument(reference)?.focus();
@@ -236,11 +240,14 @@
 
 	function restoreReturnFocus(endedBy: OpenInteractionType) {
 		const spec = returnFocus;
+		// Upstream clears the flag after each return, also a prevented or cancelled one.
+		const prevented = preventReturn;
+		preventReturn = false;
 		// The return function is not called when the return is prevented. React calls it and
 		// ignores the result.
 		let returned: HTMLElement | null = null;
 		const apply = () => {
-			if (spec === false || preventReturn) return;
+			if (spec === false || prevented) return;
 			returned = moveReturnFocus(endedBy, spec) ?? null;
 		};
 		// Focus now only when a close is already committed. A disconnected popup is not
@@ -257,7 +264,7 @@
 			return;
 		}
 		queueMicrotask(() => {
-			if (spec === false || preventReturn) return;
+			if (spec === false || prevented) return;
 			if (!store.isOpen()) {
 				apply();
 				return;
@@ -394,12 +401,15 @@
 		if (!payload || payload.open || !payload.nativeEvent) return;
 		closeType = eventInteraction(payload.nativeEvent, lastInteraction);
 		closeReason = payload.reason;
-		// Upstream `onOpenChangeLocal`: a focus guard moves focus on from a focus-out close.
+		// Upstream `onOpenChangeLocal`: a focus guard moves focus on from a focus-out close, and
+		// an outside press returns focus.
 		if (
 			payload.reason === REASONS.focusOut &&
 			payload.triggerElement?.hasAttribute('data-base-ui-focus-guard')
 		) {
 			preventReturn = true;
+		} else if (payload.reason === REASONS.outsidePress) {
+			preventReturn = false;
 		}
 	}
 
@@ -536,11 +546,13 @@
 		function handleFocusOutside(event: FocusEvent) {
 			if (!closeOnFocusOut || suppressFocusOut || !store.isOpen()) return;
 			const relatedTarget = event.relatedTarget;
-			// A pointer highlight that moves focus from a nested trigger to another item of the
-			// parent popup is not a focus-out. Upstream renders that highlight after the input
-			// events, so the parent closes this popup as a sibling first.
 			const highlightMovedOff =
 				event.currentTarget !== floating && !pointerDownOutside && lastInteraction !== 'keyboard';
+			const close = () => {
+				// Upstream sets this before the close so return focus does not cancel the Tab.
+				preventReturn = true;
+				store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
+			};
 			queueMicrotask(() => {
 				if (!closeOnFocusOut || suppressFocusOut || !store.isOpen()) return;
 				if (insideTree) {
@@ -551,10 +563,17 @@
 				if (modal) return;
 				if (!(relatedTarget instanceof Element)) return;
 				if (focusStaysInTree(relatedTarget)) return;
-				if (highlightMovedOff && insideOpenAncestor(relatedTarget)) return;
-				// Upstream sets this before the close so return focus does not cancel the Tab.
-				preventReturn = true;
-				store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
+				// A Menu pointer highlight moves focus from a submenu trigger to a sibling item on
+				// pointer enter, before the same move's mousemove closes the submenu with
+				// `sibling-open`. Upstream renders that highlight after the input events. Waiting
+				// one task lets that close land first.
+				if (highlightMovedOff && insideOpenAncestor(relatedTarget)) {
+					focusOutTimeout.start(0, () => {
+						if (store.isOpen()) close();
+					});
+					return;
+				}
+				close();
 			});
 		}
 
@@ -607,6 +626,7 @@
 			stopFloatingFocus();
 			stopMarkInside();
 			insideTreeTimeout.clear();
+			focusOutTimeout.clear();
 			insideTree = false;
 			pointerDownOutside = false;
 			stopRestore();

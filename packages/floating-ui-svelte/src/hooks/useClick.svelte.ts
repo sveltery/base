@@ -32,8 +32,8 @@ export class ClickInteraction {
 	readonly #frame = new ScopedAnimationFrame();
 	readonly #touchOpenTimeout = new ScopedTimeout();
 	#pointerType: PointerKind;
-	/** Open state when the press began. A part that toggled on this press itself wins. */
-	#openAtPointerDown = false;
+	/** Open state when this press began. A part that toggled on this press itself wins. */
+	#openAtPointerDown: boolean | undefined;
 
 	constructor(
 		private readonly store: FloatingRootStore,
@@ -104,6 +104,8 @@ export class ClickInteraction {
 				(platform.os.ios ? 'touch' : '')) as OpenInteractionType;
 		},
 		onmousedown: (event: MouseEvent) => {
+			const openAtPointerDown = this.#openAtPointerDown;
+			this.#openAtPointerDown = undefined;
 			const { enabled, event: eventOption, ignoreMouse } = this.#options();
 			if (!enabled || event.button !== 0 || eventOption === 'click') return;
 			if (isMouseLikePointerType(this.#pointerType, true) && ignoreMouse) return;
@@ -125,7 +127,7 @@ export class ClickInteraction {
 			// A screen reader press opens at once, so the popup's focus lands before the reader
 			// moves focus back to its cursor. A virtual press may target a descendant of the trigger.
 			if (pointerType === 'virtual') {
-				if (this.store.isOpen() !== this.#openAtPointerDown) return;
+				if (openAtPointerDown !== undefined && this.store.isOpen() !== openAtPointerDown) return;
 				this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method);
 				return;
 			}

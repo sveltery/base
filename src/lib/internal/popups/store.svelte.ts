@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/utils/popups/store.ts
 // and packages/react/src/dialog/store/DialogStore.ts setOpen
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). `openedWithoutTrigger` follows v1.9.0
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). `openedWithoutTrigger` and clearing
+// `preventUnmountingOnClose` on open follow v1.9.0
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Immediate preventUnmountOnClose writes the flag before cancellation is checked.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
