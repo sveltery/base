@@ -11,6 +11,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { dispatchingValueEvent } from '../internal/value-events.js';
@@ -54,11 +55,19 @@
 		...elementProps
 	}: NumberFieldRootProps = $props();
 
+	const field = useFieldContext();
+	// A source holds `undefined` for a cleared number input, and for one never set.
+	const bound = new BoundControl<number | null>(field, {
+		kind: 'number',
+		read: (): number | null => current,
+		write: (next) => writeValue(next),
+		fromSource: (raw) => (typeof raw === 'number' ? raw : null)
+	});
+
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = defaultValue;
+	if (value === undefined) value = bound.initial(defaultValue);
 
-	const field = useFieldContext();
 	const form = useFormContext();
 	const labelable = findLabelableContext();
 
@@ -85,6 +94,8 @@
 	);
 	const disabled = $derived(Boolean(field.disabled) || disabledProp);
 	const name = $derived(field.name ?? nameProp);
+	const boundProps = $derived(bound.inputProps());
+	const inputName = $derived(bound.bound ? boundProps.name : name);
 	const step = $derived(stepProp === 'any' ? 1 : stepProp);
 	const generatedId = $derived(`base-ui-${uid}`);
 	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => generatedId });
@@ -130,7 +141,7 @@
 	setNumberFieldContext(model);
 
 	const rootState: NumberFieldRootState = $derived(model.state);
-	const hiddenStyle = $derived(toCssStyle(name ? visuallyHiddenInput : visuallyHidden));
+	const hiddenStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
 
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
 		...elementProps,
@@ -170,7 +181,7 @@
 	bind:this={model.hiddenInput}
 	type="number"
 	form={formId}
-	{name}
+	name={inputName}
 	value={current ?? ''}
 	defaultValue={defaultValue ?? ''}
 	{min}
@@ -185,4 +196,5 @@
 	oninput={hiddenChanged}
 	onchange={hiddenChanged}
 	onfocus={hiddenFocused}
+	{...boundProps}
 />

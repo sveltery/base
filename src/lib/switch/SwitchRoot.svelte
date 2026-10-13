@@ -81,8 +81,9 @@
 	const disabled = $derived(field.disabled || disabledProp);
 	const name = $derived(field.name ?? nameProp);
 	// Inside a bound Field the source encodes the name. The switch then submits `on` or nothing.
-	const inputName = $derived(bound.bound ? bound.inputProps().name : name);
-	const submittedValue = $derived(!bound.bound && value !== undefined ? { value } : {});
+	const boundProps = $derived(bound.inputProps());
+	const inputName = $derived(bound.bound ? boundProps.name : name);
+	const submittedValue = $derived(bound.bound ? boundProps : value !== undefined ? { value } : {});
 
 	const checkedState = $derived(checked === true);
 	const switchState: SwitchRootState = $derived({

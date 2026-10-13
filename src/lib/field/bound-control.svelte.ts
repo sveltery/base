@@ -1,27 +1,35 @@
 // The contract a composite control follows inside a Field bound to a form source
 // (a remote form, `actionForm()`, an adapter). No Base UI equivalent.
-// 1. A real native input carries the value. Its `name`, and the option `value` of a radio or
-//    checkbox-group item, come from the binding, so the encoding is the source's.
+// docs/porting.md "Composite form controls" states it for controls that adopt it later.
+// 1. A real native input carries the value. Its `name`, the option `value` of a radio or
+//    checkbox-group item, and any attachment `as()` returns come from the binding, so the
+//    encoding is the source's and an adapter's listener sits on the input that changes.
 // 2. The DOM is the write path. A user edit already fires `input` and `change` on that input,
 //    and the source reads the value from those events.
 // 3. The source's value is the control's initial value when it has one, and a later change of
 //    it is written into the control without change callbacks.
 
 import { untrack } from 'svelte';
+import type { Attachment } from 'svelte/attachments';
 import { error } from '@sveltery/utils';
 import { nativeType, type ControlKind, type FieldHandle } from '../form/source.js';
 import type { FieldContext } from './model.svelte.js';
 
-/** The attributes a bound native input takes from its binding. Empty when the Field is not bound. */
+/**
+ * The props a bound native input takes from its binding. Spread them onto that input.
+ * Empty when the Field is not bound.
+ */
 export interface BoundInputProps {
 	name?: string;
 	value?: string;
+	/** Attachments from `as()`, such as the TanStack adapter's listener for edits. */
+	[attachment: symbol]: Attachment<HTMLInputElement>;
 }
 
 /**
- * The encoded `name`, and the `value` of an option input, for one native input of `kind`.
- * The other props `as()` returns (`checked`, `defaultValue`, `aria-invalid`, ...) are left to
- * the control, which owns its state and its defaults.
+ * The encoded `name`, the `value` of an option input, and the attachments for one native input
+ * of `kind`. The other props `as()` returns (`checked`, `defaultValue`, `aria-invalid`, ...)
+ * are left to the control, which owns its state and its defaults.
  */
 export function boundInputProps(
 	binding: FieldHandle | undefined,
@@ -29,11 +37,15 @@ export function boundInputProps(
 	option?: string
 ): BoundInputProps {
 	if (!binding) return {};
-	// `as()` getters read source state. Only `name` and `value` are read, so nothing else is tracked.
+	// `as()` getters read source state. Only `name`, `value` and the symbol keys are read.
 	const props = binding.as(nativeType(kind), option) as { name?: unknown; value?: unknown };
-	const name = typeof props.name === 'string' ? props.name : undefined;
-	if (option === undefined) return { name };
-	return { name, value: typeof props.value === 'string' ? props.value : option };
+	const result: BoundInputProps = { name: typeof props.name === 'string' ? props.name : undefined };
+	if (option !== undefined) result.value = typeof props.value === 'string' ? props.value : option;
+	for (const key of Object.getOwnPropertySymbols(props)) {
+		const attachment: unknown = (props as Record<symbol, unknown>)[key];
+		if (typeof attachment === 'function') result[key] = attachment as Attachment<HTMLInputElement>;
+	}
+	return result;
 }
 
 export interface BoundControlOptions<T> {
@@ -96,7 +108,7 @@ export class BoundControl<T> {
 		return raw === undefined ? fallback : this.#options.fromSource(raw);
 	}
 
-	/** Name and option value for one native input, or `{}` when the Field is not bound. */
+	/** Props for one native input (see `boundInputProps`), or `{}` when the Field is not bound. */
 	inputProps(option?: string): BoundInputProps {
 		return boundInputProps(this.#field.binding, this.#options.kind, option);
 	}

@@ -22,7 +22,7 @@
 	import { useRadioGroupContext } from './group-context.js';
 	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
-	import { boundInputProps } from '../field/bound-control.svelte.js';
+	import { boundInputProps, type BoundInputProps } from '../field/bound-control.svelte.js';
 	import { serializeValue } from './serialize-value.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import type { RadioHostProps, RadioRootProps, RadioRootState } from './types.js';
@@ -71,11 +71,10 @@
 	const required = $derived(Boolean(group?.required) || requiredProp);
 	const serialized = $derived(value !== undefined ? serializeValue(value) : undefined);
 	// Inside a bound Field the source encodes the name and the option value.
-	const boundProps = $derived(
+	const boundProps: BoundInputProps = $derived(
 		group && serialized !== undefined ? boundInputProps(field.binding, 'radio', serialized) : {}
 	);
 	const fieldName = $derived(group && field.binding ? boundProps.name : group?.name);
-	const inputValue = $derived(boundProps.value ?? serialized);
 	const fieldForm = $derived(group?.form);
 
 	const radioState: RadioRootState = $derived({
@@ -253,7 +252,8 @@
 	style={inputStyle}
 	tabindex="-1"
 	aria-hidden="true"
-	{...inputValue !== undefined ? { value: inputValue } : {}}
+	{...serialized !== undefined ? { value: serialized } : {}}
+	{...boundProps}
 	onclick={handleInputClick}
 	onchange={handleInputChange}
 	onfocus={handleInputFocus}

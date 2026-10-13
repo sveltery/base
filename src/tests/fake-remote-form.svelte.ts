@@ -5,6 +5,7 @@
 // `handle_reset`), for flat paths only.
 
 import { tick } from 'svelte';
+import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 import { on } from 'svelte/events';
 import type { FieldHandle, FormIssue } from '#lib/form/source.js';
 
@@ -26,17 +27,47 @@ function coerce(type: ValueType, value: unknown): unknown {
 	return value;
 }
 
+/** One `input` event an `as()` attachment saw: the input's name and its value or `checked`. */
+export interface AttachmentReport {
+	name: string;
+	value: string;
+}
+
+export interface FakeRemoteFormOptions {
+	/**
+	 * `as()` also returns an attachment that records each `input` event on its element in
+	 * `reports`, the way the TanStack adapter reports edits.
+	 */
+	attachment?: boolean;
+}
+
 export class FakeRemoteForm {
 	readonly id: string;
 	/** The source's values by path. */
 	input = $state<Record<string, unknown>>({});
 	readonly issues = $state<FormIssue[]>([]);
+	/** What the `as()` attachment saw, when `attachment` is set. */
+	readonly reports: AttachmentReport[] = [];
 	#dirty: Record<string, boolean> = {};
+	readonly #handles: Record<string, FieldHandle> = {};
+	readonly #attachment: boolean;
+	readonly #key = createAttachmentKey();
 
-	constructor(id = 'fake', initial: Record<string, unknown> = {}) {
+	constructor(
+		id = 'fake',
+		initial: Record<string, unknown> = {},
+		options: FakeRemoteFormOptions = {}
+	) {
 		this.id = id;
 		this.input = initial;
+		this.#attachment = options.attachment ?? false;
 	}
+
+	#report: Attachment<HTMLInputElement> = (node) =>
+		on(node, 'input', () => {
+			const checkable = node.type === 'checkbox' || node.type === 'radio';
+			this.reports.push({ name: node.name, value: checkable ? String(node.checked) : node.value });
+		});
 
 	/** Kit's `parse_form_key`: the path, value type and array flag a native name encodes. */
 	parseKey(key: string): { name: string; type: ValueType; isArray: boolean } {
@@ -71,14 +102,19 @@ export class FakeRemoteForm {
 		return result;
 	}
 
+	/** The handle for `path`. One handle per path, like a stable `fields.x`. */
 	field(path: string): FieldHandle {
+		return (this.#handles[path] ??= this.#createField(path));
+	}
+
+	#createField(path: string): FieldHandle {
 		const ownIssues = () => this.issues.filter((issue) => issue.path.join('.') === path);
 		const read = () => this.input[path];
 		return {
 			as: (type: string, inputValue?: unknown, checked?: boolean) => {
 				const isArray =
 					type === 'select multiple' || (type === 'checkbox' && typeof inputValue === 'string');
-				const props: Record<string, unknown> = {
+				const props: Record<string | symbol, unknown> = {
 					name:
 						typePrefix(type, isArray, inputValue) + path + (isArray ? '[]' : '') + `/${this.id}`,
 					get 'aria-invalid'() {
@@ -86,6 +122,7 @@ export class FakeRemoteForm {
 					}
 				};
 				if (type !== 'text' && type !== 'select' && type !== 'select multiple') props.type = type;
+				if (this.#attachment) props[this.#key] = this.#report;
 				if (type === 'checkbox' || type === 'radio') {
 					const hasOption = type === 'radio' || isArray;
 					if (hasOption) props.value = inputValue ?? 'on';

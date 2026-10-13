@@ -45,43 +45,47 @@
 	const [path, kind] = $derived(paths[scenario]);
 </script>
 
+{#snippet control()}
+	{#if scenario === 'checkbox'}
+		<Checkbox.Root value="yes" uncheckedValue="no" data-testid="control" style={box} />
+	{:else if scenario === 'switch'}
+		<Switch.Root value="yes" uncheckedValue="no" data-testid="control" style={box} />
+	{:else if scenario === 'radio-group'}
+		<RadioGroup defaultValue="free">
+			<Radio.Root value="free" data-testid="free" style={box} />
+			<Radio.Root value="pro" data-testid="pro" style={box} />
+		</RadioGroup>
+	{:else if scenario === 'checkbox-group'}
+		<CheckboxGroup defaultValue={['svelte']}>
+			<Checkbox.Root value="svelte" data-testid="svelte" style={box} />
+			<Checkbox.Root value="kit" data-testid="kit" style={box} />
+		</CheckboxGroup>
+	{:else if scenario === 'number-field'}
+		<NumberField.Root defaultValue={1}>
+			<NumberField.Input data-testid="control" />
+		</NumberField.Root>
+	{:else if scenario === 'slider' || scenario === 'range-slider'}
+		<Slider.Root defaultValue={scenario === 'slider' ? 30 : [20, 80]}>
+			<Slider.Control>
+				<Slider.Track>
+					<Slider.Thumb index={scenario === 'slider' ? undefined : 0} />
+					{#if scenario === 'range-slider'}<Slider.Thumb index={1} />{/if}
+				</Slider.Track>
+			</Slider.Control>
+		</Slider.Root>
+	{:else if scenario === 'otp-field'}
+		<OTPField.Root length={4} defaultValue="12">
+			{#each [0, 1, 2, 3] as index (index)}
+				<OTPField.Input data-testid={`slot-${index}`} />
+			{/each}
+		</OTPField.Root>
+	{/if}
+{/snippet}
+
 <Form data-testid="form" {@attach source.attach}>
 	<Field.Root name={path}>
 		<BoundFieldScope binding={source.field(path)} type={type ?? kind}>
-			{#if scenario === 'checkbox'}
-				<Checkbox.Root value="yes" uncheckedValue="no" data-testid="control" style={box} />
-			{:else if scenario === 'switch'}
-				<Switch.Root value="yes" uncheckedValue="no" data-testid="control" style={box} />
-			{:else if scenario === 'radio-group'}
-				<RadioGroup defaultValue="free">
-					<Radio.Root value="free" data-testid="free" style={box} />
-					<Radio.Root value="pro" data-testid="pro" style={box} />
-				</RadioGroup>
-			{:else if scenario === 'checkbox-group'}
-				<CheckboxGroup defaultValue={['svelte']}>
-					<Checkbox.Root value="svelte" data-testid="svelte" style={box} />
-					<Checkbox.Root value="kit" data-testid="kit" style={box} />
-				</CheckboxGroup>
-			{:else if scenario === 'number-field'}
-				<NumberField.Root defaultValue={1}>
-					<NumberField.Input data-testid="control" />
-				</NumberField.Root>
-			{:else if scenario === 'slider' || scenario === 'range-slider'}
-				<Slider.Root defaultValue={scenario === 'slider' ? 30 : [20, 80]}>
-					<Slider.Control>
-						<Slider.Track>
-							<Slider.Thumb index={scenario === 'slider' ? undefined : 0} />
-							{#if scenario === 'range-slider'}<Slider.Thumb index={1} />{/if}
-						</Slider.Track>
-					</Slider.Control>
-				</Slider.Root>
-			{:else if scenario === 'otp-field'}
-				<OTPField.Root length={4} defaultValue="12">
-					{#each [0, 1, 2, 3] as index (index)}
-						<OTPField.Input data-testid={`slot-${index}`} />
-					{/each}
-				</OTPField.Root>
-			{/if}
+			{@render control()}
 		</BoundFieldScope>
 	</Field.Root>
 </Form>

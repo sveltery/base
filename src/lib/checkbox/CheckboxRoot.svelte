@@ -24,7 +24,11 @@
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { queueValueEvent } from '../internal/value-events.js';
 	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
-	import { BoundControl, boundInputProps } from '../field/bound-control.svelte.js';
+	import {
+		BoundControl,
+		boundInputProps,
+		type BoundInputProps
+	} from '../field/bound-control.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { getDefaultFormSubmitter } from './submitter.js';
@@ -109,7 +113,7 @@
 		field.disabled || fieldItem.disabled || Boolean(group?.disabled) || disabled
 	);
 	// Inside a bound Field the source encodes the name, and a group item's value.
-	const boundProps = $derived.by(() => {
+	const boundProps: BoundInputProps = $derived.by(() => {
 		if (parent) return {};
 		if (!group) return bound?.inputProps() ?? {};
 		return identified === undefined ? {} : boundInputProps(field.binding, 'checkbox', identified);
@@ -199,7 +203,8 @@
 	);
 	let uncheckedNode = $state<HTMLInputElement | null>(null);
 	const submittedValue = $derived.by(() => {
-		if (field.binding) return boundProps.value === undefined ? {} : { value: boundProps.value };
+		// The binding's props carry the option value and any attachment the source adds.
+		if (field.binding) return boundProps;
 		if (value === undefined) return {};
 		// Inside a group an unticked checkbox submits an empty value attribute.
 		if (group) return { value: (isChecked && value) || '' };

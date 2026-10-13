@@ -159,12 +159,228 @@ describe('bound CheckboxGroup', () => {
 	});
 });
 
+describe('bound NumberField', () => {
+	function input() {
+		return page.getByTestId('control');
+	}
+
+	it('submits a number under the encoded name', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'number-field' });
+
+		expect(names()).toEqual(['n:seats/fake']);
+		expect(submitted(source)).toEqual({ seats: 1 });
+
+		await input().fill('12');
+		await expect.poll(() => source.input.seats).toBe(12);
+		expect(submitted(source)).toEqual({ seats: 12 });
+	});
+
+	it('follows a value set on the source, and clears for an empty one', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'number-field' });
+
+		source.field('seats').set(7 as never);
+		await expect.element(input()).toHaveValue('7');
+		expect(submitted(source)).toEqual({ seats: 7 });
+
+		source.field('seats').set(undefined as never);
+		await expect.element(input()).toHaveValue('');
+		expect(submitted(source)).toStrictEqual({ seats: undefined });
+	});
+
+	it('can be cleared by the user, and stays cleared', async () => {
+		const source = new FakeRemoteForm('fake', { seats: 5 });
+		render(BoundControlHarness, { source, scenario: 'number-field' });
+		await expect.element(input()).toHaveValue('5');
+
+		await input().fill('');
+		await expect.poll(() => Object.hasOwn(source.input, 'seats')).toBe(true);
+		await expect.poll(() => source.input.seats).toBe(undefined);
+		await page.getByTestId('form').click({ position: { x: 1, y: 1 } });
+		await expect.element(input()).toHaveValue('');
+		expect(submitted(source)).toStrictEqual({ seats: undefined });
+	});
+
+	it('starts from the source value, and a reset restores the default', async () => {
+		const source = new FakeRemoteForm('fake', { seats: 5 });
+		render(BoundControlHarness, { source, scenario: 'number-field' });
+
+		await expect.element(input()).toHaveValue('5');
+		expect(submitted(source)).toEqual({ seats: 5 });
+
+		form().reset();
+		await expect.element(input()).toHaveValue('1');
+		expect(submitted(source)).toEqual({ seats: 1 });
+		await expect.poll(() => source.input.seats).toBe(1);
+	});
+});
+
+describe('bound Slider', () => {
+	function thumb() {
+		return page.getByRole('slider');
+	}
+
+	it('submits a number under the encoded name', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'slider' });
+
+		expect(names()).toEqual(['n:volume/fake']);
+		expect(submitted(source)).toEqual({ volume: 30 });
+
+		(thumb().element() as HTMLElement).focus();
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.poll(() => source.input.volume).toBe(31);
+		expect(submitted(source)).toEqual({ volume: 31 });
+	});
+
+	it('follows a value set on the source, and returns to its default for an empty one', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'slider' });
+
+		source.field('volume').set(70 as never);
+		await expect.element(thumb()).toHaveAttribute('aria-valuenow', '70');
+		expect(submitted(source)).toEqual({ volume: 70 });
+
+		source.field('volume').set(undefined as never);
+		await expect.element(thumb()).toHaveAttribute('aria-valuenow', '30');
+		expect(submitted(source)).toEqual({ volume: 30 });
+	});
+
+	it('starts from the source value, and a reset restores the default', async () => {
+		const source = new FakeRemoteForm('fake', { volume: 70 });
+		render(BoundControlHarness, { source, scenario: 'slider' });
+
+		await expect.element(thumb()).toHaveAttribute('aria-valuenow', '70');
+		expect(submitted(source)).toEqual({ volume: 70 });
+
+		form().reset();
+		await expect.element(thumb()).toHaveAttribute('aria-valuenow', '30');
+		expect(submitted(source)).toEqual({ volume: 30 });
+		await expect.poll(() => source.input.volume).toBe(30);
+	});
+
+	it('logs a dev error for a range value', async () => {
+		const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+		render(BoundControlHarness, { source: new FakeRemoteForm(), scenario: 'range-slider' });
+		await expect
+			.poll(() => log.mock.calls.map((call) => call[0]))
+			.toEqual([
+				'Base UI: A Slider with several thumbs is inside a Field.Root bound to a form source. ' +
+					'A bound Slider submits one number, so give it a single value.'
+			]);
+	});
+});
+
+describe('bound OTPField', () => {
+	function slots() {
+		return [0, 1, 2, 3].map(
+			(index) => (page.getByTestId(`slot-${index}`).element() as HTMLInputElement).value
+		);
+	}
+
+	it('submits the code as a string under the encoded name', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'otp-field' });
+
+		expect(names()).toEqual(['code/fake']);
+		expect(submitted(source)).toEqual({ code: '12' });
+
+		await page.getByTestId('slot-2').click();
+		await userEvent.keyboard('3');
+		await expect.poll(() => source.input.code).toBe('123');
+		expect(submitted(source)).toEqual({ code: '123' });
+	});
+
+	it('follows a value set on the source, and empties for an empty one', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'otp-field' });
+
+		source.field('code').set('9876' as never);
+		await expect.poll(slots).toEqual(['9', '8', '7', '6']);
+		expect(submitted(source)).toEqual({ code: '9876' });
+
+		source.field('code').set(undefined as never);
+		await expect.poll(slots).toEqual(['', '', '', '']);
+		expect(submitted(source)).toEqual({ code: '' });
+	});
+
+	it('starts from the source value, and a reset restores the default', async () => {
+		const source = new FakeRemoteForm('fake', { code: '4321' });
+		render(BoundControlHarness, { source, scenario: 'otp-field' });
+
+		await expect.poll(slots).toEqual(['4', '3', '2', '1']);
+		expect(submitted(source)).toEqual({ code: '4321' });
+
+		form().reset();
+		await expect.poll(slots).toEqual(['1', '2', '', '']);
+		expect(submitted(source)).toEqual({ code: '12' });
+		await expect.poll(() => source.input.code).toBe('12');
+	});
+});
+
+describe('attachments from as()', () => {
+	for (const { scenario, edit, reports } of [
+		{
+			scenario: 'checkbox',
+			edit: () => page.getByTestId('control').click(),
+			reports: [{ name: 'b:agree/fake', value: 'true' }]
+		},
+		{
+			scenario: 'switch',
+			edit: () => page.getByTestId('control').click(),
+			reports: [{ name: 'b:alerts/fake', value: 'true' }]
+		},
+		{
+			scenario: 'radio-group',
+			edit: () => page.getByTestId('pro').click(),
+			reports: [{ name: 'plan/fake', value: 'true' }]
+		},
+		{
+			scenario: 'checkbox-group',
+			edit: () => page.getByTestId('kit').click(),
+			reports: [{ name: 'tags[]/fake', value: 'true' }]
+		},
+		{
+			scenario: 'number-field',
+			edit: () => page.getByTestId('control').fill('12'),
+			reports: [{ name: 'n:seats/fake', value: '12' }]
+		},
+		{
+			scenario: 'slider',
+			edit: async () => {
+				(page.getByRole('slider').element() as HTMLElement).focus();
+				await userEvent.keyboard('{ArrowRight}');
+			},
+			reports: [{ name: 'n:volume/fake', value: '31' }]
+		},
+		{
+			scenario: 'otp-field',
+			edit: async () => {
+				await page.getByTestId('slot-2').click();
+				await userEvent.keyboard('3');
+			},
+			reports: [{ name: 'code/fake', value: '123' }]
+		}
+	] as const) {
+		it(`reach the native input of a bound ${scenario}`, async () => {
+			const source = new FakeRemoteForm('fake', {}, { attachment: true });
+			render(BoundControlHarness, { source, scenario });
+			await edit();
+			await expect.poll(() => source.reports).toEqual(reports);
+		});
+	}
+});
+
 describe('dev kind check', () => {
 	for (const [scenario, kind, declared] of [
 		['checkbox', 'checkbox', 'switch'],
 		['switch', 'switch', 'checkbox'],
 		['radio-group', 'radio', 'text'],
-		['checkbox-group', 'checkbox', 'select multiple']
+		['checkbox-group', 'checkbox', 'select multiple'],
+		['number-field', 'number', 'range'],
+		['slider', 'range', 'number'],
+		['otp-field', 'text', 'number']
 	] as const) {
 		it(`logs when a ${kind} control sits in a Field declared as ${declared}`, async () => {
 			const log = vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -188,5 +404,3 @@ describe('dev kind check', () => {
 		expect(log.mock.calls).toEqual([]);
 	});
 });
-
-void userEvent;

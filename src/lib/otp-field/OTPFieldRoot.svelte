@@ -12,6 +12,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
@@ -54,11 +55,18 @@
 		...elementProps
 	}: OTPFieldRootProps = $props();
 
+	const field = useFieldContext();
+	const bound = new BoundControl<string>(field, {
+		kind: 'text',
+		read: (): string => raw,
+		write: (next) => writeValue(next),
+		fromSource: (source) => (source == null ? '' : String(source))
+	});
+
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = defaultValue;
+	if (value === undefined) value = bound.initial(defaultValue);
 
-	const field = useFieldContext();
 	const form = useFormContext();
 	const labelable = findLabelableContext();
 
@@ -67,6 +75,8 @@
 	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => generatedId });
 	const disabled = $derived(Boolean(field.disabled) || disabledProp);
 	const name = $derived(field.name ?? nameProp);
+	const boundProps = $derived(bound.inputProps());
+	const inputName = $derived(bound.bound ? boundProps.name : name);
 
 	function writeValue(next: string) {
 		value = next;
@@ -157,7 +167,7 @@
 	});
 
 	const rootState: OTPFieldRootState = $derived(model.state);
-	const hiddenStyle = $derived(toCssStyle(name ? visuallyHiddenInput : visuallyHidden));
+	const hiddenStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
 	const showHidden = $derived(model.hasValidLength);
 
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
@@ -186,9 +196,9 @@
 {#if showHidden}
 	<input
 		type="text"
-		id={name == null ? `${controlId.current}-hidden-input` : undefined}
+		id={inputName == null ? `${controlId.current}-hidden-input` : undefined}
 		form={formId}
-		{name}
+		name={inputName}
 		value={model.value}
 		defaultValue={model.defaultValue}
 		autocomplete={autoComplete}
@@ -205,5 +215,6 @@
 		bind:this={model.hiddenInput}
 		onfocus={hiddenFocused}
 		oninput={hiddenEdited}
+		{...boundProps}
 	/>
 {/if}

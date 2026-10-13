@@ -21,6 +21,7 @@ import {
 import { clamp } from '../internal/clamp.js';
 import { ElementList } from '../internal/element-list.svelte.js';
 import { queueValueEvent } from '../internal/value-events.js';
+import type { BoundInputProps } from '../field/bound-control.svelte.js';
 import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
@@ -84,7 +85,8 @@ export interface SliderModelOptions {
 	getMinSteps: () => number;
 	getOrientation: () => SliderOrientation;
 	getDisabled: () => boolean;
-	getName: () => string | undefined;
+	/** The thumb input's `name`, and the attachments a bound Field's source adds. */
+	getInputProps: () => BoundInputProps;
 	getFormId: () => string | undefined;
 	getRootId: () => string;
 	getFormat: () => Intl.NumberFormatOptions | undefined;
@@ -279,8 +281,8 @@ export class SliderRootModel {
 		return this.options.getFormId();
 	}
 
-	get linkedName() {
-		return this.options.getName();
+	get inputProps() {
+		return this.options.getInputProps();
 	}
 
 	get fieldValue(): SliderValue {
