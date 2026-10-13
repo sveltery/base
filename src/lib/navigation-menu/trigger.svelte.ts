@@ -30,17 +30,18 @@ import {
 } from '@sveltery/utils';
 import { getCssDimensions } from '../internal/getCssDimensions.js';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
-import {
-	PATIENT_CLICK_THRESHOLD,
-	POPUP_HEIGHT_VAR,
-	POPUP_WIDTH_VAR,
-	POSITIONER_HEIGHT_VAR,
-	POSITIONER_WIDTH_VAR
-} from './constants.js';
+import { PATIENT_CLICK_THRESHOLD, POPUP_HEIGHT_VAR, POPUP_WIDTH_VAR } from './constants.js';
 import type { NavigationMenuRootStore } from './root-store.svelte.js';
 import { NavigationMenuTriggerFloating } from './trigger-floating.svelte.js';
 import type { NavigationMenuChangeReason } from './types.js';
-import { getPlacementFromElements, isOutsideMenuEvent, setSharedFixedSize } from './utils.js';
+import {
+	getPlacementFromElements,
+	isOutsideMenuEvent,
+	setPopupSize,
+	setPositionerSize,
+	setSharedFixedSize,
+	type SizeTargets
+} from './utils.js';
 
 const DEFAULT_SIZE = { width: 0, height: 0 };
 const STARTING_STYLE = 'data-starting-style';
@@ -48,16 +49,13 @@ const STARTING_STYLE = 'data-starting-style';
 type Size = { width: number; height: number };
 type OpenEvent = (MouseEvent | KeyboardEvent) & { currentTarget: EventTarget | null };
 
-function setAutoSizes(popup: HTMLElement) {
-	popup.style.setProperty(POPUP_WIDTH_VAR, 'auto');
-	popup.style.setProperty(POPUP_HEIGHT_VAR, 'auto');
+function setAutoSizes(targets: SizeTargets) {
+	setPopupSize(targets, 'auto', 'auto');
 }
 
-function clearFixedSizes(popup: HTMLElement, positioner: HTMLElement) {
-	popup.style.removeProperty(POPUP_WIDTH_VAR);
-	popup.style.removeProperty(POPUP_HEIGHT_VAR);
-	positioner.style.removeProperty(POSITIONER_WIDTH_VAR);
-	positioner.style.removeProperty(POSITIONER_HEIGHT_VAR);
+function clearFixedSizes(targets: SizeTargets) {
+	setPopupSize(targets, null, null);
+	setPositionerSize(targets, null, null);
 }
 
 export interface NavigationMenuTriggerOptions {
@@ -283,18 +281,18 @@ export class NavigationMenuTriggerController {
 		reset.owner = null;
 	}
 
-	#scheduleAutoSizeReset(popup: HTMLElement) {
+	#scheduleAutoSizeReset(targets: SizeTargets) {
 		this.#cancelAutoSizeReset(true);
 		const reset = this.root.popupAutoSizeReset;
 		const abortController = new AbortController();
 		reset.abortController = abortController;
 		reset.owner = this.#itemValue;
 		runOnceAnimationsFinish(
-			popup,
+			targets.popup,
 			() => {
 				reset.abortController = null;
 				reset.owner = null;
-				setAutoSizes(popup);
+				setAutoSizes(targets);
 			},
 			abortController.signal,
 			false
@@ -308,7 +306,8 @@ export class NavigationMenuTriggerController {
 		currentHeight: number
 	) {
 		this.#cancelAutoSizeReset(true);
-		clearFixedSizes(popup, positioner);
+		const targets = this.root.sizeTargets(popup, positioner);
+		clearFixedSizes(targets);
 
 		const { width, height } = getCssDimensions(popup);
 		const measuredWidth = width || this.#prevSize.width;
@@ -319,16 +318,13 @@ export class NavigationMenuTriggerController {
 			currentHeight = measuredHeight;
 		}
 
-		popup.style.setProperty(POPUP_WIDTH_VAR, `${currentWidth}px`);
-		popup.style.setProperty(POPUP_HEIGHT_VAR, `${currentHeight}px`);
-		positioner.style.setProperty(POSITIONER_WIDTH_VAR, `${measuredWidth}px`);
-		positioner.style.setProperty(POSITIONER_HEIGHT_VAR, `${measuredHeight}px`);
+		setPopupSize(targets, `${currentWidth}px`, `${currentHeight}px`);
+		setPositionerSize(targets, `${measuredWidth}px`, `${measuredHeight}px`);
 
 		this.#sizeFrame.request(() => {
 			if (!this.isActiveItem) return;
-			popup.style.setProperty(POPUP_WIDTH_VAR, `${measuredWidth}px`);
-			popup.style.setProperty(POPUP_HEIGHT_VAR, `${measuredHeight}px`);
-			this.#scheduleAutoSizeReset(popup);
+			setPopupSize(targets, `${measuredWidth}px`, `${measuredHeight}px`);
+			this.#scheduleAutoSizeReset(targets);
 		});
 	}
 
@@ -344,20 +340,21 @@ export class NavigationMenuTriggerController {
 
 		if (currentWidth === 0 || currentHeight === 0) return;
 
-		setSharedFixedSize(popup, positioner, currentWidth, currentHeight);
+		const targets = this.root.sizeTargets(popup, positioner);
+		setSharedFixedSize(targets, currentWidth, currentHeight);
 
 		this.#mutationFrame.request(() => {
 			this.#mutationFrame.request(() => {
-				clearFixedSizes(popup, positioner);
+				clearFixedSizes(targets);
 				const { width, height } = getCssDimensions(popup);
 				const measuredWidth = width || currentWidth;
 				const measuredHeight = height || currentHeight;
-				setSharedFixedSize(popup, positioner, currentWidth, currentHeight);
+				setSharedFixedSize(targets, currentWidth, currentHeight);
 
 				this.#sizeFrame.request(() => {
 					if (!this.isActiveItem) return;
-					setSharedFixedSize(popup, positioner, measuredWidth, measuredHeight);
-					this.#scheduleAutoSizeReset(popup);
+					setSharedFixedSize(targets, measuredWidth, measuredHeight);
+					this.#scheduleAutoSizeReset(targets);
 				});
 			});
 		});
@@ -366,15 +363,15 @@ export class NavigationMenuTriggerController {
 	#syncCurrentSize(popup: HTMLElement, positioner: HTMLElement) {
 		this.#sizeFrame.cancel();
 		this.#cancelAutoSizeReset(true);
-		clearFixedSizes(popup, positioner);
+		const targets = this.root.sizeTargets(popup, positioner);
+		clearFixedSizes(targets);
 
 		const { width, height } = getCssDimensions(popup);
 		if (width === 0 || height === 0) return;
 
 		this.#prevSize = { width, height };
-		setAutoSizes(popup);
-		positioner.style.setProperty(POSITIONER_WIDTH_VAR, `${width}px`);
-		positioner.style.setProperty(POSITIONER_HEIGHT_VAR, `${height}px`);
+		setAutoSizes(targets);
+		setPositionerSize(targets, `${width}px`, `${height}px`);
 	}
 
 	#getMutationBaseline(popup: HTMLElement): { size: Size; syncPositioner: boolean } {

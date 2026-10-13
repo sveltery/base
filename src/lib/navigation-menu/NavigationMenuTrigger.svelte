@@ -97,7 +97,7 @@
 	<button {...hostProps}>{@render children?.()}</button>
 {/if}
 {#if trigger.isActiveItem}
-	<FocusGuard attach={bindBeforeOutside} onfocus={trigger.focusBeforeOutside} />
+	<FocusGuard attach={bindBeforeOutside} onfocusin={trigger.focusBeforeOutside} />
 	<span aria-owns={root.viewportElement?.id} style={OWNER_VISUALLY_HIDDEN_STYLE}></span>
-	<FocusGuard attach={bindAfterOutside} onfocus={trigger.focusAfterOutside} />
+	<FocusGuard attach={bindAfterOutside} onfocusin={trigger.focusAfterOutside} />
 {/if}

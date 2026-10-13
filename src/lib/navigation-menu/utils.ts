@@ -12,19 +12,35 @@ import {
 	POSITIONER_HEIGHT_VAR,
 	POSITIONER_WIDTH_VAR
 } from './constants.js';
+import type { StyleVars } from './style-vars.svelte.js';
 
 type FloatingTree = ReturnType<typeof useFloatingTree>;
 
-export function setSharedFixedSize(
-	popup: HTMLElement,
-	positioner: HTMLElement,
-	width: number,
-	height: number
+export interface SizeTargets {
+	popup: HTMLElement;
+	positioner: HTMLElement;
+	popupVars: StyleVars;
+	positionerVars: StyleVars;
+}
+
+export function setSharedFixedSize(targets: SizeTargets, width: number, height: number) {
+	setPopupSize(targets, `${width}px`, `${height}px`);
+	setPositionerSize(targets, `${width}px`, `${height}px`);
+}
+
+export function setPopupSize(targets: SizeTargets, width: string | null, height: string | null) {
+	targets.popupVars.set(targets.popup, { [POPUP_WIDTH_VAR]: width, [POPUP_HEIGHT_VAR]: height });
+}
+
+export function setPositionerSize(
+	targets: SizeTargets,
+	width: string | null,
+	height: string | null
 ) {
-	popup.style.setProperty(POPUP_WIDTH_VAR, `${width}px`);
-	popup.style.setProperty(POPUP_HEIGHT_VAR, `${height}px`);
-	positioner.style.setProperty(POSITIONER_WIDTH_VAR, `${width}px`);
-	positioner.style.setProperty(POSITIONER_HEIGHT_VAR, `${height}px`);
+	targets.positionerVars.set(targets.positioner, {
+		[POSITIONER_WIDTH_VAR]: width,
+		[POSITIONER_HEIGHT_VAR]: height
+	});
 }
 
 /**

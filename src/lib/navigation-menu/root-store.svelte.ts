@@ -28,7 +28,8 @@ import type {
 	NavigationMenuChangeReason,
 	NavigationMenuOrientation
 } from './types.js';
-import { getPositionerFixedSize, setSharedFixedSize } from './utils.js';
+import { StyleVars } from './style-vars.svelte.js';
+import { getPositionerFixedSize, setSharedFixedSize, type SizeTargets } from './utils.js';
 
 const BLOCKED_RETURN_FOCUS_REASONS = new Set<string>([
 	REASONS.triggerHover,
@@ -108,6 +109,9 @@ export class NavigationMenuRootStore {
 		beforeOutside: HTMLElement | null;
 		afterOutside: HTMLElement | null;
 	} = { beforeInside: null, afterInside: null, beforeOutside: null, afterOutside: null };
+	/** Size variables of the popup and the positioner. The parts render them in their style. */
+	readonly popupVars = new StyleVars();
+	readonly positionerVars = new StyleVars();
 	/** Shared so a newly active trigger can cancel a reset the previous trigger scheduled. */
 	readonly popupAutoSizeReset: { abortController: AbortController | null; owner: unknown } = {
 		abortController: null,
@@ -155,8 +159,14 @@ export class NavigationMenuRootStore {
 			if (!positioner || !popup) return;
 			const size = getPositionerFixedSize(positioner);
 			if (!size) return;
-			setSharedFixedSize(popup, positioner, size.width, size.height);
+			untrack(() =>
+				setSharedFixedSize(this.sizeTargets(popup, positioner), size.width, size.height)
+			);
 		});
+	}
+
+	sizeTargets(popup: HTMLElement, positioner: HTMLElement): SizeTargets {
+		return { popup, positioner, popupVars: this.popupVars, positionerVars: this.positionerVars };
 	}
 
 	get value(): unknown {

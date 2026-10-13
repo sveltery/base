@@ -103,6 +103,7 @@
 	const focusKey = createAttachmentKey();
 
 	// Tabbables inside the portal stay out of the tab order until focus enters the positioner.
+	// Detaching also drops the size variables written for this element.
 	function manageFocusInside(node: HTMLElement) {
 		function onFocus(event: FocusEvent) {
 			if (!isOutsideEvent(event)) return;
@@ -114,6 +115,7 @@
 		return () => {
 			stopIn();
 			stopOut();
+			root.positionerVars.clear();
 		};
 	}
 
@@ -132,6 +134,7 @@
 				hidden: root.mounted ? undefined : true,
 				style: toCssStyle({
 					...positioning.positionerStyles,
+					...root.positionerVars.values,
 					...(root.open ? {} : { pointerEvents: 'none' }),
 					...(root.transitionStatus === 'starting' ? { transition: 'none' } : {})
 				}),

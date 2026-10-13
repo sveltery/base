@@ -5,6 +5,7 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
+	import { toCssStyle } from '../internal/css-style.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
@@ -23,7 +24,9 @@
 	function bindPopup(node: HTMLElement) {
 		root.popupElement = node;
 		return () => {
-			if (root.popupElement === node) root.popupElement = null;
+			if (root.popupElement !== node) return;
+			root.popupElement = null;
+			root.popupVars.clear();
 		};
 	}
 
@@ -47,14 +50,17 @@
 			{
 				id: id ?? `base-ui-${uid}`,
 				tabindex: -1,
-				style: [
-					isOriginSide
-						? `position: absolute; ${positioning.side === 'top' ? 'bottom' : 'top'}: 0; ${isPhysicalLeft ? 'right' : 'left'}: 0`
-						: '',
-					root.transitionStatus === 'starting' ? 'transition: none' : ''
-				]
-					.filter(Boolean)
-					.join('; '),
+				style: toCssStyle({
+					...root.popupVars.values,
+					...(isOriginSide
+						? {
+								position: 'absolute',
+								[positioning.side === 'top' ? 'bottom' : 'top']: '0',
+								[isPhysicalLeft ? 'right' : 'left']: '0'
+							}
+						: {}),
+					...(root.transitionStatus === 'starting' ? { transition: 'none' } : {})
+				}),
 				...getStateAttributesProps(state, popupTransitionStateMapping),
 				[bindKey]: bindPopup
 			},

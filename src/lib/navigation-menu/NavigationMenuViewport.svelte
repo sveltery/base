@@ -96,13 +96,13 @@
 
 {#snippet beforeGuard()}
 	{#if showGuards}
-		<FocusGuard attach={bindBeforeInside} onfocus={focusBeforeInside} />
+		<FocusGuard attach={bindBeforeInside} onfocusin={focusBeforeInside} />
 	{/if}
 {/snippet}
 
 {#snippet afterGuard()}
 	{#if showGuards}
-		<FocusGuard attach={bindAfterInside} onfocus={focusAfterInside} />
+		<FocusGuard attach={bindAfterInside} onfocusin={focusAfterInside} />
 	{/if}
 {/snippet}
 
