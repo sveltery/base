@@ -1,4 +1,6 @@
 // The item tree of upstream MenuRoot.test.tsx `TestMenuContents`.
+// Derived from Base UI v1.9.0 packages/react/src/menu/root/MenuRoot.test.tsx
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import type { MenuItemSpec } from './types.js';
 
 type Bag = Record<string, unknown>;

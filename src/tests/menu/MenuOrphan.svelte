@@ -1,3 +1,8 @@
+<!--
+	One menu part rendered outside the context it needs.
+	Derived from Base UI v1.9.0 the Menu part tests under packages/react/src/menu
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+-->
 <script lang="ts">
 	import { Menu } from '#lib';
 

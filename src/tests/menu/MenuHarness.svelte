@@ -1,3 +1,8 @@
+<!--
+	One menu built from an item tree, so one harness covers the ported Menu specs.
+	Derived from Base UI v1.9.0 packages/react/src/menu/root/MenuRoot.test.tsx and the Menu part tests
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+-->
 <script lang="ts">
 	import { DirectionProvider, Menu } from '#lib';
 	import type { MenuItemSpec } from './types.js';
