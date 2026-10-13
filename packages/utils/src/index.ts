@@ -3,9 +3,9 @@ export {
 	REASONS,
 	createChangeEventDetails,
 	createGenericEventDetails,
-	getHighlightReason,
 	type BaseUIChangeEventDetails,
-	type BaseUIGenericEventDetails
+	type BaseUIGenericEventDetails,
+	type BaseUIHighlightEventDetails
 } from './event-details.js';
 export { default as FocusGuard } from './FocusGuard.svelte';
 export { error, resetLogged, warn } from './log.js';

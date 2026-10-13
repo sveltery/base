@@ -223,9 +223,7 @@
 			])
 		)
 	);
-	// Upstream renders the guards only while open and anchors on the trigger once the guard is
-	// gone. The shared guards here need their own element, so they stay until the popup unmounts.
-	const showGuards = $derived(Boolean(!menubar && mountedByThis && armed));
+	const showGuards = $derived(Boolean(!menubar && opened && armed));
 </script>
 
 {#if live}

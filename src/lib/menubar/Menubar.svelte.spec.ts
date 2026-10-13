@@ -763,6 +763,32 @@ describe('Menubar', () => {
 		});
 	});
 
+	it('renders contained top-level portal ownership as an allowed menubar child', async () => {
+		render(MenubarHarness, { variant: 'contained' });
+		await userEvent.click(get('file-trigger'));
+		await expect.poll(shown('file-menu')).toBe(true);
+
+		const fileMenuPortalId = get('file-menu').closest('[data-base-ui-portal]')?.id ?? '';
+		const owner = menubar().querySelector('span[aria-owns]');
+		expect(fileMenuPortalId).not.toBe('');
+		expect(owner?.getAttribute('role')).toBe('group');
+		expect(owner?.hasAttribute('aria-hidden')).toBe(false);
+		expect(owner?.getAttribute('aria-owns')).toBe(fileMenuPortalId);
+	});
+
+	it('renders detached top-level portal ownership without an accessibility role', async () => {
+		render(MenubarHarness, { variant: 'detached' });
+		await userEvent.click(get('file-trigger'));
+		await expect.poll(shown('file-menu')).toBe(true);
+
+		const fileMenuPortalId = get('file-menu').closest('[data-base-ui-portal]')?.id ?? '';
+		const owner = document.querySelector('span[aria-owns]');
+		expect(fileMenuPortalId).not.toBe('');
+		expect(owner?.getAttribute('aria-owns')).toBe(fileMenuPortalId);
+		expect(menubar().contains(owner)).toBe(false);
+		expect(owner?.hasAttribute('role')).toBe(false);
+	});
+
 	describe('disabled state', () => {
 		it('keeps the menubar reachable when the first trigger is disabled', async () => {
 			render(MenubarCasesHarness, { scenario: 'first-disabled' });

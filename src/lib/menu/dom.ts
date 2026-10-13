@@ -1,34 +1,9 @@
-// Derived from Base UI v1.9.0 packages/react/src/utils/dispatchClickWithModifiers.ts,
-// packages/react/src/utils/getPseudoElementBounds.ts and
+// Derived from Base UI v1.9.0 packages/react/src/utils/getPseudoElementBounds.ts and
 // packages/react/src/menu/utils/findRootOwnerId.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getParentNode, isHTMLElement, isLastTraversableNode } from '@floating-ui/utils/dom';
 import { ownerWindow } from '@sveltery/utils';
-
-/**
- * A constructed click carrying the source event's modifiers. `detail: 1` and
- * `pointerType: 'mouse'` mark a mouse gesture, so the menu does not treat it as a keyboard click.
- */
-export function dispatchClickWithModifiers(
-	target: Element,
-	source: { shiftKey: boolean; ctrlKey: boolean; altKey: boolean; metaKey: boolean },
-	{ detail = 0, pointerType = '' }: { detail?: number; pointerType?: string } = {}
-) {
-	target.dispatchEvent(
-		new (ownerWindow(target).PointerEvent)('click', {
-			bubbles: true,
-			cancelable: true,
-			composed: true,
-			detail,
-			pointerType,
-			shiftKey: source.shiftKey,
-			ctrlKey: source.ctrlKey,
-			altKey: source.altKey,
-			metaKey: source.metaKey
-		})
-	);
-}
 
 // Tolerance for pointer drift during a press, matching typical drag thresholds.
 const BOUNDARY_OFFSET = 5;

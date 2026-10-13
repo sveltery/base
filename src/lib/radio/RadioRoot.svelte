@@ -162,6 +162,13 @@
 		input.checked = next;
 	});
 
+	$effect(() => group?.registerInputSync?.(syncInput));
+
+	function syncGroupInputs() {
+		if (group?.syncInputs) group.syncInputs();
+		else syncInput();
+	}
+
 	// The group restores its value. This catches a selection the owner kept.
 	restoreOnReset(() => inputNode, { settle: syncInput });
 
@@ -176,14 +183,14 @@
 		const source = activationEvent ?? event;
 		activationEvent = undefined;
 		if (event.defaultPrevented || disabled || readOnly || value === undefined) {
-			syncInput();
+			syncGroupInputs();
 			return;
 		}
 
 		const details = createChangeEventDetails(REASONS.none, source);
 		group?.setCheckedValue(value, details);
 		if (!details.isCanceled) field.setTouched(true);
-		syncInput();
+		syncGroupInputs();
 	}
 
 	function handleInputFocus() {

@@ -14,9 +14,16 @@ export function defineContext<T>(missing: string) {
 	return [get, set, find] as const;
 }
 
-/** Svelte context that reads `fallback` outside a provider. */
-export function defineOptionalContext<T>(fallback: T) {
+/**
+ * Svelte context that reads `fallback` outside a provider.
+ * `need` throws `missing` there instead, for parts that require the provider.
+ */
+export function defineOptionalContext<T>(fallback: T, missing?: string) {
 	const [read, set, has] = createContext<T>();
 	const get = (): T => (has() ? read() : fallback);
-	return [get, set] as const;
+	const need = (): T => {
+		if (!has()) throw new Error(missing);
+		return read();
+	};
+	return [get, set, need] as const;
 }

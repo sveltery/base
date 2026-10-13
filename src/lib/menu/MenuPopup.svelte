@@ -7,7 +7,6 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { untrack } from 'svelte';
 	import {
 		REASONS,
 		activeElement,
@@ -99,31 +98,18 @@
 		return trigger ? trigger.id || undefined : store.resolvedActiveTriggerId() || undefined;
 	});
 
-	// Upstream's focus manager returns focus to the element focused before an open with no
-	// interaction type (a programmatic or hover open) ahead of the trigger. The shared manager
-	// always prefers the trigger, so the popup names that element itself. It is a snapshot of
-	// focus at the moment of opening, so it cannot be derived.
-	let previousFocus = $state<HTMLElement | null>(null);
 	// Upstream returns focus nowhere when a hover menu closes because the pointer left, whatever
 	// `finalFocus` says. The manager resolves `returnFocus` in an effect teardown, where Svelte
 	// reads state as it was before the close. This flag is set during the close, so it is a plain
 	// variable that `returnFocus` reads when the manager calls it.
 	let leftByPointer = false;
-	// Read at call time for the same reason: an outside press that closed the menu.
+	// Read at call time for the same reason: an outside press closed the menu.
 	let closedByOutsidePress = false;
 	// Tracks only `store.open`, so it runs once per opening.
 	$effect.pre(() => {
 		if (!store.open) return;
-		untrack(() => {
-			leftByPointer = false;
-			closedByOutsidePress = false;
-			const doc = ownerDocument(store.domReferenceElement ?? null);
-			const active = activeElement(doc);
-			previousFocus =
-				store.openMethod == null && active instanceof HTMLElement && active !== doc.body
-					? active
-					: null;
-		});
+		leftByPointer = false;
+		closedByOutsidePress = false;
 	});
 
 	$effect(() => {
@@ -146,38 +132,15 @@
 		return contains(store.floatingElement, active) || active === doc.body || active == null;
 	}
 
-	/** The boolean `returnFocus` path, aimed at `previousFocus`. */
-	function returnToPreviousFocus(): HTMLElement | false {
-		const target = previousFocus;
-		return target?.isConnected && focusInside() ? target : false;
-	}
-
-	const returnFocusDefault = $derived.by(() => {
-		const returns =
-			store.activeTriggerElement != null ||
+	const returnFocusDefault = $derived(
+		store.activeTriggerElement != null ||
 			parentType === undefined ||
 			parentType === 'context-menu' ||
 			// `returnFocus` drops this case after an outside press.
-			parentType === 'menubar';
-		return returns && previousFocus ? returnToPreviousFocus : returns;
-	});
-
-	function focusReturn(closeType: string | null): boolean | HTMLElement | null | void {
-		const spec = finalFocus;
-		if (typeof spec !== 'function') return spec;
-		const resolved = spec(closeType ?? '');
-		return (resolved === true || resolved === null) && previousFocus?.isConnected
-			? previousFocus
-			: resolved;
-	}
-
-	const returnSpec = $derived(
-		finalFocus === undefined
-			? returnFocusDefault
-			: typeof finalFocus === 'function'
-				? focusReturn
-				: finalFocus
+			parentType === 'menubar'
 	);
+
+	const returnSpec = $derived(finalFocus === undefined ? returnFocusDefault : finalFocus);
 
 	function returnFocus(closeType: string | null): boolean | HTMLElement | null | void {
 		if (leftByPointer) return false;
@@ -192,7 +155,7 @@
 			return false;
 		}
 		const spec = returnSpec;
-		if (typeof spec === 'function') return spec(closeType);
+		if (typeof spec === 'function') return spec(closeType ?? '');
 		// The manager treats a function result as explicit, so `true` keeps its inside check here.
 		// A `null` spec does not move focus.
 		return spec === true ? focusInside() : (spec ?? false);
@@ -210,30 +173,19 @@
 	}
 
 	const hostProps = $derived.by(() => {
-		const { onkeydown: popupKeyDown, ...popupProps } = store.popupProps;
-		const { onkeydown: consumerKeyDown, ...consumerProps } = elementProps;
 		return mergeProps(
-			popupProps,
+			store.popupProps,
 			{
 				id: store.floatingId,
 				role: 'menu' as const,
 				...(root.orientation === 'horizontal' ? { 'aria-orientation': 'horizontal' as const } : {}),
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
-				// An item prevents the keys it handles, such as Space, before they bubble here.
-				// `mergeProps` would read that as the consumer opting out, so the chain is explicit:
-				// only a `preventDefault()` in the consumer's own handler skips the menu's handlers.
-				onkeydown(event: KeyboardEvent) {
-					const preventedBefore = event.defaultPrevented;
-					consumerKeyDown?.(event as never);
-					if (!preventedBefore && event.defaultPrevented) return;
-					stopInToolbar(event);
-					popupKeyDown?.(event as never);
-				},
+				onkeydown: stopInToolbar,
 				...getStateAttributesProps(popupState, popupTransitionStateMapping),
 				[bindKey]: bindPopup,
 				[styleKey]: ownStyle
 			},
-			consumerProps,
+			elementProps,
 			{ 'data-rootownerid': store.rootId }
 		);
 	});
