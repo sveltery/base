@@ -138,6 +138,11 @@
 			"svelte": "./dist/menu/index.js",
 			"default": "./dist/menu/index.js"
 		},
+		"./menubar": {
+			"types": "./dist/menubar/index.d.ts",
+			"svelte": "./dist/menubar/index.js",
+			"default": "./dist/menubar/index.js"
+		},
 		"./merge-props": {
 			"types": "./dist/merge-props/index.d.ts",
 			"svelte": "./dist/merge-props/index.js",

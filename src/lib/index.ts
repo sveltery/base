@@ -35,3 +35,4 @@ export * from './merge-props/index.js';
 export type * from './types/index.js';
 export * from './tooltip/index.js';
 export * from './preview-card/index.js';
+export * from './menubar/index.js';
