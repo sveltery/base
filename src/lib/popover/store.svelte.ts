@@ -91,11 +91,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		this.readDismissReference = options.readDismissReference;
 		this.readDismissFloating = options.readDismissFloating;
 
-		$effect(() => {
-			if (this.open) return;
-			this.stickTimeout.clear();
-		});
-
 		// Upstream useImplicitActiveTrigger: a bound trigger id moves the popup to that trigger, and
 		// a popup opened without naming a trigger, such as through `bind:open`, claims its only
 		// trigger until it finishes closing.
@@ -125,6 +120,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		$effect(() => {
 			if (this.open) return;
 			untrack(() => {
+				this.stickTimeout.clear();
 				this.pendingSwitch?.abort();
 				this.pendingSwitch = null;
 				if (this.#instantType === 'trigger-change') this.#instantType = undefined;
@@ -246,10 +242,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			this.triggerCount === 1 &&
 			this.triggers.getById(triggerId) != null
 		);
-	}
-
-	mountedBy(triggerId: string | undefined) {
-		return triggerId !== undefined && this.mounted && this.resolvedActiveTriggerId() === triggerId;
 	}
 
 	popupIdFor(triggerId: string | undefined) {

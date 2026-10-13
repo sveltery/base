@@ -18,11 +18,7 @@
 		triggerId = $bindable(),
 		onOpenChange,
 		before = false,
-		after = false,
-		closeButton = false,
 		inside = true,
-		modal = false,
-		keepMounted = false,
 		popupClass,
 		positionerClass,
 		css = '',
@@ -34,11 +30,7 @@
 		triggerId?: string | null;
 		onOpenChange?: (open: boolean, details: PopoverChangeEventDetails) => void;
 		before?: boolean;
-		after?: boolean;
-		closeButton?: boolean;
 		inside?: boolean;
-		modal?: boolean | 'trap-focus';
-		keepMounted?: boolean;
 		popupClass?: string;
 		positionerClass?: string;
 		css?: string;
@@ -62,13 +54,12 @@
 				></span>{/if}</Popover.Trigger
 		>
 	{/each}
-	{#if after}<input data-testid="after" />{/if}
 </div>
 
-<Popover.Root {handle} bind:open bind:triggerId {onOpenChange} {modal}>
+<Popover.Root {handle} bind:open bind:triggerId {onOpenChange}>
 	{#snippet children({ payload })}
-		<Popover.Portal {keepMounted}>
-			<Popover.Positioner data-testid="positioner" class={positionerClass}>
+		<Popover.Portal>
+			<Popover.Positioner class={positionerClass}>
 				<Popover.Popup data-testid="popup" class={popupClass}>
 					{#if viewport}
 						<Popover.Viewport><span data-testid="content">Content {payload}</span></Popover.Viewport
@@ -77,7 +68,6 @@
 						<span data-testid="content">{payload}</span>
 					{/if}
 					{#if inside}<input data-testid="input-inside" />{/if}
-					{#if closeButton}<Popover.Close>Close</Popover.Close>{/if}
 				</Popover.Popup>
 			</Popover.Positioner>
 		</Popover.Portal>
