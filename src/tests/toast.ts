@@ -37,14 +37,31 @@ export async function withAnimations(body: () => Promise<void>) {
  * browser keeps painting; with animations disabled no toast waits for one.
  */
 export function useFakeClock() {
+	let stopRealBlur: (() => void) | undefined;
 	beforeEach(() => {
 		vi.useFakeTimers({
 			toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date']
 		});
+		stopRealBlur = ignoreRealWindowBlur();
 	});
 	afterEach(() => {
+		stopRealBlur?.();
 		vi.useRealTimers();
 	});
+}
+
+/**
+ * Vitest runs spec files side by side in one browser, so another file can take focus and blur
+ * this window, which pauses every toast timer. Registered before any viewport mounts, this
+ * listener runs first and drops the browser's own blur. Blur events a test dispatches still reach
+ * the viewport.
+ */
+function ignoreRealWindowBlur() {
+	const drop = (event: FocusEvent) => {
+		if (event.isTrusted && event.target === window) event.stopImmediatePropagation();
+	};
+	window.addEventListener('blur', drop, { capture: true });
+	return () => window.removeEventListener('blur', drop, { capture: true });
 }
 
 /** Advances the fake clock, then lets Svelte apply what the timers changed. */
