@@ -10,12 +10,12 @@
 	import { createChangeEventDetails } from '@sveltery/utils';
 	import { FloatingFocusManager, useHoverFloatingInteraction } from '@sveltery/floating-ui-svelte';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
-	import { toCssStyle } from '../internal/css-style.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
 	import { MENU_REASONS } from './constants.js';
+	import { liveStyle } from './live-style.js';
 	import { useMenuPositioner, useMenuRoot } from './context.svelte.js';
 	import type { MenuChangeReason, MenuPopupProps, MenuPopupState } from './types.js';
 
@@ -25,6 +25,11 @@
 	const store = root.store;
 	const positioning = useMenuPositioner();
 	const bindKey = createAttachmentKey();
+	const styleKey = createAttachmentKey();
+	const ownStyle = liveStyle(() => ({
+		...store.popupVars,
+		...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
+	}));
 
 	useOpenChangeComplete(() => ({
 		enabled: store.open && store.mounted,
@@ -94,36 +99,45 @@
 		return spec(closeType ?? '');
 	}
 
-	const hostProps = $derived(
-		mergeProps(
-			store.popupProps,
+	function stopInToolbar(event: KeyboardEvent) {
+		const current = event.currentTarget;
+		const inToolbar = current instanceof Element && current.closest('[role="toolbar"]') != null;
+		const trigger = store.domReferenceElement;
+		const triggerInToolbar =
+			trigger instanceof Element && trigger.closest('[role="toolbar"]') != null;
+		if ((inToolbar || triggerInToolbar) && COMPOSITE_KEYS.has(event.key)) {
+			event.stopPropagation();
+		}
+	}
+
+	const hostProps = $derived.by(() => {
+		const { onkeydown: popupKeyDown, ...popupProps } = store.popupProps;
+		const { onkeydown: consumerKeyDown, ...consumerProps } = elementProps;
+		return mergeProps(
+			popupProps,
 			{
 				id: store.floatingId,
 				role: 'menu' as const,
 				...(root.orientation === 'horizontal' ? { 'aria-orientation': 'horizontal' as const } : {}),
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
+				// An item prevents the keys it handles, such as Space, before they bubble here.
+				// `mergeProps` would read that as the consumer opting out, so the chain is explicit:
+				// only a `preventDefault()` in the consumer's own handler skips the menu's handlers.
 				onkeydown(event: KeyboardEvent) {
-					const current = event.currentTarget;
-					const inToolbar =
-						current instanceof Element && current.closest('[role="toolbar"]') != null;
-					const trigger = store.domReferenceElement;
-					const triggerInToolbar =
-						trigger instanceof Element && trigger.closest('[role="toolbar"]') != null;
-					if ((inToolbar || triggerInToolbar) && COMPOSITE_KEYS.has(event.key)) {
-						event.stopPropagation();
-					}
+					const preventedBefore = event.defaultPrevented;
+					consumerKeyDown?.(event as never);
+					if (!preventedBefore && event.defaultPrevented) return;
+					stopInToolbar(event);
+					popupKeyDown?.(event as never);
 				},
-				style: toCssStyle({
-					...store.popupVars,
-					...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
-				}),
 				...getStateAttributesProps(popupState, popupTransitionStateMapping),
-				[bindKey]: bindPopup
+				[bindKey]: bindPopup,
+				[styleKey]: ownStyle
 			},
-			elementProps,
+			consumerProps,
 			{ 'data-rootownerid': store.rootId }
-		)
-	);
+		);
+	});
 </script>
 
 <FloatingFocusManager

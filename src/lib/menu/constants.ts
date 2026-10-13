@@ -8,7 +8,6 @@ import { REASONS } from '@sveltery/utils';
 export const MENU_REASONS = {
 	...REASONS,
 	triggerFocus: 'trigger-focus',
-	listNavigation: 'list-navigation',
 	itemPress: 'item-press',
 	siblingOpen: 'sibling-open',
 	cancelOpen: 'cancel-open',

@@ -41,7 +41,7 @@
 	}: MenuTriggerProps<Payload> = $props();
 
 	const root = findMenuRoot()?.store;
-	if (!handle && !root) {
+	if (!untrack(() => handle) && !root) {
 		throw new Error(
 			'Base UI: <Menu.Trigger> must be either used within a <Menu.Root> component or provided with a handle.'
 		);
@@ -231,7 +231,9 @@
 			])
 		)
 	);
-	const showGuards = $derived(Boolean(!menubar && opened && armed));
+	// Upstream renders the guards only while open and anchors on the trigger once the guard is
+	// gone. The shared guards here need their own element, so they stay until the popup unmounts.
+	const showGuards = $derived(Boolean(!menubar && mountedByThis && armed));
 </script>
 
 {#if live}

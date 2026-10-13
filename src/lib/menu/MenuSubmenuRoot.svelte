@@ -19,7 +19,8 @@
 		orientation = 'vertical',
 		disabled = false,
 		closeParentOnEsc = false,
-		children
+		children,
+		...unsupported
 	}: MenuSubmenuRootProps = $props();
 
 	// Throws when the submenu is not inside a menu.
@@ -39,7 +40,8 @@
 		onOpenChangeComplete: () => onOpenChangeComplete,
 		onItemHighlighted: () => onItemHighlighted,
 		readDisabled: () => disabled,
-		readModal: () => undefined,
+		// Only read to warn: a submenu is never modal.
+		readModal: () => (unsupported as { modal?: boolean }).modal,
 		readHighlightItemOnHover: () => highlightItemOnHover,
 		readLoopFocus: () => loopFocus,
 		readOrientation: () => orientation,

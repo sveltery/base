@@ -51,7 +51,8 @@ export class MenuItemBehavior {
 	#register = (node: HTMLElement) => {
 		this.node = node;
 		const stop = this.list.items.register(node, () => ({
-			label: this.options().label ?? node.textContent
+			// Svelte markup keeps the whitespace around the text. Typeahead matches the start.
+			label: this.options().label ?? node.textContent?.trim() ?? null
 		}));
 		return () => {
 			stop();

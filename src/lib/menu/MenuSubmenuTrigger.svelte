@@ -73,7 +73,13 @@
 	});
 
 	// One polygon per trigger. The options getter runs on every event.
-	const handleClose = safePolygon({ blockPointerEvents: true });
+	// The parent popup is the scope upstream reaches through the floating tree. The internal
+	// trigger mousemove would otherwise scope to the body, and clearing that would reset the
+	// body's own `pointer-events`.
+	const handleClose = safePolygon({
+		blockPointerEvents: true,
+		getScope: () => parentStore.floatingElement
+	});
 	const hover = new HoverReferenceInteraction(store, () => ({
 		enabled: store.hoverEnabled && openOnHover && !disabled,
 		handleClose,
