@@ -157,30 +157,19 @@
 	}
 
 	const hostProps = $derived.by(() => {
-		const { onkeydown: popupKeyDown, ...popupProps } = store.popupProps;
-		const { onkeydown: consumerKeyDown, ...consumerProps } = elementProps;
 		return mergeProps(
-			popupProps,
+			store.popupProps,
 			{
 				id: store.floatingId,
 				role: 'menu' as const,
 				...(root.orientation === 'horizontal' ? { 'aria-orientation': 'horizontal' as const } : {}),
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
-				// An item prevents the keys it handles, such as Space, before they bubble here.
-				// `mergeProps` would read that as the consumer opting out, so the chain is explicit:
-				// only a `preventDefault()` in the consumer's own handler skips the menu's handlers.
-				onkeydown(event: KeyboardEvent) {
-					const preventedBefore = event.defaultPrevented;
-					consumerKeyDown?.(event as never);
-					if (!preventedBefore && event.defaultPrevented) return;
-					stopInToolbar(event);
-					popupKeyDown?.(event as never);
-				},
+				onkeydown: stopInToolbar,
 				...getStateAttributesProps(popupState, popupTransitionStateMapping),
 				[bindKey]: bindPopup,
 				[styleKey]: ownStyle
 			},
-			consumerProps,
+			elementProps,
 			{ 'data-rootownerid': store.rootId }
 		);
 	});
