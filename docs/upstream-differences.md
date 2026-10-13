@@ -256,7 +256,6 @@ The popup has no `role` and the trigger has no `aria-describedby` or `type`, as 
 
 Each case is kept as an `it.todo` in the Tooltip specs.
 
-- `src/lib/internal/useAnchorPositioning.svelte.ts` places the positioner with `left` and `top`. v1.9.0 uses `transform` when no Viewport is mounted. Upstream tests: `uses transform positioning without Viewport` and `updates positioning when Viewport mounts and unmounts`.
 - `src/lib/internal/usePopupViewport.svelte.ts` does not set `--popup-width` and `--popup-height` on the previous container. Upstream test: the size half of `creates morphing containers during transitions`.
 
 ## PreviewCard
