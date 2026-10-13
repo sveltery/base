@@ -300,6 +300,59 @@ Local: the shared `PopupViewport` leaves them off the previous pane, as Popover 
 
 The "does not re-render inactive triggers" cases count React renders. "Cleans up the transition when a lagging payload remounts the current container" depends on a payload that arrives a render after the trigger id. Both have no Svelte counterpart.
 
+## Menu
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/menu/**` without the filter parts. The paired React fixture runs `@base-ui/react` 1.9.0. `MenuStore` extends `PopupStore<MenuChangeReason>`. List navigation and typeahead come from `packages/floating-ui-svelte`.
+
+### Public surface
+
+Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup`, `actionsRef`, and the `*DataAttributes` and `*CssVars` namespaces.
+
+Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem` and `value` on `Menu.RadioGroup` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`.
+
+### Labels are trimmed
+
+Upstream: typeahead and `onItemHighlighted` read an item's `textContent` as it is.
+
+Local: the label is trimmed, because Svelte templates keep the whitespace around a text child.
+
+### Focus guards stay mounted
+
+Upstream: the trigger renders its focus guards only while the menu is open, and anchors the next tabbable on the trigger once a guard is gone.
+
+Local: the shared guards need their own element, so they stay until the popup unmounts.
+
+### Return focus after an open with no interaction type
+
+Upstream: `FloatingFocusManager` takes `openInteractionType` and, when it is `null`, returns focus to the element focused before opening ahead of the trigger.
+
+Local: the shared `FloatingFocusManager` always prefers the trigger. `MenuPopup` records the element focused when the menu opens without an interaction type, such as a programmatic or hover open, and passes it as `returnFocus`.
+
+Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`returns focus to the opener when a menu is opened programmatically`).
+
+### Touch close guard
+
+Upstream: the touch `click` that follows a focus open is ignored after it reaches `onOpenChange`.
+
+Local: the store ignores it before `onOpenChange`, so the callback does not see the ignored close.
+
+### Submenu hover scope
+
+Upstream: the submenu's safe polygon reaches the parent popup through the floating tree.
+
+Local: the polygon scopes to the parent popup through `getScope`. A detached trigger passes the menu's tree to the polygon, which keeps the menu open while one of its submenus is open.
+
+### Behavior that waits on shared internals
+
+- `packages/floating-ui-svelte/src/usePosition.svelte.ts` resets its data whenever the reference changes. Upstream keeps the coordinates and resets only on close. Hover switches between detached triggers therefore start from `0, 0`, and the switch transition is canceled. `it.todo` in `src/lib/menu/MenuRoot.detached.svelte.spec.ts` keeps the third instant of the hover trigger change case.
+- The shared `FloatingFocusManager` has no counterpart to upstream's `markInsideReactTree`. When the pointer highlight moves focus from a portaled submenu into its parent, the submenu closes with `focus-out` before the click on a sibling submenu trigger. `it.todo` in `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` keeps `closes a sibling submenu without closing the root on click`.
+- `FloatingPortal` has no `portalOwnerRole`, so the trigger does not set `aria-owns` on a portaled popup.
+- The `data-base-ui-click-trigger` marker is not rendered. Upstream sets it only on Dialog and Popover triggers.
+
+### Not covered
+
+React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The menubar and context-menu positioner cases have no public components here. The filter, `Menu.List` and lazy flipping cases wait on the filter parts. The shadow-root focus-guard case depends on React portal ownership.
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -337,3 +390,4 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |
 | Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
+| Menu               | Filter parts, Menubar and ContextMenu components, `actionsRef`, `aria-owns`, refs                      |
