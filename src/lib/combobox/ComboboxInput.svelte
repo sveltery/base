@@ -286,7 +286,8 @@
 					focusOwner.set(false);
 					const activeIndex = store.activeIndex;
 					if (store.root.inline && activeIndex !== null && store.root.autoHighlight !== 'always') {
-						lastActiveIndex = activeIndex;
+						// Focus can leave after the close, which must not carry the highlight to the next open.
+						lastActiveIndex = store.open ? activeIndex : null;
 						store.setIndices({ activeIndex: null });
 					}
 					validateOnBlur();
