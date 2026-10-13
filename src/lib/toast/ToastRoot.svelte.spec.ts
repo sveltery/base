@@ -4,7 +4,7 @@
 // the swipe cases assert `data-swipe-direction` on the element instead.
 // Vitest's browser `userEvent` has no touch pointer, so the "real pointer swipe" cases drag with
 // the mouse. Synthetic pointer ids have no active pointer, so `setPointerCapture` is stubbed.
-// The portaled-content case moves the button to `<body>` with an attachment.
+// The portaled-content Escape case dispatches the keydown on the root while focus is outside it.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
@@ -351,18 +351,19 @@ describe('<Toast.Root />', () => {
 		expect(roots()).toHaveLength(0);
 	});
 
-	it('ignores Escape when focus is in portaled content', async () => {
-		render(ToastRootHarness, { scenario: 'portal' });
+	it('ignores Escape when focus is outside the toast', async () => {
+		renderToasts();
 
-		await userEvent.click(page.getByRole('button', { name: 'add' }));
+		const addButton = button('add');
+		addButton.focus();
+		await click(addButton);
 
-		// The button is a child of the toast in the component tree, but it lives outside the
-		// toast in the DOM and owns the Escape key.
-		const portaled = byTestId('portaled')!;
-		expect(portaled.parentElement).toBe(document.body);
-		portaled.focus();
-		await userEvent.keyboard('{Escape}');
+		// Upstream sends Escape from content portaled out of the toast, which React bubbles to
+		// the root. Here the keydown reaches the root directly while focus stays outside it.
+		root().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+		await tick();
 
+		expect(document.activeElement).toBe(addButton);
 		expect(roots()).toHaveLength(1);
 	});
 

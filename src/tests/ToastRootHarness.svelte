@@ -2,7 +2,6 @@
 	Toast.Root scenarios that ToastHarness's list does not cover.
 	- `labels`: a fixed toast whose title and description parts mount, unmount, and get children.
 	- `remount`: a managed list that can be hidden and shown again with a longer title.
-	- `portal`: each toast holds a button moved to `<body>`.
 	- `static`: a fixed toast that swipes up, with an optional swipe-ignore child.
 -->
 <script lang="ts">
@@ -16,7 +15,7 @@
 		longTitle = false,
 		ignore = 'none'
 	}: {
-		scenario: 'labels' | 'remount' | 'portal' | 'static';
+		scenario: 'labels' | 'remount' | 'static';
 		mode?: 'fallback' | 'explicit' | 'none';
 		showToasts?: boolean;
 		longTitle?: boolean;
@@ -59,6 +58,6 @@
 			</Toast.Root>
 		</Toast.Viewport>
 	{:else}
-		<ToastRootHarnessManaged {scenario} {showToasts} {longTitle} />
+		<ToastRootHarnessManaged {showToasts} {longTitle} />
 	{/if}
 </Toast.Provider>
