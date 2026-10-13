@@ -334,6 +334,10 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/menu/dom.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts`, `packages/react/src/utils/getPseudoElementBounds.ts` and `packages/react/src/menu/utils/findRootOwnerId.ts`
 - `src/lib/menu/*.svelte.spec.ts` assertions from `packages/react/src/menu/**/*.test.tsx` that do not require the filter parts, React refs, StrictMode or React render counts, and from `packages/react/test/detachedTriggersConformanceTests.tsx`
 - `src/tests/menu/**` harnesses from the fixtures of those tests
+- Menubar derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/menubar/Menubar.svelte`, `context.svelte.ts`, `types.ts` and `index.ts` from `packages/react/src/menubar/Menubar.tsx`, `MenubarContext.ts`, `MenubarDataAttributes.ts` and `index.ts`, with the item hover highlight from `packages/react/src/internals/composite/item/useCompositeItem.ts`
+- `src/lib/menubar/Menubar.svelte.spec.ts` assertions from `packages/react/src/menubar/Menubar.test.tsx` that do not require the filter parts or `aria-owns`, and the `Menubar parent` cases of `packages/react/src/menu/positioner/MenuPositioner.test.tsx`
+- `src/tests/menubar/**` harnesses from the fixtures of those tests
 
 MIT License
 
