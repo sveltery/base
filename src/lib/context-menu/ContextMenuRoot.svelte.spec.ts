@@ -3,6 +3,7 @@
 // Upstream mocks macOS, where the mouseup that ends a right click can activate an item.
 // Kept in its own file so the platform mock does not reach the other context menu specs.
 import { tick } from 'svelte';
+import { userEvent } from 'vitest/browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ContextMenuHarness from '../../tests/context-menu/ContextMenuHarness.svelte';
@@ -149,6 +150,22 @@ describe('ContextMenu.Root', () => {
 			expect(byTestId('popup')).toBeNull();
 			expect(calls).toEqual([]);
 		});
+	});
+
+	it('returns focus to the focused surface when closing with Shift+Tab', async () => {
+		render(ContextMenuHarness, { scenario: 'surface-button' });
+		const surface = document.querySelector('button') as HTMLButtonElement;
+		expect(surface.textContent).toBe('Surface');
+
+		await userEvent.tab();
+		expect(document.activeElement).toBe(surface);
+
+		contextMenu(surface, { clientX: 20, clientY: 20 });
+		await expect.poll(() => document.activeElement?.getAttribute('role')).toBe('menu');
+
+		await userEvent.tab({ shift: true });
+		await expect.poll(() => document.querySelector('[role="menu"]')).toBeNull();
+		expect(document.activeElement).toBe(surface);
 	});
 
 	describe('prop: collisionAvoidance', () => {
