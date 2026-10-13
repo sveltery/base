@@ -14,7 +14,7 @@
 		removeItem,
 		resolveSelectedIndex
 	} from '../internal/listbox/itemEquality.js';
-	import { isVirtualClick } from '../internal/listbox/virtualClick.js';
+	import { isVirtualClick } from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { setSelectItem, useSelectRoot } from './context.svelte.js';

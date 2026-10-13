@@ -336,7 +336,6 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/select/constants.ts` from `packages/react/src/internals/constants.ts` and `packages/react/src/select/trigger/SelectTrigger.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 - `src/lib/internal/listbox/itemEquality.ts` and `resolveValueLabel.ts` from `packages/react/src/internals/itemEquality.ts` and `resolveValueLabel.tsx`, with their specs from the matching `*.test.ts` files (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 - `src/lib/internal/listbox/ItemIndicator.svelte` from `packages/react/src/utils/ItemIndicator.tsx`, and `ListboxSeparator.svelte` from `packages/react/src/utils/listbox-separator/ListboxSeparator.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
-- `src/lib/internal/listbox/virtualClick.ts` from `packages/react/src/floating-ui-react/utils/event.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 - `src/lib/select/*.svelte.spec.ts` assertions from `packages/react/src/select/**/*.test.tsx`, and the Select cases of `src/lib/field/bound-control.svelte.spec.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 
 MIT License
