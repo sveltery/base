@@ -15,6 +15,7 @@ import {
 	pickState
 } from './geometry.js';
 import { normalizeScrollOffset } from '../internal/scrollEdges.js';
+import { animationSettled, getFiniteAnimations } from '../internal/finite-animations.js';
 import { MIN_THUMB_SIZE, SCROLL_TIMEOUT } from './constants.js';
 import { orientationAttribute } from './attributes.js';
 import { OVERFLOW_EDGE_VARS, scrollAreaThumbHeight, scrollAreaThumbWidth } from './css-vars.js';
@@ -418,9 +419,9 @@ export class ScrollAreaModel {
 		resizeObserver.observe(viewport);
 
 		this.animationTimer.start(0, () => {
-			const animations = viewport.getAnimations({ subtree: true });
+			const animations = getFiniteAnimations(viewport, { subtree: true });
 			if (animations.length === 0) return;
-			Promise.allSettled(animations.map((animation) => animation.finished))
+			Promise.allSettled(animations.map(animationSettled))
 				.then(() => this.computeThumbPosition())
 				.catch(() => {});
 		});

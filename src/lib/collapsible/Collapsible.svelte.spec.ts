@@ -378,6 +378,26 @@ describe('Collapsible', () => {
 			expect(panel.element().style.getPropertyValue('--collapsible-panel-height')).toMatch(/px$/);
 		});
 
+		it('unmounts a closing panel that also runs an infinite animation', async () => {
+			render(CollapsibleHarness, {
+				open: true,
+				css: `
+					@keyframes test-panel-pulse {
+						to { opacity: 0.5; }
+					}
+					.pulsing-panel {
+						animation: test-panel-pulse 1s infinite alternate;
+					}
+				`,
+				panelClass: 'pulsing-panel'
+			});
+
+			await expect.element(page.getByTestId('panel')).toHaveAttribute('data-open', '');
+			await page.getByRole('button', { name: 'Trigger' }).click();
+
+			await expect.element(page.getByTestId('panel')).not.toBeInTheDocument();
+		});
+
 		it('unmounts a zero-size panel without waiting for unrelated transitions', async () => {
 			render(CollapsibleHarness, {
 				open: true,

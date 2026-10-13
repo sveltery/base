@@ -3,6 +3,7 @@
 // Completions that become ready in the same turn unmount together.
 
 import { AnimationFrame } from '@sveltery/utils';
+import { animationSettled, getFiniteAnimations } from './finite-animations.js';
 
 let pending: Array<() => void> | null = null;
 
@@ -56,11 +57,11 @@ export function runOnceAnimationsFinish(
 
 	const exec = () => {
 		if (signal?.aborted) return;
-		Promise.all(element.getAnimations().map((animation) => animation.finished)).then(
+		Promise.all(getFiniteAnimations(element).map(animationSettled)).then(
 			() => done(),
 			() => {
 				if (signal?.aborted) return;
-				const current = element.getAnimations();
+				const current = getFiniteAnimations(element);
 				if (current.some((animation) => animation.pending || animation.playState !== 'finished')) {
 					exec();
 					return;
