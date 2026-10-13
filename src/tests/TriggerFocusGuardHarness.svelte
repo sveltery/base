@@ -41,12 +41,7 @@
 <button type="button" bind:this={trigger} onclick={show}>Open</button>
 <pre data-testid="open">{store.open}</pre>
 {#if store.mounted}
-	<button
-		type="button"
-		data-testid="pre-guard"
-		onfocus={guards.preFocusGuardProps.onfocus}
-		{@attach guards.preFocusGuardProps.attach}>Pre</button
-	>
+	<button type="button" data-testid="pre-guard" {...guards.preFocusGuardProps}>Pre</button>
 	<div data-testid="positioner" {@attach bindPositioner}>
 		<button
 			type="button"
