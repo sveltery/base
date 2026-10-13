@@ -112,6 +112,14 @@
 		else if (element) field.setFilled(element.value !== '');
 	});
 
+	// An unedited input shows a new `defaultValue`, as in HTML, so read its filled state back.
+	useValueChanged(
+		() => defaultValue,
+		() => {
+			if (inputEl) field.setFilled(inputEl.value !== '');
+		}
+	);
+
 	const registration = attachFieldControl(field, {
 		enabled: () => !disabled,
 		id: () => controlId.current,
