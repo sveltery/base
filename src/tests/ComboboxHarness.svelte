@@ -52,6 +52,8 @@
 		clearProps = {},
 		chips = false,
 		chipRemove = true,
+		chipProps = {},
+		chipRemoveProps = {},
 		inputGroup = false,
 		empty,
 		status,
@@ -114,6 +116,8 @@
 		/** Renders the selected values as chips around the input. */
 		chips?: boolean;
 		chipRemove?: boolean;
+		chipProps?: Record<string, unknown>;
+		chipRemoveProps?: Record<string, unknown>;
 		inputGroup?: boolean;
 		empty?: string;
 		status?: string;
@@ -343,11 +347,13 @@
 	{#if chips}
 		<Combobox.Chips data-testid="chips">
 			{#each selectedValues.slice(0, chipLimit) as selected, index (index)}
-				<Combobox.Chip data-testid="chip-{labelOf(selected)}">
+				<Combobox.Chip data-testid="chip-{labelOf(selected)}" {...chipProps}>
 					{labelOf(selected)}
 					{#if chipRemove}
-						<Combobox.ChipRemove data-testid="remove-{labelOf(selected)}" aria-label="Remove"
-							>x</Combobox.ChipRemove
+						<Combobox.ChipRemove
+							data-testid="remove-{labelOf(selected)}"
+							aria-label="Remove"
+							{...chipRemoveProps}>x</Combobox.ChipRemove
 						>
 					{/if}
 				</Combobox.Chip>
