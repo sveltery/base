@@ -8,7 +8,7 @@
 
 import type { Middleware } from '@floating-ui/dom';
 import { untrack } from 'svelte';
-import { SvelteMap } from 'svelte/reactivity';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import type { HTMLAttributes } from 'svelte/elements';
 import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 import { TRIGGER_FOCUS_REASON, type ReferenceElement } from '@sveltery/floating-ui-svelte';
@@ -23,6 +23,7 @@ import type {
 export interface TooltipTriggerOwned {
 	payload: unknown;
 	closeDelay: number;
+	closeOnClick: boolean;
 }
 
 export interface TooltipRootSettings {
@@ -45,11 +46,7 @@ export interface TooltipStoreOptions {
 
 export class TooltipStore extends PopupStore<TooltipChangeReason> {
 	instantType = $state<TooltipInstant | undefined>(undefined);
-	/** Mirrors the active trigger's delay-group instant phase. */
-	isInstantPhase = $state(false);
 	openChangeReason = $state<TooltipChangeReason | null>(null);
-	/** The last pressed or mounted trigger's `closeOnClick`. The dismiss press reads it. */
-	closeOnClick = $state(true);
 	/** Set while a viewport is mounted so positioning can anchor size transitions. */
 	adaptiveOrigin = $state.raw<Middleware | undefined>(undefined);
 	positionerVars = $state<Record<string, string>>({});
@@ -60,8 +57,6 @@ export class TooltipStore extends PopupStore<TooltipChangeReason> {
 	rootTriggerProps = $state.raw<HTMLAttributes<HTMLElement> | undefined>(undefined);
 	/** Dismiss handlers for the popup element. */
 	popupProps = $state.raw<HTMLAttributes<HTMLElement> | undefined>(undefined);
-	/** Physical side from the positioner. Safe-polygon reads this while open. */
-	placement = $state<string | null>('top');
 	/** Bumps when an open tooltip changes trigger. The viewport snapshots on this. */
 	triggerSwitch = $state(0);
 	switchedFrom = $state<Element | null>(null);
@@ -70,9 +65,15 @@ export class TooltipStore extends PopupStore<TooltipChangeReason> {
 	private readonly readTriggerId: () => string | null | undefined;
 	private readonly writeTriggerIdValue: (id: string | null) => void;
 	private readonly readers = new SvelteMap<string, () => TooltipTriggerOwned>();
+	private readonly instantPhases = new SvelteSet<() => boolean>();
+	private placementReader = $state.raw<(() => string | null) | null>(null);
+	/** `closeOnClick` of a trigger pressed since the tooltip last opened. */
+	private pressedCloseOnClick = $state<boolean | null>(null);
 	/** Values of the owning trigger that unmounted. Used until another trigger owns the tooltip. */
 	private retired = $state.raw<{ id: string; owned: TooltipTriggerOwned } | null>(null);
 	private claimedTriggerId: string | null = null;
+	/** A handle opened the tooltip with no trigger, so no lone trigger claims it. */
+	private openedWithoutTrigger = false;
 
 	constructor(options: TooltipStoreOptions) {
 		super({
@@ -141,6 +142,40 @@ export class TooltipStore extends PopupStore<TooltipChangeReason> {
 		return this.owned()?.closeDelay ?? 0;
 	}
 
+	/** Read by the trigger press dismissal: the pressed trigger, else the active one. */
+	get closeOnClick() {
+		return this.pressedCloseOnClick ?? this.owned()?.closeOnClick ?? true;
+	}
+
+	pressTrigger(closeOnClick: boolean) {
+		this.pressedCloseOnClick = closeOnClick;
+	}
+
+	/** Physical side from the positioner. Safe-polygon reads this while open. */
+	get placement() {
+		return this.placementReader?.() ?? 'top';
+	}
+
+	trackPlacement(read: () => string | null) {
+		this.placementReader = read;
+		return () => {
+			if (this.placementReader === read) this.placementReader = null;
+		};
+	}
+
+	/** True while a trigger's delay-group member hands the group over. */
+	get isInstantPhase() {
+		for (const read of this.instantPhases) if (read()) return true;
+		return false;
+	}
+
+	trackInstantPhase(read: () => boolean) {
+		this.instantPhases.add(read);
+		return () => {
+			this.instantPhases.delete(read);
+		};
+	}
+
 	openedBy(triggerId: string | undefined) {
 		if (triggerId === undefined || !this.open) return false;
 		const active = this.domReferenceElement;
@@ -165,10 +200,37 @@ export class TooltipStore extends PopupStore<TooltipChangeReason> {
 			const active = this.domReferenceElement;
 			const count = this.triggerCount;
 			const currentId = this.readTriggerId();
-			if (active === element || currentId === id || (this.open && active == null && count === 1)) {
+			if (
+				active === element ||
+				currentId === id ||
+				(this.open && active == null && count === 1 && !currentId)
+			) {
 				this.domReferenceElement = element;
 				this.writeTriggerId(id);
 			}
+		});
+	}
+
+	/**
+	 * Upstream `useImplicitActiveTrigger`: an open tooltip follows the trigger a parent names
+	 * through `triggerId`, and otherwise belongs to its only trigger.
+	 */
+	reconcileActiveTrigger() {
+		const id = this.readTriggerId();
+		if (id) {
+			const element = this.triggers.getById(id);
+			if (element && this.domReferenceElement !== element) {
+				untrack(() => (this.domReferenceElement = element));
+			}
+			return;
+		}
+		if (!this.open || this.domReferenceElement || this.triggerCount !== 1) return;
+		if (untrack(() => this.openedWithoutTrigger)) return;
+		const [only] = this.triggers.elements();
+		if (!only) return;
+		untrack(() => {
+			this.domReferenceElement = only;
+			this.writeTriggerId(this.triggers.idOf(only) ?? null);
 		});
 	}
 
@@ -195,7 +257,12 @@ export class TooltipStore extends PopupStore<TooltipChangeReason> {
 		eventDetails:
 			TooltipChangeEventDetails | Parameters<PopupStore<TooltipChangeReason>['setOpen']>[1]
 	) {
-		const details = eventDetails as TooltipChangeEventDetails;
+		// A delay group closes the previous tooltip from inside an effect. Reading this store there
+		// would subscribe that effect to it.
+		untrack(() => this.applyOpen(nextOpen, eventDetails as TooltipChangeEventDetails));
+	}
+
+	private applyOpen(nextOpen: boolean, details: TooltipChangeEventDetails) {
 		const reason = details.reason;
 		const wasOpen = this.open;
 		const previousElement = this.domReferenceElement;
@@ -207,6 +274,8 @@ export class TooltipStore extends PopupStore<TooltipChangeReason> {
 		const registered = this.triggers.idOf(this.domReferenceElement);
 		this.writeTriggerId(registered ?? (this.domReferenceElement?.id || null));
 		if (!nextOpen) this.claimedTriggerId = null;
+		this.openedWithoutTrigger = nextOpen && details.trigger == null;
+		if (nextOpen) this.pressedCloseOnClick = null;
 
 		if (nextOpen && reason === TRIGGER_FOCUS_REASON) this.instantType = 'focus';
 		else if (!nextOpen && (reason === REASONS.triggerPress || reason === REASONS.escapeKey))

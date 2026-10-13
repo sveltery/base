@@ -55,7 +55,7 @@
 	}
 
 	function owned() {
-		return { payload, closeDelay: closeDelay ?? 0 };
+		return { payload, closeDelay: closeDelay ?? 0, closeOnClick };
 	}
 
 	function readNode() {

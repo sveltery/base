@@ -53,13 +53,7 @@
 	const providerDelay = useTooltipProviderDelay();
 	const member = new DelayGroupMember(owner, () => ({ open: owner.openedBy(triggerId) }));
 
-	$effect(() => {
-		owner.isInstantPhase = member.isInstantPhase;
-	});
-
-	$effect(() => {
-		if (owner.mountedBy(triggerId)) owner.closeOnClick = closeOnClick;
-	});
+	$effect(() => owner.trackInstantPhase(() => member.isInstantPhase));
 
 	let nestedTriggerHovered = false;
 	// Kept apart from the hover hook's pointer type so mouseleave can clear it.
@@ -184,7 +178,6 @@
 	}) as HTMLAttributes<HTMLElement>;
 
 	const local: HTMLAttributes<HTMLElement> = {
-		onmouseover: onNestedTriggerHover,
 		onmouseleave() {
 			nestedTriggerHovered = false;
 			nestedTriggerOpenTimeout.clear();
@@ -195,7 +188,7 @@
 		},
 		onpointerdown(event: PointerEvent) {
 			pointerType = event.pointerType;
-			owner.closeOnClick = closeOnClick;
+			owner.pressTrigger(closeOnClick);
 			if (closeOnClick && !owner.open) owner.cancelPendingOpen(event);
 		},
 		onclick(event: MouseEvent) {
@@ -203,12 +196,23 @@
 		}
 	};
 
+	// A native listener, not a delegated `onmouseover`. Svelte finds delegated handlers through
+	// `composedPath()`, so an event with an empty path would skip this one.
+	function attachTrigger(node: HTMLElement) {
+		const detachHover = (hover.attachReference as (node: HTMLElement) => () => void)(node);
+		node.addEventListener('mouseover', onNestedTriggerHover);
+		return () => {
+			node.removeEventListener('mouseover', onNestedTriggerHover);
+			detachHover?.();
+		};
+	}
+
 	$effect(() => {
 		untrack(() =>
 			onArmed({
 				base,
 				local,
-				attach: hover.attachReference as (node: HTMLElement) => () => void
+				attach: attachTrigger
 			})
 		);
 		return () => untrack(() => onArmed(null));

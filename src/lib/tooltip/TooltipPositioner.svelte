@@ -53,9 +53,7 @@
 		adaptiveOrigin: store.adaptiveOrigin
 	}));
 	setTooltipPositioner(positioning);
-	$effect(() => {
-		store.placement = positioning.physicalSide;
-	});
+	$effect(() => store.trackPlacement(() => positioning.physicalSide));
 
 	const state: TooltipPositionerState = $derived({
 		open: store.open,

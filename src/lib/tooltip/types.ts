@@ -44,6 +44,12 @@ export interface TooltipProviderProps {
 	children?: Snippet;
 }
 
+/** What `bind:this` on `Tooltip.Root` exposes, replacing upstream's `actionsRef`. */
+export interface TooltipActions {
+	unmount: () => void;
+	close: () => void;
+}
+
 export interface TooltipRootProps<Payload = unknown> {
 	/**
 	 * Whether the tooltip is open.
