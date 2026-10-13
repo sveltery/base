@@ -28,8 +28,15 @@
 	let {
 		source,
 		scenario,
-		type
-	}: { source: FakeRemoteForm; scenario: BoundScenario; type?: ControlKind } = $props();
+		type,
+		real = false
+	}: {
+		source: FakeRemoteForm;
+		scenario: BoundScenario;
+		type?: ControlKind;
+		/** Bind a real `Field.Root field={...}` instead of re-providing a named Field's context. */
+		real?: boolean;
+	} = $props();
 
 	const box = 'display: inline-block; width: 16px; height: 16px';
 	const paths: Record<BoundScenario, [string, ControlKind]> = {
@@ -83,9 +90,15 @@
 {/snippet}
 
 <Form data-testid="form" {@attach source.attach}>
-	<Field.Root name={path}>
-		<BoundFieldScope binding={source.field(path)} type={type ?? kind}>
+	{#if real}
+		<Field.Root field={source.field(path)} type={type ?? kind}>
 			{@render control()}
-		</BoundFieldScope>
-	</Field.Root>
+		</Field.Root>
+	{:else}
+		<Field.Root name={path}>
+			<BoundFieldScope binding={source.field(path)} type={type ?? kind}>
+				{@render control()}
+			</BoundFieldScope>
+		</Field.Root>
+	{/if}
 </Form>

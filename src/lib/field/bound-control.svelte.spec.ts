@@ -372,6 +372,87 @@ describe('attachments from as()', () => {
 	}
 });
 
+describe('inside a real Field.Root bound with `field`', () => {
+	for (const { scenario, initial, edit, after } of [
+		{
+			scenario: 'checkbox',
+			initial: {},
+			edit: () => page.getByTestId('control').click(),
+			after: { agree: true }
+		},
+		{
+			scenario: 'switch',
+			initial: {},
+			edit: () => page.getByTestId('control').click(),
+			after: { alerts: true }
+		},
+		{
+			scenario: 'radio-group',
+			initial: { plan: 'free' },
+			edit: () => page.getByTestId('pro').click(),
+			after: { plan: 'pro' }
+		},
+		{
+			scenario: 'checkbox-group',
+			initial: { tags: ['svelte'] },
+			edit: () => page.getByTestId('kit').click(),
+			after: { tags: ['svelte', 'kit'] }
+		},
+		{
+			scenario: 'number-field',
+			initial: { seats: 1 },
+			edit: () => page.getByTestId('control').fill('12'),
+			after: { seats: 12 }
+		},
+		{
+			scenario: 'slider',
+			initial: { volume: 30 },
+			edit: async () => {
+				(page.getByRole('slider').element() as HTMLElement).focus();
+				await userEvent.keyboard('{ArrowRight}');
+			},
+			after: { volume: 31 }
+		},
+		{
+			scenario: 'otp-field',
+			initial: { code: '12' },
+			edit: async () => {
+				await page.getByTestId('slot-2').click();
+				await userEvent.keyboard('3');
+			},
+			after: { code: '123' }
+		}
+	] as const) {
+		it(`binds a ${scenario}`, async () => {
+			const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+			const source = new FakeRemoteForm();
+			render(BoundControlHarness, { source, scenario, real: true });
+
+			expect(submitted(source)).toEqual(initial);
+			await edit();
+			await expect.poll(() => submitted(source)).toEqual(after);
+			await expect.poll(() => ({ ...source.input })).toEqual(after);
+			expect(log.mock.calls).toEqual([]);
+		});
+	}
+
+	it('dev-checks the kind against the real Field.Root type', async () => {
+		const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+		render(BoundControlHarness, {
+			source: new FakeRemoteForm(),
+			scenario: 'number-field',
+			type: 'range',
+			real: true
+		});
+		await expect
+			.poll(() => log.mock.calls.map((call) => call[0]))
+			.toEqual([
+				'Base UI: A number control is inside a Field.Root declared as type="range". ' +
+					'Set type="number" on the Field.Root, or use a control of kind "range".'
+			]);
+	});
+});
+
 describe('dev kind check', () => {
 	for (const [scenario, kind, declared] of [
 		['checkbox', 'checkbox', 'switch'],
