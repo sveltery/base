@@ -300,18 +300,6 @@ Local: no `update()` is exposed. The positioner replaces the inline middleware o
 
 Test: `src/lib/preview-card/PreviewCardPositioner.svelte.spec.ts` (`multiline inline trigger`).
 
-### Positioner uses top and left
-
-Upstream: `positionerConformanceTests` asserts `transform: translate(x, y)` on the positioner when no Viewport is mounted.
-
-Local: the shared `AnchorPositioning` always positions with `top` and `left`. The offset, collision and Viewport cases assert the bounding rectangle relative to the trigger instead, and the `transform` assertions are not ported.
-
-### Viewport previous pane
-
-Upstream: the previous container carries `--popup-width` and `--popup-height`.
-
-Local: the shared `PopupViewport` leaves them off the previous pane, as Popover does. `it.todo` in `PreviewCardViewport.svelte.spec.ts` keeps the case.
-
 ### Not covered
 
 The "does not re-render inactive triggers" cases count React renders. "Cleans up the transition when a lagging payload remounts the current container" depends on a payload that arrives a render after the trigger id. Both have no Svelte counterpart.
