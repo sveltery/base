@@ -1,24 +1,13 @@
 <!--
 	A viewport for displaying content transitions. Renders a `<div>` element.
 	Derived from Base UI v1.8.0 packages/react/src/popover/viewport/PopoverViewport.tsx
-	and packages/react/src/utils/usePopupViewport.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Previous content is a cloned node, not an HTML string. The copy is taken
-	before the new trigger's content renders. Ids are stripped so aria links
-	keep pointing at the live title and description. Copied controls lose
-	`name` and get `form=""`, so the copy does not uncheck the live radio,
-	does not submit, and does not block the ancestor form. They stay enabled,
-	so the cross-fade does not pick up `:disabled` styles. `inert` on the
-	shell does not do that. The current pane is keyed so `data-starting-style`
-	lands on a new element and the opacity transition can run.
+	The current pane is keyed so `data-starting-style` lands on a new element and
+	the opacity transition can run.
 -->
 <script lang="ts">
-	import { getAbortSignal, untrack } from 'svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
-	import { useDirection } from '../internal/direction-context.js';
-	import { ScopedAnimationFrame } from '@sveltery/utils';
-	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
-	import { adaptiveOriginMiddleware } from '../internal/adaptiveOriginMiddleware.js';
+	import { PopupViewport } from '../internal/usePopupViewport.svelte.js';
 	import { usePopoverPositioner, usePopoverRoot } from './context.svelte.js';
 	import type { PopoverViewportProps, PopoverViewportState } from './types.js';
 
@@ -26,239 +15,26 @@
 
 	const store = usePopoverRoot();
 	const positioning = usePopoverPositioner();
-	const direction = useDirection();
-	const frame = new ScopedAnimationFrame();
-	const resizeFrame = new ScopedAnimationFrame();
-
-	let currentEl = $state<HTMLDivElement | null>(null);
-	let previousNode = $state<HTMLElement | null>(null);
-	let activationDirection = $state<string | undefined>(undefined);
-	let showStarting = $state(false);
-	let committedSize: { width: number; height: number } | null = null;
-	// The pane remounts when the active trigger id changes. Upstream usePopupViewport also
-	// remounts once more when the payload arrives on the next render. Here the payload is read
-	// in the same flush as the id, so that second bump does not apply.
-	const paneKey = $derived(store.resolvedActiveTriggerId() ?? 'current');
-
-	$effect(() => {
-		store.adaptiveOrigin = adaptiveOriginMiddleware;
-		return () => {
-			if (store.adaptiveOrigin === adaptiveOriginMiddleware) store.adaptiveOrigin = undefined;
-		};
-	});
-
-	// Before the DOM updates, so the copy is the trigger we are leaving.
-	$effect.pre(() => {
-		const generation = store.triggerSwitch;
-		if (generation === 0) return;
-		const signal = getAbortSignal();
-		untrack(() => {
-			const source = currentEl;
-			const active = store.domReferenceElement;
-			const previous = store.switchedFrom;
-			if (!source || !active || !previous) return;
-			previousNode = snapshot(source);
-			activationDirection = directionBetween(previous, active);
-			showStarting = true;
-			frame.request(() => {
-				if (signal.aborted) return;
-				showStarting = false;
-				const node = currentEl;
-				if (!node) return;
-				runOnceAnimationsFinish(
-					node,
-					() => {
-						if (signal.aborted) return;
-						previousNode = null;
-						activationDirection = undefined;
-					},
-					signal,
-					false
-				);
-			});
-		});
-		return () => {
-			frame.cancel();
-			previousNode = null;
-			activationDirection = undefined;
-		};
-	});
-
-	function mountPrevious(host: HTMLElement) {
-		const node = previousNode;
-		if (!node) return;
-		host.replaceChildren(node);
-	}
-
-	$effect(() => {
-		const content = store.payload;
-		const mounted = store.mounted;
-		const popup = store.popupElement;
-		const positioner = store.positionerElement;
-		const side = positioning.side;
-		const textDirection = direction.direction;
-		if (!mounted || !popup || !positioner) {
-			committedSize = null;
-			store.positionerVars = {};
-			store.popupVars = {};
-			return;
-		}
-		beginResize(content, popup, side, textDirection, getAbortSignal());
-		return () => resizeFrame.cancel();
-	});
-
-	function beginResize(
-		content: unknown,
-		popup: HTMLElement,
-		side: string | null,
-		textDirection: string,
-		signal: AbortSignal
-	) {
-		const mark = content;
-		const anchor = anchoring(side, textDirection);
-		const previous = committedSize;
-		store.popupVars = { ...anchor, '--popup-width': 'auto', '--popup-height': 'auto' };
-		store.positionerVars = {
-			'--positioner-width': 'max-content',
-			'--positioner-height': 'max-content'
-		};
-		resizeFrame.request(() => {
-			if (signal.aborted || !popup.isConnected || !Object.is(mark, store.payload)) return;
-			const next = cssSize(popup);
-			committedSize = next;
-			store.positionerVars = sizeVars('positioner', next);
-			if (!previous) {
-				store.popupVars = { ...anchor, ...sizeVars('popup', next) };
-				return;
-			}
-			store.popupVars = { ...anchor, ...sizeVars('popup', previous) };
-			resizeFrame.request(() => {
-				if (signal.aborted) return;
-				store.popupVars = { ...anchor, ...sizeVars('popup', next) };
-				runOnceAnimationsFinish(
-					popup,
-					() => {
-						if (signal.aborted) return;
-						store.popupVars = { ...anchor, '--popup-width': 'auto', '--popup-height': 'auto' };
-					},
-					signal,
-					false
-				);
-			});
-		});
-	}
-
-	function anchoring(side: string | null, textDirection: string) {
-		const anchorTop = side === 'top';
-		const anchorLeft =
-			side === 'left' || side === (textDirection === 'rtl' ? 'inline-end' : 'inline-start');
-		if (!anchorTop && !anchorLeft) return {};
-		const vars: Record<string, string> = { position: 'absolute' };
-		vars[anchorTop ? 'bottom' : 'top'] = '0';
-		vars[anchorLeft ? 'right' : 'left'] = '0';
-		return vars;
-	}
-
-	function cssSize(element: HTMLElement) {
-		const css = getComputedStyle(element);
-		let width = parseFloat(css.width) || 0;
-		let height = parseFloat(css.height) || 0;
-		if (Math.round(width) !== element.offsetWidth || Math.round(height) !== element.offsetHeight) {
-			width = element.offsetWidth;
-			height = element.offsetHeight;
-		}
-		return { width, height };
-	}
-
-	function sizeVars(kind: 'popup' | 'positioner', size: { width: number; height: number }) {
-		const prefix = kind === 'popup' ? '--popup' : '--positioner';
-		return {
-			[`${prefix}-width`]: `${size.width}px`,
-			[`${prefix}-height`]: `${size.height}px`
-		};
-	}
+	const viewport = new PopupViewport(store, () => positioning.side);
 
 	const partState: PopoverViewportState = $derived({
-		activationDirection,
-		transitioning: previousNode != null,
+		activationDirection: viewport.activationDirection,
+		transitioning: viewport.transitioning,
 		instant: store.instantType
 	});
 
 	const hostProps = $derived(
 		mergeProps(
 			{
-				...(activationDirection ? { 'data-activation-direction': activationDirection } : {}),
-				...(previousNode != null ? { 'data-transitioning': '' } : {}),
+				...(viewport.activationDirection
+					? { 'data-activation-direction': viewport.activationDirection }
+					: {}),
+				...(viewport.transitioning ? { 'data-transitioning': '' } : {}),
 				...(store.instantType ? { 'data-instant': store.instantType } : {})
 			},
 			elementProps
 		)
 	);
-
-	function snapshot(source: HTMLElement) {
-		const wrapper = source.ownerDocument.createElement('div');
-		for (const child of source.childNodes) {
-			const copy = child.cloneNode(true);
-			if (child instanceof Element && copy instanceof Element) {
-				copyControlState(child, copy);
-				silenceCopiedControls(copy);
-			}
-			wrapper.appendChild(copy);
-		}
-		stripIds(wrapper);
-		return wrapper;
-	}
-
-	function copyControlState(from: Element, to: Element) {
-		const sources = controls(from);
-		const targets = controls(to);
-		sources.forEach((node, index) => {
-			const dest = targets[index];
-			if (!dest) return;
-			if (node instanceof HTMLInputElement && dest instanceof HTMLInputElement) {
-				dest.value = node.value;
-				dest.checked = node.checked;
-			} else if (node instanceof HTMLTextAreaElement && dest instanceof HTMLTextAreaElement) {
-				dest.value = node.value;
-			} else if (node instanceof HTMLSelectElement && dest instanceof HTMLSelectElement) {
-				dest.value = node.value;
-			}
-		});
-	}
-
-	function controls(node: Element) {
-		const found = [...node.querySelectorAll('input, textarea, select')];
-		if (node.matches('input, textarea, select')) found.unshift(node);
-		return found;
-	}
-
-	function silenceCopiedControls(node: Element) {
-		const found = [...node.querySelectorAll('input, textarea, select, button')];
-		if (node.matches('input, textarea, select, button')) found.unshift(node);
-		for (const control of found) {
-			control.removeAttribute('name');
-			control.setAttribute('form', '');
-		}
-	}
-
-	function stripIds(node: Element) {
-		if (node.id) node.removeAttribute('id');
-		for (const child of node.querySelectorAll('[id]')) child.removeAttribute('id');
-	}
-
-	function directionBetween(from: Element, to: Element) {
-		const fromRect = from.getBoundingClientRect();
-		const toRect = to.getBoundingClientRect();
-		const horizontal = toRect.left + toRect.width / 2 - (fromRect.left + fromRect.width / 2);
-		const vertical = toRect.top + toRect.height / 2 - (fromRect.top + fromRect.height / 2);
-		return `${label(horizontal, 'right', 'left')} ${label(vertical, 'down', 'up')}`;
-	}
-
-	function label(value: number, positive: string, negative: string) {
-		if (value > 5) return positive;
-		if (value < -5) return negative;
-		return '';
-	}
 </script>
 
 {#if render}
@@ -268,18 +44,22 @@
 {/if}
 
 {#snippet content()}
-	{#if previousNode}
+	{#if viewport.previousNode}
 		<div
 			data-previous
-			data-ending-style={showStarting ? undefined : ''}
+			data-ending-style={viewport.showStarting ? undefined : ''}
 			inert
 			aria-hidden="true"
 			style="position: absolute"
-			{@attach mountPrevious}
+			{@attach viewport.mountPrevious}
 		></div>
 	{/if}
-	{#key paneKey}
-		<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
+	{#key viewport.paneKey}
+		<div
+			bind:this={viewport.currentEl}
+			data-current
+			data-starting-style={viewport.showStarting ? '' : undefined}
+		>
 			{@render children?.()}
 		</div>
 	{/key}

@@ -124,7 +124,9 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/tabs/TabsList.svelte` from `packages/react/src/tabs/list/TabsList.tsx`
 - `src/lib/tabs/TabsTab.svelte` from `packages/react/src/tabs/tab/TabsTab.tsx`
 - `src/lib/tabs/TabsPanel.svelte` from `packages/react/src/tabs/panel/TabsPanel.tsx`
-- `src/lib/tabs/TabsIndicator.svelte` and `src/lib/tabs/indicator.ts` from `packages/react/src/tabs/indicator/TabsIndicator.tsx`, `packages/react/src/utils/getCssDimensions.ts`, and `packages/react/src/utils/getElementTransform.ts`
+- `src/lib/tabs/TabsIndicator.svelte` and `src/lib/tabs/indicator.ts` from `packages/react/src/tabs/indicator/TabsIndicator.tsx`
+- `src/lib/internal/getCssDimensions.ts` from `packages/react/src/utils/getCssDimensions.ts` (Tabs indicator and popup auto-resize)
+- `src/lib/internal/getElementTransform.ts` from `packages/react/src/utils/getElementTransform.ts`
 - `src/lib/tabs/context.svelte.ts` from `packages/react/src/tabs/root/TabsRootContext.ts` and `packages/react/src/tabs/list/TabsListContext.ts`
 - `src/lib/tabs/direction.ts` from `computeActivationDirection` in `packages/react/src/tabs/root/TabsRoot.tsx`
 - `src/lib/tabs/attributes.ts` from `packages/react/src/tabs/root/stateAttributesMapping.ts`, `packages/react/src/tabs/panel/TabsPanelDataAttributes.ts`, and `packages/react/src/tabs/indicator/TabsIndicatorCssVars.ts`
@@ -154,7 +156,10 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/scroll-area/ScrollAreaCorner.svelte` from `packages/react/src/scroll-area/corner/ScrollAreaCorner.tsx`
 - `src/lib/scroll-area/attributes.ts` from the scroll-area `*DataAttributes.ts` modules and `root/stateAttributes.ts`
 - `src/lib/scroll-area/css-vars.ts` from the scroll-area `*CssVars.ts` modules
-- `src/lib/scroll-area/geometry.ts` from `packages/react/src/utils/scrollEdges.ts` and the pure helpers in `ScrollAreaRoot.tsx` / `ScrollAreaViewport.tsx`
+- `src/lib/scroll-area/geometry.ts` from the pure helpers in `packages/react/src/scroll-area/root/ScrollAreaRoot.tsx` and `packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx`
+- `src/lib/internal/scrollEdges.ts` from `packages/react/src/utils/scrollEdges.ts`
+- `src/lib/internal/styles.ts` from `packages/react/src/utils/styles.tsx` (the disable-scrollbar class and CSS)
+- `src/lib/scroll-area/constants.ts` from `packages/react/src/scroll-area/constants.ts`
 - `src/lib/scroll-area/dom.ts` from `packages/react/src/scroll-area/utils/getOffset.ts`
 - `src/lib/scroll-area/ScrollArea.svelte.spec.ts` assertions from `packages/react/src/scroll-area/**/*.test.tsx` that do not require React refs, `className` callbacks, or `DirectionProvider` (direction is the root element's used CSS `direction`)
 - `src/lib/slider/SliderRoot.svelte` and `src/lib/slider/model.svelte.ts` from `packages/react/src/slider/root/SliderRoot.tsx` and `packages/react/src/slider/control/SliderControl.tsx`
@@ -220,7 +225,9 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/PopoverTitle.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx`
 - `src/lib/popover/PopoverDescription.svelte` from `packages/react/src/popover/description/PopoverDescription.tsx`
 - `src/lib/popover/PopoverClose.svelte` from `packages/react/src/popover/close/PopoverClose.tsx`
-- `src/lib/popover/PopoverViewport.svelte` from `packages/react/src/popover/viewport/PopoverViewport.tsx` and `packages/react/src/utils/usePopupViewport.tsx`
+- `src/lib/popover/PopoverViewport.svelte` from `packages/react/src/popover/viewport/PopoverViewport.tsx`
+- `src/lib/internal/usePopupViewport.svelte.ts` from `packages/react/src/utils/usePopupViewport.tsx`
+- `src/lib/internal/usePopupAutoResize.svelte.ts` from `packages/react/src/utils/usePopupAutoResize.ts`
 - `src/lib/popover/store.svelte.ts` from `packages/react/src/popover/store/PopoverStore.ts` (open changes go through the shared `PopupStore`; popover adds deferred unmount, hover stick, and instant type)
 - `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts` (extends the shared `PopupHandle`; Dialog's payload writers are not included)
 - `src/lib/popover/PopoverLabel.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx` and `packages/react/src/popover/description/PopoverDescription.tsx`

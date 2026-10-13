@@ -1,8 +1,9 @@
-// Layout math from Base UI v1.8.0 packages/react/src/tabs/indicator/TabsIndicator.tsx,
-// packages/react/src/utils/getCssDimensions.ts and getElementTransform.ts
+// Layout math from Base UI v1.8.0 packages/react/src/tabs/indicator/TabsIndicator.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Shadow-boundary parent walks are not ported: scrolling ancestors are parentElement.
 
+import { getCssDimensions } from '../internal/getCssDimensions.js';
+import { getElementTransform } from '../internal/getElementTransform.js';
 import {
 	activeTabBottom,
 	activeTabHeight,
@@ -79,19 +80,6 @@ export function measureIndicator(
 	};
 }
 
-function getCssDimensions(element: Element) {
-	const css = getComputedStyle(element);
-	let width = parseFloat(css.width) || 0;
-	let height = parseFloat(css.height) || 0;
-	const offsetWidth = element instanceof HTMLElement ? element.offsetWidth : width;
-	const offsetHeight = element instanceof HTMLElement ? element.offsetHeight : height;
-	if (Math.round(width) !== offsetWidth || Math.round(height) !== offsetHeight) {
-		width = offsetWidth;
-		height = offsetHeight;
-	}
-	return { width, height };
-}
-
 function getLayoutOffset(element: HTMLElement, ancestor: HTMLElement) {
 	const elementOffset = getCumulativeOffset(element);
 	const ancestorOffset = getCumulativeOffset(ancestor);
@@ -137,26 +125,6 @@ function getActiveTabTranslation(element: HTMLElement) {
 		const parts = translate.split(' ');
 		translateX += resolveTranslateLength(parts[0], element.offsetWidth);
 		translateY += resolveTranslateLength(parts[1], element.offsetHeight);
-	}
-	return { x: translateX, y: translateY };
-}
-
-function getElementTransform(computedStyle: CSSStyleDeclaration) {
-	const transform = computedStyle.transform;
-	let translateX = 0;
-	let translateY = 0;
-	if (transform && transform !== 'none') {
-		const matrix = transform.match(/matrix(?:3d)?\(([^)]+)\)/);
-		if (matrix) {
-			const values = matrix[1].split(', ').map(parseFloat);
-			if (values.length === 6) {
-				translateX = values[4];
-				translateY = values[5];
-			} else if (values.length === 16) {
-				translateX = values[12];
-				translateY = values[13];
-			}
-		}
 	}
 	return { x: translateX, y: translateY };
 }

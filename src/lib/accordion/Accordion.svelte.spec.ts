@@ -611,6 +611,18 @@ describe('Accordion', () => {
 			await expect.element(page.getByTestId('state-log')).toHaveAttribute('data-saw-open', 'true');
 			await expect.element(page.getByTestId('state-log')).toHaveAttribute('data-saw-bad', 'false');
 		});
+
+		it('puts the item index on the trigger and keeps the value off it', async () => {
+			render(AccordionHarness, { items: twoItems, value: [0] });
+			const first = page.getByRole('button', { name: 'Trigger 1' });
+			const second = page.getByRole('button', { name: 'Trigger 2' });
+
+			await expect.element(first).toHaveAttribute('data-index', '0');
+			await expect.element(second).toHaveAttribute('data-index', '1');
+			await expect.element(first).toHaveAttribute('data-panel-open', '');
+			await expect.element(first).not.toHaveAttribute('data-value');
+			await expect.element(second).not.toHaveAttribute('data-value');
+		});
 	});
 
 	describe('panel mounting', () => {

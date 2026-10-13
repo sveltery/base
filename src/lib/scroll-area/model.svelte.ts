@@ -12,9 +12,9 @@ import {
 	applyOverscrollThumb,
 	getHiddenState,
 	normalizeOverflowEdgeThreshold,
-	normalizeScrollOffset,
 	pickState
 } from './geometry.js';
+import { normalizeScrollOffset } from '../internal/scrollEdges.js';
 import { MIN_THUMB_SIZE, SCROLL_TIMEOUT } from './constants.js';
 import { orientationAttribute } from './attributes.js';
 import { OVERFLOW_EDGE_VARS, scrollAreaThumbHeight, scrollAreaThumbWidth } from './css-vars.js';
@@ -74,7 +74,6 @@ export class ScrollAreaModel {
 	private currentOrientation: ScrollAxis = 'vertical';
 	private scrollPosition: Coords = { ...DEFAULT_COORDS };
 	private savedSnapType: string | null = null;
-	private readonly hostStyles = new WeakMap<HTMLElement, string | null | undefined>();
 	private programmaticScroll = true;
 	private lastMeasured: [number, number, number, number] = [NaN, NaN, NaN, NaN];
 	private readonly scrollYTimer = new ScopedTimeout();
@@ -448,33 +447,21 @@ export class ScrollAreaModel {
 		return () => resizeObserver.disconnect();
 	}
 
-	// Svelte 5.57 writes the style attribute before it runs effects. This effect
-	// reads that string. The sync recompute puts the overflow lengths back on
-	// that flush; the microtask covers a style write that lands after it.
-	queueThumb(hidden: HiddenState, style: string | null | undefined) {
+	// Svelte 5.57 writes the style attribute before it runs effects, which drops the
+	// thumb transform and overflow vars written below. Each part calls this from an
+	// effect on its style string, so it runs when that string or the node changes.
+	repaint(node: HTMLElement | null, _style: string | null | undefined) {
+		if (node) untrack(() => this.computeThumbPosition());
+	}
+
+	// The microtask covers a style write that lands after this flush.
+	queueThumb(hidden: HiddenState) {
 		const direction = this.direction;
-		const viewport = this.viewportElement;
-		const styleChanged = this.styleChanged(viewport, style);
-		if (!viewport && hidden.x && hidden.y && hidden.corner) return;
-		if (styleChanged) this.computeThumbPosition();
+		if (!this.viewportElement && hidden.x && hidden.y && hidden.corner) return;
 		queueMicrotask(() => {
 			if (this.direction !== direction) return;
 			this.computeThumbPosition();
 		});
-	}
-
-	// Same ordering as queueThumb: the effect runs after the style attribute write.
-	holdThumb(vertical: boolean, style: string | null | undefined) {
-		const thumb = vertical ? this.thumbYElement : this.thumbXElement;
-		if (!this.styleChanged(thumb, style)) return;
-		this.computeThumbPosition();
-	}
-
-	private styleChanged(node: HTMLElement | null, style: string | null | undefined) {
-		if (!node) return false;
-		if (this.hostStyles.has(node) && this.hostStyles.get(node) === style) return false;
-		this.hostStyles.set(node, style);
-		return true;
 	}
 
 	computeThumbPosition(threshold = this.threshold) {
