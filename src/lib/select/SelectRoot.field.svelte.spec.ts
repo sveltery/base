@@ -6,6 +6,7 @@ import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { isVirtualClick } from '@sveltery/floating-ui-svelte';
 import SelectFieldHarness from '../../tests/SelectFieldHarness.svelte';
 import SelectHarness from '../../tests/SelectHarness.svelte';
 
@@ -17,6 +18,30 @@ const optionItems = [
 	{ value: '', text: 'Select' },
 	{ value: '1', text: 'Option 1' }
 ];
+
+/**
+ * Chromium 141 forwards a label click to the trigger with no pointer type, a virtual click, so
+ * the first item takes focus. Chromium 153 forwards it as a mouse click, so the listbox takes
+ * focus, as in upstream's test. Upstream does the same in each.
+ */
+async function clickLabelAndExpectOpenFocus() {
+	const clicks: MouseEvent[] = [];
+	const element = trigger().element();
+	const record = (event: Event) => clicks.push(event as MouseEvent);
+	element.addEventListener('click', record);
+	await userEvent.click(page.getByTestId('field-label'));
+	element.removeEventListener('click', record);
+	expect(clicks).toHaveLength(1);
+	await expect.element(isVirtualClick(clicks[0]) ? option('Sans-serif') : listbox()).toHaveFocus();
+}
+
+/**
+ * The popup takes focus a frame after it opens, in upstream too. A key sent before then lands on
+ * the trigger, where an arrow key starts from the first item instead of the selected one.
+ */
+async function expectFocusInPopup() {
+	await expect.poll(() => listbox().element().contains(document.activeElement)).toBe(true);
+}
 
 async function openSelect() {
 	await userEvent.click(trigger());
@@ -306,12 +331,15 @@ describe('Select.Root', () => {
 				select: { items: [{ value: '1', text: 'Option 1' }] }
 			});
 			const element = trigger().element() as HTMLElement;
-			const outside = page.getByTestId('field-outside').element() as HTMLElement;
 			await openSelect();
 			await expect.element(listbox()).toHaveFocus();
 
-			outside.focus();
+			// Upstream fires a synthetic blur. Its earlier trigger blur leaves a queued focus-out
+			// check that clears `insideReactTree`, so the popup closes. A real focus move with no
+			// press keeps a portaled popup open in upstream, so blur it with Tab.
+			await userEvent.tab();
 
+			await expect.element(page.getByTestId('field-outside')).toHaveFocus();
 			await expect.poll(() => validate.mock.calls.length).toBe(1);
 			await expect.element(trigger()).toHaveAttribute('data-touched', '');
 			await expect.element(trigger()).not.toHaveAttribute('data-focused');
@@ -376,16 +404,18 @@ describe('Select.Root', () => {
 			await expect.element(trigger()).toHaveAttribute('aria-invalid', 'true');
 
 			await userEvent.keyboard('{ArrowDown}');
-			await expect.element(listbox()).toBeVisible();
+			await expectFocusInPopup();
 			await userEvent.keyboard('{Enter}');
 			await expect.element(trigger()).not.toHaveAttribute('aria-invalid');
 
 			await userEvent.click(trigger());
+			await expectFocusInPopup();
 			await userEvent.keyboard('{ArrowDown}');
 			await userEvent.keyboard('{Enter}');
 			await expect.element(trigger()).toHaveAttribute('aria-invalid', 'true');
 
 			await userEvent.click(trigger());
+			await expectFocusInPopup();
 			await userEvent.keyboard('{ArrowUp}');
 			await userEvent.keyboard('{Enter}');
 			await expect.element(trigger()).not.toHaveAttribute('aria-invalid');
@@ -496,11 +526,7 @@ describe('Select.Root', () => {
 			const element = trigger().element();
 			expect(label.htmlFor).toBe(element.id);
 
-			// Chromium forwards a label click as a trusted click with no pointer type, which counts
-			// as a virtual click, so the first item takes focus. Upstream's jsdom-style user events
-			// leave focus on the listbox.
-			await userEvent.click(page.getByTestId('field-label'));
-			await expect.element(option('Sans-serif')).toHaveFocus();
+			await clickLabelAndExpectOpenFocus();
 		});
 
 		it('Field.Label links to a trigger with an explicit id', async () => {
@@ -518,11 +544,7 @@ describe('Select.Root', () => {
 			await expect.element(trigger()).toHaveAttribute('id', 'x-id');
 			expect(label.htmlFor).toBe('x-id');
 
-			// Chromium forwards a label click as a trusted click with no pointer type, which counts
-			// as a virtual click, so the first item takes focus. Upstream's jsdom-style user events
-			// leave focus on the listbox.
-			await userEvent.click(page.getByTestId('field-label'));
-			await expect.element(option('Sans-serif')).toHaveFocus();
+			await clickLabelAndExpectOpenFocus();
 		});
 
 		it('Field.Description', async () => {

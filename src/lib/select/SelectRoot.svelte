@@ -14,6 +14,7 @@
 		Typeahead
 	} from '@sveltery/floating-ui-svelte';
 	import {
+		contains,
 		createChangeEventDetails,
 		REASONS,
 		visuallyHidden,
@@ -199,7 +200,7 @@
 		readTriggerProps: () => triggerProps,
 		readPopupProps: () => popupProps,
 		readPopupTypeahead: () => typeahead.floating,
-		readItemProps: () => listNavigation.item
+		readItemProps: () => itemProps
 	});
 	// The binding reads item values from the store, so it starts once the store exists.
 	// svelte-ignore state_referenced_locally
@@ -265,6 +266,18 @@
 	);
 	const popupProps = $derived(
 		mergeProps({ ...FOCUSABLE_POPUP_PROPS }, listNavigation.floating, dismiss.floating)
+	);
+	// Upstream's focus manager queues its open focus after list navigation's, so a close in that
+	// frame cancels it. Here list navigation queues last and does not check the popup is open, so
+	// a Tab or Escape in that frame would pull focus into the closed popup. Send it back.
+	const itemProps = $derived(
+		mergeProps(listNavigation.item, {
+			onfocus(event: FocusEvent) {
+				const from = event.relatedTarget;
+				if (store.open || !(from instanceof HTMLElement)) return;
+				if (!contains(store.positionerElement, from)) from.focus({ preventScroll: true });
+			}
+		})
 	);
 
 	watchFieldControl(field, {
