@@ -251,7 +251,10 @@
 		void allIssues(source);
 		if (!awaitingSource || pending > 0) return;
 		awaitingSource = false;
-		untrack(() => focusFirstInvalid(errors ?? emptyErrors));
+		untrack(() => {
+			issues.submitSettled();
+			focusFirstInvalid(errors ?? emptyErrors);
+		});
 	});
 
 	if (DEV) {

@@ -77,6 +77,54 @@ describe('Form with a source', () => {
 			await expect.element(control('name-error')).toHaveTextContent('Name taken');
 		});
 
+		it('keeps an edited server issue hidden when a native constraint blocks the next submit', async () => {
+			const source = new FakeSource({ server: nameTaken });
+			render(BoundFormHarness, { source, required: true });
+			await userEvent.fill(control('name'), 'taken');
+			await userEvent.fill(control('age'), '36');
+			await submit();
+			await expect.element(control('name-error')).toHaveTextContent('Name taken');
+
+			await userEvent.clear(control('name'));
+			await submit();
+
+			await expect.element(control('name-error')).toHaveTextContent('Please fill out this field.');
+			expect(control('name-error').element().textContent).not.toContain('Name taken');
+			expect(source.requests).toEqual([{ name: 'taken', age: 36 }]);
+		});
+
+		it('keeps an edited server issue hidden while the next submit is in flight', async () => {
+			let answer: (() => void) | undefined;
+			const source = new FakeSource({
+				server: async (values) => {
+					await new Promise<void>((resolve) => (answer = resolve));
+					return nameTaken(values);
+				}
+			});
+			const answerServer = async () => {
+				await expect.poll(() => answer).toBeTypeOf('function');
+				answer!();
+				answer = undefined;
+			};
+			render(BoundFormHarness, { source });
+			await userEvent.fill(control('name'), 'taken');
+			await userEvent.fill(control('age'), '36');
+			await submit();
+			await answerServer();
+			await expect.element(control('name-error')).toHaveTextContent('Name taken');
+
+			await userEvent.type(control('name'), 'x');
+			await expect.element(control('name-error')).not.toBeInTheDocument();
+			await submit();
+			await expect.poll(() => answer).toBeTypeOf('function');
+
+			expect(source.pending).toBe(1);
+			expect(control('name-error').query()).toBe(null);
+			await answerServer();
+			await expect.poll(() => source.pending).toBe(0);
+			expect(control('name-error').query()).toBe(null);
+		});
+
 		it('shows a client issue with the text of a hidden server issue once a submit fails on it', async () => {
 			const source = new FakeSource({
 				schema: (values) =>

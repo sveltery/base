@@ -58,9 +58,13 @@ export class IssueSession {
 		return this.submittedLocally || Boolean(this.source?.submitted);
 	}
 
-	/** A submit reached field validation. A field edited since the last round trip shows every issue again. */
+	/** A submit reached field validation. */
 	submitAttempted() {
 		this.submittedLocally = true;
+	}
+
+	/** A submit the source took settled. A field edited since the last round trip shows every issue again. */
+	submitSettled() {
 		for (const field of this.fields) field.forgetStaleSnapshot();
 	}
 
