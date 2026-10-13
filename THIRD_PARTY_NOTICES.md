@@ -352,6 +352,27 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/menu/*.svelte.spec.ts` assertions from `packages/react/src/menu/**/*.test.tsx` that do not require the filter parts, React refs, StrictMode or React render counts, and from `packages/react/test/detachedTriggersConformanceTests.tsx`
 - `src/tests/menu/**` harnesses from the fixtures of those tests
 
+Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+
+- `src/lib/toast/ToastProvider.svelte` from `packages/react/src/toast/provider/ToastProvider.tsx`
+- `src/lib/toast/ToastViewport.svelte` from `packages/react/src/toast/viewport/ToastViewport.tsx`
+- `src/lib/toast/ToastRoot.svelte` from `packages/react/src/toast/root/ToastRoot.tsx`
+- `src/lib/toast/swipe.svelte.ts` from the swipe handling in `packages/react/src/toast/root/ToastRoot.tsx`
+- `src/lib/toast/ToastContent.svelte` from `packages/react/src/toast/content/ToastContent.tsx`
+- `src/lib/toast/ToastTitle.svelte`, `ToastDescription.svelte`, and `ToastLabel.svelte` from `packages/react/src/toast/title/ToastTitle.tsx`, `packages/react/src/toast/description/ToastDescription.tsx`, and `packages/react/src/toast/utils/useToastLabelPart.ts`
+- `src/lib/toast/ToastAction.svelte` from `packages/react/src/toast/action/ToastAction.tsx` (button behavior is the existing `ButtonBehavior`)
+- `src/lib/toast/ToastClose.svelte` from `packages/react/src/toast/close/ToastClose.tsx` (button behavior is the existing `ButtonBehavior`)
+- `src/lib/toast/ToastPortal.svelte` from `packages/react/src/toast/portal/ToastPortal.tsx` (the portal is the existing `FloatingPortal`)
+- `src/lib/toast/ToastPositioner.svelte` from `packages/react/src/toast/positioner/ToastPositioner.tsx` and `packages/react/src/utils/usePositioner.ts` (positioning is the existing `AnchorPositioning`)
+- `src/lib/toast/ToastArrow.svelte` from `packages/react/src/toast/arrow/ToastArrow.tsx`
+- `src/lib/toast/ToastText.svelte` from how the toast parts render a toast's `title` and `description` nodes
+- `src/lib/toast/store.svelte.ts`, `list.ts`, and `timers.ts` from `packages/react/src/toast/store.ts`
+- `src/lib/toast/create-toast-manager.ts` from `packages/react/src/toast/createToastManager.ts`
+- `src/lib/toast/context.ts` from `packages/react/src/toast/provider/ToastProviderContext.ts`, `packages/react/src/toast/root/ToastRootContext.ts`, `packages/react/src/toast/positioner/ToastPositionerContext.ts`, and `packages/react/src/toast/useToastManager.ts`
+- `src/lib/toast/types.ts` from `packages/react/src/toast/useToastManager.ts`, `packages/react/src/toast/createToastManager.ts`, and the part prop and state types
+- `src/lib/toast/constants.ts` from `packages/react/src/toast/**/*DataAttributes.ts` and `*CssVars.ts`
+- `src/lib/toast/utils.ts` from `packages/react/src/toast/utils/isRenderableNode.ts`, `packages/react/src/toast/utils/resolvePromiseOptions.ts`, `packages/utils/src/generateId.ts`, `closest` in `packages/utils/src/shadowDom.ts`, `matchesFocusVisible` in `packages/react/src/floating-ui-react/utils/element.ts`, `getDisplacement` in `packages/react/src/utils/useSwipeDismiss.ts`, `packages/react/src/utils/getElementTransform.ts`, and the swipe-ignore selectors in `packages/react/src/internals/constants.ts`
+
 MIT License
 
 Copyright (c) 2019 Material-UI SAS
