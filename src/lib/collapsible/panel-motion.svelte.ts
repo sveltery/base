@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // React.Activity's resume-animation suppression is not recreated.
 
-import { getAbortSignal } from 'svelte';
+import { flushSync, getAbortSignal } from 'svelte';
 import { on } from 'svelte/events';
 import { ScopedAnimationFrame, REASONS } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
@@ -21,6 +21,7 @@ import type { TransitionStatus } from './types.js';
 
 export class CollapsiblePanelMotion {
 	private readonly endingFrame = new ScopedAnimationFrame();
+	private readonly revealFrame = new ScopedAnimationFrame();
 	height = $state<number | undefined>(undefined);
 	width = $state<number | undefined>(undefined);
 	panel = $state<HTMLElement | null>(null);
@@ -188,9 +189,18 @@ export class CollapsiblePanelMotion {
 			const panel = this.panel;
 			if (!panel) return;
 			return on(panel, 'beforematch', (event) => {
-				const accepted = this.root.requestOpen(true, event, REASONS.none);
-				if (!accepted) return;
-				this.skipNextOpen = true;
+				if (this.root.requestOpen(true, event, REASONS.none)) {
+					this.skipNextOpen = true;
+					// The browser measures the match in this task, right after the event.
+					flushSync();
+				}
+				if (this.root.open) return;
+				// Canceled, or the owner ignored the open. The browser still removes
+				// `hidden`, so put it back once it has measured.
+				this.skipNextOpen = false;
+				this.revealFrame.request(() => {
+					if (!this.root.open) panel.setAttribute('hidden', 'until-found');
+				});
 			});
 		});
 	}
