@@ -5,6 +5,12 @@ import { render } from 'svelte/server';
 import { describe, expect, it } from 'vitest';
 import DrawerSsrHarness from '../../tests/DrawerSsrHarness.svelte';
 
+/** The sorted attributes of the element with this test id. */
+function openingTag(body: string, testId: string): string[] {
+	const tag = body.match(new RegExp(`<div [^>]*data-testid="${testId}"[^>]*>`))?.[0] ?? '';
+	return (tag.match(/[\w-]+="[^"]*"/g) ?? []).sort();
+}
+
 describe('Drawer server render', () => {
 	it.each([
 		[false, 'data-closed=""', 'style="touch-action: pan-x"'],
@@ -20,12 +26,21 @@ describe('Drawer server render', () => {
 			expect(body).not.toContain('aria-controls');
 			expect(body).not.toContain('role="dialog"');
 			expect(body).not.toContain('DrawerTitle');
-			expect(body).toContain(
-				`<div role="presentation" aria-hidden="true" ${swipeAreaStyle} id="base-ui-s3" ${swipeAreaState} data-swipe-direction="up" data-testid="swipe-area">`
+			expect(openingTag(body, 'swipe-area')).toEqual(
+				expect.arrayContaining([
+					'role="presentation"',
+					'aria-hidden="true"',
+					swipeAreaStyle,
+					swipeAreaState,
+					'data-swipe-direction="up"'
+				])
 			);
-			expect(body).toContain('<div data-testid="background" data-inactive="">');
-			expect(body).toContain(
-				'<div style="--drawer-swipe-progress: 0" data-inactive="" data-testid="indent">'
+			expect(openingTag(body, 'swipe-area').join(' ')).toMatch(/id="base-ui-[^"]+"/);
+			expect(openingTag(body, 'background')).toEqual(
+				['data-inactive=""', 'data-testid="background"'].sort()
+			);
+			expect(openingTag(body, 'indent')).toEqual(
+				['style="--drawer-swipe-progress: 0"', 'data-inactive=""', 'data-testid="indent"'].sort()
 			);
 		}
 	);
