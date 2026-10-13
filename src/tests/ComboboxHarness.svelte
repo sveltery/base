@@ -195,11 +195,11 @@
 
 {#snippet itemFor(entry: unknown)}
 	<Combobox.Item value={entry} data-testid="item-{labelOf(entry)}">
-		{#if indicator}
-			<Combobox.ItemIndicator {...indicatorProps} data-testid="indicator-{labelOf(entry)}" />
-		{/if}
-		{labelOf(entry)}
-	</Combobox.Item>
+		{#if indicator}<Combobox.ItemIndicator
+				{...indicatorProps}
+				data-testid="indicator-{labelOf(entry)}"
+			/>{/if}{labelOf(entry)}</Combobox.Item
+	>
 {/snippet}
 
 {#snippet staticItem(entry: HarnessItem, index: number)}
@@ -210,14 +210,11 @@
 		data-testid={entry.testid}
 		{...entry.props}
 	>
-		{#if indicator}
-			<Combobox.ItemIndicator
+		{#if indicator}<Combobox.ItemIndicator
 				{...indicatorProps}
 				data-testid="indicator-{entry.text ?? String(entry.value)}"
-			/>
-		{/if}
-		{entry.text ?? String(entry.value)}
-	</Combobox.Item>
+			/>{/if}{entry.text ?? String(entry.value)}</Combobox.Item
+	>
 {/snippet}
 
 {#snippet gridRows(list: string[][])}
