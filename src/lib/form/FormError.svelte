@@ -5,7 +5,7 @@
 	because Fields later in the markup have not claimed their paths yet.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
@@ -22,7 +22,7 @@
 
 	const form = useFormContext();
 	let mounted = $state(false);
-	$effect(() => {
+	onMount(() => {
 		mounted = true;
 	});
 

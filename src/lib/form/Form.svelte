@@ -13,7 +13,7 @@
 	import { on } from 'svelte/events';
 	import type { HTMLFormAttributes } from 'svelte/elements';
 	import { DEV } from 'esm-env';
-	import { createGenericEventDetails, REASONS } from '@sveltery/utils';
+	import { createGenericEventDetails, REASONS, warn } from '@sveltery/utils';
 	import { setFormContext, type FormContextValue } from './context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
 	import { IssueSession } from './issues.svelte.js';
@@ -257,24 +257,20 @@
 	if (DEV) {
 		$effect(() => {
 			if (source && onFormSubmit) {
-				console.warn(
-					'Base UI: <Form form> submits through its source, so `onFormSubmit` runs alongside that submit. Use `enhance` to customize a source submit.'
+				warn(
+					'<Form form> submits through its source, so `onFormSubmit` runs alongside that submit. Use `enhance` to customize a source submit.'
 				);
 			}
 		});
 
 		// Kit's `fields` accepts any path, so a misspelled `name` cannot be caught up front.
-		const warned = new Set<string>();
 		$effect(() => {
 			const named = issues.nameClaims;
 			if (named.length === 0) return;
 			for (const issue of issues.unclaimedIssues) {
 				if (issue.path.length === 0) continue;
-				const path = pathKey(issue.path);
-				if (warned.has(path)) continue;
-				warned.add(path);
-				console.warn(
-					`Base UI: an issue on \`${path}\` has no <Field.Root> to show it, while <Field.Root name> resolved ${named.map((name) => `\`${name}\``).join(', ')} through the form. A misspelled \`name\` submits under the wrong key.`
+				warn(
+					`an issue on \`${pathKey(issue.path)}\` has no <Field.Root> to show it, while <Field.Root name> resolved ${named.map((name) => `\`${name}\``).join(', ')} through the form. A misspelled \`name\` submits under the wrong key.`
 				);
 			}
 		});

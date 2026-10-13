@@ -3,7 +3,7 @@
 // arrived: the ones present at mount or when a server round trip ends.
 
 import { untrack } from 'svelte';
-import { SvelteMap } from 'svelte/reactivity';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import { allIssues, pathKey, type FieldHandle, type FormIssue, type FormSource } from './source.js';
 import type { FormValidationMode } from './types.js';
 
@@ -37,16 +37,16 @@ export class IssueSession {
 	private submittedLocally = $state(false);
 	/** True once Form asked the source to validate fields the user has not reached. */
 	aheadValidated = $state(false);
-	private readonly fields = new Set<FieldIssues>();
+	private readonly fields = new SvelteSet<FieldIssues>();
 	private readonly claims = new SvelteMap<object, Claim>();
 	/** Issues present when the session started, which render before any submit (SSR, JS off). */
-	private initial = $state.raw<Set<string>>(new Set());
+	private initial = $state.raw<readonly string[]>([]);
 	private revalidateQueued = false;
 
 	constructor(readonly getSource: () => FormSource | undefined) {
 		this.initial = untrack(() => {
 			const source = getSource();
-			return new Set(source ? allIssues(source).map(issueId) : []);
+			return source ? allIssues(source).map(issueId) : [];
 		});
 	}
 
@@ -72,7 +72,7 @@ export class IssueSession {
 	reset() {
 		this.submittedLocally = false;
 		this.aheadValidated = false;
-		this.initial = new Set();
+		this.initial = [];
 	}
 
 	/** Re-runs the source's client validation for every field, once per microtask. */
@@ -91,12 +91,12 @@ export class IssueSession {
 	get unclaimedIssues(): FormIssue[] {
 		const source = this.source;
 		if (!source) return [];
-		const claimed = new Set<string>();
-		for (const claim of this.claims.values()) claimed.add(claim.key);
+		const claimed = Array.from(this.claims.values(), (claim) => claim.key);
 		const submitted = this.submitted;
 		return allIssues(source).filter(
 			(issue) =>
-				!claimed.has(pathKey(issue.path)) && (submitted || this.initial.has(issueId(issue)))
+				!claimed.includes(pathKey(issue.path)) &&
+				(submitted || this.initial.includes(issueId(issue)))
 		);
 	}
 
