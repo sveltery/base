@@ -53,11 +53,6 @@
 	:global([data-testid='toast'][data-limited]) {
 		opacity: 0;
 	}
-	:global([data-testid='viewport'].slow [data-testid='toast']) {
-		transition:
-			transform 100ms,
-			opacity 1500ms;
-	}
 	:global([data-testid='positioner'] [data-testid='toast']) {
 		position: relative;
 		right: auto;

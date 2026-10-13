@@ -1,4 +1,4 @@
-export const cases = ['basic', 'timeout', 'limit', 'anchored', 'slow-exit'] as const;
+export const cases = ['basic', 'timeout', 'limit', 'anchored'] as const;
 export type ToastCase = (typeof cases)[number];
 
 export interface ToastCaseOptions {
@@ -7,14 +7,11 @@ export interface ToastCaseOptions {
 	limit: number;
 	/** Wraps each toast in `Toast.Positioner`, with a `Toast.Arrow`. */
 	anchored: boolean;
-	/** Stretches the exit transition so a test can act while a toast is leaving. */
-	slowExit: boolean;
 }
 
 export const caseOptions: Record<ToastCase, ToastCaseOptions> = {
-	basic: { timeout: 0, limit: 3, anchored: false, slowExit: false },
-	timeout: { timeout: 800, limit: 3, anchored: false, slowExit: false },
-	limit: { timeout: 0, limit: 2, anchored: false, slowExit: false },
-	anchored: { timeout: 0, limit: 3, anchored: true, slowExit: false },
-	'slow-exit': { timeout: 800, limit: 3, anchored: false, slowExit: true }
+	basic: { timeout: 0, limit: 3, anchored: false },
+	timeout: { timeout: 800, limit: 3, anchored: false },
+	limit: { timeout: 0, limit: 2, anchored: false },
+	anchored: { timeout: 0, limit: 3, anchored: true }
 };

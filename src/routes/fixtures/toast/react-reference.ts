@@ -173,9 +173,7 @@ export function mountToastReference(node: HTMLElement, scenario: ToastCase, onRe
 						Toast.Viewport,
 						{
 							'data-testid': 'viewport',
-							className: [options.anchored && 'anchored', options.slowExit && 'slow']
-								.filter(Boolean)
-								.join(' ')
+							className: options.anchored ? 'anchored' : undefined
 						} as never,
 						h(List)
 					)

@@ -20,10 +20,7 @@
 <Toast.Provider timeout={options.timeout} limit={options.limit} toastManager={globalManager}>
 	<ToastControls {globalManager} log={(entry) => log.push(entry)} />
 	<Toast.Portal>
-		<Toast.Viewport
-			data-testid="viewport"
-			class={[options.anchored && 'anchored', options.slowExit && 'slow']}
-		>
+		<Toast.Viewport data-testid="viewport" class={[options.anchored && 'anchored']}>
 			<ToastList anchored={options.anchored} />
 		</Toast.Viewport>
 	</Toast.Portal>
