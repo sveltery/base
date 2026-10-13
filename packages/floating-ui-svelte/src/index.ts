@@ -87,3 +87,13 @@ export {
 	type ListOrientation
 } from './utils/listOrientation.js';
 export { Typeahead, type UseTypeaheadProps } from './hooks/useTypeahead.svelte.js';
+export {
+	applySafePolygonPointerEventsMutation,
+	clearSafePolygonPointerEventsMutation,
+	disableFocusInside,
+	enableFocusInside,
+	getNextTabbable,
+	getNodeChildren,
+	getPreviousTabbable,
+	hoverInteraction
+} from './sharedInternals.js';
