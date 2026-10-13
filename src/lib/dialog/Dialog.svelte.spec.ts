@@ -9,9 +9,11 @@ import DialogActionsHarness from '../../tests/DialogActionsHarness.svelte';
 import DisabledNonNativeHarness from '../../tests/DisabledNonNativeHarness.svelte';
 import DialogHandleHarness from '../../tests/DialogHandleHarness.svelte';
 import DialogHarness from '../../tests/DialogHarness.svelte';
+import DialogNestedCountHarness from '../../tests/DialogNestedCountHarness.svelte';
 import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
 import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.svelte';
 import DialogOpenCompleteStateHarness from '../../tests/DialogOpenCompleteStateHarness.svelte';
+import DialogProgrammaticPayloadHarness from '../../tests/DialogProgrammaticPayloadHarness.svelte';
 import PortalContainerHarness from '../../tests/PortalContainerHarness.svelte';
 import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
 import PortalLateAttachHarness from '../../tests/PortalLateAttachHarness.svelte';
@@ -283,6 +285,167 @@ describe('Dialog', () => {
 		expect(openDialogs[0]).toHaveAttribute('data-nested-dialog-open', '');
 	});
 
+	describe('nested dialog count (Base UI v1.9.0)', () => {
+		function parentPopup() {
+			return page.getByTestId('parent');
+		}
+
+		async function expectNestedCount(count: string) {
+			await expect
+				.poll(() => parentPopup().element().style.getPropertyValue('--nested-dialogs'))
+				.toBe(count);
+		}
+
+		it('keeps counting an open nested dialog while a closed sibling mounts and unmounts', async () => {
+			const screen = render(DialogNestedCountHarness);
+			await expect.element(page.getByTestId('open-child')).toBeVisible();
+			await expectNestedCount('1');
+
+			await screen.rerender({ closedChildInPopup: true });
+			await expect.element(button('Closed child')).toBeVisible();
+			await frame();
+			await expectNestedCount('1');
+			await expect.element(parentPopup()).toHaveAttribute('data-nested-dialog-open', '');
+
+			await screen.rerender({ closedChildInPopup: false });
+			await frame();
+			await expectNestedCount('1');
+			await expect.element(parentPopup()).toHaveAttribute('data-nested-dialog-open', '');
+		});
+
+		it('ignores a nested dialog that opens while the parent is closed', async () => {
+			const screen = render(DialogNestedCountHarness, {
+				parentOpen: false,
+				openChildInPopup: false,
+				openChildOutsidePopup: true
+			});
+			await expect.element(page.getByTestId('outside-child')).toBeVisible();
+
+			await screen.rerender({ parentOpen: true });
+			await expect.element(parentPopup()).toBeVisible();
+			await frame();
+			await expectNestedCount('0');
+			await expect.element(parentPopup()).not.toHaveAttribute('data-nested-dialog-open');
+		});
+
+		it('drops the nested count once the parent closes', async () => {
+			const screen = render(DialogNestedCountHarness, {
+				openChildInPopup: false,
+				openChildOutsidePopup: true
+			});
+			await expectNestedCount('1');
+
+			await screen.rerender({ parentOpen: false });
+			await expect.poll(() => parentPopup().query()).toBeNull();
+			await screen.rerender({ parentOpen: true });
+			await expect.element(parentPopup()).toBeVisible();
+			await frame();
+			await expectNestedCount('0');
+		});
+	});
+
+	describe('programmatic payload (Base UI v1.9.0)', () => {
+		function content() {
+			return page.getByTestId('content');
+		}
+
+		async function expectUnassociatedTrigger() {
+			const trigger = button('Trigger');
+			await expect.element(trigger).toHaveAttribute('aria-expanded', 'false');
+			await expect.element(trigger).not.toHaveAttribute('aria-controls');
+			await expect.element(trigger).not.toHaveAttribute('data-popup-open');
+		}
+
+		it('does not associate the only rendered trigger when opened with a payload', async () => {
+			const handle = Dialog.createHandle<string>();
+			render(DialogProgrammaticPayloadHarness, { handle, showTrigger: true });
+
+			handle.openWithPayload('from openWithPayload');
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+			await frame();
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+			await expectUnassociatedTrigger();
+
+			handle.close();
+			await dialogs(0);
+			click(button('Trigger'));
+			await expect.element(content()).toHaveTextContent('from trigger');
+			await expect.element(button('Trigger')).toHaveAttribute('aria-expanded', 'true');
+			await expect
+				.element(button('Trigger'))
+				.toHaveAttribute('aria-controls', content().element().id);
+		});
+
+		it('keeps the programmatic payload while the dialog animates out', async () => {
+			const handle = Dialog.createHandle<string>();
+			render(DialogProgrammaticPayloadHarness, { handle, showTrigger: true, holdExit: true });
+
+			handle.openWithPayload('from openWithPayload');
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+
+			handle.close();
+			await expect.element(content()).toHaveAttribute('data-ending-style');
+			await frame();
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+		});
+
+		it('does not let a trigger that mounts while open replace the programmatic payload', async () => {
+			const handle = Dialog.createHandle<string>();
+			const screen = render(DialogProgrammaticPayloadHarness, { handle });
+
+			handle.openWithPayload('from openWithPayload');
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+
+			await screen.rerender({ showTrigger: true });
+			await expect.element(button('Trigger')).toBeInTheDocument();
+			await frame();
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+			await expectUnassociatedTrigger();
+		});
+
+		it('keeps the programmatic payload when a controlled dialog declines a close request', async () => {
+			const handle = Dialog.createHandle<string>();
+			const screen = render(DialogProgrammaticPayloadHarness, { handle, declineClose: true });
+
+			handle.openWithPayload('from openWithPayload');
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+
+			handle.close();
+			await frame();
+			expect(dialogLocator().elements()).toHaveLength(1);
+			expect(handle.isOpen).toBe(true);
+
+			await screen.rerender({ showTrigger: true });
+			await expect.element(button('Trigger')).toBeInTheDocument();
+			await frame();
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+			await expectUnassociatedTrigger();
+		});
+
+		it('takes the payload of the only trigger when opened through bind:open', async () => {
+			const handle = Dialog.createHandle<string>();
+			const screen = render(DialogProgrammaticPayloadHarness, { handle, showTrigger: true });
+
+			await screen.rerender({ open: true });
+			await expect.element(content()).toHaveTextContent('from trigger');
+			await expect.element(button('Trigger')).toHaveAttribute('aria-expanded', 'true');
+		});
+
+		it('takes the only trigger payload on a bind:open after a programmatic open closed', async () => {
+			const handle = Dialog.createHandle<string>();
+			const screen = render(DialogProgrammaticPayloadHarness, { handle, showTrigger: true });
+
+			handle.openWithPayload('from openWithPayload');
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+			handle.close();
+			await dialogs(0);
+
+			await screen.rerender({ open: true });
+			await expect.element(content()).toHaveTextContent('from trigger');
+			await expect.element(button('Trigger')).toHaveAttribute('aria-expanded', 'true');
+		});
+	});
+
 	it('omits the internal backdrop when modal is false', async () => {
 		render(DialogHarness, { modal: false });
 		await openDialog();
@@ -309,12 +472,6 @@ describe('Dialog', () => {
 		expect(page.getByTestId('popup').elements()).toHaveLength(0);
 	});
 
-	it('does not store a payload for a trigger that is not registered', () => {
-		const handle = Dialog.createHandle<string>();
-		expect(handle.setPayload('x', 'orphan')).toBe(false);
-		expect('payloads' in handle).toBe(false);
-	});
-
 	it('keeps the current payload when opened with an unknown trigger id', async () => {
 		const handle = Dialog.createHandle<string>();
 		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
@@ -325,11 +482,9 @@ describe('Dialog', () => {
 			await expect.element(page.getByTestId('payload')).toHaveTextContent('from-trigger');
 			handle.close();
 			await dialogs(0);
-			expect(handle.setPayload('missing', 'from-missing')).toBe(false);
 			expect(() => handle.open('missing')).not.toThrow();
 			await tick();
 			await expect.element(page.getByTestId('payload')).toHaveTextContent('from-trigger');
-			expect(page.getByTestId('payload').element().textContent).not.toContain('from-missing');
 			expect(warn.mock.calls.some((call) => String(call[0]).includes('Dialog.Handle.open'))).toBe(
 				true
 			);

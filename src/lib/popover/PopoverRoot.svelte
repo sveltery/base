@@ -4,7 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	`close` and `unmount` are exports. Bind the root with `bind:this`.
 -->
-<script lang="ts">
+<script lang="ts" generics="Payload = unknown">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
 		setFloatingTree,
@@ -23,7 +23,7 @@
 		triggerId = $bindable(),
 		handle,
 		children
-	}: PopoverRootProps = $props();
+	}: PopoverRootProps<Payload> = $props();
 
 	const uid = $props.id();
 	const nested = useFloatingParentNodeId() != null;
@@ -75,4 +75,4 @@
 	}
 </script>
 
-{@render children?.({ payload: store.payload })}
+{@render children?.({ payload: store.payload as Payload | undefined })}
