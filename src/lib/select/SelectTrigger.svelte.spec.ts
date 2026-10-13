@@ -108,7 +108,11 @@ describe('Select.Trigger', () => {
 		});
 
 		it('cannot be focused when disabled', async () => {
-			render(SelectHarness, { root: { defaultValue: 'b' }, trigger: { disabled: true }, items: ab });
+			render(SelectHarness, {
+				root: { defaultValue: 'b' },
+				trigger: { disabled: true },
+				items: ab
+			});
 			await expect.element(trigger()).toHaveAttribute('data-disabled');
 
 			await userEvent.keyboard('{Tab}');

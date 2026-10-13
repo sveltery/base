@@ -23,6 +23,7 @@ export function renderBound<C extends Component<any>>(
 			set: (next) => (backing[key] = next)
 		});
 	}
-	render(component, props as ComponentProps<C>);
+	// The testing library's own `Component` type does not accept a generic Svelte component.
+	render(component as never, props as never);
 	return backing as ComponentProps<C>;
 }

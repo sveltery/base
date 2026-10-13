@@ -20,7 +20,10 @@
 	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { pressableTriggerOpenStateMapping } from '../internal/popupStateMapping.js';
-	import { getStateAttributesProps, type StateAttributesMapping } from '../internal/state-attributes.js';
+	import {
+		getStateAttributesProps,
+		type StateAttributesMapping
+	} from '../internal/state-attributes.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { CANCEL_OPEN, SELECTED_DELAY } from './constants.js';
 	import { useSelectRoot } from './context.svelte.js';

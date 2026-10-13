@@ -34,7 +34,11 @@ describe('Select.Value', () => {
 	describe('prop: children', () => {
 		it('accepts a function with a value parameter', async () => {
 			const children = vi.fn((current: unknown) => String(current));
-			render(SelectHarness, { value: '1', formatValue: children, items: [{ value: '1', text: 'one' }] });
+			render(SelectHarness, {
+				value: '1',
+				formatValue: children,
+				items: [{ value: '1', text: 'one' }]
+			});
 
 			await userEvent.click(page.getByText('1', { exact: true }));
 
@@ -268,7 +272,7 @@ describe('Select.Value', () => {
 		});
 
 		it('defaults to empty array when no value is provided', async () => {
-			const formatValue = vi.fn(() => '');
+			const formatValue = vi.fn((_current: unknown) => '');
 			render(SelectHarness, { root: { multiple: true }, formatValue });
 
 			expect(formatValue.mock.calls[0]?.[0]).toEqual([]);

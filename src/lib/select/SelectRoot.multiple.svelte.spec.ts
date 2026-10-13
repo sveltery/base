@@ -179,7 +179,10 @@ describe('Select.Root', () => {
 		});
 
 		it('highlights the first selected item in rendered order regardless of value order', async () => {
-			render(SelectHarness, { root: { multiple: true, defaultValue: ['b', 'a', 'c'] }, items: abc });
+			render(SelectHarness, {
+				root: { multiple: true, defaultValue: ['b', 'a', 'c'] },
+				items: abc
+			});
 
 			await openSelect();
 
@@ -346,7 +349,11 @@ describe('Select.Root', () => {
 		});
 
 		it('should serialize multiple values correctly for form submission', async () => {
-			render(SelectHarness, { value: ['a', 'c'], root: { multiple: true, name: 'select' }, items: abc });
+			render(SelectHarness, {
+				value: ['a', 'c'],
+				root: { multiple: true, name: 'select' },
+				items: abc
+			});
 
 			expect(submittedOptions('select')).toEqual(['a', 'c']);
 		});
@@ -387,7 +394,10 @@ describe('Select.Root', () => {
 		});
 
 		it('keeps the hidden input required when no selection exists', async () => {
-			render(SelectHarness, { value: [], root: { multiple: true, required: true, name: 'select' } });
+			render(SelectHarness, {
+				value: [],
+				root: { multiple: true, required: true, name: 'select' }
+			});
 
 			expect(hiddenInput().hasAttribute('required')).toBe(true);
 		});
@@ -691,7 +701,10 @@ describe('Select.Root', () => {
 			`;
 			document.head.append(style);
 			try {
-				render(SelectHarness, { positioner: { alignItemWithTrigger: false }, items: named('a', 'b') });
+				render(SelectHarness, {
+					positioner: { alignItemWithTrigger: false },
+					items: named('a', 'b')
+				});
 
 				focusTrigger();
 				await userEvent.keyboard('{ArrowDown}');

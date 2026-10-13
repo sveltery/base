@@ -12,7 +12,6 @@
 		resolveMultipleLabels,
 		resolveSelectedLabel
 	} from '../internal/listbox/resolveValueLabel.js';
-	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useSelectRoot } from './context.svelte.js';
 	import type { SelectValueProps, SelectValueState } from './types.js';
 
@@ -52,7 +51,9 @@
 </script>
 
 {#snippet content()}
-	{#if children}{@render children(store.value)}{:else if showPlaceholder}{placeholder}{:else}{label}{/if}
+	{#if children}{@render children(
+			store.value
+		)}{:else if showPlaceholder}{placeholder}{:else}{label}{/if}
 {/snippet}
 
 {#if render}

@@ -186,9 +186,7 @@ describe('Select.Root', () => {
 				const positioner = page.getByTestId('positioner').element();
 				const first = option('b-0').element();
 				await expect
-					.poll(
-						() => first.getBoundingClientRect().top >= positioner.getBoundingClientRect().top
-					)
+					.poll(() => first.getBoundingClientRect().top >= positioner.getBoundingClientRect().top)
 					.toBe(true);
 			}
 

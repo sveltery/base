@@ -20,7 +20,7 @@
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 	import {
 		DirectionProvider,
 		Select,
@@ -70,7 +70,8 @@
 	}: {
 		value?: unknown;
 		open?: boolean;
-		root?: Partial<SelectRootProps<unknown, boolean>>;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any -- specs pass typed item callbacks
+		root?: Partial<SelectRootProps<any, boolean>>;
 		items?: HarnessItem[];
 		groups?: HarnessGroup[];
 		trigger?: Partial<SelectTriggerProps> & Record<string, unknown>;
@@ -163,12 +164,8 @@
 	{/if}
 {/snippet}
 
-{#snippet divTrigger(
-	props: HTMLAttributes<HTMLElement>,
-	_state: unknown,
-	children: Snippet | undefined
-)}
-	<div {...props}>{@render children?.()}</div>
+{#snippet divTrigger(props: HTMLButtonAttributes, _state: unknown, children: Snippet | undefined)}
+	<div {...props as HTMLAttributes<HTMLDivElement>}>{@render children?.()}</div>
 {/snippet}
 
 {#snippet positioned()}

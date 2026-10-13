@@ -32,7 +32,8 @@
 				style: toCssStyle(positioner.positioning.arrowStyles),
 				'aria-hidden': true as const,
 				...getStateAttributesProps(partState, {
-					open: (open): Record<string, string> => (open ? { 'data-open': '' } : { 'data-closed': '' })
+					open: (open): Record<string, string> =>
+						open ? { 'data-open': '' } : { 'data-closed': '' }
 				}),
 				[bindKey]: positioner.positioning.arrowProps.attach
 			},

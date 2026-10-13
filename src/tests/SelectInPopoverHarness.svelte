@@ -21,16 +21,18 @@
 	} = $props();
 
 	let selectOpen = $state(false);
-	const items = withList
-		? [
-				['gala', 'Gala'],
-				['fuji', 'Fuji'],
-				['honeycrisp', 'Honeycrisp']
-			]
-		: [
-				['gala', 'Gala'],
-				['fuji', 'Fuji']
-			];
+	const items = $derived(
+		withList
+			? [
+					['gala', 'Gala'],
+					['fuji', 'Fuji'],
+					['honeycrisp', 'Honeycrisp']
+				]
+			: [
+					['gala', 'Gala'],
+					['fuji', 'Fuji']
+				]
+	);
 </script>
 
 <Popover.Root bind:open={popoverOpen} modal={popoverModal}>

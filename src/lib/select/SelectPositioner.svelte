@@ -49,19 +49,15 @@
 	// Here the select joins the parent's floating tree, so the parent sees it as a child.
 	useFloatingNodeId(store);
 
-	// svelte-ignore state_referenced_locally
-	let controlledAlign = $state(alignItemWithTrigger);
-	// A fallback to regular anchoring lasts until the popup unmounts.
-	$effect.pre(() => {
-		if (!store.mounted && controlledAlign !== alignItemWithTrigger) {
-			controlledAlign = alignItemWithTrigger;
-		}
+	// A fallback to regular anchoring lasts until the popup mounts or unmounts again.
+	let alignFallback = $derived.by((): boolean => {
+		void store.mounted;
+		return false;
 	});
 
 	const alignItemWithTriggerActive = $derived(
-		store.mounted && controlledAlign && store.renderedOpenMethod !== 'touch'
+		store.mounted && alignItemWithTrigger && !alignFallback && store.renderedOpenMethod !== 'touch'
 	);
-	$effect(() => store.publishAlign(() => alignItemWithTriggerActive));
 
 	useAnchoredPopupScrollLock(() => ({
 		enabled: (alignItemWithTriggerActive || store.root.modal) && store.open,
@@ -86,9 +82,16 @@
 		mounted: store.mounted
 	}));
 
-	$effect(() => {
-		store.popupSide = positioning.side;
-	});
+	$effect(() =>
+		store.publishPositioner({
+			get alignItemWithTriggerActive() {
+				return alignItemWithTriggerActive;
+			},
+			get side() {
+				return positioning.side;
+			}
+		})
+	);
 
 	const renderedSide = $derived(alignItemWithTriggerActive ? 'none' : positioning.side);
 
@@ -104,7 +107,7 @@
 			return alignItemWithTriggerActive;
 		},
 		disableAlignItemWithTrigger() {
-			controlledAlign = false;
+			alignFallback = true;
 		}
 	});
 

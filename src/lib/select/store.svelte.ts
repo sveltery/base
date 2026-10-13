@@ -46,6 +46,12 @@ export interface SelectRootReading {
 	isItemEqualToValue: ItemEqualityComparer;
 }
 
+/** What the mounted positioner publishes. Each field is a getter. */
+export interface PositionerReading {
+	readonly alignItemWithTriggerActive: boolean;
+	readonly side: Side;
+}
+
 export interface SelectStoreOptions {
 	readOpen: () => boolean | undefined;
 	writeOpen: (open: boolean) => void;
@@ -57,7 +63,10 @@ export interface SelectStoreOptions {
 	/** Field bookkeeping when focus or a press outside closes the popup. */
 	onDismissedOutside: () => void;
 	onOpenChange: () =>
-		| ((open: boolean, details: SelectChangeEventDetails & { preventUnmountOnClose(): void }) => void)
+		| ((
+				open: boolean,
+				details: SelectChangeEventDetails & { preventUnmountOnClose(): void }
+		  ) => void)
 		| undefined;
 	onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
 	readTriggerProps: () => HTMLAttributes<HTMLElement>;
@@ -72,13 +81,11 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 
 	activeIndex = $state<number | null>(null);
 	labelId = $state<string | undefined>(undefined);
-	triggerElement = $state<HTMLElement | null>(null);
+	#triggerElement = $state<HTMLElement | null>(null);
 	listElement = $state<HTMLElement | null>(null);
 	valueElement = $state<HTMLElement | null>(null);
 	/** Mounts the items while closed, for typeahead on the trigger and for autofill. */
 	forceMount = $state(false);
-	/** The positioner's side, also while the popup overlaps the trigger. */
-	popupSide = $state<Side | null>(null);
 	scrollUpArrowVisible = $state(false);
 	scrollDownArrowVisible = $state(false);
 	scrollArrowCount = $state(0);
@@ -99,7 +106,7 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 	/** The popup's scroll handler, which `Select.List` calls when it scrolls instead. */
 	scrollHandler: ((scroller: HTMLElement) => void) | null = null;
 
-	#readAlign = $state<(() => boolean) | null>(null);
+	#positioner = $state<PositionerReading | null>(null);
 	#lastOpenMethod: OpenInteractionType | null = null;
 	readonly #options: SelectStoreOptions;
 
@@ -117,14 +124,8 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 		});
 		this.#options = options;
 
-		// The shared store clears the active trigger once closed. A select has one trigger,
-		// which stays the reference for positioning, focus return and dismissal.
-		$effect.pre(() => {
-			const trigger = this.triggerElement;
-			if (this.domReferenceElement !== trigger) this.domReferenceElement = trigger;
-		});
-
-		// A reopen from the binding cancels a pending `preventUnmountOnClose`.
+		// A reopen through the binding skips `setOpen`, so it cancels a pending
+		// `preventUnmountOnClose` here. Remove once PopupStore clears the flag on any reopen.
 		$effect.pre(() => {
 			if (this.open && untrack(() => this.preventUnmountingOnClose)) {
 				this.preventUnmountingOnClose = false;
@@ -136,6 +137,17 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 			const next = findSelectionIndex(this.values, value, isItemEqualToValue, multiple);
 			if (!this.open) this.selectedIndex = next;
 		});
+	}
+
+	// The shared store clears the active trigger on open changes and once closed. A select has
+	// one trigger, which stays the reference for positioning, focus return and dismissal.
+	get triggerElement() {
+		return this.#triggerElement;
+	}
+
+	set triggerElement(element: HTMLElement | null) {
+		this.#triggerElement = element;
+		this.domReferenceElement = element;
 	}
 
 	protected override preventUnmountTiming(): 'immediate' | 'deferred' {
@@ -211,14 +223,19 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 	}
 
 	get alignItemWithTriggerActive() {
-		return this.#readAlign?.() ?? false;
+		return this.#positioner?.alignItemWithTriggerActive ?? false;
 	}
 
-	/** The positioner publishes whether it overlaps the trigger. */
-	publishAlign(read: () => boolean) {
-		this.#readAlign = read;
+	/** The positioner's side, also while the popup overlaps the trigger. */
+	get popupSide() {
+		return this.#positioner?.side ?? null;
+	}
+
+	/** The mounted positioner publishes its placement. Returns the cleanup that withdraws it. */
+	publishPositioner(reading: PositionerReading) {
+		this.#positioner = reading;
 		return () => {
-			if (this.#readAlign === read) this.#readAlign = null;
+			if (this.#positioner === reading) this.#positioner = null;
 		};
 	}
 
@@ -247,6 +264,7 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 
 	override setOpen(nextOpen: boolean, eventDetails: SelectChangeEventDetails) {
 		super.setOpen(nextOpen, eventDetails);
+		this.domReferenceElement = this.#triggerElement;
 		if (eventDetails.isCanceled || nextOpen) return;
 		const reason = eventDetails.reason;
 		if (reason === REASONS.focusOut || reason === REASONS.outsidePress) {
@@ -298,6 +316,7 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 	}
 
 	#unmounted() {
+		this.domReferenceElement = this.#triggerElement;
 		this.activeIndex = null;
 		this.openMethod = null;
 		this.#lastOpenMethod = null;

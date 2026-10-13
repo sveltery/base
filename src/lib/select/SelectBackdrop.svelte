@@ -19,10 +19,7 @@
 	});
 
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
-		...getStateAttributesProps(
-			{ ...partState, anchorHidden: false },
-			popupTransitionStateMapping
-		),
+		...getStateAttributesProps({ ...partState, anchorHidden: false }, popupTransitionStateMapping),
 		role: 'presentation',
 		hidden: store.mounted ? undefined : true,
 		style: 'user-select: none; -webkit-user-select: none',

@@ -256,9 +256,7 @@ describe('Select.Root', () => {
 				scrollTop = 40;
 				listbox().element().dispatchEvent(new Event('scroll'));
 
-				await expect
-					.element(page.getByTestId('scroll-down'))
-					.toHaveAttribute('data-ending-style');
+				await expect.element(page.getByTestId('scroll-down')).toHaveAttribute('data-ending-style');
 				await expect.element(page.getByTestId('scroll-down')).not.toBeInTheDocument();
 			} finally {
 				style.remove();
@@ -340,7 +338,9 @@ describe('Select.Root', () => {
 				clientX: rect.left + rect.width / 2,
 				clientY: rect.top + rect.height / 2
 			};
-			selectTrigger.dispatchEvent(new PointerEvent('pointerdown', { ...start, pointerType: 'mouse' }));
+			selectTrigger.dispatchEvent(
+				new PointerEvent('pointerdown', { ...start, pointerType: 'mouse' })
+			);
 			selectTrigger.dispatchEvent(new MouseEvent('mousedown', start));
 			await expect.element(listbox()).toBeVisible();
 			await wait(0);

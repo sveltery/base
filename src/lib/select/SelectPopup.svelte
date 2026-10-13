@@ -260,8 +260,7 @@
 					positionerRect.left +
 					(options.rtl ? valueRect.right - textRect.right : valueRect.left - textRect.left);
 				const valueCenterFromTriggerTop = valueRect.top - triggerRect.top + valueRect.height / 2;
-				const textCenterFromPositionerTop =
-					textRect.top - positionerRect.top + textRect.height / 2;
+				const textCenterFromPositionerTop = textRect.top - positionerRect.top + textRect.height / 2;
 				offsetY = textCenterFromPositionerTop - valueCenterFromTriggerTop;
 			}
 
@@ -428,35 +427,36 @@
 	const hasList = $derived(store.listElement != null);
 
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived(
-		mergeProps(
-			store.popupProps,
-			{
-				...(hasList
-					? { role: 'presentation' as const }
-					: {
-							role: 'listbox' as const,
-							'aria-multiselectable': store.multiple || undefined,
-							'aria-readonly': store.root.readOnly || undefined,
-							id: `${store.root.id}-list`
-						}),
-				onkeydown(event: KeyboardEvent) {
-					if (insideToolbar() && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+		withTypeahead(
+			mergeProps(
+				store.popupProps,
+				{
+					...(hasList
+						? { role: 'presentation' as const }
+						: {
+								role: 'listbox' as const,
+								'aria-multiselectable': store.multiple || undefined,
+								'aria-readonly': store.root.readOnly || undefined,
+								id: `${store.root.id}-list`
+							}),
+					onkeydown(event: KeyboardEvent) {
+						if (insideToolbar() && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+					},
+					onscroll(event: Event) {
+						if (hasList) return;
+						handleScroll(event.currentTarget as HTMLElement);
+					},
+					class: !hasList && aligned ? DISABLE_SCROLLBAR_CLASS : undefined,
+					style: toCssStyle({
+						...(aligned ? (hasList ? { height: '100%' } : LIST_FUNCTIONAL_STYLES) : {}),
+						...store.alignedPopupStyle,
+						...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
+					}),
+					...getStateAttributesProps(partState, popupTransitionStateMapping),
+					[bindKey]: bindPopup
 				},
-				onscroll(event: Event) {
-					if (hasList) return;
-					handleScroll(event.currentTarget as HTMLElement);
-				},
-				class: !hasList && aligned ? DISABLE_SCROLLBAR_CLASS : undefined,
-				style: toCssStyle({
-					...(aligned ? (hasList ? { height: '100%' } : LIST_FUNCTIONAL_STYLES) : {}),
-					...store.alignedPopupStyle,
-					...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
-				}),
-				...getStateAttributesProps(partState, popupTransitionStateMapping),
-				[bindKey]: bindPopup
-			},
-			elementProps,
-			withTypeahead
+				elementProps
+			)
 		)
 	);
 
@@ -466,21 +466,21 @@
 	 * Typeahead runs after the other handlers, even for a keydown an item prevented: a Space
 	 * typed inside a match is prevented so it does not select the item. mergeProps would skip it.
 	 */
-	function withTypeahead(merged: Record<string, unknown>) {
-		const next = { ...merged };
+	function withTypeahead<T extends object>(merged: T): T {
+		const next: Record<string, unknown> = { ...(merged as Record<string, unknown>) };
 		for (const [key, handler] of Object.entries(store.popupTypeahead)) {
-			const before = merged[key] as Handler | undefined;
+			const before = next[key] as Handler | undefined;
 			next[key] = (event: Event) => {
 				before?.(event);
 				(handler as Handler)(event);
 			};
 		}
-		return next;
+		return next as T;
 	}
 </script>
 
 {#if csp.disableStyleElements !== true}
-	<svelte:element this={'style'} nonce={csp.nonce}>{DISABLE_SCROLLBAR_CSS}</svelte:element>
+	<svelte:element this={"style"} nonce={csp.nonce}>{DISABLE_SCROLLBAR_CSS}</svelte:element>
 {/if}
 <FloatingFocusManager
 	{store}

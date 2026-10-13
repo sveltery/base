@@ -13,7 +13,12 @@
 		ListNavigation,
 		Typeahead
 	} from '@sveltery/floating-ui-svelte';
-	import { createChangeEventDetails, REASONS, visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
+	import {
+		createChangeEventDetails,
+		REASONS,
+		visuallyHidden,
+		visuallyHiddenInput
+	} from '@sveltery/utils';
 	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
@@ -76,7 +81,9 @@
 	/** The item value a source value names, so a bound select keeps non-string values. */
 	function optionFor(raw: unknown): unknown {
 		const key = stringifyAsValue(raw, itemToStringValue as never);
-		return store.values.find((item) => stringifyAsValue(item, itemToStringValue as never) === key) ?? raw;
+		return (
+			store.values.find((item) => stringifyAsValue(item, itemToStringValue as never) === key) ?? raw
+		);
 	}
 
 	// svelte-ignore state_referenced_locally
@@ -88,8 +95,7 @@
 			if (multiple) return (Array.isArray(raw) ? raw.map(optionFor) : []) as SelectValue;
 			return (raw == null ? null : optionFor(raw)) as SelectValue;
 		},
-		equals: (a, b) =>
-			Array.isArray(a) && Array.isArray(b) ? sameStrings(a, b) : Object.is(a, b)
+		equals: (a, b) => (Array.isArray(a) && Array.isArray(b) ? sameStrings(a, b) : Object.is(a, b))
 	});
 
 	// `defaultValue` is the initial value of an empty binding, as in HTML.

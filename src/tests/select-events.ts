@@ -16,6 +16,7 @@ export async function fireHeldPress(target: Element, holdMs = 50) {
 	const up = { bubbles: true, cancelable: true, button: 0, buttons: 0 };
 	target.dispatchEvent(new PointerEvent('pointerdown', { ...down, pointerType: 'mouse' }));
 	target.dispatchEvent(new MouseEvent('mousedown', down));
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- a test wait, no component owns it
 	await new Promise((resolve) => setTimeout(resolve, holdMs));
 	target.dispatchEvent(new PointerEvent('pointerup', { ...up, pointerType: 'mouse' }));
 	target.dispatchEvent(new MouseEvent('mouseup', up));
@@ -57,5 +58,7 @@ export function scrollGeometry(geometry: {
 	};
 }
 
+// eslint-disable-next-line sveltery/no-unscoped-timer -- a test wait, no component owns it
 export const nextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+// eslint-disable-next-line sveltery/no-unscoped-timer -- a test wait, no component owns it
 export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

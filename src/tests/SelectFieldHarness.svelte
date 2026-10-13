@@ -49,7 +49,8 @@
 			<Field.Label data-testid="field-label" {...fieldLabelProps}>{fieldLabel}</Field.Label>
 		{/if}
 		{#if mounted}<SelectHarness bind:value bind:open {...select} />{/if}
-		{#if description}<Field.Description data-testid="description">{description}</Field.Description>{/if}
+		{#if description}<Field.Description data-testid="description">{description}</Field.Description
+			>{/if}
 		{#if errorText}
 			<Field.Error data-testid="error" match={errorMatch}>{errorText}</Field.Error>
 		{:else if error}

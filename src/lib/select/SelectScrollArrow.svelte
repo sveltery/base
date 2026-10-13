@@ -11,7 +11,10 @@
 	import { ScopedTimeout } from '@sveltery/utils';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { normalizeScrollOffset } from '../internal/scrollEdges.js';
-	import { getStateAttributesProps, transitionStatusMapping } from '../internal/state-attributes.js';
+	import {
+		getStateAttributesProps,
+		transitionStatusMapping
+	} from '../internal/state-attributes.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { useSelectPositioner, useSelectRoot } from './context.svelte.js';
 	import { getMaxScrollOffset, getTargetScrollTop } from './popup-utils.js';
