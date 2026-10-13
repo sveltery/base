@@ -130,11 +130,13 @@ Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps copied viewport controls 
 
 ### Tabbing out of a non-modal popup
 
-Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx` and `packages/react/src/popover/popup/PopoverPopup.tsx`. A non-modal popup inside a portal renders a leading guard and a trailing guard. `previousFocusableElement` is the trigger. `nextFocusableElement` is the trigger's trailing guard. The focus manager's leading guard is not merged with the trigger's `beforeContentFocusGuardRef`.
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`, `packages/react/src/popover/popup/PopoverPopup.tsx`, `packages/react/src/popover/trigger/PopoverTrigger.tsx` and `packages/react/src/utils/popups/useTriggerFocusGuards.ts`. A non-modal popup inside a portal renders a leading guard and a trailing guard. `previousFocusableElement` is the trigger. `nextFocusableElement` is the trigger's trailing guard. The focus manager's leading guard is merged with the trigger's `beforeContentFocusGuardRef`. `getInsideElements` counts the trigger's leading guard as inside, so Shift+Tab from the trigger does not close the popup before that guard's own handler runs.
 
 Shift+Tab from the popup's first control focuses the trigger and leaves the popup open, for the default `document.body` container and an inline container, including when `open` is set from another button. Tab from that open trigger focuses the first control again. That matches upstream.
 
-Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the trigger that opened the popup still closes onto the control before the trigger. A popup opened through `open` claims its only trigger, as upstream `useImplicitActiveTrigger` does, so Shift+Tab from that trigger closes a popover and leaves a dialog open, as React does. A focus-out close does not return focus, including when `finalFocus` is `null`, an element, or a function. The function is not called. React calls that function and ignores the result. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once.
+Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the trigger that opened the popup still closes onto the control before the trigger. A popup opened through `open` claims its only trigger, as upstream `useImplicitActiveTrigger` does, so Shift+Tab from that trigger closes a popover and leaves a dialog open, as React does. A focus-out close does not return focus, including when `finalFocus` is `null`, an element, or a function. The function is not called. React calls that function and ignores the result. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once. The port's focus manager does not merge its leading guard with `beforeContentFocusGuardRef`, and it counts every Base UI focus guard as inside instead of taking `getInsideElements`.
+
+Test: `src/lib/popover/PopoverFocusGuards.svelte.spec.ts`.
 
 ### Disabled trigger in a hover switch
 
@@ -339,6 +341,6 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
 | Dialog             | ref objects                                                                                            |
 | AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |
-| Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
+| Tooltip            | refs                                                                                                   |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
