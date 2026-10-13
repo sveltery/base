@@ -1,20 +1,21 @@
 <!--
 	An accessible label that is automatically associated with the slider thumbs.
 	Renders a `<div>` element.
-	Derived from Base UI v1.8.0 packages/react/src/slider/label/SliderLabel.tsx
+	Derived from Base UI v1.9.0 packages/react/src/slider/label/SliderLabel.tsx
 	and packages/react/src/internals/labelable-provider/useLabel.ts
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The label id is registered after mount, so server HTML does not set aria-labelledby yet.
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { getControlById } from '../internal/useLabel.js';
 	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { ownerDocument, getTarget } from '@sveltery/utils';
-	import { focusElement, isElement } from './dom.js';
+	import { closest, getTarget } from '@sveltery/utils';
+	import { focusElement } from './dom.js';
 	import type { SliderLabelProps, SliderRootState } from './types.js';
 
 	let { render, children, onclick, onpointerdown, ...elementProps }: SliderLabelProps = $props();
@@ -40,7 +41,7 @@
 	function focusControl(event: MouseEvent) {
 		const controlId = labelable?.controlId;
 		if (controlId) {
-			const controlElement = ownerDocument(event.currentTarget as Node).getElementById(controlId);
+			const controlElement = getControlById(event.currentTarget as Element, controlId);
 			if (controlElement instanceof HTMLElement) {
 				focusElement(controlElement, { focusVisible: true });
 				return;
@@ -54,8 +55,7 @@
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
 		onclick?.(event);
-		const target = getTarget(event);
-		if (isElement(target) && target.closest('button,input,select,textarea')) return;
+		if (closest(getTarget(event), 'button,input,select,textarea')) return;
 		if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
 		if (event.defaultPrevented) return;
 		focusControl(event);

@@ -1,14 +1,15 @@
 <!--
 	An accessible label that is automatically associated with the field control.
 	Renders a `<label>` element.
-	Derived from Base UI v1.8.0 packages/react/src/field/label/FieldLabel.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/field/label/FieldLabel.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { error } from '@sveltery/utils';
+	import { closest, error, getTarget } from '@sveltery/utils';
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
+	import { getControlById } from '../internal/useLabel.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
@@ -78,16 +79,15 @@
 		const controlId = labelable.controlId;
 		if (!controlId) return;
 		const current = event.currentTarget;
-		const doc = current instanceof Node ? (current.ownerDocument ?? document) : document;
-		const control = doc.getElementById(controlId);
+		if (!(current instanceof Element)) return;
+		const control = getControlById(current, controlId);
 		if (control instanceof HTMLElement) {
 			control.focus({ focusVisible: true } as FocusOptions);
 		}
 	}
 
 	function handleInteraction(event: MouseEvent) {
-		const target = event.target;
-		if (target instanceof Element && target.closest('button,input,select,textarea')) return;
+		if (closest(getTarget(event), 'button,input,select,textarea')) return;
 		if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
 		if (nativeLabel) return;
 		focusControl(event);

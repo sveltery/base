@@ -1,6 +1,6 @@
-// Derived from Base UI v1.8.0 packages/react/src/field/root/FieldRoot.tsx,
+// Derived from Base UI v1.9.0 packages/react/src/field/root/FieldRoot.tsx,
 // useFieldValidation.ts and useFieldControlRegistration.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { untrack } from 'svelte';
 import { ScopedTimeout } from '@sveltery/utils';
@@ -53,6 +53,8 @@ export interface FieldContext {
 	setDirty: (value: boolean) => void;
 	setFilled: (value: boolean) => void;
 	setFocused: (value: boolean) => void;
+	/** The control the focused state belongs to. Written by `FieldFocusOwner`. */
+	focusOwner: unknown;
 	shouldValidateOnChange: () => boolean;
 	validateField: () => void;
 	registerControl: (source: symbol, registration: FieldControlRegistration | undefined) => void;
@@ -133,6 +135,7 @@ export class FieldRootModel implements FieldContext {
 	private touchedState = $state(false);
 	filled = $state(false);
 	focused = $state(false);
+	focusOwner: unknown = undefined;
 	inputElement = $state<HTMLElement | null>(null);
 
 	private markedDirty = false;

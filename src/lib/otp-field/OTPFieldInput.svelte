@@ -1,17 +1,19 @@
 <!--
 	An individual OTP character input. Renders an `<input>` element.
-	Derived from Base UI v1.8.0 packages/react/src/otp-field/input/OTPFieldInput.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/otp-field/input/OTPFieldInput.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The slot index comes from DOM order. Arrow direction follows `useDirection()`.
 -->
 <script lang="ts">
 	import { DEV } from 'esm-env';
 	import type { HTMLInputAttributes } from 'svelte/elements';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import {
 		createChangeEventDetails,
 		createGenericEventDetails,
+		platform,
 		REASONS,
 		warn
 	} from '@sveltery/utils';
@@ -31,6 +33,8 @@
 		onfocus,
 		onblur,
 		oninput,
+		oncompositionstart,
+		oncompositionend,
 		onkeydown,
 		onpaste,
 		...elementProps
@@ -39,7 +43,16 @@
 	const model = useOTPFieldContext();
 	const reading = useDirection();
 	let el = $state<HTMLInputElement | null>(null);
+	const focusOwner = new FieldFocusOwner(model.field, {
+		disabled: () => model.disabled,
+		target: () => el,
+		onFocusedChange: (focused) => (model.focused = focused)
+	});
 	const renderIndex = model.slots.claim();
+	// Safari reports in-progress IME text through `input` as an accumulating string (`d`, `dd`,
+	// `ddd`). Committing those would fill too many slots, so the text is buffered until
+	// `compositionend`.
+	let composingValue = $state<string | null>(null);
 
 	const index = $derived.by(() => {
 		if (!el) return renderIndex;
@@ -85,6 +98,7 @@
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onfocus?.(event);
 		if (event.defaultPrevented || model.disabled) return;
+		focusOwner.set(true);
 		model.handleInputFocus(index, event);
 	}
 
@@ -94,11 +108,11 @@
 		model.handleInputBlur(event);
 	}
 
-	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		oninput?.(event);
-		if (event.defaultPrevented || model.disabled || model.readOnly) return;
-
-		const rawValue = event.currentTarget.value;
+	function commitValue(
+		rawValue: string,
+		reason: typeof REASONS.inputChange | typeof REASONS.inputPaste,
+		event: Event & { currentTarget: EventTarget & HTMLInputElement }
+	) {
 		const [nextDigits, didRejectCharacters] = normalizeOTPValueWithDetails(
 			rawValue,
 			model.length,
@@ -107,10 +121,12 @@
 		);
 
 		if (didRejectCharacters) {
-			model.reportValueInvalid(rawValue, createGenericEventDetails(REASONS.inputChange, event));
+			model.reportValueInvalid(rawValue, createGenericEventDetails(reason, event));
 		}
 
 		if (nextDigits === '') {
+			// Typed input edits the slot in place. An empty or fully rejected paste changes nothing.
+			if (reason !== REASONS.inputChange) return;
 			if (rawValue === '') {
 				model.setValue(
 					removeOTPCharacter(model.value, index),
@@ -123,17 +139,16 @@
 			return;
 		}
 
-		const nextValue = replaceOTPValue(
-			model.value,
-			index,
-			nextDigits,
-			model.length,
-			model.validationType,
-			model.normalize
-		);
 		const committedValue = model.setValue(
-			nextValue,
-			createChangeEventDetails(REASONS.inputChange, event)
+			replaceOTPValue(
+				model.value,
+				index,
+				nextDigits,
+				model.length,
+				model.validationType,
+				model.normalize
+			),
+			createChangeEventDetails(reason, event)
 		);
 		const shown = committedValue ?? model.value;
 		event.currentTarget.value = shown[index] ?? '';
@@ -142,9 +157,39 @@
 		}
 	}
 
+	function handleCompositionStart(
+		event: CompositionEvent & { currentTarget: EventTarget & HTMLInputElement }
+	) {
+		oncompositionstart?.(event);
+		// Some Android keyboards report all text as composing, so Android commits on `input`.
+		if (!platform.os.android) composingValue = slotValue;
+	}
+
+	function handleCompositionEnd(
+		event: CompositionEvent & { currentTarget: EventTarget & HTMLInputElement }
+	) {
+		oncompositionend?.(event);
+		if (composingValue == null) return;
+		composingValue = null;
+		if (!model.disabled && !model.readOnly) {
+			commitValue(event.currentTarget.value, REASONS.inputChange, event);
+		}
+	}
+
+	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		oninput?.(event);
+		if (event.defaultPrevented || model.disabled || model.readOnly) return;
+		if (composingValue != null) {
+			composingValue = event.currentTarget.value;
+			return;
+		}
+		commitValue(event.currentTarget.value, REASONS.inputChange, event);
+	}
+
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onkeydown?.(event);
-		if (event.defaultPrevented || model.disabled) return;
+		// Keydowns inside a composition carry real key names, but the IME owns editing until it ends.
+		if (event.defaultPrevented || model.disabled || composingValue != null) return;
 
 		const firstIndex = 0;
 		const lastIndex = Math.max(model.length - 1, firstIndex);
@@ -232,42 +277,14 @@
 		}
 
 		event.preventDefault();
-
-		const [nextDigits, didRejectCharacters] = normalizeOTPValueWithDetails(
-			rawValue,
-			model.length,
-			model.validationType,
-			model.normalize
-		);
-
-		if (didRejectCharacters) {
-			model.reportValueInvalid(rawValue, createGenericEventDetails(REASONS.inputPaste, event));
-		}
-
-		if (nextDigits === '') return;
-
-		const committedValue = model.setValue(
-			replaceOTPValue(
-				model.value,
-				index,
-				nextDigits,
-				model.length,
-				model.validationType,
-				model.normalize
-			),
-			createChangeEventDetails(REASONS.inputPaste, event)
-		);
-
-		if (committedValue != null) {
-			model.queueFocusInput(Math.min(index + nextDigits.length, model.length - 1), committedValue);
-		}
+		commitValue(rawValue, REASONS.inputPaste, event);
 	}
 
 	const hostProps: HTMLInputAttributes = $derived({
 		...elementProps,
 		...getStateAttributesProps(inputState, inputStateAttributes),
 		id: model.getInputId(index),
-		value: slotValue,
+		value: composingValue ?? slotValue,
 		// After `value`, so setting it leaves the current value alone.
 		defaultValue: model.defaultValue[index] ?? '',
 		type: type ?? (model.mask ? 'password' : 'text'),
@@ -290,6 +307,8 @@
 		onfocus: handleFocus,
 		onblur: handleBlur,
 		oninput: handleInput,
+		oncompositionstart: handleCompositionStart,
+		oncompositionend: handleCompositionEnd,
 		onkeydown: handleKeyDown,
 		onpaste: handlePaste,
 		[model.slots.attachmentKey]: remember

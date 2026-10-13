@@ -1,6 +1,6 @@
-// Derived from Base UI v1.8.0 packages/react/src/scroll-area/root/ScrollAreaRoot.tsx
+// Derived from Base UI v1.9.0 packages/react/src/scroll-area/root/ScrollAreaRoot.tsx
 // and packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Element handles are `$state` fields. There is no React ref bag.
 // Reading direction is `useDirection()`, passed into the constructor.
 
@@ -15,6 +15,7 @@ import {
 	pickState
 } from './geometry.js';
 import { normalizeScrollOffset } from '../internal/scrollEdges.js';
+import { animationSettled, getFiniteAnimations } from '../internal/getFiniteAnimations.js';
 import { MIN_THUMB_SIZE, SCROLL_TIMEOUT } from './constants.js';
 import { orientationAttribute } from './attributes.js';
 import { OVERFLOW_EDGE_VARS, scrollAreaThumbHeight, scrollAreaThumbWidth } from './css-vars.js';
@@ -418,9 +419,9 @@ export class ScrollAreaModel {
 		resizeObserver.observe(viewport);
 
 		this.animationTimer.start(0, () => {
-			const animations = viewport.getAnimations({ subtree: true });
+			const animations = getFiniteAnimations(viewport, { subtree: true });
 			if (animations.length === 0) return;
-			Promise.allSettled(animations.map((animation) => animation.finished))
+			Promise.allSettled(animations.map(animationSettled))
 				.then(() => this.computeThumbPosition())
 				.catch(() => {});
 		});

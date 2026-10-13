@@ -1,8 +1,8 @@
 <!--
 	Represents the checkbox itself. Renders a `<span>` and a hidden checkbox beside it.
-	Derived from Base UI v1.8.0 packages/react/src/checkbox/root/CheckboxRoot.tsx
+	Derived from Base UI v1.9.0 packages/react/src/checkbox/root/CheckboxRoot.tsx
 	and the native-label fallback of useAriaLabelledBy.ts
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	An optional CheckboxGroup context supplies the shared value. When that group
 	sets `allValues`, `parent` toggles the set and other checkboxes register with it.
 -->
@@ -38,6 +38,7 @@
 	} from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { getDefaultFormSubmitter } from '../internal/getDefaultFormSubmitter.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import type { CheckboxHostProps, CheckboxRootProps, CheckboxRootState } from './types.js';
 
 	const uid = $props.id();
@@ -158,7 +159,8 @@
 	const ariaLabelledBy = new AriaLabelledBy(labelable, {
 		explicit: () => ariaLabelledByProp ?? undefined,
 		input: () => (nativeButton ? null : inputNode),
-		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined)
+		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined),
+		ariaLabel: () => elementProps['aria-label']
 	});
 	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
 	const invalid = $derived(field.valid === false && !isDisabled);
@@ -311,6 +313,10 @@
 	}
 
 	const button = new ButtonBehavior(() => ({ disabled: isDisabled, native: nativeButton }));
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => isDisabled,
+		target: () => rootNode
+	});
 	let enterHeld = false;
 
 	function handleInputFocus() {
@@ -319,7 +325,7 @@
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
 		onfocus?.(event);
-		if (!isDisabled) field.setFocused(true);
+		focusOwner.set(true);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
@@ -327,7 +333,7 @@
 		const input = inputNode;
 		if (!input) return;
 		field.setTouched(true);
-		field.setFocused(false);
+		focusOwner.set(false);
 		if (field.validationMode === 'onBlur') field.commit(group ? group.value : input.checked);
 	}
 

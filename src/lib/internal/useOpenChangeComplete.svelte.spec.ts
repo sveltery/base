@@ -42,37 +42,41 @@ describe('useOpenChangeComplete', () => {
 	});
 
 	it('waits for the batched microtask when batch is true', async () => {
-		const element = document.createElement('div');
-		let notify: (() => void) | undefined;
-		const finished = {
-			then(onFulfilled?: (() => void) | null) {
-				if (onFulfilled) notify = onFulfilled;
-				return Promise.resolve();
-			}
-		};
-		let saw = false;
-		element.getAnimations = () => {
-			saw = true;
-			return [{ finished, pending: false, playState: 'finished' }] as unknown as ReturnType<
-				HTMLElement['getAnimations']
-			>;
-		};
-		let done = 0;
-		render(OpenChangeHarness, {
-			open: false,
-			batch: true,
-			element,
-			onComplete: () => {
-				done += 1;
-			}
-		});
+		async function microtasksUntilDone(batch: boolean) {
+			const element = document.createElement('div');
+			let notify: (() => void) | undefined;
+			const finished = new Promise<void>((resolve) => (notify = resolve));
+			let read = false;
+			element.getAnimations = () => {
+				read = true;
+				return [{ finished, pending: false, playState: 'finished' }] as unknown as ReturnType<
+					HTMLElement['getAnimations']
+				>;
+			};
+			let ticks = 0;
+			let doneAt = -1;
+			const view = render(OpenChangeHarness, {
+				open: false,
+				batch,
+				element,
+				onComplete: () => {
+					doneAt = ticks;
+				}
+			});
 
-		await expect.poll(() => saw && notify != null).toBe(true);
-		notify?.();
-		await Promise.resolve();
-		expect(done).toBe(0);
-		await Promise.resolve();
-		expect(done).toBe(1);
-		element.remove();
+			await expect.poll(() => read).toBe(true);
+			const tick = () => {
+				ticks += 1;
+				if (doneAt < 0 && ticks < 20) queueMicrotask(tick);
+			};
+			notify?.();
+			queueMicrotask(tick);
+			await expect.poll(() => doneAt).toBeGreaterThanOrEqual(0);
+			view.unmount();
+			return doneAt;
+		}
+
+		const unbatched = await microtasksUntilDone(false);
+		expect(await microtasksUntilDone(true)).toBe(unbatched + 1);
 	});
 });

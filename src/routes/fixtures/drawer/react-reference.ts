@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart of DrawerFixture.svelte. Comparison only; never imported by src/lib.
+// React Base UI 1.9.0 counterpart of DrawerFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, Fragment, useEffect, useState } from 'react';
 import { Drawer } from '@base-ui/react/drawer';
 import { mountApp, passProps } from '../react-fixture.js';

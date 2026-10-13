@@ -1,6 +1,6 @@
 # Repository guidance
 
-Sveltery Base is a Svelte 5 port of [Base UI](https://base-ui.com/), pinned to v1.8.0 commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The repository is a pnpm workspace. The base library is the root package, in `src/lib`. Fixtures and their React Base UI references are `src/routes/fixtures`. `packages/utils` (`@sveltery/utils`) holds the shared helpers that Base UI keeps in `@base-ui/utils`. `packages/floating-ui-svelte` (`@sveltery/floating-ui-svelte`) holds the Svelte version of Base UI's floating-ui fork. Packages never import the base library, and the base library imports a package only by its name. [docs/porting.md](docs/porting.md) is the rulebook for turning Base UI code into Svelte. Read it before you port anything.
+Sveltery Base is a Svelte 5 port of [Base UI](https://base-ui.com/), pinned to v1.9.0 commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`. The repository is a pnpm workspace. The base library is the root package, in `src/lib`. Fixtures and their React Base UI references are `src/routes/fixtures`. `packages/utils` (`@sveltery/utils`) holds the shared helpers that Base UI keeps in `@base-ui/utils`. `packages/floating-ui-svelte` (`@sveltery/floating-ui-svelte`) holds the Svelte version of Base UI's floating-ui fork. Packages never import the base library, and the base library imports a package only by its name. [docs/porting.md](docs/porting.md) is the rulebook for turning Base UI code into Svelte. Read it before you port anything.
 
 ## Port the intent, not the React code
 
@@ -19,7 +19,7 @@ Sveltery Base is a Svelte 5 port of [Base UI](https://base-ui.com/), pinned to v
 
 ## Upstream bugs
 
-- Fix an upstream bug that Base UI v1.9.0 already fixed, and note the fix in [docs/upstream-differences.md](docs/upstream-differences.md).
+- Fix an upstream bug that a newer Base UI release already fixed, and note the fix in [docs/upstream-differences.md](docs/upstream-differences.md).
 - For any other upstream bug, keep the upstream behavior while the paired React fixture is the oracle, and file a GitHub issue.
 
 ## Dependencies
@@ -38,7 +38,7 @@ Form and Field are a headless form library inside the components. Keep all four 
 
 ## Attribution
 
-Keep the MIT attribution header on ported files and update [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Keep the MIT attribution header on ported files and update [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The header names the Base UI version the file follows. A file whose header still says v1.8.0 follows upstream code that changed in v1.9.0 and is not ported yet. `node scripts/provenance-bump.mjs` lists those files with the upstream commits that block them, and moves a header once the file follows the pin.
 
 ## Verify
 

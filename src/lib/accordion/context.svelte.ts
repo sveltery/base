@@ -1,6 +1,6 @@
-// Derived from Base UI v1.8.0 packages/react/src/accordion/root/AccordionRootContext.ts
+// Derived from Base UI v1.9.0 packages/react/src/accordion/root/AccordionRootContext.ts
 // and packages/react/src/accordion/item/AccordionItemContext.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { untrack } from 'svelte';
 import { ElementList } from '../internal/element-list.svelte.js';

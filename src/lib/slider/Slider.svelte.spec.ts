@@ -1,8 +1,9 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/slider/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commits e29ae4c31, 0b7b639d0 and 53e533a48 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance, ref, inputRef, and className callbacks are not ported.
-import { page } from 'vitest/browser';
-import { describe, expect, it, vi } from 'vitest';
+import { cdp, page } from 'vitest/browser';
+import { describe, expect, it, onTestFinished, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import SliderHarness from '../../tests/SliderHarness.svelte';
 
@@ -61,8 +62,8 @@ function pointer(target: Element, type: string, clientX: number, init: PointerEv
 	);
 }
 
-function touch(target: EventTarget, type: string, clientX: number) {
-	const point = new Touch({ identifier: 1, target: document.body, clientX, clientY: 0 });
+function touch(target: EventTarget, type: string, clientX: number, identifier = 1) {
+	const point = new Touch({ identifier, target: document.body, clientX, clientY: 0 });
 	target.dispatchEvent(
 		new TouchEvent(type, {
 			bubbles: true,
@@ -817,5 +818,251 @@ describe('<Slider />', () => {
 		await expect
 			.poll(() => page.getByTestId('commit-tracking').element().textContent)
 			.toBe('false');
+	});
+});
+
+describe('single-element array value', () => {
+	it('stays an array on track press', async () => {
+		const onValueChange = vi.fn();
+		const onValueCommitted = vi.fn();
+		render(SliderHarness, { defaultValue: [25], onValueChange, onValueCommitted });
+		mockControlRect();
+
+		pointer(control(), 'pointerdown', 50);
+		pointer(document.body, 'pointerup', 50);
+
+		expect(onValueChange.mock.calls[0][0]).toEqual([50]);
+		expect(onValueCommitted.mock.calls[0][0]).toEqual([50]);
+	});
+
+	it('stays an array when validated on blur', async () => {
+		const validate = vi.fn(() => null);
+		render(SliderHarness, {
+			scenario: 'field',
+			validationMode: 'onBlur',
+			defaultValue: [25],
+			validate
+		});
+
+		slider().dispatchEvent(new FocusEvent('blur', { bubbles: true }));
+
+		await expect.poll(() => validate.mock.calls.length).toBe(1);
+		expect(validate.mock.calls[0]).toEqual([[25], expect.anything()]);
+	});
+});
+
+describe('touch and pen gestures', () => {
+	it.each(['touch', 'pen'])('commits a %s track tap', async (pointerType) => {
+		const onValueCommitted = vi.fn();
+		render(SliderHarness, { defaultValue: 0, onValueCommitted });
+		mockControlRect();
+
+		// Browsers fire pointer events before the compatibility touch events, Apple Pencil too.
+		pointer(control(), 'pointerdown', 50, { pointerType });
+		touch(control(), 'touchstart', 50);
+		pointer(control(), 'pointerup', 50, { pointerType });
+		touch(document.body, 'touchend', 50);
+
+		expect(onValueCommitted.mock.calls.map((call) => call[0])).toEqual([50]);
+	});
+
+	it('commits a real touch track tap', async () => {
+		const onValueCommitted = vi.fn();
+		const style = document.head.appendChild(document.createElement('style'));
+		style.textContent = '[data-testid="control"] { width: 200px; height: 20px; }';
+		onTestFinished(() => style.remove());
+		render(SliderHarness, { defaultValue: 0, onValueCommitted });
+		const rect = control().getBoundingClientRect();
+		// The tester runs in a scaled iframe, and CDP takes top-level page coordinates.
+		const frameRect = window.frameElement?.getBoundingClientRect() ?? new DOMRect();
+		const scale = frameRect.width / window.innerWidth || 1;
+		const touchPoints = [
+			{
+				x: frameRect.left + (rect.left + rect.width / 2) * scale,
+				y: frameRect.top + (rect.top + rect.height / 2) * scale
+			}
+		];
+
+		const session = cdp();
+		await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints });
+		await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+
+		await expect.poll(() => onValueCommitted.mock.calls.length).toBe(1);
+		expect(onValueCommitted.mock.calls[0][0]).toBe(50);
+	});
+
+	it('keeps tracking a touch drag with touch listeners after the browser cancels the pointer', async () => {
+		const onValueCommitted = vi.fn();
+		render(SliderHarness, { defaultValue: 0, onValueCommitted });
+		mockControlRect();
+
+		pointer(control(), 'pointerdown', 50, { pointerType: 'touch' });
+		touch(control(), 'touchstart', 50);
+		// Without `touch-action: none`, the browser cancels the pointer once it starts panning.
+		pointer(control(), 'pointercancel', 50, { pointerType: 'touch' });
+		touch(document.body, 'touchmove', 70);
+		touch(document.body, 'touchend', 70);
+
+		expect(onValueCommitted.mock.calls.map((call) => call[0])).toEqual([70]);
+	});
+
+	it.each(['mouse', 'pen', 'touch'])(
+		'handles a touch press normally after a cancelled %s gesture',
+		async (pointerType) => {
+			const onValueChange = vi.fn();
+			const onValueCommitted = vi.fn();
+			let preventPointerDown = false;
+			render(SliderHarness, {
+				defaultValue: 0,
+				onValueChange,
+				onValueCommitted,
+				controlPointerDown: (event) => {
+					if (preventPointerDown) event.preventDefault();
+				}
+			});
+			mockControlRect();
+
+			pointer(control(), 'pointerdown', 50, { pointerType });
+			if (pointerType === 'touch') touch(control(), 'touchstart', 50);
+			expect(onValueChange.mock.lastCall?.[0]).toBe(50);
+			pointer(control(), 'pointercancel', 50, { pointerType });
+			if (pointerType === 'touch') touch(document.body, 'touchcancel', 50);
+			onValueCommitted.mockClear();
+
+			// A prevented pointerdown leaves the press to the touch handler.
+			preventPointerDown = true;
+			pointer(control(), 'pointerdown', 30, { pointerType: 'touch', pointerId: 2 });
+			touch(control(), 'touchstart', 30, 2);
+			expect(onValueChange.mock.lastCall?.[0]).toBe(30);
+
+			pointer(control(), 'pointerup', 30, { pointerType: 'touch', pointerId: 2 });
+			touch(document.body, 'touchend', 30, 2);
+			expect(onValueCommitted.mock.calls.map((call) => call[0])).toEqual([30]);
+		}
+	);
+
+	it.each(['touch', 'pen'])(
+		'does not change the value on a %s tap on the thumb',
+		async (pointerType) => {
+			const onValueChange = vi.fn();
+			render(SliderHarness, { defaultValue: 100, step: 3, onValueChange });
+			mockControlRect();
+			const thumb = page.getByTestId('thumb').element();
+			vi.spyOn(thumb, 'getBoundingClientRect').mockImplementation(() => new DOMRect(95, 0, 10, 10));
+
+			pointer(thumb, 'pointerdown', 100, { pointerType });
+			touch(thumb, 'touchstart', 100);
+			pointer(thumb, 'pointerup', 100, { pointerType });
+			touch(document.body, 'touchend', 100);
+
+			expect(onValueChange).not.toHaveBeenCalled();
+		}
+	);
+});
+
+describe('cancelled gestures', () => {
+	function setup() {
+		const onValueChange = vi.fn();
+		const onValueCommitted = vi.fn();
+		const view = render(SliderHarness, { defaultValue: 20, onValueChange, onValueCommitted });
+		mockControlRect();
+		const committed = () =>
+			onValueCommitted.mock.calls.map(([value, details]) => [value, details.reason]);
+		return { view, onValueChange, committed };
+	}
+
+	it.each(['touchend', 'touchcancel'])(
+		'ignores %s from another finger during a touch drag',
+		async (type) => {
+			const { onValueChange, committed } = setup();
+
+			pointer(control(), 'pointerdown', 40, { pointerType: 'touch' });
+			touch(control(), 'touchstart', 40);
+			touch(document.body, 'touchmove', 70);
+			touch(document.body, 'touchstart', 90, 2);
+			touch(document.body, type, 90, 2);
+
+			expect(committed()).toEqual([]);
+			await expect.poll(() => control().hasAttribute('data-dragging')).toBe(true);
+
+			touch(document.body, 'touchmove', 80);
+			expect(onValueChange.mock.lastCall?.[0]).toBe(80);
+
+			touch(document.body, 'touchcancel', 80);
+			expect(committed()).toEqual([[80, 'drag']]);
+			await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
+		}
+	);
+
+	it.each(['mouse', 'pen'])(
+		'ends a cancelled %s drag after disabling and re-enabling during a touch drag',
+		async (pointerType) => {
+			const { view, onValueChange, committed } = setup();
+
+			pointer(control(), 'pointerdown', 40, { pointerType: 'touch' });
+			touch(control(), 'touchstart', 40);
+			await view.rerender({ disabled: true });
+			touch(document.body, 'touchcancel', 40);
+			await view.rerender({ disabled: false });
+
+			const init = { pointerType, pointerId: 7 };
+			pointer(control(), 'pointerdown', 50, init);
+			pointer(document.body, 'pointermove', 70, init);
+			pointer(document.body, 'pointercancel', 70, init);
+
+			expect(committed()).toEqual([[70, 'drag']]);
+			await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
+
+			onValueChange.mockClear();
+			pointer(document.body, 'pointermove', 90, init);
+			pointer(document.body, 'pointerup', 90, init);
+			expect(onValueChange).not.toHaveBeenCalled();
+			expect(committed()).toHaveLength(1);
+		}
+	);
+
+	it.each(['mouse', 'pen'])('commits and ends a %s drag on pointercancel', async (pointerType) => {
+		const { onValueChange, committed } = setup();
+		const init = { pointerType, pointerId: 7 };
+
+		pointer(control(), 'pointerdown', 40, init);
+		pointer(document.body, 'pointermove', 70, init);
+		await expect.poll(() => control().hasAttribute('data-dragging')).toBe(true);
+
+		pointer(document.body, 'pointercancel', 70, init);
+
+		expect(committed()).toEqual([[70, 'drag']]);
+		await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
+
+		onValueChange.mockClear();
+		pointer(document.body, 'pointerdown', 90, init);
+		pointer(document.body, 'pointermove', 90, init);
+		pointer(document.body, 'pointerup', 90, init);
+		expect(onValueChange).not.toHaveBeenCalled();
+		expect(committed()).toHaveLength(1);
+	});
+
+	it('keeps a touch drag going after pointercancel and ends it on touchcancel', async () => {
+		const { onValueChange, committed } = setup();
+
+		pointer(control(), 'pointerdown', 40, { pointerType: 'touch' });
+		touch(control(), 'touchstart', 40);
+		// Without `touch-action: none`, the browser cancels the pointer once it starts panning.
+		pointer(document.body, 'pointercancel', 40, { pointerType: 'touch' });
+		touch(document.body, 'touchmove', 70);
+		expect(onValueChange.mock.lastCall?.[0]).toBe(70);
+
+		touch(document.body, 'touchcancel', 70);
+		expect(committed()).toEqual([[70, 'drag']]);
+		await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
+
+		onValueChange.mockClear();
+		pointer(document.body, 'pointerdown', 90, { pointerType: 'touch', pointerId: 2 });
+		touch(document.body, 'touchstart', 90, 2);
+		touch(document.body, 'touchmove', 90, 2);
+		pointer(document.body, 'pointerup', 90, { pointerType: 'touch', pointerId: 2 });
+		touch(document.body, 'touchend', 90, 2);
+		expect(onValueChange).not.toHaveBeenCalled();
+		expect(committed()).toHaveLength(1);
 	});
 });

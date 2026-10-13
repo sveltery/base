@@ -1,4 +1,4 @@
-// Each case runs against the Svelte Collapsible and the React Base UI 1.8.0 reference.
+// Each case runs against the Svelte Collapsible and the React Base UI 1.9.0 reference.
 import { expect, test, type Page } from '@playwright/test';
 import { openFixture } from '../open-fixture.js';
 
@@ -75,14 +75,13 @@ for (const reference of [false, true]) {
 			expect(await calls(page)).toEqual([{ open: true, reason: 'trigger-press', canceled: true }]);
 		});
 
-		test('disabled stays focusable and does not open', async ({ page }) => {
+		test('disabled is not focusable and does not open', async ({ page }) => {
 			const { trigger, panel } = await open(page, 'disabled', reference);
-			await expect(trigger).toHaveAttribute('aria-disabled', 'true');
+			await expect(trigger).toBeDisabled();
+			await expect(trigger).not.toHaveAttribute('aria-disabled');
 			await expect(trigger).toHaveAttribute('data-disabled', '');
 			await trigger.focus();
-			await expect(trigger).toBeFocused();
-			await page.keyboard.press('Enter');
-			// Playwright will not click an aria-disabled button unless forced.
+			await expect(trigger).not.toBeFocused();
 			await trigger.click({ force: true });
 			await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 			await expect(panel).toHaveCount(0);
