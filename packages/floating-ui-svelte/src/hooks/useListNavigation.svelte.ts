@@ -1,6 +1,6 @@
 // Derived from Base UI v1.9.0 packages/react/src/floating-ui-react/hooks/useListNavigation.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// Grid navigation is not ported. Each upstream layout effect reads its dependency list through
+// Grid navigation is injected through `grid`. Each upstream layout effect reads its dependency list through
 // `$derived` fields and runs its body untracked, so a prop it does not list never re-runs it.
 
 import { untrack } from 'svelte';
@@ -90,7 +90,22 @@ export interface UseListNavigationProps {
 	externalTree?: FloatingTreeStore;
 	/** Focus target when a nested list returns to a virtually focused parent. */
 	nestedReturnFocus?: () => HTMLElement | null;
+	/** Two-dimensional navigation for grid-capable consumers, such as `gridNavigation`. */
+	grid?: GridNavigator;
 }
+
+/** Returns the next index, or `prevIndex` for a key it does not handle. */
+export type GridNavigator = (
+	event: KeyboardEvent,
+	prevIndex: number,
+	items: ReadonlyArray<HTMLElement | null>,
+	orientation: ListOrientation,
+	loopFocus: boolean,
+	rtl: boolean,
+	disabledIndices: DisabledIndices | undefined,
+	minIndex: number,
+	maxIndex: number
+) => number | undefined;
 
 type Props = HTMLAttributes<HTMLElement>;
 
@@ -159,6 +174,11 @@ export class ListNavigation {
 		}
 		if (initial.allowEscape && !initial.virtual) {
 			warn('`ListNavigation` must be virtual to allow escaping.');
+		}
+		if (initial.orientation === 'vertical' && initial.grid) {
+			warn(
+				'In grid list navigation mode, the `orientation` should be either "horizontal" or "both".'
+			);
 		}
 		this.#focusItemOnOpen = initial.focusItemOnOpen;
 		this.#index = initial.selectedIndex ?? -1;
@@ -265,7 +285,8 @@ export class ListNavigation {
 			parentOrientation: props.parentOrientation,
 			id: props.id,
 			resetOnPointerLeave: props.resetOnPointerLeave ?? true,
-			nestedReturnFocus: props.nestedReturnFocus
+			nestedReturnFocus: props.nestedReturnFocus,
+			grid: props.grid
 		};
 	}
 
@@ -402,10 +423,11 @@ export class ListNavigation {
 			loopFocus,
 			allowEscape,
 			disabledIndices,
-			nestedReturnFocus
+			nestedReturnFocus,
+			grid
 		} = this.#options();
 
-		if (nested && isCrossOrientationCloseKey(event.key, orientation, rtl)) {
+		if (nested && isCrossOrientationCloseKey(event.key, orientation, rtl, grid != null)) {
 			// When the close key also navigates the parent, let the parent see it.
 			if (!isMainOrientationKey(event.key, this.#parentOrientation())) stopEvent(event);
 			this.store.setOpen(false, createChangeEventDetails(REASONS.listNavigation, event));
@@ -441,6 +463,26 @@ export class ListNavigation {
 				this.#index = maxIndex;
 				this.#navigate(event);
 			}
+		}
+
+		if (grid) {
+			const index = grid(
+				event,
+				this.#index,
+				list,
+				orientation,
+				loopFocus,
+				rtl,
+				disabledIndices,
+				minIndex,
+				maxIndex
+			);
+			// An unhandled key returns the current index. Reporting it would re-emit the highlight.
+			if (index != null && index !== this.#index) {
+				this.#index = index;
+				this.#navigate(event);
+			}
+			if (orientation === 'both') return;
 		}
 
 		if (!isMainOrientationKey(event.key, orientation)) return;

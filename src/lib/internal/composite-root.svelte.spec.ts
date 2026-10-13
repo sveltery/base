@@ -1,6 +1,7 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import CompositeClaimHarness from '../../tests/CompositeClaimHarness.svelte';
 import CompositeRootHarness from '../../tests/CompositeRootHarness.svelte';
 
 function stops(role: string) {
@@ -57,6 +58,24 @@ describe('composite root', () => {
 		page.getByRole('link', { name: 'Docs' }).element().focus();
 		await userEvent.keyboard('{Space}');
 		await expect.element(page.getByTestId('clicks')).toHaveTextContent('0');
+	});
+
+	it('makes a new enabled item the stop after the only enabled item leaves and its index is reused', async () => {
+		render(CompositeClaimHarness);
+		await userEvent.click(page.getByRole('button', { name: 'Leave' }));
+		expect(JSON.parse(page.getByTestId('report').element().textContent ?? '{}')).toEqual({
+			indexC: 2,
+			indexD: 2,
+			tab: 0
+		});
+	});
+
+	it('keeps the tab stop on an item whose element is replaced', async () => {
+		render(CompositeClaimHarness);
+		await userEvent.click(page.getByRole('button', { name: 'Swap' }));
+		expect(JSON.parse(page.getByTestId('report').element().textContent ?? '{}')).toEqual({
+			tab: -1
+		});
 	});
 
 	it('keeps the activation click when the value write is flushed', async () => {
