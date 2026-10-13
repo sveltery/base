@@ -413,9 +413,9 @@ for (const reference of [false, true]) {
 }
 
 // Base UI v1.9.0 fixed the viewport resuming timers that hover or focus still hold. The port
-// follows v1.9.0 (docs/upstream-differences.md, "Deferred mouseleave while the window is
-// blurred"), so these two cases fail on the 1.8.0 React reference: there a mouseleave, or focus
-// leaving the viewport, resumes the timers and closes the toast under the other interaction.
+// follows v1.9.0 (docs/upstream-differences.md, "Timers resume while hover or focus still
+// holds them"), so these two cases fail on the 1.8.0 React reference: there a mouseleave, or
+// focus leaving the viewport, resumes the timers and closes the toast under the other interaction.
 test.describe('svelte', () => {
 	test('svelte only: a mouseleave keeps timers paused while the viewport holds focus', async ({
 		page
