@@ -229,6 +229,31 @@ describe('ContextMenu', () => {
 		await expect.poll(shown('popup')).toBe(false);
 	});
 
+	it('unmounts a menu kept mounted by preventUnmountOnClose through the bound root', async () => {
+		let root = $state<{ close(): void; unmount(): void }>();
+		render(ContextMenuHarness, {
+			get root() {
+				return root;
+			},
+			set root(next) {
+				root = next;
+			},
+			rootProps: {
+				onOpenChange(_open: boolean, details: ContextMenuRootChangeEventDetails) {
+					details.preventUnmountOnClose();
+				}
+			}
+		});
+		contextMenu(get('trigger'), { clientX: 30, clientY: 30 });
+		await expect.poll(shown('popup')).toBe(true);
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => get('popup').hasAttribute('data-open')).toBe(false);
+		expect(byTestId('popup')).not.toBeNull();
+
+		root!.unmount();
+		await expect.poll(shown('popup')).toBe(false);
+	});
+
 	it('opens a context menu from an item of another context menu', async () => {
 		render(ContextMenuHarness, { scenario: 'in-popup' });
 		contextMenu(get('outer-trigger'), { clientX: 20, clientY: 20 });
