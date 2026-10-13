@@ -19,6 +19,7 @@
 		| 'checkbox'
 		| 'switch'
 		| 'radio-group'
+		| 'number-radio-group'
 		| 'checkbox-group'
 		| 'number-field'
 		| 'slider'
@@ -43,6 +44,7 @@
 		checkbox: ['agree', 'checkbox'],
 		switch: ['alerts', 'switch'],
 		'radio-group': ['plan', 'radio'],
+		'number-radio-group': ['seats', 'radio'],
 		'checkbox-group': ['tags', 'checkbox'],
 		'number-field': ['seats', 'number'],
 		slider: ['volume', 'range'],
@@ -61,6 +63,11 @@
 		<RadioGroup defaultValue="free">
 			<Radio.Root value="free" data-testid="free" style={box} />
 			<Radio.Root value="pro" data-testid="pro" style={box} />
+		</RadioGroup>
+	{:else if scenario === 'number-radio-group'}
+		<RadioGroup defaultValue={1}>
+			<Radio.Root value={1} data-testid="one" style={box} />
+			<Radio.Root value={2} data-testid="two" style={box} />
 		</RadioGroup>
 	{:else if scenario === 'checkbox-group'}
 		<CheckboxGroup defaultValue={['svelte']}>
