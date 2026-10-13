@@ -132,10 +132,12 @@
 {:else if scenario === 'field-disabled-chips'}
 	<Field.Root disabled>
 		<Combobox.Root items={['apple', 'banana']} multiple defaultValue={['apple']} {...root}>
-			<Combobox.Chips data-testid="chips">
-				<Combobox.Chip>apple</Combobox.Chip>
-				<Combobox.Input data-testid="input" />
-			</Combobox.Chips>
+			<Combobox.InputGroup data-testid="input-group" style="padding: 10px">
+				<Combobox.Chips data-testid="chips">
+					<Combobox.Chip>apple</Combobox.Chip>
+					<Combobox.Input data-testid="input" />
+				</Combobox.Chips>
+			</Combobox.InputGroup>
 			<Combobox.Portal>
 				<Combobox.Positioner>
 					<Combobox.Popup>

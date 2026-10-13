@@ -56,6 +56,7 @@
 		chipProps = {},
 		chipRemoveProps = {},
 		inputGroup = false,
+		inputGroupProps = {},
 		empty,
 		status,
 		valueText = false,
@@ -121,6 +122,7 @@
 		chipProps?: Record<string, unknown>;
 		chipRemoveProps?: Record<string, unknown>;
 		inputGroup?: boolean;
+		inputGroupProps?: Record<string, unknown>;
 		empty?: string;
 		status?: string;
 		valueText?: boolean;
@@ -402,7 +404,9 @@
 				{#if icon}<Combobox.Icon data-testid="icon" />{/if}
 			</Combobox.Trigger>
 		{:else if inputGroup}
-			<Combobox.InputGroup data-testid="input-group">{@render control()}</Combobox.InputGroup>
+			<Combobox.InputGroup data-testid="input-group" {...inputGroupProps}
+				>{@render control()}</Combobox.InputGroup
+			>
 		{:else if inputWrapper}
 			<div style="padding: 10px">
 				<span data-testid="pad">padding</span>
