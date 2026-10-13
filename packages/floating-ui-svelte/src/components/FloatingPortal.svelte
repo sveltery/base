@@ -182,15 +182,18 @@
 
 	// Upstream FloatingPortal.tsx 277–291. Focus from outside enters through the trailing
 	// inside guard. Focus from inside closes and moves to the control after the trigger.
+	// The focus move can close this popup and clear `focusState`, so read it first, as the
+	// upstream handler reads the state of the render that attached it.
 	function focusAfterOutside(event: FocusEvent) {
-		if (!portalNode || !focusState) return;
+		const state = focusState;
+		if (!portalNode || !state) return;
 		if (isOutsideEvent(event, portalNode)) {
 			guards.afterInside?.focus();
 			return;
 		}
-		const reference = focusState.domReference;
+		const reference = state.domReference;
 		if (reference instanceof Element) getNextTabbableInDocument(reference)?.focus();
-		if (focusState.closeOnFocusOut) focusState.close(event);
+		if (state.closeOnFocusOut) state.close(event);
 	}
 
 	let carriedFocus: HTMLElement | null = null;
