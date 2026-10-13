@@ -1,5 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/accordion/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commits c1dc31e10 and fee18df7a follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance and React.Activity are not ported. `preventDefault()` is the skip signal.
 // Cases under "native Svelte" have no upstream counterpart.
 import { tick } from 'svelte';
@@ -350,8 +351,8 @@ describe('Accordion', () => {
 				});
 				const trigger = page.getByRole('button', { name: 'Trigger 1' });
 
-				await expect.element(trigger).toHaveAttribute('aria-disabled', 'true');
-				await expect.element(trigger).not.toHaveAttribute('disabled');
+				await expect.element(trigger).toHaveAttribute('disabled', '');
+				await expect.element(trigger).not.toHaveAttribute('aria-disabled');
 				(trigger.element() as HTMLButtonElement).click();
 				trigger.element().focus();
 				await userEvent.keyboard('{Space}');
@@ -364,6 +365,22 @@ describe('Accordion', () => {
 				expect(onOpenChange).not.toHaveBeenCalled();
 			}
 		);
+
+		it('removes a disabled non-native trigger from the tab order', async () => {
+			render(AccordionHarness, {
+				items: [
+					{ value: 0, label: 'Trigger 1', content: PANEL_1, disabled: true, triggerAs: 'span' }
+				]
+			});
+			const trigger = page.getByRole('button', { name: 'Trigger 1' });
+
+			await expect.element(trigger).toHaveAttribute('aria-disabled', 'true');
+			await expect.element(trigger).toHaveAttribute('tabindex', '-1');
+			await expect.element(trigger).not.toHaveAttribute('disabled');
+
+			await userEvent.keyboard('{Tab}');
+			expect(document.activeElement).not.toBe(trigger.element());
+		});
 	});
 
 	describe('keyboard', () => {
@@ -620,6 +637,7 @@ describe('Accordion', () => {
 			await expect.element(first).toHaveAttribute('data-index', '0');
 			await expect.element(second).toHaveAttribute('data-index', '1');
 			await expect.element(first).toHaveAttribute('data-panel-open', '');
+			await expect.element(first).not.toHaveAttribute('data-open');
 			await expect.element(first).not.toHaveAttribute('data-value');
 			await expect.element(second).not.toHaveAttribute('data-value');
 		});

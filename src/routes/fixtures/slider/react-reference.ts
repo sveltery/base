@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart of SliderFixture.svelte. Comparison only; never imported by src/lib.
+// React Base UI 1.9.0 counterpart of SliderFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, Fragment, useEffect, useState, type ComponentProps } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { Slider } from '@base-ui/react/slider';

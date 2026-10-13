@@ -1,8 +1,8 @@
 <!--
 	The draggable part of the slider at the tip of the indicator.
 	Renders a `<div>` element and a nested `<input type="range">`.
-	Derived from Base UI v1.8.0 packages/react/src/slider/thumb/SliderThumb.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/slider/thumb/SliderThumb.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	There is no inputRef. The input is in the DOM. Pass `{@attach}` to this part for the thumb.
 -->
 <script lang="ts">
@@ -11,6 +11,7 @@
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { useCSPContext } from '../internal/csp-context.js';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -84,6 +85,10 @@
 		Number.isFinite(thumbValue) ? valueToPercent(thumbValue, model.min, model.max) : Number.NaN
 	);
 	const disabled = $derived(model.disabled || disabledProp);
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => disabled,
+		target: () => inputEl
+	});
 	const partState: SliderRootState = $derived(model.snapshot());
 
 	function remember(node: HTMLDivElement) {
@@ -211,12 +216,12 @@
 	}
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		if (model.onThumbFocus(event, index)) return;
+		if (model.onThumbFocus(event, index, focusOwner.set)) return;
 		onfocus?.(event);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		if (model.onThumbBlur(event, index)) return;
+		if (model.onThumbBlur(event, index, focusOwner.set)) return;
 		onblur?.(event);
 	}
 

@@ -2,6 +2,7 @@
 // packages/react/src/checkbox/root/CheckboxRoot.test.tsx and
 // packages/react/src/checkbox/indicator/CheckboxIndicator.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commit d8afb3717 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // Field and Form cases are in src/lib/field/choice-controls.svelte.spec.ts.
 // Form cases below use the hidden input with a native <form>.
 // Cases under "native Svelte" have no upstream counterpart.
@@ -9,6 +10,7 @@ import { flushSync } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { ariaLabelPreferenceCases } from '../../tests/aria-label-preference-cases.js';
 import CheckboxAttachHarness from '../../tests/CheckboxAttachHarness.svelte';
 import CheckboxBindHarness from '../../tests/CheckboxBindHarness.svelte';
 import CheckboxClickHarness from '../../tests/CheckboxClickHarness.svelte';
@@ -726,4 +728,8 @@ describe('Checkbox', () => {
 
 describe('controllable value', () => {
 	controllableRootCases('checkbox');
+});
+
+describe('Checkbox labels', () => {
+	ariaLabelPreferenceCases('checkbox');
 });

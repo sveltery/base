@@ -1,6 +1,6 @@
 // Absolute track geometry for a scroll-area scrollbar.
-// Derived from Base UI v1.8.0 packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { toCssStyle } from '../internal/css-style.js';
 import {

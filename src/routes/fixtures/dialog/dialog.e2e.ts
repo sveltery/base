@@ -1,4 +1,4 @@
-// Each case runs against the Svelte Dialog and the React Base UI 1.8.0 reference.
+// Each case runs against the Svelte Dialog and the React Base UI 1.9.0 reference.
 import { expect, test, type Page } from '@playwright/test';
 import { openFixture } from '../open-fixture.js';
 import { readOpenCalls } from '../read-output.js';

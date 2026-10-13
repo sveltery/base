@@ -1,5 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/scroll-area/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commit 6d93516df follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance, refs, and className callbacks are not ported.
 // Direction comes from DirectionProvider. The scrollbar style tag reads the CSP provider.
 import { flushSync } from 'svelte';
@@ -63,6 +64,13 @@ function pointer(type: string, init: PointerEventInit & { button?: number } = {}
 }
 
 describe('<ScrollArea />', () => {
+	it('does not give the focusable viewport a presentational role', async () => {
+		render(ScrollAreaHarness, { scenario: 'both' });
+
+		await expect.element(viewport()).toHaveAttribute('tabindex', '0');
+		await expect.element(viewport()).not.toHaveAttribute('role');
+	});
+
 	it('hides scrollbars until content overflows and exposes the viewport', async () => {
 		render(ScrollAreaHarness, { scenario: 'both' });
 

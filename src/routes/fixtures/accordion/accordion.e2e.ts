@@ -1,4 +1,4 @@
-// Each case runs against the Svelte Accordion and the React Base UI 1.8.0 reference.
+// Each case runs against the Svelte Accordion and the React Base UI 1.9.0 reference.
 import { expect, test, type Page } from '@playwright/test';
 import { forEachFramework } from '../framework-loop.js';
 import { openFixture } from '../open-fixture.js';
@@ -60,12 +60,11 @@ forEachFramework((reference, framework) => {
 			await open(page, 'disabled', reference);
 			const one = page.getByRole('button', { name: 'One' });
 
-			await expect(one).toHaveAttribute('aria-disabled', 'true');
+			await expect(one).toBeDisabled();
+			await expect(one).not.toHaveAttribute('aria-disabled');
 			await expect(one).toHaveAttribute('data-disabled', '');
 			await one.focus();
-			await expect(one).toBeFocused();
-			await page.keyboard.press('Enter');
-			// Playwright will not click an aria-disabled button unless forced.
+			await expect(one).not.toBeFocused();
 			await one.click({ force: true });
 			await expect(one).toHaveAttribute('aria-expanded', 'false');
 			await expect(page.getByTestId('panel-one')).toHaveCount(0);

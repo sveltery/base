@@ -1,5 +1,5 @@
-// Derived from Base UI v1.8.0 packages/utils/src/platform
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/utils/src/platform
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // One module. NumberField, ScrollArea, and later overlay code import `platform` from here.
 // `DEV` replaces `process.env.NODE_ENV`. Flags are read once at module load and are false
 // when `navigator` is missing.
