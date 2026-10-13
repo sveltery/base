@@ -8,7 +8,6 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { createChangeEventDetails, platform, REASONS } from '@sveltery/utils';
-	import { stopEvent } from '@sveltery/floating-ui-svelte';
 	import { DEFAULT_FIELD_STATE } from '../field/model.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
@@ -19,6 +18,7 @@
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import ComboboxInternalDismissButton from './ComboboxInternalDismissButton.svelte';
 	import { findComboboxChips, findComboboxPositioner, useComboboxRoot } from './context.svelte.js';
+	import { stopEvent } from './dom.js';
 	import { getChipNavigationKeys, triggerStateAttributesMapping } from './parts.js';
 	import type { ComboboxInputProps, ComboboxInputState } from './types.js';
 
@@ -99,7 +99,7 @@
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		const input = event.currentTarget;
-		const inputType = (event as InputEvent).inputType;
+		const inputType = (event as unknown as InputEvent).inputType;
 		// Autofill may omit `inputType` or report `insertReplacementText`.
 		const autofillLike = !inputType || inputType === 'insertReplacementText';
 		const shouldOpenOnInput = composing || !autofillLike;

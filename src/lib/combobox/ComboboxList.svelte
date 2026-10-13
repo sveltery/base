@@ -7,10 +7,10 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { stopEvent } from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { findComboboxPositioner, useComboboxRoot } from './context.svelte.js';
+	import { stopEvent } from './dom.js';
 	import type { ComboboxListProps, ComboboxListState } from './types.js';
 
 	let { render, children, ...elementProps }: ComboboxListProps = $props();

@@ -35,3 +35,4 @@ export type * from './types/index.js';
 export * from './tooltip/index.js';
 export * from './preview-card/index.js';
 export * from './select/index.js';
+export * from './combobox/index.js';

@@ -368,8 +368,8 @@ export interface ComboboxListState {
 
 export interface ComboboxListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	render?: PartRender<HTMLDivElement, ComboboxListState>;
-	/** The list content, or a snippet rendered for each filtered item or group. */
-	children?: Snippet | Snippet<[item: never, index: number]>;
+	/** The list content. Render `Combobox.Collection` inside to map the filtered items. */
+	children?: Snippet;
 }
 
 export type ComboboxStatusState = Record<string, never>;

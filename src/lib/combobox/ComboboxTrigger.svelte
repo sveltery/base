@@ -7,7 +7,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import { ClickInteraction, stopEvent, Typeahead } from '@sveltery/floating-ui-svelte';
+	import { ClickInteraction, Typeahead } from '@sveltery/floating-ui-svelte';
 	import {
 		contains,
 		createChangeEventDetails,
@@ -24,6 +24,7 @@
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { isMouseWithinBounds } from '../select/popup-utils.js';
 	import { useComboboxRoot } from './context.svelte.js';
+	import { stopEvent } from './dom.js';
 	import { getComboboxPopupId } from './filter.js';
 	import { triggerStateAttributesMapping } from './parts.js';
 	import type { ComboboxTriggerProps, ComboboxTriggerState } from './types.js';

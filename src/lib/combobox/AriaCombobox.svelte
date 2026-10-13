@@ -95,7 +95,8 @@
 		children
 	}: AriaComboboxProps = $props();
 
-	if (items != null && !Array.isArray(items) && !isItemCollection(items)) {
+	const initialItems = untrack(() => items);
+	if (initialItems != null && !Array.isArray(initialItems) && !isItemCollection(initialItems)) {
 		throw new Error(
 			'Base UI: the `items` prop received an object that is not a collection, so its items cannot be read. ' +
 				'Pass an array of items, an array of groups with items, or the result of `createItems()`.'
@@ -301,6 +302,7 @@
 	}
 
 	const bound = new BoundControl<unknown>(field, {
+		// svelte-ignore state_referenced_locally
 		kind: selectionMode === 'none' ? 'text' : multiple ? 'select multiple' : 'select',
 		read: () => fieldRawValue,
 		write: (next) => {

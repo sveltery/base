@@ -1,8 +1,8 @@
 // Derived from Base UI v1.9.0 packages/react/src/combobox/root/ComboboxRootContext.tsx,
-// positioner/ComboboxPositionerContext.tsx, portal/ComboboxPortalContext.tsx,
+// positioner/ComboboxPositionerContext.tsx,
 // item/ComboboxItemContext.ts, group/ComboboxGroupContext.ts, row/ComboboxRowContext.ts,
 // chips/ComboboxChipsContext.ts, chip/ComboboxChipContext.ts and
-// collection/GroupCollectionContext.tsx (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// collection/GroupCollectionContext.tsx and root/utils/useFilteredItems.ts (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // MIT, see THIRD_PARTY_NOTICES.md.
 // The root context is the store. Upstream's derived-items, input-value and has-items
 // contexts are store getters.
@@ -20,14 +20,6 @@ export const [useComboboxPositioner, setComboboxPositioner, findComboboxPosition
 	defineContext<AnchorPositioning>(
 		'Base UI: ComboboxPositionerContext is missing. ComboboxPositioner parts must be placed within <Combobox.Positioner>.'
 	);
-
-export interface ComboboxPortalContext {
-	readonly keepMounted: boolean;
-}
-
-export const [, setComboboxPortal, findComboboxPortal] = defineContext<ComboboxPortalContext>(
-	'Base UI: <Combobox.Portal> is missing.'
-);
 
 export interface ComboboxItemContext {
 	readonly selected: boolean;
@@ -66,3 +58,16 @@ export interface ComboboxChipContext {
 export const [useComboboxChip, setComboboxChip] = defineContext<ComboboxChipContext>(
 	'Base UI: ComboboxChipContext is missing. ComboboxChip parts must be placed within <Combobox.Chip>.'
 );
+
+/**
+ * The filtered items of the surrounding `Combobox.Root`, read through `current`.
+ * Treat them as read-only. Call it during component init.
+ */
+export function useFilteredItems<T>(): { readonly current: readonly T[] } {
+	const store = useComboboxRoot();
+	return {
+		get current() {
+			return store.filteredItems as readonly T[];
+		}
+	};
+}
