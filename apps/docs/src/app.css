@@ -70,48 +70,48 @@ div.code-block:not(:has(> div)) {
 	@apply rounded-lg border border-line;
 }
 
-.typeset {
-	@apply leading-7;
+/* Prose styles stop at `.not-typeset`, so demos and tables keep their own styles. */
+@scope (.typeset) to (.not-typeset) {
+	:scope {
+		@apply leading-7;
+	}
 
-	& h2 {
+	h2 {
 		@apply mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight;
 	}
-	& h3 {
+	h3 {
 		@apply mt-8 mb-3 scroll-mt-20 text-lg font-semibold tracking-tight;
 	}
-	& h4 {
+	h4 {
 		@apply mt-6 mb-2 font-semibold;
 	}
-	& :is(h2, h3, h4) a {
+	:is(h2, h3, h4) a {
 		@apply no-underline;
 	}
-	& p {
+	p {
 		@apply my-4;
 	}
-	& ul {
+	ul {
 		@apply my-4 list-disc pl-6;
 	}
-	& ol {
+	ol {
 		@apply my-4 list-decimal pl-6;
 	}
-	& li {
+	li {
 		@apply my-1;
 	}
-	& a:not(:is(h2, h3, h4) a) {
+	a:not(:is(h2, h3, h4) a) {
 		@apply text-accent underline underline-offset-2;
 	}
-	& :not(pre) > code {
+	:not(pre) > code {
 		@apply rounded bg-subtle px-1 py-0.5 text-[0.875em];
 	}
-	& table:not(.api-table) {
+	table:not(.api-table) {
 		@apply my-6 w-full text-sm;
-		& th,
-		& td {
+		th,
+		td {
 			@apply border-b border-line px-3 py-2 text-left align-top;
 		}
-	}
-	& .not-typeset :is(p, ul, ol) {
-		margin: 0;
 	}
 }
 
