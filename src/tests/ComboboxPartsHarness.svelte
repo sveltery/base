@@ -10,16 +10,25 @@
 		| 'chips-popup-input'
 		| 'clear-outside-popup-input'
 		| 'popup-clear'
-		| 'field-disabled-chips';
+		| 'field-disabled-chips'
+		| 'live-region';
 
 	let {
 		scenario,
 		showTrigger = true,
-		root = {}
+		root = {},
+		part = 'status',
+		text,
+		custom = false
 	}: {
 		scenario: Scenario;
 		showTrigger?: boolean;
 		root?: Record<string, unknown>;
+		/** The live region a `live-region` scenario renders in the popup. */
+		part?: 'status' | 'empty';
+		text?: string;
+		/** Renders the live region through a `render` snippet with a `<p>`. */
+		custom?: boolean;
 	} = $props();
 </script>
 
@@ -139,4 +148,38 @@
 			</Combobox.Portal>
 		</Combobox.Root>
 	</Field.Root>
+{:else if scenario === 'live-region'}
+	<Combobox.Root {...root}>
+		<Combobox.Input data-testid="input" />
+		<Combobox.Portal>
+			<Combobox.Positioner>
+				<Combobox.Popup>
+					{#if custom}
+						{@const Region = part === 'status' ? Combobox.Status : Combobox.Empty}
+						<Region>
+							{#snippet render(props, _state, content)}
+								<p {...props} data-testid="custom">{@render content?.()}</p>
+							{/snippet}
+							{text}
+						</Region>
+					{:else if part === 'status'}
+						<Combobox.Status data-testid="status">{text}</Combobox.Status>
+					{:else}
+						<Combobox.Empty data-testid="empty">{text}</Combobox.Empty>
+					{/if}
+					<Combobox.List>
+						{#if root.items}
+							<Combobox.Collection>
+								{#snippet children(item: string)}
+									<Combobox.Item value={item}>{item}</Combobox.Item>
+								{/snippet}
+							</Combobox.Collection>
+						{:else}
+							<Combobox.Item value="a">a</Combobox.Item>
+						{/if}
+					</Combobox.List>
+				</Combobox.Popup>
+			</Combobox.Positioner>
+		</Combobox.Portal>
+	</Combobox.Root>
 {/if}
