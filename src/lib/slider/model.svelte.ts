@@ -567,21 +567,26 @@ export class SliderRootModel {
 		const touch = event.changedTouches[0];
 		if (touch == null) return;
 
-		// The pointer handlers already started this gesture. Keep its state and add the touch
-		// listeners, which keep tracking the finger if the browser cancels the pointer.
-		if (!startedByPointer) this.stopListening();
-		this.touchId = touch.identifier;
-		if (!startedByPointer) {
-			const fingerCoords = { x: touch.clientX, y: touch.clientY };
-			this.startPressing(fingerCoords);
-			const finger = this.getFingerState(fingerCoords);
-			if (finger == null) return;
-
-			this.focusThumb(finger.thumbIndex);
-			this.setValueFromPointer(finger, REASONS.trackPress, event);
-			this.moveCount = 0;
+		const doc = ownerDocument(this.control);
+		if (startedByPointer) {
+			// The pointer handlers already started this gesture. The touch listeners keep
+			// tracking the finger if the browser cancels the pointer.
+			this.touchId = touch.identifier;
+			this.listen(doc, true, true);
+			return;
 		}
-		this.listen(ownerDocument(this.control), true, startedByPointer);
+
+		this.stopListening();
+		this.touchId = touch.identifier;
+		const fingerCoords = { x: touch.clientX, y: touch.clientY };
+		this.startPressing(fingerCoords);
+		const finger = this.getFingerState(fingerCoords);
+		if (finger == null) return;
+
+		this.focusThumb(finger.thumbIndex);
+		this.setValueFromPointer(finger, REASONS.trackPress, event);
+		this.moveCount = 0;
+		this.listen(doc, true);
 	}
 
 	stopListening() {
