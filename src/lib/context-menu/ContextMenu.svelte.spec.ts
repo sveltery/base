@@ -186,6 +186,13 @@ describe('ContextMenu', () => {
 		]);
 	});
 
+	// The shared useDismiss ignores non-primary presses. See "A right press outside closes the menu"
+	// in docs/upstream-differences.md.
+	it.todo('keeps the context menu open on a right press inside a popup opened from it');
+	it.todo(
+		'closes an open Menu and opens the context menu on a right click elsewhere in the trigger'
+	);
+
 	it('is modal: locks scroll and covers the page with a backdrop that blocks native menus', async () => {
 		render(ContextMenuHarness);
 		expect(isScrollLocked()).toBe(false);

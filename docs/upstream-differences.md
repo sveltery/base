@@ -412,7 +412,7 @@ React-only cases: `describeConformance` (refs, `className` and style functions).
 
 ## ContextMenu
 
-Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/context-menu/**`. The paired React fixture runs `@base-ui/react` 1.9.0. `ContextMenu.Root` provides the `ContextMenuParentContext` that `src/lib/menu/parent.svelte.ts` defines, and renders a `Menu.Root` under it. Every part but `Root` and `Trigger` is the Menu part.
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/context-menu/**`. The paired React fixture runs `@base-ui/react` 1.9.0. `ContextMenu.Root` provides the `ContextMenuParentContext` that `src/lib/menu/parent.svelte.ts` defines, and renders a `Menu.Root` under it. Every part but `Root` and `Trigger` is the Menu part of the same name. `ContextMenu.Positioner` is `Menu.Positioner` typed as `ContextMenuPositionerProps`, which has no `positionMethod`.
 
 ### Public surface
 
@@ -428,11 +428,14 @@ Local: Svelte delegates the item handlers to the document and can add that liste
 
 ### A right press outside closes the menu
 
-Upstream: `useDismiss` closes on an outside `pointerdown` with any mouse button. A right click elsewhere closes the open context menu, its backdrop turns inert, and the `contextmenu` event that follows reaches the trigger and reopens the menu at the pointer.
+Upstream: `useDismiss` closes on an outside `pointerdown` with any mouse button. A right click elsewhere closes the open context menu, its backdrop turns inert, and the `contextmenu` event that follows reaches the trigger and reopens the menu at the pointer. The same press closes any other open `Menu` or `Popover`.
 
-Local: the shared `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` ignores non-primary presses. `ContextMenu.Trigger` closes the open menu on a non-primary, non-touch `pointerdown` outside it, with reason `outside-press`, so the sequence matches. The long-press grace before outside dismissal does not apply to this press.
+Local: the shared `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` ignores non-primary presses. `ContextMenu.Trigger` closes its own open menu on a non-primary, non-touch `pointerdown` outside it, with reason `outside-press`, so the sequence matches for the context menu itself. The long-press grace before outside dismissal does not apply to this press. The listener does not run while the root is `disabled`. It is a stand-in for the shared dismissal and diverges in two ways.
 
-Test: `src/lib/context-menu/ContextMenu.svelte.spec.ts` (`closes on a right press over the backdrop and reopens where the pointer is`) and the paired fixture case `a right click elsewhere in the area moves the open menu`.
+- A right press inside a popup opened from the context menu closes the whole context menu. The listener only tests the context menu's positioner and the `data-rootownerid` owner id, and skips the floating-tree check the shared dismissal makes. Upstream treats the press as inside, so a `Popover` opened from a context menu item stays open together with the context menu (run in the paired React fixture), and so does the inner menu of a context menu nested in an item (read from upstream's React-tree capture, not run). A left press in the same spots keeps everything open here too.
+- A right press elsewhere does not close other open popups. With a `Menu` open inside the trigger, a right click on the trigger area leaves that `Menu` open, the context menu does not open, and the browser's own menu appears, because `contextmenu` is never prevented. Upstream closes the `Menu` and opens the context menu. An open `Popover` outside the context menu also stays open on a right press.
+
+Test: `src/lib/context-menu/ContextMenu.svelte.spec.ts` (`closes on a right press over the backdrop and reopens where the pointer is`) and the paired fixture case `a right click elsewhere in the area moves the open menu`. Neither divergence has a passing spec, only the `it.todo` entries in the same file.
 
 ### Shift+Tab returns focus to the element focused before opening
 
@@ -450,7 +453,7 @@ Local: `@sveltery/floating-ui-svelte` publishes the tree and parent node id from
 
 ### Not covered
 
-React-only cases: `describeConformance` (refs, `className` and style functions). Upstream's positioner cases spy on `useAnchorPositioning` arguments. The local spec asserts the placement instead: the pointer anchor, explicit placement and offsets, fixed positioning, the alignment flip at the viewport edge, and a submenu against its trigger. The `uses the visual viewport for a context menu submenu` case has no observable result in the test viewport. `-webkit-touch-callout: none` is set on the trigger, but Chromium drops it, so no spec reads it.
+React-only cases: `describeConformance` (refs, `className` and style functions). Upstream's positioner cases spy on `useAnchorPositioning` arguments. The local spec asserts the placement instead: the pointer anchor, explicit placement and offsets, fixed positioning, the alignment flip at the viewport edge, and a submenu against its trigger. The `uses the layout viewport for a root context menu` case is covered by a stand-in `window.visualViewport` half the page wide, since the test browser cannot pinch zoom. The `uses the visual viewport for a context menu submenu` case has no observable result in the test viewport. `-webkit-touch-callout: none` is set on the trigger, but Chromium drops it, so no spec reads it.
 
 ## Not ported yet
 

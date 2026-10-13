@@ -83,7 +83,7 @@ Import the component and assemble its parts:
 </ContextMenu.Root>
 ```
 
-Every part except `Root`, `Trigger` and `Positioner` is the [Menu](/components/menu) part of the same name. [Menu](/components/menu#examples) shows examples that apply to the context menu too.
+Every part except `Root` and `Trigger` is the [Menu](/components/menu) part of the same name. `ContextMenu.Positioner` takes the `Menu.Positioner` props, as the [Positioner](#positioner) section lists. [Menu](/components/menu#examples) shows examples that apply to the context menu too.
 
 ## Behavior
 
@@ -132,7 +132,7 @@ Set `disabled` on `ContextMenu.Root` to stop the menu from opening. The browser'
 
 ### Positioner
 
-`ContextMenu.Positioner` takes the [Menu.Positioner](/components/menu#positioner) props and data attributes, except `positionMethod`: a context menu is always `position: fixed`. A root context menu defaults to `align="start"` against the pointer. When `side` is not set and `align` is not `center`, `sideOffset` defaults to `-5` and `alignOffset` to `2`, and `arrowPadding` is always `0`. A submenu sits at the inline end of its trigger, as in Menu.
+`ContextMenu.Positioner` takes the [Menu.Positioner](/components/menu#positioner) props and data attributes, except `positionMethod`: a context menu is always `position: fixed`. A root context menu defaults to `align="start"` against the pointer. When `side` is not set and `align` is not `center`, `sideOffset` defaults to `-5` and `alignOffset` to `2`. A root context menu always uses `arrowPadding` `0`. A submenu sits at the inline end of its trigger, as in Menu.
 
 <ApiPart name="context-menu" part="Positioner" />
 
