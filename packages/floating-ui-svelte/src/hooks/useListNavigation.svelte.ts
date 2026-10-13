@@ -104,7 +104,7 @@ function isStationaryWebKitPointer(event: MouseEvent) {
 
 export class ListNavigation {
 	readonly #contextTree = useFloatingTree();
-	readonly #parentId = useFloatingParentNodeId();
+	readonly #contextParentId = useFloatingParentNodeId();
 	readonly #focusFrame = new ScopedAnimationFrame();
 	readonly #waitForListPopulatedFrame = new ScopedAnimationFrame();
 
@@ -128,6 +128,14 @@ export class ListNavigation {
 	#forceSyncFocus = false;
 	#forceScrollIntoView = false;
 	#cancelQueuedFocus: (() => void) | null = null;
+
+	// `useFloatingNodeId` publishes this list's own node id as the parent id for the rest of the
+	// component, so a list built after it reads its own id from context.
+	#parentId() {
+		const own = this.store.nodeId;
+		if (own == null || own !== this.#contextParentId) return this.#contextParentId;
+		return this.#tree?.nodes.find((node) => node.id === own)?.parentId ?? null;
+	}
 
 	constructor(
 		private readonly store: FloatingRootStore,
@@ -218,7 +226,7 @@ export class ListNavigation {
 			untrack(() => {
 				if (!this.#previousMounted) return;
 				const nodes = tree.nodes;
-				const parent = nodes.find((node) => node.id === this.#parentId)?.context?.floatingElement;
+				const parent = nodes.find((node) => node.id === this.#parentId())?.context?.floatingElement;
 				const activeEl = activeElement(ownerDocument(reference ?? parent ?? null));
 				const treeContainsActiveEl = nodes.some(
 					(node) => node.context && contains(node.context.floatingElement, activeEl)
@@ -275,7 +283,7 @@ export class ListNavigation {
 	#parentOrientation() {
 		const { parentOrientation } = this.#options();
 		if (parentOrientation) return parentOrientation;
-		const parent = this.#tree?.nodes.find((node) => node.id === this.#parentId);
+		const parent = this.#tree?.nodes.find((node) => node.id === this.#parentId());
 		return readListOrientation(parent?.context);
 	}
 
@@ -301,7 +309,7 @@ export class ListNavigation {
 			if (!waitedItem) return;
 			if (!initialItem) runFocus(waitedItem);
 			if (forceScrollIntoView || !this.#isPointerModality) {
-				waitedItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+				waitedItem.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
 			}
 		};
 

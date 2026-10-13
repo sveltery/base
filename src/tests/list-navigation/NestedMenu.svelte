@@ -39,7 +39,7 @@
 	const items: Array<HTMLElement | null> = $state([]);
 	let activeIndex = $state<number | null>(null);
 
-	// Read the parent node id before this menu registers its own.
+	useFloatingNodeId(store);
 	const nav = new ListNavigation(store, () => ({
 		items: () => items,
 		activeIndex,
@@ -47,7 +47,6 @@
 		nested: parent != null,
 		orientation
 	}));
-	useFloatingNodeId(store);
 
 	const triggerProps = $derived(parent ? mergeProps(parent.item, nav.reference) : nav.reference);
 
