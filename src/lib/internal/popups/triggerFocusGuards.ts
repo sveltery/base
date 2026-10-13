@@ -4,19 +4,16 @@
 
 import { flushSync } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
-import { createChangeEventDetails, REASONS, contains } from '@sveltery/utils';
+import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 import {
-	getTabbableAfterElement,
-	getTabbableBeforeElement,
 	getTabbableCandidates,
+	getTabbableNearElement,
 	isOutsideEvent,
 	type FloatingRootStore
 } from '@sveltery/floating-ui-svelte';
 
 export class TriggerFocusGuards {
-	#preFocusGuard: HTMLElement | null = null;
 	#beforeContentFocusGuard: HTMLElement | null = null;
-	#triggerFocusTarget: HTMLElement | null = null;
 
 	constructor(
 		private readonly store: FloatingRootStore,
@@ -24,19 +21,7 @@ export class TriggerFocusGuards {
 	) {}
 
 	readonly preFocusGuardProps = {
-		onfocus: (event: FocusEvent) => {
-			const current = event.currentTarget instanceof HTMLElement ? event.currentTarget : undefined;
-			flushSync(() => {
-				this.store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event, current));
-			});
-			getTabbableBeforeElement(this.#preFocusGuard)?.focus();
-		},
-		attach: ((node) => {
-			this.#preFocusGuard = node;
-			return () => {
-				if (this.#preFocusGuard === node) this.#preFocusGuard = null;
-			};
-		}) satisfies Attachment<HTMLElement>
+		onfocus: (event: FocusEvent) => this.#closeAndFocus(event, -1)
 	};
 
 	readonly beforeContentFocusGuardProps = {
@@ -51,10 +36,8 @@ export class TriggerFocusGuards {
 	readonly focusTargetProps = {
 		onfocus: (event: FocusEvent) => this.#handleFocusTargetFocus(event),
 		attach: ((node) => {
-			this.#triggerFocusTarget = node;
 			this.store.triggerFocusTarget = node;
 			return () => {
-				if (this.#triggerFocusTarget === node) this.#triggerFocusTarget = null;
 				if (this.store.triggerFocusTarget === node) this.store.triggerFocusTarget = null;
 			};
 		}) satisfies Attachment<HTMLElement>
@@ -87,16 +70,21 @@ export class TriggerFocusGuards {
 				return;
 			}
 		}
-		const current = event.currentTarget instanceof HTMLElement ? event.currentTarget : undefined;
+		this.#closeAndFocus(event, 1);
+	}
+
+	#closeAndFocus(event: FocusEvent, direction: 1 | -1) {
+		const guard = event.currentTarget as HTMLElement;
+		const positioner = this.store.positionerElement;
 		flushSync(() => {
-			this.store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event, current));
+			this.store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event, guard));
 		});
-		let next = getTabbableAfterElement(this.#triggerFocusTarget || this.triggerElement());
-		while (next && positioner && contains(positioner, next)) {
-			const previous = next;
-			next = getTabbableAfterElement(next);
-			if (next === previous) break;
-		}
-		next?.focus();
+		// The close can change the tab order. Resolve it after the flush, from the trigger when
+		// the guard unmounted, even when the trigger's tabindex is -1.
+		getTabbableNearElement(
+			guard.isConnected ? guard : this.triggerElement(),
+			direction,
+			positioner
+		)?.focus();
 	}
 }

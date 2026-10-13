@@ -197,25 +197,30 @@ export function getPreviousTabbable(referenceElement: Element | null): Focusable
 	);
 }
 
-function getTabbableNearElement(referenceElement: Element | null, dir: 1 | -1) {
+/**
+ * The tabbable element before or after `referenceElement` in the composed tree, skipping any
+ * inside `exclude`. The reference itself need not be tabbable. Falls back to the reference.
+ */
+export function getTabbableNearElement(
+	referenceElement: Element | null,
+	direction: 1 | -1,
+	exclude?: Element | null
+): FocusableElement | null {
 	if (!referenceElement) return null;
-	const list = tabbable(ownerDocument(referenceElement).body);
-	const elementCount = list.length;
-	if (elementCount === 0) return null;
+	// Keep the anchor's composed-tree position separate from the focusable radio candidates.
+	const list: FocusableElement[] = [];
+	appendCandidates(ownerDocument(referenceElement).body, list);
 	const index = list.indexOf(referenceElement as FocusableElement);
 	if (index === -1) return null;
-	const nextIndex = (index + dir + elementCount) % elementCount;
-	return list[nextIndex];
-}
 
-export function getTabbableAfterElement(referenceElement: Element | null): FocusableElement | null {
-	return getTabbableNearElement(referenceElement, 1);
-}
-
-export function getTabbableBeforeElement(
-	referenceElement: Element | null
-): FocusableElement | null {
-	return getTabbableNearElement(referenceElement, -1);
+	const candidates = list.filter(isFocusableElement);
+	for (let offset = 1; offset < list.length; offset += 1) {
+		const element = list[(index + direction * offset + list.length) % list.length];
+		if (!contains(exclude, element) && isTabbable(element) && isTabbableRadio(element, candidates)) {
+			return element;
+		}
+	}
+	return list[index];
 }
 
 export function isOutsideEvent(event: FocusEvent, container?: Element | null) {

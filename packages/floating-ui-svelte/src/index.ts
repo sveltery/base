@@ -33,9 +33,8 @@ export {
 export { PopupTriggerMap } from './utils/popupTriggerMap.js';
 export {
 	focusable,
-	getTabbableAfterElement,
-	getTabbableBeforeElement,
 	getTabbableCandidates,
+	getTabbableNearElement,
 	isOutsideEvent,
 	tabbable,
 	type FocusableElement

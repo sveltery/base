@@ -44,8 +44,7 @@
 	<button
 		type="button"
 		data-testid="pre-guard"
-		onfocus={guards.preFocusGuardProps.onfocus}
-		{@attach guards.preFocusGuardProps.attach}>Pre</button
+		onfocus={guards.preFocusGuardProps.onfocus}>Pre</button
 	>
 	<div data-testid="positioner" {@attach bindPositioner}>
 		<button

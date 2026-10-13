@@ -110,7 +110,7 @@
 	const expanded = $derived(triggerEl != null && opened);
 	const partState: PopoverTriggerState = $derived({ disabled, open: opened });
 	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
-	const showGuards = $derived(Boolean(live?.mountedBy(triggerId) && !live.focusManagerModal));
+	const showGuards = $derived(Boolean(live?.openedBy(triggerId) && !live.focusManagerModal));
 
 	const hostProps = $derived.by(() => {
 		const merged = mergeProps(
