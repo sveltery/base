@@ -36,6 +36,12 @@
 	export function useFloatingPortal() {
 		return hasPortal() ? getPortal() : null;
 	}
+
+	function insideClosedShadowRoot(node: Node) {
+		for (let root = node.getRootNode(); root instanceof ShadowRoot; root = root.host.getRootNode())
+			if (root.mode === 'closed') return true;
+		return false;
+	}
 </script>
 
 <script lang="ts">
@@ -53,7 +59,7 @@
 	// `document` is missing, so neither `createPortal` runs on the server. `client` stays false
 	// for that render and the first client render, then flips after mount so hydration matches.
 
-	import { onMount, type Snippet } from 'svelte';
+	import { mount as mountRoot, onMount, unmount, type Snippet } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import type { AriaRole, HTMLAttributes } from 'svelte/elements';
 	import { FocusGuard, ownerDocument, activeElement, contains } from '@sveltery/utils';
@@ -63,6 +69,7 @@
 		isOutsideEvent
 	} from '../utils/tabbable.js';
 	import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
+	import DelegationRoot from './DelegationRoot.svelte';
 
 	type PortalState = Record<string, never>;
 	type PortalHostProps = HTMLAttributes<HTMLDivElement> &
@@ -194,6 +201,12 @@
 		// this appends it. Focus inside the host is put back on the same control.
 		const target = container ?? parent?.node ?? document.body;
 		target.append(node);
+		// Svelte handles `onclick` and other delegated events at the app root and the document.
+		// Neither sees into a closed shadow root that the app root is outside of, nor into any
+		// shadow root nested inside one.
+		const delegation = insideClosedShadowRoot(node)
+			? mountRoot(DelegationRoot, { target: node })
+			: null;
 		portalNode = node;
 		store.portalElement = node;
 		const restore = carriedFocus;
@@ -204,6 +217,7 @@
 			if (active instanceof HTMLElement && node.contains(active)) carriedFocus = active;
 			if (store.portalElement === node) store.portalElement = null;
 			if (portalNode === node) portalNode = null;
+			if (delegation) void unmount(delegation);
 			node.remove();
 		};
 	}

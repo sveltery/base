@@ -362,8 +362,17 @@ describe('Popover', () => {
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
 		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
 		await expect.poll(() => document.activeElement).toBe(page.getByTestId('ext').element());
-		// React closes. Main leaves the popup open: this trigger is not the reference.
-		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+		// The only trigger is the reference of a popover opened through `open`, as upstream.
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('returns focus to the element focused before an external open, not to the only trigger', async () => {
+		render(PopoverFixture, { scenario: 'tab-ext' });
+		await page.getByTestId('ext').click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		expect(document.activeElement).toBe(page.getByTestId('ext').element());
 	});
 
 	it('shift-tabs an externally opened popover when the container sits between the trigger and the portal', async () => {
@@ -380,8 +389,8 @@ describe('Popover', () => {
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
 		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
 		await expect.poll(() => document.activeElement).toBe(page.getByTestId('ext').element());
-		// React closes. Main leaves the popup open: this trigger is not the reference.
-		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+		// The only trigger is the reference of a popover opened through `open`, as upstream.
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
 
 	it('moves focus into an inline popup when tabbing from the open trigger', async () => {

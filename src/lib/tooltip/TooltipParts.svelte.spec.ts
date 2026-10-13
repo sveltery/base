@@ -218,9 +218,28 @@ describe('Tooltip.Positioner', () => {
 				.toBe(12);
 		});
 
-		// useAnchorPositioning in src/lib/internal still places the positioner with left/top.
-		it.todo('uses transform positioning without Viewport');
-		it.todo('updates positioning when Viewport mounts and unmounts');
+		it('uses transform positioning without Viewport', async () => {
+			const positioner = await positioned({});
+			await expect
+				.poll(() => positioner.style.transform)
+				.toBe(`translate(${baselineX}px, ${baselineY}px)`);
+		});
+
+		it('updates positioning when Viewport mounts and unmounts', async () => {
+			const positioner = await positioned({ toggle: true });
+			await expect
+				.poll(() => positioner.style.transform)
+				.toBe(`translate(${baselineX}px, ${baselineY}px)`);
+
+			(page.getByRole('button', { name: 'Toggle Viewport' }).element() as HTMLElement).click();
+			await expect.poll(() => positioner.style.transform).toBe('');
+			await expect.poll(() => positioner.style.top).toBe(`${baselineY}px`);
+
+			(page.getByRole('button', { name: 'Toggle Viewport' }).element() as HTMLElement).click();
+			await expect
+				.poll(() => positioner.style.transform)
+				.toBe(`translate(${baselineX}px, ${baselineY}px)`);
+		});
 
 		it('uses top/left positioning with Viewport', async () => {
 			const positioner = await positioned({ viewport: true, positioner: { side: 'bottom' } });
