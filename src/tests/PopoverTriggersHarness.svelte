@@ -14,7 +14,7 @@
 	let {
 		handle = Popover.createHandle<number | string>(),
 		triggers = [{ id: 'trigger-1', label: 'Trigger 1', payload: 1 }],
-		open = $bindable(),
+		open = $bindable(false),
 		triggerId = $bindable(),
 		onOpenChange,
 		before = false,

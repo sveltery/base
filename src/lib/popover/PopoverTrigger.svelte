@@ -53,7 +53,11 @@
 
 	const seedStore = root;
 	const seedId = id ?? `base-ui-${uid}`;
-	if (seedStore?.open && seedStore.resolvedActiveTriggerId() == null) {
+	if (
+		seedStore?.open &&
+		!seedStore.openedWithoutTrigger &&
+		seedStore.resolvedActiveTriggerId() == null
+	) {
 		seedStore.writeTriggerId(seedId);
 	}
 

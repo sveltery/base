@@ -173,11 +173,17 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		const active = this.domReferenceElement;
 		if (active && this.triggers.getById(triggerId) === active) return true;
 		const resolved = this.resolvedActiveTriggerId();
-		// Upstream useImplicitActiveTrigger: a popup opened without a trigger press,
-		// such as through `bind:open`, belongs to its only trigger.
-		if (resolved == null)
-			return this.triggerCount === 1 && this.triggers.getById(triggerId) != null;
+		if (resolved == null) return this.isOnlyTrigger(triggerId);
 		return resolved === triggerId;
+	}
+
+	/** Upstream `triggerOwnsOpenPopupOrIsOnlyTrigger` before the implicit claim lands. */
+	private isOnlyTrigger(triggerId: string) {
+		return (
+			!this.openedWithoutTrigger &&
+			this.triggerCount === 1 &&
+			this.triggers.getById(triggerId) != null
+		);
 	}
 
 	mountedBy(triggerId: string | undefined) {
@@ -187,16 +193,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	popupIdFor(triggerId: string | undefined) {
 		const popup = this.popupElement;
 		if (popup == null || popup.id === '') return undefined;
-		if (this.openedBy(triggerId)) return popup.id;
-		if (
-			triggerId !== undefined &&
-			this.open &&
-			this.resolvedActiveTriggerId() == null &&
-			this.triggerCount === 1
-		) {
-			return popup.id;
-		}
-		return undefined;
+		return this.openedBy(triggerId) ? popup.id : undefined;
 	}
 
 	noteTrigger(id: string, element: HTMLElement, read: () => TriggerOwned) {
@@ -209,7 +206,8 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			const open = this.open;
 			const count = this.triggerCount;
 			const currentId = this.readTriggerId();
-			if (active === element || currentId === id || (open && active == null && count === 1)) {
+			const claimsLone = open && active == null && count === 1 && !this.openedWithoutTrigger;
+			if (active === element || currentId === id || claimsLone) {
 				this.domReferenceElement = element;
 				this.writeTriggerId(id);
 			}

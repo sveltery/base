@@ -4,7 +4,7 @@ import { page } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PopoverTriggersHarness from '../../tests/PopoverTriggersHarness.svelte';
-import type { PopoverChangeEventDetails } from './index.js';
+import { Popover, type PopoverChangeEventDetails } from './index.js';
 
 function recordOpenChanges() {
 	const calls: [boolean, string | null][] = [];
@@ -91,5 +91,56 @@ describe('hover', () => {
 		await new Promise((resolve) => setTimeout(resolve, 100));
 		expect(calls).toEqual([[true, 'trigger-hover']]);
 		await expect.element(page.getByTestId('popup')).toBeVisible();
+	});
+});
+
+describe('opened without a trigger (Base UI v1.9.0)', () => {
+	const lone = [{ id: 'trigger-1', label: 'Trigger 1', payload: 1 }];
+
+	function trigger() {
+		return page.getByRole('button', { name: 'Trigger 1' });
+	}
+
+	async function expectUnassociatedTrigger() {
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+		await expect.element(trigger()).not.toHaveAttribute('aria-controls');
+		await expect.element(trigger()).not.toHaveAttribute('data-popup-open');
+	}
+
+	async function frame() {
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+	}
+
+	it('does not associate the only rendered trigger when opened through the handle without a trigger', async () => {
+		const handle = Popover.createHandle<number | string>();
+		render(PopoverTriggersHarness, { handle, triggers: lone });
+
+		handle.open(null);
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+		await frame();
+		expect(content()).toBe('');
+		await expectUnassociatedTrigger();
+
+		handle.close();
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+		await trigger().click();
+		await expect.poll(content).toBe('1');
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+		await expect
+			.element(trigger())
+			.toHaveAttribute('aria-controls', page.getByTestId('popup').element().id);
+	});
+
+	it('does not let a trigger that mounts while open claim the popup', async () => {
+		const handle = Popover.createHandle<number | string>();
+		const view = render(PopoverTriggersHarness, { handle, triggers: [] });
+
+		handle.open(null);
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+		await view.rerender({ triggers: lone });
+		await expect.element(trigger()).toBeInTheDocument();
+		await frame();
+		expect(content()).toBe('');
+		await expectUnassociatedTrigger();
 	});
 });
