@@ -34,3 +34,20 @@ export function getTarget(event: Event): EventTarget | null {
 	}
 	return event.target;
 }
+
+/**
+ * The closest element matching `selector` in the composed tree, crossing slots and shadow roots.
+ * Follows Base UI v1.9.0 packages/utils/src/shadowDom.ts `closest`
+ * (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). `:scope` is not supported.
+ */
+export function closest(node: Node | null | undefined, selector: string): Element | null {
+	let current: Node | null | undefined = node;
+	while (current) {
+		if (current instanceof Element && current.matches(selector)) return current;
+		current =
+			(current as Element).assignedSlot ??
+			current.parentNode ??
+			(current instanceof ShadowRoot ? current.host : null);
+	}
+	return null;
+}

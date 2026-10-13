@@ -30,6 +30,8 @@ export {
 	FOCUSABLE_ATTRIBUTE,
 	TRIGGER_DISABLED_ATTRIBUTE
 } from './utils/constants.js';
+export { isInteractiveElement } from './utils/element.js';
+export { isVirtualClick } from './utils/event.js';
 export { PopupTriggerMap } from './utils/popupTriggerMap.js';
 export {
 	focusable,
