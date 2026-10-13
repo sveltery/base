@@ -9,7 +9,7 @@
 	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { scrollAreaStateAttributesMapping } from './attributes.js';
-	import { DISABLE_SCROLLBAR_CLASS } from './constants.js';
+	import { DISABLE_SCROLLBAR_CLASS } from '../internal/styles.js';
 	import { setScrollAreaViewportContext, useScrollAreaRootContext } from './context.svelte.js';
 	import { chain, mergeClass } from '../internal/mergeProps.js';
 	import type { ScrollAreaViewportProps } from './types.js';
@@ -82,8 +82,16 @@
 		[attachmentKey]: remember
 	});
 
+	const viewportStyle = $derived(hostProps.style);
+
 	$effect(() => {
-		model.queueThumb(model.hiddenState, hostProps.style);
+		model.repaint(model.viewportElement, viewportStyle);
+	});
+
+	$effect(() => {
+		// Any host prop change queues a recompute, not just a new style string.
+		void hostProps;
+		model.queueThumb(model.hiddenState);
 	});
 </script>
 

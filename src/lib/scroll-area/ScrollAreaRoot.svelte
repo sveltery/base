@@ -13,7 +13,7 @@
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { scrollAreaStateAttributesMapping } from './attributes.js';
-	import { DISABLE_SCROLLBAR_CSS } from './constants.js';
+	import { DISABLE_SCROLLBAR_CSS } from '../internal/styles.js';
 	import { setScrollAreaContext } from './context.svelte.js';
 	import { scrollAreaCornerHeight, scrollAreaCornerWidth } from './css-vars.js';
 	import { ScrollAreaModel } from './model.svelte.js';

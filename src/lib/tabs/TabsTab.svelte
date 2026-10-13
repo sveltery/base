@@ -107,14 +107,15 @@
 		pressing = true;
 		mainButton = event.button === 0;
 		const doc = event.currentTarget.ownerDocument;
+		// Not `on()`: it attaches pointer listeners a microtask late.
+		const listening = new AbortController();
 		function end() {
 			pressing = false;
 			mainButton = false;
-			doc.removeEventListener('pointerup', end);
-			doc.removeEventListener('pointercancel', end);
+			listening.abort();
 		}
-		doc.addEventListener('pointerup', end);
-		doc.addEventListener('pointercancel', end);
+		doc.addEventListener('pointerup', end, { signal: listening.signal });
+		doc.addEventListener('pointercancel', end, { signal: listening.signal });
 	}
 
 	const hostProps: TabsTabHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
