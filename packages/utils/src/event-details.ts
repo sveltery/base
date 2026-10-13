@@ -1,5 +1,8 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/createBaseUIEventDetails.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Reasons trigger-focus through pointer and getHighlightReason derive from Base UI v1.9.0
+// packages/react/src/internals/reasons.ts and packages/react/src/utils/getHighlightReason.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 
 export const REASONS = {
 	none: 'none',
@@ -26,7 +29,12 @@ export const REASONS = {
 	closeWatcher: 'close-watcher',
 	imperativeAction: 'imperative-action',
 	listNavigation: 'list-navigation',
-	swipe: 'swipe'
+	swipe: 'swipe',
+	triggerFocus: 'trigger-focus',
+	itemPress: 'item-press',
+	siblingOpen: 'sibling-open',
+	cancelOpen: 'cancel-open',
+	pointer: 'pointer'
 } as const;
 
 export type BaseUIChangeEventDetails<Reason extends string> = {
@@ -88,4 +96,17 @@ export function createGenericEventDetails<Reason extends string>(
 		reason,
 		event: event ?? new Event('base-ui')
 	};
+}
+
+/**
+ * The `onItemHighlighted` reason for a list navigation event, matching the event type that the
+ * reason promises in its details.
+ */
+export function getHighlightReason(
+	event: Event | undefined
+): typeof REASONS.keyboard | typeof REASONS.pointer | typeof REASONS.none {
+	if (event == null) return REASONS.none;
+	if (event.type.startsWith('key')) return REASONS.keyboard;
+	if (event.type.startsWith('mouse') || event.type.startsWith('pointer')) return REASONS.pointer;
+	return REASONS.none;
 }

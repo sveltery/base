@@ -7,7 +7,7 @@
 import { DEV } from 'esm-env';
 import { getAbortSignal, untrack } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import { ScopedTimeout } from '@sveltery/utils';
+import { REASONS, ScopedTimeout, getHighlightReason } from '@sveltery/utils';
 import {
 	DismissInteraction,
 	ListNavigation,
@@ -20,7 +20,7 @@ import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { useDirection } from '../internal/direction-context.js';
 import { mergeProps } from '../internal/mergeProps.js';
 import { FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
-import { MENU_REASONS, TYPEAHEAD_RESET_MS, getHighlightReason } from './constants.js';
+import { TYPEAHEAD_RESET_MS } from './constants.js';
 import { findMenuRoot, setMenuRoot, type MenuRootContext } from './context.svelte.js';
 import type { MenuHandle } from './handle.svelte.js';
 import {
@@ -196,7 +196,7 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		resetMs: TYPEAHEAD_RESET_MS,
 		onMatch(index, event) {
 			if (store.open && index !== store.activeIndex) {
-				store.setActiveIndex(index, MENU_REASONS.keyboard, event);
+				store.setActiveIndex(index, REASONS.keyboard, event);
 			}
 		},
 		onTyping(typing) {

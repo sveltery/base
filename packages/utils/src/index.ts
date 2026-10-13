@@ -3,6 +3,7 @@ export {
 	REASONS,
 	createChangeEventDetails,
 	createGenericEventDetails,
+	getHighlightReason,
 	type BaseUIChangeEventDetails,
 	type BaseUIGenericEventDetails
 } from './event-details.js';

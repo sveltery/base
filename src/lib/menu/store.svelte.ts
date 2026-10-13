@@ -11,18 +11,13 @@ import type { Middleware } from '@floating-ui/dom';
 import { untrack } from 'svelte';
 import { SvelteMap } from 'svelte/reactivity';
 import type { HTMLAttributes } from 'svelte/elements';
-import { createChangeEventDetails, ScopedTimeout } from '@sveltery/utils';
+import { REASONS, createChangeEventDetails, ScopedTimeout } from '@sveltery/utils';
 import type { setFloatingTree } from '@sveltery/floating-ui-svelte';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { ElementList } from '../internal/element-list.svelte.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
 import type { AnchorPositioning } from '../internal/popups/index.js';
-import {
-	MENU_REASONS,
-	PATIENT_CLICK_THRESHOLD,
-	isKeyboardClick,
-	isKeyboardOpen
-} from './constants.js';
+import { PATIENT_CLICK_THRESHOLD, isKeyboardClick, isKeyboardOpen } from './constants.js';
 import type { MenuParent, MouseUpGate } from './parent.svelte.js';
 import type {
 	MenuChangeEventDetails,
@@ -79,11 +74,11 @@ export interface MenuStoreOptions {
 }
 
 const GROUP_REASONS: ReadonlySet<string> = new Set([
-	MENU_REASONS.triggerFocus,
-	MENU_REASONS.focusOut,
-	MENU_REASONS.triggerHover,
-	MENU_REASONS.listNavigation,
-	MENU_REASONS.siblingOpen
+	REASONS.triggerFocus,
+	REASONS.focusOut,
+	REASONS.triggerHover,
+	REASONS.listNavigation,
+	REASONS.siblingOpen
 ]);
 
 export class MenuStore extends PopupStore<MenuChangeReason> {
@@ -125,7 +120,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	openEvent: Event | undefined = undefined;
 
 	/** Why the next `activeIndex` write happens, consumed by `onItemHighlighted`. */
-	private highlightReason: MenuHighlightReason = MENU_REASONS.none;
+	private highlightReason: MenuHighlightReason = REASONS.none;
 	private highlightEvent: Event | undefined = undefined;
 	/** The item last reported as highlighted, so reasons compare against it. */
 	private reportedItem: HTMLElement | undefined = undefined;
@@ -291,7 +286,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		if (this.activeIndex !== index) {
 			const item = index === null ? undefined : this.items.elements[index];
 			const isWriteBack = item === this.reportedItem;
-			this.highlightReason = isWriteBack ? MENU_REASONS.none : reason;
+			this.highlightReason = isWriteBack ? REASONS.none : reason;
 			this.highlightEvent = isWriteBack ? undefined : event;
 		}
 		this.activeIndex = index;
@@ -313,7 +308,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		this.reportedItem = item;
 		const reason = this.highlightReason;
 		const event = this.highlightEvent;
-		this.highlightReason = MENU_REASONS.none;
+		this.highlightReason = REASONS.none;
 		this.highlightEvent = undefined;
 		const callback = this.readOnItemHighlighted();
 		if (!callback) return;
@@ -431,7 +426,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		// menu the focus just opened.
 		if (
 			!nextOpen &&
-			reason !== MENU_REASONS.itemPress &&
+			reason !== REASONS.itemPress &&
 			nativeEvent?.type === 'click' &&
 			nativeEvent.pointerType === 'touch' &&
 			!this.allowTouchToClose
@@ -444,7 +439,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		super.setOpen(nextOpen, details);
 		if (details.isCanceled) return;
 
-		if (nextOpen && reason === MENU_REASONS.triggerFocus) {
+		if (nextOpen && reason === REASONS.triggerFocus) {
 			this.allowTouchToClose = false;
 			this.touchCloseTimeout.start(300, () => {
 				this.allowTouchToClose = true;
@@ -467,7 +462,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 			this.claimedTriggerId = null;
 		}
 
-		if (nextOpen && reason === MENU_REASONS.triggerHover) {
+		if (nextOpen && reason === REASONS.triggerHover) {
 			// A click within 500ms of a hover open keeps the menu open.
 			this.stickIfOpen = true;
 			this.stickTimeout.start(PATIENT_CLICK_THRESHOLD, () => {
@@ -484,7 +479,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		}
 
 		const isDismissClose =
-			!nextOpen && (reason === MENU_REASONS.escapeKey || (reason as string | null) == null);
+			!nextOpen && (reason === REASONS.escapeKey || (reason as string | null) == null);
 		if (this.parent.type === 'menubar' && GROUP_REASONS.has(reason)) this.instantType = 'group';
 		else if (isKeyboardClick(reason, nativeEvent)) this.instantType = 'click';
 		else if (isDismissClose) this.instantType = 'dismiss';
@@ -492,7 +487,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	}
 
 	closeImperative() {
-		this.setOpen(false, createChangeEventDetails(MENU_REASONS.imperativeAction));
+		this.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
 	}
 
 	/** Drop a prevented unmount. The shared close completion then removes the popup. */

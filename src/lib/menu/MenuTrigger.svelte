@@ -9,13 +9,18 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
-	import { FocusGuard, contains, createChangeEventDetails, ownerDocument } from '@sveltery/utils';
+	import {
+		REASONS,
+		FocusGuard,
+		contains,
+		createChangeEventDetails,
+		ownerDocument
+	} from '@sveltery/utils';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { mergePropsN } from '../internal/mergeProps.js';
 	import { pressableTriggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { ScopedTimeout } from '@sveltery/utils';
-	import { MENU_REASONS } from './constants.js';
 	import { findMenuRoot } from './context.svelte.js';
 	import { findRootOwnerId, isMouseWithinBounds } from './dom.js';
 	import type { MenuHandle } from './handle.svelte.js';
@@ -142,7 +147,7 @@
 		}
 		if (target != null && findRootOwnerId(target) === current.rootId) return;
 		if (isMouseWithinBounds(event, node)) return;
-		current.tree?.events.emit('close', { domEvent: event, reason: MENU_REASONS.cancelOpen });
+		current.tree?.events.emit('close', { domEvent: event, reason: REASONS.cancelOpen });
 	}
 
 	function listenForMouseUp(doc: Document) {
@@ -154,7 +159,7 @@
 	// A hover open lets a press-drag-release on an outside point cancel the open.
 	$effect(() => {
 		const current = live;
-		if (!current || !opened || current.openChangeReason !== MENU_REASONS.triggerHover) return;
+		if (!current || !opened || current.openChangeReason !== REASONS.triggerHover) return;
 		untrack(() => listenForMouseUp(ownerDocument(triggerEl)));
 		return () => {
 			stopDocumentMouseUp?.();
@@ -196,11 +201,7 @@
 			if (!current || disabled || !menubarHasSubmenuOpen || current.open) return;
 			current.setOpen(
 				true,
-				createChangeEventDetails(
-					MENU_REASONS.triggerFocus,
-					event,
-					event.currentTarget as HTMLElement
-				)
+				createChangeEventDetails(REASONS.triggerFocus, event, event.currentTarget as HTMLElement)
 			);
 		}
 	};

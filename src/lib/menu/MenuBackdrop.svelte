@@ -8,7 +8,7 @@
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { MENU_REASONS } from './constants.js';
+	import { REASONS } from '@sveltery/utils';
 	import { useMenuRoot } from './context.svelte.js';
 	import { findContextMenuParent } from './parent.svelte.js';
 	import type { MenuBackdropProps, MenuBackdropState } from './types.js';
@@ -38,7 +38,7 @@
 				role: 'presentation' as const,
 				hidden: store.mounted ? undefined : true,
 				style: `user-select: none; -webkit-user-select: none${
-					store.openChangeReason === MENU_REASONS.triggerHover ? '; pointer-events: none' : ''
+					store.openChangeReason === REASONS.triggerHover ? '; pointer-events: none' : ''
 				}`,
 				...getStateAttributesProps(state, popupTransitionStateMapping),
 				[publishKey]: publish
