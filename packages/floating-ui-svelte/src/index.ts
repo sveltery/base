@@ -13,12 +13,21 @@ export {
 	useFloatingParentNodeId,
 	useFloatingTree
 } from './components/FloatingTree.svelte.js';
+export { FloatingTreeStore } from './components/FloatingTreeStore.js';
 export { ClickInteraction } from './hooks/useClick.svelte.js';
 export { DismissInteraction } from './hooks/useDismiss.svelte.js';
 export { useHoverFloatingInteraction } from './hooks/useHoverFloatingInteraction.svelte.js';
-export { HoverReferenceInteraction } from './hooks/useHoverReferenceInteraction.svelte.js';
+export {
+	HoverReferenceInteraction,
+	type UseHoverReferenceProps
+} from './hooks/useHoverReferenceInteraction.svelte.js';
 export { arrow, type ArrowOptions } from './middleware/arrow.js';
-export { safePolygon } from './safePolygon.js';
+export {
+	safePolygon,
+	type HandleClose,
+	type HandleCloseContext,
+	type SafePolygonOptions
+} from './safePolygon.js';
 export {
 	FloatingPosition,
 	roundByDPR,
