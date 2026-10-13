@@ -2,9 +2,10 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
+import { parkPointer } from '../../tests/pointer.js';
 import { items, type MenuFilterSpec, type MenuItemSpec } from '../../tests/menu/types.js';
 
 type Bag = Record<string, unknown>;
@@ -78,6 +79,8 @@ async function openWithInput(entries: MenuItemSpec[], filter: MenuFilterSpec = {
 }
 
 describe('Menu.FilterProvider', () => {
+	beforeEach(parkPointer);
+
 	describe('opening with a query', () => {
 		it('keeps only the matching items mounted', async () => {
 			filterable(items('Rename', 'Copy'), {

@@ -13,6 +13,8 @@ export interface MenuFilterSpec {
 	clear?: Bag | boolean;
 	/** Renders `Menu.Empty` with this text. */
 	empty?: string;
+	/** Renders a button with this text between the input and the list. */
+	extra?: string;
 }
 
 export type MenuItemSpec =

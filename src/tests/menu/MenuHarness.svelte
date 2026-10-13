@@ -145,6 +145,7 @@
 	{#if spec}
 		<Menu.Input aria-label={spec.inputLabel ?? 'Filter actions'} {...spec.inputProps} />
 		{#if spec.clear}<Menu.Clear aria-label="Clear filter" {...bag(spec.clear)} />{/if}
+		{#if spec.extra}<button type="button">{spec.extra}</button>{/if}
 		<Menu.List {...spec.listProps}>{@render list(entries)}</Menu.List>
 		{#if spec.empty}<Menu.Empty>{spec.empty}</Menu.Empty>{/if}
 	{:else if plainList}

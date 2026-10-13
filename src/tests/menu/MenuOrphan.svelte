@@ -20,7 +20,10 @@
 			| 'radio-indicator'
 			| 'radio-item'
 			| 'popup'
-			| 'positioner';
+			| 'positioner'
+			| 'input'
+			| 'clear'
+			| 'empty';
 	} = $props();
 </script>
 
@@ -51,6 +54,18 @@
 {:else if part === 'popup'}
 	<Menu.Root open>
 		<Menu.Popup />
+	</Menu.Root>
+{:else if part === 'input'}
+	<Menu.Root open>
+		<Menu.Input />
+	</Menu.Root>
+{:else if part === 'clear'}
+	<Menu.Root open>
+		<Menu.Clear />
+	</Menu.Root>
+{:else if part === 'empty'}
+	<Menu.Root open>
+		<Menu.Empty />
 	</Menu.Root>
 {:else if part === 'positioner'}
 	<Menu.Root open>
