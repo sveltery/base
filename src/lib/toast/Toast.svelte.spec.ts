@@ -143,11 +143,11 @@ describe('<Toast.Viewport />', () => {
 			spy.mock.calls.filter(([eventType]) => eventType === type).length;
 
 		try {
-			const { manager } = renderToasts({ timeout: 0, portalContainer });
-			const root = () => iframeDocument.querySelector('[data-testid="root"]');
+			const { manager } = renderToasts({ timeout: 0, portalContainer, content: true });
+			const roots = () => iframeDocument.querySelectorAll('[data-testid="root"]');
 
-			manager.add({ title: 'title' });
-			await expect.poll(root).not.toBe(null);
+			const first = manager.add({ title: 'title' });
+			await expect.poll(() => roots().length).toBe(1);
 
 			expect(count(addWindowListener, 'keydown')).toBe(1);
 			expect(count(addWindowListener, 'blur')).toBe(1);
@@ -159,15 +159,26 @@ describe('<Toast.Viewport />', () => {
 				iframeDocument.querySelector('[data-testid="viewport"]')
 			);
 
-			manager.close(manager.toasts[0]?.id);
-			await expect.poll(root).toBe(null);
+			// Changes to a non-empty list must not rebind the listeners.
+			manager.update(first, { title: 'updated' });
+			const second = manager.add({ title: 'second' });
+			await expect.poll(() => roots().length).toBe(2);
+			expect(iframeDocument.querySelector('[data-testid="title"]')?.textContent).toBe('second');
+			expect(count(addWindowListener, 'keydown')).toBe(1);
+			expect(count(removeWindowListener, 'keydown')).toBe(0);
+			expect(count(addDocumentListener, 'pointerdown')).toBe(1);
+			expect(count(removeDocumentListener, 'pointerdown')).toBe(0);
+
+			manager.close(first);
+			manager.close(second);
+			await expect.poll(() => roots().length).toBe(0);
 			expect(count(removeWindowListener, 'keydown')).toBe(1);
 			expect(count(removeWindowListener, 'blur')).toBe(1);
 			expect(count(removeWindowListener, 'focus')).toBe(1);
 			expect(count(removeDocumentListener, 'pointerdown')).toBe(1);
 
 			manager.add({ title: 'title' });
-			await expect.poll(root).not.toBe(null);
+			await expect.poll(() => roots().length).toBe(1);
 			expect(count(addWindowListener, 'keydown')).toBe(2);
 			expect(count(addWindowListener, 'blur')).toBe(2);
 			expect(count(addWindowListener, 'focus')).toBe(2);

@@ -32,6 +32,8 @@ export class ToastStore {
 	#list = $state.raw<StoredToast[]>([]);
 	readonly toasts = $derived(applyLimited(this.#list, this.limit));
 	readonly toastMetadata = $derived(createToastMetadata(this.toasts));
+	// A boolean, so readers re-run only when the list empties or fills, as upstream's selector.
+	readonly isEmpty = $derived(this.toasts.length === 0);
 	hovering = $state(false);
 	focused = $state(false);
 	isWindowFocused = $state(true);
@@ -48,10 +50,6 @@ export class ToastStore {
 
 	get limit() {
 		return this.props().limit;
-	}
-
-	get isEmpty() {
-		return this.toasts.length === 0;
 	}
 
 	get expanded() {
