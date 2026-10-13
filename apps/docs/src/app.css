@@ -1,0 +1,156 @@
+@import 'tailwindcss';
+
+@source '../content';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+	--color-bg: var(--bg);
+	--color-fg: var(--fg);
+	--color-muted: var(--muted);
+	--color-subtle: var(--subtle);
+	--color-line: var(--line);
+	--color-canvas: var(--canvas);
+	--color-code: var(--code);
+	--color-accent: var(--accent);
+}
+
+:root {
+	--bg: oklch(1 0 0);
+	--fg: oklch(0.2 0 0);
+	--muted: oklch(0.5 0 0);
+	--subtle: oklch(0.96 0 0);
+	--line: oklch(0.9 0 0);
+	--canvas: oklch(0.985 0 0);
+	--code: oklch(0.98 0 0);
+	--accent: oklch(0.55 0.2 260);
+	color-scheme: light;
+}
+
+.dark {
+	--bg: oklch(0.16 0 0);
+	--fg: oklch(0.94 0 0);
+	--muted: oklch(0.68 0 0);
+	--subtle: oklch(0.23 0 0);
+	--line: oklch(0.3 0 0);
+	--canvas: oklch(0.19 0 0);
+	--code: oklch(0.2 0 0);
+	--accent: oklch(0.72 0.15 260);
+	color-scheme: dark;
+}
+
+@layer base {
+	html {
+		scroll-padding-top: 4.5rem;
+	}
+	body {
+		@apply bg-bg text-fg antialiased;
+	}
+}
+
+/* Shiki emits both themes as variables. The `.dark` class picks one. */
+.shiki,
+.shiki span {
+	color: var(--shiki-light);
+	background-color: transparent;
+}
+.dark .shiki,
+.dark .shiki span {
+	color: var(--shiki-dark);
+}
+
+.code-block {
+	@apply bg-code text-[13px] leading-relaxed;
+}
+.code-block pre {
+	@apply overflow-x-auto px-4 py-3;
+	tab-size: 2;
+}
+div.code-block:not(:has(> div)) {
+	@apply rounded-lg border border-line;
+}
+
+.typeset {
+	@apply leading-7;
+
+	& h2 {
+		@apply mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight;
+	}
+	& h3 {
+		@apply mt-8 mb-3 scroll-mt-20 text-lg font-semibold tracking-tight;
+	}
+	& h4 {
+		@apply mt-6 mb-2 font-semibold;
+	}
+	& :is(h2, h3, h4) a {
+		@apply no-underline;
+	}
+	& p {
+		@apply my-4;
+	}
+	& ul {
+		@apply my-4 list-disc pl-6;
+	}
+	& ol {
+		@apply my-4 list-decimal pl-6;
+	}
+	& li {
+		@apply my-1;
+	}
+	& a:not(:is(h2, h3, h4) a) {
+		@apply text-accent underline underline-offset-2;
+	}
+	& :not(pre) > code {
+		@apply rounded bg-subtle px-1 py-0.5 text-[0.875em];
+	}
+	& table:not(.api-table) {
+		@apply my-6 w-full text-sm;
+		& th,
+		& td {
+			@apply border-b border-line px-3 py-2 text-left align-top;
+		}
+	}
+	& .not-typeset :is(p, ul, ol) {
+		margin: 0;
+	}
+}
+
+.typeset details code,
+.api-table .description code {
+	@apply rounded bg-subtle px-1 text-[0.85em];
+}
+
+.api-table {
+	& th,
+	& td {
+		@apply px-3 py-2 text-left align-top;
+	}
+	& thead th {
+		@apply border-b border-line bg-subtle text-xs font-medium text-muted;
+	}
+	& tbody tr:not(.has-description) {
+		@apply border-b border-line;
+	}
+	& tbody tr:last-child {
+		border-bottom: 0;
+	}
+	& .name {
+		@apply font-medium text-accent;
+	}
+	& .type,
+	& .default {
+		@apply text-xs break-words;
+	}
+	& .badge {
+		@apply ml-2 rounded bg-subtle px-1.5 py-0.5 text-[11px] font-normal text-muted;
+	}
+	& .description td {
+		@apply pt-0 text-muted;
+	}
+	& code {
+		@apply font-mono;
+	}
+	& .description code {
+		@apply rounded bg-subtle px-1 text-[0.85em] text-fg;
+	}
+}
