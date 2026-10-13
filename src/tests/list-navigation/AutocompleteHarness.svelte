@@ -1,7 +1,7 @@
 <!-- Upstream `Autocomplete` in useListNavigation.test.tsx: a virtual list under a text input. -->
 <script lang="ts">
-	import { DismissInteraction } from '../useDismiss.svelte.js';
-	import { ListNavigation } from '../useListNavigation.svelte.js';
+	import { DismissInteraction } from '@sveltery/floating-ui-svelte';
+	import { ListNavigation } from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from './mergeProps.js';
 	import { TestFloatingStore } from './TestFloatingStore.svelte.js';
 

@@ -1,6 +1,6 @@
 <!-- Upstream `ListboxFocus` test fixture: an always-open listbox and a button that selects. -->
 <script lang="ts">
-	import { ListNavigation } from '../useListNavigation.svelte.js';
+	import { ListNavigation } from '@sveltery/floating-ui-svelte';
 	import { TestFloatingStore } from './TestFloatingStore.svelte.js';
 
 	const labels = ['Apple', 'Blueberry', 'Watermelon', 'Banana'];

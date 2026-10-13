@@ -1,7 +1,7 @@
 <!-- Upstream `App` in useListNavigation.test.tsx: a click reference and a three-item menu. -->
 <script lang="ts">
-	import { ClickInteraction } from '../useClick.svelte.js';
-	import { ListNavigation, type UseListNavigationProps } from '../useListNavigation.svelte.js';
+	import { ClickInteraction } from '@sveltery/floating-ui-svelte';
+	import { ListNavigation, type UseListNavigationProps } from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from './mergeProps.js';
 	import { TestFloatingStore } from './TestFloatingStore.svelte.js';
 

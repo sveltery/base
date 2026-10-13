@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { setFloatingTree } from '../../components/FloatingTree.svelte.js';
-	import type { ListOrientation } from '../../utils/listOrientation.js';
+	import { setFloatingTree } from '@sveltery/floating-ui-svelte';
+	import type { ListOrientation } from '@sveltery/floating-ui-svelte';
 	import NestedMenu from './NestedMenu.svelte';
 
 	let { orientation = 'vertical' }: { orientation?: ListOrientation } = $props();

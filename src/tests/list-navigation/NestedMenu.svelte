@@ -1,7 +1,7 @@
 <!-- One level of upstream's `Menu` test fixture, keyboard only. A nested menu's trigger is an item of its parent. -->
 <script lang="ts" module>
 	import type { HTMLAttributes } from 'svelte/elements';
-	import type { ListOrientation } from '../../utils/listOrientation.js';
+	import type { ListOrientation } from '@sveltery/floating-ui-svelte';
 
 	export type MenuEntry =
 		string | { label: string; orientation?: ListOrientation; entries: MenuEntry[] };
@@ -15,8 +15,8 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import Self from './NestedMenu.svelte';
-	import { useFloatingNodeId } from '../../components/FloatingTree.svelte.js';
-	import { ListNavigation } from '../useListNavigation.svelte.js';
+	import { useFloatingNodeId } from '@sveltery/floating-ui-svelte';
+	import { ListNavigation } from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from './mergeProps.js';
 	import { TestFloatingStore } from './TestFloatingStore.svelte.js';
 

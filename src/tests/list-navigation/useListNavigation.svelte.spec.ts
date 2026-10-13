@@ -6,10 +6,10 @@ import { flushSync } from 'svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
-import AutocompleteHarness from './test-harness/AutocompleteHarness.svelte';
-import ListboxFocusHarness from './test-harness/ListboxFocusHarness.svelte';
-import ListNavigationHarness from './test-harness/ListNavigationHarness.svelte';
-import NestedMenuHarness from './test-harness/NestedMenuHarness.svelte';
+import AutocompleteHarness from './AutocompleteHarness.svelte';
+import ListboxFocusHarness from './ListboxFocusHarness.svelte';
+import ListNavigationHarness from './ListNavigationHarness.svelte';
+import NestedMenuHarness from './NestedMenuHarness.svelte';
 
 afterEach(() => {
 	vi.restoreAllMocks();

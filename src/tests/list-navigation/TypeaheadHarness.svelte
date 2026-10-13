@@ -5,8 +5,8 @@
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { ClickInteraction } from '../useClick.svelte.js';
-	import { Typeahead } from '../useTypeahead.svelte.js';
+	import { ClickInteraction } from '@sveltery/floating-ui-svelte';
+	import { Typeahead } from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from './mergeProps.js';
 	import { TestFloatingStore } from './TestFloatingStore.svelte.js';
 

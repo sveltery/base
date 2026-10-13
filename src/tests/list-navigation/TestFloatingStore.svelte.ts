@@ -1,7 +1,7 @@
 // Test store with a plain open bit, like upstream's test `useFloating({ open, onOpenChange })`.
 
 import type { BaseUIChangeEventDetails } from '@sveltery/utils';
-import { FloatingRootStore } from '../../components/FloatingRootStore.svelte.js';
+import { FloatingRootStore } from '@sveltery/floating-ui-svelte';
 
 let nextId = 0;
 
