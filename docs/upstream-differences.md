@@ -10,6 +10,10 @@ Local: `src/lib/internal/mergeProps.ts`. `@sveltery/base` and `@sveltery/base/me
 
 Test: `src/lib/internal/mergeProps.spec.ts`. `src/lib/merge-props/merge-props.spec.ts`. `src/lib/popover/Popover.svelte.spec.ts` (`skips the toggle when an iframe event calls preventDefault`).
 
+Internal: React shares one synthetic event across the propagation path, so `preventBaseUIHandler()` in a descendant's handler also skips the merged handlers of its ancestors. A native event is shared the same way, but `preventDefault()` cannot carry that meaning, because component handlers call it for their own keys. `src/lib/internal/mergeProps.ts` keeps upstream's flag in a module `WeakSet`. A part calls `preventBaseUIHandler(event)`, and every merged handler the event reaches next skips the handlers to its left, as upstream. `forwardConsumerPrevention(handler)` wraps a consumer handler so its `preventDefault()` sets the flag, for a part whose ancestor handles the same event. Consumers still call `preventDefault()`. Neither helper is public.
+
+Test: `src/lib/internal/mergeProps.svelte.spec.ts`.
+
 ## Public helpers and types
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/use-render/useRender.ts`, `packages/react/src/unstable-use-media-query/index.ts`, `packages/react/src/types/index.ts`, `packages/react/src/utils/resolveClassName.ts`, and `packages/react/src/utils/resolveStyle.ts`. `useRender` builds a custom part from a `render` prop, state attributes, and merged refs. `unstable_useMediaQuery` subscribes to `matchMedia`. The `types` entry exports `BaseUIChangeEventDetails`, `BaseUIGenericEventDetails`, `BaseUIEvent`, `HTMLProps`, and `ComponentRenderFn`. Every part accepts `className` and `style` as a function of its state.
@@ -69,7 +73,7 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` and `src/lib/popover/Popover.svelte
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/hooks/useDismiss.ts`. React events bubble through the component tree, so the floating element's capture handlers mark every press inside it (`insideReactTree`). In a closed shadow root that marker is the only inside-press signal, because a document listener sees only the shadow host.
 
-Local: the floating element's own capture listeners set the same marker. Svelte delegates `onclick` and similar handlers to the app root and the document, and neither sees into a closed shadow root that the app root is outside of. A portal host moved into a closed shadow root therefore mounts as its own delegation root.
+Local: the floating element's own capture listeners set the same marker. Svelte delegates `onclick` and similar handlers to the app root and the document, and neither sees into a closed shadow root that the app root is outside of. A portal host moved into a closed shadow root therefore mounts as its own delegation root. It does so for a shadow root nested inside a closed one too, open or closed, since neither listener sees into it. The capture listeners also mark `touchstart`, which upstream does not mark. A touch press reaches `pointerdown` first, which both mark, so the extra marker changes nothing visible.
 
 Test: `src/lib/dialog/DialogShadowRoot.svelte.spec.ts`.
 
@@ -437,7 +441,6 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/toast/**`.
 - `Toast.Title` and `Toast.Description` inside a `render` snippet register their id with the root, for `aria-labelledby` and `aria-describedby`, only when the snippet spreads the host props onto an element. The registration is an attachment in those props. Upstream registers the id whenever the part renders.
 - `Toast.Title`, `Toast.Description`, and `Toast.Action` render nothing unless they have children or the toast field has content. Upstream also inspects a `render` element's own children. A `render` snippet cannot be inspected, so its own text does not count. Pass that text as children instead.
 - `Toast.Portal` is the shared `FloatingPortal`, which renders focus guards only for a focus manager, so it behaves like upstream's `FloatingPortalLite`. It has no `keepMounted`, as upstream.
-- `Toast.Root` reads the drag start transform, including scale, with a toast-local `getElementTransform`. The shared helper returns translation only.
 - `class` and `style` take no function of state, as in every other component.
 
 Test: `src/lib/toast/store.svelte.spec.ts`, `src/lib/toast/toast-ssr.spec.ts`, `src/lib/toast/manager.svelte.spec.ts`, `src/lib/toast/manager-types.spec.ts`, `src/lib/toast/Toast.svelte.spec.ts`, `src/lib/toast/ToastRoot.svelte.spec.ts`, and `src/lib/toast/parts.svelte.spec.ts`. `src/lib/toast/Toast.svelte.spec.ts` (`keeps timers paused on mouseleave while the window is blurred`, `collapses a deferred mouseleave after a closing toast is removed while blurred`, `syncs a changed limit before descendant effects`). `src/lib/toast/manager.svelte.spec.ts` (`recomputes limited toasts when the limit prop changes`). `src/lib/toast/parts.svelte.spec.ts` (`renders content passed through the render snippet`, `does not render a childless render snippet when there is no content`).
