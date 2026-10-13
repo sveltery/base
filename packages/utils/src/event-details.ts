@@ -23,8 +23,10 @@ export const REASONS = {
 	outsidePress: 'outside-press',
 	focusOut: 'focus-out',
 	closePress: 'close-press',
+	closeWatcher: 'close-watcher',
 	imperativeAction: 'imperative-action',
 	listNavigation: 'list-navigation',
+	swipe: 'swipe',
 	itemPress: 'item-press',
 	cancelOpen: 'cancel-open',
 	windowResize: 'window-resize'
