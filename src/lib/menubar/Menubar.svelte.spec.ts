@@ -241,8 +241,10 @@ describe('Menubar', () => {
 			await userEvent.click(get('file-trigger'));
 			await expect.poll(shown('file-menu')).toBe(true);
 			await expect.poll(() => menubar().hasAttribute('data-has-submenu-open')).toBe(true);
+			await expect.poll(focused).toBe(get('file-menu').querySelector('[role="menu"]'));
 
-			get('standalone-trigger').focus();
+			await userEvent.keyboard('{Tab}');
+			await expect.poll(focused).toBe(get('standalone-trigger'));
 			await userEvent.keyboard('{Enter}');
 			await expect.poll(shown('standalone-menu')).toBe(true);
 			await expect.poll(shown('file-menu')).toBe(false);
