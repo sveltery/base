@@ -34,12 +34,72 @@ function trackFocusedGuards() {
 }
 
 describe.for(['forward', 'backward'] as const)('tabbing %s from an open popover', (direction) => {
+	/** Puts focus on the element the upcoming Tab leaves from. */
+	function focusTabOrigin() {
+		(direction === 'backward' ? trigger() : byTestId('inside')).focus();
+	}
+
+	it.for([
+		['element', 0],
+		['function', 0],
+		['element', -1],
+		['function', -1]
+	] as const)(
+		'keeps the tab destination after the exit transition with finalFocus as an %s and trigger tabindex=%s',
+		async ([finalFocus, tabindex]) => {
+			render(PopoverFocusGuardHarness, { tabindex, finalFocus });
+			await openPopup();
+			if (direction === 'backward') await userEvent.tab({ shift: true });
+			else focusTabOrigin();
+
+			expect(document.activeElement).toBe(
+				direction === 'backward' ? trigger() : byTestId('inside')
+			);
+			expect(trigger().getAttribute('aria-expanded')).toBe('true');
+
+			await userEvent.tab({ shift: direction === 'backward' });
+
+			const destination = byTestId(direction === 'backward' ? 'before' : 'after');
+			expect(document.activeElement).toBe(destination);
+			await expect.poll(popupCount).toBe(0);
+			expect(document.activeElement).toBe(destination);
+			expect(trigger().getAttribute('tabindex')).toBe(String(tabindex));
+		}
+	);
+
+	it.for(['disabled', 'tabIndex', 'hidden', 'removed', 'inserted', 'reordered'] as const)(
+		'uses the current tab order when an adjacent control is %s during close',
+		async (change) => {
+			render(PopoverFocusGuardHarness, { tabindex: -1, change, direction });
+			await openPopup();
+			focusTabOrigin();
+			await userEvent.tab({ shift: direction === 'backward' });
+
+			expect(document.activeElement).toBe(byTestId('target'));
+			await expect.poll(popupCount).toBe(0);
+			expect(document.activeElement).toBe(byTestId('target'));
+		}
+	);
+
+	it('keeps the surrounding modal dialog focus trap', async () => {
+		render(PopoverFocusGuardHarness, { tabindex: -1, dialog: true, direction });
+		const destination = page.getByRole('button', { name: 'Inside dialog' });
+		await expect.poll(() => document.activeElement).toBe(destination.element());
+
+		await openPopup();
+		focusTabOrigin();
+		await userEvent.tab({ shift: direction === 'backward' });
+
+		await expect.poll(popupCount).toBe(0);
+		await expect.poll(() => document.activeElement).toBe(destination.element());
+	});
+
 	it.for([0, -1])(
 		'returns focus to the trigger without looping between guards when nothing else is tabbable (tabindex=%s)',
 		async (tabindex) => {
 			render(PopoverFocusGuardHarness, { tabindex, outside: false });
 			await openPopup();
-			(direction === 'backward' ? trigger() : byTestId('inside')).focus();
+			focusTabOrigin();
 
 			const guards = trackFocusedGuards();
 			try {
@@ -68,4 +128,16 @@ it('moves focus to the control after the trigger when tabbing from it during the
 	expect(document.activeElement).toBe(byTestId('after'));
 	await expect.poll(popupCount).toBe(0);
 	expect(document.activeElement).toBe(byTestId('after'));
+});
+
+it('moves focus to the element before the trigger when tabbing backward from the trigger of a popover rendered open', async () => {
+	render(PopoverFocusGuardHarness, { open: true });
+	await expect.poll(() => document.activeElement).toBe(byTestId('inside'));
+
+	await userEvent.tab({ shift: true });
+	await expect.poll(() => document.activeElement).toBe(trigger());
+
+	await userEvent.tab({ shift: true });
+	await expect.poll(() => document.activeElement).toBe(byTestId('before'));
+	await expect.poll(popupCount).toBe(0);
 });
