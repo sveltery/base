@@ -1,8 +1,8 @@
 <!--
 	Provides shared state to a series of radio buttons. Renders a `<div>`.
-	Derived from Base UI v1.8.0 packages/react/src/radio-group/RadioGroup.tsx
+	Derived from Base UI v1.9.0 packages/react/src/radio-group/RadioGroup.tsx
 	and the linear composite path it mounts
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	Inside a Field, the group is the field's control. `inputRef` is not ported.
 	The radios are the existing Radio parts.
 -->
@@ -41,8 +41,7 @@
 		name: nameProp,
 		form,
 		onValueChange,
-		onfocus,
-		onblur,
+		onfocusout,
 		onkeydown,
 		'aria-describedby': ariaDescribedBy,
 		render,
@@ -191,13 +190,12 @@
 		// Shift still selects. Ctrl, Alt, and Meta do not move, so they must not
 		// leave the group armed for the next focus.
 		touched = !(event.altKey || event.ctrlKey || event.metaKey);
-		field.setFocused(true);
 	}
 
-	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
-		onblur?.(event);
-		touched = false;
+	function handleFocusOut(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+		onfocusout?.(event);
 		if (contains(event.currentTarget, event.relatedTarget)) return;
+		touched = false;
 		field.setTouched(true);
 		field.setFocused(false);
 		if (field.validationMode === 'onBlur') field.commit(checkedValue);
@@ -231,11 +229,7 @@
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 				...(describedBy ? { 'aria-describedby': describedBy } : {}),
 				...(field.valid === false && !disabled ? { 'aria-invalid': true as const } : {}),
-				onfocus: (event) => {
-					onfocus?.(event);
-					field.setFocused(true);
-				},
-				onblur: handleBlur,
+				onfocusout: handleFocusOut,
 				onkeydown: handleKeyDown,
 				onkeydowncapture: arrowsTouched,
 				[controlKey]: registration,

@@ -1,5 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/collapsible/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Cases from upstream commits c1dc31e10, 227da5ecd, 87b2a9faf, 24c2cb585 and 810c458b5 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance, className/style callbacks, and React.Activity are not ported.
 // Cases under "native Svelte" have no upstream counterpart.
 import { tick } from 'svelte';
@@ -9,6 +10,7 @@ import { render } from 'vitest-browser-svelte';
 import CollapsibleAttachHarness from '../../tests/CollapsibleAttachHarness.svelte';
 import CollapsibleBindHarness from '../../tests/CollapsibleBindHarness.svelte';
 import CollapsibleHarness from '../../tests/CollapsibleHarness.svelte';
+import CollapsibleIgnoredRevealHarness from '../../tests/CollapsibleIgnoredRevealHarness.svelte';
 import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import { Collapsible } from './index.js';
 import { REASONS } from '@sveltery/utils';
@@ -26,6 +28,46 @@ const TRANSITION_CSS = `
 		height: 0;
 	}
 `;
+
+const SLOW_TRANSITION_CSS = `
+	.transition-test-panel {
+		overflow: hidden;
+		height: var(--collapsible-panel-height);
+		transition-property: height;
+		transition-duration: 999ms;
+		transition-timing-function: linear;
+	}
+	.transition-test-panel[data-starting-style],
+	.transition-test-panel[data-ending-style] {
+		height: 0;
+	}
+`;
+
+const KEYFRAME_CSS = `
+	@keyframes test-panel-slide-down {
+		from { height: 0; }
+		to { height: var(--collapsible-panel-height); }
+	}
+	@keyframes test-panel-slide-up {
+		from { height: var(--collapsible-panel-height); }
+		to { height: 0; }
+	}
+	.animation-test-panel {
+		overflow: hidden;
+	}
+	.animation-test-panel[data-open] {
+		animation: test-panel-slide-down 100ms ease-out;
+	}
+	.animation-test-panel[data-closed] {
+		animation: test-panel-slide-up 100ms ease-in;
+	}
+`;
+
+/** The browser drops `hidden` while revealing a match, whatever the handler decided. */
+function revealMatch(panel: Element) {
+	panel.dispatchEvent(new Event('beforematch', { bubbles: true }));
+	panel.removeAttribute('hidden');
+}
 
 const CLOSE_TRANSITION_CSS = `
 	.transition-test-panel {
@@ -87,17 +129,27 @@ describe('Collapsible', () => {
 	});
 
 	describe('disabled', () => {
-		it('sets data-disabled and stays focusable', async () => {
+		it('renders the disabled attribute when disabled', async () => {
 			render(CollapsibleHarness, { disabled: true });
 			const trigger = page.getByRole('button', { name: 'Trigger' });
 			const root = trigger.element().parentElement as HTMLElement;
 
 			await expect.element(trigger).toHaveAttribute('data-disabled', '');
-			await expect.element(trigger).toHaveAttribute('aria-disabled', 'true');
-			await expect.element(trigger).not.toHaveAttribute('disabled');
+			await expect.element(trigger).toHaveAttribute('disabled', '');
+			await expect.element(trigger).not.toHaveAttribute('aria-disabled');
 			expect(root).toHaveAttribute('data-disabled', '');
-			trigger.element().focus();
-			expect(document.activeElement).toBe(trigger.element());
+		});
+
+		it('removes a disabled non-native trigger from the tab order', async () => {
+			render(CollapsibleHarness, { disabled: true, triggerAs: 'span' });
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			await expect.element(trigger).toHaveAttribute('aria-disabled', 'true');
+			await expect.element(trigger).toHaveAttribute('tabindex', '-1');
+			await expect.element(trigger).not.toHaveAttribute('disabled');
+
+			await userEvent.keyboard('{Tab}');
+			expect(document.activeElement).not.toBe(trigger.element());
 		});
 
 		it('does not toggle or call onOpenChange when clicked while disabled', async () => {
@@ -327,6 +379,26 @@ describe('Collapsible', () => {
 			expect(panel.element().style.getPropertyValue('--collapsible-panel-height')).toMatch(/px$/);
 		});
 
+		it('unmounts a closing panel that also runs an infinite animation', async () => {
+			render(CollapsibleHarness, {
+				open: true,
+				css: `
+					@keyframes test-panel-pulse {
+						to { opacity: 0.5; }
+					}
+					.pulsing-panel {
+						animation: test-panel-pulse 1s infinite alternate;
+					}
+				`,
+				panelClass: 'pulsing-panel'
+			});
+
+			await expect.element(page.getByTestId('panel')).toHaveAttribute('data-open', '');
+			await page.getByRole('button', { name: 'Trigger' }).click();
+
+			await expect.element(page.getByTestId('panel')).not.toBeInTheDocument();
+		});
+
 		it('unmounts a zero-size panel without waiting for unrelated transitions', async () => {
 			render(CollapsibleHarness, {
 				open: true,
@@ -369,6 +441,53 @@ describe('Collapsible', () => {
 				.toHaveAttribute('aria-expanded', 'false');
 			expect(page.getByText(PANEL_CONTENT).elements()).toHaveLength(0);
 			expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything());
+		});
+
+		it('finishes closing when the render function removes the panel element', async () => {
+			render(CollapsibleHarness, {
+				open: true,
+				removeWhenClosed: true,
+				panelStyle: 'transition: height 100ms linear'
+			});
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			await expect.element(page.getByText(PANEL_CONTENT)).toHaveAttribute('data-open', '');
+			await trigger.click();
+
+			await expect.element(trigger).not.toHaveAttribute('data-panel-open');
+			await frames(2);
+			expect(trigger.element()).not.toHaveAttribute('data-ending-style');
+			expect(page.getByTestId('panel').elements()).toHaveLength(0);
+		});
+
+		it('animates on reopen after an initially open panel is removed by the render function', async () => {
+			render(CollapsibleHarness, {
+				open: true,
+				removeWhenClosed: true,
+				css: `
+					@keyframes removable-panel-open {
+						from { opacity: 0; }
+						to { opacity: 1; }
+					}
+					.removable-animation-panel[data-open] {
+						animation: removable-panel-open 10s linear;
+					}
+				`,
+				panelClass: 'removable-animation-panel'
+			});
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+			await expect.element(page.getByTestId('panel')).toHaveAttribute('data-open', '');
+			expect(page.getByTestId('panel').element().getAnimations()).toHaveLength(0);
+
+			await trigger.click();
+			await expect.element(page.getByTestId('panel')).not.toBeInTheDocument();
+
+			await trigger.click();
+
+			const panel = page.getByTestId('panel');
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			expect(getComputedStyle(panel.element()).animationName).toBe('removable-panel-open');
+			expect(panel.element().getAnimations()).toHaveLength(1);
 		});
 
 		it('preserves inline alignment styles while measuring an opening panel', async () => {
@@ -446,11 +565,11 @@ describe('Collapsible', () => {
 					}
 					.animation-test-panel[data-open] {
 						overflow: hidden;
-						animation: panel-slide-down 100ms linear;
+						animation: panel-slide-down 999ms linear;
 					}
 					.animation-test-panel[data-closed] {
 						overflow: hidden;
-						animation: panel-slide-up 100ms linear;
+						animation: panel-slide-up 999ms linear;
 					}
 				`
 			});
@@ -502,7 +621,7 @@ describe('Collapsible', () => {
 			await expect.element(panel).toHaveAttribute('data-open', '');
 		});
 
-		it('does not open when beforematch is canceled', async () => {
+		it('does not open and stays hidden when beforematch is canceled', async () => {
 			const handleOpenChange = vi.fn(
 				(_open: boolean, details: { reason: string; cancel: () => void }) => {
 					if (details.reason === REASONS.none) details.cancel();
@@ -511,22 +630,210 @@ describe('Collapsible', () => {
 			render(CollapsibleHarness, {
 				hiddenUntilFound: true,
 				keepMounted: true,
+				css: SLOW_TRANSITION_CSS,
+				panelClass: 'transition-test-panel',
 				panelStyle: 'transition-duration: 123ms',
 				onOpenChange: handleOpenChange
 			});
 			const panel = page.getByTestId('panel');
 			const trigger = page.getByRole('button', { name: 'Trigger' });
 
-			panel.element().dispatchEvent(new Event('beforematch', { bubbles: true }));
+			revealMatch(panel.element());
 			await tick();
 
 			expect(handleOpenChange).toHaveBeenCalledTimes(1);
 			await expect.element(trigger).toHaveAttribute('aria-expanded', 'false');
 			await expect.element(panel).toHaveAttribute('data-closed', '');
+			expect(panel.element()).toHaveAttribute('data-starting-style', '');
+			expect(getComputedStyle(panel.element()).height).toBe('0px');
+			await expect.element(panel).toHaveAttribute('hidden', 'until-found');
 
 			await trigger.click();
 			expect(handleOpenChange).toHaveBeenCalledTimes(2);
 			await expect.element(panel).toHaveAttribute('data-open', '');
+			expect(panel.element().style.transitionDuration).toBe('123ms');
+		});
+	});
+
+	describe('beforematch reveal', () => {
+		it('expands the panel while beforematch is being dispatched', async () => {
+			render(CollapsibleHarness, {
+				hiddenUntilFound: true,
+				css: SLOW_TRANSITION_CSS,
+				panelClass: 'transition-test-panel'
+			});
+			const panel = page.getByTestId('panel').element();
+			await expect.element(panel).toHaveAttribute('data-starting-style', '');
+
+			let revealed: { startingStyle: boolean; height: string } | undefined;
+			// Added after the component's listener, so it sees the panel where the browser
+			// measures the match: in the same task, once beforematch handling is done.
+			panel.addEventListener('beforematch', () => {
+				panel.removeAttribute('hidden');
+				revealed = {
+					startingStyle: panel.hasAttribute('data-starting-style'),
+					height: getComputedStyle(panel).height
+				};
+			});
+			panel.dispatchEvent(new Event('beforematch', { bubbles: true }));
+
+			expect(revealed?.startingStyle).toBe(false);
+			expect(revealed?.height).not.toBe('0px');
+		});
+
+		it('re-collapses the panel when the open state never arrives', async () => {
+			render(CollapsibleIgnoredRevealHarness, {
+				css: SLOW_TRANSITION_CSS,
+				panelClass: 'transition-test-panel',
+				panelStyle: 'transition-duration: 123ms'
+			});
+			const panel = page.getByTestId('panel');
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+			await expect.element(panel).toHaveAttribute('data-starting-style', '');
+
+			revealMatch(panel.element());
+
+			await expect.element(panel).toHaveAttribute('hidden', 'until-found');
+			expect(panel.element()).toHaveAttribute('data-starting-style', '');
+			expect(getComputedStyle(panel.element()).height).toBe('0px');
+
+			// The reveal never opened the panel, so the next open keeps its motion.
+			await trigger.click();
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			expect(getComputedStyle(panel.element()).transitionDuration).toBe('0.123s');
+		});
+
+		it('re-collapses a keyframe panel when the open state never arrives', async () => {
+			render(CollapsibleIgnoredRevealHarness, {
+				css: KEYFRAME_CSS,
+				panelClass: 'animation-test-panel'
+			});
+			const panel = page.getByTestId('panel');
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			await trigger.click();
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			await trigger.click();
+			await expect.element(panel).toHaveAttribute('hidden', 'until-found');
+			expect(panel.element()).not.toHaveAttribute('data-starting-style');
+
+			revealMatch(panel.element());
+
+			await expect.element(panel).toHaveAttribute('hidden', 'until-found');
+			expect(panel.element()).not.toHaveAttribute('data-starting-style');
+
+			await trigger.click();
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			expect(getComputedStyle(panel.element()).animationDuration).toBe('0.1s');
+			expect(panel.element().getAnimations().length).toBeGreaterThan(0);
+		});
+	});
+
+	describe('interrupted beforematch opens', () => {
+		it('keeps the temporary zero animation duration until the panel closes', async () => {
+			render(CollapsibleHarness, {
+				hiddenUntilFound: true,
+				keepMounted: true,
+				panelClass: 'animation-test-panel',
+				css: `
+					@keyframes panel-slide-down {
+						from { height: 0; }
+						to { height: var(--collapsible-panel-height); }
+					}
+					@keyframes panel-slide-up {
+						from { height: var(--collapsible-panel-height); }
+						to { height: 0; }
+					}
+					.animation-test-panel {
+						overflow: hidden;
+						animation-duration: 999ms;
+					}
+					.animation-test-panel[data-open] {
+						animation-name: panel-slide-down;
+					}
+					.animation-test-panel[data-closed] {
+						animation-name: panel-slide-up;
+					}
+				`
+			});
+			const panel = page.getByTestId('panel');
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			panel.element().dispatchEvent(new Event('beforematch', { bubbles: true }));
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			await frames(2);
+
+			expect(getComputedStyle(panel.element()).animationDuration).toBe('0s');
+
+			await trigger.click();
+			await expect
+				.poll(() => ({
+					closed: panel.element().hasAttribute('data-closed'),
+					animations: panel.element().getAnimations().length
+				}))
+				.toEqual({ closed: true, animations: 1 });
+			expect(getComputedStyle(panel.element()).animationDuration).toBe('0.999s');
+		});
+
+		it('restores the transition duration before the first close after a beforematch open', async () => {
+			render(CollapsibleHarness, {
+				hiddenUntilFound: true,
+				keepMounted: true,
+				panelClass: 'transition-test-panel',
+				panelStyle: 'transition-duration: 123ms',
+				css: SLOW_TRANSITION_CSS
+			});
+			const panel = page.getByTestId('panel');
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			panel.element().dispatchEvent(new Event('beforematch', { bubbles: true }));
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			await frames(2);
+
+			expect(getComputedStyle(panel.element()).transitionDuration).toBe('0s');
+
+			await trigger.click();
+			await expect
+				.poll(() => ({
+					endingStyle: panel.element().hasAttribute('data-ending-style'),
+					transitionDuration: panel.element().style.transitionDuration,
+					animations: panel.element().getAnimations().length
+				}))
+				.toEqual({ endingStyle: true, transitionDuration: '123ms', animations: 1 });
+		});
+
+		it('does not suppress a later animated open after a no-motion beforematch open', async () => {
+			const view = render(CollapsibleHarness, {
+				hiddenUntilFound: true,
+				keepMounted: true,
+				css: `
+					.transition-test-panel {
+						overflow: hidden;
+						height: var(--collapsible-panel-height);
+						transition: height 100ms linear;
+					}
+					.transition-test-panel[data-starting-style],
+					.transition-test-panel[data-ending-style] {
+						height: 0;
+					}
+				`
+			});
+			const panel = page.getByTestId('panel');
+			const trigger = page.getByRole('button', { name: 'Trigger' });
+
+			panel.element().dispatchEvent(new Event('beforematch', { bubbles: true }));
+			await expect.element(panel).toHaveAttribute('data-open', '');
+			await trigger.click();
+			await expect.element(panel).toHaveAttribute('data-closed', '');
+
+			await view.rerender({
+				panelClass: 'transition-test-panel',
+				panelStyle: 'transition-duration: 123ms'
+			});
+			(trigger.element() as HTMLButtonElement).click();
+			await tick();
+
+			expect(panel.element()).toHaveAttribute('data-open', '');
 			expect(panel.element().style.transitionDuration).toBe('123ms');
 		});
 	});

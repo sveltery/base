@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart of AlertDialogFixture.svelte. Comparison only; never imported by src/lib.
+// React Base UI 1.9.0 counterpart of AlertDialogFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, Fragment, useEffect, useState, type ReactNode } from 'react';
 import { AlertDialog } from '@base-ui/react/alert-dialog';
 import { Dialog } from '@base-ui/react/dialog';

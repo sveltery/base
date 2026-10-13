@@ -37,7 +37,8 @@
 		omitThumb = false,
 		unrelated = false,
 		valueChildren = false,
-		knob = false
+		knob = false,
+		controlPointerDown
 	}: {
 		scenario?: string;
 		defaultValue?: number | number[];
@@ -80,6 +81,7 @@
 		unrelated?: boolean;
 		valueChildren?: boolean;
 		knob?: boolean;
+		controlPointerDown?: (event: PointerEvent) => void;
 	} = $props();
 
 	let changeTracked = $state<boolean | undefined>();
@@ -117,7 +119,7 @@
 {/snippet}
 
 {#snippet trackedControl()}
-	<Slider.Control data-testid="control">
+	<Slider.Control data-testid="control" onpointerdown={controlPointerDown}>
 		<Slider.Track data-testid="track">
 			<Slider.Indicator data-testid="indicator" />
 			{@render thumbs()}

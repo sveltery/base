@@ -1,5 +1,5 @@
-// Derived from Base UI v1.8.0 packages/react/src/utils/getElementTransform.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/react/src/utils/getElementTransform.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Takes the resolved style. Only the translation is ported.
 
 export function getElementTransform(computedStyle: CSSStyleDeclaration) {

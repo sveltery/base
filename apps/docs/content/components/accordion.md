@@ -176,7 +176,7 @@ Set `keepMounted` to keep closed panels in the DOM without making them searchabl
 
 ### Disabled items
 
-Set `disabled` on the root to disable every item, or on one item to disable only that item. A disabled trigger ignores clicks but stays focusable.
+Set `disabled` on the root to disable every item, or on one item to disable only that item. A disabled trigger gets the native `disabled` attribute, so it ignores clicks and leaves the tab order.
 
 ```svelte demo
 <script lang="ts">

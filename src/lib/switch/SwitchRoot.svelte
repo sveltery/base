@@ -1,8 +1,8 @@
 <!--
 	Represents the switch itself. Renders a `<span>` and a hidden checkbox beside it.
-	Derived from Base UI v1.8.0 packages/react/src/switch/root/SwitchRoot.tsx
+	Derived from Base UI v1.9.0 packages/react/src/switch/root/SwitchRoot.tsx
 	and the native-label fallback of useAriaLabelledBy.ts
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
@@ -28,6 +28,7 @@
 		findLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import type { SwitchHostProps, SwitchRootProps, SwitchRootState } from './types.js';
 
 	const uid = $props.id();
@@ -115,10 +116,15 @@
 
 	let rootNode = $state<HTMLElement | null>(null);
 	let inputNode = $state<HTMLInputElement | null>(null);
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => disabled,
+		target: () => rootNode
+	});
 	const ariaLabelledBy = new AriaLabelledBy(labelable, {
 		explicit: () => ariaLabelledByProp ?? undefined,
 		input: () => (nativeButton ? null : inputNode),
-		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined)
+		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined),
+		ariaLabel: () => elementProps['aria-label']
 	});
 	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
 	const invalid = $derived(field.valid === false && !disabled);
@@ -196,7 +202,7 @@
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
 		onfocus?.(event);
-		if (!disabled) field.setFocused(true);
+		focusOwner.set(true);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
@@ -204,7 +210,7 @@
 		const input = inputNode;
 		if (!input || disabled) return;
 		field.setTouched(true);
-		field.setFocused(false);
+		focusOwner.set(false);
 		if (field.validationMode === 'onBlur') field.commit(input.checked);
 	}
 

@@ -1,4 +1,4 @@
-// React Base UI 1.8.0 counterpart of CheckboxFixture.svelte. Comparison only; never imported by src/lib.
+// React Base UI 1.9.0 counterpart of CheckboxFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, type ReactNode } from 'react';
 import { Checkbox } from '@base-ui/react/checkbox';
 import { useCheckedFixture } from '../checked-reference.js';

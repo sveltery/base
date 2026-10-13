@@ -1,8 +1,8 @@
 <!--
 	An interactive area where the user can click and drag to change the field value.
 	Renders a `<span>` element.
-	Derived from Base UI v1.8.0 packages/react/src/number-field/scrub-area/NumberFieldScrubArea.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/number-field/scrub-area/NumberFieldScrubArea.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The virtual cursor is portaled by NumberField.ScrubAreaCursor. This is not a floating overlay.
 -->
 <script lang="ts">
@@ -35,6 +35,7 @@
 		children,
 		style,
 		onpointerdown,
+		onclickcapture,
 		...elementProps
 	}: NumberFieldScrubAreaProps = $props();
 
@@ -46,8 +47,10 @@
 	let scrubbingActive = false;
 	let didMove = false;
 	let pointerDownTarget: EventTarget | null = null;
+	let nativeClickReceived = false;
 	const cursorPoint = { x: 0, y: 0 };
 	const exitTimer = new ScopedTimeout();
+	const syntheticClickTimer = new ScopedTimeout();
 
 	const scrubState: NumberFieldScrubAreaState = $derived(model.state);
 
@@ -109,11 +112,17 @@
 				model.lastChangedValue ?? model.baseValue,
 				createGenericEventDetails(REASONS.scrub, event)
 			);
+			// A locked pointer sends its click to the lock element, so dispatch one here. Without a
+			// lock (WebKit, or a denied request) the native click follows pointerup in the same task,
+			// so wait one task and dispatch only if it never reached the scrub area.
 			const target = pointerDownTarget;
 			const input = model.inputElement;
 			if (!didMove && target != null && input) {
 				const view = ownerWindow(input) as Window & { MouseEvent: typeof MouseEvent };
-				target.dispatchEvent(new view.MouseEvent('click', { bubbles: true, cancelable: true }));
+				syntheticClickTimer.start(0, () => {
+					if (nativeClickReceived) return;
+					target.dispatchEvent(new view.MouseEvent('click', { bubbles: true, cancelable: true }));
+				});
 			}
 			didMove = false;
 			pointerDownTarget = null;
@@ -211,6 +220,8 @@
 		}
 		scrubbingActive = true;
 		didMove = false;
+		nativeClickReceived = false;
+		syntheticClickTimer.clear();
 		pointerDownTarget = getTarget(event);
 		onScrubbingChange(true, event);
 
@@ -225,12 +236,20 @@
 		}
 	}
 
+	function handleClickCapture(
+		event: MouseEvent & { currentTarget: EventTarget & HTMLSpanElement }
+	) {
+		onclickcapture?.(event);
+		nativeClickReceived = true;
+	}
+
 	const hostProps: HTMLAttributes<HTMLSpanElement> = $derived({
 		role: 'presentation',
 		style: mergeCssStyle(SCRUB_STYLE, style),
 		...getStateAttributesProps(scrubState, numberFieldStateAttributes),
 		...elementProps,
-		onpointerdown: handlePointerDown
+		onpointerdown: handlePointerDown,
+		onclickcapture: handleClickCapture
 	});
 </script>
 
