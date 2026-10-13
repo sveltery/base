@@ -586,12 +586,36 @@ describe('Menu.CheckboxItem', () => {
 	});
 
 	it('closes the menu on click with closeOnClick', async () => {
+		const calls: [string, boolean, string][] = [];
 		render(MenuHarness, {
-			items: [{ type: 'checkbox', label: 'Item', props: { closeOnClick: true } }]
+			rootProps: {
+				onOpenChange: (open: boolean, details: { reason: string }) =>
+					calls.push(['onOpenChange', open, details.reason])
+			},
+			portalProps: { keepMounted: true },
+			items: [
+				{
+					type: 'checkbox',
+					label: 'Item',
+					props: {
+						closeOnClick: true,
+						onCheckedChange: (checked: boolean, details: { reason: string }) =>
+							calls.push(['onCheckedChange', checked, details.reason])
+					}
+				}
+			]
 		});
 		await userEvent.click(trigger());
 		await userEvent.click(checkbox());
-		await expect.poll(() => menus().length).toBe(0);
+		await expect.poll(() => trigger().getAttribute('aria-expanded')).toBe('false');
+		const item = document.querySelector('[role="menuitemcheckbox"]')!;
+		expect(item.getAttribute('aria-checked')).toBe('true');
+		expect(item.hasAttribute('data-checked')).toBe(true);
+		expect(calls).toEqual([
+			['onOpenChange', true, 'trigger-press'],
+			['onCheckedChange', true, 'item-press'],
+			['onOpenChange', false, 'item-press']
+		]);
 	});
 
 	it('keeps the menu open on click by default', async () => {
