@@ -225,6 +225,81 @@ Local: inside a Field bound to a form source, Checkbox, Switch, RadioGroup, Chec
 
 Test: `src/lib/field/bound-control.svelte.spec.ts`.
 
+## Tooltip
+
+Source: `packages/react/src/tooltip` at Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`. The other components follow v1.8.0. The paired React fixture runs `@base-ui/react` 1.8.0, whose Tooltip behaves the same for the covered cases. `TooltipStore` extends the shared `TriggerOwnedPopupStore` in `src/lib/internal/popups/triggerOwnedStore.svelte.ts`, which also backs PreviewCard. Hover, focus, cursor tracking and the Provider's delay group come from `packages/floating-ui-svelte`.
+
+| Upstream                                                 | Local                                                                                                    |
+| -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId` | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                                 |
+| `actionsRef`                                             | `bind:this` on `Tooltip.Root` (`close` and `unmount`)                                                    |
+| `Tooltip.createHandle()`                                 | `Tooltip.createHandle()`, and `createTooltipHandle` as a named export                                    |
+| `children` render function `{ payload }`                 | snippet argument `{ payload }`                                                                           |
+| `useDismiss` `referencePress`                            | the trigger-press close lives in `TooltipRootInteractions.svelte`, because `DismissInteraction` has none |
+| `*DataAttributes` and `*CssVars` enums                   | not exported, as for Popover                                                                             |
+
+The popup has no `role` and the trigger has no `aria-describedby` or `type`, as upstream renders them.
+
+`payload`, `closeDelay` and `closeOnClick` are read live from the active trigger, and an active trigger that unmounts closes the tooltip, as described for PreviewCard under [Payload and close delay are read from the active trigger](#payload-and-close-delay-are-read-from-the-active-trigger) and [Active trigger tracking](#active-trigger-tracking).
+
+### Behavior that waits on shared internals
+
+Each case is kept as an `it.todo` in the Tooltip specs.
+
+- `TRIGGER_DISABLED_ATTRIBUTE` in `packages/floating-ui-svelte/src/utils/constants.ts` is `data-disabled`. v1.9.0 uses `data-trigger-disabled`, which the Tooltip trigger renders, so `isTargetInsideEnabledTrigger` treats a disabled tooltip trigger as enabled. Focus and hover both suffer: moving from an open trigger to a disabled one keeps the tooltip open. Upstream tests: `closes when focusing a disabled trigger while another trigger is open` and `closes when hovering a disabled trigger while another trigger is open`.
+- `src/lib/internal/useAnchorPositioning.svelte.ts` places the positioner with `left` and `top`. v1.9.0 uses `transform` when no Viewport is mounted. Upstream tests: `uses transform positioning without Viewport` and `updates positioning when Viewport mounts and unmounts`.
+- `src/lib/internal/usePopupViewport.svelte.ts` does not set `--popup-width` and `--popup-height` on the previous container. Upstream test: the size half of `creates morphing containers during transitions`.
+
+## PreviewCard
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/preview-card/**` and `packages/react/src/utils/popups/inlineRect.ts`. The rest of this file pins v1.8.0. The paired React fixture runs `@base-ui/react` 1.8.0, whose PreviewCard behaves the same for the covered cases.
+
+### Public surface
+
+Upstream: `defaultOpen`, `defaultTriggerId`, `actionsRef`, and the `PreviewCardPopupDataAttributes`, `PreviewCardPositionerCssVars` and similar namespaces. `PreviewCard.createHandle` is the only handle factory.
+
+Local: `open` and `triggerId` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The data-attribute and CSS-variable namespaces are not exported. The attribute names come from the shared state mappings. `createHandle` exists as `PreviewCard.createHandle` and `createPreviewCardHandle`. There is no top-level `createHandle`, because Popover already exports that name from the library barrel.
+
+### Payload and close delay are read from the active trigger
+
+Upstream: the store copies the active trigger's `payload` and `closeDelay` into state when the card opens or switches trigger.
+
+Local: each trigger registers a reader for `{ payload, closeDelay }` with the store. The store reads the active trigger's reader where the value is used, so a payload change on the active trigger shows at once and there is no copy to keep in step. When the active trigger unmounts while the card is mounted, for example before a canceled close or during the exit animation, the store keeps the values the trigger had at unmount until the card finishes closing.
+
+Test: `src/lib/preview-card/PreviewCardDetached.svelte.spec.ts` (`stays open when the close caused by the active trigger unmounting is canceled`).
+
+### Active trigger tracking
+
+Upstream: `useImplicitActiveTrigger(store, { closeOnActiveTriggerUnmount: true })`.
+
+Local: `TriggerOwnedPopupStore` in `src/lib/internal/popups/triggerOwnedStore.svelte.ts` does the same in one effect, for PreviewCard and Tooltip. A bound `triggerId` whose element registers late moves the anchor. A card opened through `bind:open` claims its only trigger. A card opened through `handle.open(null)` claims none, as upstream's `openedWithoutTrigger`, also when the trigger registers later. An active trigger that unregisters after it resolved closes the card with reason `none`, in a microtask, so a replacement registered in the same tick keeps the card open. A canceled close leaves the old element as the anchor.
+
+Test: `src/lib/preview-card/PreviewCardDetached.svelte.spec.ts` (`closes when the active trigger unmounts`), `src/lib/preview-card/PreviewCardOwnership.svelte.spec.ts` and `src/lib/tooltip/TooltipOwnership.svelte.spec.ts`.
+
+### Inline rect positioning
+
+Upstream: the positioner calls `updatePosition()` from an effect when the card opens, so the inline middleware measures the line the pointer entered.
+
+Local: no `update()` is exposed. The positioner replaces the inline middleware object when the card opens and is mounted, and `FloatingPosition` measures again when its options change. Hover coordinates live in a plain holder on the store, not in state, as upstream keeps them in a ref.
+
+Test: `src/lib/preview-card/PreviewCardPositioner.svelte.spec.ts` (`multiline inline trigger`).
+
+### Positioner uses top and left
+
+Upstream: `positionerConformanceTests` asserts `transform: translate(x, y)` on the positioner when no Viewport is mounted.
+
+Local: the shared `AnchorPositioning` always positions with `top` and `left`. The offset, collision and Viewport cases assert the bounding rectangle relative to the trigger instead, and the `transform` assertions are not ported.
+
+### Viewport previous pane
+
+Upstream: the previous container carries `--popup-width` and `--popup-height`.
+
+Local: the shared `PopupViewport` leaves them off the previous pane, as Popover does. `it.todo` in `PreviewCardViewport.svelte.spec.ts` keeps the case.
+
+### Not covered
+
+The "does not re-render inactive triggers" cases count React renders. "Cleans up the transition when a lagging payload remounts the current container" depends on a payload that arrives a render after the trigger id. Both have no Svelte counterpart.
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -260,3 +335,5 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
 | Dialog             | Drawer, ref objects                                                                                    |
 | AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |
+| Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
+| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |

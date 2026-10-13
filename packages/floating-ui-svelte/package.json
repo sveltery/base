@@ -15,7 +15,8 @@
 	},
 	"files": [
 		"dist",
-		"!dist/**/*.spec.*"
+		"!dist/**/*.spec.*",
+		"!dist/**/__tests__/**"
 	],
 	"sideEffects": false,
 	"exports": {

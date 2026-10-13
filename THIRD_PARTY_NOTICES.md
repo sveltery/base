@@ -255,6 +255,19 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/dialog/attributes.ts` from `packages/react/src/dialog/utils/stateAttributesMapping.ts` and the dialog `*DataAttributes.ts` files
 - `src/lib/dialog/Dialog.svelte.spec.ts` assertions from `packages/react/src/dialog/**/*.test.tsx` that do not require Alert Dialog, Drawer, Menu, or Select
 - `src/lib/internal/popups/store.svelte.ts` `forceUnmount` and `notifyOpenChangeComplete` expose the close-completion path Dialog's `unmount()` and open animation use
+- `src/lib/tooltip/**` from `packages/react/src/tooltip/**` of Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Provider, Root, Trigger, Portal, Positioner, Popup, Arrow, Viewport and the handle; `store.svelte.ts` extends the shared `TriggerOwnedPopupStore`)
+- `src/lib/tooltip/*.svelte.spec.ts` assertions from `packages/react/src/tooltip/**/*.test.tsx` of that commit that do not require React refs, StrictMode, or SSR hydration
+- PreviewCard derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/preview-card/PreviewCardRoot.svelte` and `PreviewCardInteractions.svelte` from `packages/react/src/preview-card/root/PreviewCardRoot.tsx`
+- `src/lib/preview-card/PreviewCardTrigger.svelte` and `PreviewCardTriggerInteractions.svelte` from `packages/react/src/preview-card/trigger/PreviewCardTrigger.tsx`
+- `src/lib/preview-card/PreviewCardPortal.svelte`, `PreviewCardPositioner.svelte`, `PreviewCardPopup.svelte`, `PreviewCardArrow.svelte`, `PreviewCardBackdrop.svelte` and `PreviewCardViewport.svelte` from the matching files under `packages/react/src/preview-card/`
+- `src/lib/preview-card/store.svelte.ts` from `packages/react/src/preview-card/store/PreviewCardStore.ts` and the dismiss-close and instant-type rules of `packages/react/src/utils/popups/popupStoreUtils.ts` (extends the shared `TriggerOwnedPopupStore`)
+- `src/lib/preview-card/handle.svelte.ts` from `packages/react/src/preview-card/store/PreviewCardHandle.ts` (extends the shared `PopupHandle`)
+- `src/lib/preview-card/inline-rect.ts` from `packages/react/src/utils/popups/inlineRect.ts`
+- `src/lib/preview-card/constants.ts` and `context.svelte.ts` from `packages/react/src/preview-card/utils/constants.ts` and the preview card root, portal, and positioner context modules
+- `src/lib/preview-card/inline-rect.spec.ts` assertions from `packages/react/src/utils/popups/inlineRect.test.ts`
+- `src/lib/preview-card/PreviewCard*.svelte.spec.ts` assertions from `packages/react/src/preview-card/**/*.test.tsx`, `packages/react/test/popupConformanceTests.tsx`, `detachedTriggersConformanceTests.tsx`, `positionerConformanceTests.tsx` and `viewportConformanceTests.tsx`
+- `src/lib/internal/popups/triggerOwnedStore.svelte.ts`, the trigger ownership Tooltip and PreviewCard share, from `useImplicitActiveTrigger` and `useTriggerDataForwarding` in `packages/react/src/utils/popups/popupStoreUtils.ts` of that commit
 
 Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 
@@ -274,7 +287,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `packages/floating-ui-svelte/src/hooks/useListNavigation.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useListNavigation.ts` as `ListNavigation` (no `grid` option)
 - `packages/floating-ui-svelte/src/utils/listIndex.ts` from the list helpers in `packages/react/src/floating-ui-react/utils/composite.ts`
 - `packages/floating-ui-svelte/src/utils/listOrientation.ts` from the orientation-key helpers in `packages/react/src/floating-ui-react/hooks/useListNavigation.ts`
-- `packages/floating-ui-svelte/src/utils/focusTarget.ts` from `getFloatingFocusElement` and `isTypeableCombobox` in `packages/react/src/floating-ui-react/utils/element.ts` and from `packages/react/src/floating-ui-react/utils/enqueueFocus.ts`
+- `packages/floating-ui-svelte/src/utils/focusTarget.ts` from `getFloatingFocusElement` and `isTypeableCombobox` in `packages/react/src/floating-ui-react/utils/element.ts`
 - `src/tests/list-navigation/useListNavigation.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useListNavigation.test.tsx` that do not require grid navigation, with harnesses from `packages/react/test/floating-ui-tests/ListboxFocus.tsx` and `Menu.tsx`
 - `packages/floating-ui-svelte/src/hooks/useTypeahead.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useTypeahead.ts` as `Typeahead`
 - `src/tests/list-navigation/useTypeahead.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useTypeahead.test.tsx`

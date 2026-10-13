@@ -7,7 +7,7 @@ import { AnimationFrame } from '@sveltery/utils';
 let queued: AnimationFrame | null = null;
 
 export function enqueueFocus(
-	element: HTMLElement,
+	element: HTMLElement | null,
 	options?: { preventScroll?: boolean; sync?: boolean; shouldFocus?: () => boolean }
 ) {
 	queued?.cancel();
@@ -15,7 +15,7 @@ export function enqueueFocus(
 
 	const exec = () => {
 		if (options?.shouldFocus && !options.shouldFocus()) return;
-		element.focus({ preventScroll: options?.preventScroll });
+		element?.focus({ preventScroll: options?.preventScroll });
 	};
 
 	if (options?.sync) {
