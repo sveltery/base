@@ -1,4 +1,4 @@
-// Helpers that already live in this package and that NavigationMenu needs from outside it.
+// Helpers that already live in this package and that NavigationMenu and Menu need from outside it.
 // The safe-polygon pointer-events lock keeps one owner per scope element in a module map,
 // so a copy outside this package would not see the lock that hover interactions applied.
 
@@ -14,3 +14,5 @@ export {
 	getNextTabbable,
 	getPreviousTabbable
 } from './utils/tabbable.js';
+export { isTypeableElement } from './utils/element.js';
+export { isVirtualPointerEvent, stopEvent } from './utils/event.js';
