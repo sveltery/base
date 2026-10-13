@@ -23,7 +23,7 @@ import { ElementList } from '../internal/element-list.svelte.js';
 import { queueValueEvent } from '../internal/value-events.js';
 import type { BoundInputProps } from '../field/bound-control.svelte.js';
 import type { FieldContext } from '../field/model.svelte.js';
-import type { FormContextValue } from '../form/context.js';
+import type { FormContextValue } from '../internal/form-context.js';
 import { asc } from './asc.js';
 import { focusElement, isElement, matchesFocusVisible } from './dom.js';
 import { getMidpoint } from './getMidpoint.js';

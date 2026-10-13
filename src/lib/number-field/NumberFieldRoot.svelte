@@ -8,9 +8,9 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { useFormContext } from '../form/context.js';
-	import { useFieldContext } from '../field/context.svelte.js';
-	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { useFormContext } from '../internal/form-context.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { BoundControl, sourceNumber } from '../field/bound-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';

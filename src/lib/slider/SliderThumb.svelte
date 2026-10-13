@@ -9,8 +9,8 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
-	import { useFieldContext } from '../field/context.svelte.js';
-	import { findLabelableContext } from '../field/labelable.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { useCSPContext } from '../internal/csp-context.js';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -18,7 +18,8 @@
 	import { visuallyHidden, ownerWindow } from '@sveltery/utils';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { prehydrationScriptElement } from './prehydration.js';
+	import { prehydrationScriptElement } from '../internal/PrehydrationScript.js';
+	import { prehydrationScript } from './prehydration.js';
 	import { dispatchingValueEvent } from '../internal/value-events.js';
 	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import type { SliderRootState, SliderThumbProps } from './types.js';
@@ -283,7 +284,7 @@
 	{#if showScript}
 		<!-- Upstream's edge-alignment script. The body is static and the nonce is escaped. -->
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html prehydrationScriptElement(csp.nonce)}
+		{@html prehydrationScriptElement(prehydrationScript, csp.nonce)}
 	{/if}
 {/snippet}
 

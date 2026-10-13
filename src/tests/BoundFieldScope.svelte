@@ -1,7 +1,7 @@
 <!-- Re-provides the enclosing Field's context with a source binding, as a bound Field.Root will. -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { setFieldContext, useFieldContext } from '#lib/field/context.svelte.js';
+	import { setFieldContext, useFieldContext } from '#lib/internal/field-root-context.js';
 	import type { ControlKind, FieldHandle } from '#lib/form/source.js';
 
 	let { binding, type, children }: { binding: FieldHandle; type?: ControlKind; children: Snippet } =

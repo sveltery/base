@@ -13,7 +13,7 @@
 		transitionStatusMapping
 	} from '../internal/state-attributes.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
-	import { useFormContext } from './context.js';
+	import { useFormContext } from '../internal/form-context.js';
 	import type { FormErrorProps, FormErrorState } from './types.js';
 
 	const elementKey = createAttachmentKey();

@@ -8,7 +8,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { switchStateAttributesMapping } from './attributes.js';
-	import { useFieldContext } from '../field/context.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
 	import { useSwitchContext } from './context.js';
 	import type { SwitchThumbProps, SwitchThumbState } from './types.js';
 

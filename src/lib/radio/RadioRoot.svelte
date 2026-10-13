@@ -20,10 +20,15 @@
 	import { radioRootAttributes } from './attributes.js';
 	import { setRadioContext } from './context.js';
 	import { useRadioGroupContext } from './group-context.js';
-	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
-	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { useFieldItemContext } from '../field/item-context.js';
+	import {
+		AriaLabelledBy,
+		LabelableId,
+		findLabelableContext
+	} from '../internal/labelable-provider.svelte.js';
 	import { boundInputProps, type BoundInputProps } from '../field/bound-control.svelte.js';
-	import { serializeValue } from './serialize-value.js';
+	import { serializeValue } from '../internal/serializeValue.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import type { RadioHostProps, RadioRootProps, RadioRootState } from './types.js';
 
