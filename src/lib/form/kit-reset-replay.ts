@@ -7,8 +7,14 @@
 
 import { on } from 'svelte/events';
 import { Timeout } from '@sveltery/utils';
+import type { FormSource } from './source.js';
 
 const ownResets = new WeakSet<HTMLFormElement>();
+
+/** Whether `source` is a Kit remote form, which posts to `?/remote=<id>`. Only those need the replay. */
+export function isRemoteForm(source: FormSource | undefined): boolean {
+	return typeof source?.action === 'string' && new URLSearchParams(source.action).has('/remote');
+}
 
 /** Resets `form` without a replay. For resets that already happen after the inputs settle. */
 export function resetForm(form: HTMLFormElement) {

@@ -1,4 +1,5 @@
-// A stand-in for `$app/forms` `enhance` and the page's `form` prop, for actionForm specs.
+// A stand-in for `$app/forms` `enhance`, `$app/state` `page` and the page's `form` prop, for
+// actionForm specs.
 // It follows Kit 3.0.1's use:enhance: the submit function may cancel, then the request goes
 // out, then the returned callback receives the result and an `update` that applies it.
 import type { ActionResult, SubmitFunction } from '$app/forms';
@@ -15,7 +16,21 @@ export const server = $state({
 	respond: (() => ({ type: 'success', status: 200, data: {}, location: '/' })) as Respond
 });
 
+/** `$app/state`'s `page`: the URL and status of the page a submission without JavaScript renders. */
+export const page = $state({ url: pageUrl('/signup'), status: 200 });
+
+function pageUrl(path: string) {
+	return new URL(path, 'http://localhost');
+}
+
+/** Renders the page as Kit does after a submission to `path` made without JavaScript. */
+export function landOn(path: string, status = 200) {
+	page.url = pageUrl(path);
+	page.status = status;
+}
+
 export function resetServer() {
+	landOn('/signup');
 	server.form = undefined;
 	server.requests = [];
 	server.updates = [];

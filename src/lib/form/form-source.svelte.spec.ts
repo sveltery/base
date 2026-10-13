@@ -5,8 +5,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { resetLogged } from '@sveltery/utils';
 import BoundFormHarness from '../../tests/BoundFormHarness.svelte';
+import FormSuccessionHarness from '../../tests/FormSuccessionHarness.svelte';
 import { FakeSource } from '../../tests/fake-form-source.svelte.js';
-import type { FormIssue } from './source.js';
+import type { EnhanceInstance, FormIssue } from './source.js';
 
 type Values = Record<string, unknown>;
 
@@ -21,6 +22,7 @@ const nameTaken = (values: Values): FormIssue[] =>
 const submit = () => page.getByRole('button', { name: 'Submit' }).click();
 const control = (testId: string) => page.getByTestId(testId);
 const element = (testId: string) => control(testId).element() as HTMLInputElement;
+const remoteAction = '?/remote=fake';
 const nextTask = () => new Promise((resolve) => setTimeout(resolve, 20));
 
 function listed(testId: string) {
@@ -77,6 +79,54 @@ describe('Form with a source', () => {
 			await expect.element(control('name-error')).toHaveTextContent('Name taken');
 		});
 
+		it('keeps an edited server issue hidden when a native constraint blocks the next submit', async () => {
+			const source = new FakeSource({ server: nameTaken });
+			render(BoundFormHarness, { source, required: true });
+			await userEvent.fill(control('name'), 'taken');
+			await userEvent.fill(control('age'), '36');
+			await submit();
+			await expect.element(control('name-error')).toHaveTextContent('Name taken');
+
+			await userEvent.clear(control('name'));
+			await submit();
+
+			await expect.element(control('name-error')).toHaveTextContent('Please fill out this field.');
+			expect(control('name-error').element().textContent).not.toContain('Name taken');
+			expect(source.requests).toEqual([{ name: 'taken', age: 36 }]);
+		});
+
+		it('keeps an edited server issue hidden while the next submit is in flight', async () => {
+			let answer: (() => void) | undefined;
+			const source = new FakeSource({
+				server: async (values) => {
+					await new Promise<void>((resolve) => (answer = resolve));
+					return nameTaken(values);
+				}
+			});
+			const answerServer = async () => {
+				await expect.poll(() => answer).toBeTypeOf('function');
+				answer!();
+				answer = undefined;
+			};
+			render(BoundFormHarness, { source });
+			await userEvent.fill(control('name'), 'taken');
+			await userEvent.fill(control('age'), '36');
+			await submit();
+			await answerServer();
+			await expect.element(control('name-error')).toHaveTextContent('Name taken');
+
+			await userEvent.type(control('name'), 'x');
+			await expect.element(control('name-error')).not.toBeInTheDocument();
+			await submit();
+			await expect.poll(() => answer).toBeTypeOf('function');
+
+			expect(source.pending).toBe(1);
+			expect(control('name-error').query()).toBe(null);
+			await answerServer();
+			await expect.poll(() => source.pending).toBe(0);
+			expect(control('name-error').query()).toBe(null);
+		});
+
 		it('shows a client issue with the text of a hidden server issue once a submit fails on it', async () => {
 			const source = new FakeSource({
 				schema: (values) =>
@@ -123,6 +173,45 @@ describe('Form with a source', () => {
 			expect(source.submitted).toBe(false);
 			await nextTask();
 			expect(source.requests).toEqual([]);
+		});
+
+		it('does not move focus later after a submit the source left to the browser', async () => {
+			const source = new FakeSource({ schema });
+			render(BoundFormHarness, { source, mode: 'onChange' });
+			const form = control('form').element() as HTMLFormElement;
+			const external = document.createElement('button');
+			external.setAttribute('formtarget', '_blank');
+			form.append(external);
+			const stopNavigation = (event: Event) => event.preventDefault();
+			document.addEventListener('submit', stopNavigation);
+			try {
+				form.requestSubmit(external);
+				await nextTask();
+				expect(source.pending).toBe(0);
+
+				await userEvent.fill(control('age'), '36');
+				await expect.element(control('name-error')).toHaveTextContent('Name is required');
+				await nextTask();
+				expect(document.activeElement).toBe(element('age'));
+			} finally {
+				document.removeEventListener('submit', stopNavigation);
+			}
+		});
+	});
+
+	describe('bound control props', () => {
+		it("does not read the source's aria-invalid, so an issue change leaves the control's props alone", async () => {
+			const source = new FakeSource({ schema });
+			render(BoundFormHarness, { source, mode: 'onChange' });
+			const as = vi.spyOn(source.fields.name, 'as');
+
+			await userEvent.fill(control('age'), '36');
+			await expect
+				.poll(() => source.fields.name.issues())
+				.toEqual([{ path: ['name'], message: 'Name is required' }]);
+
+			expect(as).not.toHaveBeenCalled();
+			expect(element('name').name).toBe('name/fake');
 		});
 	});
 
@@ -346,8 +435,8 @@ describe('Form with a source', () => {
 			expect(control('name-error').query()).toBe(null);
 		});
 
-		it('replays a reset a task later with a source, so the source reads the reset values', async () => {
-			const source = new FakeSource();
+		it('replays a reset a task later with a Kit remote form, so it reads the reset values', async () => {
+			const source = new FakeSource({ action: remoteAction });
 			render(BoundFormHarness, { source });
 			await userEvent.fill(control('name'), 'Ada');
 			expect(source.fields.name.value()).toBe('Ada');
@@ -359,6 +448,14 @@ describe('Form with a source', () => {
 			expect(control('resets').element().textContent).toBe('2');
 		});
 
+		it('does not replay a reset for a source that is not a Kit remote form', async () => {
+			render(BoundFormHarness, { source: new FakeSource({ action: '?/login' }) });
+			await page.getByRole('button', { name: 'Reset' }).click();
+			await nextTask();
+
+			expect(control('resets').element().textContent).toBe('1');
+		});
+
 		it('does not replay a reset without a source', async () => {
 			render(BoundFormHarness);
 			await page.getByRole('button', { name: 'Reset' }).click();
@@ -368,7 +465,7 @@ describe('Form with a source', () => {
 		});
 
 		it('does not replay a cancelled reset', async () => {
-			const source = new FakeSource();
+			const source = new FakeSource({ action: remoteAction });
 			render(BoundFormHarness, { source, cancelReset: true });
 			await userEvent.fill(control('name'), 'Ada');
 			await page.getByRole('button', { name: 'Reset' }).click();
@@ -379,7 +476,7 @@ describe('Form with a source', () => {
 		});
 
 		it("resets once after a successful submit, without a replay of Form's own reset", async () => {
-			const source = new FakeSource();
+			const source = new FakeSource({ action: remoteAction });
 			render(BoundFormHarness, { source });
 			await fillValid();
 			await submit();
@@ -426,6 +523,22 @@ describe('Form with a source', () => {
 
 			await userEvent.type(control('name'), 'x');
 			await expect.element(control('name-error')).not.toBeInTheDocument();
+		});
+
+		it("keeps a later Form's callback when an earlier Form on the same source unmounts", async () => {
+			const source = new FakeSource();
+			const elements: HTMLFormElement[] = [];
+			const enhance = async (instance: EnhanceInstance) => {
+				elements.push(instance.element);
+				await instance.submit();
+			};
+			render(FormSuccessionHarness, { source, enhance });
+			await page.getByRole('button', { name: 'Mount second' }).click();
+			await page.getByRole('button', { name: 'Unmount first' }).click();
+
+			await page.getByRole('button', { name: 'Submit second' }).click();
+			await expect.poll(() => source.requests).toEqual([{}]);
+			expect(elements).toEqual([control('second').element()]);
 		});
 	});
 

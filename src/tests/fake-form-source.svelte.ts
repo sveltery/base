@@ -15,6 +15,7 @@ import type {
 
 type Values = Record<string, unknown>;
 type Check = (values: Values) => FormIssue[];
+type ServerCheck = (values: Values) => FormIssue[] | Promise<FormIssue[]>;
 interface Issue extends FormIssue {
 	server: boolean;
 }
@@ -46,6 +47,8 @@ function merge(current: Issue[], client: FormIssue[]): Issue[] {
 
 export class FakeSource implements FormSource {
 	readonly method = 'POST' as const;
+	/** Kit's remote forms post to `?/remote=<id>`. */
+	readonly action: string | undefined;
 	readonly [attachment: symbol]: (form: HTMLFormElement) => () => void;
 
 	#values = $state<Values>({});
@@ -62,10 +65,18 @@ export class FakeSource implements FormSource {
 	// A plain cache, filled while a template reads `fields`, where reactive writes are not allowed.
 	#handles: Record<string, FieldHandle> = Object.create(null);
 	#schema: Check;
-	#server: Check;
+	#server: ServerCheck;
 	#requests: Values[] = [];
 	/** Issues present at construction, like a page rendered after a submit without JavaScript. */
-	constructor(options: { schema?: Check; server?: Check; initialIssues?: FormIssue[] } = {}) {
+	constructor(
+		options: {
+			schema?: Check;
+			server?: ServerCheck;
+			initialIssues?: FormIssue[];
+			action?: string;
+		} = {}
+	) {
+		this.action = options.action;
 		this.#schema = options.schema ?? (() => []);
 		this.#server = options.server ?? (() => []);
 		this.#issues = (options.initialIssues ?? []).map((issue) => ({ ...issue, server: true }));
@@ -177,6 +188,8 @@ export class FakeSource implements FormSource {
 	}
 
 	async #submit(event: SubmitEvent) {
+		// Like Kit, a submit into another browsing context is left to the browser.
+		if (event.submitter?.getAttribute('formtarget') === '_blank') return;
 		event.preventDefault();
 		const form = event.currentTarget as HTMLFormElement;
 		const values = read(form);
@@ -195,7 +208,8 @@ export class FakeSource implements FormSource {
 					const submission = (async () => {
 						await Promise.resolve();
 						this.#requests.push(values);
-						this.#issues = this.#server(values).map((issue) => ({ ...issue, server: true }));
+						const issues = await this.#server(values);
+						this.#issues = issues.map((issue) => ({ ...issue, server: true }));
 						return this.#issues.length === 0;
 					})() as EnhanceSubmission;
 					submission.updates = () => submission;

@@ -193,13 +193,23 @@
 		const binding = field.binding;
 		if (!binding) return undefined;
 		const props = binding.as(nativeType(field.controlType ?? 'text'), defaultValue ?? undefined);
-		const { 'aria-invalid': _, value: boundValue, ...rest } = props as Record<string, unknown>;
-		return { props: rest, value: boundValue };
+		// Copy the getters, not their values. Reading `aria-invalid` would track every issue, and
+		// `value` is written by `syncValue`.
+		const descriptors = Object.getOwnPropertyDescriptors(props);
+		delete descriptors['aria-invalid'];
+		delete descriptors.value;
+		return {
+			props: Object.defineProperties({}, descriptors) as Record<string, unknown>,
+			value: () => (props as Record<string, unknown>).value
+		};
 	});
 
 	/** The value the element shows: the source's when bound, else `value`. */
 	const shownValue = $derived.by(() => {
-		if (bound) return bound.value === undefined ? undefined : textValue(bound.value as string);
+		if (bound) {
+			const boundValue = bound.value();
+			return boundValue === undefined ? undefined : textValue(boundValue as string);
+		}
 		return value != null ? textValue(value) : undefined;
 	});
 

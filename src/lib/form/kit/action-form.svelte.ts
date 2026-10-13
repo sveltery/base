@@ -6,11 +6,12 @@
 import type { StandardSchemaV1 } from '@standard-schema/spec';
 import type { RemoteForm, RemoteFormInput } from '$app/server';
 import { enhance as kitEnhance, type ActionResult, type SubmitFunction } from '$app/forms';
+import { page } from '$app/state';
 import { tick } from 'svelte';
 import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 import { on } from 'svelte/events';
 import { onFormReset } from '../../internal/form-reset.svelte.js';
-import { pathKey, type EnhanceCallback, type FormSource } from '../source.js';
+import { defaultEnhance, pathKey, type EnhanceCallback, type FormSource } from '../source.js';
 import {
 	convertFormData,
 	coerceFormValue,
@@ -27,7 +28,7 @@ import {
 	type KeyedIssue,
 	type Path
 } from './codec.js';
-import type { FormFailure, FormSchema } from './parse-form.js';
+import { actionName, type FormFailure, type FormSchema } from './parse-form.js';
 
 /** What `submit()` returns inside `enhance`: whether the action succeeded or redirected. */
 export type ActionFormSubmission = Promise<boolean> & {
@@ -60,15 +61,6 @@ function isFailure(value: unknown): value is FormFailure {
 		'input' in value &&
 		Array.isArray((value as { issues?: unknown }).issues)
 	);
-}
-
-/** Kit's default for a remote form: reset after a successful submit. */
-async function defaultCallback(instance: { element: HTMLFormElement; submit(): Promise<boolean> }) {
-	if (await instance.submit()) {
-		await tick();
-		// The prototype's reset, so an input named `reset` cannot shadow it.
-		if (instance.element.isConnected) HTMLFormElement.prototype.reset.call(instance.element);
-	}
 }
 
 /** Kit's enhance instance: the source's state, plus the form element and `submit()`. */
@@ -121,6 +113,8 @@ export class ActionForm<Input extends RemoteFormInput, Result> implements FormSo
 
 	#input: Record<string, unknown>;
 	#clientIssues = $state.raw<KeyedIssue[]>([]);
+	/** The page's `form` when this form's action last succeeded. Another action's is not a result. */
+	#succeeded = $state.raw<unknown>(undefined);
 	/** The `form` a reset dismissed. Kit cannot clear the page's `form`, so it is ignored instead. */
 	#dismissed = $state.raw<unknown>(undefined);
 	#touched = $state<Record<string, boolean>>({});
@@ -130,7 +124,7 @@ export class ActionForm<Input extends RemoteFormInput, Result> implements FormSo
 	#pending = $state(0);
 	#submitted = $state(false);
 	#element: HTMLFormElement | null = null;
-	#enhance: ActionFormEnhanceCallback<Input, Result> = defaultCallback;
+	#enhance: ActionFormEnhanceCallback<Input, Result> = defaultEnhance;
 	#validateId = 0;
 
 	#failure = $derived.by(() => {
@@ -162,8 +156,17 @@ export class ActionForm<Input extends RemoteFormInput, Result> implements FormSo
 		// snapshot, because edits must not write into the page's `form`, which may be a proxy.
 		const form = getForm();
 		this.#input = $state(
-			isFailure(form) && form.action === action ? $state.snapshot(form.input) : {}
+			isFailure(form) && form.action === action ? ($state.snapshot(form.input) ?? {}) : {}
 		);
+		// Without JavaScript, the page renders on the action's URL, with a 200 for a success.
+		if (
+			form != null &&
+			!isFailure(form) &&
+			page.status === 200 &&
+			actionName(page.url) === action
+		) {
+			this.#succeeded = form;
+		}
 
 		const store: FieldStore = {
 			get: () => this.#input,
@@ -186,13 +189,12 @@ export class ActionForm<Input extends RemoteFormInput, Result> implements FormSo
 	}
 
 	/**
-	 * What the action returned on success, read from the page's `form`. A page has one `form`,
-	 * so with several `actionForm`s on a page this is the last successful action's result,
-	 * whichever form sent it. Failures are kept apart by action name, successes are not.
+	 * What this form's action returned on success, read from the page's `form`. Undefined once
+	 * the page's `form` holds anything else, such as another action's result or a failure.
 	 */
 	get result(): Result | undefined {
 		const form = this.#getForm();
-		return form != null && !isFailure(form) ? (form as Result) : undefined;
+		return form != null && form === this.#succeeded ? (form as Result) : undefined;
 	}
 
 	/** Submits in flight, client validation included. */
@@ -279,6 +281,7 @@ export class ActionForm<Input extends RemoteFormInput, Result> implements FormSo
 		const applied = response.then(async ({ result, update }) => {
 			// The DOM keeps what the user typed while the request was in flight.
 			await update({ reset: false, refreshAll });
+			if (result.type === 'success') this.#succeeded = this.#getForm();
 			// Like a remote form, the server's answer replaces every client issue, so Form can
 			// tell server issues apart by when they arrived.
 			this.#clientIssues = [];
@@ -419,7 +422,7 @@ type Update = Parameters<Exclude<Awaited<ReturnType<SubmitFunction>>, void>>[0][
  * `parseForm` in the action to send issues back.
  *
  * Several forms on one page each pass `{ action: 'name' }` for their named action and read
- * only that action's failures.
+ * only that action's failures and result.
  */
 export function actionForm<
 	Schema extends StandardSchemaV1<RemoteFormInput, Record<string, unknown>>,

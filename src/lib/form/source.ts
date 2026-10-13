@@ -3,7 +3,9 @@
 // are. `actionForm()` (`@sveltery/base/form/kit`) and `tanstackField()`
 // (`@sveltery/base/form/tanstack`) build the same shapes. Nothing here imports SvelteKit.
 
+import { tick } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
+import { resetForm } from './kit-reset-replay.js';
 
 /** One validation issue. Kit's `RemoteFormIssue` has this shape. */
 export interface FormIssue {
@@ -44,6 +46,14 @@ export interface EnhanceInstance {
 export type EnhanceCallback<I extends EnhanceInstance = EnhanceInstance> = (
 	instance: I
 ) => void | Promise<void>;
+
+/** Kit's default callback: submit, then reset the form once the submit succeeds. */
+export async function defaultEnhance(instance: EnhanceInstance) {
+	if (await instance.submit()) {
+		await tick();
+		if (instance.element.isConnected) resetForm(instance.element);
+	}
+}
 
 /**
  * The slice of SvelteKit's `RemoteForm` that Form reads.

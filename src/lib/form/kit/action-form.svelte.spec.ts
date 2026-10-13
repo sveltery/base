@@ -5,13 +5,17 @@ import { page, userEvent } from 'vitest/browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ActionFormHarness from '../../../tests/ActionFormHarness.svelte';
-import { resetServer, server } from '../../../tests/kit-forms-mock.svelte.js';
+import { landOn, resetServer, server } from '../../../tests/kit-forms-mock.svelte.js';
 import type { ActionFormEnhanceCallback } from './index.js';
 import type { SignupInput } from '../../../tests/signup-schema.js';
 
 vi.mock('$app/forms', async () => {
 	const { enhance } = await import('../../../tests/kit-forms-mock.svelte.js');
 	return { enhance };
+});
+vi.mock('$app/state', async () => {
+	const { page } = await import('../../../tests/kit-forms-mock.svelte.js');
+	return { page };
 });
 
 type Callback = ActionFormEnhanceCallback<SignupInput, { welcome: string }>;
@@ -61,6 +65,40 @@ describe('actionForm', () => {
 		expect(input('email').value).toBe('');
 		expect(page.getByTestId('form').element().getAttribute('action')).toBe('?/login');
 		expect(state().issues).toEqual([]);
+	});
+
+	it('takes the page form as its result after its own action succeeded without JavaScript', async () => {
+		server.form = { welcome: 'Ada' };
+		landOn('/signup?/login');
+		render(ActionFormHarness, { action: 'login' });
+
+		expect(state().result).toEqual({ welcome: 'Ada' });
+	});
+
+	it("ignores another action's success", async () => {
+		server.form = { welcome: 'Ada' };
+		landOn('/signup?/login');
+		render(ActionFormHarness);
+
+		expect(state().result).toBe(null);
+	});
+
+	it('ignores a failure parseForm did not make, with or without JavaScript', async () => {
+		server.form = { message: 'Sign in first' };
+		landOn('/signup', 401);
+		render(ActionFormHarness);
+		expect(state().result).toBe(null);
+
+		server.respond = () => ({
+			type: 'failure',
+			status: 401,
+			data: { message: 'Try later' },
+			location: '/'
+		});
+		await fillValid();
+		await submit();
+		await expect.poll(() => server.form).toEqual({ message: 'Try later' });
+		expect(state().result).toBe(null);
 	});
 
 	it('runs the schema before submitting and sends nothing when it fails', async () => {

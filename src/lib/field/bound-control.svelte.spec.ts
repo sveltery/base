@@ -116,6 +116,30 @@ describe('bound RadioGroup', () => {
 	});
 });
 
+describe('bound RadioGroup with non-string values', () => {
+	it('keeps a picked option checked once the source holds its serialized value', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'number-radio-group' });
+
+		await page.getByTestId('two').click();
+		await expect.poll(() => source.input.seats).toBe('2');
+		await expect.element(page.getByTestId('two')).toHaveAttribute('aria-checked', 'true');
+		expect(submitted(source)).toEqual({ seats: '2' });
+	});
+
+	it('checks the option a source value names', async () => {
+		const source = new FakeRemoteForm('fake', { seats: '2' });
+		render(BoundControlHarness, { source, scenario: 'number-radio-group' });
+
+		await expect.element(page.getByTestId('two')).toHaveAttribute('aria-checked', 'true');
+
+		source.field('seats').set('1' as never);
+		await expect.element(page.getByTestId('one')).toHaveAttribute('aria-checked', 'true');
+		await expect.element(page.getByTestId('two')).toHaveAttribute('aria-checked', 'false');
+		expect(submitted(source)).toEqual({ seats: '1' });
+	});
+});
+
 describe('bound CheckboxGroup', () => {
 	it('submits the ticked options as an array under the encoded name', async () => {
 		const source = new FakeRemoteForm();

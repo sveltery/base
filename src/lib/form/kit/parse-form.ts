@@ -18,8 +18,11 @@ type DeepPartial<T> = T extends Record<PropertyKey, unknown> | unknown[]
 export interface FormFailure<Input = Record<string, unknown>> {
 	/** The action that failed: `login` for `?/login`, `default` otherwise. */
 	action: string;
-	/** The submitted values, minus files and fields whose path has a `_`-prefixed key. */
-	input: DeepPartial<Input>;
+	/**
+	 * The submitted values, minus files and fields whose path has a `_`-prefixed key. Only for a
+	 * request sent without JavaScript: `use:enhance` keeps what the user typed.
+	 */
+	input?: DeepPartial<Input>;
 	issues: FormIssue[];
 }
 
@@ -59,7 +62,7 @@ export type FormSchema<Schema extends StandardSchemaV1<RemoteFormInput, Record<s
 		: Schema;
 
 /** Kit's action name for a request URL: the first `?/name` parameter, else `default`. */
-export function actionName(url: URL): string {
+export function actionName(url: { readonly searchParams: Iterable<[string, string]> }): string {
 	for (const [key] of url.searchParams) {
 		if (key.startsWith('/')) return key.slice(1);
 	}
@@ -105,6 +108,8 @@ export async function parseForm<
 	type Input = StandardSchemaV1.InferInput<Schema>;
 	const action =
 		source instanceof Request ? actionName(new URL(source.url)) : (options.action ?? 'default');
+	// Kit's `use:enhance` marks its requests, and like Kit's remote forms they get no echo.
+	const enhanced = source instanceof Request && source.headers.get('x-sveltekit-action') === 'true';
 	const formData = source instanceof Request ? await source.formData() : source;
 
 	let data: Record<string, unknown>;
@@ -123,7 +128,7 @@ export async function parseForm<
 		fail: (...extra) =>
 			fail(400, {
 				action,
-				input: echo(data) as DeepPartial<Input>,
+				...(enhanced ? {} : { input: echo(data) as DeepPartial<Input> }),
 				issues: [
 					...schemaIssues,
 					...extra.map((issue) => (typeof issue === 'string' ? { message: issue } : issue))

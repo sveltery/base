@@ -24,6 +24,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
+	import { serializeValue } from '../radio/serialize-value.js';
 	import type { RadioRootChangeEventDetails } from '../radio/types.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
 
@@ -50,11 +51,41 @@
 	}: RadioGroupProps = $props();
 
 	const field = useFieldContext();
+	const roving: CompositeRoot = new CompositeRoot({
+		orientation: () => 'both',
+		direction: () => reading.direction,
+		isItemDisabled: (element) =>
+			isSkipped(element) || element.getAttribute('aria-disabled') === 'true',
+		isItemSelected: (element): boolean => {
+			const current = checkedValue;
+			const meta = roving.meta(element) ?? {};
+			return current !== undefined && meta.value === current && meta.disabled !== true;
+		},
+		keys: 'arrows',
+		modifiers: 'shift-ok',
+		homeEnd: false,
+		stopPropagation: true,
+		replacement: 'index',
+		keydown: 'root'
+	});
+
+	/**
+	 * The radio whose serialized value a source holds, so a bound group keeps non-string values.
+	 * Before the radios register, the source's value is kept as is.
+	 */
+	function optionFor(raw: unknown): unknown {
+		for (const element of roving.elements) {
+			const option = roving.meta(element)?.value;
+			if (option !== undefined && serializeValue(option) === raw) return option;
+		}
+		return raw;
+	}
+
 	const bound = new BoundControl<unknown>(field, {
 		kind: 'radio',
 		read: () => checkedValue,
 		write: (next) => selection.set(next),
-		fromSource: (raw) => raw
+		fromSource: optionFor
 	});
 
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
@@ -114,24 +145,6 @@
 			if (rootNode === node) rootNode = null;
 		};
 	}
-
-	const roving: CompositeRoot = new CompositeRoot({
-		orientation: () => 'both',
-		direction: () => reading.direction,
-		isItemDisabled: (element) =>
-			isSkipped(element) || element.getAttribute('aria-disabled') === 'true',
-		isItemSelected: (element): boolean => {
-			const current = checkedValue;
-			const meta = roving.meta(element) ?? {};
-			return current !== undefined && meta.value === current && meta.disabled !== true;
-		},
-		keys: 'arrows',
-		modifiers: 'shift-ok',
-		homeEnd: false,
-		stopPropagation: true,
-		replacement: 'index',
-		keydown: 'root'
-	});
 
 	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
 		onValueChange?.(next, details);
