@@ -164,7 +164,7 @@ describe('ContextMenu.Trigger', () => {
 		expect(byTestId('submenu-popup')).not.toBeNull();
 	});
 
-	it('aborts the pending document mouseup listener when the trigger unmounts', async () => {
+	it('aborts the pending mouseup listener when the trigger unmounts', async () => {
 		const { calls, onOpenChange } = recorder();
 		let showTrigger = $state(true);
 		render(ContextMenuHarness, {
@@ -175,12 +175,11 @@ describe('ContextMenu.Trigger', () => {
 		});
 		fakeTimers();
 		contextMenu(get('trigger'));
-		await tick();
+		await advance(501);
 		showTrigger = false;
 		await tick();
 		expect(byTestId('trigger')).toBeNull();
 
-		await advance(501);
 		mouse(document.body, 'mouseup');
 		await tick();
 
