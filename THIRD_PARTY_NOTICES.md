@@ -247,7 +247,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/dialog/DialogClose.svelte` and `src/lib/dialog/DialogAction.svelte` from `packages/react/src/dialog/close/DialogClose.tsx` and `packages/react/src/dialog/trigger/DialogTrigger.tsx`
 - `src/lib/dialog/DialogViewport.svelte` from `packages/react/src/dialog/viewport/DialogViewport.tsx`
 - `src/lib/dialog/store.svelte.ts` from `packages/react/src/dialog/store/DialogStore.ts` (extends the landed `PopupStore`)
-- `src/lib/internal/popups/popupHandle.svelte.ts` from `packages/react/src/utils/popups/popupHandle.ts` and `src/lib/dialog/handle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` (`openWithPayload` stays on `Dialog.Handle`; payload is stored on the registered trigger)
+- `src/lib/internal/popups/popupHandle.svelte.ts` from `packages/react/src/utils/popups/popupHandle.ts` and `src/lib/dialog/handle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` (`openWithPayload` stays on `Dialog.Handle`)
 - `src/lib/dialog/context.svelte.ts` from `packages/react/src/dialog/root/DialogRootContext.ts` and `packages/react/src/dialog/portal/DialogPortalContext.ts`
 - `src/lib/dialog/attributes.ts` from `packages/react/src/dialog/utils/stateAttributesMapping.ts` and the dialog `*DataAttributes.ts` files
 - `src/lib/dialog/Dialog.svelte.spec.ts` assertions from `packages/react/src/dialog/**/*.test.tsx` that do not require Alert Dialog, Drawer, Menu, or Select
@@ -262,6 +262,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/alert-dialog/AlertDialog.svelte.spec.ts` assertions from `packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx`, the handle-type checks in `AlertDialogRoot.spec.tsx`, `packages/react/test/popupConformanceTests.tsx`, `packages/react/test/dialogRootSharedTests.tsx`, and `packages/react/test/detachedTriggersConformanceTests.tsx`
 - `src/lib/alert-dialog/AlertDialogTrigger.svelte` from `packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx` (renders `Dialog.Trigger`)
 - `src/tests/PayloadTypes.svelte` type checks from `packages/react/src/dialog/root/DialogRoot.spec.tsx`, `packages/react/src/alert-dialog/root/AlertDialogRoot.spec.tsx`, and `packages/react/src/popover/root/PopoverRoot.spec.tsx`
+- `src/lib/dialog/DialogTrigger.svelte` payload forwarding from `packages/react/src/utils/popups/popupStoreUtils.ts` (`useTriggerDataForwarding`: the trigger that owns the mounted popup supplies the payload)
 
 MIT License
 

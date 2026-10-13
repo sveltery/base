@@ -140,16 +140,6 @@ Local: Tab from the open trigger focuses the first control inside the popup and 
 
 Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed. `finalFocus={null}` does not return focus. A function that returns `null` focuses the trigger. `openWithPayload` stays on `Dialog.Handle`. Popover does not have it.
 
-### Payload is stored only for a registered trigger
-
-Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/dialog/store/DialogHandle.ts` and `packages/react/src/utils/popups/popupStoreUtils.ts`.
-
-Upstream: a trigger's `payload` prop is forwarded when that trigger registers. `Dialog.Handle` has `openWithPayload` and no payload map, `setPayload`, or `forgetPayload`. `open(id)` with an unknown id warns and still opens. It does not throw.
-
-Local: `Dialog.Handle.setPayload` writes into a private map, and only when that id is already registered. An unknown id is rejected and nothing is stored. The payload is not a field on the trigger registration. `open(id)` still warns (the warning names `Dialog.Handle`) and does not replace the displayed payload. `openWithPayload` is unchanged.
-
-Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`does not store a payload for a trigger that is not registered`, `keeps the current payload when opened with an unknown trigger id`).
-
 | Upstream                                                             | Local                                                                                               |
 | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                            |
@@ -166,8 +156,6 @@ Not ported: Drawer and ref objects. Mouse and touch use separate outside-press m
 Source: Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`), `packages/react/src/alert-dialog`. Upstream `AlertDialog.Root` calls the Dialog root setup in `alert-dialog` mode: `modal` is always `true`, pointer dismissal is disabled, and the popup role is `alertdialog`. Every other part is the Dialog part. `AlertDialog.Handle` extends `Dialog.Handle` with a type-only brand.
 
 Local: `AlertDialog.Root` calls the same `createDialogRoot` setup as `Dialog.Root` (`src/lib/dialog/root.svelte.ts`) with those three values. It takes `bind:open`, `bind:triggerId`, `onOpenChange`, `onOpenChangeComplete`, `handle`, and the `children` snippet, and has no `modal` or `disablePointerDismissal` prop. `bind:this` gives `close()` and `unmount()` in place of `actionsRef`. The other parts are the Dialog components, and their prop types are exported under `AlertDialog*` names. `AlertDialog.Trigger` renders `Dialog.Trigger` and takes an `AlertDialogHandle`, so a `Dialog.Handle` does not type-check on an alert dialog. Handle warnings name `Dialog.Handle`, as upstream's reused `DialogHandle` does. Upstream v1.9.0 exports `AlertDialogBackdropDataAttributes`, `AlertDialogPopupCssVariables` and the other attribute namespaces. Dialog exports no such namespaces in this port, so Alert Dialog does not either.
-
-Gap: a trigger switched to while the popup is open, or named by a bound `triggerId`, does not replace the payload. The shared Dialog store sets the payload only when a trigger opens a closed popup. Upstream reads it from the active trigger. Dialog has the same gap.
 
 Test: `src/lib/alert-dialog/AlertDialog.svelte.spec.ts`, `src/lib/alert-dialog/ssr.spec.ts`, `src/routes/fixtures/alert-dialog/alert-dialog.e2e.ts`.
 
@@ -247,4 +235,4 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Overlay foundation | Internal only. No public component                                                                     |
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
 | Dialog             | Drawer, ref objects                                                                                    |
-| AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces, active-trigger payload              |
+| AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |

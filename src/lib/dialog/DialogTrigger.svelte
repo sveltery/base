@@ -1,7 +1,9 @@
 <!--
 	A button that opens the dialog. Renders a `<button>` element.
 	Derived from Base UI v1.8.0 packages/react/src/dialog/trigger/DialogTrigger.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The payload forwarding follows v1.9.0
+	packages/react/src/utils/popups/popupStoreUtils.ts `useTriggerDataForwarding`
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	Button behavior comes from Button. The trigger does not reimplement it.
 -->
 <script lang="ts" generics="Payload = unknown">
@@ -63,13 +65,12 @@
 	});
 	const state: DialogTriggerState = $derived({ disabled: disabled === true, open: openedByThis });
 
-	$effect(() => {
-		const id = triggerId;
-		const value = payload;
-		const current = handle;
-		if (!current || value === undefined) return;
-		if (!current.setPayload(id, value)) return;
-		return () => current.forgetPayload(id);
+	// The trigger that owns the mounted popup supplies the payload, including one switched to while
+	// open or named by `triggerId`. A pre-effect sets it before the DOM updates, as upstream's
+	// layout effect does.
+	$effect.pre(() => {
+		const current = store;
+		if (current?.mounted && current.activeTriggerId === triggerId) current.payload = payload;
 	});
 
 	function clickHandlers(current: DialogStore<unknown> | null | undefined) {
@@ -100,10 +101,7 @@
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onclick?.(event);
 		if (event.defaultPrevented) return;
-		const current = store;
-		if (!current) return;
-		if (!current.open && payload !== undefined) current.payload = payload;
-		clickHandlers(current)?.onclick?.(event);
+		clickHandlers(store)?.onclick?.(event);
 	}
 
 	function handlePointerDown(
