@@ -16,7 +16,7 @@
 	} from '../internal/state-attributes.js';
 	import { setMenubarParent } from '../menu/parent.svelte.js';
 	import { MenubarContext } from './context.svelte.js';
-	import { setOwnFloatingTree } from './floating-tree.svelte.js';
+	import { setOwnFloatingTree } from './floating-tree.js';
 	import type { MenubarProps, MenubarState } from './types.js';
 
 	let {

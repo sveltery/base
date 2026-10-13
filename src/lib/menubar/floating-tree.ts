@@ -11,6 +11,38 @@ import {
 } from '@sveltery/floating-ui-svelte';
 
 export type FloatingTreeStore = ReturnType<typeof setFloatingTree>;
+type FloatingNodeRecord = FloatingTreeStore['nodes'][number];
+type Listener = (data?: unknown) => void;
+
+/** A local copy of the package's `FloatingTreeStore`, which it does not export. */
+function createFloatingTree(): FloatingTreeStore {
+	const nodes: FloatingNodeRecord[] = [];
+	const listeners = new Map<string, Set<Listener>>();
+	return {
+		nodes,
+		events: {
+			emit(event, data) {
+				listeners.get(event)?.forEach((listener) => listener(data));
+			},
+			on(event, listener) {
+				const set = listeners.get(event) ?? new Set();
+				set.add(listener);
+				listeners.set(event, set);
+				return () => set.delete(listener);
+			},
+			off(event, listener) {
+				listeners.get(event)?.delete(listener);
+			}
+		},
+		addNode(node) {
+			nodes.push(node);
+		},
+		removeNode(node) {
+			const index = nodes.indexOf(node);
+			if (index !== -1) nodes.splice(index, 1);
+		}
+	};
+}
 
 /**
  * Upstream `<FloatingTree>` always starts a new tree, and the menubar registers its own node in
@@ -21,7 +53,7 @@ export function setOwnFloatingTree(): { tree: FloatingTreeStore; nodeId: string 
 	const enclosing = useFloatingTree();
 	let tree: FloatingTreeStore;
 	if (enclosing) {
-		tree = new (enclosing.constructor as new () => FloatingTreeStore)();
+		tree = createFloatingTree();
 		for (const [key, value] of getAllContexts()) {
 			if (value === enclosing) setContext(key, tree);
 		}

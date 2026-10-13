@@ -13,7 +13,7 @@ import type {
 	MenubarParentContext,
 	MouseUpGate
 } from '../menu/parent.svelte.js';
-import type { FloatingTreeStore } from './floating-tree.svelte.js';
+import type { FloatingTreeStore } from './floating-tree.js';
 import type { MenubarOrientation } from './types.js';
 
 export interface MenubarOptions {

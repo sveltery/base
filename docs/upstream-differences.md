@@ -381,7 +381,7 @@ Local: `Menubar` takes the same props. The namespace is not exported. The attrib
 
 Upstream: `Menubar` renders a `FloatingTree` and a `FloatingNode`, so each top-level menu is a child node of the menubar.
 
-Local: the behavior is the same. A Menubar inside a Dialog, Popover or another popup still starts its own tree, so a standalone menu beside it neither marks it open nor closes its menus. `setFloatingTree` in `@sveltery/floating-ui-svelte` reuses an enclosing tree and the package exports no way to start a new one. So `src/lib/menubar/floating-tree.svelte.ts` puts a new tree under the enclosing tree's context key, then registers the menubar's node with a `FloatingRootStore` that never opens.
+Local: the behavior is the same. A Menubar inside a Dialog, Popover or another popup still starts its own tree, so a standalone menu beside it neither marks it open nor closes its menus. `setFloatingTree` in `@sveltery/floating-ui-svelte` reuses an enclosing tree and the package exports no way to start a new one. So `src/lib/menubar/floating-tree.ts` builds a local copy of the unexported `FloatingTreeStore`, puts it under the enclosing tree's context key, then registers the menubar's node with a `FloatingRootStore` that never opens.
 
 ### Detached menus take the menubar's tree for events only
 
