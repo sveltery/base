@@ -3,14 +3,15 @@
 	Renders a `<div>` element and a visually hidden number input for form submission.
 	Derived from Base UI v1.8.0 packages/react/src/number-field/root/NumberFieldRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	The hidden input is not a ref. Field registration uses the visible input inside NumberField.Input.
+	The hidden input is not a ref. Field validates it, and registers the visible input inside NumberField.Input.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { useFormContext } from '../form/context.js';
-	import { useFieldContext } from '../field/context.svelte.js';
-	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { useFormContext } from '../internal/form-context.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { BoundControl, sourceNumber } from '../field/bound-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { dispatchingValueEvent } from '../internal/value-events.js';
@@ -54,11 +55,19 @@
 		...elementProps
 	}: NumberFieldRootProps = $props();
 
+	const field = useFieldContext();
+	// A source holds `undefined` for a cleared number input, and for one never set.
+	const bound = new BoundControl<number | null>(field, {
+		kind: 'number',
+		read: (): number | null => current,
+		write: (next) => writeValue(next),
+		fromSource: (raw) => sourceNumber(raw) ?? null
+	});
+
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = defaultValue;
+	if (value === undefined) value = bound.initial(defaultValue);
 
-	const field = useFieldContext();
 	const form = useFormContext();
 	const labelable = findLabelableContext();
 
@@ -85,6 +94,8 @@
 	);
 	const disabled = $derived(Boolean(field.disabled) || disabledProp);
 	const name = $derived(field.name ?? nameProp);
+	const boundProps = $derived(bound.inputProps());
+	const inputName = $derived(bound.bound ? boundProps.name : name);
 	const step = $derived(stepProp === 'any' ? 1 : stepProp);
 	const generatedId = $derived(`base-ui-${uid}`);
 	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => generatedId });
@@ -129,8 +140,16 @@
 	});
 	setNumberFieldContext(model);
 
+	// Field reads validity from the hidden number input, as upstream does. Its `min` and `max`
+	// report an out-of-range value that `allowOutOfRange` keeps. Form focuses the visible input.
+	$effect(() => {
+		const input = model.hiddenInput;
+		if (!input) return;
+		return field.registerInput(input, { element: model.inputElement, value: undefined });
+	});
+
 	const rootState: NumberFieldRootState = $derived(model.state);
-	const hiddenStyle = $derived(toCssStyle(name ? visuallyHiddenInput : visuallyHidden));
+	const hiddenStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
 
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
 		...elementProps,
@@ -170,7 +189,7 @@
 	bind:this={model.hiddenInput}
 	type="number"
 	form={formId}
-	{name}
+	name={inputName}
 	value={current ?? ''}
 	defaultValue={defaultValue ?? ''}
 	{min}
@@ -185,4 +204,5 @@
 	oninput={hiddenChanged}
 	onchange={hiddenChanged}
 	onfocus={hiddenFocused}
+	{...boundProps}
 />

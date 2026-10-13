@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useFormContext } from '#lib/form/context.js';
+	import { useFormContext } from '#lib/internal/form-context.js';
 	import type { FormField } from '#lib/form/types.js';
 
 	let {
@@ -26,6 +26,9 @@
 	const entry: FormField = {
 		get name() {
 			return name;
+		},
+		get blocksSubmit() {
+			return valid === false;
 		},
 		get control() {
 			return control;

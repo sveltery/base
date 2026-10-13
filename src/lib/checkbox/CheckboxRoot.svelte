@@ -23,10 +23,21 @@
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { queueValueEvent } from '../internal/value-events.js';
-	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
-	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
-	import { useFormContext } from '../form/context.js';
-	import { getDefaultFormSubmitter } from './submitter.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
+	import { useFieldItemContext } from '../field/item-context.js';
+	import {
+		BoundControl,
+		boundInputProps,
+		sourceBoolean,
+		type BoundInputProps
+	} from '../field/bound-control.svelte.js';
+	import {
+		AriaLabelledBy,
+		LabelableId,
+		findLabelableContext
+	} from '../internal/labelable-provider.svelte.js';
+	import { useFormContext } from '../internal/form-context.js';
+	import { getDefaultFormSubmitter } from '../internal/getDefaultFormSubmitter.js';
 	import type { CheckboxHostProps, CheckboxRootProps, CheckboxRootState } from './types.js';
 
 	const uid = $props.id();
@@ -63,9 +74,21 @@
 		...elementProps
 	}: CheckboxRootProps = $props();
 
+	// In a group, the group binds the value.
+	const bound = group
+		? undefined
+		: new BoundControl(field, {
+				kind: 'checkbox',
+				read: () => checked === true,
+				write: (next) => {
+					checked = next;
+				},
+				fromSource: sourceBoolean
+			});
+
 	// `defaultChecked` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (checked === undefined) checked = defaultChecked;
+	if (checked === undefined) checked = bound?.initial(defaultChecked) ?? defaultChecked;
 
 	const generatedRootId = $derived('base-ui-' + uid);
 	const generatedControlId = $derived(`base-ui-${uid}-control`);
@@ -95,7 +118,13 @@
 	const isDisabled = $derived(
 		field.disabled || fieldItem.disabled || Boolean(group?.disabled) || disabled
 	);
-	const inputName = $derived(parent ? undefined : name);
+	// Inside a bound Field the source encodes the name, and a group item's value.
+	const boundProps: BoundInputProps = $derived.by(() => {
+		if (parent) return {};
+		if (!group) return bound?.inputProps() ?? {};
+		return identified === undefined ? {} : boundInputProps(field.binding, 'checkbox', identified);
+	});
+	const inputName = $derived(parent ? undefined : field.binding ? boundProps.name : name);
 
 	const checkboxState: CheckboxRootState = $derived({
 		...field.state,
@@ -174,11 +203,14 @@
 	}
 
 	const inputStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
+	// A bound lone checkbox submits `on` or nothing, which the source decodes as a boolean.
 	const hasUncheckedValue = $derived(
-		group === undefined && Boolean(inputName) && uncheckedValue !== undefined
+		group === undefined && !field.binding && Boolean(inputName) && uncheckedValue !== undefined
 	);
 	let uncheckedNode = $state<HTMLInputElement | null>(null);
 	const submittedValue = $derived.by(() => {
+		// The binding's props carry the option value and any attachment the source adds.
+		if (field.binding) return boundProps;
 		if (value === undefined) return {};
 		// Inside a group an unticked checkbox submits an empty value attribute.
 		if (group) return { value: (isChecked && value) || '' };

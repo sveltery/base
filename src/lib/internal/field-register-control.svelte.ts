@@ -7,7 +7,7 @@
 import { untrack } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
 import type { FieldContext } from '../field/model.svelte.js';
-import type { FormContextValue } from '../form/context.js';
+import type { FormContextValue } from './form-context.js';
 import { useValueChanged } from './useValueChanged.svelte.js';
 
 export interface FieldControlRead {

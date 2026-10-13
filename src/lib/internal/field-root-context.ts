@@ -1,13 +1,9 @@
-// Derived from Base UI v1.8.0 packages/react/src/field/item/FieldItemContext.ts
+// Derived from Base UI v1.8.0 packages/react/src/internals/field-root-context/FieldRootContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { FieldValidityData } from '../form/types.js';
-import { DEFAULT_FIELD_STATE, EMPTY_VALIDITY, type FieldContext } from './model.svelte.js';
-import { defineOptionalContext } from '../internal/context.js';
-
-export interface FieldItemState {
-	readonly disabled: boolean;
-}
+import { DEFAULT_FIELD_STATE, EMPTY_VALIDITY, type FieldContext } from '../field/model.svelte.js';
+import { defineOptionalContext } from './context.js';
 
 function frozenValidity(): FieldValidityData {
 	const validity = EMPTY_VALIDITY();
@@ -51,11 +47,9 @@ const INERT_FIELD: FieldContext = {
 	registerControl: inert,
 	registerInput: () => inert,
 	change: inert,
-	commit: inert
+	commit: inert,
+	binding: undefined,
+	controlType: undefined
 };
 
 export const [useFieldContext, setFieldContext] = defineOptionalContext<FieldContext>(INERT_FIELD);
-
-export const [useFieldItemContext, setFieldItemContext] = defineOptionalContext<FieldItemState>({
-	disabled: false
-});

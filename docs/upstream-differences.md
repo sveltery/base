@@ -159,7 +159,17 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`does not store a payload for a tr
 | React `useButton`                                                    | existing `Button`                                                                                   |
 | `useDismiss` outside press, including separate mouse and touch modes | the same modes on `DismissInteraction`. A press is inside the floating element, not the portal host |
 
-Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes on `DismissInteraction`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s with the finger still down, touchend and that mousedown do not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
+Not ported: Drawer and ref objects. Mouse and touch use separate outside-press modes on `DismissInteraction`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s with the finger still down, touchend and that mousedown do not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
+
+## Alert Dialog
+
+Source: Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`), `packages/react/src/alert-dialog`. Upstream `AlertDialog.Root` calls the Dialog root setup in `alert-dialog` mode: `modal` is always `true`, pointer dismissal is disabled, and the popup role is `alertdialog`. Every other part is the Dialog part. `AlertDialog.Handle` extends `Dialog.Handle` with a type-only brand.
+
+Local: `AlertDialog.Root` calls the same `createDialogRoot` setup as `Dialog.Root` (`src/lib/dialog/root.svelte.ts`) with those three values. It takes `bind:open`, `bind:triggerId`, `onOpenChange`, `onOpenChangeComplete`, `handle`, and the `children` snippet, and has no `modal` or `disablePointerDismissal` prop. `bind:this` gives `close()` and `unmount()` in place of `actionsRef`. The other parts are the Dialog components, and their prop types are exported under `AlertDialog*` names. `AlertDialog.Trigger` is `Dialog.Trigger` typed to take an `AlertDialogHandle`, so a `Dialog.Handle` does not type-check on an alert dialog. Handle warnings name `Dialog.Handle`, as upstream's reused `DialogHandle` does. Upstream v1.9.0 exports `AlertDialogBackdropDataAttributes`, `AlertDialogPopupCssVariables` and the other attribute namespaces. Dialog exports no such namespaces in this port, so Alert Dialog does not either.
+
+Gap: a trigger switched to while the popup is open, or named by a bound `triggerId`, does not replace the payload. The shared Dialog store sets the payload only when a trigger opens a closed popup. Upstream reads it from the active trigger. Dialog has the same gap.
+
+Test: `src/lib/alert-dialog/AlertDialog.svelte.spec.ts`, `src/lib/alert-dialog/ssr.spec.ts`, `src/routes/fixtures/alert-dialog/alert-dialog.e2e.ts`.
 
 ### Timers clear when the owner is destroyed
 
@@ -183,9 +193,17 @@ Test: `src/lib/internal/InternalBackdrop.svelte.spec.ts` (`updates the cutout wh
 
 Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/checkbox/root/CheckboxRoot.tsx`, `switch/root/SwitchRoot.tsx`, `radio/root/RadioRoot.tsx`, `radio-group/RadioGroup.tsx`, `checkbox-group/CheckboxGroup.tsx` and `internals/labelable-provider/useLabelableId.ts`. Checkbox, Switch, RadioGroup and CheckboxGroup register with Field and Form, take `Field.Root name` and `disabled`, carry `aria-invalid`, `aria-describedby` and the Field `data-*` state, and are named by `Field.Label`. CheckboxGroup claims the label with `id: null`, so the label omits `for`, and a checkbox in the group's scope does not claim the Field's control id. Each radio calls `useLabelableId({ id })` in the scope it is rendered in, so radios outside a `Field.Item` all render the Field's control id and `Field.Label for` points at the first one.
 
-Local: the same registration, through `attachFieldControl`, `Field`'s `registerInput` and the `LabelableId` and `AriaLabelledBy` classes in `src/lib/field/labelable.svelte.ts`. RadioGroup claims the label with `id: null` the way CheckboxGroup does, and a radio leaves the control id to its group unless a `Field.Item` gives it its own scope. Radios therefore keep distinct ids, the group is named by `aria-labelledby`, and a `Field.Item` label still points `for` at its radio. CheckboxGroup reports its whole `value` to `onFormSubmit` and `validate`. Upstream drops values whose checkbox is disabled or belongs to another form.
+Local: the same registration, through `attachFieldControl`, `Field`'s `registerInput` and the `LabelableId` and `AriaLabelledBy` classes in `src/lib/internal/labelable-provider.svelte.ts`. RadioGroup claims the label with `id: null` the way CheckboxGroup does, and a radio leaves the control id to its group unless a `Field.Item` gives it its own scope. Radios therefore keep distinct ids, the group is named by `aria-labelledby`, and a `Field.Item` label still points `for` at its radio. CheckboxGroup reports its whole `value` to `onFormSubmit` and `validate`. Upstream drops values whose checkbox is disabled or belongs to another form.
 
 Test: `src/lib/field/choice-controls.svelte.spec.ts`.
+
+### Slider fills its Field
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/slider/root/SliderRoot.tsx`. Slider never calls the Field's `setFilled`, so a Field around a Slider has no `data-filled`.
+
+Local: Slider marks its Field filled, because a range input always has a value. `Field.Root` and the Slider parts carry `data-filled`.
+
+Test: `src/lib/slider/Slider.svelte.spec.ts` (`marks the Field filled, as a range input always has a value`).
 
 ### Form reset
 
@@ -202,6 +220,14 @@ Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/form/Form.t
 Local: Form validates in a capture-phase `submit` listener. An invalid submit gets `preventDefault()` and `stopImmediatePropagation()`, so SvelteKit's `enhance` and other later listeners do not run. A submitter with `formnovalidate` skips that validation, as it skips native validation. `novalidate` is set by an attachment after hydration, so the server renders none and a page without JavaScript keeps the browser's validation. A user change fires a bubbling `input` event from the Slider thumb's range input and from the hidden NumberField and OTPField inputs, once the new value is in the DOM. `change` follows when the change is committed: a Slider key press or pointer release, a NumberField commit, or focus leaving the OTPField. As with a native input, `change` fires only when the value differs from the one at the previous `change`, so a NumberField whose owner keeps its value fires neither event. Checkbox, Switch and Radio already fire both through the click on their native input. A parent checkbox fires both on each child input it toggles. The controls ignore the events they fire themselves.
 
 Test: `src/lib/form/form-events.svelte.spec.ts`, `src/lib/form/form-ssr.spec.ts` and `src/routes/fixtures/form/form.e2e.ts` (`svelte SSR leaves novalidate to hydration`).
+
+### Composite controls bound to a form source
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/field/root/FieldRoot.tsx` and the form controls. A Field has no form source. A form library wires each control by hand through `name`, `value` and `onValueChange`. Checkbox and Switch submit `value` or `uncheckedValue`, and a cleared NumberField reports `null`.
+
+Local: inside a Field bound to a form source, Checkbox, Switch, RadioGroup, CheckboxGroup, NumberField, Slider and OTPField read the source themselves, as described in [Composite form controls](porting.md#composite-form-controls). Their native input takes its `name`, its option `value` and any attachment from the field's `as()`, so a remote form decodes typed values (`n:` numbers, `b:` booleans, `[]` arrays). A bound Checkbox or Switch submits `on` or nothing, and its `value` and `uncheckedValue` are ignored, because a SvelteKit boolean field is `on` when checked and absent when not. A control starts from the source's value when the source has one and from `defaultValue` otherwise. A later source change, such as `fields.seats.set(3)`, updates the control without `onValueChange` or `onCheckedChange`. A source value of `undefined` empties a bound NumberField and returns a bound Slider to `defaultValue ?? min`. A bound Slider takes one value, and an array value logs a dev error. A control whose kind differs from the Field.Root `type` logs a dev error.
+
+Test: `src/lib/field/bound-control.svelte.spec.ts`.
 
 ## Toast
 
@@ -261,7 +287,6 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Input              | refs                                                                                                   |
 | Toggle             | Toolbar integration, `nativeButton={false}`                                                            |
 | ToggleGroup        | Toolbar integration, grid composite, scroll-into-view                                                  |
-| Avatar             | Enter/exit transitions and animation completion                                                        |
 | Separator          | React render-element cloning, `ref`, Menu/Select/Toolbar separators                                    |
 | Meter              | React `ref`, numeric production error codes                                                            |
 | Progress           | refs                                                                                                   |
@@ -279,5 +304,8 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                          |
 | Overlay foundation | Internal only. No public component                                                                     |
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
-| Dialog             | Alert Dialog, Drawer, ref objects                                                                      |
-| Toast              | refs, `className` and `style` callbacks                                                                |
+| Dialog             | Drawer, ref objects                                                                                    |
+| AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces, typed and active-trigger payload    |
+
+| Dialog | Alert Dialog, Drawer, ref objects |
+| Toast | refs, `className` and `style` callbacks |

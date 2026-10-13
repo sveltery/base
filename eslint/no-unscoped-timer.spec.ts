@@ -78,7 +78,7 @@ describe('sveltery/no-unscoped-timer', () => {
 			setInterval(() => {}, 0);
 			AnimationFrame.request(() => {});
 		`;
-		const messages = await messagesFor(code, 'src/lib/number-field/press-and-hold.svelte.ts');
+		const messages = await messagesFor(code, 'src/lib/internal/usePressAndHold.svelte.ts');
 		expect(messages).toHaveLength(2);
 	});
 

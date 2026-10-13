@@ -7,7 +7,7 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { radioIndicatorAttributes } from './attributes.js';
-	import { useFieldContext } from '../field/context.svelte.js';
+	import { useFieldContext } from '../internal/field-root-context.js';
 	import { useRadioContext } from './context.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import type { RadioIndicatorProps, RadioIndicatorState } from './types.js';

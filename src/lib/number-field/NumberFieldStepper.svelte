@@ -13,7 +13,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { useNumberFieldContext } from './context.svelte.js';
-	import { isTouchLikePointerType, PressAndHold } from './press-and-hold.svelte.js';
+	import { isTouchLikePointerType, PressAndHold } from '../internal/usePressAndHold.svelte.js';
 	import { mergeCssStyle } from '../internal/css-style.js';
 	import type {
 		EventWithOptionalKeyState,

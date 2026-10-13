@@ -16,7 +16,24 @@ export interface DialogClickReference {
 	onkeydown?: (event: KeyboardEvent) => void;
 }
 
+export interface DialogStoreOptions {
+	/** `alertdialog` for AlertDialog.Root. */
+	role: 'dialog' | 'alertdialog';
+	readOpen: () => boolean | undefined;
+	writeOpen: (open: boolean) => void;
+	floatingId: string;
+	nested: boolean;
+	onOpenChange: () =>
+		| ((open: boolean, details: PopupChangeEventDetails<DialogChangeEventReason>) => void)
+		| undefined;
+	onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
+	readModal: () => boolean | 'trap-focus';
+	readDisablePointerDismissal: () => boolean;
+	publishTriggerId?: (id: string | null) => void;
+}
+
 export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEventReason> {
+	readonly role: 'dialog' | 'alertdialog';
 	readonly readModal: () => boolean | 'trap-focus';
 	readonly readDisablePointerDismissal: () => boolean;
 	readonly publishTriggerId: ((id: string | null) => void) | undefined;
@@ -30,19 +47,7 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 	backdropElement = $state<HTMLElement | null>(null);
 	internalBackdropElement = $state<HTMLElement | null>(null);
 
-	constructor(options: {
-		readOpen: () => boolean | undefined;
-		writeOpen: (open: boolean) => void;
-		floatingId: string;
-		nested: boolean;
-		onOpenChange: () =>
-			| ((open: boolean, details: PopupChangeEventDetails<DialogChangeEventReason>) => void)
-			| undefined;
-		onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
-		readModal: () => boolean | 'trap-focus';
-		readDisablePointerDismissal: () => boolean;
-		publishTriggerId?: (id: string | null) => void;
-	}) {
+	constructor(options: DialogStoreOptions) {
 		super({
 			readOpen: options.readOpen,
 			writeOpen: options.writeOpen,
@@ -52,6 +57,7 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 			onOpenChange: options.onOpenChange,
 			onOpenChangeComplete: options.onOpenChangeComplete
 		});
+		this.role = options.role;
 		this.readModal = options.readModal;
 		this.readDisablePointerDismissal = options.readDisablePointerDismissal;
 		this.publishTriggerId = options.publishTriggerId;
@@ -63,10 +69,6 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 
 	get disablePointerDismissal() {
 		return this.readDisablePointerDismissal();
-	}
-
-	get role(): 'dialog' {
-		return 'dialog';
 	}
 
 	get nestedDialogOpen() {

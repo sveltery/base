@@ -465,6 +465,33 @@ describe('<Slider />', () => {
 			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(false);
 		});
 
+		it('counts each move once on a second touch drag', async () => {
+			render(SliderHarness, { defaultValue: 50 });
+			mockControlRect();
+			const node = control();
+			touch(node, 'touchstart', 41);
+			touch(document.body, 'touchend', 41);
+			touch(node, 'touchstart', 41);
+			touch(document.body, 'touchmove', 60);
+			touch(document.body, 'touchmove', 70);
+			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(false);
+			touch(document.body, 'touchmove', 80);
+			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(true);
+		});
+
+		it('counts each move once when a touch drag starts before the last one ended', async () => {
+			render(SliderHarness, { defaultValue: 50 });
+			mockControlRect();
+			const node = control();
+			touch(node, 'touchstart', 41);
+			touch(node, 'touchstart', 41);
+			touch(document.body, 'touchmove', 60);
+			touch(document.body, 'touchmove', 70);
+			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(false);
+			touch(document.body, 'touchmove', 80);
+			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(true);
+		});
+
 		it('updates from an input event without a change event', async () => {
 			const onValueChange = vi.fn();
 			render(SliderHarness, { defaultValue: 30, onValueChange });
@@ -498,6 +525,12 @@ describe('<Slider />', () => {
 			expect(slider().disabled).toBe(true);
 			key(slider(), 'ArrowRight');
 			await valueNow(slider(), '30');
+		});
+
+		it('marks the Field filled, as a range input always has a value', async () => {
+			render(SliderHarness, { scenario: 'field', defaultValue: 30 });
+			await expect.element(page.getByTestId('field')).toHaveAttribute('data-filled', '');
+			await expect.element(page.getByTestId('root')).toHaveAttribute('data-filled', '');
 		});
 
 		it('receives disabled from Field', async () => {
