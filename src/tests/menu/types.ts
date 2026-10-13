@@ -3,6 +3,18 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 type Bag = Record<string, unknown>;
 
+/** A filterable popup: `Menu.FilterProvider` around the root, and the input, list and parts. */
+export interface MenuFilterSpec {
+	providerProps?: Bag;
+	inputLabel?: string;
+	inputProps?: Bag;
+	listProps?: Bag;
+	/** Renders `Menu.Clear` labelled "Clear filter". */
+	clear?: Bag | boolean;
+	/** Renders `Menu.Empty` with this text. */
+	empty?: string;
+}
+
 export type MenuItemSpec =
 	| { type: 'item'; label: string; props?: Bag; as?: 'button' }
 	| { type: 'link'; label: string; props?: Bag }
@@ -24,6 +36,9 @@ export type MenuItemSpec =
 			portalProps?: Bag;
 			positionerProps?: Bag;
 			popupProps?: Bag;
+			filter?: MenuFilterSpec;
+			/** Wraps a plain submenu's items in `Menu.List`. */
+			list?: Bag | boolean;
 			items: MenuItemSpec[];
 	  };
 
