@@ -18,7 +18,7 @@ export const [useComboboxRoot, setComboboxRoot] = defineContext<ComboboxStore>(
 
 export const [useComboboxPositioner, setComboboxPositioner, findComboboxPositioner] =
 	defineContext<AnchorPositioning>(
-		'Base UI: ComboboxPositionerContext is missing. ComboboxPositioner parts must be placed within <Combobox.Positioner>.'
+		'Base UI: <Combobox.Popup> and <Combobox.Arrow> must be used within the <Combobox.Positioner> component'
 	);
 
 export interface ComboboxItemContext {

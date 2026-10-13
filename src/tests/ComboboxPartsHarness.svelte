@@ -11,7 +11,12 @@
 		| 'clear-outside-popup-input'
 		| 'popup-clear'
 		| 'field-disabled-chips'
-		| 'live-region';
+		| 'live-region'
+		| 'orphan'
+		| 'group-labels'
+		| 'indicator'
+		| 'touch-popup'
+		| 'group-without-items';
 
 	let {
 		scenario,
@@ -19,7 +24,13 @@
 		root = {},
 		part = 'status',
 		text,
-		custom = false
+		custom = false,
+		orphan = 'indicator',
+		labels = 'old',
+		value,
+		keepMounted = false,
+		popupProps = {},
+		labelProps = {}
 	}: {
 		scenario: Scenario;
 		showTrigger?: boolean;
@@ -29,6 +40,14 @@
 		text?: string;
 		/** Renders the live region through a `render` snippet with a `<p>`. */
 		custom?: boolean;
+		/** The part an `orphan` scenario renders inside the root but outside its own provider. */
+		orphan?: 'indicator' | 'group-label' | 'popup' | 'arrow';
+		/** Which of the two group labels a `group-labels` scenario renders. */
+		labels?: 'old' | 'both' | 'new';
+		value?: string;
+		keepMounted?: boolean;
+		popupProps?: Record<string, unknown>;
+		labelProps?: Record<string, unknown>;
 	} = $props();
 </script>
 
@@ -179,6 +198,68 @@
 						{:else}
 							<Combobox.Item value="a">a</Combobox.Item>
 						{/if}
+					</Combobox.List>
+				</Combobox.Popup>
+			</Combobox.Positioner>
+		</Combobox.Portal>
+	</Combobox.Root>
+{:else if scenario === 'orphan'}
+	<Combobox.Root {...root}>
+		{#if orphan === 'indicator'}<Combobox.ItemIndicator />
+		{:else if orphan === 'group-label'}<Combobox.GroupLabel />
+		{:else if orphan === 'popup'}<Combobox.Popup />
+		{:else}<Combobox.Arrow />{/if}
+	</Combobox.Root>
+{:else if scenario === 'group-labels'}
+	<Combobox.Root open {...root}>
+		<Combobox.Group>
+			{#if labels !== 'new'}<Combobox.GroupLabel id="old-label" {...labelProps}
+					>Old</Combobox.GroupLabel
+				>{/if}
+			{#if labels !== 'old'}<Combobox.GroupLabel id="new-label" {...labelProps}
+					>New</Combobox.GroupLabel
+				>{/if}
+		</Combobox.Group>
+	</Combobox.Root>
+{:else if scenario === 'indicator'}
+	<Combobox.Root {value} open {...root}>
+		<Combobox.Input />
+		<Combobox.Portal>
+			<Combobox.Positioner>
+				<Combobox.Popup>
+					<Combobox.List>
+						<Combobox.Item value="a">
+							a
+							<Combobox.ItemIndicator {keepMounted} data-testid="indicator" />
+						</Combobox.Item>
+						<Combobox.Item value="b">b</Combobox.Item>
+					</Combobox.List>
+				</Combobox.Popup>
+			</Combobox.Positioner>
+		</Combobox.Portal>
+	</Combobox.Root>
+{:else if scenario === 'touch-popup'}
+	<Combobox.Root {...root}>
+		<Combobox.Trigger data-testid="trigger">Open</Combobox.Trigger>
+		<Combobox.Portal>
+			<Combobox.Positioner>
+				<Combobox.Popup data-testid="popup" {...popupProps}>
+					<Combobox.Input data-testid="input" />
+				</Combobox.Popup>
+			</Combobox.Positioner>
+		</Combobox.Portal>
+	</Combobox.Root>
+{:else if scenario === 'group-without-items'}
+	<Combobox.Root open {...root}>
+		<Combobox.Portal>
+			<Combobox.Positioner>
+				<Combobox.Popup>
+					<Combobox.List>
+						<Combobox.Group data-testid="group"
+							><Combobox.Collection
+								>{#snippet children(item: string)}<span>{item}</span>{/snippet}</Combobox.Collection
+							></Combobox.Group
+						>
 					</Combobox.List>
 				</Combobox.Popup>
 			</Combobox.Positioner>
