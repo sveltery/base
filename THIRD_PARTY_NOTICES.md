@@ -269,6 +269,16 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `openedWithoutTrigger` in `src/lib/internal/popups/popupStoreUtils.ts` `createPopupOpenState` and `src/lib/internal/popups/store.svelte.ts` from `packages/react/src/utils/popups/popupStoreUtils.ts` and `store.ts`
 - `src/lib/dialog/Dialog.svelte.spec.ts` programmatic payload cases from `packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx`, and the `openedWithoutTrigger` cases in `src/lib/internal/popups/popupStoreUtils.spec.ts` from `packages/react/src/utils/popups/popupStoreUtils.test.tsx`
 - `src/lib/dialog/store.svelte.ts` `onNestedDialogOpen` from `packages/react/src/dialog/root/useDialogRoot.ts` (a closed, unmounted root ignores nested counts)
+- `src/lib/drawer/DrawerRoot.svelte`, `src/lib/drawer/root.svelte.ts`, and `src/lib/drawer/snap-points.ts` from `packages/react/src/drawer/root/DrawerRoot.tsx`, `DrawerRootContext.ts`, and `useDrawerSnapPoints.ts` (the dialog setup is `createDialogRoot`)
+- `src/lib/drawer/DrawerTrigger.svelte`, `DrawerPopup.svelte`, `DrawerBackdrop.svelte`, `DrawerViewport.svelte`, `DrawerSwipeArea.svelte`, `DrawerContent.svelte`, `DrawerProvider.svelte`, `DrawerIndent.svelte`, `DrawerIndentBackground.svelte`, and `DrawerVirtualKeyboardProvider.svelte` from the matching `packages/react/src/drawer/*/Drawer*.tsx` part files
+- `src/lib/drawer/context.svelte.ts`, `src/lib/drawer/handle.svelte.ts`, `src/lib/drawer/attributes.ts`, `src/lib/drawer/types.ts`, and `src/lib/drawer/index.ts` from `packages/react/src/drawer/provider/DrawerProvider.tsx`, `handle.ts`, the drawer `*CssVars.ts` and `*DataAttributes.ts` files, `index.ts`, and `index.parts.ts` (Portal, Title, Description, and Close are the Dialog components)
+- `src/lib/internal/useSwipeDismiss.svelte.ts` from `packages/react/src/utils/useSwipeDismiss.ts`
+- `src/lib/internal/scrollable.ts` from `packages/react/src/utils/scrollable.ts`, `src/lib/internal/getElementAtPoint.ts` from `packages/react/src/utils/getElementAtPoint.ts`, and `src/lib/internal/swipe-ignore.ts` from the swipe-ignore attribute in `packages/react/src/internals/constants.ts`
+- `src/lib/internal/getElementTransform.ts` `scale` from `packages/react/src/utils/getElementTransform.ts`
+- `packages/utils/src/shadow-dom.ts` `closest`, and `contains` across shadow roots, from `packages/utils/src/shadowDom.ts`
+- `packages/utils/src/event-details.ts` `closeWatcher` and `swipe` reasons from `packages/react/src/internals/reason-parts.ts`
+- `src/lib/dialog/store.svelte.ts` `nestedOpenDrawerCount` and `outsidePressEnabled`, and their reporting in `src/lib/dialog/root.svelte.ts`, from `packages/react/src/dialog/root/useDialogRoot.ts` and `packages/react/src/drawer/swipe-area/DrawerSwipeArea.tsx`
+- `src/lib/drawer/*.svelte.spec.ts`, `src/lib/drawer/snap-points.spec.ts`, `src/lib/drawer/ssr.spec.ts`, `src/tests/drawer-gestures.ts`, and the `src/tests/Drawer*.svelte` harnesses from `packages/react/src/drawer/**/*.test.tsx` and `useDrawerSnapPoints.test.ts`
 
 MIT License
 
