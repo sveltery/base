@@ -6,18 +6,20 @@
 		showTrigger = false,
 		declineClose = false,
 		holdExit = false,
+		triggerPayload = 'from trigger',
 		open = $bindable(false)
 	}: {
 		handle: DialogHandle<string>;
 		showTrigger?: boolean;
 		declineClose?: boolean;
 		holdExit?: boolean;
+		triggerPayload?: string;
 		open?: boolean;
 	} = $props();
 </script>
 
 {#if showTrigger}
-	<Dialog.Trigger {handle} id="trigger" payload="from trigger">Trigger</Dialog.Trigger>
+	<Dialog.Trigger {handle} id="trigger" payload={triggerPayload}>Trigger</Dialog.Trigger>
 {/if}
 <Dialog.Root
 	{handle}

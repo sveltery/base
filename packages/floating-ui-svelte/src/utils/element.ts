@@ -1,10 +1,9 @@
-// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/utils/element.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/react/src/floating-ui-react/utils/element.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // DOM helpers come from the shadowDom module. They are not re-exported.
-// The disabled-trigger check uses the attribute string Tooltip will own.
 
 import { isHTMLElement } from '@floating-ui/utils/dom';
-import { contains } from '@sveltery/utils';
+import { closest, contains } from '@sveltery/utils';
 import { TRIGGER_DISABLED_ATTRIBUTE } from './constants.js';
 
 export function isTargetInsideEnabledTrigger(
@@ -26,7 +25,7 @@ const TYPEABLE_SELECTOR =
 const INTERACTIVE_SELECTOR = `button,a[href],[role="button"],select,[tabindex]:not([tabindex="-1"]),${TYPEABLE_SELECTOR}`;
 
 export function isInteractiveElement(element: Element | null) {
-	return element?.closest(INTERACTIVE_SELECTOR) != null;
+	return closest(element, INTERACTIVE_SELECTOR) != null;
 }
 
 export function isTypeableElement(element: unknown): boolean {

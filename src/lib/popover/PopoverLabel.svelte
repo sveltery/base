@@ -1,8 +1,8 @@
 <!--
 	Shared heading and description host. Title renders an `<h2>`. Description renders a `<p>`.
-	Derived from Base UI v1.8.0 packages/react/src/popover/title/PopoverTitle.tsx
+	Derived from Base UI v1.9.0 packages/react/src/popover/title/PopoverTitle.tsx
 	and packages/react/src/popover/description/PopoverDescription.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The id is the prop or `$props.id()`. It is registered when the element mounts.
 -->
 <script lang="ts" generics="Element extends HTMLElement">

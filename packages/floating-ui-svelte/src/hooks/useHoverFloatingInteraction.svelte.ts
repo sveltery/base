@@ -6,6 +6,7 @@ import {
 	createChangeEventDetails,
 	REASONS,
 	ownerDocument,
+	closest,
 	contains,
 	getTarget,
 	ScopedTimeout
@@ -141,7 +142,7 @@ export function useHoverFloatingInteraction(
 					instance.interactedInside = false;
 					return;
 				}
-				instance.interactedInside = target.closest('[aria-haspopup]') != null;
+				instance.interactedInside = closest(target, '[aria-haspopup]') != null;
 			},
 			{ capture: true }
 		);

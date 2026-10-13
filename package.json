@@ -133,6 +133,11 @@
 			"svelte": "./dist/input/index.js",
 			"default": "./dist/input/index.js"
 		},
+		"./menu": {
+			"types": "./dist/menu/index.d.ts",
+			"svelte": "./dist/menu/index.js",
+			"default": "./dist/menu/index.js"
+		},
 		"./merge-props": {
 			"types": "./dist/merge-props/index.d.ts",
 			"svelte": "./dist/merge-props/index.js",
@@ -142,6 +147,11 @@
 			"types": "./dist/meter/index.d.ts",
 			"svelte": "./dist/meter/index.js",
 			"default": "./dist/meter/index.js"
+		},
+		"./navigation-menu": {
+			"types": "./dist/navigation-menu/index.d.ts",
+			"svelte": "./dist/navigation-menu/index.js",
+			"default": "./dist/navigation-menu/index.js"
 		},
 		"./number-field": {
 			"types": "./dist/number-field/index.d.ts",
@@ -207,6 +217,11 @@
 			"types": "./dist/tabs/index.d.ts",
 			"svelte": "./dist/tabs/index.js",
 			"default": "./dist/tabs/index.js"
+		},
+		"./toast": {
+			"types": "./dist/toast/index.d.ts",
+			"svelte": "./dist/toast/index.js",
+			"default": "./dist/toast/index.js"
 		},
 		"./toggle": {
 			"types": "./dist/toggle/index.d.ts",
