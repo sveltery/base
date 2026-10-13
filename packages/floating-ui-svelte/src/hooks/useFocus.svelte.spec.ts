@@ -3,7 +3,7 @@
 // The upstream case runs in jsdom only. These run in Chromium, where `:focus-visible` is real,
 // so focus comes from the keyboard and the extra cases cover what jsdom cannot.
 import { page, userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 import FocusHarness from './__tests__/FocusHarness.svelte';
@@ -30,28 +30,43 @@ async function tabToTrigger() {
 }
 
 describe('FocusInteraction', () => {
-	it('does not reopen when focus is restored after leaving the tab', async () => {
-		render(FocusHarness, { delay: 60 });
-		await tabToTrigger();
-		const first = page.getByTestId('first').element();
-		expect(document.activeElement).toBe(first);
+	describe('with an open delay', () => {
+		// A real 60ms delay can run out while a loaded browser handles the Tab, before the test
+		// checks that the popup is still closed. The fake clock only moves when the test says so.
+		beforeEach(() => {
+			vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+		});
+		afterEach(() => {
+			vi.useRealTimers();
+		});
 
-		window.dispatchEvent(new Event('blur'));
-		first.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
-		await wait(200);
+		it('does not reopen when focus is restored after leaving the tab', async () => {
+			render(FocusHarness, { delay: 60 });
+			await tabToTrigger();
+			const first = page.getByTestId('first').element();
+			expect(document.activeElement).toBe(first);
+			expect(state().open).toBe('false');
 
-		expect(state().open).toBe('false');
-		expect(document.querySelector('[role="tooltip"]')).toBeNull();
-	});
+			window.dispatchEvent(new Event('blur'));
+			first.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+			await vi.advanceTimersByTimeAsync(200);
 
-	it('opens after the delay when the same focus is not preceded by a window blur', async () => {
-		render(FocusHarness, { delay: 60 });
-		await tabToTrigger();
-		expect(state().open).toBe('false');
+			expect(state().open).toBe('false');
+			expect(document.querySelector('[role="tooltip"]')).toBeNull();
+		});
 
-		await expect.poll(() => state().open).toBe('true');
-		expect(state().reason).toBe('trigger-focus');
-		expect(document.querySelector('[role="tooltip"]')).not.toBeNull();
+		it('opens after the delay when the same focus is not preceded by a window blur', async () => {
+			render(FocusHarness, { delay: 60 });
+			await tabToTrigger();
+			expect(state().open).toBe('false');
+
+			await vi.advanceTimersByTimeAsync(59);
+			expect(state().open).toBe('false');
+			await vi.advanceTimersByTimeAsync(1);
+			expect(state().open).toBe('true');
+			expect(state().reason).toBe('trigger-focus');
+			expect(document.querySelector('[role="tooltip"]')).not.toBeNull();
+		});
 	});
 
 	it('opens at once on keyboard focus when there is no delay and closes when focus leaves', async () => {
