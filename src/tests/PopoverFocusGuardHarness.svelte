@@ -10,7 +10,7 @@
 	} = $props();
 </script>
 
-<svelte:element this={'style'}>
+<svelte:element this={"style"}>
 	{`.guard-popup { transition: opacity 200ms; } .guard-popup[data-ending-style] { opacity: 0; }`}
 </svelte:element>
 {#if outside}<button type="button" data-testid="before">Before</button>{/if}

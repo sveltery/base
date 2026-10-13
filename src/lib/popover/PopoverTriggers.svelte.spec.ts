@@ -311,8 +311,7 @@ describe('trigger switch transition (Base UI v1.9.0)', () => {
 
 	it('does not restore the trigger-change instant when a bound close commits late', async () => {
 		const opened: (string | undefined)[] = [];
-		let view: ReturnType<typeof hoverTriggers> | undefined;
-		view = hoverTriggers(
+		const view = hoverTriggers(
 			{
 				onOpenChange(next: boolean, details: PopoverChangeEventDetails) {
 					if (next) {
@@ -320,7 +319,7 @@ describe('trigger switch transition (Base UI v1.9.0)', () => {
 						return;
 					}
 					details.cancel();
-					setTimeout(() => void view?.rerender({ open: false }), 400);
+					setTimeout(() => void view.rerender({ open: false }), 400);
 				}
 			},
 			{ switchDuration: 200 }
