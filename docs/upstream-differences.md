@@ -350,13 +350,29 @@ Test: `src/lib/navigation-menu/NavigationMenuTrigger.svelte.spec.ts` (`handles f
 
 Upstream: the navigation menu imports `safePolygon` pointer-events helpers, `getNodeChildren`, `enableFocusInside`, `disableFocusInside`, `getNextTabbable` and `getPreviousTabbable` from `floating-ui-react` internals.
 
-Local: `packages/floating-ui-svelte/src/sharedInternals.ts` re-exports the existing helpers from the package entry. The pointer-events lock keeps one owner per scope element in a module map, so a copy outside the package would not see the lock that hover interactions applied.
+Local: `packages/floating-ui-svelte/src/sharedInternals.ts` re-exports the existing helpers, and the package entry `packages/floating-ui-svelte/src/index.ts` gains one named export of them. The pointer-events lock keeps one owner per scope element in a module map, so a copy outside the package would not see the lock that hover interactions applied.
+
+### The exit transition follows the last trigger
+
+Upstream: a close clears the floating context at once. `useFloating` keeps the last coordinates until the popup unmounts, so the positioner stays where it was.
+
+Local: the positioner keeps the last active trigger as its reference until the popup unmounts, and anchor tracking keeps running during the exit. A popup whose size changes during the exit and whose CSS does not read the size variables re-aligns to the trigger instead of keeping its old offset.
+
+Test: `src/lib/navigation-menu/NavigationMenuRoot.svelte.spec.ts` (`keeps the positioner at the trigger while the popup exits`).
+
+### Object item values compare by identity
+
+Upstream: `value === itemValue` compares the object the consumer passed.
+
+Local: the same comparison runs, but a `$state` object is a deep proxy, so an item value read from `$state` is not the object stored in a bound `$state` value. Use primitives, or keep object values in `$state.raw`.
 
 ### Outside press runs after page click handlers
 
 Upstream: the outside-press listener is a capture listener on the document that adds a listener on the event target, so it runs before the page's own click handlers.
 
 Local: `DismissInteraction` in `packages/floating-ui-svelte` listens for `click` on the document in the bubble phase. A page button that closes the menu in its own click handler closes it first, and `onValueChange` sees no `outside-press`. The fixture case `pressing a control outside a bound menu reports an outside press` is `test.fixme` for Svelte until that listener moves to the capture phase.
+
+The same bubble-phase listener never sees a click whose ancestor handler calls `event.stopPropagation()`, so such a press does not dismiss the menu at all. This also waits on the capture-phase fix in `DismissInteraction`.
 
 ### Not covered
 

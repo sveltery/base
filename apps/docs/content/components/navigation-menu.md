@@ -290,6 +290,7 @@ The popup stays mounted until its closing animation finishes. To animate the clo
 - The `NavigationMenu*DataAttributes` and `NavigationMenu*CssVars` namespaces are not exported. Use the attribute and variable names in this page.
 - `NavigationMenu.Content` stays in the component tree of its item. While the item is active, the element moves into the viewport. Base UI renders it there through a React portal. Events from the content bubble through the viewport and the popup, as the DOM places it.
 - The size variables are part of each element's `style`. A `style` you pass merges with them.
+- Item values compare by identity. A `$state` object is a deep proxy and never equals the original object, so use primitive values or keep object values in `$state.raw`.
 
 ## API reference
 
@@ -344,6 +345,8 @@ A nested root renders a `<div>` instead of a `<nav>`.
 ### Link
 
 <ApiPart name="navigation-menu" part="Link" />
+
+An `onclick` handler that calls `event.preventDefault()` skips the link's own click handling, so `closeOnClick` does not close the menu for that click.
 
 | Attribute     | Description                                |
 | ------------- | ------------------------------------------ |
