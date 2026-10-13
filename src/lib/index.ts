@@ -28,5 +28,6 @@ export type { TextDirection } from './direction-provider/types.js';
 export * from './otp-field/index.js';
 export * from './popover/index.js';
 export * from './dialog/index.js';
+export * from './alert-dialog/index.js';
 export * from './merge-props/index.js';
 export type * from './types/index.js';

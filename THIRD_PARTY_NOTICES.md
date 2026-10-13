@@ -236,7 +236,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/adaptiveOriginMiddleware.ts` from `packages/react/src/utils/adaptiveOriginMiddleware.ts`
 - `createDefaultInitialFocus` and `resolveFocus` in `src/lib/internal/popups/popupStoreUtils.ts` from `packages/react/src/utils/popups/popupStoreUtils.ts`
 - `src/lib/popover/Popover.svelte.spec.ts` assertions from `packages/react/src/popover/**/*.test.tsx` that do not require Menu, Combobox, or React refs
-- `src/lib/dialog/DialogRoot.svelte` from `packages/react/src/dialog/root/DialogRoot.tsx`, `useRenderDialogRoot.tsx`, and `useDialogRoot.ts`
+- `src/lib/dialog/DialogRoot.svelte` from `packages/react/src/dialog/root/DialogRoot.tsx` (setup is `src/lib/dialog/root.svelte.ts`, below)
 - `src/lib/dialog/DialogTrigger.svelte` from `packages/react/src/dialog/trigger/DialogTrigger.tsx` (button behavior is the existing `Button`)
 - `src/lib/dialog/DialogPortal.svelte` from `packages/react/src/dialog/portal/DialogPortal.tsx`
 - `src/lib/dialog/DialogPopup.svelte` from `packages/react/src/dialog/popup/DialogPopup.tsx`
@@ -252,6 +252,14 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/dialog/attributes.ts` from `packages/react/src/dialog/utils/stateAttributesMapping.ts` and the dialog `*DataAttributes.ts` files
 - `src/lib/dialog/Dialog.svelte.spec.ts` assertions from `packages/react/src/dialog/**/*.test.tsx` that do not require Alert Dialog, Drawer, Menu, or Select
 - `src/lib/internal/popups/store.svelte.ts` `forceUnmount` and `notifyOpenChangeComplete` expose the close-completion path Dialog's `unmount()` and open animation use
+
+Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+
+- `src/lib/dialog/root.svelte.ts` from `packages/react/src/dialog/root/useRenderDialogRoot.tsx` and `useDialogRoot.ts` (the setup Dialog and Alert Dialog roots share; its nested-dialog count is the v1.8.0 logic)
+- `src/lib/alert-dialog/AlertDialogRoot.svelte` from `packages/react/src/alert-dialog/root/AlertDialogRoot.tsx`
+- `src/lib/alert-dialog/handle.svelte.ts` from `packages/react/src/alert-dialog/handle.ts`
+- `src/lib/alert-dialog/types.ts` and `src/lib/alert-dialog/index.ts` from `packages/react/src/alert-dialog/index.ts`, `index.parts.ts`, `root/AlertDialogRoot.tsx`, and `trigger/AlertDialogTrigger.tsx` (the other parts are the Dialog components)
+- `src/lib/alert-dialog/AlertDialog.svelte.spec.ts` assertions from `packages/react/src/alert-dialog/root/AlertDialogRoot.test.tsx`, the handle-type checks in `AlertDialogRoot.spec.tsx`, `packages/react/test/popupConformanceTests.tsx`, `packages/react/test/dialogRootSharedTests.tsx`, and `packages/react/test/detachedTriggersConformanceTests.tsx`
 
 MIT License
 
