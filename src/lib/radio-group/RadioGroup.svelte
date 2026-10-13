@@ -7,6 +7,7 @@
 	The radios are the existing Radio parts.
 -->
 <script lang="ts">
+	import { SvelteSet } from 'svelte/reactivity';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { contains, ownerDocument } from '@sveltery/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -145,6 +146,8 @@
 		};
 	}
 
+	const inputSyncs = new SvelteSet<() => void>();
+
 	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
@@ -182,6 +185,13 @@
 		setCheckedValue,
 		setTouched(next) {
 			touched = next;
+		},
+		registerInputSync(sync) {
+			inputSyncs.add(sync);
+			return () => inputSyncs.delete(sync);
+		},
+		syncInputs() {
+			for (const sync of inputSyncs) sync();
 		}
 	});
 

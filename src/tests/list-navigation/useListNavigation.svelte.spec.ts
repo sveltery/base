@@ -1,6 +1,6 @@
 // Derived from Base UI v1.9.0 packages/react/src/floating-ui-react/hooks/useListNavigation.test.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// `fireEvent` becomes a dispatched DOM event followed by `flushSync`. Grid cases are not ported.
+// `fireEvent` becomes a dispatched DOM event followed by `flushSync`. Grid cases are not ported; one case covers the `grid` hook-in.
 
 import { flushSync } from 'svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -67,6 +67,33 @@ describe('ListNavigation', () => {
 		await expectFocused('item-0');
 
 		expect(menu().hasAttribute('aria-orientation')).toBe(false);
+	});
+
+	it('moves through a grid navigator, which owns every key in both orientations', async () => {
+		const grid = vi.fn((event: KeyboardEvent, prevIndex: number) =>
+			event.key === 'ArrowRight' ? prevIndex + 2 : prevIndex
+		);
+		render(ListNavigationHarness, { options: { orientation: 'both', grid } });
+
+		keyDown(reference(), 'ArrowRight');
+		await expectFocused('item-0');
+
+		keyDown(menu(), 'ArrowRight');
+		await expectFocused('item-2');
+		expect(grid).toHaveBeenLastCalledWith(
+			expect.any(KeyboardEvent),
+			0,
+			expect.any(Array),
+			'both',
+			false,
+			false,
+			undefined,
+			0,
+			2
+		);
+
+		keyDown(menu(), 'ArrowLeft');
+		await expectFocused('item-2');
 	});
 
 	it('opens on ArrowDown and focuses first item', async () => {
