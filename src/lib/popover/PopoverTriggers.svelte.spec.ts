@@ -315,7 +315,7 @@ describe('trigger switch transition (Base UI v1.9.0)', () => {
 
 	it('does not apply the trigger-change instant to a non-hover close after switching triggers', async () => {
 		const ending = await switchHoverTriggers({ close: true });
-		page.getByRole('button', { name: 'Close' }).element().click();
+		(page.getByRole('button', { name: 'Close' }).element() as HTMLElement).click();
 		await expect.poll(() => popup()?.hasAttribute('data-ending-style')).toBe(true);
 		ending.stop();
 		expect(ending.instants.length).toBeGreaterThan(0);
