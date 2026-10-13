@@ -3,6 +3,7 @@
 // The store's auto-dismiss timers. They are not rendered, so they are plain `Timeout`s
 // in a plain map. The store owns the instance and calls `dispose()` when its provider goes.
 
+import { BROWSER } from 'esm-env';
 import { Timeout } from '@sveltery/utils';
 
 interface TimerInfo {
@@ -26,6 +27,8 @@ export class ToastTimers {
 
 	/** Starts a timer, or records it paused when `startActive` is false. */
 	schedule(id: string, delay: number, startActive: boolean, callback: () => void) {
+		// The provider disposes the timers from an effect, which never runs on the server.
+		if (!BROWSER) return;
 		const start = Date.now();
 		// eslint-disable-next-line sveltery/no-unscoped-timer -- ToastTimers owns it; dispose() clears it
 		const timeout = startActive ? Timeout.create() : undefined;
