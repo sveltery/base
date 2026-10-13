@@ -158,6 +158,40 @@ The port is [`src/lib/internal/useTransitionStatus.svelte.ts`](../src/lib/intern
 
 Measured frame by frame, the first painted frame after opening carries `data-starting-style` and the next drops it. Closing sets `data-ending-style` before the first frame and keeps the element until its exit animations finish.
 
+## Composite form controls
+
+A composite control draws its own markup and submits through a native input it renders next to it. Checkbox, Switch, RadioGroup with Radio, CheckboxGroup, NumberField, Slider and OTPField do this today. Select and Combobox adopt the same contract when they bind to a form source.
+
+A Field is bound when it has a form source: `<Field.Root field={f.fields.seats} type="number">`, or `<Field.Root name="seats">` inside `<Form form={f}>`. `FieldContext.binding` is then the field's handle and `FieldContext.controlType` is the declared `type`. A control inside a bound Field follows six rules. The helper is `BoundControl` in [`src/lib/field/bound-control.svelte.ts`](../src/lib/field/bound-control.svelte.ts).
+
+1. **A real native input carries the value.** Its `name`, the option `value` of a radio or group checkbox, and any attachment come from `binding.as(nativeType(kind), option)`, so the name encoding (`n:seats`, `tags[]`, `b:agree`) is the source's. Spread `bound.inputProps(option)` onto that input after its own `name` and `value`. An item whose group owns the `BoundControl`, such as Radio, calls `boundInputProps(field.binding, kind, option)` instead. The control keeps its own `type`, styling, `checked`, `value` for non-option inputs, `defaultValue`, `defaultChecked` and `aria-invalid`, so those keys from `as()` are dropped.
+2. **The DOM is the write path.** A user edit changes the native input and fires `input`, then `change` when the edit is committed. A native click does this for checkboxes and radios. Other controls call `queueValueEvent`. SvelteKit's form listener and an adapter's attachment, such as the one `tanstackField()` returns, read the new value from these events. Do not call `binding.set()` on a user edit.
+3. **The source's value is the initial value.** Call `bound.initial(defaultValue)` where the control would otherwise start from `defaultValue`. It returns `fromSource(binding.value())` when the source has a value and `defaultValue` when it does not. The native input's default stays `defaultValue`, so a form reset returns to it, and a source that rereads `FormData` after the reset sees it.
+4. **A later source change is written into the control.** `BoundControl` runs one effect that tracks only `binding.value()`. On a change it calls `write(fromSource(value))`, which updates the control the way a parent's `bind:value` does, with no `onValueChange` or `onCheckedChange`. The first empty value keeps the default. A later `undefined` goes through `fromSource`, which decides what an empty source value means for the control.
+5. **Each control declares its kind.** In dev, a kind that differs from the Field.Root `type` logs a console error that names both.
+6. **The visible element is the focus target.** Register it through `attachFieldControl` or `watchFieldControl`, and mark the Field touched on blur, so `onBlur` validation and focus after a failed submit work.
+
+| Control       | Kind       | `fromSource(raw)`                                   | Bound input                                                                  |
+| ------------- | ---------- | --------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Checkbox      | `checkbox` | `raw === true`                                      | One checkbox with no `value`, so it submits `on`. No `uncheckedValue` input. |
+| Switch        | `switch`   | `raw === true`                                      | As Checkbox. `switch` fits boolean fields only.                              |
+| RadioGroup    | `radio`    | `raw`                                               | One radio per option, with the option as `as()`'s second argument.           |
+| CheckboxGroup | `checkbox` | `raw` as `string[]`, else `[]`                      | One checkbox per option. An unticked one keeps its option value.             |
+| NumberField   | `number`   | A number as is, anything else `null`                | The hidden number input. `null` is an empty field.                           |
+| Slider        | `range`    | A number as is, anything else `defaultValue ?? min` | The thumb's range input. One thumb only. An array value is a dev error.      |
+| OTPField      | `text`     | `String(raw)`, `''` for `null` or `undefined`       | The hidden text input.                                                       |
+
+NumberField maps an empty source value to `null` rather than to `defaultValue`. A remote form holds `undefined` both for a number input the user cleared and for one never set. Rule 3 handles "never set" at mount, and rule 4 handles "cleared" afterwards, so a bound NumberField can be emptied.
+
+To bind a new control, such as Select:
+
+1. Pick its kind. A single Select is `select`, a multiple one `select multiple`.
+2. Construct `BoundControl` during init with `read`, `write` and `fromSource`. Pass `equals` when the value is an array.
+3. Replace the line that starts the value from `defaultValue` with `bound.initial(defaultValue)`.
+4. Spread `bound.inputProps(option)` onto each native input that submits the value. Name the input with `bound.bound ? props.name : name`, so an unbound control keeps its `name`.
+5. Fire `input` and `change` on that input for each user edit.
+6. Add the control to `src/tests/BoundControlHarness.svelte` and assert the encoded names, the decoded `FormData`, an edit, `set()`, the initial value from the source, a native reset and the kind check in `src/lib/field/bound-control.svelte.spec.ts`. Run one case with `real: true`, which renders a real `Field.Root field={...}`.
+
 ## Gotchas
 
 1. **Do not move a block's first or last node.** An attachment that moves its node to `body` corrupts `{#if}` removal when that node is the first or last node of the block. Use a dedicated `Portal` component or `mount()`.
