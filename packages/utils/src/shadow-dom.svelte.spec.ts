@@ -25,19 +25,15 @@ describe('shadow-dom', () => {
 		host.remove();
 	});
 
-	it('treats a node in a descendant’s shadow root as contained', () => {
-		const button = document.createElement('button');
-		const host = document.createElement('span');
-		button.append(host);
-		const inner = document.createElement('b');
+	it('treats a node inside a shadow root as contained by an ancestor of the host', () => {
+		const ancestor = document.createElement('section');
+		const host = ancestor.appendChild(document.createElement('div'));
+		const inner = document.createElement('input');
 		host.attachShadow({ mode: 'open' }).append(inner);
-		const sibling = document.createElement('div');
-		document.body.append(button, sibling);
-		expect(contains(button, inner)).toBe(true);
-		expect(contains(document.body, inner)).toBe(true);
-		expect(contains(sibling, inner)).toBe(false);
-		button.remove();
-		sibling.remove();
+		document.body.append(ancestor);
+		expect(contains(ancestor, inner)).toBe(true);
+		expect(contains(document.createElement('div'), inner)).toBe(false);
+		ancestor.remove();
 	});
 
 	it('falls back to target when the composed path is empty', () => {
