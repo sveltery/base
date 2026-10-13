@@ -482,7 +482,7 @@ Local: the popup records the element focused when it opens and returns focus the
 
 Upstream: on open, list navigation queues the highlighted item's focus for the next frame, then the focus manager queues its own focus, which replaces the first request. The focus manager's request does nothing once the popup has closed, so a Tab or Escape before that frame leaves focus where the close put it.
 
-Local: list navigation queues its request after the focus manager's, and the list's request does not check that the popup is open. An item that takes focus while the select is closed sends focus back to the element it came from. The shared fix is a `shouldFocus: () => this.store.isOpen()` guard on that request in `packages/floating-ui-svelte/src/hooks/useListNavigation.svelte.ts`.
+Local: list navigation queues its request after the focus manager's. The request checks that the popup is still open, so a close in that frame leaves focus where the close put it, as upstream does.
 
 Test: `src/lib/select/SelectRoot.popups.svelte.spec.ts` (`keeps focus outside when the popup closes before its open focus lands`). Upstream's `validates when the popup is blurred` fires a synthetic blur after a trigger blur whose queued focus-out check clears `insideReactTree`, so its popup closes. A real focus move without a press keeps a portaled popup open in upstream, so `src/lib/select/SelectRoot.field.svelte.spec.ts` blurs the popup with Tab.
 
