@@ -386,7 +386,7 @@ describe('<Toast.Root />', () => {
 				sourcePosition: start,
 				targetPosition: { x: start.x + deltaX, y: start.y + deltaY },
 				steps: 10
-			} as never);
+			});
 
 			await expect.poll(() => byTestId('root')).toBe(null);
 		});
