@@ -12,13 +12,15 @@
 		disableFirstItem = false,
 		hideFirstItem = false,
 		firstItemStyle,
-		reference = 'button'
+		reference = 'button',
+		keepMounted = false
 	}: {
 		options?: Options;
 		disableFirstItem?: boolean;
 		hideFirstItem?: boolean;
 		firstItemStyle?: string;
 		reference?: 'button' | 'combobox';
+		keepMounted?: boolean;
 	} = $props();
 
 	const store = new TestFloatingStore();
@@ -56,7 +58,7 @@
 {:else}
 	<button type="button" bind:this={store.domReferenceElement} {...referenceProps}>Open</button>
 {/if}
-{#if store.open}
+{#if store.open || keepMounted}
 	<div role="menu" id="menu" tabindex="-1" bind:this={store.floatingElement} {...nav.floating}>
 		<ul>
 			{#each ['one', 'two', 'three'] as label, index (label)}

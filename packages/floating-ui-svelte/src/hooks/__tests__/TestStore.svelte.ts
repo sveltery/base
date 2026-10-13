@@ -1,3 +1,4 @@
+import { untrack } from 'svelte';
 import type { BaseUIChangeEventDetails } from '@sveltery/utils';
 import {
 	FloatingRootStore,
@@ -35,7 +36,8 @@ export class TestStore extends FloatingRootStore {
 	registerTrigger = (element: Element) => {
 		const id = `trigger-${nextId++}`;
 		this.triggers.add(id, element);
-		if (!this.domReferenceElement) this.domReferenceElement = element;
+		// Untracked, so clearing the reference does not rerun the attachment and claim it back.
+		if (!untrack(() => this.domReferenceElement)) this.domReferenceElement = element;
 		return () => this.triggers.delete(id);
 	};
 

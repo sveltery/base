@@ -431,6 +431,24 @@ describe('Dialog', () => {
 			await expect.element(button('Trigger')).toHaveAttribute('aria-expanded', 'true');
 		});
 
+		it('keeps forwarding the only trigger payload while a bind:open dialog animates out', async () => {
+			const handle = Dialog.createHandle<string>();
+			const screen = render(DialogProgrammaticPayloadHarness, {
+				handle,
+				showTrigger: true,
+				holdExit: true
+			});
+
+			await screen.rerender({ open: true });
+			await expect.element(content()).toHaveTextContent('from trigger');
+
+			await screen.rerender({ open: false });
+			await expect.element(content()).toHaveAttribute('data-ending-style');
+			await screen.rerender({ triggerPayload: 'changed while closing' });
+			await frame();
+			await expect.element(content()).toHaveTextContent('changed while closing');
+		});
+
 		it('takes the only trigger payload on a bind:open after a programmatic open closed', async () => {
 			const handle = Dialog.createHandle<string>();
 			const screen = render(DialogProgrammaticPayloadHarness, { handle, showTrigger: true });
@@ -904,6 +922,15 @@ describe('Dialog', () => {
 		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
 		await expect.poll(() => document.activeElement).toBe(page.getByTestId('ext').element());
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+	});
+
+	it('returns focus to the element focused before an external open, not to the only trigger', async () => {
+		render(DialogHarness, { scenario: 'tab-ext' });
+		await page.getByTestId('ext').click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		expect(document.activeElement).toBe(page.getByTestId('ext').element());
 	});
 
 	it('shift-tabs an externally opened dialog when the container sits between the trigger and the portal', async () => {
