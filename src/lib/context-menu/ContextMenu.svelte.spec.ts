@@ -91,6 +91,37 @@ describe('ContextMenu.Positioner', () => {
 		expect(get('positioner').getAttribute('data-align')).toBe('end');
 	});
 
+	it('keeps a root context menu inside the layout viewport, not the visual viewport', async () => {
+		// A pinch zoom shrinks the visual viewport only. The test viewport cannot zoom, so a
+		// stand-in half as wide as the page plays that part.
+		const real = Object.getOwnPropertyDescriptor(window, 'visualViewport');
+		const visual = Object.assign(new EventTarget(), {
+			width: window.innerWidth / 2,
+			height: window.innerHeight,
+			offsetLeft: 0,
+			offsetTop: 0,
+			pageLeft: 0,
+			pageTop: 0,
+			scale: 2
+		});
+		Object.defineProperty(window, 'visualViewport', { value: visual, configurable: true });
+		try {
+			const x = Math.round(window.innerWidth * 0.75);
+			render(ContextMenuHarness, { positionerProps: { style: 'width: 100px' } });
+			contextMenu(get('trigger'), { clientX: x, clientY: 50 });
+			await expect.poll(shown('positioner')).toBe(true);
+
+			// The pointer is past the visual viewport edge. The menu stays beside it, where a
+			// visual viewport boundary would shift it back under that edge.
+			await expect
+				.poll(() => Math.round(get('positioner').getBoundingClientRect().right) > visual.width)
+				.toBe(true);
+		} finally {
+			if (real) Object.defineProperty(window, 'visualViewport', real);
+			else delete (window as { visualViewport?: unknown }).visualViewport;
+		}
+	});
+
 	it('positions a context menu submenu against its trigger', async () => {
 		render(ContextMenuHarness, { scenario: 'open-submenu', submenuProps: { open: true } });
 		contextMenu(get('trigger'), { clientX: 40, clientY: 40 });
