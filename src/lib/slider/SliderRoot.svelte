@@ -190,6 +190,11 @@
 		getValue: () => model.fieldValue
 	});
 
+	// A range input always has a value, so the Field is filled. Upstream never sets it.
+	$effect(() => {
+		field.setFilled(true);
+	});
+
 	const partState: SliderRootState = $derived(model.snapshot());
 	const describedBy = $derived(
 		labelable?.describedBy(elementProps['aria-describedby'] || undefined)

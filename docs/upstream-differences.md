@@ -187,6 +187,14 @@ Local: the same registration, through `attachFieldControl`, `Field`'s `registerI
 
 Test: `src/lib/field/choice-controls.svelte.spec.ts`.
 
+### Slider fills its Field
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/slider/root/SliderRoot.tsx`. Slider never calls the Field's `setFilled`, so a Field around a Slider has no `data-filled`.
+
+Local: Slider marks its Field filled, because a range input always has a value. `Field.Root` and the Slider parts carry `data-filled`.
+
+Test: `src/lib/slider/Slider.svelte.spec.ts` (`marks the Field filled, as a range input always has a value`).
+
 ### Form reset
 
 Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/form/Form.tsx`, `field/root/FieldRoot.tsx` and the form controls. Nothing listens for `reset`. A reset puts the native inputs back to their HTML defaults, while each control keeps its React state, so the control, its hidden input and `FormData` can disagree. Field dirty, touched and validity, and Form `errors`, stay as they were.
