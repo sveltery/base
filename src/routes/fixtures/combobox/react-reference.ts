@@ -24,7 +24,12 @@ function list(scenario: ComboboxCase) {
 					? h(Combobox.Input, partProps({ 'data-testid': 'input' }))
 					: null,
 				h(Combobox.Empty, partProps({ 'data-testid': 'empty' }), 'No fruits found'),
-				h(Combobox.List, null, (item: string) => h(Combobox.Item, { key: item, value: item }, item))
+				h(
+					Combobox.List,
+					partProps({
+						children: (item: string) => h(Combobox.Item, { key: item, value: item }, item)
+					})
+				)
 			)
 		)
 	);
@@ -67,19 +72,23 @@ export function mountComboboxReference(
 				h(
 					Combobox.Chips,
 					partProps({ 'data-testid': 'chips' }),
-					h(Combobox.Value, null, (selected: string[]) =>
-						h(
-							Fragment,
-							null,
-							selected.map((fruit) =>
+					h(
+						Combobox.Value,
+						partProps({
+							children: (selected: string[]) =>
 								h(
-									Combobox.Chip,
-									partProps({ key: fruit, 'data-testid': `chip-${fruit}` }),
-									fruit,
-									h(Combobox.ChipRemove, { 'aria-label': `Remove ${fruit}` })
+									Fragment,
+									null,
+									selected.map((fruit) =>
+										h(
+											Combobox.Chip,
+											partProps({ key: fruit, 'data-testid': `chip-${fruit}` }),
+											fruit,
+											h(Combobox.ChipRemove, { 'aria-label': `Remove ${fruit}` })
+										)
+									)
 								)
-							)
-						)
+						})
 					),
 					h(Combobox.Input, partProps({ 'data-testid': 'input' }))
 				),

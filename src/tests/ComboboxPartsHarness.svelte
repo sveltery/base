@@ -63,7 +63,7 @@
 {:else if scenario === 'div-trigger'}
 	<Combobox.Root {...root}>
 		<Combobox.Trigger disabled nativeButton={false} data-testid="trigger">
-			{#snippet render(props)}<div {...props}></div>{/snippet}
+			{#snippet render(props)}<div {...props as Record<string, unknown>}></div>{/snippet}
 		</Combobox.Trigger>
 	</Combobox.Root>
 {:else if scenario === 'toggle-trigger'}

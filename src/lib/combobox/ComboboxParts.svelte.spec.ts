@@ -69,7 +69,7 @@ describe('Combobox.Popup', () => {
 			open: true,
 			around: true,
 			staticItems: [{ value: 'a' }],
-			popup: { finalFocus: () => page.getByTestId('outside').element() }
+			popup: { finalFocus: () => page.getByTestId('outside').element() as HTMLElement }
 		});
 		await expect.element(popup()).toBeInTheDocument();
 
