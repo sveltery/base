@@ -87,7 +87,13 @@
 	function bindPopup(node: HTMLElement) {
 		store.popupElement = node;
 		store.floatingElement = node;
+		store.popupDomId = node.id;
+		const observer = new MutationObserver(() => {
+			if (store.popupElement === node) store.popupDomId = node.id;
+		});
+		observer.observe(node, { attributes: true, attributeFilter: ['id'] });
 		return () => {
+			observer.disconnect();
 			if (store.popupElement === node) store.popupElement = null;
 			if (store.floatingElement === node) store.floatingElement = null;
 		};

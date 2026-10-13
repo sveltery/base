@@ -138,6 +138,8 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	/** A rendered `Menu.List`, which takes the `menu` role from the popup. */
 	listElement = $state<HTMLElement | null>(null);
 	listId = $state<string | undefined>(undefined);
+	/** The rendered popup's `id`, tracked so `aria-controls` follows a changed override. */
+	popupDomId = $state('');
 	/** Whether the filter input has focus. WebKit items read it for `aria-selected`. */
 	inputFocused = $state(false);
 	/** The highlighted item, published under virtual focus for `aria-activedescendant`. */
@@ -428,10 +430,10 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 
 	/** The trigger's `aria-controls`: the list when one holds the `menu` role, else the popup. */
 	popupIdFor(triggerId: string | undefined) {
-		const popup = this.popupElement;
-		if (popup == null || popup.id === '') return undefined;
+		const id = this.popupDomId;
+		if (this.popupElement == null || id === '') return undefined;
 		if (!this.openedBy(triggerId)) return undefined;
-		return (this.listElement ? this.listId : undefined) || popup.id;
+		return (this.listElement ? this.listId : undefined) || id;
 	}
 
 	noteTrigger(id: string, element: HTMLElement, read: () => TriggerOwned) {
