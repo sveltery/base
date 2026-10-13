@@ -333,6 +333,21 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `packages/floating-ui-svelte/src/hooks/useHoverReferenceInteraction.svelte.ts` `isOverInactiveTrigger` and `externalTree` from `packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts`, and the open-method record on `pointerdown` in `packages/floating-ui-svelte/src/hooks/useClick.svelte.ts` from `packages/react/src/utils/useOpenInteractionType.ts` and `packages/utils/src/useEnhancedClickHandler.ts`
 - `packages/floating-ui-svelte/src/components/FloatingTree.svelte.ts` tree nodes without a floating context and the `externalTree` argument of `useFloatingNodeId` from `packages/react/src/floating-ui-react/components/FloatingTree.tsx`
 - `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` capture-phase outside press listeners that close from a one-time target listener, from `addTargetEventListenerOnce` and `closeOnPressOutsideCapture` in `packages/react/src/floating-ui-react/hooks/useDismiss.ts`
+- Menu derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/menu/MenuRoot.svelte`, `MenuSubmenuRoot.svelte` and `root.svelte.ts` from `packages/react/src/menu/root/MenuRoot.tsx` and `packages/react/src/menu/submenu-root/MenuSubmenuRoot.tsx`
+- `src/lib/menu/store.svelte.ts` from `packages/react/src/menu/store/MenuStore.ts` and the `setOpen` of `MenuRoot.tsx` (extends the shared `PopupStore`)
+- `src/lib/menu/handle.svelte.ts` from `packages/react/src/menu/store/MenuHandle.ts` (extends the shared `PopupHandle`)
+- `src/lib/menu/MenuTrigger.svelte` and `MenuTriggerInteractions.svelte` from `packages/react/src/menu/trigger/MenuTrigger.tsx`
+- `src/lib/menu/MenuSubmenuTrigger.svelte` from `packages/react/src/menu/submenu-trigger/MenuSubmenuTrigger.tsx`
+- `src/lib/menu/MenuPortal.svelte`, `MenuPositioner.svelte`, `MenuPopup.svelte`, `MenuArrow.svelte`, `MenuBackdrop.svelte`, `MenuViewport.svelte`, `MenuItem.svelte`, `MenuLinkItem.svelte`, `MenuGroup.svelte`, `MenuGroupLabel.svelte`, `MenuRadioGroup.svelte`, `MenuRadioItem.svelte`, `MenuRadioItemIndicator.svelte`, `MenuCheckboxItem.svelte` and `MenuCheckboxItemIndicator.svelte` from the matching files under `packages/react/src/menu/`
+- `src/lib/menu/item.svelte.ts` from `packages/react/src/menu/item/useMenuItem.ts` and `useMenuItemCommonProps.ts`
+- `src/lib/menu/item-mapping.ts` from `packages/react/src/menu/utils/stateAttributesMapping.ts`
+- `src/lib/menu/context.svelte.ts` from the menu root, portal, positioner, group, radio group, checkbox item and radio item context modules
+- `src/lib/menu/parent.svelte.ts` from `MenuParent` in `MenuRoot.tsx`, `packages/react/src/menubar/MenubarContext.ts` and `packages/react/src/context-menu/root/ContextMenuRootContext.ts`
+- `src/lib/menu/constants.ts` from `packages/react/src/internals/constants.ts` and `packages/react/src/menu/utils/isKeyboardOpen.ts`
+- `src/lib/menu/dom.ts` from `packages/react/src/utils/getPseudoElementBounds.ts` and `packages/react/src/menu/utils/findRootOwnerId.ts`
+- `src/lib/menu/*.svelte.spec.ts` assertions from `packages/react/src/menu/**/*.test.tsx` that do not require the filter parts, React refs, StrictMode or React render counts, and from `packages/react/test/detachedTriggersConformanceTests.tsx`
+- `src/tests/menu/**` harnesses from the fixtures of those tests
 
 MIT License
 

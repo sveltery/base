@@ -314,6 +314,52 @@ Test: `src/lib/preview-card/PreviewCardPositioner.svelte.spec.ts` (`multiline in
 
 The "does not re-render inactive triggers" cases count React renders. "Cleans up the transition when a lagging payload remounts the current container" depends on a payload that arrives a render after the trigger id. Both have no Svelte counterpart.
 
+## Menu
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/menu/**` without the filter parts. The paired React fixture runs `@base-ui/react` 1.9.0. `MenuStore` extends `PopupStore<MenuChangeReason>`. List navigation and typeahead come from `packages/floating-ui-svelte`.
+
+### Public surface
+
+Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup`, `actionsRef`, and the `*DataAttributes` and `*CssVars` namespaces.
+
+Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem` and `value` on `Menu.RadioGroup` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
+
+### Labels are trimmed
+
+Upstream: typeahead and `onItemHighlighted` read an item's `textContent` as it is.
+
+Local: the label is trimmed, because Svelte templates keep the whitespace around a text child.
+
+### Return focus after a hover close
+
+Upstream: a hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
+
+Local: the shared `FloatingFocusManager` skips return focus only for `focus-out`. `MenuPopup` passes a `returnFocus` that skips it after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
+
+Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`does not return focus to the element focused before a hover open when the pointer leaves`).
+
+### Touch close guard
+
+Upstream: the touch `click` that follows a focus open is ignored after it reaches `onOpenChange`.
+
+Local: the store ignores it before `onOpenChange`, so the callback does not see the ignored close.
+
+### Submenu hover scope
+
+Upstream: the submenu's safe polygon reaches the parent popup through the floating tree.
+
+Local: the polygon scopes to the parent popup through `getScope`.
+
+### Behavior that waits on shared internals
+
+- The shared `FloatingFocusManager` closes a submenu with `focus-out` when the pointer highlight moves focus from its trigger to a sibling item before the press. Its `markInsideReactTree` port covers focus that leaves the popup, not focus that leaves the trigger. `it.todo` in `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` keeps `closes a sibling submenu without closing the root on click`.
+- The shared `ClickInteraction` opens a frame after a screen reader press. Upstream `useClick` opens at once, so `MenuSubmenuTrigger` handles that press itself. Test: `src/lib/menu/MenuSubmenuTrigger.screen-reader.svelte.spec.ts` (`opens on a screen reader press without waiting a frame`).
+- The `data-base-ui-click-trigger` marker is not rendered. Upstream sets it only on Dialog and Popover triggers.
+
+### Not covered
+
+React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The menubar and context-menu positioner cases have no public components here. The filter, `Menu.List` and lazy flipping cases wait on the filter parts. The shadow-root focus-guard case depends on React portal ownership.
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -352,6 +398,7 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Tooltip            | refs                                                                                                   |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
+| Menu               | Filter parts, Menubar and ContextMenu components, `actionsRef`, refs                                   |
 
 ## Shared floating internals
 
