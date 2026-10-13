@@ -301,8 +301,6 @@ export class OTPFieldModel {
 		}
 
 		this.focusedIndex = index;
-		this.focused = true;
-		this.field.setFocused(true);
 		event.currentTarget.select();
 	}
 

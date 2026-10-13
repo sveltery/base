@@ -10,6 +10,7 @@
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
+	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
 	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { useCSPContext } from '../internal/csp-context.js';
 	import { formatNumber } from '../internal/formatNumber.js';
@@ -83,6 +84,10 @@
 		Number.isFinite(thumbValue) ? valueToPercent(thumbValue, model.min, model.max) : Number.NaN
 	);
 	const disabled = $derived(model.disabled || disabledProp);
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => disabled,
+		target: () => inputEl
+	});
 	const partState: SliderRootState = $derived(model.snapshot());
 
 	function remember(node: HTMLDivElement) {
@@ -210,12 +215,12 @@
 	}
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		if (model.onThumbFocus(event, index)) return;
+		if (model.onThumbFocus(event, index, focusOwner.set)) return;
 		onfocus?.(event);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		if (model.onThumbBlur(event, index)) return;
+		if (model.onThumbBlur(event, index, focusOwner.set)) return;
 		onblur?.(event);
 	}
 

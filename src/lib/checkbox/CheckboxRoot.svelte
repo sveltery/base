@@ -31,6 +31,7 @@
 		type BoundInputProps
 	} from '../field/bound-control.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { getDefaultFormSubmitter } from './submitter.js';
 	import type { CheckboxHostProps, CheckboxRootProps, CheckboxRootState } from './types.js';
@@ -307,6 +308,10 @@
 	}
 
 	const button = new ButtonBehavior(() => ({ disabled: isDisabled, native: nativeButton }));
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => isDisabled,
+		target: () => rootNode
+	});
 	let enterHeld = false;
 
 	function handleInputFocus() {
@@ -315,7 +320,7 @@
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
 		onfocus?.(event);
-		if (!isDisabled) field.setFocused(true);
+		focusOwner.set(true);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
@@ -323,7 +328,7 @@
 		const input = inputNode;
 		if (!input) return;
 		field.setTouched(true);
-		field.setFocused(false);
+		focusOwner.set(false);
 		if (field.validationMode === 'onBlur') field.commit(group ? group.value : input.checked);
 	}
 

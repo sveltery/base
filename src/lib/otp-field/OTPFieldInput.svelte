@@ -7,6 +7,7 @@
 <script lang="ts">
 	import { DEV } from 'esm-env';
 	import type { HTMLInputAttributes } from 'svelte/elements';
+	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import {
@@ -39,6 +40,11 @@
 	const model = useOTPFieldContext();
 	const reading = useDirection();
 	let el = $state<HTMLInputElement | null>(null);
+	const focusOwner = new FieldFocusOwner(model.field, {
+		disabled: () => model.disabled,
+		target: () => el,
+		onFocusedChange: (focused) => (model.focused = focused)
+	});
 	const renderIndex = model.slots.claim();
 
 	const index = $derived.by(() => {
@@ -85,6 +91,7 @@
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onfocus?.(event);
 		if (event.defaultPrevented || model.disabled) return;
+		focusOwner.set(true);
 		model.handleInputFocus(index, event);
 	}
 

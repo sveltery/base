@@ -388,11 +388,11 @@ export class SliderRootModel {
 	 * @returns true when the focus event is the internal focus-visible restore and
 	 * must not be forwarded.
 	 */
-	onThumbFocus(event: FocusEvent, index: number) {
+	onThumbFocus(event: FocusEvent, index: number, setFocused: (focused: boolean) => void) {
 		const restoring = this.restoringFocusVisible;
 		this.restoringFocusVisible = false;
 		this.setActive(index);
-		this.options.getField().setFocused(true);
+		setFocused(true);
 		const input = event.currentTarget;
 		if (input instanceof HTMLInputElement) {
 			this.fieldInput = input;
@@ -403,7 +403,7 @@ export class SliderRootModel {
 	}
 
 	/** @returns true when the blur is internal and must not be forwarded. */
-	onThumbBlur(event: FocusEvent, index: number) {
+	onThumbBlur(event: FocusEvent, index: number, setFocused: (focused: boolean) => void) {
 		if (this.restoringFocusVisible) {
 			event.stopPropagation();
 			return true;
@@ -414,7 +414,7 @@ export class SliderRootModel {
 
 		const field = this.options.getField();
 		field.setTouched(true);
-		field.setFocused(false);
+		setFocused(false);
 		if (field.validationMode === 'onBlur') {
 			const thumbValue = this.values[index];
 			field.commit(getSliderValue(thumbValue, index, this.min, this.max, this.range, this.values));

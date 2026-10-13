@@ -8,6 +8,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
+	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
 	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -35,6 +36,10 @@
 	const labelable = findLabelableContext();
 
 	const state: NumberFieldInputState = $derived(model.state);
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => state.disabled,
+		target: () => model.inputElement
+	});
 	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
 	const ariaInvalid = $derived(
 		!state.disabled && (field.invalid || field.state.valid === false) ? true : undefined
@@ -58,12 +63,13 @@
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onfocus?.(event);
 		if (event.defaultPrevented) return;
-		model.handleFocus();
+		focusOwner.set(true);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onblur?.(event);
 		if (event.defaultPrevented) return;
+		focusOwner.set(false);
 		model.handleBlur(event);
 	}
 

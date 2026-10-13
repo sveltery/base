@@ -17,6 +17,7 @@
 	import { nativeType } from '../form/source.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from './context.svelte.js';
+	import { FieldFocusOwner } from './focus-owner.svelte.js';
 	import { Labelable, LabelableId, findLabelableContext } from './labelable.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
@@ -131,10 +132,9 @@
 		};
 	}
 
-	$effect(() => {
-		if (!autofocus || !inputEl) return;
-		const view = inputEl.ownerDocument.defaultView ?? window;
-		if (view.document.activeElement === inputEl) field.setFocused(true);
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => disabled,
+		target: () => inputEl
 	});
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -154,13 +154,13 @@
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onfocus?.(event);
-		field.setFocused(true);
+		focusOwner.set(true);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onblur?.(event);
 		field.setTouched(true);
-		field.setFocused(false);
+		focusOwner.set(false);
 
 		if (field.validationMode !== 'onBlur') return;
 		// `onblur` may have written `bind:value` without flushing. Commit that value.

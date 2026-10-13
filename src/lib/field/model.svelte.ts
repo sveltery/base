@@ -53,6 +53,8 @@ export interface FieldContext {
 	setDirty: (value: boolean) => void;
 	setFilled: (value: boolean) => void;
 	setFocused: (value: boolean) => void;
+	/** The control the focused state belongs to. Written by `FieldFocusOwner`. */
+	focusOwner: unknown;
 	shouldValidateOnChange: () => boolean;
 	validateField: () => void;
 	registerControl: (source: symbol, registration: FieldControlRegistration | undefined) => void;
@@ -133,6 +135,7 @@ export class FieldRootModel implements FieldContext {
 	private touchedState = $state(false);
 	filled = $state(false);
 	focused = $state(false);
+	focusOwner: unknown = undefined;
 	inputElement = $state<HTMLElement | null>(null);
 
 	private markedDirty = false;

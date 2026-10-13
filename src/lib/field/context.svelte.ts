@@ -46,6 +46,7 @@ const INERT_FIELD: FieldContext = {
 	setDirty: inert,
 	setFilled: inert,
 	setFocused: inert,
+	focusOwner: undefined,
 	shouldValidateOnChange: () => false,
 	validateField: inert,
 	registerControl: inert,

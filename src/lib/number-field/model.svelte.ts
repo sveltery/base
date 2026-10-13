@@ -366,16 +366,10 @@ export class NumberFieldModel {
 		return true;
 	}
 
-	handleFocus() {
-		if (this.options.getDisabled()) return;
-		this.options.getField().setFocused(true);
-	}
-
 	handleBlur(event: FocusEvent) {
 		if (this.options.getDisabled()) return;
 		const field = this.options.getField();
 		field.setTouched(true);
-		field.setFocused(false);
 		if (this.options.getReadOnly()) return;
 
 		const hadManualInput = !this.allowInputSync;

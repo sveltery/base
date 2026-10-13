@@ -23,6 +23,7 @@
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { BoundControl, sourceBoolean } from '../field/bound-control.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import type { SwitchHostProps, SwitchRootProps, SwitchRootState } from './types.js';
 
@@ -111,6 +112,10 @@
 
 	let rootNode = $state<HTMLElement | null>(null);
 	let inputNode = $state<HTMLInputElement | null>(null);
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => disabled,
+		target: () => rootNode
+	});
 	const ariaLabelledBy = new AriaLabelledBy(labelable, {
 		explicit: () => ariaLabelledByProp ?? undefined,
 		input: () => (nativeButton ? null : inputNode),
@@ -193,7 +198,7 @@
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
 		onfocus?.(event);
-		if (!disabled) field.setFocused(true);
+		focusOwner.set(true);
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
@@ -201,7 +206,7 @@
 		const input = inputNode;
 		if (!input || disabled) return;
 		field.setTouched(true);
-		field.setFocused(false);
+		focusOwner.set(false);
 		if (field.validationMode === 'onBlur') field.commit(input.checked);
 	}
 

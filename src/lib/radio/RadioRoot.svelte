@@ -22,6 +22,7 @@
 	import { useRadioGroupContext } from './group-context.js';
 	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
 	import { boundInputProps, type BoundInputProps } from '../field/bound-control.svelte.js';
 	import { serializeValue } from './serialize-value.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
@@ -45,6 +46,7 @@
 		onclick,
 		onkeydown,
 		onfocus,
+		onblur,
 		'aria-labelledby': ariaLabelledByProp,
 		'aria-describedby': ariaDescribedBy,
 		render,
@@ -102,6 +104,10 @@
 
 	let rootNode = $state<HTMLElement | null>(null);
 	let inputNode = $state<HTMLInputElement | null>(null);
+	const focusOwner = new FieldFocusOwner(field, {
+		disabled: () => disabled,
+		target: () => rootNode
+	});
 	const ariaLabelledBy = new AriaLabelledBy(labelable, {
 		explicit: () => ariaLabelledByProp ?? undefined,
 		input: () => (nativeButton ? null : inputNode),
@@ -191,12 +197,20 @@
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
 		onfocus?.(event);
+		focusOwner.set(true);
 		if (event.currentTarget instanceof HTMLElement) group?.roving?.highlight(event.currentTarget);
 		// Read the group's touched flag live. Arrow keys set it in the capture
 		// phase of this same turn, before a derived value would refresh.
 		if (event.defaultPrevented || disabled || readOnly || !group?.touched) return;
 		inputNode?.click();
 		group?.setTouched(false);
+	}
+
+	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
+		onblur?.(event);
+		// The group releases the Field when focus leaves it, so moves between its radios
+		// do not churn the focused state.
+		if (!group) focusOwner.set(false);
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
@@ -229,6 +243,7 @@
 			onclick: handleClick,
 			onkeydown: handleKeyDown,
 			onfocus: handleFocus,
+			onblur: handleBlur,
 			[rootKey]: registerRoot
 		}) as RadioHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});

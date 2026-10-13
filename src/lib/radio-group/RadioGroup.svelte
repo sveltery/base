@@ -41,8 +41,7 @@
 		name: nameProp,
 		form,
 		onValueChange,
-		onfocus,
-		onblur,
+		onfocusout,
 		onkeydown,
 		'aria-describedby': ariaDescribedBy,
 		render,
@@ -191,13 +190,12 @@
 		// Shift still selects. Ctrl, Alt, and Meta do not move, so they must not
 		// leave the group armed for the next focus.
 		touched = !(event.altKey || event.ctrlKey || event.metaKey);
-		field.setFocused(true);
 	}
 
-	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
-		onblur?.(event);
-		touched = false;
+	function handleFocusOut(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+		onfocusout?.(event);
 		if (contains(event.currentTarget, event.relatedTarget)) return;
+		touched = false;
 		field.setTouched(true);
 		field.setFocused(false);
 		if (field.validationMode === 'onBlur') field.commit(checkedValue);
@@ -231,11 +229,7 @@
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 				...(describedBy ? { 'aria-describedby': describedBy } : {}),
 				...(field.valid === false && !disabled ? { 'aria-invalid': true as const } : {}),
-				onfocus: (event) => {
-					onfocus?.(event);
-					field.setFocused(true);
-				},
-				onblur: handleBlur,
+				onfocusout: handleFocusOut,
 				onkeydown: handleKeyDown,
 				onkeydowncapture: arrowsTouched,
 				[controlKey]: registration,
