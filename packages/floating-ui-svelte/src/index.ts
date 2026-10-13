@@ -40,3 +40,22 @@ export {
 	tabbable,
 	type FocusableElement
 } from './utils/tabbable.js';
+export { ListNavigation, type UseListNavigationProps } from './hooks/useListNavigation.svelte.js';
+export {
+	findNonDisabledListIndex,
+	getMaxListIndex,
+	getMinListIndex,
+	getNextListIndex,
+	isIndexOutOfListBounds,
+	isListIndexDisabled,
+	type DisabledIndices,
+	type ListStepOptions
+} from './utils/listIndex.js';
+export {
+	isCrossOrientationCloseKey,
+	isCrossOrientationOpenKey,
+	isMainOrientationKey,
+	isMainOrientationToEndKey,
+	type ListOrientation
+} from './utils/listOrientation.js';
+export { Typeahead, type UseTypeaheadProps } from './hooks/useTypeahead.svelte.js';
