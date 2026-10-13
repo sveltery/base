@@ -109,11 +109,14 @@
 	// reads state as it was before the close. This flag is set during the close, so it is a plain
 	// variable that `returnFocus` reads when the manager calls it.
 	let leftByPointer = false;
+	// Read at call time for the same reason: an outside press that closed the menu.
+	let closedByOutsidePress = false;
 	// Tracks only `store.open`, so it runs once per opening.
 	$effect.pre(() => {
 		if (!store.open) return;
 		untrack(() => {
 			leftByPointer = false;
+			closedByOutsidePress = false;
 			const doc = ownerDocument(store.domReferenceElement ?? null);
 			const active = activeElement(doc);
 			previousFocus =
@@ -126,6 +129,7 @@
 	$effect(() => {
 		const stop = store.events.on('openchange', (data) => {
 			const { open, reason, nativeEvent } = data as OpenChangePayload;
+			if (!open) closedByOutsidePress = reason === MENU_REASONS.outsidePress;
 			if (!open && reason === MENU_REASONS.triggerHover && nativeEvent?.type === 'mouseleave') {
 				leftByPointer = true;
 			}
@@ -153,7 +157,8 @@
 			store.activeTriggerElement != null ||
 			parentType === undefined ||
 			parentType === 'context-menu' ||
-			(parentType === 'menubar' && store.openChangeReason !== MENU_REASONS.outsidePress);
+			// `returnFocus` drops this case after an outside press.
+			parentType === 'menubar';
 		return returns && previousFocus ? returnToPreviousFocus : returns;
 	});
 
@@ -176,6 +181,16 @@
 
 	function returnFocus(closeType: string | null): boolean | HTMLElement | null | void {
 		if (leftByPointer) return false;
+		// Upstream's default returns focus from a triggerless menubar menu unless an outside press
+		// closed it.
+		if (
+			finalFocus === undefined &&
+			parentType === 'menubar' &&
+			store.activeTriggerElement == null &&
+			closedByOutsidePress
+		) {
+			return false;
+		}
 		const spec = returnSpec;
 		if (typeof spec === 'function') return spec(closeType);
 		// The manager treats a function result as explicit, so `true` keeps its inside check here.
