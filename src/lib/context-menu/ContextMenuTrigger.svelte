@@ -34,7 +34,6 @@
 	const context = useContextMenuRoot();
 	const { store } = useMenuRoot();
 
-	let triggerElement = $state<HTMLElement | null>(null);
 	let touchPosition: { x: number; y: number } | null = null;
 	const longPressTimeout = new ScopedTimeout();
 	const allowMouseUpTimeout = new ScopedTimeout();
@@ -78,7 +77,7 @@
 		// the window keeps the item's mouseup first.
 		mouseUpAbort?.abort();
 		mouseUpAbort = new AbortController();
-		ownerWindow(triggerElement).addEventListener('mouseup', handleMouseUp, {
+		ownerWindow(context.triggerElement).addEventListener('mouseup', handleMouseUp, {
 			once: true,
 			signal: mouseUpAbort.signal
 		});
@@ -126,6 +125,7 @@
 	// The native context menu stays closed over the trigger and both backdrops, also when a
 	// consumer handler skipped the trigger's own handler.
 	$effect(() => {
+		const triggerElement = context.triggerElement;
 		if (store.disabled || !triggerElement) return;
 		return on(ownerDocument(triggerElement), 'contextmenu', (event) => {
 			const target = getTarget(event) as Element | null;
@@ -143,7 +143,8 @@
 	// the primary button, so a right click elsewhere closes the menu here. Its backdrop then turns
 	// inert, and the context menu event that follows reopens the menu where the pointer is.
 	$effect(() => {
-		if (!store.open || !triggerElement) return;
+		const triggerElement = context.triggerElement;
+		if (store.disabled || !store.open || !triggerElement) return;
 		return on(
 			ownerDocument(triggerElement),
 			'pointerdown',
@@ -162,9 +163,9 @@
 
 	const bindKey = createAttachmentKey();
 	function bindTrigger(node: HTMLElement) {
-		triggerElement = node;
+		context.triggerElement = node;
 		return () => {
-			if (triggerElement === node) triggerElement = null;
+			if (context.triggerElement === node) context.triggerElement = null;
 		};
 	}
 

@@ -147,9 +147,10 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 	// for `focus-out`, so list navigation focuses that element itself.
 	let focusBeforeOpen: HTMLElement | null = null;
 	if (parent.type === 'context-menu') {
+		const { context } = parent;
 		$effect.pre(() => {
 			if (!store.open) return;
-			const active = activeElement(ownerDocument(null));
+			const active = activeElement(ownerDocument(context.triggerElement));
 			focusBeforeOpen = active instanceof HTMLElement ? active : null;
 		});
 	}

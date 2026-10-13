@@ -198,6 +198,28 @@ describe('ContextMenu.Trigger', () => {
 			expect(calls).toEqual([]);
 		});
 
+		it('ignores a right press outside the open menu once disabled', async () => {
+			const { calls, onOpenChange } = recorder();
+			let disabled = $state(false);
+			render(ContextMenuHarness, {
+				open: true,
+				rootProps: {
+					onOpenChange,
+					get disabled() {
+						return disabled;
+					}
+				}
+			});
+			await expect.poll(menu).not.toBeNull();
+			disabled = true;
+			await tick();
+
+			pointer(document.body, 'pointerdown', { pointerType: 'mouse', button: 2 });
+			await tick();
+			expect(calls).toEqual([]);
+			expect(menu()).not.toBeNull();
+		});
+
 		it('does not block the native context menu when disabled', async () => {
 			render(ContextMenuHarness, { rootProps: { disabled: true } });
 			const event = contextMenu(get('trigger'));

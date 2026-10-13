@@ -49,6 +49,8 @@ export interface ContextMenuParentContext {
 	backdropElement: HTMLElement | null;
 	/** The positioner's internal backdrop publishes its element here. */
 	internalBackdropElement: HTMLElement | null;
+	/** `ContextMenu.Trigger` publishes its element here. */
+	triggerElement: HTMLElement | null;
 	/**
 	 * `Menu.Root` publishes itself here, so the context menu trigger can open it and read its
 	 * positioner.

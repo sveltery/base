@@ -22,6 +22,7 @@ export class ContextMenuRootContext implements ContextMenuParentContext {
 	anchor = $state.raw<Anchor>(ORIGIN);
 	backdropElement = $state<HTMLElement | null>(null);
 	internalBackdropElement = $state<HTMLElement | null>(null);
+	triggerElement = $state<HTMLElement | null>(null);
 	menu: ContextMenuTarget | null = null;
 	readonly mouseUpGate: MouseUpGate = { allow: true };
 	initialCursorPoint: { x: number; y: number } | null = null;
