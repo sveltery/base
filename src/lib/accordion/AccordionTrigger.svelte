@@ -8,8 +8,14 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerOpenStateMapping } from '../collapsible/attributes.js';
 	import { useCollapsibleRootContext } from '../collapsible/context.svelte.js';
+	import { accordionStateAttributesMapping } from './attributes.js';
 	import { useAccordionItemContext } from './context.svelte.js';
 	import type { AccordionTriggerHostProps, AccordionTriggerProps } from './types.js';
+
+	const stateAttributesMapping = {
+		...accordionStateAttributesMapping,
+		...triggerOpenStateMapping
+	};
 
 	let {
 		disabled: disabledProp,
@@ -50,7 +56,7 @@
 			'aria-expanded': root.open,
 			...(root.open && root.panelId ? { 'aria-controls': root.panelId } : {}),
 			...elementProps,
-			...getStateAttributesProps(state, triggerOpenStateMapping),
+			...getStateAttributesProps(state, stateAttributesMapping),
 			onclick: handleClick
 		}) as AccordionTriggerHostProps
 	);
