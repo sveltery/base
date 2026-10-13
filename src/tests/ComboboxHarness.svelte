@@ -80,6 +80,7 @@
 		refuseOpen = false,
 		rows,
 		rowGroups,
+		filteredItems,
 		onOuterKeydown,
 		popupRenderId
 	}: {
@@ -147,6 +148,8 @@
 		rows?: string[][];
 		/** Groups of grid rows, each with an optional label. */
 		rowGroups?: { label?: string; rows: string[][] }[];
+		/** Derives the root's `filteredItems` from the bound input value and value, as a parent would. */
+		filteredItems?: (inputValue: string, value: unknown) => unknown[];
 		/** Wraps everything in a `<div>` with this keydown listener. */
 		onOuterKeydown?: (event: KeyboardEvent) => void;
 		/** Renders the popup through a `render` snippet whose element sets this id. */
@@ -219,7 +222,7 @@
 {/snippet}
 
 {#snippet entries()}
-	{#if items !== undefined}
+	{#if items !== undefined || filteredItems}
 		{#if grouped}
 			<Combobox.Collection>
 				{#snippet children(group: HarnessGroup, index)}
@@ -345,6 +348,7 @@
 			if (!refuseOpen) open = next;
 		}}
 		{...items !== undefined ? { items: items as never } : {}}
+		{...filteredItems ? { filteredItems: filteredItems(inputValue ?? '', value) as never } : {}}
 		{inline}
 		{...root}
 	>
