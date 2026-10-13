@@ -1,4 +1,5 @@
 import type { Snippet } from 'svelte';
+import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
@@ -126,7 +127,21 @@ export interface TooltipTriggerProps<Payload = unknown> extends Omit<
 	children?: Snippet;
 }
 
-export type TooltipPortalProps = PortalProps;
+export type TooltipPortalState = Record<string, never>;
+
+export interface TooltipPortalProps extends PortalProps {
+	/**
+	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
+	 * Host props include the move attachment.
+	 */
+	render?: Snippet<
+		[
+			props: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>>,
+			state: TooltipPortalState,
+			children: RenderChildren
+		]
+	>;
+}
 
 export interface TooltipPositionerState {
 	open: boolean;

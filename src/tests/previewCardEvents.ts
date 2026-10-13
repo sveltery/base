@@ -1,4 +1,4 @@
-import { userEvent } from 'vitest/browser';
+import { parkPointer } from './pointer.js';
 import { vi } from 'vitest';
 
 export function byId(testId: string) {
@@ -35,9 +35,7 @@ export function advance(ms: number) {
 }
 
 /** A real pointer resting on a trigger would hover the next test's freshly rendered trigger. */
-export async function resetBrowserPointer() {
-	await userEvent.unhover(document.body);
-}
+export const resetBrowserPointer = parkPointer;
 
 /** Unmounting during a position computation makes it read signals of the destroyed positioner. */
 export function settlePositioning() {

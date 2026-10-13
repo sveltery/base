@@ -6,6 +6,7 @@ import { userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import TooltipViewportHarness from '../../tests/TooltipViewportHarness.svelte';
+import { parkPointer } from '../../tests/pointer.js';
 import { byTestId } from '../../tests/tooltip-events.js';
 import type { TooltipChangeEventDetails } from './types.js';
 
@@ -15,7 +16,7 @@ const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
 let removeStyle: (() => void) | undefined;
 
 beforeEach(async () => {
-	await userEvent.unhover(document.body);
+	await parkPointer();
 	flags.BASE_UI_ANIMATIONS_DISABLED = true;
 });
 

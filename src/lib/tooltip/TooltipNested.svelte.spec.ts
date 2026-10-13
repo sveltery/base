@@ -4,13 +4,15 @@
 import { tick } from 'svelte';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { parkPointer } from '../../tests/pointer.js';
 import TooltipNestedHarness from '../../tests/TooltipNestedHarness.svelte';
 import { byTestId, fire } from '../../tests/tooltip-events.js';
 import { OPEN_DELAY } from './constants.js';
 
 const flags = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
 
-beforeEach(() => {
+beforeEach(async () => {
+	await parkPointer();
 	flags.BASE_UI_ANIMATIONS_DISABLED = true;
 	vi.useFakeTimers();
 });

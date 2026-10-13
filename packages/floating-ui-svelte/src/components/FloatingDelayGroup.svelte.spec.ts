@@ -7,6 +7,7 @@ import { page } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import DelayGroupHarness from '../hooks/__tests__/DelayGroupHarness.svelte';
+import { parkPointer } from '../hooks/__tests__/pointer.js';
 
 function enter(label: string) {
 	page.getByTestId(`reference-${label}`).element().dispatchEvent(new MouseEvent('mouseenter'));
@@ -25,7 +26,8 @@ function advance(ms: number) {
 }
 
 describe('FloatingDelayGroup', () => {
-	beforeEach(() => {
+	beforeEach(async () => {
+		await parkPointer();
 		vi.useFakeTimers();
 	});
 

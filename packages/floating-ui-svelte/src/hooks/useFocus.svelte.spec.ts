@@ -3,10 +3,15 @@
 // The upstream case runs in jsdom only. These run in Chromium, where `:focus-visible` is real,
 // so focus comes from the keyboard and the extra cases cover what jsdom cannot.
 import { page, userEvent } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 import FocusHarness from './__tests__/FocusHarness.svelte';
+import { parkPointer } from './__tests__/pointer.js';
+
+beforeEach(async () => {
+	await parkPointer();
+});
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

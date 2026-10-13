@@ -3,9 +3,14 @@
 // The harness reads the rect the way a positioner does, from `store.referenceElement`.
 import { tick } from 'svelte';
 import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ClientPointHarness from './__tests__/ClientPointHarness.svelte';
+import { parkPointer } from './__tests__/pointer.js';
+
+beforeEach(async () => {
+	await parkPointer();
+});
 
 function mouse(target: EventTarget, type: string, x: number, y: number) {
 	target.dispatchEvent(new MouseEvent(type, { bubbles: true, clientX: x, clientY: y }));

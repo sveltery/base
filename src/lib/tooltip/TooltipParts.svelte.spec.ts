@@ -8,6 +8,7 @@ import { render } from 'vitest-browser-svelte';
 import TooltipPartsHarness from '../../tests/TooltipPartsHarness.svelte';
 import TooltipPositionerHarness from '../../tests/TooltipPositionerHarness.svelte';
 import TooltipProviderHarness from '../../tests/TooltipProviderHarness.svelte';
+import { parkPointer } from '../../tests/pointer.js';
 import { byTestId, fire } from '../../tests/tooltip-events.js';
 import { OPEN_DELAY } from './constants.js';
 import type { OffsetFunction } from '../internal/useAnchorPositioning.svelte.js';
@@ -15,7 +16,7 @@ import type { OffsetFunction } from '../internal/useAnchorPositioning.svelte.js'
 const flags = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
 
 beforeEach(async () => {
-	await userEvent.unhover(document.body);
+	await parkPointer();
 	flags.BASE_UI_ANIMATIONS_DISABLED = true;
 });
 
