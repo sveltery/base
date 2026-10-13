@@ -42,3 +42,54 @@ describe('shadow DOM', () => {
 		]);
 	});
 });
+
+describe('focus manager', () => {
+	it('closes on the outside press, not on focus out, when another popover’s trigger is pressed inside its shadow root', async () => {
+		const first = recordOpenChanges();
+		render(PopoverTriggersHarness, {
+			triggers: [{ id: 'first', label: 'First', payload: 1 }],
+			onOpenChange: first.onOpenChange
+		});
+		render(PopoverTriggersHarness, {
+			triggers: [{ id: 'second', label: 'Second', payload: 2, shadowHost: true }],
+			inside: false
+		});
+		const host = page.getByTestId('shadow-host-second').element();
+		host.attachShadow({ mode: 'open' }).innerHTML = '<b data-testid="shadow-inner">Inner</b>';
+
+		await page.getByRole('button', { name: 'First' }).click();
+		await expect.element(page.getByTestId('input-inside')).toHaveFocus();
+
+		await page.getByTestId('shadow-inner').click();
+		await expect.poll(() => first.calls.length).toBe(2);
+		expect(first.calls).toEqual([
+			[true, 'trigger-press'],
+			[false, 'outside-press']
+		]);
+	});
+});
+
+describe('hover', () => {
+	it('stays open after leaving when a nested popup trigger was pressed inside its shadow root', async () => {
+		const { calls, onOpenChange } = recordOpenChanges();
+		render(PopoverTriggersHarness, {
+			triggers: [{ id: 'trigger-1', label: 'Trigger 1', payload: 1, openOnHover: true }],
+			before: true,
+			onOpenChange
+		});
+		await page.getByRole('button', { name: 'Trigger 1' }).hover();
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+		const nested = document.createElement('button');
+		nested.setAttribute('aria-haspopup', 'menu');
+		const host = document.createElement('span');
+		nested.append(host);
+		host.attachShadow({ mode: 'open' }).innerHTML = '<b data-testid="shadow-inner">Inner</b>';
+		page.getByTestId('popup').element().append(nested);
+
+		await page.getByTestId('shadow-inner').click();
+		await page.getByTestId('before').hover();
+		await new Promise((resolve) => setTimeout(resolve, 100));
+		expect(calls).toEqual([[true, 'trigger-hover']]);
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+	});
+});

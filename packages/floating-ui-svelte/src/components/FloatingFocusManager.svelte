@@ -13,6 +13,7 @@
 		ownerDocument,
 		ownerWindow,
 		activeElement,
+		closest,
 		contains,
 		getTarget,
 		ScopedAnimationFrame,
@@ -469,7 +470,7 @@
 				lastInteraction =
 					type === 'mouse' || type === 'pen' || type === 'touch' ? type : 'keyboard';
 				const target = getTarget(event);
-				if (target instanceof Element && target.closest(`[${CLICK_TRIGGER_IDENTIFIER}]`)) {
+				if (closest(target, `[${CLICK_TRIGGER_IDENTIFIER}]`)) {
 					suppressFocusOut = true;
 					pointerDownTimeout.start(0, () => {
 						suppressFocusOut = false;

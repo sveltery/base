@@ -4,7 +4,7 @@
 // The disabled-trigger check uses the attribute string Tooltip will own.
 
 import { isHTMLElement } from '@floating-ui/utils/dom';
-import { contains } from '@sveltery/utils';
+import { closest, contains } from '@sveltery/utils';
 import { TRIGGER_DISABLED_ATTRIBUTE } from './constants.js';
 
 export function isTargetInsideEnabledTrigger(
@@ -26,7 +26,7 @@ const TYPEABLE_SELECTOR =
 const INTERACTIVE_SELECTOR = `button,a[href],[role="button"],select,[tabindex]:not([tabindex="-1"]),${TYPEABLE_SELECTOR}`;
 
 export function isInteractiveElement(element: Element | null) {
-	return element?.closest(INTERACTIVE_SELECTOR) != null;
+	return closest(element, INTERACTIVE_SELECTOR) != null;
 }
 
 export function isTypeableElement(element: unknown): boolean {
