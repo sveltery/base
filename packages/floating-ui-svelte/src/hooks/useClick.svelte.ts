@@ -1,5 +1,6 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/useClick.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The virtual press follows v1.9.0
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import {
@@ -31,6 +32,8 @@ export class ClickInteraction {
 	readonly #frame = new ScopedAnimationFrame();
 	readonly #touchOpenTimeout = new ScopedTimeout();
 	#pointerType: PointerKind;
+	/** Open state when the press began. A part that toggled on this press itself wins. */
+	#openAtPointerDown = false;
 
 	constructor(
 		private readonly store: FloatingRootStore,
@@ -93,6 +96,7 @@ export class ClickInteraction {
 				isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
 					? 'virtual'
 					: (event.pointerType as PointerKind);
+			this.#openAtPointerDown = this.store.isOpen();
 			// Upstream `useOpenInteractionType` records the press on a closed trigger, so a popup
 			// that opens from it through another handler still knows how it was opened.
 			if (event.defaultPrevented || this.store.isOpen()) return;
@@ -108,7 +112,8 @@ export class ClickInteraction {
 				event.currentTarget,
 				(openEventType) => openEventType === 'click' || openEventType === 'mousedown'
 			);
-			const method = useOpenInteractionType(event, this.#pointerType);
+			const pointerType = this.#pointerType;
+			const method = useOpenInteractionType(event, pointerType);
 			if (eventOption === 'mousedown-only') this.#pointerType = undefined;
 			const target = getTarget(event);
 			if (isTypeableElement(target) && target instanceof HTMLElement) {
@@ -117,6 +122,13 @@ export class ClickInteraction {
 			}
 			const currentTarget = event.currentTarget;
 			if (!(currentTarget instanceof HTMLElement)) return;
+			// A screen reader press opens at once, so the popup's focus lands before the reader
+			// moves focus back to its cursor. A virtual press may target a descendant of the trigger.
+			if (pointerType === 'virtual') {
+				if (this.store.isOpen() !== this.#openAtPointerDown) return;
+				this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method);
+				return;
+			}
 			this.#frame.request(() =>
 				this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method)
 			);

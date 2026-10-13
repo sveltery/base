@@ -1,5 +1,5 @@
-// Behavior follows Base UI v1.9.0 packages/react/src/utils/useOpenInteractionType.ts and
-// packages/utils/src/useEnhancedClickHandler.ts
+// Behavior follows Base UI v1.9.0 packages/react/src/utils/useOpenInteractionType.ts,
+// packages/utils/src/useEnhancedClickHandler.ts and packages/react/src/floating-ui-react/hooks/useClick.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { flushSync } from 'svelte';
 import { page } from 'vitest/browser';
@@ -37,5 +37,44 @@ describe('ClickInteraction', () => {
 		flushSync(() => store.setOpen(true, createChangeEventDetails(REASONS.triggerPress)));
 		pointerDown('mouse');
 		expect(store.openMethod).toBe('keyboard');
+	});
+
+	describe('mousedown press', () => {
+		// Chrome reports a screen reader press as a zero-pressure 1x1 mouse pointerdown.
+		function press(virtual: boolean) {
+			const trigger = page.getByTestId('trigger').element();
+			flushSync(() => {
+				trigger.dispatchEvent(
+					new PointerEvent('pointerdown', {
+						bubbles: true,
+						pointerType: 'mouse',
+						width: 1,
+						height: 1,
+						pressure: virtual ? 0 : 0.5,
+						buttons: virtual ? 0 : 1
+					})
+				);
+				trigger.dispatchEvent(
+					new MouseEvent('mousedown', { bubbles: true, detail: virtual ? 0 : 1 })
+				);
+			});
+		}
+
+		it('opens at once on a screen reader press', () => {
+			const { component } = render(ClickHarness, { event: 'mousedown' });
+
+			press(true);
+
+			expect(component.store.open).toBe(true);
+		});
+
+		it('opens a frame after a mouse press', async () => {
+			const { component } = render(ClickHarness, { event: 'mousedown' });
+
+			press(false);
+
+			expect(component.store.open).toBe(false);
+			await expect.poll(() => component.store.open).toBe(true);
+		});
 	});
 });

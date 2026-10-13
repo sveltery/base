@@ -352,8 +352,6 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Behavior that waits on shared internals
 
-- The shared `FloatingFocusManager` closes a submenu with `focus-out` when the pointer highlight moves focus from its trigger to a sibling item before the press. Its `markInsideReactTree` port covers focus that leaves the popup, not focus that leaves the trigger. `it.todo` in `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` keeps `closes a sibling submenu without closing the root on click`.
-- The shared `ClickInteraction` opens a frame after a screen reader press. Upstream `useClick` opens at once, so `MenuSubmenuTrigger` handles that press itself. Test: `src/lib/menu/MenuSubmenuTrigger.screen-reader.svelte.spec.ts` (`opens on a screen reader press without waiting a frame`).
 - The `data-base-ui-click-trigger` marker is not rendered. Upstream sets it only on Dialog and Popover triggers.
 
 ### Not covered
@@ -411,3 +409,7 @@ Test: `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts`, `packag
 `setFloatingTree({ fresh: true })` starts a new tree instead of joining the enclosing one, as upstream `<FloatingTree>` does. The nested root still records the enclosing node as its parent, as upstream's node context does.
 
 Test: `packages/floating-ui-svelte/src/components/FloatingTree.svelte.spec.ts` (`starts a fresh tree instead of joining the enclosing one`).
+
+`FloatingFocusManager` keeps a nested popup open when a pointer highlight moves focus from its trigger to an item of an open ancestor popup. Upstream renders that highlight after the input events, so the parent menu closes the popup with `sibling-open` before focus moves. The port moves focus first.
+
+Test: `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` (`closes a sibling submenu without closing the root on click`).

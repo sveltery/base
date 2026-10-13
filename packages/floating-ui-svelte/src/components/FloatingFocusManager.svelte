@@ -377,6 +377,16 @@
 		});
 	}
 
+	function insideOpenAncestor(target: Node) {
+		if (!tree || !store.nodeId) return false;
+		const nodeId = store.nodeId;
+		return untrack(() =>
+			getNodeAncestors(tree.nodes, nodeId).some(
+				(node) => !!node.context?.isOpen() && contains(node.context.floatingElement, target)
+			)
+		);
+	}
+
 	function noteClose(data?: unknown) {
 		const payload = data as OpenChangePayload | undefined;
 		if (!payload || payload.open || !payload.nativeEvent) return;
@@ -515,6 +525,11 @@
 		function handleFocusOutside(event: FocusEvent) {
 			if (!closeOnFocusOut || suppressFocusOut || !store.isOpen()) return;
 			const relatedTarget = event.relatedTarget;
+			// A pointer highlight that moves focus from a nested trigger to another item of the
+			// parent popup is not a focus-out. Upstream renders that highlight after the input
+			// events, so the parent closes this popup as a sibling first.
+			const highlightMovedOff =
+				event.currentTarget !== floating && !pointerDownOutside && lastInteraction !== 'keyboard';
 			queueMicrotask(() => {
 				if (!closeOnFocusOut || suppressFocusOut || !store.isOpen()) return;
 				if (insideTree) {
@@ -525,6 +540,7 @@
 				if (modal) return;
 				if (!(relatedTarget instanceof Element)) return;
 				if (focusStaysInTree(relatedTarget)) return;
+				if (highlightMovedOff && insideOpenAncestor(relatedTarget)) return;
 				// Upstream sets this before the close so return focus does not cancel the Tab.
 				closeReason = REASONS.focusOut;
 				store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
