@@ -338,11 +338,11 @@ Local: the shared guards need their own element, so they stay until the popup un
 
 ### Return focus after an open with no interaction type
 
-Upstream: `FloatingFocusManager` takes `openInteractionType` and, when it is `null`, returns focus to the element focused before opening ahead of the trigger.
+Upstream: `FloatingFocusManager` takes `openInteractionType` and, when it is `null`, returns focus to the element focused before opening ahead of the trigger. A hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
 
-Local: the shared `FloatingFocusManager` always prefers the trigger. `MenuPopup` records the element focused when the menu opens without an interaction type, such as a programmatic or hover open, and passes it as `returnFocus`.
+Local: the shared `FloatingFocusManager` always prefers the trigger, and skips return focus only for `focus-out`. `MenuPopup` records the element focused when the menu opens without an interaction type, such as a programmatic or hover open, and passes it as `returnFocus`. It also skips return focus after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
 
-Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`returns focus to the opener when a menu is opened programmatically`).
+Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`returns focus to the opener when a menu is opened programmatically`, `does not return focus to the element focused before a hover open when the pointer leaves`).
 
 ### Touch close guard
 
