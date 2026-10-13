@@ -58,3 +58,4 @@ export {
 	isMainOrientationToEndKey,
 	type ListOrientation
 } from './utils/listOrientation.js';
+export { Typeahead, type UseTypeaheadProps } from './hooks/useTypeahead.svelte.js';

@@ -9,14 +9,19 @@ export class TestFloatingStore extends FloatingRootStore {
 	open = $state(false);
 	readonly openChanges: Array<{ open: boolean; reason: string }> = [];
 
-	constructor(initialOpen = false, nested = false) {
+	/** `readOpen` makes the open bit controlled, like a test that rerenders with a new `open` prop. */
+	constructor(
+		initialOpen = false,
+		nested = false,
+		private readonly readOpen?: () => boolean | undefined
+	) {
 		nextId += 1;
 		super({ nested, floatingId: `test-floating-${nextId}`, floatingElementKind: 'popup' });
 		this.open = initialOpen;
 	}
 
 	override isOpen() {
-		return this.open;
+		return this.readOpen?.() ?? this.open;
 	}
 
 	override setOpen(nextOpen: boolean, details: BaseUIChangeEventDetails<string>) {
