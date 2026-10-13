@@ -5,6 +5,7 @@
 // `REASONS` has no `triggerFocus` yet, so the string lives here.
 
 import { isElement, isHTMLElement } from '@floating-ui/utils/dom';
+import { untrack } from 'svelte';
 import { on } from 'svelte/events';
 import {
 	activeElement,
@@ -53,7 +54,8 @@ export class FocusInteraction {
 	) {
 		$effect(() => {
 			if (!this.#enabled()) return;
-			const win = ownerWindow(this.store.domReferenceElement);
+			// Upstream reads the reference once per `enabled` change, so a trigger switch keeps the listeners.
+			const win = untrack(() => ownerWindow(this.store.domReferenceElement));
 			const stops = [
 				// Returning to the tab refocuses the trigger. That must not reopen a popup that was closed.
 				on(win, 'blur', () => {
@@ -116,7 +118,7 @@ export class FocusInteraction {
 		onfocusin: (event: FocusEvent) => {
 			if (!this.#enabled()) return;
 			const currentTarget = event.currentTarget;
-			if (!(currentTarget instanceof HTMLElement)) return;
+			if (!isHTMLElement(currentTarget)) return;
 
 			if (this.#blockFocus) {
 				if (this.#blockedReference === currentTarget) return;

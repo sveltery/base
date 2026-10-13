@@ -3,7 +3,7 @@
 // The upstream case runs in jsdom only. These run in Chromium, where `:focus-visible` is real,
 // so focus comes from the keyboard and the extra cases cover what jsdom cannot.
 import { page, userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 import FocusHarness from './__tests__/FocusHarness.svelte';
@@ -101,6 +101,23 @@ describe('FocusInteraction', () => {
 		await wait(50);
 
 		expect(state()).toEqual({ open: 'true', reason: 'trigger-focus', trigger: 'second' });
+	});
+
+	it('keeps its window listeners when focus moves to another trigger', async () => {
+		render(FocusHarness, { secondTrigger: true });
+		await tabToTrigger();
+		expect(state().trigger).toBe('first');
+		const added = vi.spyOn(window, 'addEventListener');
+		const removed = vi.spyOn(window, 'removeEventListener');
+
+		await userEvent.keyboard('{Tab}');
+		await wait(50);
+
+		expect(state().trigger).toBe('second');
+		expect(added.mock.calls.filter(([type]) => type === 'blur')).toEqual([]);
+		expect(removed.mock.calls.filter(([type]) => type === 'blur')).toEqual([]);
+		added.mockRestore();
+		removed.mockRestore();
 	});
 
 	it('does not reopen on refocus after Escape until the pointer leaves', async () => {
