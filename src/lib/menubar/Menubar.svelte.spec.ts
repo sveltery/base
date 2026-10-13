@@ -538,7 +538,7 @@ describe('Menubar', () => {
 		it('passes props and state to the render snippet', () => {
 			render(MenubarCasesHarness, { scenario: 'render' });
 			const host = get('rendered');
-			expect(host.tagName).toBe('NAV');
+			expect(host.className).toBe('custom-bar');
 			expect(host.getAttribute('role')).toBe('menubar');
 			expect(host.getAttribute('data-state')).toBe('horizontal modal');
 		});

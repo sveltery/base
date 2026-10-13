@@ -83,11 +83,12 @@
 	{:else if scenario === 'render'}
 		<Menubar {...menubarProps}>
 			{#snippet render(props, state)}
-				<nav
+				<div
 					{...props}
+					class="custom-bar"
 					data-testid="rendered"
 					data-state={`${state.orientation}${state.modal ? ' modal' : ''}`}
-				></nav>
+				></div>
 			{/snippet}
 		</Menubar>
 	{:else if scenario === 'scroll-wide' || scenario === 'scroll-narrow'}
