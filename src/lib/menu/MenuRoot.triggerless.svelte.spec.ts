@@ -124,9 +124,10 @@ describe('Menu.Root without a trigger', () => {
 		}
 	);
 
-	// Upstream keeps a portaled submenu open while focus moves into its parent without a press
-	// outside it (`markInsideReactTree`). Here the highlight that follows the pointer onto
-	// "Second" moves focus there and closes "First" with `focus-out` before the click.
+	// The highlight that follows the pointer onto "Second" moves focus off the "First" trigger
+	// before the press. The shared focus manager's `focusout` listener on that trigger closes
+	// "First" with `focus-out`. Its `markInsideReactTree` port covers focus that leaves the
+	// popup, not focus that leaves the trigger.
 	it.todo('closes a sibling submenu without closing the root on click');
 
 	it('closes a sibling submenu without closing the root on hover', async () => {

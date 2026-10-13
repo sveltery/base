@@ -101,8 +101,8 @@
 	}));
 
 	// Chrome performs a screen reader activation as a 1x1, zero-pressure mouse `pointerdown` with
-	// no pressed button. v1.9 opens on it at once. The click interaction here predates that and
-	// ignores it as a mouse press while `openOnHover` is on, so the trigger handles it itself.
+	// no pressed button. Upstream `useClick` opens on it at once. The shared click interaction
+	// waits a frame, so the trigger opens it itself.
 	let screenReaderPress = false;
 	const screenReaderProps = {
 		onpointerdown(event: PointerEvent) {

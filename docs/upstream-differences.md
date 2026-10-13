@@ -352,7 +352,8 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Behavior that waits on shared internals
 
-- The shared `FloatingFocusManager` has no counterpart to upstream's `markInsideReactTree`. When the pointer highlight moves focus from a portaled submenu into its parent, the submenu closes with `focus-out` before the click on a sibling submenu trigger. `it.todo` in `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` keeps `closes a sibling submenu without closing the root on click`.
+- The shared `FloatingFocusManager` closes a submenu with `focus-out` when the pointer highlight moves focus from its trigger to a sibling item before the press. Its `markInsideReactTree` port covers focus that leaves the popup, not focus that leaves the trigger. `it.todo` in `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` keeps `closes a sibling submenu without closing the root on click`.
+- The shared `ClickInteraction` opens a frame after a screen reader press. Upstream `useClick` opens at once, so `MenuSubmenuTrigger` handles that press itself. Test: `src/lib/menu/MenuSubmenuTrigger.screen-reader.svelte.spec.ts` (`opens on a screen reader press without waiting a frame`).
 - The `data-base-ui-click-trigger` marker is not rendered. Upstream sets it only on Dialog and Popover triggers.
 
 ### Not covered
