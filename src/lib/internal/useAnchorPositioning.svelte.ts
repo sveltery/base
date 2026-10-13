@@ -1,5 +1,6 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/useAnchorPositioning.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The `'placement'` lazy flip follows v1.9.0
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // `disableAnchorTracking` turns off ancestor scroll, element resize, and layout shift.
 // It does not turn off `ancestorResize`. That matches Base UI v1.8.0.
 
@@ -71,7 +72,11 @@ export interface AnchorPositioningParameters {
 	mounted: boolean;
 	adaptiveOrigin?: Middleware;
 	shift?: { crossAxis?: boolean; rootBoundary?: 'layoutViewport' };
-	lazyFlip?: boolean;
+	/**
+	 * Locks a flipped placement so it does not flip back while the popup resizes. `true` locks
+	 * the side. `'placement'` also locks the alignment (Base UI v1.9.0).
+	 */
+	lazyFlip?: boolean | 'placement';
 	inline?: Middleware;
 }
 
@@ -146,12 +151,14 @@ function paddingBox(padding: Padding | undefined) {
 export class AnchorPositioning {
 	readonly #direction = useDirection();
 	#latchedSide = $state<PhysicalSide | null>(null);
+	#latchedAlign = $state<Align | null>(null);
 	#latchedFor = $state.raw<ReferenceElement | null>(null);
 	#arrowElement = $state<HTMLElement | null>(null);
 	#measured = $state.raw<Record<string, string>>({});
 	readonly #position: FloatingPosition;
 
-	readonly #mountSide = $derived.by(() => {
+	/** The flipped placement this open latched, or null while nothing is latched. */
+	readonly #mountPlacement = $derived.by(() => {
 		const current = this.read();
 		if (!current.mounted) return null;
 		const reference = resolveAnchor(current.anchor) ?? this.store.referenceElement;
@@ -162,8 +169,10 @@ export class AnchorPositioning {
 		) {
 			return null;
 		}
-		return this.#latchedSide;
+		return { side: this.#latchedSide, align: this.#latchedAlign };
 	});
+
+	readonly #mountSide = $derived(this.#mountPlacement?.side ?? null);
 
 	readonly isPositioned = $derived.by(
 		() => this.#position.data.isPositioned && this.read().mounted
@@ -186,18 +195,28 @@ export class AnchorPositioning {
 				this.#direction.direction === 'rtl',
 				this.#mountSide
 			);
-			if (rendered !== preferred) {
+			const lockAlign = current.lazyFlip === 'placement';
+			const renderedAlign = getAlignment(this.#position.data.placement) || 'center';
+			const preferredAlign = this.#placementAlign(current);
+			if (rendered !== preferred || (lockAlign && renderedAlign !== preferredAlign)) {
 				this.#latchedSide = rendered;
+				this.#latchedAlign = lockAlign ? renderedAlign : null;
 				this.#latchedFor = reference;
 			}
 		});
+	}
+
+	#placementAlign(current: AnchorPositioningParameters): Align {
+		return (
+			(current.lazyFlip === 'placement' && this.#mountPlacement?.align) || current.align || 'center'
+		);
 	}
 
 	#layout() {
 		const current = this.read();
 		const isRtl = this.#direction.direction === 'rtl';
 		const sideParam = current.side ?? 'bottom';
-		const align = current.align ?? 'center';
+		const align = this.#placementAlign(current);
 		const physical = physicalSide(sideParam, isRtl, this.#mountSide);
 		const collisionPadding = paddingBox(current.collisionPadding ?? 5);
 		const avoidance = current.collisionAvoidance;
