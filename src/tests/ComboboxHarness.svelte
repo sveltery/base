@@ -75,7 +75,9 @@
 		inputWrapper = false,
 		api,
 		staticGroups,
-		refuseValue = false
+		refuseValue = false,
+		onOuterKeydown,
+		popupRenderId
 	}: {
 		value?: unknown;
 		inputValue?: string;
@@ -133,6 +135,10 @@
 		staticGroups?: { label: string; items: HarnessItem[] }[];
 		/** Binds `value` through a setter that ignores writes, as a parent refusing a change. */
 		refuseValue?: boolean;
+		/** Wraps everything in a `<div>` with this keydown listener. */
+		onOuterKeydown?: (event: KeyboardEvent) => void;
+		/** Renders the popup through a `render` snippet whose element sets this id. */
+		popupRenderId?: string;
 	} = $props();
 
 
@@ -236,27 +242,38 @@
 	<Combobox.Input data-testid="input" {...input} />
 {/snippet}
 
+{#snippet popupContent()}
+	{#if arrow}<Combobox.Arrow data-testid="arrow" />{/if}
+	{#if inputInside}{@render theInput()}{/if}
+	{#if popupExtra === 'button'}<button type="button">Extra control</button>{/if}
+	{@render list()}
+	{#if popupExtra === 'popover'}
+		<Popover.Root>
+			<Popover.Trigger>Open nested popover</Popover.Trigger>
+			<Popover.Portal>
+				<Popover.Positioner>
+					<Popover.Popup>
+						<button type="button">Nested focusable content</button>
+					</Popover.Popup>
+				</Popover.Positioner>
+			</Popover.Portal>
+		</Popover.Root>
+	{/if}
+{/snippet}
+
 {#snippet positioned()}
 	{#if backdrop}<Combobox.Backdrop data-testid="backdrop" />{/if}
 	<Combobox.Positioner data-testid="positioner" {...positioner}>
-		<Combobox.Popup data-testid="popup" {...popup}>
-			{#if arrow}<Combobox.Arrow data-testid="arrow" />{/if}
-			{#if inputInside}{@render theInput()}{/if}
-			{#if popupExtra === 'button'}<button type="button">Extra control</button>{/if}
-			{@render list()}
-			{#if popupExtra === 'popover'}
-				<Popover.Root>
-					<Popover.Trigger>Open nested popover</Popover.Trigger>
-					<Popover.Portal>
-						<Popover.Positioner>
-							<Popover.Popup>
-								<button type="button">Nested focusable content</button>
-							</Popover.Popup>
-						</Popover.Positioner>
-					</Popover.Portal>
-				</Popover.Root>
-			{/if}
-		</Combobox.Popup>
+		{#if popupRenderId}
+			<Combobox.Popup data-testid="popup" {...popup}>
+				{#snippet render(props, _state, content)}
+					<div {...props} id={popupRenderId}>{@render content?.()}</div>
+				{/snippet}
+				{@render popupContent()}
+			</Combobox.Popup>
+		{:else}
+			<Combobox.Popup data-testid="popup" {...popup}>{@render popupContent()}</Combobox.Popup>
+		{/if}
 	</Combobox.Positioner>
 {/snippet}
 
@@ -332,8 +349,17 @@
 	{/if}
 {/snippet}
 
-{#if direction}
-	<DirectionProvider {direction}>{@render comboboxBlock()}</DirectionProvider>
+{#snippet directed()}
+	{#if direction}
+		<DirectionProvider {direction}>{@render comboboxBlock()}</DirectionProvider>
+	{:else}
+		{@render comboboxBlock()}
+	{/if}
+{/snippet}
+
+{#if onOuterKeydown}
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div data-testid="outer" onkeydown={onOuterKeydown}>{@render directed()}</div>
 {:else}
-	{@render comboboxBlock()}
+	{@render directed()}
 {/if}

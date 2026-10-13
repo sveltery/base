@@ -203,7 +203,8 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 		$effect.pre(() => {
 			const reference = this.defaultReference;
 			untrack(() => {
-				if (!this.open) this.domReferenceElement = reference;
+				// An initially open popup still needs a reference once its control mounts.
+				if (!this.open || !this.domReferenceElement) this.domReferenceElement = reference;
 			});
 		});
 

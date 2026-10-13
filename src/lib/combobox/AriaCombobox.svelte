@@ -9,7 +9,7 @@
 	the values, as in Select.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { flushSync, untrack } from 'svelte';
 	import {
 		ClickInteraction,
 		DismissInteraction,
@@ -594,9 +594,18 @@
 		const nextValue = input.value;
 		const lower = nextValue.toLowerCase();
 		const details = createChangeEventDetails(REASONS.none, event);
+		const serializedMatch = () =>
+			store.values.findIndex(
+				(candidate) =>
+					serialize(candidate).toLowerCase() === lower ||
+					store.stringifyLabel(candidate).toLowerCase() === lower
+			);
 
 		// Only single selection matches registered values. Rendered labels need the list mounted.
-		if (single) store.forceMounted = true;
+		if (single && (!store.hasItems || serializedMatch() === -1)) {
+			store.forceMounted = true;
+			flushSync();
+		}
 		queueMicrotask(() => {
 			if (multiple) return;
 			if (selectionMode === 'none') {
@@ -604,15 +613,11 @@
 				return;
 			}
 			const values = store.values;
-			let index = values.findIndex(
-				(candidate) =>
-					serialize(candidate).toLowerCase() === lower ||
-					store.stringifyLabel(candidate).toLowerCase() === lower
-			);
+			let index = serializedMatch();
 			if (index === -1) {
 				// Browsers can fill the rendered text of a primitive value, like `US` for "United States".
-				const labels = store.items.elements.map((element) => element.textContent);
-				index = labels.findIndex((label) => label != null && label.toLowerCase() === lower);
+				const labels = store.items.elements.map((element) => element.textContent?.trim());
+				index = labels.findIndex((label) => label && label.toLowerCase() === lower);
 			}
 			const match = index === -1 ? undefined : values[index];
 			if (match != null) store.setSelectedValue(match, details);
