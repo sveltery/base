@@ -26,8 +26,6 @@
 
 	const LONG_PRESS_DELAY = 500;
 	const TOUCH_MOVE_THRESHOLD = 10;
-	// Upstream `REASONS.cancelOpen`. The shared table gains it with the menu branch.
-	const CANCEL_OPEN = 'cancel-open';
 
 	let { render, children, ...elementProps }: ContextMenuTriggerProps = $props();
 
@@ -61,7 +59,7 @@
 		if (contains(context.menu?.positionerElement, target)) return;
 		if (target && findRootOwnerId(target) === context.rootId) return;
 
-		context.menu?.setOpen(false, createChangeEventDetails(CANCEL_OPEN, event));
+		context.menu?.setOpen(false, createChangeEventDetails(REASONS.cancelOpen, event));
 	}
 
 	function handleContextMenu(event: MouseEvent) {

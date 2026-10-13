@@ -7,11 +7,10 @@
 
 import { createAttachmentKey } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
-import { platform } from '@sveltery/utils';
+import { REASONS, platform } from '@sveltery/utils';
 import { ButtonBehavior } from '../internal/button.svelte.js';
+import { dispatchClick } from '../internal/click.js';
 import { mergePropsN } from '../internal/mergeProps.js';
-import { MENU_REASONS } from './constants.js';
-import { dispatchClickWithModifiers } from './dom.js';
 import { findContextMenuParent } from './parent.svelte.js';
 import type { MenuStore } from './store.svelte.js';
 
@@ -80,7 +79,7 @@ export class MenuItemBehavior {
 			},
 			onclick: (event: MouseEvent) => {
 				if (closeOnClick) {
-					events?.emit('close', { domEvent: event, reason: MENU_REASONS.itemPress });
+					events?.emit('close', { domEvent: event, reason: REASONS.itemPress });
 				}
 			},
 			onmouseup: (event: MouseEvent) => {
@@ -101,7 +100,7 @@ export class MenuItemBehavior {
 				if (!node || !list.mouseUpGate.allow || (contextMenu && event.button !== 2)) return;
 				// A press on the trigger, a move, and a release over the item activate it.
 				if (this.kind === 'regular') {
-					dispatchClickWithModifiers(node, event, { detail: 1, pointerType: 'mouse' });
+					dispatchClick(node, event, { detail: 1, pointerType: 'mouse' });
 				}
 			}
 		};

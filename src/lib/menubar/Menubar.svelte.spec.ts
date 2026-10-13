@@ -154,9 +154,169 @@ describe('Menubar', () => {
 		expect(focused()).toBe(document.body);
 	});
 
+	it('closes open submenus when navigating to the next menubar item with ArrowRight', async () => {
+		const calls: string[] = [];
+		render(MenubarHarness, {
+			onOpenChange: (label, open, reason) => calls.push(`${label} ${open} ${reason}`)
+		});
+		get('file-trigger').focus();
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(focused).toBe(get('file-item-1'));
+		await userEvent.keyboard('{ArrowDown}');
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(focused).toBe(get('share-trigger'));
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.poll(focused).toBe(get('share-item-1'));
+
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.poll(shown('edit-menu')).toBe(true);
+		await expect.poll(shown('share-menu')).toBe(false);
+		await expect.poll(shown('file-menu')).toBe(false);
+		expect(calls).toEqual([
+			'File true trigger-press',
+			'Edit true trigger-focus',
+			'File false sibling-open'
+		]);
+	});
+
+	describe('horizontal RTL', () => {
+		function expanded() {
+			return [get('first-trigger'), get('second-trigger')].map((trigger) =>
+				trigger.getAttribute('aria-expanded')
+			);
+		}
+
+		it('moves forward with ArrowLeft and back with ArrowRight', async () => {
+			render(MenubarCasesHarness, { scenario: 'two', direction: 'rtl' });
+			get('first-trigger').focus();
+			await userEvent.keyboard('{ArrowLeft}');
+			await expect.poll(focused).toBe(get('second-trigger'));
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(focused).toBe(get('first-trigger'));
+			await settle();
+			expect(document.querySelector('[role="menu"]')).toBe(null);
+		});
+
+		it('moves to the previous menu with ArrowRight inside a popup', async () => {
+			render(MenubarCasesHarness, { scenario: 'two', direction: 'rtl' });
+			get('second-trigger').focus();
+			await userEvent.keyboard('{Enter}');
+			await expect.poll(expanded).toEqual(['false', 'true']);
+
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(expanded).toEqual(['true', 'false']);
+			expect(document.querySelectorAll('[role="menu"]').length).toBe(1);
+
+			await userEvent.keyboard('{ArrowLeft}');
+			await expect.poll(expanded).toEqual(['false', 'true']);
+		});
+	});
+
+	describe('inside a popover', () => {
+		function renderInPopover() {
+			const calls: string[] = [];
+			render(MenubarCasesHarness, {
+				scenario: 'in-popover',
+				onOpenChange: (label, open, reason) => calls.push(`${label} ${open} ${reason}`)
+			});
+			return calls;
+		}
+
+		it('ignores a standalone menu that opens beside the menubar', async () => {
+			const calls = renderInPopover();
+			await userEvent.click(get('standalone-trigger'));
+			await expect.poll(shown('standalone-menu')).toBe(true);
+			await settle();
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(false);
+
+			await userEvent.hover(get('file-trigger'));
+			await settle();
+			expect(byTestId('file-menu')).toBe(null);
+			expect(byTestId('standalone-menu')).not.toBe(null);
+			expect(calls).toEqual(['Standalone true trigger-press']);
+		});
+
+		it('keeps a standalone menu out of the menubar menus', async () => {
+			const calls = renderInPopover();
+			await userEvent.click(get('file-trigger'));
+			await expect.poll(shown('file-menu')).toBe(true);
+			await expect.poll(() => menubar().hasAttribute('data-has-submenu-open')).toBe(true);
+
+			get('standalone-trigger').focus();
+			await userEvent.keyboard('{Enter}');
+			await expect.poll(shown('standalone-menu')).toBe(true);
+			await expect.poll(shown('file-menu')).toBe(false);
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(false);
+			expect(calls).toEqual([
+				'File true trigger-press',
+				'File false focus-out',
+				'Standalone true trigger-press'
+			]);
+		});
+	});
+
+	describe('detached menus with separate handles', () => {
+		function renderSeparate() {
+			const calls: string[] = [];
+			render(MenubarHarness, {
+				variant: 'separate',
+				onOpenChange: (label, open, reason) => calls.push(`${label} ${open} ${reason}`)
+			});
+			return calls;
+		}
+
+		it('closes the open menu as a sibling when hovering another trigger', async () => {
+			const calls = renderSeparate();
+			await userEvent.click(get('file-trigger'));
+			await expect.poll(shown('file-menu')).toBe(true);
+
+			await userEvent.hover(get('edit-trigger'));
+			await expect.poll(shown('edit-menu')).toBe(true);
+			await expect.poll(shown('file-menu')).toBe(false);
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(true);
+
+			await userEvent.hover(get('view-trigger'));
+			await expect.poll(shown('view-menu')).toBe(true);
+			await expect.poll(shown('edit-menu')).toBe(false);
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(true);
+			expect(calls).toEqual([
+				'File true trigger-press',
+				'Edit true trigger-hover',
+				'File false sibling-open',
+				'View true trigger-hover',
+				'Edit false sibling-open'
+			]);
+		});
+
+		it('moves through every menu with ArrowRight', async () => {
+			const calls = renderSeparate();
+			get('file-trigger').focus();
+			await userEvent.keyboard('{Enter}');
+			await expect.poll(focused).toBe(get('file-item-1'));
+
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(shown('edit-menu')).toBe(true);
+			await expect.poll(focused).toBe(get('edit-menu').querySelector('[role="menu"]'));
+			expect(byTestId('file-menu')).toBe(null);
+			expect(menubar().hasAttribute('data-has-submenu-open')).toBe(true);
+
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(shown('view-menu')).toBe(true);
+			expect(byTestId('edit-menu')).toBe(null);
+			expect(calls).toEqual([
+				'File true trigger-press',
+				'Edit true trigger-focus',
+				'File false sibling-open',
+				'View true trigger-focus',
+				'Edit false sibling-open'
+			]);
+		});
+	});
+
 	describe.each([
 		{ name: 'contained triggers', variant: 'contained' },
 		{ name: 'detached triggers', variant: 'detached' },
+		{ name: 'detached triggers with separate handles', variant: 'separate' },
 		{ name: 'multiple contained triggers', variant: 'multiple' }
 	] as const)('when using $name', ({ variant }) => {
 		describe('click interactions', () => {
@@ -330,6 +490,10 @@ describe('Menubar', () => {
 
 				await userEvent.keyboard('{Escape}');
 				await expect.poll(shown('file-menu')).toBe(false);
+				await expect.poll(focused).toBe(get('file-trigger'));
+				await settle();
+				expect(byTestId('file-menu')).toBe(null);
+				expect(menubar().hasAttribute('data-has-submenu-open')).toBe(false);
 			});
 
 			it('closes a submenu with the left arrow key and returns focus to its trigger', async () => {
@@ -411,9 +575,9 @@ describe('Menubar', () => {
 				fileTrigger.focus();
 				await userEvent.keyboard('{ArrowRight}');
 				await userEvent.keyboard('{ArrowRight}');
-				expect(focused()).toBe(get('view-trigger'));
+				await expect.poll(focused).toBe(get('view-trigger'));
 				await userEvent.keyboard('{ArrowRight}');
-				expect(focused()).toBe(fileTrigger);
+				await expect.poll(focused).toBe(fileTrigger);
 			});
 
 			it('loops to the last item before the first one', async () => {
@@ -440,6 +604,7 @@ describe('Menubar', () => {
 				const firstItem = get('file-trigger');
 				firstItem.focus();
 				await userEvent.keyboard('{ArrowLeft}');
+				await settle();
 				expect(focused()).toBe(firstItem);
 			});
 		});
@@ -449,6 +614,7 @@ describe('Menubar', () => {
 				render(MenubarHarness, { variant, menubarProps: { disabled: true } });
 				const fileTrigger = get('file-trigger');
 				expect(fileTrigger.hasAttribute('disabled')).toBe(true);
+				expect(fileTrigger.getAttribute('aria-disabled')).toBe('true');
 
 				await userEvent.tab();
 				expect(focused()).toBe(document.body);
@@ -595,6 +761,32 @@ describe('Menubar', () => {
 			await expect.poll(shown('file-menu')).toBe(false);
 			await expect.poll(isScrollLocked).toBe(false);
 		});
+	});
+
+	it('renders contained top-level portal ownership as an allowed menubar child', async () => {
+		render(MenubarHarness, { variant: 'contained' });
+		await userEvent.click(get('file-trigger'));
+		await expect.poll(shown('file-menu')).toBe(true);
+
+		const fileMenuPortalId = get('file-menu').closest('[data-base-ui-portal]')?.id ?? '';
+		const owner = menubar().querySelector('span[aria-owns]');
+		expect(fileMenuPortalId).not.toBe('');
+		expect(owner?.getAttribute('role')).toBe('group');
+		expect(owner?.hasAttribute('aria-hidden')).toBe(false);
+		expect(owner?.getAttribute('aria-owns')).toBe(fileMenuPortalId);
+	});
+
+	it('renders detached top-level portal ownership without an accessibility role', async () => {
+		render(MenubarHarness, { variant: 'detached' });
+		await userEvent.click(get('file-trigger'));
+		await expect.poll(shown('file-menu')).toBe(true);
+
+		const fileMenuPortalId = get('file-menu').closest('[data-base-ui-portal]')?.id ?? '';
+		const owner = document.querySelector('span[aria-owns]');
+		expect(fileMenuPortalId).not.toBe('');
+		expect(owner?.getAttribute('aria-owns')).toBe(fileMenuPortalId);
+		expect(menubar().contains(owner)).toBe(false);
+		expect(owner?.hasAttribute('role')).toBe(false);
 	});
 
 	describe('disabled state', () => {

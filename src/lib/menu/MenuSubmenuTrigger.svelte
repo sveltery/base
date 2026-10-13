@@ -7,7 +7,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
-	import { createChangeEventDetails, platform } from '@sveltery/utils';
+	import { REASONS, createChangeEventDetails, platform } from '@sveltery/utils';
 	import {
 		ClickInteraction,
 		HoverReferenceInteraction,
@@ -15,7 +15,6 @@
 	} from '@sveltery/floating-ui-svelte';
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { MENU_REASONS } from './constants.js';
 	import { findMenuRoot } from './context.svelte.js';
 	import { MenuItemBehavior } from './item.svelte.js';
 	import type { MenuSubmenuTriggerProps, MenuSubmenuTriggerState } from './types.js';
@@ -102,8 +101,8 @@
 	}));
 
 	// Chrome performs a screen reader activation as a 1x1, zero-pressure mouse `pointerdown` with
-	// no pressed button. v1.9 opens on it at once. The click interaction here predates that and
-	// ignores it as a mouse press while `openOnHover` is on, so the trigger handles it itself.
+	// no pressed button. Upstream `useClick` opens on it at once. The shared click interaction
+	// waits a frame, so the trigger opens it itself.
 	let screenReaderPress = false;
 	const screenReaderProps = {
 		onpointerdown(event: PointerEvent) {
@@ -119,10 +118,7 @@
 			const pressed = screenReaderPress;
 			screenReaderPress = false;
 			if (!pressed || !openOnHover || disabled || event.button !== 0 || !item.node) return;
-			store.setOpen(
-				!store.open,
-				createChangeEventDetails(MENU_REASONS.triggerPress, event, item.node)
-			);
+			store.setOpen(!store.open, createChangeEventDetails(REASONS.triggerPress, event, item.node));
 		}
 	};
 
@@ -164,7 +160,7 @@
 	// VoiceOver announces the expanded change instead of the submenu item that takes focus next.
 	const omitExpanded = $derived(
 		open &&
-			(store.openChangeReason === MENU_REASONS.listNavigation || store.openMethod === 'keyboard') &&
+			(store.openChangeReason === REASONS.listNavigation || store.openMethod === 'keyboard') &&
 			platform.screenReader.voiceOver
 	);
 
@@ -189,18 +185,14 @@
 					onfocus(event: FocusEvent) {
 						if (!store.open || !returnedThroughGuard) return;
 						returnedThroughGuard = false;
-						store.setOpen(false, createChangeEventDetails(MENU_REASONS.focusOut, event));
+						store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
 					},
 					onblur() {
-						if (highlighted) parentStore.setActiveIndex(null, MENU_REASONS.none);
+						if (highlighted) parentStore.setActiveIndex(null, REASONS.none);
 					},
 					onmouseenter(event: MouseEvent) {
 						if (parentStore.highlightItemOnHover) {
-							parentStore.highlightItem(
-								event.currentTarget as Element,
-								MENU_REASONS.pointer,
-								event
-							);
+							parentStore.highlightItem(event.currentTarget as Element, REASONS.pointer, event);
 						}
 					},
 					...getStateAttributesProps(state, triggerOpenStateMapping),

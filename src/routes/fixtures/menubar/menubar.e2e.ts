@@ -101,7 +101,27 @@ forEachFramework((reference, framework) => {
 			await expect(item('Paste')).toBeFocused();
 			await page.keyboard.press('Enter');
 			await expect(page.getByRole('menu')).toHaveCount(0);
+			await expect(trigger('Edit')).toBeFocused();
+			await page.waitForTimeout(150);
+			await expect(page.getByRole('menu')).toHaveCount(0);
 			expect(await json(page, 'clicks')).toEqual(['Paste']);
+			expect(await json(page, 'calls')).toEqual([
+				{ menu: 'Edit', open: true, reason: 'trigger-press' },
+				{ menu: 'Edit', open: false, reason: 'item-press' }
+			]);
+		});
+
+		test('Space opens a menu on keydown', async ({ page }) => {
+			const { trigger, menu } = await open(page, 'basic', reference);
+			await trigger('File').focus();
+			await page.keyboard.down(' ');
+			await expect(menu('File')).toBeVisible();
+			await page.keyboard.up(' ');
+			await page.waitForTimeout(100);
+			await expect(menu('File')).toBeVisible();
+			expect(await json(page, 'calls')).toEqual([
+				{ menu: 'File', open: true, reason: 'trigger-press' }
+			]);
 		});
 
 		test('hovering another trigger switches menus once one is open', async ({ page }) => {
@@ -175,6 +195,8 @@ forEachFramework((reference, framework) => {
 		test('arrow keys skip a disabled trigger', async ({ page }) => {
 			const { trigger } = await open(page, 'disabled-trigger', reference);
 			await expect(trigger('Edit')).toBeDisabled();
+			await expect(trigger('Edit')).toHaveAttribute('aria-disabled', 'true');
+			await expect(trigger('File')).toHaveAttribute('aria-disabled', 'false');
 			await trigger('File').focus();
 			await page.keyboard.press('ArrowRight');
 			await expect(trigger('View')).toBeFocused();

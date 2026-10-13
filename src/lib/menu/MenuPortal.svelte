@@ -3,8 +3,6 @@
 	By default, the portal element is appended to `<body>`.
 	Derived from Base UI v1.9.0 packages/react/src/menu/portal/MenuPortal.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	The hidden `aria-owns` owner (`portalOwnerRole`) is not ported: the shared FloatingPortal
-	does not render one.
 -->
 <script lang="ts">
 	import { FloatingPortal } from '@sveltery/floating-ui-svelte';
@@ -13,8 +11,12 @@
 
 	let { keepMounted = false, container = undefined, children, ...rest }: MenuPortalProps = $props();
 
-	const { store } = useMenuRoot();
+	const { store, parent } = useMenuRoot();
 	const shouldRender = $derived(store.mounted || keepMounted);
+	// The hidden `aria-owns` owner renders where this portal sits, so the role follows the
+	// `Menu.Root` position, not the store's parent, which a detached trigger overwrites.
+	const portalOwnerRole =
+		parent.type === 'menu' || parent.type === 'menubar' ? ('group' as const) : undefined;
 
 	setMenuPortal({
 		get keepMounted() {
@@ -24,7 +26,7 @@
 </script>
 
 {#if shouldRender}
-	<FloatingPortal {...rest} {store} {container}>
+	<FloatingPortal {...rest} {store} {container} {portalOwnerRole}>
 		{@render children?.()}
 	</FloatingPortal>
 {/if}

@@ -13,6 +13,7 @@ import type {
 	MenubarParentContext,
 	MouseUpGate
 } from '../menu/parent.svelte.js';
+import type { FloatingTreeStore } from '@sveltery/floating-ui-svelte';
 import type { MenubarOrientation } from './types.js';
 
 export interface MenubarOptions {
@@ -35,7 +36,11 @@ export class MenubarContext implements MenubarParentContext {
 	readonly mouseUpGate: MouseUpGate = { allow: false };
 	readonly roving: CompositeRoot;
 
-	constructor(private readonly options: () => MenubarOptions) {
+	constructor(
+		private readonly options: () => MenubarOptions,
+		readonly floatingTree: FloatingTreeStore,
+		readonly nodeId: string
+	) {
 		const reading = useDirection();
 		this.roving = new CompositeRoot({
 			orientation: () => this.orientation,
@@ -69,7 +74,9 @@ export class MenubarContext implements MenubarParentContext {
 	/**
 	 * A plain field carries the value and a `$state` counter carries the reactivity. A trigger's
 	 * focus handler can run inside the same flush that closed a menu, where a `$state` written by
-	 * an effect earlier in that flush still reads its previous value.
+	 * an effect earlier in that flush still reads its previous value. Read this getter where the
+	 * value decides an action. A `$derived` over it depends only on the counter and can hold the
+	 * old value in that flush.
 	 */
 	get hasSubmenuOpen() {
 		void this.#hasSubmenuOpenVersion;

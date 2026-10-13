@@ -9,14 +9,12 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
-	import { FocusGuard, contains, ownerDocument } from '@sveltery/utils';
-	import { useFloatingParentNodeId, useFloatingTree } from '@sveltery/floating-ui-svelte';
+	import { REASONS, FocusGuard, contains, ownerDocument } from '@sveltery/utils';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { mergePropsN } from '../internal/mergeProps.js';
 	import { pressableTriggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { ScopedTimeout } from '@sveltery/utils';
-	import { MENU_REASONS } from './constants.js';
 	import { findMenuRoot } from './context.svelte.js';
 	import { findRootOwnerId, isMouseWithinBounds } from './dom.js';
 	import type { MenuHandle } from './handle.svelte.js';
@@ -32,7 +30,7 @@
 		nativeButton = true,
 		payload,
 		id,
-		openOnHover: openOnHoverProp,
+		openOnHover,
 		delay = 100,
 		closeDelay = 0,
 		render,
@@ -104,14 +102,18 @@
 	const disabled = $derived(
 		disabledProp || (live?.disabled ?? false) || (menubar?.disabled ?? false)
 	);
-	const menubarHasSubmenuOpen = $derived(menubar?.hasSubmenuOpen ?? false);
-	const openOnHover = $derived(openOnHoverProp ?? menubarHasSubmenuOpen);
 	const partState: MenuTriggerState = $derived({ disabled, open: opened });
-	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
+	// Upstream `useButton` makes a trigger inside the menubar's CompositeRoot a composite item.
+	const button = new ButtonBehavior(() => ({
+		disabled,
+		native: nativeButton,
+		composite: menubar != null
+	}));
 	const menubarItem = menubar?.createItem(() => disabled);
 
-	// A trigger in a menubar takes over the menu's parent while it owns the menu, so a detached
-	// popup still forwards keys to the menubar.
+	// Upstream trigger data forwarding: a trigger in a menubar takes over the menu's parent while
+	// it owns the menu. A detached menu then forwards keys to the menubar and emits its open
+	// changes on the menubar's tree.
 	$effect(() => {
 		const current = live;
 		if (!menubar || !current || !mountedByThis) return;
@@ -119,25 +121,6 @@
 			current.parent = { type: 'menubar', context: menubar };
 			current.ownKeyboardEventRelay = menubar.relayKeyboardEvent;
 		});
-	});
-
-	// Upstream hands a detached menu the trigger's floating tree. Here the menu keeps its own
-	// tree, so the owning trigger reports the menu's open state to the menubar's tree. A menu
-	// inside the menubar already shares that tree.
-	const menubarTree = menubar ? useFloatingTree() : null;
-	const menubarParentNodeId = useFloatingParentNodeId();
-	$effect.pre(() => {
-		const current = live;
-		if (!menubarTree || !current || current.tree === menubarTree || !mountedByThis) return;
-		const open = current.open;
-		untrack(() =>
-			menubarTree.events.emit('menuopenchange', {
-				open,
-				nodeId: current.nodeId,
-				parentNodeId: menubarParentNodeId,
-				reason: current.openChangeReason
-			})
-		);
 	});
 
 	$effect(() => {
@@ -162,7 +145,7 @@
 		}
 		if (target != null && findRootOwnerId(target) === current.rootId) return;
 		if (isMouseWithinBounds(event, node)) return;
-		current.tree?.events.emit('close', { domEvent: event, reason: MENU_REASONS.cancelOpen });
+		current.tree?.events.emit('close', { domEvent: event, reason: REASONS.cancelOpen });
 	}
 
 	function listenForMouseUp(doc: Document) {
@@ -174,7 +157,7 @@
 	// A hover open lets a press-drag-release on an outside point cancel the open.
 	$effect(() => {
 		const current = live;
-		if (!current || !opened || current.openChangeReason !== MENU_REASONS.triggerHover) return;
+		if (!current || !opened || current.openChangeReason !== REASONS.triggerHover) return;
 		untrack(() => listenForMouseUp(ownerDocument(triggerEl)));
 		return () => {
 			stopDocumentMouseUp?.();
@@ -232,14 +215,15 @@
 				},
 				ownProps,
 				menubar ? { role: 'menuitem' as const } : {},
+				// A composite native button keeps `disabled` and also gets `aria-disabled`, which
+				// `ButtonBehavior` has no option for.
+				menubar && nativeButton ? { 'aria-disabled': disabled } : {},
 				menubarItem?.props,
 				elementProps
 			])
 		)
 	);
-	// Upstream renders the guards only while open and anchors on the trigger once the guard is
-	// gone. The shared guards here need their own element, so they stay until the popup unmounts.
-	const showGuards = $derived(Boolean(!menubar && mountedByThis && armed));
+	const showGuards = $derived(Boolean(!menubar && opened && armed));
 </script>
 
 {#if live}

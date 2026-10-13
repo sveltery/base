@@ -112,6 +112,23 @@ describe('RadioGroup', () => {
 			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: true, shiftKey: false }]);
 		});
 
+		it('keeps the selected named radio checked when a change to another is canceled', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'cancel-selected' });
+			expect(hiddenInput('B').checked).toBe(true);
+			await radio('A').click();
+			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: true, shiftKey: false }]);
+			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			expect(hiddenInput('A').checked).toBe(false);
+			expect(hiddenInput('B').checked).toBe(true);
+		});
+
+		it('keeps submitting the selected value when a read-only radio is clicked through its label', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'readonly-label' });
+			await page.getByText('Label A').click();
+			const form = page.getByTestId('form').element() as HTMLFormElement;
+			expect(new FormData(form).getAll('color')).toEqual(['b']);
+		});
+
 		it('moves focus on an arrow key without selecting when the change is canceled', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'cancel' });
 			radio('A').element().focus();

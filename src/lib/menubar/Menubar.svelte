@@ -2,21 +2,21 @@
 	The container for menus. Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/menubar/Menubar.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	The menubar shares one floating tree with its menus. It registers no floating node of its own,
-	so its menus are the tree's top-level nodes.
+	The menubar starts its own floating tree, even inside another popup, and its node is the
+	parent node of its menus.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { setFloatingTree, useFloatingParentNodeId } from '@sveltery/floating-ui-svelte';
+	import { REASONS } from '@sveltery/utils';
 	import {
 		getStateAttributesProps,
 		type StateAttributesMapping
 	} from '../internal/state-attributes.js';
-	import { MENU_REASONS } from '../menu/constants.js';
 	import { setMenubarParent } from '../menu/parent.svelte.js';
 	import { MenubarContext } from './context.svelte.js';
+	import { setOwnFloatingTree } from './floating-tree.js';
 	import type { MenubarProps, MenubarState } from './types.js';
 
 	let {
@@ -44,23 +44,25 @@
 
 	const uid = $props.id();
 	const rootId = $derived(id ?? `base-ui-${uid}`);
-	const context = new MenubarContext(() => ({ modal, disabled, orientation, loopFocus, rootId }));
+	const { tree, nodeId } = setOwnFloatingTree();
+	const context = new MenubarContext(
+		() => ({ modal, disabled, orientation, loopFocus, rootId }),
+		tree,
+		nodeId
+	);
 	setMenubarParent(context);
-
-	const tree = setFloatingTree();
-	const parentNodeId = useFloatingParentNodeId();
 
 	// Upstream `MenubarContent`: a top-level menu that opens marks the menubar. Moving to a
 	// sibling menu keeps the mark, so hovering another trigger still switches menus.
 	// Menus emit from their own effects, so the listener reads untracked.
 	function onMenuOpenChange(data: unknown) {
 		const details = data as MenuOpenEventDetails;
-		if (!details.nodeId || details.parentNodeId !== parentNodeId) return;
+		if (!details.nodeId || details.parentNodeId !== nodeId) return;
 		if (details.open) {
 			context.setHasSubmenuOpen(true);
 		} else if (
-			details.reason !== MENU_REASONS.siblingOpen &&
-			details.reason !== MENU_REASONS.listNavigation
+			details.reason !== REASONS.siblingOpen &&
+			details.reason !== REASONS.listNavigation
 		) {
 			context.setHasSubmenuOpen(false);
 		}

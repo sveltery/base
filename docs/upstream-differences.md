@@ -157,7 +157,7 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`nested dialog count (Base UI v1.9
 | React `useButton`                                                    | existing `Button`                                                                                   |
 | `useDismiss` outside press, including separate mouse and touch modes | the same modes on `DismissInteraction`. A press is inside the floating element, not the portal host |
 
-Not ported: ref objects. Mouse and touch use separate outside-press modes on `DismissInteraction`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s with the finger still down, touchend and that mousedown do not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
+Not ported: ref objects. Mouse and touch use separate outside-press modes on `DismissInteraction`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s, touchend does not close, and a mousedown while the finger is still down does not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
 
 ## Alert Dialog
 
@@ -330,19 +330,13 @@ Upstream: typeahead and `onItemHighlighted` read an item's `textContent` as it i
 
 Local: the label is trimmed, because Svelte templates keep the whitespace around a text child.
 
-### Focus guards stay mounted
+### Return focus after a hover close
 
-Upstream: the trigger renders its focus guards only while the menu is open, and anchors the next tabbable on the trigger once a guard is gone.
+Upstream: a hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
 
-Local: the shared guards need their own element, so they stay until the popup unmounts.
+Local: the shared `FloatingFocusManager` skips return focus only for `focus-out`. `MenuPopup` passes a `returnFocus` that skips it after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
 
-### Return focus after an open with no interaction type
-
-Upstream: `FloatingFocusManager` takes `openInteractionType` and, when it is `null`, returns focus to the element focused before opening ahead of the trigger. A hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
-
-Local: the shared `FloatingFocusManager` always prefers the trigger, and skips return focus only for `focus-out`. `MenuPopup` records the element focused when the menu opens without an interaction type, such as a programmatic or hover open, and passes it as `returnFocus`. It also skips return focus after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
-
-Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`returns focus to the opener when a menu is opened programmatically`, `does not return focus to the element focused before a hover open when the pointer leaves`).
+Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`does not return focus to the element focused before a hover open when the pointer leaves`).
 
 ### Touch close guard
 
@@ -354,13 +348,12 @@ Local: the store ignores it before `onOpenChange`, so the callback does not see 
 
 Upstream: the submenu's safe polygon reaches the parent popup through the floating tree.
 
-Local: the polygon scopes to the parent popup through `getScope`. A detached trigger passes the menu's tree to the polygon, which keeps the menu open while one of its submenus is open.
+Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Behavior that waits on shared internals
 
-- `packages/floating-ui-svelte/src/usePosition.svelte.ts` resets its data whenever the reference changes. Upstream keeps the coordinates and resets only on close. Hover switches between detached triggers therefore start from `0, 0`, and the switch transition is canceled. `it.todo` in `src/lib/menu/MenuRoot.detached.svelte.spec.ts` keeps the third instant of the hover trigger change case.
-- The shared `FloatingFocusManager` has no counterpart to upstream's `markInsideReactTree`. When the pointer highlight moves focus from a portaled submenu into its parent, the submenu closes with `focus-out` before the click on a sibling submenu trigger. `it.todo` in `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` keeps `closes a sibling submenu without closing the root on click`.
-- `FloatingPortal` has no `portalOwnerRole`, so the trigger does not set `aria-owns` on a portaled popup.
+- The shared `FloatingFocusManager` closes a submenu with `focus-out` when the pointer highlight moves focus from its trigger to a sibling item before the press. Its `markInsideReactTree` port covers focus that leaves the popup, not focus that leaves the trigger. `it.todo` in `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` keeps `closes a sibling submenu without closing the root on click`.
+- The shared `ClickInteraction` opens a frame after a screen reader press. Upstream `useClick` opens at once, so `MenuSubmenuTrigger` handles that press itself. Test: `src/lib/menu/MenuSubmenuTrigger.screen-reader.svelte.spec.ts` (`opens on a screen reader press without waiting a frame`).
 - The `data-base-ui-click-trigger` marker is not rendered. Upstream sets it only on Dialog and Popover triggers.
 
 ### Not covered
@@ -381,13 +374,13 @@ Local: `Menubar` takes the same props. The namespace is not exported. The attrib
 
 Upstream: `Menubar` renders a `FloatingTree` and a `FloatingNode`, so each top-level menu is a child node of the menubar.
 
-Local: `Menubar` creates the floating tree its menus share and registers no node. `@sveltery/floating-ui-svelte` publishes a parent node id only together with a `FloatingRootStore`, and the menubar has none. The menus are the tree's top-level nodes, and the menubar listens for `menuopenchange` events whose parent is its own parent node. Behavior is the same: sibling menus close each other, and a menu's `nested` flag is not read.
+Local: the behavior is the same. A Menubar inside a Dialog, Popover or another popup still starts its own tree, so a standalone menu beside it neither marks it open nor closes its menus. `setFloatingTree` in `@sveltery/floating-ui-svelte` reuses an enclosing tree and the package exports no way to start a new one. So `src/lib/menubar/floating-tree.ts` puts a new `FloatingTreeStore` under the enclosing tree's context key, then registers the menubar's node with `useFloatingNodeId()`, which takes no floating store.
 
-### Detached menus report through their trigger
+### Detached menus take the menubar's tree for events only
 
-Upstream: a trigger lends its floating tree to the detached menu it opens, so the menubar hears that menu open and close.
+Upstream: a trigger lends its floating tree, node id and parent node id to the detached menu it opens. The menu's nodes then live in the menubar's tree.
 
-Local: a `MenuStore` keeps the tree it was created with. A menubar trigger that owns a detached menu re-emits the menu's open changes on the menubar's tree (`src/lib/menu/MenuTrigger.svelte`).
+Local: a menubar trigger that owns a detached menu sets the menu's parent to the menubar, and `MenuStore.tree` and `MenuStore.parentNodeId` follow that parent. The menu emits and hears `menuopenchange`, `itemhover` and `close` on the menubar's tree, so separate detached menus close each other with `sibling-open` and the menubar keeps `data-has-submenu-open`. Svelte context does not change after init, so the menu's floating nodes stay in the tree its root was created in. The focus manager, dismiss and hover hooks read that tree.
 
 ### Menu open events are emitted before the DOM update
 
@@ -408,7 +401,7 @@ Local: the shared `CompositeRoot` focuses the next trigger synchronously. The po
 
 ### Not covered
 
-React-only cases: `describeConformance` (refs, `className` and style functions). The two portal ownership cases need `aria-owns`, which `FloatingPortal` does not render yet (see Menu). The `filterable menubar menus` case waits on the Menu filter parts.
+React-only cases: `describeConformance` (refs, `className` and style functions). The `filterable menubar menus` case waits on the Menu filter parts.
 
 ## ContextMenu
 
@@ -430,7 +423,7 @@ Local: Svelte delegates the item handlers to the document and can add that liste
 
 Upstream: `useDismiss` closes on an outside `pointerdown` with any mouse button. A right click elsewhere closes the open context menu, its backdrop turns inert, and the `contextmenu` event that follows reaches the trigger and reopens the menu at the pointer. The same press closes any other open `Menu` or `Popover`.
 
-Local: the shared `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` ignores non-primary presses. `ContextMenu.Trigger` closes its own open menu on a non-primary, non-touch `pointerdown` outside it, with reason `outside-press`, so the sequence matches for the context menu itself. The long-press grace before outside dismissal does not apply to this press. The listener does not run while the root is `disabled`. It is a stand-in for the shared dismissal and diverges in two ways.
+Local: the shared `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` ignores non-primary presses. `ContextMenu.Trigger` closes its own open menu on a non-primary, non-touch `pointerdown` outside it, with reason `outside-press`, so the sequence matches for the context menu itself. The long-press grace before outside dismissal does not apply to this press. The listener does not run while the root is `disabled`. It is a stand-in until the shared dismissal handles non-primary presses, and it diverges in two ways.
 
 - A right press inside a popup opened from the context menu closes the whole context menu. The listener only tests the context menu's positioner and the `data-rootownerid` owner id, and skips the floating-tree check the shared dismissal makes. Upstream treats the press as inside, so a `Popover` opened from a context menu item stays open together with the context menu (run in the paired React fixture), and so does the inner menu of a context menu nested in an item (read from upstream's React-tree capture, not run). A left press in the same spots keeps everything open here too.
 - A right press elsewhere does not close other open popups. With a `Menu` open inside the trigger, a right click on the trigger area leaves that `Menu` open, the context menu does not open, and the browser's own menu appears, because `contextmenu` is never prevented. Upstream closes the `Menu` and opens the context menu. An open `Popover` outside the context menu also stays open on a right press.
@@ -441,7 +434,7 @@ Test: `src/lib/context-menu/ContextMenu.svelte.spec.ts` (`closes on a right pres
 
 Upstream: list navigation closes the menu on Shift+Tab with `focus-out` and focuses the trigger element, which a context menu does not have. The focus manager then returns focus to the element focused before the menu opened.
 
-Local: the shared `FloatingFocusManager` skips return focus after `focus-out`. A context menu's `Menu.Root` records the element focused when the menu opens and passes it to list navigation as `nestedReturnFocus` (`src/lib/menu/root.svelte.ts`).
+Local: the shared `FloatingFocusManager` skips return focus after `focus-out`. A context menu's `Menu.Root` records the element focused when the menu opens and passes it to list navigation as `nestedReturnFocus` (`src/lib/menu/root.svelte.ts`). The spec below fails without it on the current shared manager.
 
 Test: `src/lib/context-menu/ContextMenuRoot.svelte.spec.ts` (`returns focus to the focused surface when closing with Shift+Tab`).
 
@@ -449,7 +442,7 @@ Test: `src/lib/context-menu/ContextMenuRoot.svelte.spec.ts` (`returns focus to t
 
 Upstream: each menu root owns its floating tree, and a menu's node becomes the parent node only inside its positioner. A context menu inside another context menu's trigger is a separate root.
 
-Local: `@sveltery/floating-ui-svelte` publishes the tree and parent node id from the root, so a context menu or menu inside a trigger joins the outer context menu's tree as its child node. `ContextMenu.Root` resets the menu root context as upstream does, so the inner menu is still a root (`parent.type` is `context-menu` or `undefined`), opens at its own anchor and does not render `data-nested`. The tree link means the inner menu closes when the outer one closes, and two menus inside one trigger close each other when one opens. The ported nested cases pass with it.
+Local: `@sveltery/floating-ui-svelte` publishes the tree and parent node id from the root, so a context menu or menu inside a trigger joins the outer context menu's tree as its child node. `ContextMenu.Root` resets the menu root context as upstream does, so the inner menu is still a root (`parent.type` is `context-menu` or `undefined`), opens at its own anchor and does not render `data-nested`. The tree link means the inner menu closes when the outer one closes, and two menus inside one trigger close each other when one opens. The ported nested cases pass with it. A separate tree per context menu root waits on a shared floating-tree change.
 
 ### Not covered
 
@@ -493,6 +486,14 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
-| Menu               | Filter parts, `actionsRef`, `aria-owns`, refs                                                          |
-| Menubar            | `aria-owns` portal ownership, the `MenubarDataAttributes` namespace, refs                              |
+| Menu               | Filter parts, `actionsRef`, refs                                                                       |
+| Menubar            | the `MenubarDataAttributes` namespace, refs                                                            |
 | ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                               |
+
+## Shared floating internals
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx` and `hooks/useDismiss.ts`. Each popup root creates its own `FloatingTree`. A press or a focus change inside a portaled descendant counts as inside a popup through `insideReactTree`, which React sets because portal events bubble through the React tree.
+
+Local: nested popups share one floating tree, and the DOM has no React tree. `DismissInteraction` counts a press inside a tree child's portal, which holds that child's internal backdrop, as inside the parent. `FloatingFocusManager` treats focus that leaves a portaled popup without an outside press as staying inside, as upstream's `markInsideReactTree` does.
+
+Test: `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts`, `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` and `src/lib/internal/overlay-audit.svelte.spec.ts` (`closes only the inner modal popover on an outside touch tap`).

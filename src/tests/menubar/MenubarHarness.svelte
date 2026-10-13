@@ -1,11 +1,12 @@
 <!--
 	Upstream `ContainedTriggerMenubar`, `DetachedTriggerMenubar` and
-	`MultipleContainedTriggersMenubar` in one harness.
+	`MultipleContainedTriggersMenubar` in one harness. `separate` gives each detached menu its own
+	handle and root, as menubar.md "Detached triggers" documents.
 	Derived from Base UI v1.9.0 packages/react/src/menubar/Menubar.test.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { Menu, Menubar, type MenubarProps } from '#lib';
+	import { Menu, Menubar, type MenuHandle, type MenubarProps } from '#lib';
 	import type { ContentItem, MenuDefinition } from './menu-contents.js';
 	import { menuContents } from './menu-contents.js';
 
@@ -15,7 +16,7 @@
 		outside = false,
 		onOpenChange
 	}: {
-		variant?: 'contained' | 'detached' | 'multiple';
+		variant?: 'contained' | 'detached' | 'separate' | 'multiple';
 		menubarProps?: MenubarProps;
 		/** Renders an `outside` button after the menubar. */
 		outside?: boolean;
@@ -24,6 +25,9 @@
 	} = $props();
 
 	const handle = Menu.createHandle<MenuDefinition>();
+	const handles = Object.fromEntries(
+		menuContents.map((menu) => [menu.label, Menu.createHandle<MenuDefinition>()])
+	);
 </script>
 
 {#snippet content(item: ContentItem)}
@@ -59,11 +63,9 @@
 	</Menu.Portal>
 {/snippet}
 
-{#snippet trigger(menu: MenuDefinition, detached: boolean)}
-	<Menu.Trigger
-		handle={detached ? handle : undefined}
-		payload={menu}
-		data-testid={menu.triggerTestId}>{menu.label}</Menu.Trigger
+{#snippet trigger(menu: MenuDefinition, triggerHandle?: MenuHandle<MenuDefinition>)}
+	<Menu.Trigger handle={triggerHandle} payload={menu} data-testid={menu.triggerTestId}
+		>{menu.label}</Menu.Trigger
 	>
 {/snippet}
 
@@ -76,11 +78,13 @@
 			</Menu.Root>
 		{/each}
 	{:else if variant === 'detached'}
-		{#each menuContents as menu (menu.label)}{@render trigger(menu, true)}{/each}
+		{#each menuContents as menu (menu.label)}{@render trigger(menu, handle)}{/each}
+	{:else if variant === 'separate'}
+		{#each menuContents as menu (menu.label)}{@render trigger(menu, handles[menu.label])}{/each}
 	{:else}
 		<Menu.Root>
 			{#snippet children({ payload }: { payload: unknown })}
-				{#each menuContents as menu (menu.label)}{@render trigger(menu, false)}{/each}
+				{#each menuContents as menu (menu.label)}{@render trigger(menu)}{/each}
 				{@render portal(payload as MenuDefinition | undefined)}
 			{/snippet}
 		</Menu.Root>
@@ -92,6 +96,16 @@
 			{@render portal(payload)}
 		{/snippet}
 	</Menu.Root>
+{/if}
+{#if variant === 'separate'}
+	{#each menuContents as menu (menu.label)}
+		<Menu.Root
+			handle={handles[menu.label]}
+			onOpenChange={(open, details) => onOpenChange?.(menu.label, open, details.reason)}
+		>
+			{@render portal(menu)}
+		</Menu.Root>
+	{/each}
 {/if}
 {#if outside}
 	<button data-testid="outside" type="button" style="margin-top: 300px">Outside</button>

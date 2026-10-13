@@ -6,13 +6,21 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { DirectionProvider, Menu, Menubar, type MenubarProps, type TextDirection } from '#lib';
+	import {
+		DirectionProvider,
+		Menu,
+		Menubar,
+		Popover,
+		type MenubarProps,
+		type TextDirection
+	} from '#lib';
 
 	let {
 		scenario,
 		direction = 'ltr',
 		menubarProps = {},
 		onItemClick,
+		onOpenChange,
 		open = $bindable(true)
 	}: {
 		scenario:
@@ -26,10 +34,13 @@
 			| 'scroll-handoff'
 			| 'first-disabled'
 			| 'disabled-open'
-			| 'open';
+			| 'open'
+			| 'in-popover';
 		direction?: TextDirection;
 		menubarProps?: MenubarProps;
 		onItemClick?: () => void;
+		/** Called with the menu label for every root open change of the `in-popover` menus. */
+		onOpenChange?: (label: string, open: boolean, reason: string) => void;
 		/** The open state of the triggerless menu. */
 		open?: boolean;
 	} = $props();
@@ -137,5 +148,42 @@
 				</Menu.Portal>
 			</Menu.Root>
 		</Menubar>
+	{:else if scenario === 'in-popover'}
+		<Popover.Root open>
+			<Popover.Trigger>Popover</Popover.Trigger>
+			<Popover.Portal>
+				<Popover.Positioner>
+					<Popover.Popup>
+						<Menubar {...menubarProps}>
+							<Menu.Root
+								onOpenChange={(next, details) => onOpenChange?.('File', next, details.reason)}
+							>
+								<Menu.Trigger data-testid="file-trigger">File</Menu.Trigger>
+								<Menu.Portal>
+									<Menu.Positioner data-testid="file-menu">
+										<Menu.Popup>
+											<Menu.Item>Open</Menu.Item>
+										</Menu.Popup>
+									</Menu.Positioner>
+								</Menu.Portal>
+							</Menu.Root>
+						</Menubar>
+						<Menu.Root
+							modal={false}
+							onOpenChange={(next, details) => onOpenChange?.('Standalone', next, details.reason)}
+						>
+							<Menu.Trigger data-testid="standalone-trigger">Standalone</Menu.Trigger>
+							<Menu.Portal>
+								<Menu.Positioner data-testid="standalone-menu">
+									<Menu.Popup>
+										<Menu.Item>Action</Menu.Item>
+									</Menu.Popup>
+								</Menu.Positioner>
+							</Menu.Portal>
+						</Menu.Root>
+					</Popover.Popup>
+				</Popover.Positioner>
+			</Popover.Portal>
+		</Popover.Root>
 	{/if}
 </DirectionProvider>

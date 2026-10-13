@@ -1,11 +1,13 @@
-// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/HoverReferenceInteraction.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Hover open is a `$state` write in the same turn. There is no `flushSync`.
 
+import { untrack } from 'svelte';
 import { on } from 'svelte/events';
 import { createChangeEventDetails, REASONS, ownerDocument, contains } from '@sveltery/utils';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
+import type { FloatingTreeStore } from '../components/FloatingTreeStore.js';
 import { isTargetInsideEnabledTrigger } from '../utils/element.js';
 import { isMouseLikePointerType } from '../utils/event.js';
 import type { HandleClose } from '../safePolygon.js';
@@ -29,10 +31,12 @@ export interface UseHoverReferenceProps {
 	shouldOpen?: () => boolean;
 	guardStaleOpen?: boolean;
 	placement?: () => string | null;
+	/** The tree to use instead of the one in context, for a trigger outside its popup's tree. */
+	externalTree?: FloatingTreeStore;
 }
 
 export class HoverReferenceInteraction {
-	readonly #tree = useFloatingTree();
+	readonly #tree: FloatingTreeStore | null;
 	readonly #instance: ReturnType<typeof hoverInteraction>;
 	#hoverCloseActive = false;
 	#sawMove = false;
@@ -42,6 +46,7 @@ export class HoverReferenceInteraction {
 		private readonly store: FloatingRootStore,
 		private readonly props: () => UseHoverReferenceProps = () => ({})
 	) {
+		this.#tree = untrack(() => props().externalTree) ?? useFloatingTree();
 		this.#instance = hoverInteraction(store);
 
 		$effect(() => {
@@ -94,6 +99,19 @@ export class HoverReferenceInteraction {
 		return this.#options().shouldOpen?.() !== false;
 	}
 
+	/** The pointer is over a trigger other than the active one. */
+	#isOverInactive(trigger: Element, target: EventTarget | null) {
+		const reference = this.store.domReferenceElement;
+		const triggers = this.store.triggers;
+		if (triggers.hasElement(trigger)) return !reference || !contains(reference, trigger);
+		// A handler on a wrapper finds the trigger from the event target.
+		if (!(target instanceof Element)) return false;
+		return (
+			triggers.hasMatchingElement((element) => contains(element, target)) &&
+			(!reference || !contains(reference, target))
+		);
+	}
+
 	#cleanupMouseMove() {
 		this.#stopMove?.();
 		this.#stopMove = undefined;
@@ -131,12 +149,7 @@ export class HoverReferenceInteraction {
 		const restMsValue = getRestMs(current.restMs);
 		const openDelay = getDelay(current.delay, 'open', this.#instance.pointerType);
 		const isOpen = this.store.isOpen();
-		const reference = this.store.domReferenceElement;
-		const overInactive =
-			trigger != null &&
-			reference != null &&
-			trigger !== reference &&
-			!contains(reference, trigger);
+		const overInactive = trigger != null && this.#isOverInactive(trigger, event.target);
 		const closing = !isOpen && this.store.transitionStatus === 'ending' && this.#hoverCloseActive;
 		if ((isOpen && overInactive) || closing) {
 			this.#commitOpen(event, trigger);
@@ -216,9 +229,15 @@ export class HoverReferenceInteraction {
 		const current = this.#options();
 		if (!current.enabled) return;
 		const trigger = event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
+		const overInactive = trigger != null && this.#isOverInactive(trigger, event.target);
 		if (current.mouseOnly && !isMouseLikePointerType(this.#instance.pointerType)) return;
+		const isOpen = this.store.isOpen();
+		// Moving onto another trigger while open switches to it at once. Upstream keeps the
+		// active trigger while closed, so only an open popup has an inactive trigger. Here a
+		// closed popup can have none, which must not let a later open re-announce.
+		const switching = isOpen && overInactive;
 		if (
-			this.store.isOpen() &&
+			switching &&
 			this.#instance.handleCloseOptions?.blockPointerEvents &&
 			trigger &&
 			this.store.floatingElement
@@ -230,17 +249,21 @@ export class HoverReferenceInteraction {
 			});
 		}
 		const restMsValue = getRestMs(current.restMs);
-		if (this.store.isOpen() || restMsValue === 0) return;
-		if (this.#instance.restTimeoutPending && event.movementX ** 2 + event.movementY ** 2 < 2)
+		if ((isOpen && !switching) || restMsValue === 0) return;
+		if (
+			!switching &&
+			this.#instance.restTimeoutPending &&
+			event.movementX ** 2 + event.movementY ** 2 < 2
+		)
 			return;
 		this.#instance.restTimeout.clear();
 		const open = () => {
 			this.#instance.restTimeoutPending = false;
 			if (this.#clickLike()) return;
-			if (!this.#instance.blockMouseMove && !this.store.isOpen())
+			if (!this.#instance.blockMouseMove && (!this.store.isOpen() || switching))
 				this.#commitOpen(event, trigger ?? undefined);
 		};
-		if (this.#instance.pointerType === 'touch') open();
+		if (this.#instance.pointerType === 'touch' || switching) open();
 		else {
 			this.#instance.restTimeoutPending = true;
 			this.#instance.restTimeout.start(restMsValue, open);
