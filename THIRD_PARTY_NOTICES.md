@@ -286,6 +286,8 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/scroll-area/scroll-area-animations.svelte.spec.ts` assertions from `packages/react/src/scroll-area/viewport/ScrollAreaViewport.test.tsx`
 - `src/lib/internal/visually-hidden.svelte.spec.ts` assertions from `packages/utils/src/visuallyHidden.test.tsx`
 - The v1.9.0 cases in the Accordion, Checkbox, Collapsible, Field, NumberField, Radio, RadioGroup, ScrollArea, Slider and Switch specs, from the commits each spec header names
+- `packages/utils/src/event-details.ts` also exports `REASONS.listNavigation` from `packages/react/src/internals/reason-parts.ts`
+- `packages/floating-ui-svelte/src/utils/enqueueFocus.ts` from `packages/react/src/floating-ui-react/utils/enqueueFocus.ts` (the `sync` option and one queued focus per page)
 - `packages/floating-ui-svelte/src/hooks/useListNavigation.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useListNavigation.ts` as `ListNavigation` (no `grid` option)
 - `packages/floating-ui-svelte/src/utils/listIndex.ts` from the list helpers in `packages/react/src/floating-ui-react/utils/composite.ts`
 - `packages/floating-ui-svelte/src/utils/listOrientation.ts` from the orientation-key helpers in `packages/react/src/floating-ui-react/hooks/useListNavigation.ts`
