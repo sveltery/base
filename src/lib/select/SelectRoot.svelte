@@ -28,6 +28,7 @@
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
 	import { toCssStyle } from '../internal/css-style.js';
+	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { dispatchingValueEvent, queueValueEvent } from '../internal/value-events.js';
 	import { setSelectRoot } from './context.svelte.js';
@@ -82,9 +83,7 @@
 	const bound: BoundControl<SelectValue> = new BoundControl<SelectValue>(field, {
 		kind: multipleProp === true ? 'select multiple' : 'select',
 		read: () => current,
-		write: (next) => {
-			value = next;
-		},
+		write: (next) => selection.set(next),
 		fromSource: (raw) => {
 			if (multiple) return (Array.isArray(raw) ? raw.map(optionFor) : []) as SelectValue;
 			return (raw == null ? null : optionFor(raw)) as SelectValue;
@@ -94,10 +93,19 @@
 	});
 
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
-	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = bound.initial(defaultValue ?? emptyValue());
+	// Svelte proxies an object or array written to the prop. Items compare the written one.
+	const selection = new WrittenReference<SelectValue | undefined>(
+		() => value,
+		(next) => {
+			value = next;
+		}
+	);
 
-	const current: SelectValue = $derived((value === undefined ? emptyValue() : value) as SelectValue);
+	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	// svelte-ignore state_referenced_locally
+	if (value === undefined) selection.set(bound.initial(defaultValue ?? emptyValue()));
+
+	const current: SelectValue = $derived(selection.current ?? emptyValue());
 	const disabled = $derived(field.disabled || disabledProp);
 	const name = $derived(field.name ?? nameProp);
 	const controlId = new LabelableId(labelable, {
@@ -123,7 +131,7 @@
 	function commitValue(next: unknown, details: SelectChangeEventDetails) {
 		onValueChange?.(next as SelectValue, details);
 		if (details.isCanceled) return;
-		value = next as SelectValue;
+		selection.set(next as SelectValue);
 		if (multiple) {
 			queueSelectEvents(valuesSelect);
 		} else if (details.event.target !== hiddenInput) {
@@ -255,7 +263,7 @@
 	restoreOnReset(() => hiddenInput, {
 		restore: () => {
 			const next = (defaultValue ?? emptyValue()) as SelectValue;
-			if (!Object.is(current, next)) value = next;
+			if (!Object.is(current, next)) selection.set(next);
 		}
 	});
 

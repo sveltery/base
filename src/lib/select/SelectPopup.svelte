@@ -13,6 +13,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { FloatingFocusManager } from '@sveltery/floating-ui-svelte';
 	import {
+		contains,
 		createChangeEventDetails,
 		ownerDocument,
 		ownerWindow,
@@ -370,10 +371,28 @@
 		return store.popupElement ?? true;
 	}
 
-	function focusReturn(closeType: string | null): boolean | HTMLElement | null | void {
+	/**
+	 * Moves focus after the focus manager's teardown, where it would otherwise run the trigger's
+	 * focus handlers. Svelte does not keep a derived recomputed during a teardown, so a handler
+	 * reading one there leaves it stale.
+	 */
+	function focusReturn(closeType: string | null): false {
 		const spec = finalFocus;
-		if (typeof spec !== 'function') return spec;
-		return spec(closeType ?? '');
+		if (spec === false || spec === null) return false;
+		const fromFunction = typeof spec === 'function';
+		const resolved = fromFunction ? spec(closeType ?? '') : (spec ?? true);
+		if (resolved === false || resolved === undefined) return false;
+		const target = resolved instanceof HTMLElement ? resolved : store.triggerElement;
+		if (!target?.isConnected) return false;
+		if (!fromFunction && !(spec instanceof HTMLElement)) {
+			const doc = ownerDocument(target);
+			const active = doc.activeElement;
+			const inside =
+				contains(store.positionerElement, active) || active === doc.body || active == null;
+			if (!inside) return false;
+		}
+		queueMicrotask(() => target.focus({ preventScroll: true }));
+		return false;
 	}
 
 	const partState: SelectPopupState = $derived({
@@ -427,7 +446,7 @@
 	modal={false}
 	disabled={!store.mounted}
 	initialFocus={focusIn}
-	returnFocus={typeof finalFocus === 'function' ? focusReturn : finalFocus}
+	returnFocus={focusReturn}
 	restoreFocus
 >
 	{#if render}
