@@ -136,4 +136,68 @@ Set `disabled` on `ContextMenu.Root` to stop the menu from opening. The browser'
 
 <ApiPart name="context-menu" part="Positioner" />
 
-The other parts are documented on the [Menu](/components/menu#api-reference) page.
+The parts below are the Menu parts of the same name. Their data attributes and examples are on the [Menu](/components/menu#api-reference) page.
+
+### Backdrop
+
+<ApiPart name="context-menu" part="Backdrop" />
+
+### Portal
+
+<ApiPart name="context-menu" part="Portal" />
+
+### Popup
+
+<ApiPart name="context-menu" part="Popup" />
+
+### Arrow
+
+<ApiPart name="context-menu" part="Arrow" />
+
+### Group
+
+<ApiPart name="context-menu" part="Group" />
+
+### GroupLabel
+
+<ApiPart name="context-menu" part="GroupLabel" />
+
+### Item
+
+<ApiPart name="context-menu" part="Item" />
+
+### CheckboxItem
+
+<ApiPart name="context-menu" part="CheckboxItem" />
+
+### CheckboxItemIndicator
+
+<ApiPart name="context-menu" part="CheckboxItemIndicator" />
+
+### LinkItem
+
+<ApiPart name="context-menu" part="LinkItem" />
+
+### RadioGroup
+
+<ApiPart name="context-menu" part="RadioGroup" />
+
+### RadioItem
+
+<ApiPart name="context-menu" part="RadioItem" />
+
+### RadioItemIndicator
+
+<ApiPart name="context-menu" part="RadioItemIndicator" />
+
+### SubmenuRoot
+
+<ApiPart name="context-menu" part="SubmenuRoot" />
+
+### SubmenuTrigger
+
+<ApiPart name="context-menu" part="SubmenuTrigger" />
+
+### Separator
+
+<ApiPart name="context-menu" part="Separator" />
