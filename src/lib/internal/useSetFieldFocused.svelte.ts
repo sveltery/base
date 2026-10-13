@@ -3,7 +3,7 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { untrack } from 'svelte';
-import type { FieldContext } from './model.svelte.js';
+import type { FieldContext } from '../field/model.svelte.js';
 
 /**
  * Publishes one control's focus to its Field. Disabling or unmounting a focused control

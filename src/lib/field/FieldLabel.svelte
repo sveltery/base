@@ -9,7 +9,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
-	import { getControlById } from '../internal/label-control.js';
+	import { getControlById } from '../internal/useLabel.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from '../internal/field-root-context.js';

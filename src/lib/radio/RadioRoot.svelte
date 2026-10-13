@@ -27,7 +27,7 @@
 		LabelableId,
 		findLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
-	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { boundInputProps, type BoundInputProps } from '../field/bound-control.svelte.js';
 	import { serializeValue } from '../internal/serializeValue.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';

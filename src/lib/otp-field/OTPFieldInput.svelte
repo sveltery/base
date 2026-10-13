@@ -7,7 +7,7 @@
 <script lang="ts">
 	import { DEV } from 'esm-env';
 	import type { HTMLInputAttributes } from 'svelte/elements';
-	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import {

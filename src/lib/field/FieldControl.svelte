@@ -22,7 +22,7 @@
 		LabelableId,
 		findLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
-	import { FieldFocusOwner } from './focus-owner.svelte.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
 	type ValueElement = HTMLElement & { value: string; form?: HTMLFormElement | null };

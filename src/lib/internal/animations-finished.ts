@@ -3,7 +3,7 @@
 // Completions that become ready in the same turn unmount together.
 
 import { AnimationFrame } from '@sveltery/utils';
-import { animationSettled, getFiniteAnimations } from './finite-animations.js';
+import { animationSettled, getFiniteAnimations } from './getFiniteAnimations.js';
 
 let pending: Array<() => void> | null = null;
 

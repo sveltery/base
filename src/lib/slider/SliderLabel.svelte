@@ -9,7 +9,7 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
-	import { getControlById } from '../internal/label-control.js';
+	import { getControlById } from '../internal/useLabel.js';
 	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';

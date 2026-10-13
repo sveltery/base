@@ -11,7 +11,7 @@
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
-	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { useCSPContext } from '../internal/csp-context.js';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';

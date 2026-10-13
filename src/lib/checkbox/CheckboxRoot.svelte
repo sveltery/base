@@ -38,7 +38,7 @@
 	} from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { getDefaultFormSubmitter } from '../internal/getDefaultFormSubmitter.js';
-	import { FieldFocusOwner } from '../field/focus-owner.svelte.js';
+	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import type { CheckboxHostProps, CheckboxRootProps, CheckboxRootState } from './types.js';
 
 	const uid = $props.id();
