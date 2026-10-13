@@ -299,6 +299,16 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/scroll-area/scroll-area-animations.svelte.spec.ts` assertions from `packages/react/src/scroll-area/viewport/ScrollAreaViewport.test.tsx`
 - `src/lib/internal/visually-hidden.svelte.spec.ts` assertions from `packages/utils/src/visuallyHidden.test.tsx`
 - The v1.9.0 cases in the Accordion, Checkbox, Collapsible, Field, NumberField, Radio, RadioGroup, ScrollArea, Slider and Switch specs, from the commits each spec header names
+- `src/lib/drawer/DrawerRoot.svelte`, `src/lib/drawer/root.svelte.ts`, and `src/lib/drawer/snap-points.ts` from `packages/react/src/drawer/root/DrawerRoot.tsx`, `DrawerRootContext.ts`, and `useDrawerSnapPoints.ts` (the dialog setup is `createDialogRoot`)
+- `src/lib/drawer/DrawerTrigger.svelte`, `DrawerPopup.svelte`, `DrawerBackdrop.svelte`, `DrawerViewport.svelte`, `DrawerSwipeArea.svelte`, `DrawerContent.svelte`, `DrawerProvider.svelte`, `DrawerIndent.svelte`, `DrawerIndentBackground.svelte`, and `DrawerVirtualKeyboardProvider.svelte` from the matching `packages/react/src/drawer/*/Drawer*.tsx` part files
+- `src/lib/drawer/context.svelte.ts`, `src/lib/drawer/handle.svelte.ts`, `src/lib/drawer/attributes.ts`, `src/lib/drawer/types.ts`, and `src/lib/drawer/index.ts` from `packages/react/src/drawer/provider/DrawerProvider.tsx`, `handle.ts`, the drawer `*CssVars.ts` and `*DataAttributes.ts` files, `index.ts`, and `index.parts.ts` (Portal, Title, Description, and Close are the Dialog components)
+- `src/lib/internal/useSwipeDismiss.svelte.ts` from `packages/react/src/utils/useSwipeDismiss.ts`
+- `src/lib/internal/scrollable.ts` from `packages/react/src/utils/scrollable.ts`, `src/lib/internal/getElementAtPoint.ts` from `packages/react/src/utils/getElementAtPoint.ts`, and `src/lib/internal/swipe-ignore.ts` from the swipe-ignore attribute in `packages/react/src/internals/constants.ts`
+- `src/lib/internal/getElementTransform.ts` `scale` from `packages/react/src/utils/getElementTransform.ts`
+- `packages/utils/src/shadow-dom.ts` `closest`, and `contains` across shadow roots, from `packages/utils/src/shadowDom.ts`
+- `packages/utils/src/event-details.ts` `closeWatcher` and `swipe` reasons from `packages/react/src/internals/reason-parts.ts`
+- `src/lib/dialog/store.svelte.ts` `nestedOpenDrawerCount` and `outsidePressEnabled`, and their reporting in `src/lib/dialog/root.svelte.ts`, from `packages/react/src/dialog/root/useDialogRoot.ts` and `packages/react/src/drawer/swipe-area/DrawerSwipeArea.tsx`
+- `src/lib/drawer/*.svelte.spec.ts`, `src/lib/drawer/snap-points.spec.ts`, `src/lib/drawer/ssr.spec.ts`, `src/tests/drawer-gestures.ts`, and the `src/tests/Drawer*.svelte` harnesses from `packages/react/src/drawer/**/*.test.tsx` and `useDrawerSnapPoints.test.ts`
 - `packages/utils/src/event-details.ts` also exports `REASONS.listNavigation` from `packages/react/src/internals/reason-parts.ts`
 - `packages/floating-ui-svelte/src/utils/enqueueFocus.ts` from `packages/react/src/floating-ui-react/utils/enqueueFocus.ts` (the `sync` option and one queued focus per page)
 - `packages/floating-ui-svelte/src/hooks/useListNavigation.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useListNavigation.ts` as `ListNavigation` (no `grid` option)
@@ -310,6 +320,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/tests/list-navigation/useListNavigation.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useListNavigation.test.tsx` that do not require grid navigation, with harnesses from `packages/react/test/floating-ui-tests/ListboxFocus.tsx` and `Menu.tsx`
 - `packages/floating-ui-svelte/src/hooks/useTypeahead.svelte.ts` from `packages/react/src/floating-ui-react/hooks/useTypeahead.ts` as `Typeahead`
 - `src/tests/list-navigation/useTypeahead.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/hooks/useTypeahead.test.tsx`
+- `src/lib/internal/composite-root.svelte.ts` render claims from `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (each item keeps the index it guessed, and `unregister` drops only that item's entry)
 
 MIT License
 

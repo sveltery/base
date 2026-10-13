@@ -1,7 +1,7 @@
 // Derived from Base UI v1.9.0 packages/react/src/dialog/root/useRenderDialogRoot.tsx
 // and useDialogRoot.ts (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // MIT, see THIRD_PARTY_NOTICES.md.
-// Dialog.Root and AlertDialog.Root share this setup. AlertDialog.Root passes the alert
+// Dialog.Root, AlertDialog.Root, and Drawer.Root share this setup. AlertDialog.Root passes the alert
 // dialog role, `modal: true`, and disabled pointer dismissal.
 // Call it during component init: it sets context and registers effects.
 
@@ -37,6 +37,7 @@ export function createDialogRoot<Payload>(
 	new DismissInteraction(store, () => ({
 		escapeKey: store.nestedOpenDialogCount === 0,
 		outsidePress(event) {
+			if (!store.outsidePressEnabled) return false;
 			if ('button' in event && event.button !== 0) return false;
 			if ('touches' in event) {
 				const touch = event as unknown as TouchEvent;
@@ -98,14 +99,20 @@ export function createDialogRoot<Payload>(
 	});
 
 	$effect(() => {
-		if (!store.open && !store.mounted) store.nestedOpenDialogCount = 0;
+		if (!store.open && !store.mounted) {
+			store.nestedOpenDialogCount = 0;
+			store.nestedOpenDrawerCount = 0;
+		}
 	});
 
 	// Only an open root reports to its parent. A closed sibling must not reset the count.
 	$effect(() => {
 		if (!parent || !store.open) return;
-		parent.onNestedDialogOpen(store.nestedOpenDialogCount + 1);
-		return () => parent.onNestedDialogOpen(0);
+		parent.onNestedDialogOpen(
+			store.nestedOpenDialogCount + 1,
+			store.nestedOpenDrawerCount + (store.drawer ? 1 : 0)
+		);
+		return () => parent.onNestedDialogOpen(0, 0);
 	});
 
 	return store;

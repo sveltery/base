@@ -48,7 +48,7 @@
 		target: () => el,
 		onFocusedChange: (focused) => (model.focused = focused)
 	});
-	const renderIndex = model.slots.claim();
+	const renderIndex = model.slots.claimIndex();
 	// Safari reports in-progress IME text through `input` as an accumulating string (`d`, `dd`,
 	// `ddd`). Committing those would fill too many slots, so the text is buffered until
 	// `compositionend`.

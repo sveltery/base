@@ -79,4 +79,43 @@ describe('useOpenChangeComplete', () => {
 		const unbatched = await microtasksUntilDone(false);
 		expect(await microtasksUntilDone(true)).toBe(unbatched + 1);
 	});
+
+	it('runs batched completions that become ready in the same turn together', async () => {
+		function arm(batch: boolean, onComplete: () => void) {
+			const element = document.createElement('div');
+			let notify: (() => void) | undefined;
+			const finished = new Promise<void>((resolve) => (notify = resolve));
+			let read = false;
+			element.getAnimations = () => {
+				read = true;
+				return [{ finished, pending: false, playState: 'finished' }] as unknown as ReturnType<
+					HTMLElement['getAnimations']
+				>;
+			};
+			const view = render(OpenChangeHarness, { open: false, batch, element, onComplete });
+			return { view, notify: () => notify?.(), read: () => read };
+		}
+
+		async function ticksBetweenCompletions(batch: boolean) {
+			let ticks = 0;
+			const doneAt: number[] = [];
+			const first = arm(batch, () => doneAt.push(ticks));
+			const second = arm(batch, () => doneAt.push(ticks));
+			await expect.poll(() => first.read() && second.read()).toBe(true);
+			const tick = () => {
+				ticks += 1;
+				if (doneAt.length < 2 && ticks < 20) queueMicrotask(tick);
+			};
+			first.notify();
+			queueMicrotask(tick);
+			second.notify();
+			await expect.poll(() => doneAt.length).toBe(2);
+			first.view.unmount();
+			second.view.unmount();
+			return doneAt[1] - doneAt[0];
+		}
+
+		expect(await ticksBetweenCompletions(false)).toBe(1);
+		expect(await ticksBetweenCompletions(true)).toBe(0);
+	});
 });

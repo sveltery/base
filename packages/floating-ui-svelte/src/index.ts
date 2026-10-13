@@ -30,6 +30,8 @@ export {
 	FOCUSABLE_ATTRIBUTE,
 	TRIGGER_DISABLED_ATTRIBUTE
 } from './utils/constants.js';
+export { isInteractiveElement } from './utils/element.js';
+export { isVirtualClick } from './utils/event.js';
 export { PopupTriggerMap } from './utils/popupTriggerMap.js';
 export {
 	focusable,
@@ -57,7 +59,11 @@ export {
 export { ClientPointInteraction, type UseClientPointProps } from './hooks/useClientPoint.svelte.js';
 export { getDelay } from './hooks/useHoverShared.js';
 export { isMouseLikePointerType } from './utils/event.js';
-export { ListNavigation, type UseListNavigationProps } from './hooks/useListNavigation.svelte.js';
+export {
+	ListNavigation,
+	type GridNavigator,
+	type UseListNavigationProps
+} from './hooks/useListNavigation.svelte.js';
 export {
 	findNonDisabledListIndex,
 	getMaxListIndex,
