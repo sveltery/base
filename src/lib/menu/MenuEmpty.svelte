@@ -28,7 +28,7 @@
 	const resetTimeout = new ScopedTimeout();
 
 	// Word Joiner is invisible and zero-width, so it forces a text mutation without layout shift.
-	const LIVE_REGION_MARKER = '⁠';
+	const LIVE_REGION_MARKER = '\u2060';
 	// Safari VoiceOver needs about 200ms to notice the initial polite live-region change.
 	const RESET_DELAY = 200;
 
