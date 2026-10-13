@@ -218,9 +218,9 @@ describe('Drawer.Popup', () => {
 			render(DrawerPopupScenarios, { scenario: 'nested-handle', handle: Drawer.createHandle() });
 			const parent = testId('parent-popup')!;
 
-			await expect.element(page.getByTestId('parent-popup')).toHaveAttribute(
-				'data-nested-drawer-open'
-			);
+			await expect
+				.element(page.getByTestId('parent-popup'))
+				.toHaveAttribute('data-nested-drawer-open');
 			expect(nestedDrawers(parent)).toBe('1');
 		});
 
@@ -303,10 +303,9 @@ describe('Drawer.Popup', () => {
 			const parent = testId('parent-popup')!;
 
 			(page.getByRole('button', { name: 'Open nested drawer' }).element() as HTMLElement).click();
-			await expect.element(page.getByTestId('parent-popup')).toHaveAttribute(
-				'data-nested-drawer-open',
-				''
-			);
+			await expect
+				.element(page.getByTestId('parent-popup'))
+				.toHaveAttribute('data-nested-drawer-open', '');
 			await expect.poll(() => parent.style.getPropertyValue('--drawer-height')).not.toBe('');
 
 			const recorder = recordParent(parent);
@@ -336,10 +335,9 @@ describe('Drawer.Popup', () => {
 			const parent = testId('parent-popup')!;
 
 			(page.getByRole('button', { name: 'Open nested drawer' }).element() as HTMLElement).click();
-			await expect.element(page.getByTestId('parent-popup')).toHaveAttribute(
-				'data-nested-drawer-open',
-				''
-			);
+			await expect
+				.element(page.getByTestId('parent-popup'))
+				.toHaveAttribute('data-nested-drawer-open', '');
 
 			(page.getByRole('button', { name: 'Close nested drawer' }).element() as HTMLElement).click();
 			await expect
@@ -350,10 +348,9 @@ describe('Drawer.Popup', () => {
 			const recorder = recordParent(parent);
 			(page.getByRole('button', { name: 'Open nested drawer' }).element() as HTMLElement).click();
 
-			await expect.element(page.getByTestId('parent-popup')).toHaveAttribute(
-				'data-nested-drawer-open',
-				''
-			);
+			await expect
+				.element(page.getByTestId('parent-popup'))
+				.toHaveAttribute('data-nested-drawer-open', '');
 			await expect
 				.poll(() => recorder.mutations.find((mutation) => mutation.hasNested)?.drawerHeight)
 				.not.toBe('');

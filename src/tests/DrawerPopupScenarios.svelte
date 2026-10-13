@@ -120,7 +120,9 @@
 						<Drawer.Root open={childOpen} modal={false}>
 							<Drawer.Portal keepMounted>
 								<Drawer.Viewport>
-									<Drawer.Popup initialFocus={false} style="height: 100px">Child drawer</Drawer.Popup>
+									<Drawer.Popup initialFocus={false} style="height: 100px"
+										>Child drawer</Drawer.Popup
+									>
 								</Drawer.Viewport>
 							</Drawer.Portal>
 						</Drawer.Root>
