@@ -1,3 +1,9 @@
+<!--
+	An invisible area that opens the drawer with a swipe. Renders a `<div>` element.
+	Derived from Base UI v1.9.0 packages/react/src/drawer/swipe-area/DrawerSwipeArea.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+	While the gesture runs it writes the popup's movement variables, and the popup leaves them alone.
+-->
 <script lang="ts" module>
 	import type { SwipeDirection as Direction } from '../internal/useSwipeDismiss.svelte.js';
 
@@ -13,12 +19,6 @@
 	}
 </script>
 
-<!--
-	An invisible area that opens the drawer with a swipe. Renders a `<div>` element.
-	Derived from Base UI v1.9.0 packages/react/src/drawer/swipe-area/DrawerSwipeArea.tsx
-	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	While the gesture runs it writes the popup's movement variables, and the popup leaves them alone.
--->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';

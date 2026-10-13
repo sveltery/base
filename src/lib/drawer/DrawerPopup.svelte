@@ -1,3 +1,10 @@
+<!--
+	A container for the drawer contents. Renders a `<div>` element.
+	Derived from Base UI v1.9.0 packages/react/src/drawer/popup/DrawerPopup.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+	The drawer CSS variables are written per property, so a swipe's own writes survive re-renders.
+	Focus moves to the popup itself unless `initialFocus` says otherwise.
+-->
 <script lang="ts" module>
 	let swipePropertiesRegistered = false;
 
@@ -24,13 +31,6 @@
 	}
 </script>
 
-<!--
-	A container for the drawer contents. Renders a `<div>` element.
-	Derived from Base UI v1.9.0 packages/react/src/drawer/popup/DrawerPopup.tsx
-	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	The drawer CSS variables are written per property, so a swipe's own writes survive re-renders.
-	Focus moves to the popup itself unless `initialFocus` says otherwise.
--->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';

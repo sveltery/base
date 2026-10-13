@@ -1,3 +1,11 @@
+<!--
+	Keyboard-aware focus and scroll handling for bottom-sheet drawers with form fields.
+	Doesn't render its own HTML element. It needs a Drawer.Viewport, which receives the
+	`--drawer-keyboard-inset` variable.
+	Derived from Base UI v1.9.0
+	packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+-->
 <script lang="ts" module>
 	interface KeyboardTouchTarget {
 		readonly focusTarget: HTMLElement;
@@ -137,14 +145,6 @@
 	}
 </script>
 
-<!--
-	Keyboard-aware focus and scroll handling for bottom-sheet drawers with form fields.
-	Doesn't render its own HTML element. It needs a Drawer.Viewport, which receives the
-	`--drawer-keyboard-inset` variable.
-	Derived from Base UI v1.9.0
-	packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.tsx
-	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
--->
 <script lang="ts">
 	import { getParentNode, isHTMLElement } from '@floating-ui/utils/dom';
 	import {
@@ -237,7 +237,7 @@
 			adjustment = null;
 		}
 		if (!adjustment) {
-			const styles = getComputedStyle(element);
+			const styles = ownerWindow(element).getComputedStyle(element);
 			adjustment = {
 				element,
 				overflowAnchor: element.style.overflowAnchor,

@@ -19,8 +19,8 @@
 	const provider = findDrawerProvider();
 	const state: DrawerIndentBackgroundState = $derived({ active: provider?.active ?? false });
 	const hostProps: DrawerDivProps = $derived({
-		...elementProps,
-		...getStateAttributesProps(state, drawerIndentStateAttributesMapping)
+		...getStateAttributesProps(state, drawerIndentStateAttributesMapping),
+		...elementProps
 	});
 </script>
 
