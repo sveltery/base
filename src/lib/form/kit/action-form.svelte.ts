@@ -160,10 +160,11 @@ export class ActionForm<Input extends RemoteFormInput, Result> {
 		this.#name = action;
 		this.action = action === 'default' ? undefined : `?/${action}`;
 
-		// The echo of a submission made without JavaScript, read once like a remote form's.
+		// The echo of a submission made without JavaScript, read once like a remote form's. A
+		// snapshot, because edits must not write into the page's `form`, which may be a proxy.
 		const form = getForm();
 		this.#input = $state(
-			isFailure(form) && form.action === action ? structuredClone(form.input) : {}
+			isFailure(form) && form.action === action ? $state.snapshot(form.input) : {}
 		);
 
 		const store: FieldStore = {
@@ -276,6 +277,9 @@ export class ActionForm<Input extends RemoteFormInput, Result> {
 		const applied = response.then(async ({ result, update }) => {
 			// The DOM keeps what the user typed while the request was in flight.
 			await update({ reset: false, refreshAll });
+			// Like a remote form, the server's answer replaces every client issue, so Form can
+			// tell server issues apart by when they arrived.
+			this.#clientIssues = [];
 			return result.type === 'success' || result.type === 'redirect';
 		});
 		const submission: ActionFormSubmission = Object.assign(applied, {
