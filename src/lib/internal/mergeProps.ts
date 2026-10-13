@@ -1,7 +1,8 @@
-// Derived from Base UI v1.8.0 packages/react/src/merge-props/mergeProps.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/react/src/merge-props/mergeProps.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // The rightmost bag wins plain props, and its handler runs first.
-// `event.preventDefault()` in a handler skips the handlers to its left.
+// `event.preventDefault()` in a handler skips the handlers to its left. An event that was
+// already prevented before the merged handler ran still reaches every handler.
 // The event check is the event's shape, so an iframe event still gets the skip signal.
 // `class` is a Svelte class value, merged as an array with the rightmost bag first.
 // `style` is a CSS string. The rightmost declaration wins for the same property.
@@ -57,8 +58,9 @@ function mergeEventHandlers(our: unknown, their: unknown): unknown {
 	if (!isHandler(our)) return their;
 	return (...args: unknown[]) => {
 		const event = args[0];
+		const preventedBefore = isDomEvent(event) && event.defaultPrevented;
 		const result = their(...args);
-		if (!(isDomEvent(event) && event.defaultPrevented)) our(...args);
+		if (preventedBefore || !(isDomEvent(event) && event.defaultPrevented)) our(...args);
 		return result;
 	};
 }

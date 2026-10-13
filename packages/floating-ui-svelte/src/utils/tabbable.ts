@@ -1,5 +1,5 @@
-// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/utils/tabbable.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from Base UI v1.9.0 packages/react/src/floating-ui-react/utils/tabbable.ts
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // The walk matches that file: checked radio only, `:disabled` including fieldsets,
 // media and iframe, negative tabIndex, closed details, and shadow roots.
 // There is no React ref.
@@ -197,15 +197,34 @@ export function getPreviousTabbable(referenceElement: Element | null): Focusable
 	);
 }
 
-function getTabbableNearElement(referenceElement: Element | null, dir: 1 | -1) {
+/**
+ * The tabbable element next to `referenceElement` in `direction`, wrapping around the document.
+ * The anchor need not be tabbable itself. Elements inside `exclude` are skipped. Returns the
+ * anchor when nothing else qualifies.
+ */
+export function getTabbableNearElement(
+	referenceElement: Element | null,
+	direction: 1 | -1,
+	exclude?: Element | null
+): FocusableElement | null {
 	if (!referenceElement) return null;
-	const list = tabbable(ownerDocument(referenceElement).body);
-	const elementCount = list.length;
-	if (elementCount === 0) return null;
+	// Keep the anchor's composed-tree position separate from the focusable radio candidates.
+	const list: FocusableElement[] = [];
+	appendCandidates(ownerDocument(referenceElement).body, list);
 	const index = list.indexOf(referenceElement as FocusableElement);
 	if (index === -1) return null;
-	const nextIndex = (index + dir + elementCount) % elementCount;
-	return list[nextIndex];
+	const candidates = list.filter(isFocusableElement);
+	for (let offset = 1; offset < list.length; offset += 1) {
+		const element = list[(index + direction * offset + list.length) % list.length];
+		if (
+			!contains(exclude, element) &&
+			isTabbable(element) &&
+			isTabbableRadio(element, candidates)
+		) {
+			return element;
+		}
+	}
+	return list[index];
 }
 
 export function getTabbableAfterElement(referenceElement: Element | null): FocusableElement | null {

@@ -208,10 +208,6 @@ for (const reference of [false, true]) {
 		});
 
 		test('pressing a control outside a bound menu reports an outside press', async ({ page }) => {
-			test.fixme(
-				!reference,
-				'floating-ui-svelte DismissInteraction listens for click on the document in the bubble phase, so the Hide handler closes the menu first'
-			);
 			const { popup } = await open(page, 'bound', reference);
 			await page.getByTestId('show').click();
 			await expect(popup).toBeVisible();

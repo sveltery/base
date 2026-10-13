@@ -366,14 +366,6 @@ Upstream: `value === itemValue` compares the object the consumer passed.
 
 Local: the same comparison runs, but a `$state` object is a deep proxy, so an item value read from `$state` is not the object stored in a bound `$state` value. Use primitives, or keep object values in `$state.raw`.
 
-### Outside press runs after page click handlers
-
-Upstream: the outside-press listener is a capture listener on the document that adds a listener on the event target, so it runs before the page's own click handlers.
-
-Local: `DismissInteraction` in `packages/floating-ui-svelte` listens for `click` on the document in the bubble phase. A page button that closes the menu in its own click handler closes it first, and `onValueChange` sees no `outside-press`. The fixture case `pressing a control outside a bound menu reports an outside press` is `test.fixme` for Svelte until that listener moves to the capture phase.
-
-The same bubble-phase listener never sees a click whose ancestor handler calls `event.stopPropagation()`, so such a press does not dismiss the menu at all. This also waits on the capture-phase fix in `DismissInteraction`.
-
 ### Not covered
 
 The positioner case that spies on the arguments of the anchor positioning hook asserts an implementation detail. The conformance cases for `ref`, the `className` function and the React render prop have no Svelte counterpart. `NavigationMenuParts.svelte.spec.ts` checks each part's host element, `class`, attributes, attachments and `render` snippet instead.
@@ -417,3 +409,11 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                         |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
+
+## Shared floating internals
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx` and `hooks/useDismiss.ts`. Each popup root creates its own `FloatingTree`. A press or a focus change inside a portaled descendant counts as inside a popup through `insideReactTree`, which React sets because portal events bubble through the React tree.
+
+Local: nested popups share one floating tree, and the DOM has no React tree. `DismissInteraction` counts a press inside a tree child's portal, which holds that child's internal backdrop, as inside the parent. `FloatingFocusManager` treats focus that leaves a portaled popup without an outside press as staying inside, as upstream's `markInsideReactTree` does.
+
+Test: `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts`, `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` and `src/lib/internal/overlay-audit.svelte.spec.ts` (`closes only the inner modal popover on an outside touch tap`).
