@@ -2,13 +2,12 @@
 	A menu item that opens a submenu. Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/menu/submenu-trigger/MenuSubmenuTrigger.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	The close when focus returns through the submenu's focus guard is not ported:
-	FloatingFocusManager here exposes no guard element.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { platform } from '@sveltery/utils';
+	import { on } from 'svelte/events';
+	import { createChangeEventDetails, platform } from '@sveltery/utils';
 	import {
 		ClickInteraction,
 		HoverReferenceInteraction,
@@ -102,9 +101,61 @@
 		stickIfOpen: openOnHover
 	}));
 
+	// Chrome performs a screen reader activation as a 1x1, zero-pressure mouse `pointerdown` with
+	// no pressed button. v1.9 opens on it at once. The click interaction here predates that and
+	// ignores it as a mouse press while `openOnHover` is on, so the trigger handles it itself.
+	let screenReaderPress = false;
+	const screenReaderProps = {
+		onpointerdown(event: PointerEvent) {
+			screenReaderPress =
+				event.pointerType === 'mouse' &&
+				event.width === 1 &&
+				event.height === 1 &&
+				event.pressure === 0 &&
+				event.detail === 0 &&
+				(platform.os.android || event.buttons === 0);
+		},
+		onmousedown(event: MouseEvent) {
+			const pressed = screenReaderPress;
+			screenReaderPress = false;
+			if (!pressed || !openOnHover || disabled || event.button !== 0 || !item.node) return;
+			store.setOpen(
+				!store.open,
+				createChangeEventDetails(MENU_REASONS.triggerPress, event, item.node)
+			);
+		}
+	};
+
 	function attachHover(node: HTMLElement) {
 		return untrack(() => hover.attachReference(node));
 	}
+
+	// Focus that comes back to the trigger through the submenu's leading focus guard closes the
+	// submenu, so screen reader users can move past the trigger. Focus from a submenu item, such
+	// as on hover, leaves it open. The guard is the one before the popup in the positioner.
+	let returnedThroughGuard = false;
+	$effect(() => {
+		const positioner = store.positionerElement;
+		if (!store.open || !positioner) return;
+		const stop = on(
+			positioner,
+			'focusout',
+			(event) => {
+				const guard = event.target;
+				const popup = store.popupElement;
+				if (!(guard instanceof Element) || !guard.hasAttribute('data-base-ui-focus-guard')) return;
+				if (!popup || !(guard.compareDocumentPosition(popup) & Node.DOCUMENT_POSITION_FOLLOWING)) {
+					return;
+				}
+				returnedThroughGuard = event.relatedTarget === item.node;
+			},
+			{ capture: true }
+		);
+		return () => {
+			returnedThroughGuard = false;
+			stop();
+		};
+	});
 
 	const open = $derived(store.open);
 	const highlighted = $derived(item.highlighted);
@@ -126,6 +177,7 @@
 		item.props(
 			[
 				click.reference,
+				screenReaderProps,
 				hover.reference,
 				childTriggerProps,
 				{
@@ -134,6 +186,11 @@
 					'aria-controls': store.popupIdFor(triggerId),
 					// The item takes focus only while its submenu is open or it is highlighted.
 					tabindex: open || highlighted ? 0 : -1,
+					onfocus(event: FocusEvent) {
+						if (!store.open || !returnedThroughGuard) return;
+						returnedThroughGuard = false;
+						store.setOpen(false, createChangeEventDetails(MENU_REASONS.focusOut, event));
+					},
 					onblur() {
 						if (highlighted) parentStore.setActiveIndex(null, MENU_REASONS.none);
 					},
