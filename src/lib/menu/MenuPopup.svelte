@@ -36,10 +36,13 @@
 	const positioning = useMenuPositioner();
 	const bindKey = createAttachmentKey();
 	const styleKey = createAttachmentKey();
-	const ownStyle = liveStyle(() => ({
-		...store.popupVars,
-		...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
-	}));
+	const ownStyle = liveStyle(
+		() => ({
+			...store.popupVars,
+			...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
+		}),
+		() => elementProps.style
+	);
 
 	useOpenChangeComplete(() => ({
 		enabled: store.open && store.mounted,
