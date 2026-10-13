@@ -417,6 +417,20 @@ describe('Dialog', () => {
 			await expect.element(content()).toHaveTextContent('from trigger');
 			await expect.element(button('Trigger')).toHaveAttribute('aria-expanded', 'true');
 		});
+
+		it('takes the only trigger payload on a bind:open after a programmatic open closed', async () => {
+			const handle = Dialog.createHandle<string>();
+			const screen = render(DialogProgrammaticPayloadHarness, { handle, showTrigger: true });
+
+			handle.openWithPayload('from openWithPayload');
+			await expect.element(content()).toHaveTextContent('from openWithPayload');
+			handle.close();
+			await dialogs(0);
+
+			await screen.rerender({ open: true });
+			await expect.element(content()).toHaveTextContent('from trigger');
+			await expect.element(button('Trigger')).toHaveAttribute('aria-expanded', 'true');
+		});
 	});
 
 	it('omits the internal backdrop when modal is false', async () => {
