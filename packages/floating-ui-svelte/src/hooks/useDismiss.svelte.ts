@@ -34,7 +34,7 @@ export interface UseDismissProps {
 
 function bubbleFlag(bubbles: UseDismissProps['bubbles'], key: 'escapeKey' | 'outsidePress') {
 	if (typeof bubbles === 'boolean') return bubbles;
-	return bubbles?.[key] ?? false;
+	return bubbles?.[key] ?? key === 'outsidePress';
 }
 
 function pressIsInside(store: FloatingRootStore, event: Event) {
@@ -297,7 +297,13 @@ export class DismissInteraction {
 		return getNodeChildren(this.#tree.nodes, this.store.nodeId).some((node) => {
 			const context = node.context;
 			if (!context) return false;
-			return contains(context.floatingElement, target) || contains(context.popupElement, target);
+			// A child's portal holds its backdrop. Upstream counts a press there as inside the
+			// parent's React tree.
+			return (
+				contains(context.floatingElement, target) ||
+				contains(context.popupElement, target) ||
+				contains(context.portalElement, target)
+			);
 		});
 	}
 
@@ -324,7 +330,8 @@ export class DismissInteraction {
 		if (this.#pressStartedInside) return;
 		if (mode === 'intentional' && !this.#sawPressWhileOpen && event.detail !== 0) return;
 		if (typeof current.outsidePress === 'function' && !current.outsidePress(event)) return;
-		if (!current.outsidePressBubbles && this.#childBlocks('outsidePressBubbles')) return;
+		// Upstream reads only the children here. A parent's own flag does not skip the check.
+		if (this.#childBlocks('outsidePressBubbles')) return;
 		this.store.setOpen(false, createChangeEventDetails(REASONS.outsidePress, event));
 	}
 

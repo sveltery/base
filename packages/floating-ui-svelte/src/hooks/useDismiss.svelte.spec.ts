@@ -1,0 +1,62 @@
+// Assertions follow Base UI v1.9.0 packages/react/src/floating-ui-react/hooks/useDismiss.test.tsx
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+import { flushSync } from 'svelte';
+import { page } from 'vitest/browser';
+import { describe, expect, it } from 'vitest';
+import { render } from 'vitest-browser-svelte';
+import DismissBubblesHarness from './__tests__/DismissBubblesHarness.svelte';
+
+function pressOutside() {
+	flushSync(() => {
+		document.body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+	});
+}
+
+/** The inner node opens after the outer one, as a nested popup does. */
+function renderNested(props: Parameters<typeof render<typeof DismissBubblesHarness>>[1] = {}) {
+	render(DismissBubblesHarness, props);
+	flushSync(() => page.getByRole('button', { name: 'open inner' }).element().click());
+}
+
+function mounted() {
+	return ['outer', 'inner'].filter((id) => page.getByTestId(id).elements().length > 0);
+}
+
+describe('DismissInteraction', () => {
+	describe('prop: bubbles.outsidePress', () => {
+		it('closes the whole tree by default', () => {
+			renderNested();
+			expect(mounted()).toEqual(['outer', 'inner']);
+
+			pressOutside();
+
+			expect(mounted()).toEqual([]);
+		});
+
+		it('closes one level per press when no level bubbles', () => {
+			renderNested({
+				outer: { outsidePress: false },
+				inner: { outsidePress: false }
+			});
+
+			pressOutside();
+			expect(mounted()).toEqual(['outer']);
+
+			pressOutside();
+			expect(mounted()).toEqual([]);
+		});
+
+		it('keeps the parent open while a child that does not bubble is open', () => {
+			renderNested({
+				outer: { outsidePress: true },
+				inner: { outsidePress: false }
+			});
+
+			pressOutside();
+			expect(mounted()).toEqual(['outer']);
+
+			pressOutside();
+			expect(mounted()).toEqual([]);
+		});
+	});
+});

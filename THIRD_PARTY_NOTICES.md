@@ -322,6 +322,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `packages/utils/src/event-details.ts` the remaining reasons from `packages/react/src/internals/reason-parts.ts` (including the menu reasons `trigger-focus`, `item-press`, `sibling-open`, `cancel-open`, and `pointer`) and the custom properties of `createGenericEventDetails` from `packages/react/src/internals/createBaseUIEventDetails.ts`
 - `src/lib/internal/getHighlightReason.ts` from `packages/react/src/utils/getHighlightReason.ts`
 - `src/lib/internal/click.ts` `detail` and `pointerType` options, and `packages/floating-ui-svelte/src/utils/event.ts` 1x1 screen reader presses, with `packages/floating-ui-svelte/src/utils/event.spec.ts` assertions from `packages/react/src/floating-ui-react/utils/event.test.ts`
+- `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` outside presses bubble by default and a press in a child's portal counts as inside, from `normalizeProp` and `insideReactTree` in `packages/react/src/floating-ui-react/hooks/useDismiss.ts`, with `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts` assertions from `useDismiss.test.tsx`
 
 MIT License
 
