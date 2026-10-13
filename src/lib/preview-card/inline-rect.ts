@@ -1,7 +1,7 @@
 // Derived from Base UI v1.9.0 packages/react/src/utils/popups/inlineRect.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Only PreviewCard uses it, so it lives with PreviewCard.
-// The coordinates sit in a plain `{ current }` holder on the store. They are not rendered state.
+// The coordinates sit in a plain `{ coords }` holder on the store. They are not rendered state.
 // Trigger props are native handlers: `onfocusin` for React's bubbling `onFocus`, and `isOpen` is a getter.
 
 import type { Middleware, VirtualElement } from '@floating-ui/dom';

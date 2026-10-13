@@ -18,7 +18,6 @@ type RectLike = {
 	height: number;
 };
 
-// The server project has no DOM. A trigger only needs the client rects the middleware reads.
 function createTrigger(rects: RectLike[] | (() => RectLike[])) {
 	return {
 		getClientRects: () => (typeof rects === 'function' ? rects() : rects)
