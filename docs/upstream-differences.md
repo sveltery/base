@@ -314,6 +314,54 @@ Local: the shared `PopupViewport` leaves them off the previous pane, as Popover 
 
 The "does not re-render inactive triggers" cases count React renders. "Cleans up the transition when a lagging payload remounts the current container" depends on a payload that arrives a render after the trigger id. Both have no Svelte counterpart.
 
+## NavigationMenu
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/navigation-menu/**`. The paired React fixture runs `@base-ui/react` 1.9.0.
+
+### Public surface
+
+Upstream: `value` and `defaultValue`, `actionsRef`, the `NavigationMenu*DataAttributes` and `NavigationMenu*CssVars` namespaces.
+
+Local: `value` is `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The namespaces are not exported.
+
+### Content moves into the viewport by an attachment
+
+Upstream: `NavigationMenu.Content` renders through a React portal into the viewport, and React events bubble along the component tree.
+
+Local: the content element stays in its item's component tree and an attachment moves it into the viewport while the item is active. DOM events from the content bubble through the viewport and the popup, which is where the DOM places it.
+
+### Size variables live in state
+
+Upstream: `--popup-width`, `--popup-height`, `--positioner-width` and `--positioner-height` are written with `style.setProperty`, and React patches other style properties around them.
+
+Local: Svelte replaces the whole `style` attribute when a part's style changes, which dropped those variables. `StyleVars` in `src/lib/navigation-menu/style-vars.svelte.ts` writes each variable to the element at once and to state, and the popup and positioner render that state in their style. A value written to `style` directly by other code is still replaced by the next style change. `does not collapse auto-sized popup to zero on close if measurement temporarily returns 0` primes its size by mocking the popup's measured size before opening instead of calling `setProperty`.
+
+Test: `src/lib/navigation-menu/NavigationMenuRoot.svelte.spec.ts` (`preserves popup size when controlled value closes externally`) and `NavigationMenuNested.svelte.spec.ts`.
+
+### Focus guards listen for focusin
+
+Upstream: the guards use React `onFocus`, which React attaches as `focusin`.
+
+Local: the guards listen for `focusin`, so the positioner's capture listener re-enables the tabbables in the popup before a guard moves focus into it.
+
+Test: `src/lib/navigation-menu/NavigationMenuTrigger.svelte.spec.ts` (`handles focus and positioner height`).
+
+### Shared floating-ui internals
+
+Upstream: the navigation menu imports `safePolygon` pointer-events helpers, `getNodeChildren`, `enableFocusInside`, `disableFocusInside`, `getNextTabbable` and `getPreviousTabbable` from `floating-ui-react` internals.
+
+Local: `packages/floating-ui-svelte/src/sharedInternals.ts` re-exports the existing helpers, and the package entry `packages/floating-ui-svelte/src/index.ts` gains one named export of them. The pointer-events lock keeps one owner per scope element in a module map, so a copy outside the package would not see the lock that hover interactions applied.
+
+### Object item values compare by identity
+
+Upstream: `value === itemValue` compares the object the consumer passed.
+
+Local: the same comparison runs, but a `$state` object is a deep proxy, so an item value read from `$state` is not the object stored in a bound `$state` value. Use primitives, or keep object values in `$state.raw`.
+
+### Not covered
+
+The positioner case that spies on the arguments of the anchor positioning hook asserts an implementation detail. The conformance cases for `ref`, the `className` function and the React render prop have no Svelte counterpart. `NavigationMenuParts.svelte.spec.ts` checks each part's host element, `class`, attributes, attachments and `render` snippet instead.
+
 ## Menu
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/menu/**` without the filter parts. The paired React fixture runs `@base-ui/react` 1.9.0. `MenuStore` extends `PopupStore<MenuChangeReason>`. List navigation and typeahead come from `packages/floating-ui-svelte`.
@@ -448,6 +496,40 @@ Local: `@sveltery/floating-ui-svelte` publishes the tree and parent node id from
 
 React-only cases: `describeConformance` (refs, `className` and style functions). Upstream's positioner cases spy on `useAnchorPositioning` arguments. The local spec asserts the placement instead: the pointer anchor, explicit placement and offsets, fixed positioning, the alignment flip at the viewport edge, and a submenu against its trigger. The `uses the layout viewport for a root context menu` case is covered by a stand-in `window.visualViewport` half the page wide, since the test browser cannot pinch zoom. The `uses the visual viewport for a context menu submenu` case has no observable result in the test viewport. `-webkit-touch-callout: none` is set on the trigger, but Chromium drops it, so no spec reads it.
 
+## Toast
+
+Source: `packages/react/src/toast` at Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`). The React fixture runs `@base-ui/react@1.9.0`. Portal, positioning, button behavior, `mergeProps`, and the state attribute helpers are the landed shared code. The store's auto-dismiss timers are plain `Timeout`s that `Toast.Provider` clears when it is destroyed. A toast added during a server render schedules no timer, since the provider's cleanup never runs there.
+
+### Toast object, manager, and provider
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/toast/useToastManager.ts`, `createToastManager.ts`, `store.ts`, and `provider/ToastProvider.tsx`.
+
+| Upstream                                                                                                                        | Local                                                                                                                                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useToastManager()` returns `{ toasts, add, close, update, promise }`                                                           | `getToastManager()` (also `Toast.getToastManager`) returns the same methods and a `toasts` getter. Call it during component init. Read `manager.toasts`. Destructuring `toasts` stops it updating. The return type is `GetToastManagerReturnValue` |
+| `title`, `description`, and `actionProps.children` are `React.ReactNode`                                                        | `string \| Snippet`. A snippet renders with `{@render}`. `''` and `undefined` render nothing                                                                                                                                                       |
+| `ref` on the toast object                                                                                                       | `element`, the root element. `Toast.Root` writes it. Focus management reads it                                                                                                                                                                     |
+| `actionProps` is `React.ComponentPropsWithoutRef<'button'>`                                                                     | `HTMLButtonAttributes` with `children: string \| Snippet`                                                                                                                                                                                          |
+| `positionerProps` is `ToastPositioner.Props` without `anchor` and `toast`. Only the positioning options take effect             | `ToastManagerPositionerProps` holds only those options and `anchor`                                                                                                                                                                                |
+| `createToastManager()` exposes the provider subscription as the string key `' subscribe'`                                       | A module symbol that only `Toast.Provider` imports. `ToastManagerEvent` is a union discriminated by `action`                                                                                                                                       |
+| The store keeps `timeout` and `limit` in state, and a layout effect syncs them from the provider props and recomputes `limited` | The store reads `timeout` and `limit` from the provider props through a getter, and `toasts` derives each toast's `limited` flag from the current limit. A changed prop is current before any descendant effect runs                               |
+| The promise handoff probes the options for `setPromise`                                                                         | The store returns the handled promise. The provider passes it to the manager's `setPromise`                                                                                                                                                        |
+| The provider handles a manager `update` with an empty id as an `add`, so it adds a toast built from that event's options        | The store ignores an update for an id it does not hold, so an empty id changes nothing                                                                                                                                                             |
+| The `*DataAttributes` and `*CssVars` exports are module namespaces                                                              | Constant objects with the same names and keys, such as `ToastRootDataAttributes.swipeDirection`                                                                                                                                                    |
+
+### Parts
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/toast/**`.
+
+- `Toast.Viewport` listens for `focusin` and `focusout`, which bubble only through the DOM. React's `onFocus` and `onBlur` also bubble through portals. When focus moves into content portaled out of a toast, the viewport sees only the `focusout`, so the timers resume. Upstream's `onFocus` then pauses them again when the focus is visible.
+- `Toast.Title` and `Toast.Description` inside a `render` snippet register their id with the root, for `aria-labelledby` and `aria-describedby`, only when the snippet spreads the host props onto an element. The registration is an attachment in those props. Upstream registers the id whenever the part renders.
+- `Toast.Title`, `Toast.Description`, and `Toast.Action` render nothing unless they have children or the toast field has content. Upstream also inspects a `render` element's own children. A `render` snippet cannot be inspected, so its own text does not count. Pass that text as children instead.
+- `Toast.Portal` is the shared `FloatingPortal`, which renders focus guards only for a focus manager, so it behaves like upstream's `FloatingPortalLite`. It has no `keepMounted`, as upstream.
+- `Toast.Root` reads the drag start transform, including scale, with a toast-local `getElementTransform`. The shared helper returns translation only.
+- `class` and `style` take no function of state, as in every other component.
+
+Test: `src/lib/toast/store.svelte.spec.ts`, `src/lib/toast/toast-ssr.spec.ts`, `src/lib/toast/manager.svelte.spec.ts`, `src/lib/toast/manager-types.spec.ts`, `src/lib/toast/Toast.svelte.spec.ts`, `src/lib/toast/ToastRoot.svelte.spec.ts`, and `src/lib/toast/parts.svelte.spec.ts`. `src/lib/toast/Toast.svelte.spec.ts` (`keeps timers paused on mouseleave while the window is blurred`, `collapses a deferred mouseleave after a closing toast is removed while blurred`, `syncs a changed limit before descendant effects`). `src/lib/toast/manager.svelte.spec.ts` (`recomputes limited toasts when the limit prop changes`). `src/lib/toast/parts.svelte.spec.ts` (`renders content passed through the render snippet`, `does not render a childless render snippet when there is no content`).
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -485,10 +567,12 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |
 | Tooltip            | refs, transform positioning without a Viewport, `--popup-width` on the previous viewport pane          |
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
+| NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                         |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
 | Menu               | Filter parts, `actionsRef`, refs                                                                       |
 | Menubar            | the `MenubarDataAttributes` namespace, refs                                                            |
 | ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                               |
+| Toast              | refs, `className` and `style` callbacks                                                                |
 
 ## Shared floating internals
 
