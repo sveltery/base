@@ -3,6 +3,8 @@
 // The store's lists are runes, so this runs in the browser project. Upstream seeds the state
 // directly; here the toasts go in through `addToast`, oldest first, and are then marked mounted
 // the way `Toast.Root` does. `syncProviderProps` is the provider's `limit` prop.
+// The "re-pauses timers" cases run in Toast.svelte.spec.ts, where the pause comes from
+// hovering the viewport or blurring the window instead of a direct `pauseTimers()` call.
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ToastStore } from './store.svelte.js';
 import type { ToastObject } from './types.js';
@@ -274,80 +276,6 @@ describe('ToastStore', () => {
 			vi.useRealTimers();
 		});
 
-		it('re-pauses timers after the last toast is closed and a new one is added', () => {
-			vi.useFakeTimers();
-			const store = seed([]);
-
-			// Add a toast with a running timer, then pause it (as a hover would).
-			store.addToast({ title: 'a', timeout: 100 });
-			store.pauseTimers();
-
-			// Closing the last toast must clear the internal "paused" flag, otherwise
-			// the next toast's timer can never be paused again.
-			store.closeToast(store.toasts[0].id);
-
-			store.addToast({ title: 'b', timeout: 100 });
-			const newToastId = store.toasts[0].id;
-
-			// Hovering again should pause the new toast's timer.
-			store.pauseTimers();
-			vi.advanceTimersByTime(200);
-
-			expect(store.toast(newToastId)?.transitionStatus).toBe('starting');
-		});
-
-		it('re-pauses timers after all toasts are closed and a new one is added', () => {
-			vi.useFakeTimers();
-			const store = seed([]);
-
-			store.addToast({ id: 'a', title: 'a', timeout: 100 });
-			store.addToast({ id: 'b', title: 'b', timeout: 100 });
-			store.pauseTimers();
-
-			store.closeToast();
-
-			store.addToast({ id: 'c', title: 'c', timeout: 100 });
-			store.pauseTimers();
-			vi.advanceTimersByTime(200);
-
-			expect(store.toast('c')?.transitionStatus).toBe('starting');
-		});
-
-		it('re-pauses timers after the last active toast closes while ending toasts remain', () => {
-			vi.useFakeTimers();
-			const store = seed([]);
-
-			store.addToast({ id: 'a', title: 'a', timeout: 100 });
-			store.addToast({ id: 'b', title: 'b', timeout: 100 });
-			store.pauseTimers();
-
-			store.closeToast('b');
-			store.closeToast('a');
-
-			store.addToast({ id: 'c', title: 'c', timeout: 100 });
-			store.pauseTimers();
-			vi.advanceTimersByTime(200);
-
-			expect(store.toast('c')?.transitionStatus).toBe('starting');
-		});
-
-		it('re-pauses timers after the last timed toast closes while untimed toasts remain', () => {
-			vi.useFakeTimers();
-			const store = seed([]);
-
-			store.addToast({ id: 'loading', title: 'loading', type: 'loading' });
-			store.addToast({ id: 'timed', title: 'timed', timeout: 100 });
-			store.pauseTimers();
-
-			store.closeToast('timed');
-
-			store.addToast({ id: 'c', title: 'c', timeout: 100 });
-			store.pauseTimers();
-			vi.advanceTimersByTime(200);
-
-			expect(store.toast('c')?.transitionStatus).toBe('starting');
-		});
-
 		it('keeps a rescheduled timer paused while expanded, and runs it once collapsed', () => {
 			vi.useFakeTimers();
 			const store = seed([]);
@@ -412,22 +340,6 @@ describe('ToastStore', () => {
 
 			vi.advanceTimersByTime(1);
 			expect(store.toast('a')?.transitionStatus).toBe('ending');
-		});
-
-		it('re-pauses timers after the last timed toast becomes untimed', () => {
-			vi.useFakeTimers();
-			const store = seed([]);
-
-			store.addToast({ id: 'a', title: 'a', timeout: 100 });
-			store.pauseTimers();
-
-			store.updateToastInternal('a', { timeout: 0 });
-
-			store.addToast({ id: 'b', title: 'b', timeout: 100 });
-			store.pauseTimers();
-			vi.advanceTimersByTime(200);
-
-			expect(store.toast('b')?.transitionStatus).toBe('starting');
 		});
 
 		it('accumulates active time across hover cycles so the toast still dismisses', () => {

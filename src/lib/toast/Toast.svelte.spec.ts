@@ -6,6 +6,7 @@
 // mouseenter; here the tests hover with the real mouse or dispatch `mouseenter` on the viewport.
 // The JSDOM-only window focus cases dispatch the window's own blur and focus events instead of
 // calling the listeners a spy captured. The iframe case portals the viewport with Toast.Portal.
+// The "re-pauses timers" cases of store.test.ts run here, paused by hover or window blur.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
@@ -681,6 +682,198 @@ describe('<Toast.Viewport />', () => {
 
 				expect(roots()).toHaveLength(1);
 				expect(viewport().hasAttribute('data-expanded')).toBe(false);
+			});
+		});
+		it('keeps timers paused when the window regains focus on a focus-visible toast', async () => {
+			renderToasts();
+
+			const addButton = button('add');
+			addButton.focus();
+			await click(addButton);
+			await userEvent.keyboard('{F6}');
+			await userEvent.keyboard('{Tab}');
+
+			const root = byTestId('root')!;
+			expect(document.activeElement).toBe(root);
+			expect(root.matches(':focus-visible')).toBe(true);
+
+			// Returning to the window refocuses the keyboard-focused toast.
+			window.dispatchEvent(new FocusEvent('blur'));
+			root.dispatchEvent(new FocusEvent('focus'));
+			await advance(5001);
+			expect(roots()).toHaveLength(1);
+
+			addButton.focus();
+			await advance(5001);
+			expect(roots()).toHaveLength(0);
+		});
+
+		it('neither expands nor pauses on a mouse click inside', async () => {
+			renderToasts();
+
+			await click(button('add'));
+			const root = page.getByTestId('root');
+			await userEvent.click(root);
+			expect(document.activeElement).toBe(byTestId('root'));
+			expect(byTestId('root')!.matches(':focus-visible')).toBe(false);
+
+			await userEvent.unhover(root);
+			expect(viewport().hasAttribute('data-expanded')).toBe(false);
+
+			await advance(5001);
+			expect(roots()).toHaveLength(0);
+		});
+
+		it('pauses timers on a touch press on a toast', async () => {
+			renderToasts();
+
+			await click(button('add'));
+			const root = byTestId('root')!;
+			stubPointerCapture(root);
+
+			const touch = { pointerId: 1, pointerType: 'touch', clientX: 10, clientY: 10 };
+			pointer('pointerdown', root, { ...touch, button: 0 });
+			pointer('pointerup', root, touch);
+			await tick();
+
+			await advance(5001);
+			expect(roots()).toHaveLength(1);
+
+			pointer('pointerdown', document.body, { pointerType: 'touch' });
+			await advance(5001);
+			expect(roots()).toHaveLength(0);
+		});
+
+		describe('re-pausing', () => {
+			function toast(id: string) {
+				return byTestId(`toast-${id}`);
+			}
+
+			// The real pointer rests on the add button, so only the dispatched mouseenter and
+			// mouseleave hover the viewport.
+			async function renderWithPointerAway() {
+				const { manager } = renderToasts({ rootTestId: 'id' });
+				await userEvent.hover(page.getByRole('button', { name: 'add' }));
+				return manager;
+			}
+
+			it('re-pauses on hover after the last toast is closed and a new one is added', async () => {
+				const manager = await renderWithPointerAway();
+
+				manager.add({ id: 'a', title: 'a', timeout: 100 });
+				await tick();
+				mouseEnter(viewport());
+				await click(closeButton(toast('a')!));
+				expect(toast('a')).toBe(null);
+
+				manager.add({ id: 'b', title: 'b', timeout: 100 });
+				await tick();
+				mouseEnter(viewport());
+				await advance(200);
+				expect(toast('b')).not.toBe(null);
+
+				mouseLeave(viewport());
+				await advance(99);
+				expect(toast('b')).not.toBe(null);
+				await advance(2);
+				expect(toast('b')).toBe(null);
+			});
+
+			it('re-pauses on hover after all toasts are closed and a new one is added', async () => {
+				const manager = await renderWithPointerAway();
+
+				manager.add({ id: 'a', title: 'a', timeout: 100 });
+				manager.add({ id: 'b', title: 'b', timeout: 100 });
+				await tick();
+				mouseEnter(viewport());
+				manager.close();
+				await tick();
+				expect(roots()).toHaveLength(0);
+
+				manager.add({ id: 'c', title: 'c', timeout: 100 });
+				await tick();
+				mouseEnter(viewport());
+				await advance(200);
+				expect(toast('c')).not.toBe(null);
+
+				mouseLeave(viewport());
+				await advance(101);
+				expect(toast('c')).toBe(null);
+			});
+
+			it('re-pauses on window blur after the last active toast closes while ending toasts remain', async () => {
+				await withAnimations(async () => {
+					const manager = await renderWithPointerAway();
+
+					manager.add({ id: 'a', title: 'a', timeout: 100 });
+					manager.add({ id: 'b', title: 'b', timeout: 100 });
+					await tick();
+					holdExit(toast('a')!);
+					holdExit(toast('b')!);
+					mouseEnter(viewport());
+
+					manager.close('b');
+					manager.close('a');
+					await tick();
+					expect(toast('a')!.hasAttribute('data-ending-style')).toBe(true);
+					expect(toast('b')!.hasAttribute('data-ending-style')).toBe(true);
+
+					manager.add({ id: 'c', title: 'c', timeout: 100 });
+					await tick();
+					window.dispatchEvent(new FocusEvent('blur'));
+					await advance(200);
+					expect(toast('c')!.hasAttribute('data-ending-style')).toBe(false);
+
+					window.dispatchEvent(new FocusEvent('focus'));
+					await advance(99);
+					expect(toast('c')!.hasAttribute('data-ending-style')).toBe(false);
+					await advance(2);
+					expect(toast('c')!.hasAttribute('data-ending-style')).toBe(true);
+				});
+			});
+
+			it('keeps a toast added while hovered paused until mouseleave, after the last timed toast closes', async () => {
+				const manager = await renderWithPointerAway();
+
+				manager.add({ id: 'loading', title: 'loading', type: 'loading' });
+				manager.add({ id: 'timed', title: 'timed', timeout: 100 });
+				await tick();
+				mouseEnter(viewport());
+				await click(closeButton(toast('timed')!));
+				expect(toast('timed')).toBe(null);
+				// The loading toast keeps the stack, so the viewport stays hovered.
+				expect(viewport().hasAttribute('data-expanded')).toBe(true);
+
+				manager.add({ id: 'c', title: 'c', timeout: 100 });
+				await advance(200);
+				expect(toast('c')).not.toBe(null);
+
+				mouseLeave(viewport());
+				await advance(99);
+				expect(toast('c')).not.toBe(null);
+				await advance(2);
+				expect(toast('c')).toBe(null);
+				expect(toast('loading')).not.toBe(null);
+			});
+
+			it('keeps a toast added while the window is blurred paused, after the last timed toast becomes untimed', async () => {
+				const manager = await renderWithPointerAway();
+
+				manager.add({ id: 'a', title: 'a', timeout: 100 });
+				await tick();
+				window.dispatchEvent(new FocusEvent('blur'));
+				manager.update('a', { timeout: 0 });
+
+				manager.add({ id: 'b', title: 'b', timeout: 100 });
+				await advance(200);
+				expect(toast('b')).not.toBe(null);
+
+				window.dispatchEvent(new FocusEvent('focus'));
+				await advance(99);
+				expect(toast('b')).not.toBe(null);
+				await advance(2);
+				expect(toast('b')).toBe(null);
+				expect(toast('a')).not.toBe(null);
 			});
 		});
 	});

@@ -361,6 +361,36 @@ describe('<Toast.Positioner />', () => {
 		expect(positioner.getAttribute('data-align')).toBe('end');
 	});
 
+	it('disables transitions until the toast has mounted', async () => {
+		const toastManager = Toast.createToastManager();
+		render(ToastPositionerHarness, { toastManager, timeout: 0 });
+
+		// The starting style lasts only until the root's mount effect, so record every style
+		// the positioner had before it settled.
+		const styles: string[] = [];
+		const observer = new MutationObserver((records) => {
+			for (const record of records) {
+				if ((record.target as HTMLElement).dataset.testid === 'fresh') {
+					styles.push(record.oldValue ?? '');
+				}
+			}
+		});
+		observer.observe(document.body, {
+			subtree: true,
+			attributes: true,
+			attributeFilter: ['style'],
+			attributeOldValue: true
+		});
+
+		toastManager.add({ id: 'fresh', title: 'fresh' });
+		await tick();
+		observer.disconnect();
+
+		const positioner = byTestId('fresh')!;
+		expect(styles.some((style) => style.includes('transition: none'))).toBe(true);
+		expect(positioner.style.transition).toBe('');
+	});
+
 	describe('--toast-index', () => {
 		it('keeps the DOM index while a toast animates out', async () => {
 			await withAnimations(async () => {
