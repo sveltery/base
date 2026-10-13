@@ -69,12 +69,11 @@ export class DismissInteraction {
 	readonly #tree = useFloatingTree();
 	readonly #compositionTimeout = new ScopedTimeout();
 	readonly #cancelDismissOnEndTimeout = new ScopedTimeout();
-	readonly #insideTreeTimeout = new ScopedTimeout();
 	#composing = false;
 	#sawPressWhileOpen = false;
 	#pressStartedInside = false;
-	/** A press reached the floating element this task. Upstream `insideReactTree`. */
-	#insideTree = false;
+	/** The last press that passed through the floating element. Upstream `insideReactTree`. */
+	#insideEvent: Event | null = null;
 	/** The click after an inside press still belongs to that press. A cancel has no click. */
 	#ignoreInsideReleaseClick = false;
 	/** Pointer type from the last pointerdown. A later mousedown is still that gesture. */
@@ -266,11 +265,8 @@ export class DismissInteraction {
 		});
 	}
 
-	#markInsideTree = () => {
-		this.#insideTree = true;
-		this.#insideTreeTimeout.start(0, () => {
-			this.#insideTree = false;
-		});
+	#markInsideTree = (event: Event) => {
+		this.#insideEvent = event;
 	};
 
 	#options() {
@@ -309,7 +305,7 @@ export class DismissInteraction {
 	}
 
 	#insideDismissTree(event: Event) {
-		if (this.#insideTree) return true;
+		if (event === this.#insideEvent) return true;
 		if (pressIsInside(this.store, event) || this.#targetIsTrigger(event)) return true;
 		if (!this.#tree || !this.store.nodeId) return false;
 		const target = getTarget(event);
