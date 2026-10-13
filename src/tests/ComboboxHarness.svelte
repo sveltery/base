@@ -78,6 +78,8 @@
 		refuseValue = false,
 		mapValue,
 		refuseOpen = false,
+		rows,
+		rowGroups,
 		onOuterKeydown,
 		popupRenderId
 	}: {
@@ -141,6 +143,10 @@
 		mapValue?: (next: unknown) => unknown;
 		/** Binds `open` through a setter that ignores writes, as a parent ignoring a request. */
 		refuseOpen?: boolean;
+		/** Grid rows of item values, rendered without the root's `items` prop. */
+		rows?: string[][];
+		/** Groups of grid rows, each with an optional label. */
+		rowGroups?: { label?: string; rows: string[][] }[];
 		/** Wraps everything in a `<div>` with this keydown listener. */
 		onOuterKeydown?: (event: KeyboardEvent) => void;
 		/** Renders the popup through a `render` snippet whose element sets this id. */
@@ -202,6 +208,16 @@
 	</Combobox.Item>
 {/snippet}
 
+{#snippet gridRows(list: string[][])}
+	{#each list as row, index (index)}
+		<Combobox.Row>
+			{#each row as cell (cell)}
+				<Combobox.Item value={cell} data-testid="item-{cell}">{cell}</Combobox.Item>
+			{/each}
+		</Combobox.Row>
+	{/each}
+{/snippet}
+
 {#snippet entries()}
 	{#if items !== undefined}
 		{#if grouped}
@@ -221,6 +237,14 @@
 				{#snippet children(entry: unknown)}{@render itemFor(entry)}{/snippet}
 			</Combobox.Collection>
 		{/if}
+	{:else if rows || rowGroups}
+		{#if rows}{@render gridRows(rows)}{/if}
+		{#each rowGroups ?? [] as group, index (index)}
+			<Combobox.Group>
+				{#if group.label}<Combobox.GroupLabel>{group.label}</Combobox.GroupLabel>{/if}
+				{@render gridRows(group.rows)}
+			</Combobox.Group>
+		{/each}
 	{:else}
 		{#if staticGroups}
 			{#each staticGroups as group (group.label)}
