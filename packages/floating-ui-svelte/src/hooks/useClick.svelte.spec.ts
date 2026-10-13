@@ -41,22 +41,31 @@ describe('ClickInteraction', () => {
 
 	describe('mousedown press', () => {
 		// Chrome reports a screen reader press as a zero-pressure 1x1 mouse pointerdown.
+		function pointerDownAs(virtual: boolean) {
+			dispatch(
+				new PointerEvent('pointerdown', {
+					bubbles: true,
+					pointerType: 'mouse',
+					width: 1,
+					height: 1,
+					pressure: virtual ? 0 : 0.5,
+					buttons: virtual ? 0 : 1
+				})
+			);
+		}
+
+		function mouseDownAs(virtual: boolean) {
+			dispatch(new MouseEvent('mousedown', { bubbles: true, detail: virtual ? 0 : 1 }));
+		}
+
+		function dispatch(event: Event) {
+			page.getByTestId('trigger').element().dispatchEvent(event);
+		}
+
 		function press(virtual: boolean) {
-			const trigger = page.getByTestId('trigger').element();
 			flushSync(() => {
-				trigger.dispatchEvent(
-					new PointerEvent('pointerdown', {
-						bubbles: true,
-						pointerType: 'mouse',
-						width: 1,
-						height: 1,
-						pressure: virtual ? 0 : 0.5,
-						buttons: virtual ? 0 : 1
-					})
-				);
-				trigger.dispatchEvent(
-					new MouseEvent('mousedown', { bubbles: true, detail: virtual ? 0 : 1 })
-				);
+				pointerDownAs(virtual);
+				mouseDownAs(virtual);
 			});
 		}
 
@@ -66,6 +75,16 @@ describe('ClickInteraction', () => {
 			press(true);
 
 			expect(component.store.open).toBe(true);
+		});
+
+		it('toggles on a later screen reader mousedown after a press with no click', () => {
+			const { component } = render(ClickHarness, { event: 'mousedown' });
+			press(true);
+			expect(component.store.open).toBe(true);
+
+			flushSync(() => mouseDownAs(true));
+
+			expect(component.store.open).toBe(false);
 		});
 
 		it('opens a frame after a mouse press', async () => {

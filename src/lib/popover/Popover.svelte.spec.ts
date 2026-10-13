@@ -3,7 +3,7 @@
 // Menu, Combobox, shadow-root outside press, and actionsRef are not ported.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PopoverDetachHarness from '../../tests/PopoverDetachHarness.svelte';
 import PopoverExitHarness from '../../tests/PopoverExitHarness.svelte';
@@ -17,6 +17,8 @@ import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
 import DisabledNonNativeHarness from '../../tests/DisabledNonNativeHarness.svelte';
 import PopoverDisabledHostHarness from '../../tests/PopoverDisabledHostHarness.svelte';
+import NestedPopoverFocusHarness from '../../tests/NestedPopoverFocusHarness.svelte';
+import PopoverCanceledFocusOutHarness from '../../tests/PopoverCanceledFocusOutHarness.svelte';
 import { Popover, PopoverHandle } from './index.js';
 import { PopoverStore } from './store.svelte.js';
 
@@ -968,6 +970,51 @@ async function fieldsDuringCrossFade(formId: string) {
 	observer.disconnect();
 	return fields ?? [];
 }
+
+describe('nested Popover focus-out', () => {
+	// Upstream v1.9.0 `FloatingFocusManager` closes a nested popup when focus leaves its trigger for
+	// another control of the parent popup.
+	it('closes the inner popover when focus moves from its trigger to another control of the outer popup', async () => {
+		const innerChanged = vi.fn();
+		render(NestedPopoverFocusHarness, { onInnerOpenChange: innerChanged });
+		await userEvent.click(page.getByTestId('inner-trigger'));
+		await expect.poll(() => document.querySelector('[data-testid="inner-popup"]')).not.toBeNull();
+		expect(document.activeElement).toBe(page.getByTestId('inner-trigger').element());
+		innerChanged.mockClear();
+
+		(page.getByTestId('outer-item').element() as HTMLElement).focus();
+
+		await expect.poll(() => document.querySelector('[data-testid="inner-popup"]')).toBeNull();
+		expect(innerChanged.mock.calls.map(([open, details]) => [open, details.reason])).toEqual([
+			[false, 'focus-out']
+		]);
+		expect(document.activeElement).toBe(page.getByTestId('outer-item').element());
+	});
+});
+
+describe('Popover return focus', () => {
+	// Upstream v1.9.0 `FloatingFocusManager` clears `preventReturnFocusRef` on an outside press close.
+	it('returns focus to the trigger on an outside press after a canceled focus-out close', async () => {
+		const changed = vi.fn();
+		render(PopoverCanceledFocusOutHarness, { onOpenChange: changed });
+		await userEvent.click(page.getByTestId('trigger'));
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).not.toBeNull();
+		(page.getByTestId('inside').element() as HTMLElement).focus();
+
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => changed.mock.calls.length).toBe(2);
+		expect(document.querySelector('[data-testid="popup"]')).not.toBeNull();
+		await userEvent.click(page.getByTestId('blank'));
+
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('trigger').element());
+		expect(changed.mock.calls).toEqual([
+			[true, 'trigger-press'],
+			[false, 'focus-out'],
+			[false, 'outside-press']
+		]);
+	});
+});
 
 describe('Popover.Positioner transitions', () => {
 	it('disables positioner transitions while the popup is starting', async () => {
