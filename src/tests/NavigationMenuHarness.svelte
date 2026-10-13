@@ -36,6 +36,7 @@
 		withArrow = false,
 		withIcon = false,
 		side,
+		align,
 		direction = 'ltr'
 	}: {
 		variant?: Variant;
@@ -51,6 +52,7 @@
 		withArrow?: boolean;
 		withIcon?: boolean;
 		side?: 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end';
+		align?: 'start' | 'center' | 'end';
 		direction?: TextDirection;
 	} = $props();
 
@@ -163,7 +165,7 @@
 		{/if}
 
 		<NavigationMenu.Portal keepMounted={keepMountedPortal}>
-			<NavigationMenu.Positioner data-testid="top-level-positioner" {side}>
+			<NavigationMenu.Positioner data-testid="top-level-positioner" {side} {align}>
 				<NavigationMenu.Popup data-testid="popup-root">
 					{#if withArrow}<NavigationMenu.Arrow data-testid="arrow" />{/if}
 					{#if variant === 'noViewport'}

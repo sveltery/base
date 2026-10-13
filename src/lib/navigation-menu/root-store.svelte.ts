@@ -63,8 +63,17 @@ export class NavigationMenuFloating extends FloatingRootStore {
 		super({ nested, floatingId, floatingElementKind: 'positioner' });
 	}
 
+	/**
+	 * A close clears the active trigger at once. The exit transition stays anchored to the last
+	 * trigger until the popup unmounts, where upstream's `useFloating` keeps its last coordinates.
+	 */
 	override get referenceElement() {
-		return this.root.activeTrigger?.domReferenceElement ?? null;
+		const root = this.root;
+		return (
+			root.activeTrigger?.domReferenceElement ??
+			(root.mounted ? root.prevTriggerElement : null) ??
+			null
+		);
 	}
 
 	override isOpen() {
@@ -101,7 +110,7 @@ export class NavigationMenuRootStore {
 	});
 
 	closeReason: string | undefined;
-	prevTriggerElement: Element | null | undefined = null;
+	prevTriggerElement = $state.raw<Element | null | undefined>(null);
 	readonly guards: {
 		beforeInside: HTMLElement | null;
 		afterInside: HTMLElement | null;

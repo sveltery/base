@@ -15,6 +15,7 @@ import {
 	flush,
 	hover,
 	hoverOpen,
+	keyDown,
 	mockAnimations,
 	mockBoundingClientRect,
 	pointer,
@@ -367,6 +368,41 @@ describe('NavigationMenu.Root', () => {
 
 			await expect.poll(() => byId('popup-1')).toBeNull();
 			expect(document.activeElement).toBe(trigger);
+		});
+
+		it('keeps the positioner at the trigger while the popup exits', async () => {
+			const restore = withAnimations();
+			try {
+				// Start alignment keeps the placement independent of the popup's exit size.
+				render(NavigationMenuHarness, { align: 'start' });
+				const trigger = byId('trigger-1')!;
+				click(trigger);
+				await flush();
+				const positioner = byId('top-level-positioner')!;
+				const popupRoot = byId('popup-root')!;
+				await expect.poll(() => positioner.style.position).toBe('absolute');
+				const placement = () => ({
+					position: positioner.style.position,
+					top: positioner.style.top,
+					left: positioner.style.left,
+					opacity: positioner.style.opacity
+				});
+				const openPlacement = placement();
+
+				const animations = mockAnimations(popupRoot);
+				animations.start();
+				keyDown(trigger, 'Escape');
+				await flush();
+
+				expect(popupRoot.hasAttribute('data-ending-style')).toBe(true);
+				expect(placement()).toEqual(openPlacement);
+				expect(openPlacement.opacity).toBe('');
+
+				await animations.finish();
+				await expect.poll(() => byId('popup-root')).toBeNull();
+			} finally {
+				restore();
+			}
 		});
 
 		it('respects focus outside when clicking menu', async () => {
