@@ -16,13 +16,15 @@
 		labels?: Label[];
 		items?: string[];
 		/** Renders a part outside the parent it needs. */
-		orphan?: 'item-text' | 'group-label';
+		orphan?: 'item-text' | 'group-label' | 'popup';
 	} = $props();
 </script>
 
 <Select.Root open>
 	{#if orphan === 'group-label'}
 		<Select.GroupLabel />
+	{:else if orphan === 'popup'}
+		<Select.Popup />
 	{:else}
 		<Select.Portal>
 			<Select.Positioner>
