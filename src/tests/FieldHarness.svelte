@@ -420,6 +420,19 @@
 	</Form>
 	<output data-testid="seen">{seen}</output>
 	<output data-testid="values">{values}</output>
+{:else if scenario === 'length' || scenario === 'length-bound'}
+	<Form onFormSubmit={accept}>
+		<Field.Root name="username">
+			{#if scenario === 'length'}
+				<Field.Control minlength={3} data-testid="control" />
+			{:else}
+				<Field.Control minlength={3} bind:value={typed} data-testid="control" />
+			{/if}
+			<Field.Error data-testid="error" />
+		</Field.Root>
+		<button type="submit">Submit</button>
+	</Form>
+	<output data-testid="submitted">{submitted}</output>
 {:else if scenario === 'typed'}
 	<Field.Root>
 		<Field.Control bind:value={typed} data-testid="control" />

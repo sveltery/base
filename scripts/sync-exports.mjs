@@ -1,4 +1,5 @@
-// Writes package.json `exports` from the component folders in src/lib.
+// Writes package.json `exports` from the entry folders in src/lib: every folder with an
+// index.ts, nested ones included (`./form/kit`), except `internal`.
 // `--check` fails instead of writing when the map is out of date.
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 
@@ -11,14 +12,21 @@ const entry = (dir) => ({
 	default: `./dist/${dir}index.js`
 });
 
-const folders = readdirSync(lib, { withFileTypes: true })
-	.filter((d) => d.isDirectory() && d.name !== 'internal')
-	.filter((d) => existsSync(new URL(`${d.name}/index.ts`, lib)))
-	.map((d) => d.name)
-	.sort();
+/** @param {string} dir a folder under src/lib, `''` or ending in `/` */
+function entryFolders(dir) {
+	return readdirSync(new URL(dir, lib), { withFileTypes: true })
+		.filter((d) => d.isDirectory() && !(dir === '' && d.name === 'internal'))
+		.flatMap((d) => {
+			const folder = `${dir}${d.name}/`;
+			const own = existsSync(new URL(`${folder}index.ts`, lib)) ? [folder] : [];
+			return [...own, ...entryFolders(folder)];
+		});
+}
 
 const exports = { '.': entry('') };
-for (const name of folders) exports[`./${name}`] = entry(`${name}/`);
+for (const folder of entryFolders('').sort((a, b) => (a.slice(0, -1) < b.slice(0, -1) ? -1 : 1))) {
+	exports[`./${folder.slice(0, -1)}`] = entry(folder);
+}
 
 const source = readFileSync(pkgUrl, 'utf8');
 const pkg = JSON.parse(source);

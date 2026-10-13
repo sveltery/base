@@ -49,7 +49,7 @@ Import the component and assemble its parts:
 
 `Field.Root` owns the state. `Field.Label`, `Field.Description`, and `Field.Error` link themselves to the control with `for`, `aria-labelledby`, and `aria-describedby`, so you pass no ids. `Field.Control` is a native `<input>`. The [Input](/components/input) component is the same part under another name.
 
-`Field` also works with other form controls. [Checkbox](/components/checkbox), [Switch](/components/switch), [Radio Group](/components/radio-group), [Slider](/components/slider), [Number Field](/components/number-field), and [OTP Field](/components/otp-field) register with the nearest `Field.Root` the same way. Wrap a set of fields in a [Form](/components/form) to validate them together on submit.
+`Field` also works with other form controls. [Checkbox](/components/checkbox), [Switch](/components/switch), [Radio Group](/components/radio-group), [Slider](/components/slider), [Number Field](/components/number-field), and [OTP Field](/components/otp-field) register with the nearest `Field.Root` the same way. Wrap a set of fields in a [Form](/components/form) to validate them together on submit. [Forms](/handbook/forms) is the guide to validation, server errors, and form sources.
 
 ## Examples
 
@@ -204,6 +204,34 @@ When the message is an array of several messages, `Field.Error` renders them as 
 </Field.Root>
 ```
 
+### Bind to a form source
+
+`field` takes a field of a form source, such as `f.fields.email` from a SvelteKit remote form or from `actionForm()`. The field's issues show in `Field.Error`, and its touched and dirty state sets `data-touched` and `data-dirty`. `Field.Control` takes the field's encoded name and its value, so set neither on the control.
+
+`type` is the input type of the control. TypeScript checks it against the field's value. It is optional when a text input fits, as for a string, and required otherwise, as for a number or a boolean:
+
+```svelte
+<Form form={f}>
+	<Field.Root field={f.fields.email} type="email">
+		<Field.Label>Email</Field.Label>
+		<Field.Control required />
+		<Field.Error />
+	</Field.Root>
+	<Field.Root field={f.fields.age} type="number">
+		<Field.Label>Age</Field.Label>
+		<Field.Control />
+		<Field.Error />
+	</Field.Root>
+	<Field.Root field={f.fields.newsletter} type="switch">
+		<Field.Label><Switch.Root /> Send me the newsletter</Field.Label>
+	</Field.Root>
+</Form>
+```
+
+A composite control, such as Checkbox, Switch, Radio Group, Checkbox Group, Number Field, Slider, or OTP Field, binds through the `Field.Root` around it. Give the root the type that the control submits as, such as `switch` for a Switch and `range` for a Slider. In development, a control that does not match `type` logs an error.
+
+Inside a Form with a `form` source, `<Field.Root name="email">` binds to the source's `email` field. TypeScript does not check that name, and in development Form warns when an issue has no field to show it. For a TanStack Form field, pass `tanstackField(field)` from `@sveltery/base/form/tanstack`. [Forms](/handbook/forms#bind-a-sveltekit-remote-form) has the full examples.
+
 ### Control the field state
 
 `invalid`, `dirty`, and `touched` on `Field.Root` override the state that the field tracks. Use them when another library owns validation. Call `validate()` on the root, which you reach with `bind:this`, to validate on demand.
@@ -231,6 +259,7 @@ When the message is an array of several messages, `Field.Error` renders them as 
 - `Field.Validity` takes a children snippet. React uses a function child.
 - Upstream takes an `actionsRef` prop. In Svelte, use `bind:this` on `Field.Root` and call `validate()`.
 - The `name` on `Field.Root` takes precedence over the `name` on the control.
+- `field` and `type` on `Field.Root` have no upstream counterpart. They bind the field to a form source.
 - Checkbox, Switch, Radio Group, and Checkbox Group register with the field the same way upstream does. A radio group is named by `aria-labelledby`, so every radio keeps its own id. A radio inside a `Field.Item` is labeled by that item's `Field.Label`.
 - A Checkbox Group reports its whole value to `validate` and `onFormSubmit`. Upstream drops the values of disabled checkboxes and of checkboxes that belong to another form.
 - Handlers use lowercase names such as `oninput`. `readonly`, `autocomplete`, and `inputmode` use the HTML spelling.

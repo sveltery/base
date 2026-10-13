@@ -21,6 +21,7 @@
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFieldContext } from '../field/context.svelte.js';
+	import { BoundControl, sourceBoolean } from '../field/bound-control.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import type { SwitchHostProps, SwitchRootProps, SwitchRootState } from './types.js';
@@ -54,9 +55,18 @@
 		...elementProps
 	}: SwitchRootProps = $props();
 
+	const bound = new BoundControl(field, {
+		kind: 'switch',
+		read: () => checked === true,
+		write: (next) => {
+			checked = next;
+		},
+		fromSource: sourceBoolean
+	});
+
 	// `defaultChecked` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (checked === undefined) checked = defaultChecked;
+	if (checked === undefined) checked = bound.initial(defaultChecked);
 
 	// Two ids: the root's generated id, and the control id on the hidden input
 	// (or on the root when nativeButton is set). An explicit id replaces the control id.
@@ -70,6 +80,10 @@
 	const rootId = $derived(nativeButton ? controlId.current : generatedRootId);
 	const disabled = $derived(field.disabled || disabledProp);
 	const name = $derived(field.name ?? nameProp);
+	// Inside a bound Field the source encodes the name. The switch then submits `on` or nothing.
+	const boundProps = $derived(bound.inputProps());
+	const inputName = $derived(bound.bound ? boundProps.name : name);
+	const submittedValue = $derived(bound.bound ? boundProps : value !== undefined ? { value } : {});
 
 	const checkedState = $derived(checked === true);
 	const switchState: SwitchRootState = $derived({
@@ -147,7 +161,7 @@
 
 	// A named checkbox uses absolute positioning so it stays associated with its
 	// layout parent. An unnamed one uses the fixed visually-hidden style.
-	const inputStyle = $derived(toCssStyle(name ? visuallyHiddenInput : visuallyHidden));
+	const inputStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
 	let uncheckedNode = $state<HTMLInputElement | null>(null);
 
 	// Chromium toggles a checkbox before dispatching click, then reverts the toggle
@@ -235,18 +249,18 @@
 	{disabled}
 	{form}
 	id={hiddenInputId}
-	{name}
+	name={inputName}
 	{required}
 	style={inputStyle}
 	tabindex="-1"
 	aria-hidden="true"
 	aria-describedby={describedBy}
 	aria-invalid={invalid || undefined}
-	{...value !== undefined ? { value } : {}}
+	{...submittedValue}
 	onclick={handleInputClick}
 	onfocus={handleInputFocus}
 />
-{#if name && uncheckedValue !== undefined}
+{#if name && !bound.bound && uncheckedValue !== undefined}
 	<!-- Submits `uncheckedValue`. A native reset restores it with the checkbox above, so
 	FormData never holds both values. -->
 	<input
