@@ -10,11 +10,11 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { setFloatingTree, useFloatingParentNodeId } from '@sveltery/floating-ui-svelte';
+	import { REASONS } from '@sveltery/utils';
 	import {
 		getStateAttributesProps,
 		type StateAttributesMapping
 	} from '../internal/state-attributes.js';
-	import { MENU_REASONS } from '../menu/constants.js';
 	import { setMenubarParent } from '../menu/parent.svelte.js';
 	import { MenubarContext } from './context.svelte.js';
 	import type { MenubarProps, MenubarState } from './types.js';
@@ -59,8 +59,8 @@
 		if (details.open) {
 			context.setHasSubmenuOpen(true);
 		} else if (
-			details.reason !== MENU_REASONS.siblingOpen &&
-			details.reason !== MENU_REASONS.listNavigation
+			details.reason !== REASONS.siblingOpen &&
+			details.reason !== REASONS.listNavigation
 		) {
 			context.setHasSubmenuOpen(false);
 		}

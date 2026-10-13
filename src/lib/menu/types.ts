@@ -1,30 +1,29 @@
 import type { Attachment } from 'svelte/attachments';
 import type { Snippet } from 'svelte';
 import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
-import type { BaseUIChangeEventDetails, BaseUIGenericEventDetails } from '@sveltery/utils';
+import type { REASONS, BaseUIChangeEventDetails, BaseUIGenericEventDetails } from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { RenderChildren } from '../internal/render-children.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
-import type { MENU_REASONS } from './constants.js';
 import type { MenuHandle } from './handle.svelte.js';
 
 export type { Align, Side };
 
 export type MenuChangeReason =
-	| typeof MENU_REASONS.triggerHover
-	| typeof MENU_REASONS.triggerFocus
-	| typeof MENU_REASONS.triggerPress
-	| typeof MENU_REASONS.outsidePress
-	| typeof MENU_REASONS.focusOut
-	| typeof MENU_REASONS.listNavigation
-	| typeof MENU_REASONS.escapeKey
-	| typeof MENU_REASONS.itemPress
-	| typeof MENU_REASONS.closePress
-	| typeof MENU_REASONS.siblingOpen
-	| typeof MENU_REASONS.cancelOpen
-	| typeof MENU_REASONS.imperativeAction
-	| typeof MENU_REASONS.none;
+	| typeof REASONS.triggerHover
+	| typeof REASONS.triggerFocus
+	| typeof REASONS.triggerPress
+	| typeof REASONS.outsidePress
+	| typeof REASONS.focusOut
+	| typeof REASONS.listNavigation
+	| typeof REASONS.escapeKey
+	| typeof REASONS.itemPress
+	| typeof REASONS.closePress
+	| typeof REASONS.siblingOpen
+	| typeof REASONS.cancelOpen
+	| typeof REASONS.imperativeAction
+	| typeof REASONS.none;
 
 export type MenuChangeEventDetails = BaseUIChangeEventDetails<MenuChangeReason> & {
 	/** Keeps the popup mounted until `unmount()` is called on the root. */
@@ -32,7 +31,7 @@ export type MenuChangeEventDetails = BaseUIChangeEventDetails<MenuChangeReason> 
 };
 
 export type MenuHighlightReason =
-	typeof MENU_REASONS.keyboard | typeof MENU_REASONS.pointer | typeof MENU_REASONS.none;
+	typeof REASONS.keyboard | typeof REASONS.pointer | typeof REASONS.none;
 
 export type MenuHighlightEventDetails = BaseUIGenericEventDetails<MenuHighlightReason> & {
 	/** The highlighted item's `label` prop, or its text content when the prop is not set. */

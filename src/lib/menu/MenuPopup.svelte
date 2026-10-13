@@ -9,6 +9,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { untrack } from 'svelte';
 	import {
+		REASONS,
 		activeElement,
 		contains,
 		createChangeEventDetails,
@@ -24,7 +25,6 @@
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
-	import { MENU_REASONS } from './constants.js';
 	import { liveStyle } from './live-style.js';
 	import { useMenuPositioner, useMenuRoot } from './context.svelte.js';
 	import type { MenuChangeReason, MenuPopupProps, MenuPopupState } from './types.js';
@@ -129,8 +129,8 @@
 	$effect(() => {
 		const stop = store.events.on('openchange', (data) => {
 			const { open, reason, nativeEvent } = data as OpenChangePayload;
-			if (!open) closedByOutsidePress = reason === MENU_REASONS.outsidePress;
-			if (!open && reason === MENU_REASONS.triggerHover && nativeEvent?.type === 'mouseleave') {
+			if (!open) closedByOutsidePress = reason === REASONS.outsidePress;
+			if (!open && reason === REASONS.triggerHover && nativeEvent?.type === 'mouseleave') {
 				leftByPointer = true;
 			}
 		});

@@ -7,7 +7,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { ScopedTimeout, createChangeEventDetails } from '@sveltery/utils';
+	import { REASONS, ScopedTimeout, createChangeEventDetails } from '@sveltery/utils';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import InternalBackdrop from '../internal/InternalBackdrop.svelte';
@@ -17,11 +17,7 @@
 		useAnchoredPopupScrollLock
 	} from '../internal/popups/index.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import {
-		DROPDOWN_COLLISION_AVOIDANCE,
-		MENU_REASONS,
-		POPUP_COLLISION_AVOIDANCE
-	} from './constants.js';
+	import { DROPDOWN_COLLISION_AVOIDANCE, POPUP_COLLISION_AVOIDANCE } from './constants.js';
 	import { setMenuPositioner, useMenuPortal, useMenuRoot } from './context.svelte.js';
 	import { findContextMenuParent } from './parent.svelte.js';
 	import type { MenuChangeReason, MenuPositionerProps, MenuPositionerState } from './types.js';
@@ -134,7 +130,7 @@
 			if (!details.open) return;
 			if (details.parentNodeId === store.nodeId) store.hoverEnabled = false;
 			if (details.nodeId !== store.nodeId && details.parentNodeId === store.parentNodeId) {
-				store.setOpen(false, createChangeEventDetails(MENU_REASONS.siblingOpen));
+				store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
 			}
 		});
 	});
@@ -145,7 +141,7 @@
 		return events.on('menuopenchange', (data) => {
 			const details = data as MenuOpenEventDetails;
 			if (details.open || details.nodeId !== store.parentNodeId) return;
-			store.setOpen(false, createChangeEventDetails(details.reason ?? MENU_REASONS.siblingOpen));
+			store.setOpen(false, createChangeEventDetails(details.reason ?? REASONS.siblingOpen));
 		});
 	});
 
@@ -167,11 +163,11 @@
 				if (delay > 0) {
 					if (!closeTimeout.isStarted()) {
 						closeTimeout.start(delay, () => {
-							store.setOpen(false, createChangeEventDetails(MENU_REASONS.siblingOpen));
+							store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
 						});
 					}
 				} else {
-					store.setOpen(false, createChangeEventDetails(MENU_REASONS.siblingOpen));
+					store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
 				}
 			} else {
 				// The submenu trigger is hovered again.
@@ -205,7 +201,7 @@
 	const menubarModal = $derived(
 		store.parent.type === 'menubar' ? store.parent.context.modal : false
 	);
-	const popupModal = $derived(store.modal && store.openChangeReason !== MENU_REASONS.triggerHover);
+	const popupModal = $derived(store.modal && store.openChangeReason !== REASONS.triggerHover);
 
 	useAnchoredPopupScrollLock(() => ({
 		enabled: store.open && (menubarModal || popupModal),
