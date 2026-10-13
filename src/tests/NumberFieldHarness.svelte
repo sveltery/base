@@ -6,9 +6,11 @@
 	let {
 		scenario = 'plain',
 		onValueChange,
-		onValueCommitted
+		onValueCommitted,
+		onScrubClick
 	}: {
 		scenario?: string;
+		onScrubClick?: () => void;
 		onValueChange?: (value: number | null, details: { cancel: () => void; reason: string }) => void;
 		onValueCommitted?: (value: number | null, details: { reason: string }) => void;
 	} = $props();
@@ -166,6 +168,17 @@
 		<NumberField.ScrubArea data-testid="scrub">
 			<NumberField.ScrubAreaCursor data-testid="cursor">+</NumberField.ScrubAreaCursor>
 		</NumberField.ScrubArea>
+	</NumberField.Root>
+{:else if scenario === 'scrub-click'}
+	<NumberField.Root locale="en-US" defaultValue={0}>
+		<NumberField.ScrubArea
+			data-testid="scrub"
+			style="display: inline-block; width: 100px; height: 40px"
+			onclick={onScrubClick}
+		>
+			<NumberField.ScrubAreaCursor />
+		</NumberField.ScrubArea>
+		<NumberField.Input data-testid="control" />
 	</NumberField.Root>
 {:else if scenario === 'scrub-touch'}
 	<NumberField.Root locale="en-US" defaultValue={0}>

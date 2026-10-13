@@ -408,6 +408,15 @@ describe('<NumberField />', () => {
 		}).rejects.toThrow(/NumberFieldScrubAreaContext is missing/);
 	});
 
+	it('fires the scrub area onclick once when clicked without scrubbing', async () => {
+		const onScrubClick = vi.fn();
+		render(NumberFieldHarness, { scenario: 'scrub-click', onScrubClick });
+		await userEvent.click(page.getByTestId('scrub'));
+		// The synthesized click waits one task, and Firefox adds 20ms before it.
+		await new Promise((resolve) => setTimeout(resolve, 50));
+		expect(onScrubClick).toHaveBeenCalledTimes(1);
+	});
+
 	describe('scrub area', () => {
 		let lock: { mockRestore: () => void };
 
