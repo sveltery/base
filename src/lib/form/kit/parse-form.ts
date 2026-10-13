@@ -62,7 +62,7 @@ export type FormSchema<Schema extends StandardSchemaV1<RemoteFormInput, Record<s
 		: Schema;
 
 /** Kit's action name for a request URL: the first `?/name` parameter, else `default`. */
-export function actionName(url: URL): string {
+export function actionName(url: { readonly searchParams: Iterable<[string, string]> }): string {
 	for (const [key] of url.searchParams) {
 		if (key.startsWith('/')) return key.slice(1);
 	}
@@ -109,8 +109,7 @@ export async function parseForm<
 	const action =
 		source instanceof Request ? actionName(new URL(source.url)) : (options.action ?? 'default');
 	// Kit's `use:enhance` marks its requests, and like Kit's remote forms they get no echo.
-	const enhanced =
-		source instanceof Request && source.headers.get('x-sveltekit-action') === 'true';
+	const enhanced = source instanceof Request && source.headers.get('x-sveltekit-action') === 'true';
 	const formData = source instanceof Request ? await source.formData() : source;
 
 	let data: Record<string, unknown>;

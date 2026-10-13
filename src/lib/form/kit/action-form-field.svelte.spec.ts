@@ -9,6 +9,10 @@ vi.mock('$app/forms', async () => {
 	const { enhance } = await import('../../../tests/kit-forms-mock.svelte.js');
 	return { enhance };
 });
+vi.mock('$app/state', async () => {
+	const { page } = await import('../../../tests/kit-forms-mock.svelte.js');
+	return { page };
+});
 
 /** An error part renders nothing while it has no message. */
 function text(testId: string) {
