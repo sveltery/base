@@ -47,6 +47,8 @@ function merge(current: Issue[], client: FormIssue[]): Issue[] {
 
 export class FakeSource implements FormSource {
 	readonly method = 'POST' as const;
+	/** Kit's remote forms post to `?/remote=<id>`. */
+	readonly action: string | undefined;
 	readonly [attachment: symbol]: (form: HTMLFormElement) => () => void;
 
 	#values = $state<Values>({});
@@ -67,8 +69,14 @@ export class FakeSource implements FormSource {
 	#requests: Values[] = [];
 	/** Issues present at construction, like a page rendered after a submit without JavaScript. */
 	constructor(
-		options: { schema?: Check; server?: ServerCheck; initialIssues?: FormIssue[] } = {}
+		options: {
+			schema?: Check;
+			server?: ServerCheck;
+			initialIssues?: FormIssue[];
+			action?: string;
+		} = {}
 	) {
+		this.action = options.action;
 		this.#schema = options.schema ?? (() => []);
 		this.#server = options.server ?? (() => []);
 		this.#issues = (options.initialIssues ?? []).map((issue) => ({ ...issue, server: true }));
