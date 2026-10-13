@@ -341,7 +341,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/menu/context.svelte.ts` from the menu root, portal, positioner, group, radio group, checkbox item and radio item context modules
 - `src/lib/menu/parent.svelte.ts` from `MenuParent` in `MenuRoot.tsx`, `packages/react/src/menubar/MenubarContext.ts` and `packages/react/src/context-menu/root/ContextMenuRootContext.ts`
 - `src/lib/menu/constants.ts` from `packages/react/src/internals/constants.ts`, `packages/react/src/internals/reasons.ts` and `packages/react/src/menu/utils/isKeyboardOpen.ts`
-- `src/lib/menu/dom.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts`, `packages/react/src/utils/getPseudoElementBounds.ts` and `packages/react/src/menu/utils/findRootOwnerId.ts`
+- `src/lib/menu/dom.ts` from `packages/react/src/utils/getPseudoElementBounds.ts` and `packages/react/src/menu/utils/findRootOwnerId.ts`
 - `src/lib/menu/*.svelte.spec.ts` assertions from `packages/react/src/menu/**/*.test.tsx` that do not require the filter parts, React refs, StrictMode or React render counts, and from `packages/react/test/detachedTriggersConformanceTests.tsx`
 - `src/tests/menu/**` harnesses from the fixtures of those tests
 
