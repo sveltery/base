@@ -34,7 +34,7 @@ export interface UseDismissProps {
 
 function bubbleFlag(bubbles: UseDismissProps['bubbles'], key: 'escapeKey' | 'outsidePress') {
 	if (typeof bubbles === 'boolean') return bubbles;
-	return bubbles?.[key] ?? false;
+	return bubbles?.[key] ?? key === 'outsidePress';
 }
 
 function pressIsInside(store: FloatingRootStore, event: Event) {
@@ -43,6 +43,15 @@ function pressIsInside(store: FloatingRootStore, event: Event) {
 	if (contains(store.floatingElement, target) || contains(store.popupElement, target)) return true;
 	if (contains(store.domReferenceElement, target)) return true;
 	return false;
+}
+
+/**
+ * Runs `listener` when `event` reaches its target, as upstream `addTargetEventListenerOnce`.
+ * The press closes the popup before the page's own handlers for it, including Svelte's
+ * delegated ones, which a native listener on the target precedes.
+ */
+function onTargetOnce(event: Event, listener: () => void) {
+	getTarget(event)?.addEventListener(event.type, listener, { once: true });
 }
 
 function pointerIsTouch(event: Event, lastPointerType: string) {
@@ -131,17 +140,26 @@ export class DismissInteraction {
 					});
 				}),
 				on(doc, 'keydown', this.#closeOnEscape),
-				on(doc, 'pointerdown', (event) => {
-					this.#lastPointerType = event.pointerType;
-					if (event.button !== 0) return;
-					this.#ignoreInsideReleaseClick = false;
-					if (this.#insideDismissTree(event)) this.#pressStartedInside = true;
-					else this.#sawPressWhileOpen = true;
-					// Upstream `handlePointerDown` (DismissInteraction.ts 515–524): touch waits for
-					// touchend, for the finger to scroll away, or for the compatibility mousedown.
-					if (event.pointerType === 'touch') return;
-					this.#closeOnOutside(event);
-				}),
+				on(
+					doc,
+					'pointerdown',
+					(event) => {
+						this.#lastPointerType = event.pointerType;
+						if (event.button !== 0) return;
+						this.#ignoreInsideReleaseClick = false;
+						// Classify at the target, after the floating element's capture listener has
+						// marked a press it saw inside a closed shadow root.
+						onTargetOnce(event, () => {
+							if (this.#insideDismissTree(event)) this.#pressStartedInside = true;
+							else this.#sawPressWhileOpen = true;
+							// Upstream `handlePointerDown` (DismissInteraction.ts 515–524): touch waits for
+							// touchend, for the finger to scroll away, or for the compatibility mousedown.
+							if (event.pointerType === 'touch') return;
+							this.#closeOnOutside(event);
+						});
+					},
+					{ capture: true }
+				),
 				on(
 					doc,
 					'mousedown',
@@ -248,13 +266,18 @@ export class DismissInteraction {
 					},
 					{ capture: true }
 				),
-				on(doc, 'click', (event) => {
-					const startedInside = this.#pressStartedInside || this.#ignoreInsideReleaseClick;
-					this.#pressStartedInside = false;
-					this.#ignoreInsideReleaseClick = false;
-					if (startedInside) return;
-					this.#closeOnOutside(event);
-				})
+				on(
+					doc,
+					'click',
+					(event) => {
+						const startedInside = this.#pressStartedInside || this.#ignoreInsideReleaseClick;
+						this.#pressStartedInside = false;
+						this.#ignoreInsideReleaseClick = false;
+						if (startedInside) return;
+						onTargetOnce(event, () => this.#closeOnOutside(event));
+					},
+					{ capture: true }
+				)
 			];
 			return () => {
 				for (const cleanup of cleanups) cleanup();
@@ -313,7 +336,13 @@ export class DismissInteraction {
 		return getNodeChildren(this.#tree.nodes, this.store.nodeId).some((node) => {
 			const context = node.context;
 			if (!context) return false;
-			return contains(context.floatingElement, target) || contains(context.popupElement, target);
+			// A child's portal holds its backdrop. Upstream counts a press there as inside the
+			// parent's React tree.
+			return (
+				contains(context.floatingElement, target) ||
+				contains(context.popupElement, target) ||
+				contains(context.portalElement, target)
+			);
 		});
 	}
 
@@ -337,10 +366,10 @@ export class DismissInteraction {
 		if (mode === 'sloppy' && event.type === 'click') return;
 		if (event.type === 'pointerdown' && 'button' in event && event.button !== 0) return;
 		if (this.#insideDismissTree(event)) return;
-		if (this.#pressStartedInside) return;
 		if (mode === 'intentional' && !this.#sawPressWhileOpen && event.detail !== 0) return;
 		if (typeof current.outsidePress === 'function' && !current.outsidePress(event)) return;
-		if (!current.outsidePressBubbles && this.#childBlocks('outsidePressBubbles')) return;
+		// Upstream reads only the children here. A parent's own flag does not skip the check.
+		if (this.#childBlocks('outsidePressBubbles')) return;
 		this.store.setOpen(false, createChangeEventDetails(REASONS.outsidePress, event));
 	}
 

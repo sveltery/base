@@ -13,12 +13,15 @@ export {
 	useFloatingParentNodeId,
 	useFloatingTree
 } from './components/FloatingTree.svelte.js';
+export { FloatingTreeStore } from './components/FloatingTreeStore.js';
 export { ClickInteraction } from './hooks/useClick.svelte.js';
 export { DismissInteraction } from './hooks/useDismiss.svelte.js';
 export { useHoverFloatingInteraction } from './hooks/useHoverFloatingInteraction.svelte.js';
 export { HoverReferenceInteraction } from './hooks/useHoverReferenceInteraction.svelte.js';
+export type { UseHoverReferenceProps } from './hooks/useHoverReferenceInteraction.svelte.js';
 export { arrow, type ArrowOptions } from './middleware/arrow.js';
 export { safePolygon } from './safePolygon.js';
+export type { HandleClose, HandleCloseContext, SafePolygonOptions } from './safePolygon.js';
 export {
 	FloatingPosition,
 	roundByDPR,
@@ -35,12 +38,14 @@ export { isVirtualClick } from './utils/event.js';
 export { PopupTriggerMap } from './utils/popupTriggerMap.js';
 export {
 	focusable,
+	getTabbableAfterElement,
+	getTabbableBeforeElement,
 	getTabbableCandidates,
-	getTabbableNearElement,
 	isOutsideEvent,
 	tabbable,
 	type FocusableElement
 } from './utils/tabbable.js';
+export { getTabbableNearElement } from './utils/tabbable.js';
 export { default as FloatingDelayGroup } from './components/FloatingDelayGroup.svelte';
 export {
 	DelayGroup,

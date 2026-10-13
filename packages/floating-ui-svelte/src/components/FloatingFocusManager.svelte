@@ -99,6 +99,11 @@
 	const portaled = hasFloatingPortal();
 	const portal = useFloatingPortal();
 	const pointerDownTimeout = new ScopedTimeout();
+	const insideTreeTimeout = new ScopedTimeout();
+	/** The last press began outside this popup, its trigger and its portal. */
+	let pointerDownOutside = false;
+	/** Focus left a portaled popup without an outside press, as upstream `insideReactTree`. */
+	let insideTree = false;
 	const restoreFrame = new ScopedAnimationFrame();
 	const bodyReturnFrame = new ScopedAnimationFrame();
 	let suppressFocusOut = false;
@@ -116,8 +121,8 @@
 			!contains(store.portalElement, active)
 				? active
 				: null;
-		// Upstream `preferPreviousFocus`: an open with no interaction, such as `bind:open`,
-		// returns focus to where it was before, not to the trigger it claimed.
+		// Upstream `preferPreviousFocus`: an open with no interaction type, such as `bind:open` or
+		// a hover open, returns focus to where it was before, not to the trigger it claimed.
 		preferPreviousFocus = untrack(() => store.openMethod) == null;
 	}
 
@@ -507,6 +512,12 @@
 				lastInteraction =
 					type === 'mouse' || type === 'pen' || type === 'touch' ? type : 'keyboard';
 				const target = getTarget(event);
+				pointerDownOutside = !(
+					target instanceof Node &&
+					(contains(floating, target) ||
+						contains(store.domReferenceElement, target) ||
+						contains(portal?.node, target))
+				);
 				if (closest(target, `[${CLICK_TRIGGER_IDENTIFIER}]`)) {
 					suppressFocusOut = true;
 					pointerDownTimeout.start(0, () => {
@@ -516,6 +527,11 @@
 			},
 			{ capture: true }
 		);
+		const clearPointerDownOutside = () => {
+			pointerDownOutside = false;
+		};
+		const stopPointerUp = on(doc, 'pointerup', clearPointerDownOutside, { capture: true });
+		const stopPointerCancel = on(doc, 'pointercancel', clearPointerDownOutside, { capture: true });
 
 		// Close when focus leaves this popup or its trigger (upstream lines 568–578).
 		function handleFocusOutside(event: FocusEvent) {
@@ -523,6 +539,10 @@
 			const relatedTarget = event.relatedTarget;
 			queueMicrotask(() => {
 				if (!closeOnFocusOut || suppressFocusOut || !store.isOpen()) return;
+				if (insideTree) {
+					insideTree = false;
+					return;
+				}
 				// Modal focus is trapped. Only a non-modal popup closes when focus leaves it.
 				if (modal) return;
 				if (!(relatedTarget instanceof Element)) return;
@@ -539,6 +559,22 @@
 		const stopReferenceFocus =
 			reference instanceof HTMLElement ? on(reference, 'focusout', handleFocusOutside) : () => {};
 		const stopFloatingFocus = on(floating, 'focusout', handleFocusOutside);
+		// A portaled popup's children, such as a submenu, live outside its DOM subtree. Focus that
+		// leaves without an outside press, such as a pointer highlight moving it, stays in the tree.
+		const stopMarkInside = portal
+			? on(
+					floating,
+					'focusout',
+					() => {
+						if (pointerDownOutside) return;
+						insideTree = true;
+						insideTreeTimeout.start(0, () => {
+							insideTree = false;
+						});
+					},
+					{ capture: true }
+				)
+			: () => {};
 
 		const stopOpenChange = store.events.on('openchange', noteClose);
 
@@ -562,8 +598,14 @@
 			portal?.setFocus(null);
 			stopKeys();
 			stopPointer();
+			stopPointerUp();
+			stopPointerCancel();
 			stopReferenceFocus();
 			stopFloatingFocus();
+			stopMarkInside();
+			insideTreeTimeout.clear();
+			insideTree = false;
+			pointerDownOutside = false;
 			stopRestore();
 			pointerDownTimeout.clear();
 			restoreFrame.cancel();

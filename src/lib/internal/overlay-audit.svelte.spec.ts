@@ -222,7 +222,10 @@ describe('overlay audit', () => {
 		await page.getByRole('button', { name: 'Outer' }).click();
 		await page.getByRole('button', { name: 'Inner', includeHidden: true }).click();
 		await expect.poll(() => dialogs().length).toBe(2);
-		const outside = page.getByTestId('outside').element() as HTMLElement;
+		// The inner modal popover's internal backdrop covers the page, so the tap lands on it.
+		const outside = page.getByTestId('inner-popup').element().parentElement
+			?.previousElementSibling as HTMLElement;
+		expect(outside.hasAttribute('data-base-ui-inert')).toBe(true);
 		outside.dispatchEvent(
 			new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerType: 'touch' })
 		);

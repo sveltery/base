@@ -6,6 +6,7 @@ import {
 	createChangeEventDetails,
 	REASONS,
 	getTarget,
+	platform,
 	ScopedAnimationFrame,
 	ScopedTimeout,
 	type OpenInteractionType,
@@ -92,6 +93,11 @@ export class ClickInteraction {
 				isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
 					? 'virtual'
 					: (event.pointerType as PointerKind);
+			// Upstream `useOpenInteractionType` records the press on a closed trigger, so a popup
+			// that opens from it through another handler still knows how it was opened.
+			if (event.defaultPrevented || this.store.isOpen()) return;
+			this.store.openMethod = (event.pointerType ||
+				(platform.os.ios ? 'touch' : '')) as OpenInteractionType;
 		},
 		onmousedown: (event: MouseEvent) => {
 			const { enabled, event: eventOption, ignoreMouse } = this.#options();

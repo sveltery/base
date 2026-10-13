@@ -21,7 +21,9 @@ export class TriggerFocusGuards {
 	) {}
 
 	readonly preFocusGuardProps = {
-		onfocus: (event: FocusEvent) => this.#closeAndFocus(event, -1)
+		onfocus: (event: FocusEvent) => {
+			this.#closeAndFocus(event, -1, this.store.positionerElement);
+		}
 	};
 
 	readonly beforeContentFocusGuardProps = {
@@ -50,6 +52,20 @@ export class TriggerFocusGuards {
 		);
 	}
 
+	#closeAndFocus(event: FocusEvent, direction: 1 | -1, positioner: HTMLElement | null) {
+		const guard = event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
+		flushSync(() => {
+			this.store.setOpen(
+				false,
+				createChangeEventDetails(REASONS.focusOut, event, guard ?? undefined)
+			);
+		});
+		// The close may change the tab order, so resolve it after the flush. A guard that
+		// unmounted on close leaves the trigger as the anchor, even when its tabIndex is -1.
+		const anchor = guard?.isConnected ? guard : this.triggerElement();
+		getTabbableNearElement(anchor, direction, positioner)?.focus();
+	}
+
 	#handleFocusTargetFocus(event: FocusEvent) {
 		const positioner = this.store.positionerElement;
 		if (positioner && isOutsideEvent(event, positioner)) {
@@ -70,21 +86,6 @@ export class TriggerFocusGuards {
 				return;
 			}
 		}
-		this.#closeAndFocus(event, 1);
-	}
-
-	#closeAndFocus(event: FocusEvent, direction: 1 | -1) {
-		const guard = event.currentTarget as HTMLElement;
-		const positioner = this.store.positionerElement;
-		flushSync(() => {
-			this.store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event, guard));
-		});
-		// The close can change the tab order. Resolve it after the flush, from the trigger when
-		// the guard unmounted, even when the trigger's tabindex is -1.
-		getTabbableNearElement(
-			guard.isConnected ? guard : this.triggerElement(),
-			direction,
-			positioner
-		)?.focus();
+		this.#closeAndFocus(event, 1, positioner);
 	}
 }

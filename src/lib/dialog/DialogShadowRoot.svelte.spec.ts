@@ -117,4 +117,23 @@ describe('closed shadow root', () => {
 		expect(find('outer')).not.toBeNull();
 		expect(onOpenChange).not.toHaveBeenCalled();
 	});
+
+	it('stays open when a press starts inside the popup and ends outside', async () => {
+		const onOpenChange = vi.fn();
+		render({ outerContainer: shadowRoot, onOpenChange });
+		const popup = await query('outer');
+		const outside = await query('outside');
+		const init = { bubbles: true, composed: true, button: 0 };
+
+		popup.dispatchEvent(new PointerEvent('pointerdown', { ...init, pointerType: 'mouse' }));
+		popup.dispatchEvent(new MouseEvent('mousedown', init));
+		outside.dispatchEvent(new PointerEvent('pointerup', { ...init, pointerType: 'mouse' }));
+		outside.dispatchEvent(new MouseEvent('mouseup', init));
+		outside.dispatchEvent(new MouseEvent('click', { ...init, detail: 1 }));
+		flushSync();
+
+		await new Promise((resolve) => setTimeout(resolve, 50));
+		expect(find('outer')).not.toBeNull();
+		expect(onOpenChange).not.toHaveBeenCalled();
+	});
 });

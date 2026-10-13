@@ -25,15 +25,19 @@ export function useFloatingParentNodeId(): string | null {
 	return hasParentNodeId() ? getParentNodeId() : null;
 }
 
-export function useFloatingNodeId(store: FloatingRootStore) {
-	const tree = useFloatingTree();
+/**
+ * Registers a node into the tree and publishes its id as the parent of nested nodes.
+ * Without a `store`, the node has no floating context, as upstream's MenubarContent node.
+ */
+export function useFloatingNodeId(store?: FloatingRootStore, externalTree?: FloatingTreeStore) {
+	const tree = externalTree ?? useFloatingTree();
 	const parentId = useFloatingParentNodeId();
 	const id = createFloatingNodeId();
-	store.nodeId = id;
+	if (store) store.nodeId = id;
 	if (!tree) return id;
 
 	setParentNodeId(id);
-	const node: FloatingNodeRecord = { id, parentId, context: store };
+	const node: FloatingNodeRecord = store ? { id, parentId, context: store } : { id, parentId };
 	$effect(() => {
 		tree.addNode(node);
 		return () => tree.removeNode(node);

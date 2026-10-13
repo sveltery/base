@@ -198,8 +198,9 @@ export function getPreviousTabbable(referenceElement: Element | null): Focusable
 }
 
 /**
- * The tabbable element before or after `referenceElement` in the composed tree, skipping any
- * inside `exclude`. The reference itself need not be tabbable. Falls back to the reference.
+ * The tabbable element next to `referenceElement` in `direction`, wrapping around the document.
+ * The anchor need not be tabbable itself. Elements inside `exclude` are skipped. Returns the
+ * anchor when nothing else qualifies.
  */
 export function getTabbableNearElement(
 	referenceElement: Element | null,
@@ -212,7 +213,6 @@ export function getTabbableNearElement(
 	appendCandidates(ownerDocument(referenceElement).body, list);
 	const index = list.indexOf(referenceElement as FocusableElement);
 	if (index === -1) return null;
-
 	const candidates = list.filter(isFocusableElement);
 	for (let offset = 1; offset < list.length; offset += 1) {
 		const element = list[(index + direction * offset + list.length) % list.length];
@@ -225,6 +225,16 @@ export function getTabbableNearElement(
 		}
 	}
 	return list[index];
+}
+
+export function getTabbableAfterElement(referenceElement: Element | null): FocusableElement | null {
+	return getTabbableNearElement(referenceElement, 1);
+}
+
+export function getTabbableBeforeElement(
+	referenceElement: Element | null
+): FocusableElement | null {
+	return getTabbableNearElement(referenceElement, -1);
 }
 
 export function isOutsideEvent(event: FocusEvent, container?: Element | null) {

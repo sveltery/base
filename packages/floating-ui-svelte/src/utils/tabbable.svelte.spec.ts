@@ -85,4 +85,13 @@ describe('getTabbableNearElement', () => {
 
 		expect(getTabbableNearElement(anchor, 1, excluded)).toBe(after);
 	});
+
+	it('falls back to the anchor when only excluded controls follow', () => {
+		const anchor = document.createElement('button');
+		const popup = document.createElement('div');
+		popup.append(document.createElement('button'));
+		document.body.append(anchor, popup);
+
+		expect(getTabbableNearElement(anchor, 1, popup)).toBe(anchor);
+	});
 });
