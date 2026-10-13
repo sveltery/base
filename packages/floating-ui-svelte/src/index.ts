@@ -60,7 +60,11 @@ export {
 export { ClientPointInteraction, type UseClientPointProps } from './hooks/useClientPoint.svelte.js';
 export { getDelay } from './hooks/useHoverShared.js';
 export { isMouseLikePointerType } from './utils/event.js';
-export { ListNavigation, type UseListNavigationProps } from './hooks/useListNavigation.svelte.js';
+export {
+	ListNavigation,
+	type GridNavigator,
+	type UseListNavigationProps
+} from './hooks/useListNavigation.svelte.js';
 export {
 	findNonDisabledListIndex,
 	getMaxListIndex,
