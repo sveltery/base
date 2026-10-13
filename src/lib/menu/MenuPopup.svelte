@@ -29,6 +29,7 @@
 	import { useDirection } from '../internal/direction-context.js';
 	import { liveStyle } from './live-style.js';
 	import { useMenuPositioner, useMenuRoot } from './context.svelte.js';
+	import { isConsumerPrevented } from './filter-keydown.js';
 	import { MenuFilterPopupBehavior, useVirtualFocusParentHandoff } from './filter-popup.svelte.js';
 	import type { MenuChangeReason, MenuPopupProps, MenuPopupState } from './types.js';
 
@@ -243,7 +244,7 @@
 	});
 
 	const hostProps = $derived.by(() => {
-		return mergeProps(
+		const baseProps = mergeProps(
 			store.popupProps,
 			{
 				id: store.floatingId,
@@ -254,7 +255,17 @@
 				[bindKey]: bindPopup,
 				[styleKey]: ownStyle
 			},
-			filterPopup?.props,
+			filterPopup?.props
+		);
+		const baseKeyDown = baseProps.onkeydown as (event: KeyboardEvent) => void;
+		return mergeProps(
+			{
+				...baseProps,
+				// A key the consumer took from the input skips the menu's handlers here too.
+				onkeydown(event: KeyboardEvent) {
+					if (!isConsumerPrevented(event)) baseKeyDown(event);
+				}
+			},
 			elementProps,
 			// The input holds real focus. The popup is a dialog around it and the list.
 			filterPopup ? { role: 'dialog' as const } : undefined,

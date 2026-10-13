@@ -74,6 +74,27 @@ export function isRefocusingOwner() {
 	return refocusing;
 }
 
+const consumerPrevented = new WeakSet<Event>();
+
+/**
+ * Wraps a consumer key handler on the input. A consumer that calls `preventDefault()` skips the
+ * input's handlers through `mergeProps`, and the mark lets the popup skip its own, as
+ * `preventBaseUIHandler` does across React's shared synthetic event upstream.
+ */
+export function markConsumerPrevention<E extends Event>(
+	handler: (event: E) => unknown
+): (event: E) => void {
+	return function (this: unknown, event: E) {
+		const before = event.defaultPrevented;
+		handler.call(this, event);
+		if (!before && event.defaultPrevented) consumerPrevented.add(event);
+	};
+}
+
+export function isConsumerPrevented(event: Event) {
+	return consumerPrevented.has(event);
+}
+
 export interface MoveHighlightOptions {
 	orientation: MenuOrientation;
 	rtl: boolean;
