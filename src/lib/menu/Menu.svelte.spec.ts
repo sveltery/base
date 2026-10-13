@@ -957,6 +957,24 @@ describe('Menu.Popup', () => {
 		);
 	});
 
+	it('keeps its own size variables when the consumer style changes', async () => {
+		const view = render(MenuHarness, {
+			open: true,
+			viewport: true,
+			items: items('One'),
+			popupProps: { style: 'color: rgb(255, 0, 0)' }
+		});
+		const popup = menus()[0] as HTMLElement;
+		const sizeVars = () =>
+			`${popup.style.getPropertyValue('--popup-width')} ${popup.style.getPropertyValue('--popup-height')}`;
+		// A resize that started from a measured size settles back on `auto`.
+		await view.rerender({ popupProps: { style: 'color: rgb(0, 128, 0)' } });
+		await expect.poll(() => sizeVars()).toBe('auto auto');
+		await view.rerender({ popupProps: { style: 'color: rgb(0, 0, 255)' } });
+		expect(popup.style.color).toBe('rgb(0, 0, 255)');
+		expect(sizeVars()).toBe('auto auto');
+	});
+
 	it('is labelled by the trigger', async () => {
 		render(MenuHarness, { triggerLabel: 'Actions', items: items('One') });
 		await userEvent.click(trigger('Actions'));
