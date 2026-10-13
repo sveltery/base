@@ -12,7 +12,7 @@ The components follow the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/
 
 Many components respond to the arrow keys, <kbd>Home</kbd>, <kbd>End</kbd>, <kbd>Enter</kbd>, <kbd>Space</kbd>, and <kbd>Esc</kbd>. In a group such as [Tabs](/components/tabs), [Radio Group](/components/radio-group), [Toggle Group](/components/toggle-group), or [Toolbar](/components/toolbar), one item is in the tab order and the arrow keys move focus between the items.
 
-The arrow keys follow the text direction. Wrap a right-to-left part of your app in a [Direction Provider](/components/direction-provider) so that the left and right arrow keys move in the reading order.
+The arrow keys follow the text direction. Wrap a right-to-left part of your app in a [Direction Provider](/utils/direction-provider) so that the left and right arrow keys move in the reading order.
 
 ## Focus management
 
@@ -51,7 +51,7 @@ Each foreground color must have enough contrast with its background. This includ
 
 [Field](/components/field) and [Fieldset](/components/fieldset) connect labels, descriptions, and error messages to their controls. `Field.Label` names the control, `Field.Description` and `Field.Error` describe it, and `Fieldset.Legend` names a group of controls.
 
-A [Checkbox](/components/checkbox), [Radio](/components/radio), or [Switch](/components/switch) inside a `Field.Label` takes its name from the label text:
+A [Checkbox](/components/checkbox), [Radio Group](/components/radio-group), or [Switch](/components/switch) inside a `Field.Label` takes its name from the label text:
 
 ```svelte demo
 <script lang="ts">

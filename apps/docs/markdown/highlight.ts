@@ -1,7 +1,19 @@
 import { createHighlighter, type ShikiTransformer } from 'shiki';
 
 const themes = { light: 'github-light-default', dark: 'github-dark-default' } as const;
-const langs = ['svelte', 'ts', 'js', 'json', 'jsonc', 'css', 'html', 'bash', 'diff', 'text'];
+const langs = [
+	'svelte',
+	'ts',
+	'js',
+	'json',
+	'jsonc',
+	'css',
+	'html',
+	'bash',
+	'diff',
+	'text',
+	'yaml'
+];
 const highlighter = createHighlighter({ themes: Object.values(themes), langs });
 
 const clean: ShikiTransformer = {

@@ -12,15 +12,15 @@ description: A separator element accessible to screen readers.
 </script>
 
 <div class="flex items-center gap-2">
-	<a href="#home" class={link}>Home</a>
-	<a href="#pricing" class={link}>Pricing</a>
-	<a href="#blog" class={link}>Blog</a>
-	<a href="#support" class={link}>Support</a>
+	<a href="/" class={link}>Home</a>
+	<a href="/" class={link}>Pricing</a>
+	<a href="/" class={link}>Blog</a>
+	<a href="/" class={link}>Support</a>
 
 	<Separator orientation="vertical" class="mx-1 h-5 w-px bg-gray-300 dark:bg-gray-600" />
 
-	<a href="#login" class={link}>Log in</a>
-	<a href="#signup" class={link}>Sign up</a>
+	<a href="/" class={link}>Log in</a>
+	<a href="/" class={link}>Sign up</a>
 </div>
 ```
 

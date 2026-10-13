@@ -54,7 +54,7 @@ Use `Field.Label` or a native `<label>` for these controls:
 - [Number Field](/components/number-field)
 - [OTP Field](/components/otp-field)
 - [Checkbox](/components/checkbox)
-- [Radio](/components/radio)
+- [Radio Group](/components/radio-group)
 - [Switch](/components/switch)
 
 A Checkbox, Radio, or Switch inside a `Field.Label` takes its name from the label text:
