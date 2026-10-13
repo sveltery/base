@@ -170,6 +170,24 @@ describe('opened without a trigger (Base UI v1.9.0)', () => {
 		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
 	});
 
+	it('keeps forwarding the only trigger payload while a bind:open popover animates out', async () => {
+		const view = render(PopoverTriggersHarness, {
+			triggers: lone,
+			popupClass: 'exit-popup',
+			css: '.exit-popup { transition: opacity 300ms; } .exit-popup[data-ending-style] { opacity: 0; }'
+		});
+		await view.rerender({ open: true });
+		await expect.poll(content).toBe('1');
+
+		await view.rerender({ open: false });
+		await expect
+			.poll(() =>
+				document.querySelector('[data-testid="popup"]')?.hasAttribute('data-ending-style')
+			)
+			.toBe(true);
+		expect(content()).toBe('1');
+	});
+
 	it('takes the only trigger payload on a bind:open after an open without a trigger closed', async () => {
 		const handle = Popover.createHandle<number | string>();
 		const view = render(PopoverTriggersHarness, { handle, triggers: lone });
