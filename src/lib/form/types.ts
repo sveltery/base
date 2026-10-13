@@ -124,6 +124,12 @@ export interface FormErrorState {
 }
 
 export interface FormErrorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * The host's role. Focus moves to no field when only form-level messages fail a submit,
+	 * so the messages are announced.
+	 * @default 'alert'
+	 */
+	role?: HTMLAttributes<HTMLDivElement>['role'];
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FormErrorState, children: RenderChildren]

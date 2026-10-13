@@ -18,7 +18,7 @@
 
 	const elementKey = createAttachmentKey();
 
-	let { render, children, ...elementProps }: FormErrorProps = $props();
+	let { role = 'alert', render, children, ...elementProps }: FormErrorProps = $props();
 
 	const form = useFormContext();
 	let mounted = $state(false);
@@ -59,6 +59,7 @@
 
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
 		...elementProps,
+		role,
 		...getStateAttributesProps(errorState, transitionStatusMapping),
 		[elementKey]: remember
 	});
