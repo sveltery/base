@@ -316,15 +316,7 @@ The "does not re-render inactive triggers" cases count React renders. "Cleans up
 
 ## Toast
 
-Source: `packages/react/src/toast` at Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`), not the v1.8.0 pin. The React fixture runs `@base-ui/react@1.8.0`. Portal, positioning, button behavior, `mergeProps`, and the state attribute helpers are the landed shared code. The store's auto-dismiss timers are plain `Timeout`s that `Toast.Provider` clears when it is destroyed. A toast added during a server render schedules no timer, since the provider's cleanup never runs there.
-
-### Timers resume while hover or focus still holds them
-
-Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/toast/viewport/ToastViewport.tsx`. A mouseleave deferred until exit animations end, and a focus leaving the viewport, resume timers whenever the window is focused, even while keyboard focus or the pointer still holds the viewport. A toast can then dismiss from under the keyboard or the pointer.
-
-Local: the v1.9.0 behavior. The deferred mouseleave always clears `hovering`, and timers resume only when nothing else (hover, focus, or a blurred window) still holds them. A focus leaving the viewport resumes timers on the same condition.
-
-Rationale: Base UI v1.9.0 fixed this.
+Source: `packages/react/src/toast` at Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`). The React fixture runs `@base-ui/react@1.9.0`. Portal, positioning, button behavior, `mergeProps`, and the state attribute helpers are the landed shared code. The store's auto-dismiss timers are plain `Timeout`s that `Toast.Provider` clears when it is destroyed. A toast added during a server render schedules no timer, since the provider's cleanup never runs there.
 
 ### Toast object, manager, and provider
 

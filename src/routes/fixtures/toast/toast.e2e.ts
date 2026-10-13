@@ -1,4 +1,4 @@
-// Each case runs against the Svelte Toast and the React Base UI 1.8.0 reference.
+// Each case runs against the Svelte Toast and the React Base UI 1.9.0 reference.
 import { expect, test, type Locator, type Page } from '@playwright/test';
 import { openFixture } from '../open-fixture.js';
 import { readOutput } from '../read-output.js';
@@ -31,6 +31,8 @@ async function cssNumber(locator: Locator, name: string) {
 
 /** Presses the pointer inside the toast's padding, away from its buttons, and returns the start. */
 async function pressToast(page: Page, toast: Locator) {
+	// The entry transition moves the toast, so a box read mid-transition misses it.
+	await expect.poll(() => toast.evaluate((el) => el.getAnimations().length)).toBe(0);
 	const box = (await toast.boundingBox())!;
 	const start = { x: box.x + 4, y: box.y + 4 };
 	await page.mouse.move(start.x, start.y);
@@ -412,48 +414,45 @@ for (const reference of [false, true]) {
 	});
 }
 
-// Base UI v1.9.0 fixed the viewport resuming timers that hover or focus still hold. The port
-// follows v1.9.0 (docs/upstream-differences.md, "Timers resume while hover or focus still
-// holds them"), so these two cases fail on the 1.8.0 React reference: there a mouseleave, or
-// focus leaving the viewport, resumes the timers and closes the toast under the other interaction.
-test.describe('svelte', () => {
-	test('svelte only: a mouseleave keeps timers paused while the viewport holds focus', async ({
-		page
-	}) => {
-		await openToast(page, 'timeout', false);
-		await press(page, 'add');
-		await page.getByTestId('add').focus();
-		await page.keyboard.press('F6');
-		const viewport = page.getByTestId('viewport');
-		await page.getByTestId('toast').hover();
-		await page.mouse.move(1, 1);
+// Base UI v1.9.0 keeps the viewport's timers paused while hover or focus still holds them.
+for (const reference of [false, true]) {
+	test.describe(reference ? 'react' : 'svelte', () => {
+		test('a mouseleave keeps timers paused while the viewport holds focus', async ({ page }) => {
+			await openToast(page, 'timeout', reference);
+			await press(page, 'add');
+			await page.getByTestId('add').focus();
+			await page.keyboard.press('F6');
+			const viewport = page.getByTestId('viewport');
+			await page.getByTestId('toast').hover();
+			await page.mouse.move(1, 1);
 
-		await expect(viewport).toBeFocused();
-		await expect(viewport).toHaveAttribute('data-expanded', '');
-		await page.waitForTimeout(1800);
-		await expect(page.getByTestId('toast')).toHaveCount(1);
+			await expect(viewport).toBeFocused();
+			await expect(viewport).toHaveAttribute('data-expanded', '');
+			await page.waitForTimeout(1800);
+			await expect(page.getByTestId('toast')).toHaveCount(1);
 
-		await page.keyboard.press('Shift+Tab');
-		await expect(page.getByTestId('toast')).toHaveCount(0);
+			await page.keyboard.press('Shift+Tab');
+			await expect(page.getByTestId('toast')).toHaveCount(0);
+		});
+
+		test('focus leaving the viewport keeps timers paused while the pointer hovers it', async ({
+			page
+		}) => {
+			await openToast(page, 'timeout', reference);
+			await press(page, 'add');
+			await page.getByTestId('add').focus();
+			await page.keyboard.press('F6');
+			const viewport = page.getByTestId('viewport');
+			await page.getByTestId('toast').hover();
+			await page.keyboard.press('Shift+Tab');
+
+			await expect(page.getByTestId('add')).toBeFocused();
+			await expect(viewport).toHaveAttribute('data-expanded', '');
+			await page.waitForTimeout(1800);
+			await expect(page.getByTestId('toast')).toHaveCount(1);
+
+			await page.mouse.move(1, 1);
+			await expect(page.getByTestId('toast')).toHaveCount(0);
+		});
 	});
-
-	test('svelte only: focus leaving the viewport keeps timers paused while the pointer hovers it', async ({
-		page
-	}) => {
-		await openToast(page, 'timeout', false);
-		await press(page, 'add');
-		await page.getByTestId('add').focus();
-		await page.keyboard.press('F6');
-		const viewport = page.getByTestId('viewport');
-		await page.getByTestId('toast').hover();
-		await page.keyboard.press('Shift+Tab');
-
-		await expect(page.getByTestId('add')).toBeFocused();
-		await expect(viewport).toHaveAttribute('data-expanded', '');
-		await page.waitForTimeout(1800);
-		await expect(page.getByTestId('toast')).toHaveCount(1);
-
-		await page.mouse.move(1, 1);
-		await expect(page.getByTestId('toast')).toHaveCount(0);
-	});
-});
+}

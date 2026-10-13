@@ -386,7 +386,6 @@ Press F6 anywhere on the page to move focus to the viewport. The stack expands a
 - Parts take `class` and a `style` string, not functions of state. Style state through the data attributes and CSS variables below. `render` is a snippet that receives `(props, state, children)`.
 - `Toast.Portal` has no `keepMounted`, as in Base UI. It does not render focus guards.
 - The data attribute and CSS variable names are constant objects, such as `ToastRootDataAttributes.swipeDirection` and `ToastRootCssVariables.index`, where Base UI exports namespaces.
-- The viewport follows Base UI v1.9.0, not the 1.8.0 release. A mouse leaving the viewport does not resume the timers while focus is still inside it, and focus leaving the viewport does not resume them while the pointer is still over it. Version 1.8.0 resumes them in both cases and closes the toast under the pointer or the keyboard. Base UI v1.9.0 fixed this.
 
 ## API reference
 
