@@ -22,7 +22,8 @@ import { useFloatingParentNodeId, useFloatingTree } from '../components/Floating
 import type { FloatingTreeStore } from '../components/FloatingTreeStore.js';
 import { isTypeableElement } from '../utils/element.js';
 import { isVirtualClick, isVirtualPointerEvent, stopEvent } from '../utils/event.js';
-import { enqueueFocus, getFloatingFocusElement, isTypeableCombobox } from '../utils/focusTarget.js';
+import { enqueueFocus } from '../utils/enqueueFocus.js';
+import { getFloatingFocusElement, isTypeableCombobox } from '../utils/focusTarget.js';
 import {
 	getMaxListIndex,
 	getMinListIndex,
@@ -39,9 +40,6 @@ import {
 	registerListOrientation,
 	type ListOrientation
 } from '../utils/listOrientation.js';
-
-/** Upstream `REASONS.listNavigation`. `@sveltery/utils` does not export it yet. */
-const LIST_NAVIGATION_REASON = 'list-navigation';
 
 export interface UseListNavigationProps {
 	/** The list items, by index. Read on every use. */
@@ -432,7 +430,7 @@ export class ListNavigation {
 		if (nested && isCrossOrientationCloseKey(event.key, orientation, rtl, grid != null)) {
 			// When the close key also navigates the parent, let the parent see it.
 			if (!isMainOrientationKey(event.key, this.#parentOrientation())) stopEvent(event);
-			this.store.setOpen(false, createChangeEventDetails(LIST_NAVIGATION_REASON, event));
+			this.store.setOpen(false, createChangeEventDetails(REASONS.listNavigation, event));
 			const returnElement = nestedReturnFocus?.() ?? this.store.domReferenceElement;
 			if (isHTMLElement(returnElement)) returnElement.focus();
 			return;
@@ -606,7 +604,7 @@ export class ListNavigation {
 	#openOnNavigationKeyDown(event: KeyboardEvent) {
 		this.store.setOpen(
 			true,
-			createChangeEventDetails(LIST_NAVIGATION_REASON, event, event.currentTarget as HTMLElement)
+			createChangeEventDetails(REASONS.listNavigation, event, event.currentTarget as HTMLElement)
 		);
 	}
 
