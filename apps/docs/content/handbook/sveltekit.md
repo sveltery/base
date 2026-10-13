@@ -4,7 +4,7 @@ description: Notes on server rendering, form actions, and remote form functions 
 order: 5
 ---
 
-Sveltery Base does not depend on SvelteKit. The components import nothing from `@sveltejs/kit` or `$app/*`, so they work in any Svelte 5 app. This page covers what changes when the app is a SvelteKit app: server rendering, form actions, remote form functions, and prerendering.
+Sveltery Base does not depend on SvelteKit. The components import nothing from `@sveltejs/kit` or `$app/*`, so they work in any Svelte 5 app. The one exception is `@sveltery/base/form/kit`, the optional entry point for form actions. This page covers what changes when the app is a SvelteKit app: server rendering, form actions, remote form functions, and prerendering.
 
 ## Server rendering and hydration
 
@@ -22,111 +22,32 @@ Dialog and Popover render their popups in a portal, and a portal renders nothing
 
 Form turns off the browser's validation bubbles with `novalidate`, but only after it hydrates. The server HTML has no `novalidate` attribute, so before hydration, or with JavaScript off, the browser checks `required`, `type`, and the other constraints itself.
 
-## Form actions
+## Form actions and remote forms
 
-Form renders a native `<form>`, so it posts to a [form action](https://svelte.dev/docs/kit/form-actions) like any other form. Return the field errors from the action with `fail`:
-
-```ts
-// src/routes/signup/+page.server.ts
-import { fail } from '@sveltejs/kit';
-import type { Actions } from './$types';
-
-export const actions = {
-	default: async ({ request }) => {
-		const data = await request.formData();
-		const email = String(data.get('email') ?? '');
-		if (await isRegistered(email)) {
-			return fail(400, { email, errors: { email: 'That email is already registered.' } });
-		}
-		return { success: true };
-	}
-} satisfies Actions;
-```
-
-Pass `form.errors` to the `errors` prop of Form. To progressively enhance the form, add SvelteKit's `enhance` action. Form is a component, so it does not take `use:` directives. Convert the action into an attachment with `fromAction` from `svelte/attachments`. Form passes the attachment to its `<form>` element:
+Form binds to a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form) or a [form action](https://svelte.dev/docs/kit/form-actions) through its `form` prop. Each `Field.Root` binds to one of the source's fields through its `field` prop:
 
 ```svelte
-<!-- src/routes/signup/+page.svelte -->
-<script lang="ts">
-	import { enhance } from '$app/forms';
-	import { fromAction } from 'svelte/attachments';
-	import { Field } from '@sveltery/base/field';
-	import { Form } from '@sveltery/base/form';
-
-	let { form } = $props();
-</script>
-
-<Form method="POST" errors={form?.errors} {@attach fromAction(enhance)}>
-	<Field.Root name="email">
+<Form form={f}>
+	<Form.Error />
+	<Field.Root field={f.fields.email} type="email">
 		<Field.Label>Email</Field.Label>
-		<Field.Control type="email" required value={form?.email ?? ''} />
+		<Field.Control required />
 		<Field.Error />
 	</Field.Root>
 	<button>Sign up</button>
 </Form>
 ```
 
-To pass a callback to `enhance`, give it as the second argument: `fromAction(enhance, () => callback)`.
+For a remote form, `f` is the remote form, such as `signup.preflight(signupSchema)`. For a form action, `f` is `actionForm(signupSchema, () => form)` from `@sveltery/base/form/kit`, and the action reads the request with `parseForm`. The Field markup is the same for both. You do not add `use:enhance`, set `name` on the controls, or pass `errors`.
 
 With this setup:
 
-- An invalid field stops the submit before `enhance` sends the request. Form validates in a capture-phase `submit` listener, so `enhance` never sees an invalid submit.
-- The server error shows in `Field.Error`, and Form focuses the field.
-- The error clears as soon as the user changes the field.
-- With JavaScript off, the browser validates, the form posts, and the page renders the server error and the submitted value.
+- An invalid field stops the submit before any request.
+- A server issue shows in its `Field.Error`, and Form focuses the field.
+- The issue hides as soon as the user changes the field.
+- With JavaScript off, the browser validates, the form posts, and the page renders the server issues and the submitted values.
 
-`value={form?.email ?? ''}` puts the submitted value back into the field after a post without JavaScript.
-
-## Remote form functions
-
-SvelteKit's [remote form functions](https://svelte.dev/docs/kit/remote-functions#form) work with Form and Field. Remote functions are experimental in SvelteKit. Turn them on with `experimental.remoteFunctions` in the SvelteKit options, and turn on Svelte's `experimental.async` compiler option.
-
-```ts
-// src/routes/signup/signup.remote.ts
-import { invalid } from '@sveltejs/kit';
-import { form } from '$app/server';
-
-export const signup = form('unchecked', async (data: { email: string }, issue) => {
-	if (await isRegistered(data.email)) invalid(issue.email('That email is already registered.'));
-	return { welcome: data.email };
-});
-```
-
-Spread the remote form onto Form, and spread each field's `as(...)` props onto its control:
-
-```svelte
-<script lang="ts">
-	import { Field } from '@sveltery/base/field';
-	import { Form } from '@sveltery/base/form';
-	import { signup } from './signup.remote';
-
-	const { 'aria-invalid': _, ...email } = $derived(signup.fields.email.as('email'));
-	const errors = $derived({
-		[email.name]: signup.fields.email.issues()?.map((issue) => issue.message) ?? []
-	});
-</script>
-
-<Form {...signup} {errors}>
-	<Field.Root>
-		<Field.Label>Email</Field.Label>
-		<Field.Control {...email} required />
-		<Field.Error />
-	</Field.Root>
-	<button>Sign up</button>
-</Form>
-
-{#if signup.result}
-	<p>Welcome, {signup.result.welcome}</p>
-{/if}
-```
-
-The `as(...)` props carry the input name that SvelteKit encodes for the remote form, such as `email/1bz8tub/signup`. Keep these points in mind:
-
-- Do not set `name` on `Field.Root`. It would replace the encoded name, and SvelteKit would reject the submit.
-- Key `errors` by the encoded name, `email.name`, because that is the name the field registers with Form.
-- Leave out the `aria-invalid` from `as(...)`. Field sets `aria-invalid` from its own state, and SvelteKit's value stays `true` after Field clears the error.
-
-Form's own validation still runs first, so an empty required field never reaches the server.
+[Forms](/handbook/forms#bind-a-sveltekit-remote-form) has the complete examples, with the `.remote.ts` file, the `+page.server.ts` file, and the pages.
 
 ## Prerendering
 
@@ -134,4 +55,4 @@ Pages that use Sveltery Base prerender like any other page. The prerendered HTML
 
 ## Without SvelteKit
 
-`src/lib` imports neither SvelteKit nor `$app/*`. Lint rules in the repository keep it that way. Form, Field, and every other component work the same in a Svelte app built with Vite alone. Use `onFormSubmit` or `onsubmit` to send the values yourself, and pass the errors you get back to `errors`.
+Only `@sveltery/base/form/kit` imports SvelteKit or `$app/*`, and nothing else in the library imports it. Lint rules in the repository keep it that way. Form, Field, and every other component work the same in a Svelte app built with Vite alone. Use `onFormSubmit` or `onsubmit` to send the values yourself, and pass the errors you get back to `errors`.

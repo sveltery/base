@@ -135,13 +135,21 @@ function partFiles(source: ts.SourceFile, dir: string): Array<{ name: string; fi
 			statement.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword)
 		) {
 			for (const declaration of statement.declarationList.declarations) {
+				if (!ts.isIdentifier(declaration.name) || !declaration.initializer) continue;
+				let parts = declaration.initializer;
+				// `Object.assign(FormRoot, { Error })` is the `Form` part plus `Form.Error`.
 				if (
-					!ts.isIdentifier(declaration.name) ||
-					!declaration.initializer ||
-					!ts.isObjectLiteralExpression(declaration.initializer)
-				)
-					continue;
-				for (const property of declaration.initializer.properties) {
+					ts.isCallExpression(parts) &&
+					parts.expression.getText(source) === 'Object.assign' &&
+					parts.arguments.length === 2 &&
+					ts.isIdentifier(parts.arguments[0])
+				) {
+					const file = imports.get(parts.arguments[0].text);
+					if (file) namespaces.push({ name: declaration.name.text, file });
+					parts = parts.arguments[1];
+				}
+				if (!ts.isObjectLiteralExpression(parts)) continue;
+				for (const property of parts.properties) {
 					const key =
 						property.name && ts.isIdentifier(property.name) ? property.name.text : undefined;
 					const value = ts.isShorthandPropertyAssignment(property)
