@@ -310,7 +310,8 @@
 		velocityX: number,
 		velocityY: number,
 		releaseVelocityX: number,
-		releaseVelocityY: number
+		releaseVelocityY: number,
+		activeSnapPointOffset: number | null
 	): number | null {
 		const size = getBaseSwipeSize(popup, direction);
 		if (size <= 0) return null;
@@ -319,7 +320,7 @@
 		// `up`, so it always adds to the directional translation.
 		const snapPointBaseOffset =
 			(direction === 'down' || direction === 'up') && drawer.hasSnapPoints
-				? (drawer.activeSnapPointOffset ?? 0)
+				? (activeSnapPointOffset ?? 0)
 				: 0;
 		const remaining = Math.max(
 			0,
@@ -465,6 +466,9 @@
 				return undefined;
 			}
 			const releasePopup = popup;
+			// A dismissal clears the snap point before the release resolves, so keep the offset
+			// the popup is resting at.
+			const releaseSnapPointOffset = untrack(() => drawer.activeSnapPointOffset);
 
 			function startSwipeRelease(resolvedDirection: SwipeDirection) {
 				// Start the ending styles now, so the popup does not look stuck on release.
@@ -481,7 +485,8 @@
 						velocityX,
 						velocityY,
 						releaseVelocityX,
-						releaseVelocityY
+						releaseVelocityY,
+						releaseSnapPointOffset
 					);
 				});
 			}

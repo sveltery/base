@@ -1237,6 +1237,28 @@ describe('Drawer.Viewport', () => {
 			expect(popup()).not.toHaveAttribute('data-swipe-dismiss');
 		});
 
+		it('measures the release from the snap point the popup rests at', async () => {
+			const onOpenChange = vi.fn();
+			// The 300px popup rests 200px down at the 100px snap point, so 50px of travel remains.
+			await mount({
+				...sheet,
+				swipeDirection: 'down',
+				snapPoints: ['100px', 1],
+				snapPoint: '100px',
+				onOpenChange
+			});
+
+			hitTest(popup());
+			mouse(viewport(), 'down', 100, 100, { time: 1000 });
+			mouse(viewport(), 'move', 100, 125, { time: 1025 });
+			mouse(viewport(), 'move', 100, 150, { time: 1050 });
+			mouse(viewport(), 'up', 100, 150, { time: 1050 });
+			await tick();
+
+			expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything());
+			expect(popup().style.getPropertyValue('--drawer-swipe-strength')).toBe('0.1');
+		});
+
 		it('navigates snap points from a drag that was never attributed to the swipe axis', async () => {
 			const onOpenChange = vi.fn();
 			const onSnapPointChange = vi.fn();
