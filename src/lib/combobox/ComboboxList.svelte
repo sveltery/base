@@ -22,16 +22,10 @@
 	function bindList(node: HTMLElement) {
 		store.listElement = node;
 		// An inline list has no positioner, so it is the floating element.
-		if (!hasPositioner) {
-			store.positionerElement = node;
-			store.floatingElement = node;
-		}
+		if (!hasPositioner) store.positionerElement = node;
 		return () => {
 			if (store.listElement === node) store.listElement = null;
-			if (!hasPositioner) {
-				if (store.positionerElement === node) store.positionerElement = null;
-				if (store.floatingElement === node) store.floatingElement = null;
-			}
+			if (!hasPositioner && store.positionerElement === node) store.positionerElement = null;
 		};
 	}
 

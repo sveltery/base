@@ -14,7 +14,8 @@
 		ClickInteraction,
 		DismissInteraction,
 		gridNavigation,
-		ListNavigation
+		ListNavigation,
+		setFloatingTree
 	} from '@sveltery/floating-ui-svelte';
 	import {
 		contains,
@@ -114,6 +115,8 @@
 	// svelte-ignore state_referenced_locally
 	const hasInputValue = inputValue !== undefined || defaultInputValue !== undefined;
 
+	// A popover nested in the popup joins this tree, so presses inside it are not outside presses.
+	setFloatingTree();
 	const field = useFieldContext();
 	const formContext = useFormContext();
 	const labelable = findLabelableContext();

@@ -168,7 +168,9 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 			readOpen: options.readOpen,
 			writeOpen: options.writeOpen,
 			floatingId: options.floatingId,
-			floatingElement: 'positioner',
+			// The popup, else the positioner or inline list, is the floating element. The positioner
+			// also holds the focus manager's guards, which must not count as its tabbables.
+			floatingElement: 'popup',
 			onOpenChange: options.onOpenChange as () =>
 				| ((open: boolean, details: BaseUIChangeEventDetails<ComboboxChangeReason>) => void)
 				| undefined,
@@ -203,6 +205,13 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 			if (this.open && untrack(() => this.preventUnmountingOnClose)) {
 				this.preventUnmountingOnClose = false;
 			}
+		});
+
+		$effect.pre(() => {
+			const floating = this.popupElement ?? this.positionerElement;
+			untrack(() => {
+				this.floatingElement = floating;
+			});
 		});
 
 		$effect.pre(() => {
