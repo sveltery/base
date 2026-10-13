@@ -3,6 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // RadioGroup sets this context. A test harness can set it without roving focus.
 import type { RadioRootChangeEventDetails } from './types.js';
+import type { Labelable } from '../field/labelable.svelte.js';
 import { defineOptionalContext } from '../internal/context.js';
 
 /**
@@ -33,7 +34,11 @@ export interface RadioGroupContextValue {
 	 * Store it with `$state.raw` so Svelte does not proxy the reference.
 	 */
 	readonly checkedValue: unknown;
+	/** The value a form reset returns to. */
+	readonly defaultValue?: unknown;
 	readonly touched: boolean;
+	/** The labelable scope the group names itself from. Radios in it leave the control id alone. */
+	readonly labelable?: Labelable;
 	/** Present when the real RadioGroup owns keyboard navigation. */
 	readonly roving?: RadioGroupRovingFocus;
 	setCheckedValue: (value: unknown, eventDetails: RadioRootChangeEventDetails) => void;

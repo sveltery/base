@@ -35,7 +35,8 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/field/FieldError.svelte` from `packages/react/src/field/error/FieldError.tsx`
 - `src/lib/field/FieldItem.svelte` from `packages/react/src/field/item/FieldItem.tsx`
 - `src/lib/field/FieldValidity.svelte` from `packages/react/src/field/validity/FieldValidity.tsx`
-- `src/lib/field/labelable.svelte.ts` from `packages/react/src/internals/labelable-provider/LabelableProvider.tsx` and `useLabelableId.ts`
+- `src/lib/field/labelable.svelte.ts` from `packages/react/src/internals/labelable-provider/LabelableProvider.tsx`, `useLabelableId.ts` and `useAriaLabelledBy.ts`
+- `src/lib/field/choice-controls.svelte.spec.ts` assertions from the Field cases of `packages/react/src/checkbox/root/CheckboxRoot.test.tsx`, `switch/root/SwitchRoot.test.tsx`, `radio-group/RadioGroup.test.tsx` and `checkbox-group/CheckboxGroup.test.tsx`
 - `src/lib/field/validity.ts` from `packages/react/src/field/utils/getCombinedFieldValidityData.ts` and `isEligibleInput` in `useFieldValidation.ts`
 - `src/lib/field/attributes.ts` from `packages/react/src/internals/field-constants/constants.ts` and `packages/react/src/internals/stateAttributesMapping.ts`
 - `src/lib/field/context.svelte.ts` from `packages/react/src/internals/field-root-context/FieldRootContext.ts` and `packages/react/src/field/item/FieldItemContext.ts`
@@ -54,6 +55,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/state-attributes.ts` from `packages/react/src/internals/getStateAttributesProps.ts` and `packages/react/src/internals/stateAttributesMapping.ts` (`transitionStatusMapping`)
 - `src/lib/internal/valueToPercent.ts` from `packages/react/src/utils/valueToPercent.ts`
 - `src/lib/internal/clamp.ts` from `packages/utils/src/clamp.ts`
+- `packages/utils/src/areArraysEqual.ts` from `packages/utils/src/areArraysEqual.ts`
 - `src/lib/internal/useValueChanged.svelte.ts` from `packages/react/src/internals/useValueChanged.ts`
 - `src/lib/internal/formatNumber.ts` from `packages/utils/src/formatNumber.ts`
 - `src/lib/internal/stringifyLocale.ts` from `packages/utils/src/stringifyLocale.ts` (cache key used by `formatNumber`)

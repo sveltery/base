@@ -7,6 +7,8 @@
 import { untrack } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
 import type { FieldContext } from '../field/model.svelte.js';
+import type { FormContextValue } from '../form/context.js';
+import { useValueChanged } from './useValueChanged.svelte.js';
 
 export interface FieldControlRead {
 	enabled: () => boolean;
@@ -128,4 +130,32 @@ export function attachFieldControl(
 	const registration = new FieldRegistration(field, read);
 	registration.watchIdentity();
 	return (node) => registration.connect(node);
+}
+
+/**
+ * Reports a choice control's value to its Field and Form: filled on every value, and on
+ * each change after the first, clears the Form error, sets dirty against the Field's
+ * initial value, and runs change validation. Construct during component init.
+ */
+export class FieldValueSync<T> {
+	constructor(
+		field: FieldContext,
+		form: FormContextValue,
+		read: {
+			value: () => T;
+			name: () => string | undefined;
+			filled: (value: T) => boolean;
+			equals?: (value: T, initial: unknown) => boolean;
+		}
+	) {
+		const equals = read.equals ?? ((value, initial) => value === initial);
+		$effect(() => {
+			field.setFilled(read.filled(read.value()));
+		});
+		useValueChanged(read.value, (next) => {
+			form.clearErrors(read.name());
+			field.setDirty(!equals(next, field.validityData.initialValue));
+			field.change(next);
+		});
+	}
 }

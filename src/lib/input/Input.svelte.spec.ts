@@ -89,11 +89,11 @@ describe('<Input />', () => {
 			await expect.element(control()).toHaveAttribute('aria-invalid', 'true');
 		});
 
-		it('marks a default value filled without controlling the input', async () => {
+		it('marks a default value filled and keeps it as the input default', async () => {
 			render(InputHarness, { scenario: 'filled' });
 			await expect.element(control()).toHaveValue('hello');
 			await expect.element(page.getByTestId('field')).toHaveAttribute('data-filled', '');
-			expect(control().element().getAttribute('value')).toBeNull();
+			expect((control().element() as HTMLInputElement).defaultValue).toBe('hello');
 		});
 
 		it('does not mark an empty controlled value filled', async () => {

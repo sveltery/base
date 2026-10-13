@@ -11,13 +11,15 @@
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { findLabelableContext } from '../field/labelable.svelte.js';
+	import { useCSPContext } from '../internal/csp-context.js';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { valueToPercent } from '../internal/valueToPercent.js';
 	import { visuallyHidden, ownerWindow } from '@sveltery/utils';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { prehydrationScript } from './prehydration.js';
+	import { prehydrationScriptElement } from './prehydration.js';
+	import { dispatchingValueEvent } from '../internal/value-events.js';
 	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import type { SliderRootState, SliderThumbProps } from './types.js';
 
@@ -60,6 +62,7 @@
 
 	const model = useSliderContext();
 	const field = useFieldContext();
+	const csp = useCSPContext();
 	const labelable = findLabelableContext();
 
 	let thumbEl: HTMLDivElement | null = $state(null);
@@ -92,7 +95,7 @@
 	$effect(() => {
 		const element = thumbEl;
 		if (!element) return;
-		return model.thumbList.register(element, () => ({ element, inputId, index }));
+		return model.thumbList.register(element, () => ({ element, input: inputEl, inputId, index }));
 	});
 
 	$effect(() => {
@@ -202,6 +205,7 @@
 	);
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (dispatchingValueEvent()) return;
 		model.handleInputChange(event.currentTarget.valueAsNumber, index, event);
 	}
 
@@ -247,6 +251,8 @@
 		tabindex,
 		type: 'range',
 		value: Number.isFinite(thumbValue) ? thumbValue : '',
+		// After `value`, so setting it leaves the current value alone.
+		defaultValue: String(model.defaultValues[index] ?? ''),
 		oninput: handleInput,
 		onchange: handleInput,
 		onfocus: handleFocus,
@@ -275,9 +281,9 @@
 	{@render children?.()}
 	<input {...inputProps} bind:this={inputEl} />
 	{#if showScript}
-		<!-- Upstream's edge-alignment script. The string is static and contains no user input. -->
+		<!-- Upstream's edge-alignment script. The body is static and the nonce is escaped. -->
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html '<script>' + prehydrationScript + '</scr' + 'ipt>'}
+		{@html prehydrationScriptElement(csp.nonce)}
 	{/if}
 {/snippet}
 

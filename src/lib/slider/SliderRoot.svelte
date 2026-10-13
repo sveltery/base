@@ -16,13 +16,14 @@
 	import { clamp } from '../internal/clamp.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { asc } from './asc.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { setSliderContext } from './context.svelte.js';
-	import { ownerDocument, activeElement, contains, warn } from '@sveltery/utils';
-	import { areArraysEqual } from './getSliderValue.js';
+	import { areArraysEqual, ownerDocument, activeElement, contains, warn } from '@sveltery/utils';
+	import { areValuesEqual } from './getSliderValue.js';
 	import { SliderRootModel } from './model.svelte.js';
 	import type { SliderRootProps, SliderRootState, SliderValue } from './types.js';
 
@@ -83,6 +84,7 @@
 
 	const model = new SliderRootModel({
 		getValueUnwrapped: () => valueUnwrapped,
+		getDefaultValue: () => defaultValue,
 		writeValue,
 		getMin: () => min,
 		getMax: () => max,
@@ -116,6 +118,14 @@
 			if (model.root === node) model.root = null;
 		};
 	}
+
+	restoreOnReset(() => model.fieldInput ?? model.root, {
+		restore: () => {
+			const next = defaultValue ?? (model.range ? model.defaultValues : model.defaultValues[0]);
+			if (value !== undefined && areValuesEqual(value, next)) return;
+			value = Array.isArray(next) ? [...next] : next;
+		}
+	});
 
 	onMount(() => {
 		model.hydrating = false;

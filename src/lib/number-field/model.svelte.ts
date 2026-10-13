@@ -4,6 +4,7 @@
 
 import { on } from 'svelte/events';
 import { formatNumber } from '../internal/formatNumber.js';
+import { queueValueEvent } from '../internal/value-events.js';
 import {
 	createChangeEventDetails,
 	createGenericEventDetails,
@@ -94,6 +95,8 @@ export class NumberFieldModel {
 	/** Latest value `setValue` stored, including a no-op validation. */
 	lastChangedValue: number | null = null;
 	hasPendingCommit = false;
+	/** The named input that submits the value. */
+	hiddenInput = $state<HTMLInputElement | null>(null);
 	/** Typed text. Ignored while `allowInputSync` is set. */
 	private draft = $state<string | null>(null);
 	/**
@@ -220,6 +223,7 @@ export class NumberFieldModel {
 	commit(next: number | null, details: NumberFieldCommitEventDetails) {
 		this.hasPendingCommit = false;
 		this.options.getOnValueCommitted()?.(next, details);
+		queueValueEvent(this.hiddenInput, 'change');
 	}
 
 	getStepAmount(event?: EventWithOptionalKeyState) {
@@ -288,8 +292,11 @@ export class NumberFieldModel {
 
 		this.lastChangedValue = validatedValue;
 		if (shouldFireChange) {
+			const hidden = this.hiddenInput;
 			this.options.writeValue(validatedValue, details);
 			this.hasPendingCommit = true;
+			// Autofill writes the hidden input itself, which already fired its events.
+			if (details.event.target !== hidden) queueValueEvent(hidden, 'input');
 		}
 		return shouldFireChange;
 	}

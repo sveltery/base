@@ -1,7 +1,6 @@
 // Derived from the fallback path of Base UI v1.8.0
 // packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Checkbox, Switch and Radio do not use Field's labelable provider yet. This is the native <label> fallback only.
 
 type LabelSource = HTMLElement & { labels?: NodeListOf<HTMLLabelElement> | null };
 
@@ -22,18 +21,4 @@ export function findAssociatedLabel(source: LabelSource | null): HTMLLabelElemen
 
 	const labels = source.labels;
 	return labels?.[0];
-}
-
-/** Id of the native label for a non-native host, assigning one when the label has none. */
-export function nativeFallbackLabelId(
-	nativeButton: boolean,
-	explicit: string | null | undefined,
-	input: LabelSource | null,
-	sourceId: string | undefined
-): string | undefined {
-	if (nativeButton || explicit || !input) return undefined;
-	const label = findAssociatedLabel(input);
-	if (!label) return undefined;
-	if (!label.id && sourceId) label.id = `${sourceId}-label`;
-	return label.id || undefined;
 }

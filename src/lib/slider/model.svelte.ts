@@ -20,6 +20,7 @@ import {
 } from '@sveltery/utils';
 import { clamp } from '../internal/clamp.js';
 import { ElementList } from '../internal/element-list.svelte.js';
+import { queueValueEvent } from '../internal/value-events.js';
 import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
@@ -67,12 +68,14 @@ interface FingerState {
 
 export interface SliderThumbRecord {
 	element: HTMLElement;
+	input: HTMLInputElement | null;
 	inputId: string | undefined;
 	index: number;
 }
 
 export interface SliderModelOptions {
 	getValueUnwrapped: () => SliderValue;
+	getDefaultValue: () => SliderValue | undefined;
 	writeValue: (next: SliderValue) => void;
 	getMin: () => number;
 	getMax: () => number;
@@ -164,6 +167,8 @@ export class SliderRootModel {
 	control = $state<HTMLElement | null>(null);
 	root = $state<HTMLElement | null>(null);
 	fieldInput = $state<HTMLInputElement | null>(null);
+	/** The thumb input the last change wrote, which fires the commit's `change`. */
+	private changedInput: HTMLInputElement | null = null;
 	readonly thumbList = new ElementList<HTMLElement, SliderThumbRecord>();
 	readonly thumbs: SliderThumbRecord[] = $derived(
 		this.thumbList.elements.flatMap((element) => this.thumbList.meta(element) ?? [])
@@ -185,9 +190,20 @@ export class SliderRootModel {
 	private listeningDoc: Document | null = null;
 	private pinnedFieldInput = false;
 	private readonly options: SliderModelOptions;
+	/** The thumb values a form reset returns to. With no default, every thumb starts at `min`. */
+	readonly defaultValues: readonly number[];
 
 	constructor(options: SliderModelOptions) {
 		this.options = options;
+		const thumbCount = $derived.by(() => {
+			const raw = options.getValueUnwrapped();
+			return Array.isArray(raw) ? raw.length : 1;
+		});
+		this.defaultValues = $derived(
+			this.normalize(
+				options.getDefaultValue() ?? Array.from({ length: thumbCount }, () => options.getMin())
+			)
+		);
 	}
 
 	/** True when the bound value is an array, one entry per thumb. */
@@ -197,7 +213,10 @@ export class SliderRootModel {
 
 	/** Clamped thumb values. A range is sorted. */
 	get values(): readonly number[] {
-		const raw = this.options.getValueUnwrapped();
+		return this.normalize(this.options.getValueUnwrapped());
+	}
+
+	private normalize(raw: SliderValue): number[] {
 		const min = this.options.getMin();
 		const max = this.options.getMax();
 		if (typeof raw === 'number') return [clamp(raw, min, max)];
@@ -305,7 +324,11 @@ export class SliderRootModel {
 	}
 
 	thumbElementAt(index: number) {
-		return this.thumbs.find((thumb) => thumb.index === index)?.element ?? null;
+		return this.thumbAt(index)?.element ?? null;
+	}
+
+	private thumbAt(index: number) {
+		return this.thumbs.find((thumb) => thumb.index === index);
 	}
 
 	noteInput(input: HTMLInputElement, index: number) {
@@ -332,6 +355,11 @@ export class SliderRootModel {
 
 		this.lastChangeReason = details.reason;
 		this.options.writeValue(newValue);
+		// A change from the range input itself already fired its own events.
+		if (details.reason !== REASONS.inputChange) {
+			this.changedInput = this.thumbAt(details.activeThumbIndex)?.input ?? null;
+			queueValueEvent(this.changedInput, 'input');
+		}
 		return true;
 	}
 
@@ -350,6 +378,7 @@ export class SliderRootModel {
 		this.options.getField().setTouched(true);
 		if (applied) {
 			this.options.getOnValueCommitted()?.(newValue, createGenericEventDetails(reason, event));
+			if (reason !== REASONS.inputChange) queueValueEvent(this.changedInput, 'change');
 		}
 	}
 
@@ -575,15 +604,11 @@ export class SliderRootModel {
 		doc.addEventListener('pointerup', this.onUp, { once: true });
 	}
 
-	private thumbInput(element: Element | null | undefined) {
-		return element?.querySelector<HTMLInputElement>('input[type="range"]') ?? null;
-	}
-
 	private isTargetDisabledThumb(target: EventTarget | null) {
 		if (!isElement(target)) return false;
 		return this.thumbs.some((thumb) => {
 			if (!contains(thumb.element, target)) return false;
-			return this.thumbInput(thumb.element)?.disabled === true;
+			return thumb.input?.disabled === true;
 		});
 	}
 
@@ -598,7 +623,7 @@ export class SliderRootModel {
 	}
 
 	private focusThumb(thumbIndex: number) {
-		const input = this.thumbInput(this.thumbElementAt(thumbIndex));
+		const input = this.thumbAt(thumbIndex)?.input;
 		if (!input) return;
 		focusElement(input, { preventScroll: true, focusVisible: false });
 	}
@@ -629,7 +654,7 @@ export class SliderRootModel {
 			closestThumbIndex = -1;
 			for (let i = 0; i < this.thumbs.length; i += 1) {
 				const thumb = this.thumbs[i];
-				if (!isElement(thumb.element) || this.thumbInput(thumb.element)?.disabled) continue;
+				if (!isElement(thumb.element) || thumb.input?.disabled) continue;
 				const midpoint = getMidpoint(thumb.element, this.vertical);
 				const distance = Math.abs(fingerCoords[axis] - midpoint);
 				if (minDistance === undefined || distance <= minDistance) {
@@ -755,6 +780,7 @@ export class SliderRootModel {
 				this.currentInteractionValue,
 				createGenericEventDetails(this.lastChangeReason, nativeEvent)
 			);
+			queueValueEvent(this.changedInput, 'change');
 		}
 
 		const control = this.control;

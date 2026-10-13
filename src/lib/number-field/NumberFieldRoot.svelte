@@ -10,8 +10,10 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { findLabelableContext } from '../field/labelable.svelte.js';
+	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
+	import { dispatchingValueEvent } from '../internal/value-events.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
 	import { numberFieldStateAttributes } from './attributes.js';
@@ -25,7 +27,6 @@
 	} from './types.js';
 
 	const uid = $props.id();
-	const idSource = Symbol('number-field-id');
 
 	let {
 		id: idProp,
@@ -86,9 +87,7 @@
 	const name = $derived(field.name ?? nameProp);
 	const step = $derived(stepProp === 'any' ? 1 : stepProp);
 	const generatedId = $derived(`base-ui-${uid}`);
-	const controlId = $derived(labelable?.controlId || idProp || generatedId);
-
-	let hadExplicitId = false;
+	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => generatedId });
 
 	function writeValue(next: number | null, details?: NumberFieldChangeEventDetails) {
 		const previous = current;
@@ -124,31 +123,11 @@
 		getOnValueChange: () => onValueChange,
 		getOnValueCommitted: () => onValueCommitted,
 		getField: () => field,
-		getId: () => controlId,
+		getId: () => controlId.current,
 		getName: () => name,
 		getNameProp: () => nameProp
 	});
 	setNumberFieldContext(model);
-
-	$effect(() => {
-		if (!labelable) return;
-		const explicit = idProp;
-		const fallback = generatedId;
-		untrack(() => {
-			if (explicit !== undefined) {
-				hadExplicitId = true;
-				labelable.registerControlId(idSource, explicit);
-			} else if (hadExplicitId) {
-				labelable.registerControlId(idSource, fallback);
-			} else {
-				labelable.registerControlId(idSource, undefined);
-				labelable.resetControlId();
-			}
-		});
-		return () => {
-			untrack(() => labelable.registerControlId(idSource, undefined));
-		};
-	});
 
 	const rootState: NumberFieldRootState = $derived(model.state);
 	const hiddenStyle = $derived(toCssStyle(name ? visuallyHiddenInput : visuallyHidden));
@@ -158,7 +137,20 @@
 		...getStateAttributesProps(rootState, numberFieldStateAttributes)
 	});
 
+	restoreOnReset(() => model.hiddenInput, {
+		restore: () => {
+			model.followInputValue();
+			writeValue(defaultValue);
+		},
+		// The shown text has no default of its own to reset to when the value did not change.
+		settle: () => {
+			const input = model.inputElement;
+			if (input && input.value !== model.inputValue) input.value = model.inputValue;
+		}
+	});
+
 	function hiddenChanged(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (dispatchingValueEvent()) return;
 		const next = model.handleHiddenChange(event);
 		if (next === false) return;
 		form.clearErrors(name);
@@ -175,10 +167,12 @@
 	<div {...hostProps}>{@render children?.()}</div>
 {/if}
 <input
+	bind:this={model.hiddenInput}
 	type="number"
 	form={formId}
 	{name}
 	value={current ?? ''}
+	defaultValue={defaultValue ?? ''}
 	{min}
 	{max}
 	step={stepProp}

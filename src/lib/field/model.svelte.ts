@@ -6,6 +6,7 @@ import { untrack } from 'svelte';
 import { ScopedTimeout } from '@sveltery/utils';
 import { SvelteMap } from 'svelte/reactivity';
 import type { FormContextValue } from '../form/context.js';
+import { onFormReset, ownerForm } from '../internal/form-reset.svelte.js';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
 import { DEFAULT_VALIDITY_STATE, VALIDITY_KEYS } from './constants.js';
 import type { Labelable } from './labelable.svelte.js';
@@ -140,13 +141,25 @@ export class FieldRootModel implements FieldContext {
 	private readonly registeredInputs = new SvelteMap<HTMLInputElement, RegisteredInput>();
 	private readonly debounceTimer = new ScopedTimeout();
 	private readonly options: FieldRootModelOptions;
+	private readonly resetForm: HTMLFormElement | null;
 
 	constructor(options: FieldRootModelOptions) {
 		this.options = options;
+		this.resetForm = $derived(
+			ownerForm(this.registeredInputs.keys().next().value ?? this.inputElement) ??
+				options.form.element
+		);
 
 		$effect(() => {
 			const dirty = this.options.getDirtyProp();
 			if (dirty !== undefined) this.markedDirty = dirty;
+		});
+
+		// The control has restored its value by the time a reset settles.
+		$effect(() => {
+			const form = this.resetForm;
+			if (!form) return;
+			return onFormReset(form, { settle: () => this.reset() });
 		});
 
 		$effect(() => {
@@ -281,6 +294,18 @@ export class FieldRootModel implements FieldContext {
 		return () => {
 			this.registeredInputs.delete(element);
 		};
+	}
+
+	/** Returns the field to its state before any interaction, with the current value as the start. */
+	reset() {
+		this.clearTimer();
+		this.validationCommitId += 1;
+		this.clearCustomValidity();
+		this.markedDirty = this.options.getDirtyProp() ?? false;
+		this.dirtyState = false;
+		this.touchedState = false;
+		this.reportedInvalid = undefined;
+		this.validityData = { ...EMPTY_VALIDITY(), initialValue: this.readRegisteredValue() };
 	}
 
 	change(value: unknown, cancelPending = false) {
@@ -502,6 +527,14 @@ export class FieldRootModel implements FieldContext {
 		}
 	}
 
+	/** What Form focuses: the control of a group's representative input, or the registered element. */
+	get controlElement(): HTMLElement | null {
+		if (this.registeredInputs.size === 0) return this.inputElement;
+		const input = this.representative();
+		if (!(input instanceof HTMLInputElement)) return null;
+		return this.registeredInputs.get(input)?.element ?? input;
+	}
+
 	private combinedForForm() {
 		const invalid = this.reportedInvalid ?? this.invalid;
 		return getCombinedFieldValidityData(this.validityData, invalid);
@@ -515,7 +548,7 @@ export class FieldRootModel implements FieldContext {
 		this.registryId = id;
 		const readName = () => this.name;
 		const readValidity = () => this.combinedForForm();
-		const readControl = () => this.inputElement;
+		const readControl = () => this.controlElement;
 		const readValue = () => this.readRegisteredValue();
 		const validate = () => this.validateField();
 		this.options.form.fields.set(id, {

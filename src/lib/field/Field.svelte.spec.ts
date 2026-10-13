@@ -1,6 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/field/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Checkbox, Radio and NumberField integration is not ported. React 17 id fallbacks,
+// Checkbox, Switch, Radio and group cases are in choice-controls.svelte.spec.ts. React 17 id fallbacks,
 // StrictMode and render-count tests are not recreated.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
@@ -328,6 +328,14 @@ describe('Field', () => {
 			render(FieldHarness, { scenario: 'logical', validate: () => 'missing' });
 			await page.getByRole('button', { name: 'Validate' }).click();
 			await expect.element(page.getByText('missing')).toBeVisible();
+		});
+
+		it('lists every message when two are equal', async () => {
+			render(FieldHarness, { scenario: 'logical', validate: () => ['Required', 'Required'] });
+			await page.getByRole('button', { name: 'Validate' }).click();
+			await expect.element(page.getByRole('list')).toBeVisible();
+			const items = page.getByRole('listitem').elements();
+			expect(items.map((item) => item.textContent)).toEqual(['Required', 'Required']);
 		});
 	});
 

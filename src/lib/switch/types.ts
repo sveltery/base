@@ -1,9 +1,10 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
+import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
-export interface SwitchRootState {
+export interface SwitchRootState extends FieldRootState {
 	/** Whether the switch is currently active. */
 	checked: boolean;
 	/** Whether the component should ignore user interaction. */

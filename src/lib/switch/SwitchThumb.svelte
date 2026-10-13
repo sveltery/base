@@ -8,13 +8,16 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { switchStateAttributesMapping } from './attributes.js';
+	import { useFieldContext } from '../field/context.svelte.js';
 	import { useSwitchContext } from './context.js';
 	import type { SwitchThumbProps, SwitchThumbState } from './types.js';
 
 	let { render, children, ...elementProps }: SwitchThumbProps = $props();
 
 	const ctx = useSwitchContext();
+	const field = useFieldContext();
 	const state: SwitchThumbState = $derived({
+		...field.state,
 		checked: ctx.checked,
 		disabled: ctx.disabled,
 		readOnly: ctx.readOnly,

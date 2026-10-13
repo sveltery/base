@@ -1,6 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/form/Form.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Field, Checkbox, NumberField and Switch are not ported. Registry cases drive Form's
+// Checkbox and Switch cases are in src/lib/field/choice-controls.svelte.spec.ts. Registry cases drive Form's
 // own submit, focus and validate behavior through the field-registration contract.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page } from 'vitest/browser';

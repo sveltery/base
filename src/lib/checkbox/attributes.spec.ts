@@ -3,6 +3,11 @@ import { checkboxIndicatorAttributes, checkboxRootAttributes } from './attribute
 import type { CheckboxRootState } from './types.js';
 
 const unticked: CheckboxRootState = {
+	touched: false,
+	dirty: false,
+	valid: null,
+	filled: false,
+	focused: false,
 	checked: false,
 	disabled: false,
 	readOnly: false,
@@ -28,7 +33,7 @@ describe('checkboxRootAttributes', () => {
 	it('keeps disabled, readonly, and required beside indeterminate', () => {
 		expect(
 			checkboxRootAttributes({
-				checked: false,
+				...unticked,
 				disabled: true,
 				readOnly: true,
 				required: true,

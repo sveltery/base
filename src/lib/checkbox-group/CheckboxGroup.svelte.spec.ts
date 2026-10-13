@@ -2,7 +2,7 @@
 // packages/react/src/checkbox-group/CheckboxGroup.test.tsx and
 // packages/react/src/checkbox-group/useCheckboxGroupParent.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Field registration, validation, and describeConformance are not ported.
+// Field cases are in src/lib/field/choice-controls.svelte.spec.ts. describeConformance is not ported.
 // Strict Mode isolation is covered without double-mounting.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';

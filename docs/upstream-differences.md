@@ -177,6 +177,32 @@ Local: `src/lib/internal/InternalBackdrop.svelte` writes that rect into `$state`
 
 Test: `src/lib/internal/InternalBackdrop.svelte.spec.ts` (`updates the cutout when the element resizes`, `updates the cutout when an ancestor scrolls after the first observer callback`, `disconnects the cutout observer and scroll listener when the backdrop unmounts`).
 
+## Forms
+
+### Choice controls in a Field
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/checkbox/root/CheckboxRoot.tsx`, `switch/root/SwitchRoot.tsx`, `radio/root/RadioRoot.tsx`, `radio-group/RadioGroup.tsx`, `checkbox-group/CheckboxGroup.tsx` and `internals/labelable-provider/useLabelableId.ts`. Checkbox, Switch, RadioGroup and CheckboxGroup register with Field and Form, take `Field.Root name` and `disabled`, carry `aria-invalid`, `aria-describedby` and the Field `data-*` state, and are named by `Field.Label`. CheckboxGroup claims the label with `id: null`, so the label omits `for`, and a checkbox in the group's scope does not claim the Field's control id. Each radio calls `useLabelableId({ id })` in the scope it is rendered in, so radios outside a `Field.Item` all render the Field's control id and `Field.Label for` points at the first one.
+
+Local: the same registration, through `attachFieldControl`, `Field`'s `registerInput` and the `LabelableId` and `AriaLabelledBy` classes in `src/lib/field/labelable.svelte.ts`. RadioGroup claims the label with `id: null` the way CheckboxGroup does, and a radio leaves the control id to its group unless a `Field.Item` gives it its own scope. Radios therefore keep distinct ids, the group is named by `aria-labelledby`, and a `Field.Item` label still points `for` at its radio. CheckboxGroup reports its whole `value` to `onFormSubmit` and `validate`. Upstream drops values whose checkbox is disabled or belongs to another form.
+
+Test: `src/lib/field/choice-controls.svelte.spec.ts`.
+
+### Form reset
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/form/Form.tsx`, `field/root/FieldRoot.tsx` and the form controls. Nothing listens for `reset`. A reset puts the native inputs back to their HTML defaults, while each control keeps its React state, so the control, its hidden input and `FormData` can disagree. Field dirty, touched and validity, and Form `errors`, stay as they were.
+
+Local: the controls follow `bind:value` and `bind:checked`. Each named input carries `defaultValue` or `defaultChecked`. A task after an uncanceled `reset`, Checkbox, Switch, RadioGroup, CheckboxGroup, Slider, NumberField and OTPField write their `defaultChecked` or `defaultValue` back through the binding, and Field.Control and Input read the input's value back as `bind:value` does. No `onValueChange` or `onCheckedChange` is called, because a native reset fires no `input` or `change` event. Then each Field clears dirty, touched, validity and its custom validity message, and takes the restored value as its initial value. Form clears `errors` and its submit count. A control listens to the form its named input belongs to, so a control outside the `<form>` that joins it through `form` restores too. A Slider with no `defaultValue` returns each thumb to `min`, as its range inputs do. Checkbox and Switch submit `uncheckedValue` from a hidden checkbox that the browser resets together with the visible one, so `FormData` never holds both values. The visible state of a custom control (`aria-checked`, `data-checked`, the thumb position) catches up one task after a native reset, because the browser resets the inputs only after the `reset` listeners have run. The helper is `src/lib/internal/form-reset.svelte.ts`.
+
+Test: `src/lib/form/form-reset.svelte.spec.ts`.
+
+### Submit gate and named-input events
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/form/Form.tsx`, `slider/root/SliderRoot.tsx`, `number-field/root/NumberFieldRoot.tsx` and `otp-field/root/OTPFieldRoot.tsx`. Form validates in its React `onSubmit` and blocks an invalid submit with `preventDefault()` only, so a later `submit` listener on the form still runs. It renders `noValidate` on the server and validates even when the submitter has `formnovalidate`. Slider, NumberField and OTPField update their named inputs through React state and fire no `input` or `change` event on them.
+
+Local: Form validates in a capture-phase `submit` listener. An invalid submit gets `preventDefault()` and `stopImmediatePropagation()`, so SvelteKit's `enhance` and other later listeners do not run. A submitter with `formnovalidate` skips that validation, as it skips native validation. `novalidate` is set by an attachment after hydration, so the server renders none and a page without JavaScript keeps the browser's validation. A user change fires a bubbling `input` event from the Slider thumb's range input and from the hidden NumberField and OTPField inputs, once the new value is in the DOM. `change` follows when the change is committed: a Slider key press or pointer release, a NumberField commit, or focus leaving the OTPField. As with a native input, `change` fires only when the value differs from the one at the previous `change`, so a NumberField whose owner keeps its value fires neither event. Checkbox, Switch and Radio already fire both through the click on their native input. A parent checkbox fires both on each child input it toggles. The controls ignore the events they fire themselves.
+
+Test: `src/lib/form/form-events.svelte.spec.ts`, `src/lib/form/form-ssr.spec.ts` and `src/routes/fixtures/form/form.e2e.ts` (`svelte SSR leaves novalidate to hydration`).
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -185,11 +211,11 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | ------------------ | ------------------------------------------------------------------------------------------------------ |
 | Accordion          | React.Activity animation resume, refs, roving focus (`orientation`, `loopFocus`)                       |
 | Button             | Composite and Toolbar integration                                                                      |
-| Checkbox           | Field, `inputRef`                                                                                      |
-| CheckboxGroup      | Field validation, filled/dirty/touched hooks, labelable descriptions, fieldset disabled                |
+| Checkbox           | `inputRef`                                                                                             |
+| CheckboxGroup      | Disabled or other-form values filtered out of the Field value                                          |
 | Collapsible        | React.Activity animation resume, refs                                                                  |
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                                    |
-| Field              | Checkbox, Radio, and Select integration; refs                                                          |
+| Field              | Select integration; refs                                                                               |
 | Input              | refs                                                                                                   |
 | Toggle             | Toolbar integration, `nativeButton={false}`                                                            |
 | ToggleGroup        | Toolbar integration, grid composite, scroll-into-view                                                  |
@@ -197,18 +223,18 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Separator          | React render-element cloning, `ref`, Menu/Select/Toolbar separators                                    |
 | Meter              | React `ref`, numeric production error codes                                                            |
 | Progress           | refs                                                                                                   |
-| Form               | Checkbox, Switch, and Fieldset Form-spec cases; `actionsRef`                                           |
-| Switch             | Field and Form integration, `inputRef`                                                                 |
-| Radio              | Field, `inputRef`                                                                                      |
-| RadioGroup         | `data-touched`, `inputRef`, scroll-into-view, text-field arrow exceptions                              |
-| Tabs               | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, refs                        |
+| Form               | Fieldset Form-spec cases; `actionsRef`                                                                 |
+| Switch             | `inputRef`                                                                                             |
+| Radio              | `inputRef`                                                                                             |
+| RadioGroup         | `inputRef`, scroll-into-view, text-field arrow exceptions                                              |
+| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, shadow-boundary offsets, refs    |
 | Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers |
 | NumberField        | refs, `inputRef`                                                                                       |
 | ScrollArea         | refs                                                                                                   |
-| Slider             | refs, `inputRef`                                                                                       |
+| Slider             | refs, `inputRef`, keeping the prehydration script body out of client bundles                           |
 | DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                             |
 | OTPField           | refs, `inputRef`, React controlled lock                                                                |
-| CSPProvider        | Select and Tabs render no inline style or prehydration script. Slider script has no CSP nonce          |
+| CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                          |
 | Overlay foundation | Internal only. No public component                                                                     |
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
 | Dialog             | Alert Dialog, Drawer, ref objects                                                                      |
