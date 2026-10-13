@@ -8,7 +8,10 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { FocusGuard } from '@sveltery/utils';
-	import { CLICK_TRIGGER_IDENTIFIER } from '@sveltery/floating-ui-svelte';
+	import {
+		CLICK_TRIGGER_IDENTIFIER,
+		TRIGGER_DISABLED_ATTRIBUTE
+	} from '@sveltery/floating-ui-svelte';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -120,7 +123,7 @@
 				'aria-expanded': expanded,
 				...(live?.popupIdFor(triggerId) ? { 'aria-controls': live.popupIdFor(triggerId) } : {}),
 				[CLICK_TRIGGER_IDENTIFIER]: '',
-				...(disabled ? { 'data-disabled': '' } : {}),
+				...(disabled ? { 'data-disabled': '', [TRIGGER_DISABLED_ATTRIBUTE]: '' } : {}),
 				...getStateAttributesProps(
 					{ open: opened },
 					triggerOpenAttributes(opened, live?.openChangeReason ?? null)

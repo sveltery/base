@@ -136,6 +136,16 @@ Shift+Tab from the popup's first control focuses the trigger and leaves the popu
 
 Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the trigger that opened the popup still closes onto the control before the trigger. A popup opened through `open` claims its only trigger, as upstream `useImplicitActiveTrigger` does, so Shift+Tab from that trigger closes a popover and leaves a dialog open, as React does. A focus-out close does not return focus, including when `finalFocus` is `null`, an element, or a function. The function is not called. React calls that function and ignores the result. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once.
 
+### Disabled trigger in a hover switch
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/popover/trigger/PopoverTrigger.tsx` and `packages/react/src/floating-ui-react/utils/element.ts`.
+
+Upstream: a disabled Popover trigger renders only `data-disabled`. `isTargetInsideEnabledTrigger` looks for `data-trigger-disabled`, so a pointer that leaves the open trigger for a disabled one does not close the popover.
+
+Local: a disabled `Popover.Trigger` also renders `data-trigger-disabled`, so that move closes the popover, as it closes a Tooltip.
+
+Test: `src/lib/popover/PopoverTriggers.svelte.spec.ts` (`closes when hovering a disabled trigger while another trigger is open`).
+
 ## Dialog
 
 Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed. `finalFocus={null}` does not return focus. A function that returns `null` focuses the trigger. `openWithPayload` stays on `Dialog.Handle`. Popover does not have it.
@@ -246,7 +256,6 @@ The popup has no `role` and the trigger has no `aria-describedby` or `type`, as 
 
 Each case is kept as an `it.todo` in the Tooltip specs.
 
-- `TRIGGER_DISABLED_ATTRIBUTE` in `packages/floating-ui-svelte/src/utils/constants.ts` is `data-disabled`. v1.9.0 uses `data-trigger-disabled`, which the Tooltip trigger renders, so `isTargetInsideEnabledTrigger` treats a disabled tooltip trigger as enabled. Focus and hover both suffer: moving from an open trigger to a disabled one keeps the tooltip open. Upstream tests: `closes when focusing a disabled trigger while another trigger is open` and `closes when hovering a disabled trigger while another trigger is open`.
 - `src/lib/internal/useAnchorPositioning.svelte.ts` places the positioner with `left` and `top`. v1.9.0 uses `transform` when no Viewport is mounted. Upstream tests: `uses transform positioning without Viewport` and `updates positioning when Viewport mounts and unmounts`.
 - `src/lib/internal/usePopupViewport.svelte.ts` does not set `--popup-width` and `--popup-height` on the previous container. Upstream test: the size half of `creates morphing containers during transitions`.
 

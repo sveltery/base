@@ -70,6 +70,23 @@ describe('focus manager', () => {
 });
 
 describe('hover', () => {
+	it('closes when hovering a disabled trigger while another trigger is open', async () => {
+		render(PopoverTriggersHarness, {
+			triggers: [
+				{ id: 'trigger-1', label: 'Trigger 1', payload: 1, openOnHover: true },
+				{ id: 'trigger-2', label: 'Trigger 2', payload: 2, openOnHover: true, disabled: true }
+			],
+			inside: false
+		});
+		await page.getByRole('button', { name: 'Trigger 1' }).hover();
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+		await page.getByRole('button', { name: 'Trigger 2' }).hover({ force: true });
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+		await expect
+			.element(page.getByRole('button', { name: 'Trigger 2' }))
+			.not.toHaveAttribute('data-popup-open');
+	});
+
 	it('stays open after leaving when a nested popup trigger was pressed inside its shadow root', async () => {
 		const { calls, onOpenChange } = recordOpenChanges();
 		render(PopoverTriggersHarness, {

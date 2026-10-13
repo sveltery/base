@@ -5,5 +5,5 @@
 export const CLICK_TRIGGER_IDENTIFIER = 'data-base-ui-click-trigger';
 export const FOCUSABLE_ATTRIBUTE = 'data-base-ui-focusable';
 
-/** Tooltip's disabled-trigger attribute. Tooltip must keep this string when it lands. */
-export const TRIGGER_DISABLED_ATTRIBUTE = 'data-disabled';
+/** Marks a disabled trigger that must not take over an open popup. */
+export const TRIGGER_DISABLED_ATTRIBUTE = 'data-trigger-disabled';
