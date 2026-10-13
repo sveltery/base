@@ -7,7 +7,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { createChangeEventDetails } from '@sveltery/utils';
+	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import {
 		compareItemEquality,
@@ -17,7 +17,6 @@
 	import { isVirtualClick } from '../internal/listbox/virtualClick.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { ITEM_PRESS } from './constants.js';
 	import { setSelectItem, useSelectRoot } from './context.svelte.js';
 	import type { SelectItemProps, SelectItemState } from './types.js';
 
@@ -120,10 +119,10 @@
 			const next = selected
 				? removeItem(current, itemValue, isItemEqualToValue)
 				: [...current, itemValue];
-			store.setValue(next, createChangeEventDetails(ITEM_PRESS, event));
+			store.setValue(next, createChangeEventDetails(REASONS.itemPress, event));
 		} else {
-			store.setValue(itemValue, createChangeEventDetails(ITEM_PRESS, event));
-			store.setOpen(false, createChangeEventDetails(ITEM_PRESS, event));
+			store.setValue(itemValue, createChangeEventDetails(REASONS.itemPress, event));
+			store.setOpen(false, createChangeEventDetails(REASONS.itemPress, event));
 		}
 	}
 

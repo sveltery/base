@@ -9,7 +9,6 @@ import type { Align, AnchorPositioningParameters, Side } from '../internal/popup
 import type { RenderChildren } from '../internal/render-children.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { SeparatorProps, SeparatorState } from '../separator/types.js';
-import type { ITEM_PRESS, CANCEL_OPEN, WINDOW_RESIZE } from './constants.js';
 
 export type { Align, Side };
 export type { ItemsInput as SelectItems };
@@ -18,11 +17,11 @@ export type SelectChangeReason =
 	| typeof REASONS.triggerPress
 	| typeof REASONS.outsidePress
 	| typeof REASONS.escapeKey
-	| typeof WINDOW_RESIZE
-	| typeof ITEM_PRESS
+	| typeof REASONS.windowResize
+	| typeof REASONS.itemPress
 	| typeof REASONS.focusOut
 	| typeof REASONS.listNavigation
-	| typeof CANCEL_OPEN
+	| typeof REASONS.cancelOpen
 	| typeof REASONS.imperativeAction
 	| typeof REASONS.none;
 

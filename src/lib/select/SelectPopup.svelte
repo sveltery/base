@@ -18,6 +18,7 @@
 		ownerDocument,
 		ownerWindow,
 		platform,
+		REASONS,
 		ScopedAnimationFrame
 	} from '@sveltery/utils';
 	import { clamp } from '../internal/clamp.js';
@@ -31,7 +32,6 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { DISABLE_SCROLLBAR_CLASS, DISABLE_SCROLLBAR_CSS } from '../internal/styles.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
-	import { WINDOW_RESIZE } from './constants.js';
 	import { useSelectPositioner, useSelectRoot } from './context.svelte.js';
 	import {
 		getMaxPopupHeight,
@@ -349,7 +349,7 @@
 		const positionerElement = store.positionerElement;
 		if (!positioner.alignItemWithTriggerActive || !positionerElement || !store.open) return;
 		return on(ownerWindow(positionerElement), 'resize', (event) => {
-			store.setOpen(false, createChangeEventDetails(WINDOW_RESIZE, event));
+			store.setOpen(false, createChangeEventDetails(REASONS.windowResize, event));
 		});
 	});
 

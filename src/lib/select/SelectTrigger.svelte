@@ -25,7 +25,7 @@
 		type StateAttributesMapping
 	} from '../internal/state-attributes.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
-	import { CANCEL_OPEN, SELECTED_DELAY } from './constants.js';
+	import { SELECTED_DELAY } from './constants.js';
 	import { useSelectRoot } from './context.svelte.js';
 	import { isMouseWithinBounds } from './popup-utils.js';
 	import type { SelectTriggerProps, SelectTriggerState } from './types.js';
@@ -122,7 +122,7 @@
 			// A release on the trigger or inside the popup is not a cancel.
 			if (contains(trigger, target) || contains(store.positionerElement, target)) return;
 			if (isMouseWithinBounds(mouseEvent, trigger)) return;
-			store.setOpen(false, createChangeEventDetails(CANCEL_OPEN, mouseEvent));
+			store.setOpen(false, createChangeEventDetails(REASONS.cancelOpen, mouseEvent));
 		}
 
 		// Firefox can fire the mouseup of this press on mousedown.

@@ -24,7 +24,10 @@ export const REASONS = {
 	focusOut: 'focus-out',
 	closePress: 'close-press',
 	imperativeAction: 'imperative-action',
-	listNavigation: 'list-navigation'
+	listNavigation: 'list-navigation',
+	itemPress: 'item-press',
+	cancelOpen: 'cancel-open',
+	windowResize: 'window-resize'
 } as const;
 
 export type BaseUIChangeEventDetails<Reason extends string> = {
