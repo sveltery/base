@@ -8,6 +8,7 @@
 
 import { untrack } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
+import { isHTMLElement } from '@floating-ui/utils/dom';
 import { FloatingRootStore } from '@sveltery/floating-ui-svelte';
 import {
 	activeElement,
@@ -253,7 +254,7 @@ export class NavigationMenuRootStore {
 
 		if (
 			!blocked &&
-			trigger instanceof HTMLElement &&
+			isHTMLElement(trigger) &&
 			popup &&
 			(active === ownerDocument(popup).body || contains(popup, active))
 		) {
