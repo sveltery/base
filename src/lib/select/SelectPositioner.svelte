@@ -111,11 +111,11 @@
 	// Upstream `onMapChange`: a selected item that leaves the list takes its value with it.
 	let previousSize = 0;
 	$effect(() => {
-		const size = store.items.elements.length;
+		const { length } = store.values;
 		untrack(() => {
-			if (store.values.length === 0) return;
+			if (length === 0) return;
 			const previous = previousSize;
-			previousSize = size;
+			previousSize = length;
 			itemsChanged(previous !== 0);
 		});
 	});

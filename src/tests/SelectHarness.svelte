@@ -6,6 +6,8 @@
 		label?: string;
 		disabled?: boolean;
 		testid?: string;
+		/** Extra props spread on the item. */
+		props?: Record<string, unknown>;
 	}
 
 	export interface HarnessGroup {
@@ -101,6 +103,7 @@
 		disabled={entry.disabled}
 		data-testid={entry.testid}
 		style={itemStyle}
+		{...entry.props}
 	>
 		{#if indicator}
 			<Select.ItemIndicator {...indicatorProps} data-testid="indicator-{textOf(entry)}" />

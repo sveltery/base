@@ -146,20 +146,45 @@
 			open = next;
 		},
 		floatingId: `base-ui-${uid}`,
-		read: () => ({
-			id: controlId.current,
-			value: current,
-			multiple,
-			disabled,
-			readOnly,
-			required,
-			modal,
-			highlightItemOnHover,
-			items,
-			itemToStringLabel: itemToStringLabel as ((item: never) => string) | undefined,
-			itemToStringValue: itemToStringValue as ((item: never) => string) | undefined,
-			isItemEqualToValue: comparer
-		}),
+		// Getters, so a reader tracks only the fields it reads.
+		root: {
+			get id() {
+				return controlId.current;
+			},
+			get value() {
+				return current;
+			},
+			get multiple() {
+				return multiple;
+			},
+			get disabled() {
+				return disabled;
+			},
+			get readOnly() {
+				return readOnly;
+			},
+			get required() {
+				return required;
+			},
+			get modal() {
+				return modal;
+			},
+			get highlightItemOnHover() {
+				return highlightItemOnHover;
+			},
+			get items() {
+				return items;
+			},
+			get itemToStringLabel() {
+				return itemToStringLabel as ((item: never) => string) | undefined;
+			},
+			get itemToStringValue() {
+				return itemToStringValue as ((item: never) => string) | undefined;
+			},
+			get isItemEqualToValue() {
+				return comparer;
+			}
+		},
 		commitValue,
 		onDismissedOutside: () => {
 			field.setTouched(true);

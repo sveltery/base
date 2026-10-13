@@ -50,7 +50,8 @@ export interface SelectStoreOptions {
 	readOpen: () => boolean | undefined;
 	writeOpen: (open: boolean) => void;
 	floatingId: string;
-	read: () => SelectRootReading;
+	/** Reads the root's props. Each field is a getter. */
+	root: SelectRootReading;
 	/** The root's cancelable value write. */
 	commitValue: (next: unknown, details: SelectChangeEventDetails) => void;
 	/** Field bookkeeping when focus or a press outside closes the popup. */
@@ -140,7 +141,7 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 	}
 
 	get root(): SelectRootReading {
-		return this.#options.read();
+		return this.#options.root;
 	}
 
 	get value() {
