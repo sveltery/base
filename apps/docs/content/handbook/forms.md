@@ -180,9 +180,14 @@ Form renders a native `<form>`, so a plain `action` and `method` submit the way 
 The controls support the native validation attributes, with their HTML names:
 
 - `required` marks a field that needs a value.
-- `minlength` and `maxlength` limit the length of a text value.
 - `pattern` is a regular expression that the value must match.
 - `min`, `max`, and `step` limit a numeric value.
+
+<Callout title="Known issue: minlength and maxlength">
+
+`minlength` and `maxlength` do not fail validation on `Field.Control` or `Input` yet. The control writes its value back to the input after each keystroke, and the browser then stops checking the length. Use `validate` on `Field.Root` for a length rule until the fix lands.
+
+</Callout>
 
 Form turns off the browser's own validation bubbles once the page is hydrated, and shows the messages in `Field.Error` instead. Before hydration, or with JavaScript off, the browser validates as usual. A submit button with `formnovalidate` skips validation, as it does in HTML.
 
