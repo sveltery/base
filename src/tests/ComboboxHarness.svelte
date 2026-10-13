@@ -73,7 +73,9 @@
 		probe = false,
 		popupExtra,
 		inputWrapper = false,
-		api
+		api,
+		staticGroups,
+		refuseValue = false
 	}: {
 		value?: unknown;
 		inputValue?: string;
@@ -127,6 +129,10 @@
 		inputWrapper?: boolean;
 		/** Receives the root's `close` and `unmount`, for a test that also binds props. */
 		api?: (methods: { close(): void; unmount(): void }) => void;
+		/** Grouped items rendered without the root's `items` prop. */
+		staticGroups?: { label: string; items: HarnessItem[] }[];
+		/** Binds `value` through a setter that ignores writes, as a parent refusing a change. */
+		refuseValue?: boolean;
 	} = $props();
 
 
@@ -166,6 +172,24 @@
 	</Combobox.Item>
 {/snippet}
 
+{#snippet staticItem(entry: HarnessItem, index: number)}
+	{#if separator && index > 0}<Combobox.Separator data-testid="separator" />{/if}
+	<Combobox.Item
+		value={entry.value}
+		disabled={entry.disabled}
+		data-testid={entry.testid}
+		{...entry.props}
+	>
+		{#if indicator}
+			<Combobox.ItemIndicator
+				{...indicatorProps}
+				data-testid="indicator-{entry.text ?? String(entry.value)}"
+			/>
+		{/if}
+		{entry.text ?? String(entry.value)}
+	</Combobox.Item>
+{/snippet}
+
 {#snippet entries()}
 	{#if items !== undefined}
 		{#if grouped}
@@ -186,23 +210,20 @@
 			</Combobox.Collection>
 		{/if}
 	{:else}
-		{#each staticItems as entry, index (index)}
-			{#if separator && index > 0}<Combobox.Separator data-testid="separator" />{/if}
-			<Combobox.Item
-				value={entry.value}
-				disabled={entry.disabled}
-				data-testid={entry.testid}
-				{...entry.props}
-			>
-				{#if indicator}
-					<Combobox.ItemIndicator
-						{...indicatorProps}
-						data-testid="indicator-{entry.text ?? String(entry.value)}"
-					/>
-				{/if}
-				{entry.text ?? String(entry.value)}
-			</Combobox.Item>
-		{/each}
+		{#if staticGroups}
+			{#each staticGroups as group (group.label)}
+				<Combobox.Group data-testid="group-{group.label}">
+					<Combobox.GroupLabel>{group.label}</Combobox.GroupLabel>
+					{#each group.items as entry, index (entry.value)}
+						{@render staticItem(entry, index)}
+					{/each}
+				</Combobox.Group>
+			{/each}
+		{:else}
+			{#each staticItems as entry, index (entry.value)}
+				{@render staticItem(entry, index)}
+			{/each}
+		{/if}
 	{/if}
 {/snippet}
 
@@ -269,7 +290,9 @@
 	{#if around}<input data-testid="before" aria-label="before" />{/if}
 	<Combobox.Root
 		bind:this={combobox}
-		bind:value
+		bind:value={() => value, (next) => {
+			if (!refuseValue) value = next;
+		}}
 		bind:inputValue
 		bind:open
 		{...items !== undefined ? { items: items as never } : {}}
@@ -277,7 +300,6 @@
 		{...root}
 	>
 		{#if label}<Combobox.Label data-testid="label">{label}</Combobox.Label>{/if}
-		{#if probe}<ComboboxProbe />{/if}
 		{#if inputInside}
 			<Combobox.Trigger data-testid="trigger" {...triggerProps}>
 				<Combobox.Value {...valueProps} />
@@ -295,6 +317,7 @@
 		{/if}
 		{#if valueText}<span data-testid="value"><Combobox.Value {...valueProps} /></span>{/if}
 		{#if status !== undefined}<Combobox.Status data-testid="status">{status}</Combobox.Status>{/if}
+		{#if probe}<ComboboxProbe />{/if}
 		{#if inline}
 			{@render list()}
 		{:else if noPortal}

@@ -13,12 +13,6 @@
 	const store = useComboboxRoot();
 	const group = findComboboxGroup();
 	const items = $derived((group?.items ?? store.filteredItems) as readonly never[]);
-
-	// A keyed move registers nothing, so the item order follows the new list here.
-	$effect(() => {
-		void items;
-		store.items.refreshOrder();
-	});
 </script>
 
 {#each items as item, index (item)}

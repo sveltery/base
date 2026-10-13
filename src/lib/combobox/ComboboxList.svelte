@@ -23,7 +23,11 @@
 		store.listElement = node;
 		// An inline list has no positioner, so it is the floating element.
 		if (!hasPositioner) store.positionerElement = node;
+		// A keyed move registers nothing, so the item order follows the DOM here.
+		const observer = new MutationObserver(() => store.items.refreshOrder());
+		observer.observe(node, { childList: true, subtree: true });
 		return () => {
+			observer.disconnect();
 			if (store.listElement === node) store.listElement = null;
 			if (!hasPositioner && store.positionerElement === node) store.positionerElement = null;
 		};
