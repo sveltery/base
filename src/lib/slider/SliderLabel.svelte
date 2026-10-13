@@ -14,8 +14,8 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { getTarget } from '@sveltery/utils';
-	import { focusElement, isElement } from './dom.js';
+	import { closest, getTarget } from '@sveltery/utils';
+	import { focusElement } from './dom.js';
 	import type { SliderLabelProps, SliderRootState } from './types.js';
 
 	let { render, children, onclick, onpointerdown, ...elementProps }: SliderLabelProps = $props();
@@ -55,8 +55,7 @@
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
 		onclick?.(event);
-		const target = getTarget(event);
-		if (isElement(target) && target.closest('button,input,select,textarea')) return;
+		if (closest(getTarget(event), 'button,input,select,textarea')) return;
 		if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
 		if (event.defaultPrevented) return;
 		focusControl(event);

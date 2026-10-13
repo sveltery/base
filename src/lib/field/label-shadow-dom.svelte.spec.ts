@@ -1,5 +1,5 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/internals/labelable-provider/useLabel.test.tsx
-// and slider/label/SliderLabel.test.tsx cases from 4ba59eeb7 and ec6bf32d3
+// and slider/label/SliderLabel.test.tsx cases from 929bc1770, 4ba59eeb7 and ec6bf32d3
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { flushSync, mount, unmount } from 'svelte';
 import { describe, expect, it, onTestFinished } from 'vitest';
@@ -85,5 +85,16 @@ describe.each(['field', 'slider'] as const)('%s label in a shadow root', (contro
 
 		expect(() => labelIn(target, control).click()).not.toThrow();
 		expect(errors).toEqual([]);
+	});
+
+	it('does not focus the control for a composed click inside a nested button', async () => {
+		const view = render(LabelShadowHarness, { control, labelAction: true });
+		const button = view.container.querySelector('button');
+		const target = button?.querySelector('span')?.shadowRoot?.querySelector('span');
+		expect(target).toBeInstanceOf(HTMLSpanElement);
+
+		target?.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+
+		expect(document.activeElement).not.toBe(controlIn(view.container, control));
 	});
 });

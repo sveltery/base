@@ -5,7 +5,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { error } from '@sveltery/utils';
+	import { closest, error, getTarget } from '@sveltery/utils';
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
@@ -86,8 +86,7 @@
 	}
 
 	function handleInteraction(event: MouseEvent) {
-		const target = event.target;
-		if (target instanceof Element && target.closest('button,input,select,textarea')) return;
+		if (closest(getTarget(event), 'button,input,select,textarea')) return;
 		if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
 		if (nativeLabel) return;
 		focusControl(event);
