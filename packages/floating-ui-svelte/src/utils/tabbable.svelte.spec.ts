@@ -8,7 +8,7 @@ afterEach(() => {
 });
 
 describe('getTabbableNearElement', () => {
-	it.each(['shadow', 'slot'] as const)(
+	it.for(['shadow', 'slot'] as const)(
 		'finds adjacent controls around a non-tabbable anchor in a %s tree',
 		(type) => {
 			const before = document.createElement('button');
@@ -51,14 +51,14 @@ describe('getTabbableNearElement', () => {
 		expect(getTabbableNearElement(detachedAnchor, 1)).toBe(null);
 	});
 
-	it.each([
+	it.for([
 		[false, 1],
 		[false, -1],
 		[true, 1],
 		[true, -1]
 	] as const)(
 		'does not let a disabled radio anchor suppress its peer when checked=%s and direction=%s',
-		(checked, direction) => {
+		([checked, direction]) => {
 			const anchor = document.createElement('input');
 			const peer = document.createElement('input');
 			const other = document.createElement('button');
@@ -76,7 +76,17 @@ describe('getTabbableNearElement', () => {
 		}
 	);
 
-	it('skips controls inside the excluded element and falls back to the anchor', () => {
+	it('skips controls inside the excluded element', () => {
+		const anchor = document.createElement('button');
+		const excluded = document.createElement('div');
+		excluded.append(document.createElement('button'));
+		const after = document.createElement('button');
+		document.body.append(anchor, excluded, after);
+
+		expect(getTabbableNearElement(anchor, 1, excluded)).toBe(after);
+	});
+
+	it('falls back to the anchor when only excluded controls follow', () => {
 		const anchor = document.createElement('button');
 		const popup = document.createElement('div');
 		popup.append(document.createElement('button'));

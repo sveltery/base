@@ -28,8 +28,8 @@ export class FloatingRootStore {
 	readonly triggers = new PopupTriggerMap();
 	/** How `ClickInteraction` opened this popup. Cleared when the popup closes. */
 	openMethod = $state<OpenInteractionType | null>(null);
-	/** The active trigger. This is the only copy of that element. */
-	domReferenceElement = $state<Element | null>(null);
+	#domReferenceElement = $state<Element | null>(null);
+	#lastDomReferenceElement: Element | null = null;
 	/** Hover timers and safe-polygon options for this popup. Not a module map. */
 	hoverInteraction: HoverInteraction | null = null;
 	floatingElement = $state<HTMLElement | null>(null);
@@ -61,6 +61,24 @@ export class FloatingRootStore {
 		this.nested = options.nested;
 		this.floatingId = options.floatingId;
 		this.floatingElementKind = options.floatingElementKind;
+	}
+
+	/** The active trigger. Popup stores clear it once the closed popup unmounts. */
+	get domReferenceElement() {
+		return this.#domReferenceElement;
+	}
+
+	set domReferenceElement(element: Element | null) {
+		this.#domReferenceElement = element;
+		if (element) this.#lastDomReferenceElement = element;
+	}
+
+	/**
+	 * The last active trigger. A popup store clears `domReferenceElement` once the closed popup
+	 * unmounts. Upstream's floating root only syncs an element, so it keeps this one.
+	 */
+	get lastDomReferenceElement() {
+		return this.#lastDomReferenceElement;
 	}
 
 	setOpen(_nextOpen: boolean, _eventDetails: BaseUIChangeEventDetails<string>) {}

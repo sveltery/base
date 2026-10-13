@@ -218,9 +218,19 @@ describe('PreviewCard.Viewport', () => {
 			expect(byId('content')!.textContent).toBe('Content 1');
 		});
 
-		it.todo(
-			'sets --popup-width and --popup-height on the previous container (the shared PopupViewport leaves them off)'
-		);
+		it('sets --popup-width and --popup-height on the previous container', async () => {
+			addMorphStyles('0.3s');
+			render(PreviewCardViewportHarness, { triggers: twoTriggers([10, 10], [100, 200]) });
+			await activate('trigger1');
+			await expect.poll(() => byId('content')?.textContent).toBe('Content 0');
+			const { width, height } = getComputedStyle(byId('popup')!);
+
+			await activate('trigger2');
+			await expect.poll(() => document.querySelector('[data-previous]')).not.toBeNull();
+			const previous = document.querySelector<HTMLElement>('[data-previous]')!;
+			expect(previous.style.getPropertyValue('--popup-width')).toBe(width);
+			expect(previous.style.getPropertyValue('--popup-height')).toBe(height);
+		});
 
 		it('sets `data-activation-direction` from the previous to the new trigger', async () => {
 			addMorphStyles('0.2s');

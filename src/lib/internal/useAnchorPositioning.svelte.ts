@@ -436,18 +436,28 @@ export class AnchorPositioning {
 		const current = this.read();
 		const data = this.#position.data;
 		const method = current.positionMethod ?? 'absolute';
-		const adaptive = current.adaptiveOrigin
-			? (data.middlewareData.adaptiveOrigin as { sideX?: string; sideY?: string } | undefined)
-			: undefined;
-		const sideX = adaptive?.sideX ?? 'left';
-		const sideY = adaptive?.sideY ?? 'top';
 		const node = this.store.positionerElement;
+		const x = roundByDPR(node, data.x);
+		const y = roundByDPR(node, data.y);
+		const shared = { ...this.#measured, ...this.#availableSize() };
+		if (!current.adaptiveOrigin) {
+			const dpr = (node ? ownerWindow(node).devicePixelRatio : 1) || 1;
+			return {
+				position: method,
+				left: '0',
+				top: '0',
+				transform: `translate(${x}px, ${y}px)`,
+				...(dpr >= 1.5 ? { willChange: 'transform' } : {}),
+				...shared
+			};
+		}
+		const adaptive = data.middlewareData.adaptiveOrigin as
+			{ sideX?: string; sideY?: string } | undefined;
 		return {
 			position: method,
-			[sideX]: `${roundByDPR(node, data.x)}px`,
-			[sideY]: `${roundByDPR(node, data.y)}px`,
-			...this.#measured,
-			...this.#availableSize()
+			[adaptive?.sideX ?? 'left']: `${x}px`,
+			[adaptive?.sideY ?? 'top']: `${y}px`,
+			...shared
 		};
 	}
 

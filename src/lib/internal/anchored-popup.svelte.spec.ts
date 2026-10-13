@@ -198,8 +198,7 @@ describe('anchored popup', () => {
 		await page.getByRole('button', { name: 'Open' }).click();
 		const positioner = page.getByTestId('positioner');
 		await expect.element(positioner).toHaveAttribute('data-positioned', '');
-		await expect.poll(() => positioner.element().style.left).toBe('10px');
-		await expect.poll(() => positioner.element().style.top).toBe('36px');
+		await expect.poll(() => positioner.element().style.transform).toBe('translate(10px, 36px)');
 	});
 
 	it('keeps the popup in place, with available size, while it is closing', async () => {
