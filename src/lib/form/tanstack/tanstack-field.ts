@@ -208,7 +208,7 @@ export function tanstackField<V>(field: TanstackFieldApi<V>): TanstackFieldHandl
 		touched: () => field.state.meta.isTouched,
 		dirty: () => field.state.meta.isDirty,
 		blur: () => field.handleBlur()
-	} satisfies FieldHandle & { blur(): void };
+	} satisfies FieldHandle;
 	handles.set(field, handle);
 	return handle as Handle;
 }
