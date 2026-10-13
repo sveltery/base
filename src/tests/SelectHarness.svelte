@@ -17,6 +17,7 @@
 </script>
 
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
 		Select,
@@ -53,7 +54,8 @@
 		icon = false,
 		separator = false,
 		itemStyle,
-		around = false
+		around = false,
+		triggerAsDiv = false
 	}: {
 		value?: unknown;
 		open?: boolean;
@@ -81,6 +83,8 @@
 		itemStyle?: string;
 		/** Renders an input before the select, and an input and a button after it. */
 		around?: boolean;
+		/** Renders the trigger as a `<div>` through its `render` snippet. */
+		triggerAsDiv?: boolean;
 	} = $props();
 
 	const textOf = (item: HarnessItem) => item.text ?? String(item.value);
@@ -131,6 +135,14 @@
 	{/if}
 {/snippet}
 
+{#snippet divTrigger(
+	props: HTMLAttributes<HTMLElement>,
+	_state: unknown,
+	children: Snippet | undefined
+)}
+	<div {...props}>{@render children?.()}</div>
+{/snippet}
+
 {#snippet positioned()}
 	{#if backdrop}<Select.Backdrop data-testid="backdrop" />{/if}
 	<Select.Positioner data-testid="positioner" {...positioner}>
@@ -150,7 +162,12 @@
 {#if around}<input data-testid="before" aria-label="before" />{/if}
 <Select.Root bind:this={select} bind:value bind:open {...root}>
 	{#if label}<Select.Label data-testid="label">{label}</Select.Label>{/if}
-	<Select.Trigger data-testid="trigger" {...trigger}>
+	<Select.Trigger
+		data-testid="trigger"
+		render={triggerAsDiv ? divTrigger : undefined}
+		nativeButton={!triggerAsDiv}
+		{...trigger}
+	>
 		{#if formatValue}
 			<Select.Value data-testid="value" {...valueProps}>
 				{#snippet children(current)}{formatValue(current)}{/snippet}
