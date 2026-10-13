@@ -40,7 +40,7 @@
 	const bindKey = createAttachmentKey();
 	const hoverKey = createAttachmentKey();
 	let triggerEl = $state<HTMLElement | null>(null);
-	let armed = $state<TriggerArmed | null>(null);
+	let armed = $state.raw<TriggerArmed | null>(null);
 
 	const live = $derived(handle ? handle.attached : (root ?? null));
 

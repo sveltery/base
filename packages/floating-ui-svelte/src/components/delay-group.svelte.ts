@@ -3,7 +3,8 @@
 // `DelayGroup` is the provider's context value and `DelayGroupMember` is `useDelayGroup`.
 // The delay and the active id are plain fields, like upstream's refs. Only `isInstantPhase`
 // is reactive, so a member that is not part of a change does not update.
-// Members without a provider share one inert group, as in upstream's default context value.
+// Members without a provider share one group object and write to it, as upstream's default
+// context value is one shared object.
 
 import { createContext, untrack } from 'svelte';
 import {

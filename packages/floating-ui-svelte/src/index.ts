@@ -56,3 +56,5 @@ export {
 	type UseFocusProps
 } from './hooks/useFocus.svelte.js';
 export { ClientPointInteraction, type UseClientPointProps } from './hooks/useClientPoint.svelte.js';
+export { getDelay } from './hooks/useHoverShared.js';
+export { isMouseLikePointerType } from './utils/event.js';

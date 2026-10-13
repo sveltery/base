@@ -108,5 +108,12 @@
 		<li>
 			<a href="/fixtures/dialog">Dialog</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
+		<li>
+			<a href="/fixtures/tooltip">Tooltip</a> (add <code>&amp;reference</code> for React Base UI)
+		</li>
+		<li>
+			<a href="/fixtures/preview-card">PreviewCard</a> (add <code>&amp;reference</code> for React Base
+			UI)
+		</li>
 	</ul>
 </main>

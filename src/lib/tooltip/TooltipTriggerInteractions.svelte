@@ -20,7 +20,9 @@
 	import {
 		DelayGroupMember,
 		FocusInteraction,
+		getDelay,
 		HoverReferenceInteraction,
+		isMouseLikePointerType,
 		safePolygon
 	} from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
@@ -66,11 +68,6 @@
 		return delay ?? providerDelay() ?? OPEN_DELAY;
 	}
 
-	function groupCloseDelay() {
-		const value = member.delay;
-		return (typeof value === 'number' ? value : value.close) ?? 0;
-	}
-
 	const polygon = safePolygon();
 	const hover = new HoverReferenceInteraction(owner, () => ({
 		enabled: !disabled,
@@ -79,7 +76,10 @@
 		handleClose: !owner.disableHoverablePopup && owner.trackCursorAxis !== 'both' ? polygon : null,
 		restMs: openDelay,
 		delay: () => ({
-			close: closeDelay == null && member.hasProvider ? groupCloseDelay() : (closeDelay ?? 0)
+			close:
+				closeDelay == null && member.hasProvider
+					? (getDelay(member.delay, 'close') ?? 0)
+					: (closeDelay ?? 0)
 		}),
 		shouldOpen: () => !nestedTriggerHovered,
 		placement: () => owner.placement
@@ -126,10 +126,6 @@
 		return hovered;
 	}
 
-	function isMouseLike(type: string | undefined) {
-		return type === 'mouse' || type === 'pen' || type === '' || type === undefined;
-	}
-
 	function onNestedTriggerHover(event: MouseEvent) {
 		const wasHovered = nestedTriggerHovered;
 		const target = targetElement(event);
@@ -150,7 +146,7 @@
 			!disabled &&
 			!owner.open &&
 			trigger &&
-			isMouseLike(pointerType)
+			isMouseLikePointerType(pointerType)
 		) {
 			const open = () => {
 				if (!nestedTriggerHovered && !disabled && !owner.open) {

@@ -13,11 +13,15 @@
 	const owner = untrack(() => store);
 	const dismiss = new DismissInteraction(owner);
 
-	owner.dismissReference = dismiss.reference;
-	owner.dismissFloating = dismiss.floating;
+	const reference = dismiss.reference;
+	const floating = dismiss.floating;
 
-	$effect(() => () => {
-		owner.dismissReference = {};
-		owner.dismissFloating = {};
+	$effect(() => {
+		owner.dismissReference = reference;
+		owner.dismissFloating = floating;
+		return () => {
+			if (owner.dismissReference === reference) owner.dismissReference = {};
+			if (owner.dismissFloating === floating) owner.dismissFloating = {};
+		};
 	});
 </script>
