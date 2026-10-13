@@ -143,4 +143,27 @@ describe('opened without a trigger (Base UI v1.9.0)', () => {
 		expect(content()).toBe('');
 		await expectUnassociatedTrigger();
 	});
+
+	it('takes the payload of the only trigger when opened through bind:open', async () => {
+		const handle = Popover.createHandle<number | string>();
+		const view = render(PopoverTriggersHarness, { handle, triggers: lone });
+
+		await view.rerender({ open: true });
+		await expect.poll(content).toBe('1');
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+	});
+
+	it('takes the only trigger payload on a bind:open after an open without a trigger closed', async () => {
+		const handle = Popover.createHandle<number | string>();
+		const view = render(PopoverTriggersHarness, { handle, triggers: lone });
+
+		handle.open(null);
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+		handle.close();
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+
+		await view.rerender({ open: true });
+		await expect.poll(content).toBe('1');
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+	});
 });

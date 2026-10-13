@@ -1,3 +1,28 @@
+<script module lang="ts">
+	const LIST_LIMIT = 20;
+	let previouslyFocusedElements: WeakRef<Element>[] = [];
+
+	function clearDisconnectedPreviouslyFocusedElements() {
+		previouslyFocusedElements = previouslyFocusedElements.filter(
+			(entry) => entry.deref()?.isConnected
+		);
+	}
+
+	function addPreviouslyFocusedElement(element: Element | null | undefined) {
+		clearDisconnectedPreviouslyFocusedElements();
+		if (!element || element.nodeName === 'BODY') return;
+		previouslyFocusedElements.push(new WeakRef(element));
+		if (previouslyFocusedElements.length > LIST_LIMIT) {
+			previouslyFocusedElements = previouslyFocusedElements.slice(-LIST_LIMIT);
+		}
+	}
+
+	function getPreviouslyFocusedElement() {
+		clearDisconnectedPreviouslyFocusedElements();
+		return previouslyFocusedElements.at(-1)?.deref();
+	}
+</script>
+
 <script lang="ts">
 	// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx
 	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
@@ -82,20 +107,22 @@
 
 	function captureReturnTarget(doc: Document, floating: HTMLElement) {
 		const reference = store.domReferenceElement;
-		if (reference instanceof HTMLElement && reference.isConnected) {
-			returnTarget = reference;
-			return;
-		}
-		if (returnTarget) return;
+		const referenceTarget =
+			reference instanceof HTMLElement && reference.isConnected ? reference : null;
 		const active = activeElement(doc);
-		if (
+		const previousTarget =
 			active instanceof HTMLElement &&
 			active !== doc.body &&
 			!contains(floating, active) &&
 			!contains(store.portalElement, active)
-		) {
-			returnTarget = active;
-		}
+				? active
+				: null;
+		// Upstream `preferPreviousFocus`: an open with no interaction, such as `bind:open`,
+		// returns focus to where it was before, not to the trigger it claimed.
+		returnTarget =
+			store.openMethod == null
+				? (previousTarget ?? returnTarget ?? referenceTarget)
+				: (referenceTarget ?? returnTarget ?? previousTarget);
 	}
 
 	function tabbables(floating: HTMLElement) {
@@ -409,6 +436,7 @@
 		const floating = store.floatingElement;
 		if (!floating || portalHome === null) return;
 		const doc = ownerDocument(floating);
+		addPreviouslyFocusedElement(activeElement(doc));
 		captureReturnTarget(doc, floating);
 		closeType = '';
 		closeReason = '';
@@ -490,6 +518,8 @@
 				if (modal) return;
 				if (!(relatedTarget instanceof Element)) return;
 				if (focusStaysInTree(relatedTarget)) return;
+				// Moving back to where focus was before the popup opened keeps it open.
+				if (relatedTarget === getPreviouslyFocusedElement()) return;
 				// Upstream sets this before the close so return focus does not cancel the Tab.
 				closeReason = REASONS.focusOut;
 				store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));

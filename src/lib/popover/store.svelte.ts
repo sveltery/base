@@ -94,6 +94,20 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			this.stickTimeout.clear();
 		});
 
+		// Upstream useImplicitActiveTrigger: a popup opened without naming a trigger, such as
+		// through `bind:open`, claims its only trigger until it finishes closing.
+		$effect(() => {
+			if (!this.open || this.openedWithoutTrigger || this.triggerCount !== 1) return;
+			if (this.resolvedActiveTriggerId() != null) return;
+			untrack(() => {
+				const [only] = this.triggers.elements();
+				const id = this.triggers.idOf(only);
+				if (!id) return;
+				this.domReferenceElement = only;
+				this.writeTriggerId(id);
+			});
+		});
+
 		$effect(() => {
 			return () => {
 				this.stickTimeout.clear();
