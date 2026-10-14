@@ -143,9 +143,9 @@
 	/** Focus left a portaled popup without an outside press, as upstream `insideReactTree`. */
 	let insideTree = false;
 	const restoreFrame = new ScopedAnimationFrame();
-	// An exit can unmount the popup before this frame. Upstream's return job outlives the
-	// unmount too. The callback skips a reopened popup.
-	// eslint-disable-next-line sveltery/no-unscoped-timer -- outlives the popup; an open cancels it
+	// Scheduled when the popup unmounts, so it outlives this instance. A reopen that mounts a new
+	// instance cannot cancel it, so the callback's open check is the guard.
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- outlives the popup; its callback skips a reopened one
 	const bodyReturnFrame = new AnimationFrame();
 	let suppressFocusOut = false;
 	/** Focus before this open. A re-run while open sees focus inside, so it keeps the first. */
@@ -284,6 +284,21 @@
 		return null;
 	}
 
+	/**
+	 * A popup beside this one in the tree is open, as the next menubar menu is when a press
+	 * switches menus. Its initial focus lands a frame later, and returning focus first would
+	 * take focus from it.
+	 */
+	function siblingOpen() {
+		if (!tree || !store.nodeId) return false;
+		const nodeId = store.nodeId;
+		const parentId = tree.nodes.find((node) => node.id === nodeId)?.parentId;
+		if (parentId == null) return false;
+		return tree.nodes.some(
+			(node) => node.id !== nodeId && node.parentId === parentId && !!node.context?.isOpen()
+		);
+	}
+
 	function scheduleBodyReturn(element: HTMLElement) {
 		bodyReturnFrame.cancel();
 		bodyReturnFrame.request(() => {
@@ -310,13 +325,12 @@
 		preventReturn = false;
 		// The return function is not called when the return is prevented. React calls it and
 		// ignores the result.
-		let returned: HTMLElement | null = null;
 		const apply = () => {
-			if (spec === false || prevented) return;
+			if (spec === false || prevented || siblingOpen()) return null;
 			const target = resolved === undefined ? returnTarget(leaving, spec) : resolved;
-			if (!target?.isConnected) return;
+			if (!target?.isConnected) return null;
 			target.focus({ preventScroll: true });
-			returned = target;
+			return target;
 		};
 		// Focus now only when a close is already committed. A disconnected popup is not
 		// a close: the portal may be moving to another container. A `flushSync` here
@@ -324,10 +338,10 @@
 		// and it drops the close-completion effect so the popup never unmounts.
 		const closed = closeReason !== '' || !store.isOpen();
 		if (closed) {
-			apply();
 			// A popup that unmounts with its close focuses the trigger before a sloppy outside
 			// press's compatibility mousedown, which then moves focus to the body.
 			// The next frame puts that same element back. A container swap is not a close.
+			const returned = apply();
 			if (returned) scheduleBodyReturn(returned);
 			return;
 		}
@@ -362,10 +376,8 @@
 		// Without `explicitReturnFocus`, only a boolean `true` requires focus to still be inside.
 		// `explicitReturnFocus={false}` requires it for a function or an element target too.
 		const explicit = explicitReturnFocus ?? (fromFunction || spec instanceof HTMLElement);
-		const target = resolved instanceof HTMLElement ? resolved : defaultReturnTarget(reference);
-		if (!target?.isConnected) return null;
 		if (!explicit && !focusInside) return null;
-		return target;
+		return resolved instanceof HTMLElement ? resolved : defaultReturnTarget(reference);
 	}
 
 	function openedBy(): OpenInteractionType {
@@ -707,17 +719,20 @@
 	// that becomes `null` removes the popup, and a container change re-runs this as a move.
 	$effect(() => {
 		const portalHome = portal?.home;
-		if (disabled || !store.floatingElement || portalHome === null) return;
+		const floating = store.floatingElement;
+		if (disabled || !floating || portalHome === null) return;
+		// Taken here, as upstream does. The popup's attachment clears `floatingElement` before
+		// this teardown, and a popup portaled into an iframe needs that frame's document.
+		const doc = ownerDocument(floating);
 		return () => {
 			// A teardown reads the values from before this update, such as the reference the
 			// unmount clears. Focus is read here, as upstream's cleanup does, before a parent
 			// popup's restore can move it.
-			const floating = store.floatingElement;
-			const doc = ownerDocument(floating);
 			const active = activeElement(doc);
-			// The portal host is not "inside" for return focus. A child that stayed
-			// open is mounted beside the popup, and pulling focus back would
-			// take it off that child. Upstream checks the floating element only.
+			// The portal host is not "inside" for return focus. A child that stayed open is
+			// mounted beside the popup, and pulling focus back would take it off that child.
+			// Upstream also counts focus in an open child's floating element
+			// (`FloatingFocusManager.tsx` 889–895).
 			const leaving: Leaving = {
 				endedBy: closeType,
 				reference: store.domReferenceElement,
@@ -727,9 +742,10 @@
 					active === doc.body ||
 					active == null
 			};
-			// A popup that closed in an earlier update resolves its target now, as upstream's
-			// cleanup does, before a parent menu's list navigation focuses the parent popup.
-			// One that closes in this update reads `returnFocus` once the update has finished.
+			// A popup that closed in an earlier update resolves its target now, as upstream's cleanup
+			// does. A return function then reads the state from before the unmount, such as Menu's
+			// trigger, which the unmount clears. One that closes in this update reads
+			// `returnFocus` once the update has finished.
 			const resolved =
 				!store.isOpen() && !preventReturn && returnFocus !== false
 					? returnTarget(leaving, returnFocus)

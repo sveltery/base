@@ -151,6 +151,19 @@ describe('Menubar', () => {
 		expect(focused()).toBe(document.body);
 	});
 
+	it('returns focus to the trigger when a press on the page background closes its menu', async () => {
+		render(MenubarHarness);
+		await userEvent.click(get('file-trigger'));
+		await expect.poll(shown('file-menu')).toBe(true);
+		await expect.poll(() => get('file-menu').contains(focused())).toBe(true);
+
+		// A press on the page background moves focus to the body and closes the menu.
+		await userEvent.click(document.body, { position: { x: 5, y: window.innerHeight - 5 } });
+		await expect.poll(shown('file-menu')).toBe(false);
+		await settle();
+		expect(focused()).toBe(get('file-trigger'));
+	});
+
 	it('closes open submenus when navigating to the next menubar item with ArrowRight', async () => {
 		const calls: string[] = [];
 		render(MenubarHarness, {
@@ -750,24 +763,15 @@ describe('Menubar', () => {
 		});
 
 		it('updates scroll lock when handing off between top-level touch-opened menus', async () => {
-			// Upstream runs this in JSDOM, where the closed menu unmounts at once. In a browser its
-			// return focus lands on the File trigger after Edit opens and reopens File, in React too.
-			const view = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
-			const previous = view.BASE_UI_ANIMATIONS_DISABLED;
-			view.BASE_UI_ANIMATIONS_DISABLED = true;
-			try {
-				render(MenubarCasesHarness, { scenario: 'scroll-handoff' });
-				pressWithTouch(get('file-trigger'));
-				await expect.poll(shown('file-menu')).toBe(true);
-				await expect.poll(isScrollLocked).toBe(true);
+			render(MenubarCasesHarness, { scenario: 'scroll-handoff' });
+			pressWithTouch(get('file-trigger'));
+			await expect.poll(shown('file-menu')).toBe(true);
+			await expect.poll(isScrollLocked).toBe(true);
 
-				pressWithTouch(get('edit-trigger'));
-				await expect.poll(shown('edit-menu')).toBe(true);
-				await expect.poll(shown('file-menu')).toBe(false);
-				await expect.poll(isScrollLocked).toBe(false);
-			} finally {
-				view.BASE_UI_ANIMATIONS_DISABLED = previous;
-			}
+			pressWithTouch(get('edit-trigger'));
+			await expect.poll(shown('edit-menu')).toBe(true);
+			await expect.poll(shown('file-menu')).toBe(false);
+			await expect.poll(isScrollLocked).toBe(false);
 		});
 	});
 

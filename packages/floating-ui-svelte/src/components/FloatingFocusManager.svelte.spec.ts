@@ -85,6 +85,27 @@ describe('FloatingFocusManager', () => {
 			expect(document.activeElement).toBe(reference);
 		});
 
+		it('returns focus to the trigger when the popup unmounts inside an iframe', async () => {
+			const iframe = document.createElement('iframe');
+			document.body.appendChild(iframe);
+			try {
+				const frameDocument = iframe.contentDocument!;
+				const { component } = render(PortalFocusHarness, {
+					target: frameDocument.body,
+					props: { container: frameDocument.body }
+				});
+				flushSync(() => component.show('mouse'));
+				const focused = () => frameDocument.activeElement?.getAttribute('data-testid') ?? null;
+				await expect.poll(focused).toBe('inside');
+
+				flushSync(() => component.hide());
+
+				await expect.poll(focused).toBe('reference');
+			} finally {
+				iframe.remove();
+			}
+		});
+
 		it('keeps focus in a closed popup until it unmounts, then returns it to the trigger', async () => {
 			const { component } = render(PortalFocusHarness, { keepMounted: true });
 			flushSync(() => component.show('mouse'));
