@@ -406,12 +406,6 @@ Upstream: when focus that left a filterable submenu's input lands on its trigger
 
 Local: the trigger hands focus back to the input without calling the consumer's `onfocus`, since that focus never settles on the trigger.
 
-### Lazy flip
-
-Upstream: a filterable menu's positioner passes `lazyFlip: 'placement'`, which locks the side and the alignment once the popup has flipped.
-
-Local: the shared `useAnchorPositioning` takes a boolean `lazyFlip`, so a filterable menu locks the side only. The upstream cases spy on the hook's arguments and are not ported.
-
 ### Internal filter roots
 
 Upstream: `MenuFilterRoot` and `MenuFilterSubmenuRoot` are internal components that `Menu.FilterProvider` renders around a root or a submenu root.

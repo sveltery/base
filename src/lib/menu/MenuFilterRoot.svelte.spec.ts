@@ -1919,3 +1919,32 @@ describe('Menu.FilterProvider automatic highlight', () => {
 		}
 	);
 });
+
+describe('Menu.FilterProvider lazy flipping', () => {
+	beforeEach(parkPointer);
+
+	it('keeps the flipped alignment while filtering narrows the popup', async () => {
+		render(MenuHarness, {
+			triggerLabel: 'Actions',
+			// Near the right edge, so the wide popup cannot start at the trigger's left edge.
+			trigger: { style: 'position: fixed; right: 20px; top: 20px; width: 60px' },
+			positionerProps: {
+				'data-testid': 'positioner',
+				align: 'start',
+				collisionPadding: 0
+			},
+			filter: { inputProps: { style: 'width: 10px' } },
+			items: items('Copy', 'A label long enough to make the popup wider than the gap')
+		});
+		await userEvent.click(page.getByRole('button', { name: 'Actions' }));
+		const positioner = page.getByTestId('positioner');
+		await expect.element(positioner).toHaveAttribute('data-align', 'end');
+		const wideStyle = positioner.element().getAttribute('style');
+
+		await userEvent.type(input(), 'Cop');
+		await expect.poll(() => queryItem('Copy') != null && itemNames().length).toBe(1);
+		// The narrow popup moves whichever alignment it keeps, so a new style means it repositioned.
+		await expect.poll(() => positioner.element().getAttribute('style')).not.toBe(wideStyle);
+		expect(positioner.element().getAttribute('data-align')).toBe('end');
+	});
+});
