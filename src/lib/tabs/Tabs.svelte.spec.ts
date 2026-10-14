@@ -6,6 +6,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import TabsHarness from '../../tests/TabsHarness.svelte';
+import TabsShadowScrollHarness from '../../tests/TabsShadowScrollHarness.svelte';
 import { Tabs } from './index.js';
 
 const ENDING_CSS = `
@@ -580,6 +581,16 @@ describe('Tabs', () => {
 			await new Promise((r) => setTimeout(r, 50));
 			expect(active.getBoundingClientRect().left).not.toBeCloseTo(leftBefore, 0);
 			await expect.poll(read, { timeout: 1000 }).not.toBe(before);
+		});
+
+		it('subtracts the scroll of a container inside a shadow root', async () => {
+			render(TabsShadowScrollHarness);
+			const scroller = page.getByRole('tab', { name: 'A' }).element().parentElement!;
+			scroller.shadowRoot!.querySelector('div')!.scrollLeft = 100;
+			await tab('B').click();
+			const indicator = page.getByTestId('indicator').element() as HTMLElement;
+			await expect.poll(() => indicator.style.getPropertyValue('--active-tab-left')).toBe('50px');
+			expect(indicator.style.getPropertyValue('--active-tab-width')).toBe('150px');
 		});
 
 		it('moves the indicator to a newly selected tab', async () => {
