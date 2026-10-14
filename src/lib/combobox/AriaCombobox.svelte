@@ -112,8 +112,10 @@
 		autoHighlight === 'always' ? 'always' : autoHighlight ? 'input-change' : false
 	);
 	const emptyValue = () => (selectionMode === 'multiple' ? [] : null);
+	// Without a selection the input text is the value, which Autocomplete always provides.
 	// svelte-ignore state_referenced_locally
-	const hasInputValue = inputValue !== undefined || defaultInputValue !== undefined;
+	const hasInputValue =
+		selectionMode === 'none' || inputValue !== undefined || defaultInputValue !== undefined;
 
 	// A popover nested in the popup joins this tree, so presses inside it are not outside presses.
 	setFloatingTree();
@@ -288,7 +290,7 @@
 		},
 		requestSubmit: () => {
 			const form = hiddenInput?.form ?? store.inputElement?.form;
-			form?.requestSubmit();
+			if (typeof form?.requestSubmit === 'function') form.requestSubmit();
 		},
 		readInputProps: () => inputProps,
 		readInputFormProps: () => (inputOwnsFormValue ? { name: submitName, ...boundProps } : {}),

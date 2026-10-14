@@ -39,3 +39,4 @@ export * from './navigation-menu/index.js';
 export * from './toast/index.js';
 export * from './select/index.js';
 export * from './combobox/index.js';
+export * from './autocomplete/index.js';
