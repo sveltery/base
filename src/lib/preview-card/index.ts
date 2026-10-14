@@ -23,3 +23,4 @@ export const PreviewCard = {
 
 export { PreviewCardHandle, createPreviewCardHandle };
 export type * from './types.js';
+export * from './data-attributes.js';

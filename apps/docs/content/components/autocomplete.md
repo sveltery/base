@@ -287,7 +287,7 @@ Put `Autocomplete.Input` inside `Autocomplete.Popup` and open it with `Autocompl
 - The root infers the item type from `items`, so it takes no type argument.
 - `useFilter` is a plain function. Call it in a `$derived` when its options change. `useFilteredItems` returns `{ current }`.
 - `actionsRef` is not available. Use `bind:this` on `Autocomplete.Root`, which exposes `close()` and `unmount()`.
-- `inputRef`, the `Autocomplete.Item` `index` prop and the `*DataAttributes` namespaces are not available.
+- `inputRef` and the `Autocomplete.Item` `index` prop are not available.
 - A native form reset restores `defaultValue`, as the other form controls do. React Base UI keeps its state.
 - `readonly` uses the HTML spelling, so the root takes `readonly`, not `readOnly`. Handlers use lowercase names such as `onclick`. Call `event.preventDefault()` in a part's handler to skip the part's own handling.
 - Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
