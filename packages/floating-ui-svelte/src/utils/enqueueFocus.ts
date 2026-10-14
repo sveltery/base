@@ -4,13 +4,18 @@
 import { AnimationFrame } from '@sveltery/utils';
 
 // One focus is queued at a time across the page: a later request, sync or not, supersedes it.
-let queued: AnimationFrame | null = null;
+let queued: { frame: AnimationFrame; owner: object | undefined } | null = null;
 
 export function enqueueFocus(
 	element: HTMLElement | null,
-	options?: { preventScroll?: boolean; sync?: boolean; shouldFocus?: () => boolean }
+	options?: {
+		preventScroll?: boolean;
+		sync?: boolean;
+		shouldFocus?: () => boolean;
+		owner?: object;
+	}
 ) {
-	queued?.cancel();
+	queued?.frame.cancel();
 	queued = null;
 
 	const exec = () => {
@@ -24,12 +29,19 @@ export function enqueueFocus(
 	}
 
 	// eslint-disable-next-line sveltery/no-unscoped-timer -- the returned cleanup or the next request cancels it
-	const frame = new AnimationFrame();
-	queued = frame;
-	frame.request(exec);
+	const entry = { frame: new AnimationFrame(), owner: options?.owner };
+	queued = entry;
+	entry.frame.request(() => {
+		queued = null;
+		exec();
+	});
 	return () => {
-		if (queued !== frame) return;
-		frame.cancel();
+		if (queued !== entry) return;
+		entry.frame.cancel();
 		queued = null;
 	};
+}
+
+export function focusQueuedBy(owner: object) {
+	return queued?.owner === owner;
 }

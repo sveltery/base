@@ -54,7 +54,7 @@
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
 	import { isElementVisible } from '../utils/composite.js';
 	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
-	import { enqueueFocus } from '../utils/enqueueFocus.js';
+	import { enqueueFocus, focusQueuedBy } from '../utils/enqueueFocus.js';
 	import { getFloatingFocusElement, isTypeableCombobox } from '../utils/focusTarget.js';
 	import { markOthers } from '../utils/markOthers.js';
 	import {
@@ -285,17 +285,21 @@
 	}
 
 	/**
-	 * A popup beside this one in the tree is open, as the next menubar menu is when a press
-	 * switches menus. Its initial focus lands a frame later, and returning focus first would
-	 * take focus from it.
+	 * A popup beside this one in the tree opened and still waits for its initial focus, as the
+	 * next menubar menu does when a press switches menus. Returning focus first would take
+	 * focus from it.
 	 */
-	function siblingOpen() {
+	function siblingOpening() {
 		if (!tree || !store.nodeId) return false;
 		const nodeId = store.nodeId;
 		const parentId = tree.nodes.find((node) => node.id === nodeId)?.parentId;
 		if (parentId == null) return false;
 		return tree.nodes.some(
-			(node) => node.id !== nodeId && node.parentId === parentId && !!node.context?.isOpen()
+			(node) =>
+				node.id !== nodeId &&
+				node.parentId === parentId &&
+				!!node.context?.isOpen() &&
+				focusQueuedBy(node.context)
 		);
 	}
 
@@ -326,7 +330,7 @@
 		// The return function is not called when the return is prevented. React calls it and
 		// ignores the result.
 		const apply = () => {
-			if (spec === false || prevented || siblingOpen()) return null;
+			if (spec === false || prevented || siblingOpening()) return null;
 			const target = resolved === undefined ? returnTarget(leaving, spec) : resolved;
 			if (!target?.isConnected) return null;
 			target.focus({ preventScroll: true });
@@ -550,7 +554,8 @@
 		const cancelFocus = enqueueFocus(initialTarget, {
 			preventScroll: initialTarget === getFloatingFocusElement(floating),
 			shouldFocus: () =>
-				store.isOpen() && !contains(floating, activeElement(doc)) && !skipForOpenChild
+				store.isOpen() && !contains(floating, activeElement(doc)) && !skipForOpenChild,
+			owner: store
 		});
 		return () => cancelFocus();
 	});

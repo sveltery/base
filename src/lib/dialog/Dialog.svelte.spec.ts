@@ -11,6 +11,7 @@ import DialogHandleHarness from '../../tests/DialogHandleHarness.svelte';
 import DialogHarness from '../../tests/DialogHarness.svelte';
 import DialogNestedCountHarness from '../../tests/DialogNestedCountHarness.svelte';
 import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
+import DialogSiblingNestedHarness from '../../tests/DialogSiblingNestedHarness.svelte';
 import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.svelte';
 import DialogOpenCompleteStateHarness from '../../tests/DialogOpenCompleteStateHarness.svelte';
 import DialogProgrammaticPayloadHarness from '../../tests/DialogProgrammaticPayloadHarness.svelte';
@@ -1110,6 +1111,21 @@ describe('Dialog', () => {
 		await expect.poll(() => document.querySelector('[data-testid="nested-popup"]')).toBeNull();
 		expect(document.activeElement?.getAttribute('data-testid')).toBe('outside');
 		expect(document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+	});
+
+	it('returns focus into an open sibling nested dialog when the dialog it opened closes', async () => {
+		render(DialogSiblingNestedHarness);
+		await expect.poll(() => document.activeElement?.textContent).toBe('Edit');
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Discard');
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Cancel');
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(() => document.querySelector('[data-testid="discard"]')).toBeNull();
+		await frame();
+		await frame();
+		expect(document.activeElement).toBe(button('Discard').element());
+		expect(document.querySelector('[data-testid="edit"]')?.isConnected).toBe(true);
 	});
 
 	it('keeps final focus on the outside control when the inner dialog closes', async () => {

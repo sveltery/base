@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { enqueueFocus } from './enqueueFocus.js';
+import { enqueueFocus, focusQueuedBy } from './enqueueFocus.js';
 import { enqueueFocus as enqueueListFocus } from './focusTarget.js';
 
 function button() {
@@ -88,5 +88,21 @@ describe('enqueueFocus', () => {
 		await frame();
 		await frame();
 		expect(focused).toEqual(['item', 'manager']);
+	});
+
+	it('reports a queued focus for its owner until the frame runs or a request supersedes it', async () => {
+		const owner = {};
+		enqueueFocus(button(), { owner });
+		expect(focusQueuedBy(owner)).toBe(true);
+		await frame();
+		expect(focusQueuedBy(owner)).toBe(false);
+
+		enqueueFocus(button(), { owner });
+		enqueueListFocus(button());
+		expect(focusQueuedBy(owner)).toBe(false);
+
+		const cancel = enqueueFocus(button(), { owner });
+		cancel();
+		expect(focusQueuedBy(owner)).toBe(false);
 	});
 });
