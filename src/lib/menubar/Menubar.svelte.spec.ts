@@ -753,15 +753,24 @@ describe('Menubar', () => {
 		});
 
 		it('updates scroll lock when handing off between top-level touch-opened menus', async () => {
-			render(MenubarCasesHarness, { scenario: 'scroll-handoff' });
-			pressWithTouch(get('file-trigger'));
-			await expect.poll(shown('file-menu')).toBe(true);
-			await expect.poll(isScrollLocked).toBe(true);
+			// Upstream runs this in JSDOM, where the closed menu unmounts at once. In a browser its
+			// return focus lands on the File trigger after Edit opens and reopens File, in React too.
+			const view = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
+			const previous = view.BASE_UI_ANIMATIONS_DISABLED;
+			view.BASE_UI_ANIMATIONS_DISABLED = true;
+			try {
+				render(MenubarCasesHarness, { scenario: 'scroll-handoff' });
+				pressWithTouch(get('file-trigger'));
+				await expect.poll(shown('file-menu')).toBe(true);
+				await expect.poll(isScrollLocked).toBe(true);
 
-			pressWithTouch(get('edit-trigger'));
-			await expect.poll(shown('edit-menu')).toBe(true);
-			await expect.poll(shown('file-menu')).toBe(false);
-			await expect.poll(isScrollLocked).toBe(false);
+				pressWithTouch(get('edit-trigger'));
+				await expect.poll(shown('edit-menu')).toBe(true);
+				await expect.poll(shown('file-menu')).toBe(false);
+				await expect.poll(isScrollLocked).toBe(false);
+			} finally {
+				view.BASE_UI_ANIMATIONS_DISABLED = previous;
+			}
 		});
 	});
 

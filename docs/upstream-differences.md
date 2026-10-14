@@ -506,9 +506,9 @@ Local: a menubar trigger that owns a detached menu sets the menu's parent to the
 
 ### Menu open events are emitted before the DOM update
 
-Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect, and the focus manager returns focus a microtask after a close. With an exit animation, it returns focus once the popup unmounts, so focus stays in the closing popup until then.
+Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect. The focus manager returns focus a microtask after the popup unmounts, so focus stays in a popup that animates out until then.
 
-Local: the shared `FloatingFocusManager` returns focus inside the closing flush, also while an exit animation runs. `MenuPositioner` emits from `$effect.pre`, so the menubar clears `data-has-submenu-open` before the returned focus reaches the trigger. Without it, an outside press that closed a menu let the returned focus reopen it.
+Local: the shared `FloatingFocusManager` returns focus once the popup unmounts, as upstream does. `MenuPositioner` emits from `$effect.pre`, so the menubar clears `data-has-submenu-open` before the returned focus reaches the trigger.
 
 ### Arrow keys focus synchronously
 

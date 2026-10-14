@@ -249,8 +249,7 @@ describe('Dialog', () => {
 		expect(document.activeElement).toBe(button('Inside').element());
 
 		click(button('Close'));
-		await frame();
-		expect(document.activeElement).toBe(trigger.element());
+		await expect.poll(() => document.activeElement).toBe(trigger.element());
 	});
 
 	it('does not move focus when initialFocus and finalFocus are false', async () => {
@@ -608,8 +607,7 @@ describe('Dialog', () => {
 		await openDialog();
 		await frame();
 		click(button('Close'));
-		await frame();
-		expect(document.activeElement).toBe(element);
+		await expect.poll(() => document.activeElement).toBe(element);
 		first.unmount();
 
 		const target = document.createElement('button');
@@ -620,9 +618,8 @@ describe('Dialog', () => {
 		await frame();
 		expect(finalFocus).not.toHaveBeenCalled();
 		click(button('Close'));
-		await frame();
+		await expect.poll(() => document.activeElement).toBe(target);
 		expect(finalFocus).toHaveBeenCalled();
-		expect(document.activeElement).toBe(target);
 		element.remove();
 		target.remove();
 	});
