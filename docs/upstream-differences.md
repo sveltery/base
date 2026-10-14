@@ -459,12 +459,6 @@ Upstream: the trigger adds a one-time `mouseup` listener to the document. React'
 
 Local: Svelte delegates the item handlers to the document and can add that listener only when the first item mounts, after the trigger's listener. The trigger listens on the window, so the item still runs first.
 
-### Floating tree
-
-Upstream: each menu root owns its floating tree, and a menu's node becomes the parent node only inside its positioner. A context menu inside another context menu's trigger is a separate root.
-
-Local: `@sveltery/floating-ui-svelte` publishes the tree and parent node id from the root, so a context menu or menu inside a trigger joins the outer context menu's tree as its child node. `ContextMenu.Root` resets the menu root context as upstream does, so the inner menu is still a root (`parent.type` is `context-menu` or `undefined`), opens at its own anchor and does not render `data-nested`. The tree link means the inner menu closes when the outer one closes, and two menus inside one trigger close each other when one opens. The ported nested cases pass with it. A separate tree per context menu root waits on a shared floating-tree change.
-
 ### Not covered
 
 React-only cases: `describeConformance` (refs, `className` and style functions). Upstream's positioner cases spy on `useAnchorPositioning` arguments. The local spec asserts the placement instead: the pointer anchor, explicit placement and offsets, fixed positioning, the alignment flip at the viewport edge, and a submenu against its trigger. The `uses the layout viewport for a root context menu` case is covered by a stand-in `window.visualViewport` half the page wide, since the test browser cannot pinch zoom. The `uses the visual viewport for a context menu submenu` case has no observable result in the test viewport. `-webkit-touch-callout: none` is set on the trigger, but Chromium drops it, so no spec reads it.

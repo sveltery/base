@@ -133,6 +133,36 @@ forEachFramework((reference, framework) => {
 			]);
 		});
 
+		test('a context menu inside an item closes on its own', async ({ page }) => {
+			const { at, item } = await open(page, 'nested', reference);
+			// The open inner menu is modal, so it hides the outer menu from the accessibility tree.
+			const outer = page.getByRole('menu', { name: 'Actions', includeHidden: true });
+			const inner = page.getByRole('menu', { name: 'Rename options' });
+			await rightClick(page, at(40, 50));
+			await expect(outer).toBeVisible();
+			const rename = await item('Rename').boundingBox();
+			await rightClick(page, { x: rename!.x + 10, y: rename!.y + 5 });
+			await expect(inner).toBeFocused();
+			await expect(outer).toBeVisible();
+
+			await item('Rename all').click();
+			await expect(inner).toHaveCount(0);
+			await expect(outer).toBeVisible();
+			await expect(item('Rename')).toBeFocused();
+			expect(await json(page, 'clicks')).toEqual(['Rename all']);
+			expect(await json(page, 'inner-calls')).toEqual([
+				{ open: true, reason: 'trigger-press' },
+				{ open: false, reason: 'item-press' }
+			]);
+
+			await page.keyboard.press('Escape');
+			await expect(outer).toHaveCount(0);
+			expect(await json(page, 'calls')).toEqual([
+				{ open: true, reason: 'trigger-press' },
+				{ open: false, reason: 'escape-key' }
+			]);
+		});
+
 		test('a disabled context menu leaves the native menu alone', async ({ page }) => {
 			const { area, at, menu } = await open(page, 'disabled', reference);
 			await area.evaluate((element) => {

@@ -13,6 +13,7 @@ export function mountContextMenuReference(
 ) {
 	function App() {
 		const [calls, setCalls] = useState<{ open: boolean; reason: string }[]>([]);
+		const [innerCalls, setInnerCalls] = useState<{ open: boolean; reason: string }[]>([]);
 		const [clicks, setClicks] = useState<string[]>([]);
 		useEffect(onReady, []);
 
@@ -21,6 +22,7 @@ export function mountContextMenuReference(
 			null,
 			h('button', { type: 'button' }, 'Outside'),
 			h('pre', { 'data-testid': 'calls' }, JSON.stringify(calls)),
+			h('pre', { 'data-testid': 'inner-calls' }, JSON.stringify(innerCalls)),
 			h('pre', { 'data-testid': 'clicks' }, JSON.stringify(clicks)),
 			h(
 				ContextMenu.Root,
@@ -52,13 +54,40 @@ export function mountContextMenuReference(
 						h(
 							ContextMenu.Popup,
 							{ 'aria-label': 'Actions' },
-							items.map((item) =>
-								h(
+							items.map((item) => {
+								const entry = h(
 									ContextMenu.Item,
 									{ key: item, onClick: () => setClicks((list) => list.concat(item)) },
 									item
-								)
-							),
+								);
+								if (scenario !== 'nested' || item !== 'Rename') return entry;
+								return h(
+									ContextMenu.Root,
+									{
+										key: item,
+										onOpenChange: (open: boolean, details: { reason: string }) =>
+											setInnerCalls((list) => list.concat({ open, reason: details.reason }))
+									},
+									h(ContextMenu.Trigger, { 'data-testid': 'inner-area' } as never, entry),
+									h(
+										ContextMenu.Portal,
+										null,
+										h(
+											ContextMenu.Positioner,
+											null,
+											h(
+												ContextMenu.Popup,
+												{ 'aria-label': 'Rename options' },
+												h(
+													ContextMenu.Item,
+													{ onClick: () => setClicks((list) => list.concat('Rename all')) },
+													'Rename all'
+												)
+											)
+										)
+									)
+								);
+							}),
 							h(ContextMenu.Separator, null),
 							h(ContextMenu.Item, { disabled: true }, 'Delete')
 						)
