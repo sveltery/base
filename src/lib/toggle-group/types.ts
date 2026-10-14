@@ -29,7 +29,7 @@ export interface ToggleGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 */
 	value?: readonly string[];
 	/** Whether the group should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** @default 'horizontal' */
 	orientation?: ToggleGroupOrientation;
 	/**

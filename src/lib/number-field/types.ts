@@ -55,7 +55,7 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 
 export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** The id of the input element. */
-	id?: string;
+	id?: string | null;
 	/** The minimum value. */
 	min?: number;
 	/** The maximum value. */
@@ -83,15 +83,15 @@ export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	 */
 	largeStep?: number;
 	/** Whether the user must enter a value before submitting a form. @default false */
-	required?: boolean;
+	required?: boolean | null;
 	/** Whether the component should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Whether the user should be unable to change the field value. @default false */
-	readonly?: boolean;
+	readonly?: boolean | null;
 	/** Identifies the field when a form is submitted. */
-	name?: string;
+	name?: string | null;
 	/** Identifies the form that owns the hidden input. */
-	form?: string;
+	form?: string | null;
 	/**
 	 * Raw numeric value. Use `bind:value` to share it with the parent.
 	 */

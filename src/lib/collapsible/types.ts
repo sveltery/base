@@ -39,7 +39,7 @@ export interface CollapsibleRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	 */
 	open?: boolean;
 	/** Whether the collapsible should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
 	onOpenChange?: (open: boolean, eventDetails: CollapsibleRootChangeEventDetails) => void;
 	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
@@ -62,7 +62,7 @@ export interface CollapsibleTriggerProps extends Omit<
 	 * Whether the trigger should ignore user interaction.
 	 * Defaults to the root's `disabled` value.
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.

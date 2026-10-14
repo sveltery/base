@@ -133,7 +133,7 @@ export interface TabsTabProps extends Omit<
 	 * When `value` is omitted, a disabled tab is not the initial selection.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.

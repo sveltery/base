@@ -102,7 +102,7 @@ export interface TooltipTriggerProps<Payload = unknown> extends Omit<
 	handle?: TooltipHandle<Payload>;
 	/** A payload passed to the tooltip when this trigger opens it. */
 	payload?: Payload;
-	id?: string;
+	id?: string | null;
 	/**
 	 * How long to wait before opening the tooltip on hover, in milliseconds.
 	 * @default 600
@@ -123,7 +123,7 @@ export interface TooltipTriggerProps<Payload = unknown> extends Omit<
 	 * It does not set the `disabled` attribute on the element.
 	 * Defaults to the root's `disabled`.
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	render?: Snippet<
 		[props: TooltipTriggerHostProps, state: TooltipTriggerState, children: RenderChildren]
 	>;

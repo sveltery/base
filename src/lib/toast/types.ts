@@ -311,7 +311,7 @@ export interface ToastActionState {
 }
 
 export interface ToastActionProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.
@@ -329,7 +329,7 @@ export interface ToastCloseState {
 }
 
 export interface ToastCloseProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.

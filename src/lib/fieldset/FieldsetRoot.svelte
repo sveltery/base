@@ -15,14 +15,9 @@
 
 	const parent = findFieldsetRootContext();
 
-	let {
-		disabled: disabledProp = false,
-		render,
-		children,
-		...elementProps
-	}: FieldsetRootProps = $props();
+	let { disabled: disabledProp, render, children, ...elementProps }: FieldsetRootProps = $props();
 
-	const fieldset = new FieldsetRootContextValue(parent, () => disabledProp);
+	const fieldset = new FieldsetRootContextValue(parent, () => disabledProp ?? false);
 	setFieldsetRootContext(fieldset);
 
 	const state: FieldsetRootState = $derived({

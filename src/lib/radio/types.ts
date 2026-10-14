@@ -39,17 +39,17 @@ export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'child
 	 */
 	value: unknown;
 	/** Whether the component should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the user should be unable to select the radio button.
 	 * @default false
 	 */
-	readonly?: boolean;
+	readonly?: boolean | null;
 	/**
 	 * Whether the user must choose a value before submitting a form.
 	 * @default false
 	 */
-	required?: boolean;
+	required?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `true` and render a `<button>`. The `id` is then applied to that button
@@ -61,7 +61,7 @@ export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'child
 	 * The id of the hidden input.
 	 * When `nativeButton` is true, the id is applied to the root element instead.
 	 */
-	id?: string;
+	id?: string | null;
 	/** Runs before the radio's click handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLAttributes<HTMLElement>['onclick'];
 	/** Replace the default `<span>`. Spread `props` onto the host element. */

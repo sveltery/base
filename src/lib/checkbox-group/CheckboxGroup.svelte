@@ -34,7 +34,7 @@
 		value = $bindable(),
 		defaultValue,
 		allValues,
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		onValueChange,
 		'aria-describedby': ariaDescribedBy,
 		render,
@@ -60,7 +60,7 @@
 	if (value === undefined) value = bound.bound ? bound.initial(defaultValue ?? []) : defaultValue;
 	const formContext = useFormContext();
 	const labelable = findLabelableContext();
-	const disabled = $derived(field.disabled || disabledProp);
+	const disabled = $derived(field.disabled || (disabledProp ?? false));
 
 	// The group takes its name from `aria-labelledby`, so Field.Label must not point `for`
 	// at one checkbox inside it.

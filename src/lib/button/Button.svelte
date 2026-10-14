@@ -10,13 +10,14 @@
 	import type { ButtonHostProps, ButtonProps, ButtonState } from './types.js';
 
 	let {
-		disabled = false,
+		disabled: disabledProp,
 		focusableWhenDisabled = false,
 		nativeButton = true,
 		render,
 		children,
 		...elementProps
 	}: ButtonProps = $props();
+	const disabled = $derived(disabledProp ?? false);
 
 	const state: ButtonState = $derived({ disabled });
 	const button = new ButtonBehavior(() => ({

@@ -26,7 +26,7 @@
 
 	let {
 		handle,
-		disabled = false,
+		disabled: disabledProp,
 		nativeButton = true,
 		payload,
 		id,
@@ -37,6 +37,7 @@
 		children,
 		...elementProps
 	}: PopoverTriggerProps<Payload> = $props();
+	const disabled = $derived(disabledProp ?? false);
 
 	const root = findPopoverRoot();
 	if (!handle && !root) {

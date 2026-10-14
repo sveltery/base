@@ -15,7 +15,7 @@
 
 	let {
 		open = $bindable(),
-		disabled = false,
+		disabled,
 		onOpenChange,
 		render,
 		children,
@@ -27,7 +27,7 @@
 		(next) => {
 			open = next;
 		},
-		() => disabled,
+		() => disabled ?? false,
 		(next, details) => onOpenChange?.(next, details),
 		`base-ui-${uid}`
 	);

@@ -23,12 +23,13 @@
 	import type { NavigationMenuTriggerProps, NavigationMenuTriggerState } from './types.js';
 
 	let {
-		disabled = false,
+		disabled: disabledProp,
 		nativeButton = true,
 		render,
 		children,
 		...elementProps
 	}: NavigationMenuTriggerProps = $props();
+	const disabled = $derived(disabledProp ?? false);
 
 	const uid = $props.id();
 	const root = useNavigationMenuRoot();

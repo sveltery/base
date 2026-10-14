@@ -21,7 +21,7 @@
 
 	let {
 		modal = true,
-		disabled = false,
+		disabled,
 		orientation = 'horizontal',
 		loopFocus = true,
 		id,
@@ -48,7 +48,7 @@
 	// The menubar node has no floating context, so tree queries skip it and look at its menus.
 	const nodeId = useFloatingNodeId();
 	const context = new MenubarContext(
-		() => ({ modal, disabled, orientation, loopFocus, rootId }),
+		() => ({ modal, disabled: disabled ?? false, orientation, loopFocus, rootId }),
 		tree,
 		nodeId
 	);
