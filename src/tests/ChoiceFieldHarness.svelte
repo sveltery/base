@@ -1,11 +1,20 @@
 <script lang="ts">
-	import { Checkbox, CheckboxGroup, Field, Form, Radio, RadioGroup, Switch } from '#lib';
+	import type { HTMLAttributes } from 'svelte/elements';
+	import { Checkbox, CheckboxGroup, Field, Fieldset, Form, Radio, RadioGroup, Switch } from '#lib';
 	import { takeForm } from '../routes/fixtures/form-log.js';
 
 	let {
 		scenario
 	}: {
-		scenario: 'checkbox' | 'switch' | 'radio-group' | 'checkbox-group' | 'radio-item';
+		scenario:
+			| 'checkbox'
+			| 'switch'
+			| 'radio-group'
+			| 'checkbox-group'
+			| 'radio-item'
+			| 'wrapping-labels'
+			| 'fieldset-items'
+			| 'fieldset-render';
 	} = $props();
 
 	const box = 'display: inline-block; width: 16px; height: 16px';
@@ -51,6 +60,58 @@
 					<Field.Label data-testid="label">Free</Field.Label>
 				</Field.Item>
 			</RadioGroup>
+		</Field.Root>
+	{:else if scenario === 'wrapping-labels'}
+		<Field.Root name="tos">
+			<Field.Label>
+				<Checkbox.Root data-testid="checkbox" style={box} />
+				Accept terms
+			</Field.Label>
+		</Field.Root>
+		<Field.Root name="restart">
+			<Field.Label>
+				Restart on failure
+				<Switch.Root data-testid="switch" style={box} />
+			</Field.Label>
+		</Field.Root>
+		<Field.Root name="storage">
+			<RadioGroup data-testid="control">
+				{#each ['ssd', 'hdd'] as value (value)}
+					<Field.Item>
+						<Field.Label>
+							<Radio.Root {value} data-testid={value} style={box} />
+							{value.toUpperCase()}
+						</Field.Label>
+					</Field.Item>
+				{/each}
+			</RadioGroup>
+		</Field.Root>
+	{:else if scenario === 'fieldset-items'}
+		<Field.Root name="backup">
+			<Fieldset.Root data-testid="fieldset">
+				<Fieldset.Legend data-testid="legend">Backup schedule</Fieldset.Legend>
+				<CheckboxGroup data-testid="control">
+					{#each [['daily', 'Daily at 00:00'], ['monthly', 'On the 5th at 23:59']] as [value, when] (value)}
+						<Field.Item>
+							<Checkbox.Root {value} data-testid={value} style={box} />
+							<Field.Label>{value}</Field.Label>
+							<Field.Description data-testid="{value}-description">{when}</Field.Description>
+						</Field.Item>
+					{/each}
+				</CheckboxGroup>
+			</Fieldset.Root>
+		</Field.Root>
+	{:else if scenario === 'fieldset-render'}
+		<Field.Root name="protocols">
+			<Fieldset.Root>
+				{#snippet render(props, _state, children)}
+					<CheckboxGroup {...props as HTMLAttributes<HTMLDivElement>} data-testid="control"
+						>{@render children?.()}</CheckboxGroup
+					>
+				{/snippet}
+				<Fieldset.Legend>Allowed network protocols</Fieldset.Legend>
+				<Checkbox.Root value="http" data-testid="http" style={box} />
+			</Fieldset.Root>
 		</Field.Root>
 	{:else}
 		<Field.Root

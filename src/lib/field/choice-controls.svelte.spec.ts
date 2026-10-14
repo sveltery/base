@@ -136,4 +136,47 @@ describe('choice controls inside Field and Form', () => {
 			expect(hiddenInput('svelte').id).not.toBe(hiddenInput('kit').id);
 		});
 	});
+
+	describe('handbook patterns', () => {
+		it('names a Checkbox, a Switch and each Radio from a wrapping Field.Label', async () => {
+			render(ChoiceFieldHarness, { scenario: 'wrapping-labels' });
+
+			await expect.element(page.getByTestId('checkbox')).toHaveAccessibleName('Accept terms');
+			await expect.element(page.getByTestId('switch')).toHaveAccessibleName('Restart on failure');
+			await expect.element(page.getByTestId('ssd')).toHaveAccessibleName('SSD');
+			await expect.element(page.getByTestId('hdd')).toHaveAccessibleName('HDD');
+
+			await page.getByText('HDD').click();
+			await expect.element(page.getByTestId('hdd')).toHaveAttribute('aria-checked', 'true');
+		});
+
+		it('describes each checkbox by the Field.Description in its Field.Item', async () => {
+			render(ChoiceFieldHarness, { scenario: 'fieldset-items' });
+
+			await expect
+				.element(page.getByTestId('daily'))
+				.toHaveAttribute('aria-describedby', page.getByTestId('daily-description').element().id);
+			await expect
+				.element(page.getByTestId('monthly'))
+				.toHaveAttribute('aria-describedby', page.getByTestId('monthly-description').element().id);
+			await expect.element(page.getByTestId('daily')).toHaveAccessibleDescription('Daily at 00:00');
+			await expect.element(page.getByTestId('daily')).toHaveAccessibleName('daily');
+		});
+
+		it('names the Fieldset around a CheckboxGroup from its legend, as upstream does', async () => {
+			render(ChoiceFieldHarness, { scenario: 'fieldset-items' });
+
+			await expect.element(page.getByTestId('fieldset')).toHaveAccessibleName('Backup schedule');
+			await expect.element(page.getByTestId('control')).not.toHaveAttribute('aria-labelledby');
+		});
+
+		it('names a CheckboxGroup rendered as the Fieldset from its legend', async () => {
+			render(ChoiceFieldHarness, { scenario: 'fieldset-render' });
+
+			await expect.element(page.getByTestId('control')).toHaveAttribute('role', 'group');
+			await expect
+				.element(page.getByTestId('control'))
+				.toHaveAccessibleName('Allowed network protocols');
+		});
+	});
 });
