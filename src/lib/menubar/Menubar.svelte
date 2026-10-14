@@ -9,6 +9,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { setFloatingTree, useFloatingNodeId } from '@sveltery/floating-ui-svelte';
 	import { REASONS } from '@sveltery/utils';
 	import {
 		getStateAttributesProps,
@@ -16,7 +17,6 @@
 	} from '../internal/state-attributes.js';
 	import { setMenubarParent } from '../menu/parent.svelte.js';
 	import { MenubarContext } from './context.svelte.js';
-	import { setOwnFloatingTree } from './floating-tree.js';
 	import type { MenubarProps, MenubarState } from './types.js';
 
 	let {
@@ -44,7 +44,9 @@
 
 	const uid = $props.id();
 	const rootId = $derived(id ?? `base-ui-${uid}`);
-	const { tree, nodeId } = setOwnFloatingTree();
+	const tree = setFloatingTree({ fresh: true });
+	// The menubar node has no floating context, so tree queries skip it and look at its menus.
+	const nodeId = useFloatingNodeId();
 	const context = new MenubarContext(
 		() => ({ modal, disabled, orientation, loopFocus, rootId }),
 		tree,
