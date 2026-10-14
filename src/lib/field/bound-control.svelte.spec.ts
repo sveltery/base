@@ -532,6 +532,50 @@ describe('bound Combobox', () => {
 	});
 });
 
+describe('bound Autocomplete', () => {
+	const control = () => page.getByTestId('control');
+
+	it('submits the typed text under the encoded name of the visible input', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'autocomplete' });
+
+		const named = form().querySelectorAll('[name]');
+		expect(Array.from(named, (element) => element.getAttribute('name'))).toEqual(['query/fake']);
+		expect(named[0]).toBe(control().element());
+		expect(submitted(source)).toEqual({ query: 'apple' });
+
+		await control().fill('');
+		await userEvent.type(control(), 'pie');
+		await expect.poll(() => source.input.query).toBe('pie');
+		expect(submitted(source)).toEqual({ query: 'pie' });
+	});
+
+	it('follows a value set on the source, and empties for an empty one', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'autocomplete' });
+
+		source.field('query').set('banana' as never);
+		await expect.element(control()).toHaveValue('banana');
+		expect(submitted(source)).toEqual({ query: 'banana' });
+
+		source.field('query').set(undefined as never);
+		await expect.element(control()).toHaveValue('');
+		expect(submitted(source)).toEqual({ query: '' });
+	});
+
+	it('starts from the source value, and a reset restores the default', async () => {
+		const source = new FakeRemoteForm('fake', { query: 'banana' });
+		render(BoundControlHarness, { source, scenario: 'autocomplete' });
+
+		await expect.element(control()).toHaveValue('banana');
+		expect(submitted(source)).toEqual({ query: 'banana' });
+
+		form().reset();
+		await expect.element(control()).toHaveValue('apple');
+		expect(submitted(source)).toEqual({ query: 'apple' });
+		await expect.poll(() => source.input.query).toBe('apple');
+	});
+});
 describe('attachments from as()', () => {
 	for (const { scenario, edit, reports } of [
 		{
@@ -584,6 +628,17 @@ describe('attachments from as()', () => {
 			scenario: 'combobox',
 			edit: () => pickFruit('banana'),
 			reports: [{ name: 'fruit/fake', value: 'banana' }]
+		},
+		{
+			scenario: 'autocomplete',
+			edit: async () => {
+				await page.getByTestId('control').fill('');
+				await userEvent.type(page.getByTestId('control'), 'b');
+			},
+			reports: [
+				{ name: 'query/fake', value: '' },
+				{ name: 'query/fake', value: 'b' }
+			]
 		}
 	] as const) {
 		it(`reach the native input of a bound ${scenario}`, async () => {
@@ -668,6 +723,12 @@ describe('inside a real Field.Root bound with `field`', () => {
 			initial: { fruits: ['apple'] },
 			edit: () => pickFruit('banana'),
 			after: { fruits: ['apple', 'banana'] }
+		},
+		{
+			scenario: 'autocomplete',
+			initial: { query: 'apple' },
+			edit: () => page.getByTestId('control').fill('apricot'),
+			after: { query: 'apricot' }
 		}
 	] as const) {
 		it(`binds a ${scenario}`, async () => {
@@ -712,7 +773,8 @@ describe('dev kind check', () => {
 		['select', 'select', 'text'],
 		['select-multiple', 'select multiple', 'select'],
 		['combobox', 'select', 'text'],
-		['combobox-multiple', 'select multiple', 'select']
+		['combobox-multiple', 'select multiple', 'select'],
+		['autocomplete', 'text', 'select']
 	] as const) {
 		it(`logs when a ${kind} control sits in a Field declared as ${declared}`, async () => {
 			const log = vi.spyOn(console, 'error').mockImplementation(() => {});
