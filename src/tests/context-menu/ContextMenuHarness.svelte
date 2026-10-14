@@ -11,6 +11,7 @@
 		ContextMenu,
 		Menu,
 		Menubar,
+		Popover,
 		type ContextMenuPositionerProps,
 		type ContextMenuRootProps,
 		type ContextMenuTriggerProps,
@@ -40,6 +41,7 @@
 			| 'replaced-handler'
 			| 'with-menu'
 			| 'with-menubar'
+			| 'with-popover'
 			| 'popup-only'
 			| 'open-submenu';
 		open?: boolean;
@@ -202,6 +204,27 @@
 			</Menu.Root>
 		</ContextMenu.Trigger>
 		{@render popup()}
+	</ContextMenu.Root>
+{:else if scenario === 'with-popover'}
+	<ContextMenu.Root {...rootProps}>
+		<ContextMenu.Trigger data-testid="trigger">Card</ContextMenu.Trigger>
+		<ContextMenu.Portal>
+			<ContextMenu.Positioner>
+				<ContextMenu.Popup data-testid="popup">
+					<ContextMenu.Item>Item</ContextMenu.Item>
+					<Popover.Root>
+						<Popover.Trigger data-testid="popover-trigger">Details</Popover.Trigger>
+						<Popover.Portal>
+							<Popover.Positioner>
+								<Popover.Popup data-testid="popover-popup">
+									<button type="button" data-testid="popover-button">Inside</button>
+								</Popover.Popup>
+							</Popover.Positioner>
+						</Popover.Portal>
+					</Popover.Root>
+				</ContextMenu.Popup>
+			</ContextMenu.Positioner>
+		</ContextMenu.Portal>
 	</ContextMenu.Root>
 {:else if scenario === 'with-menubar'}
 	<ContextMenu.Root {...rootProps}>

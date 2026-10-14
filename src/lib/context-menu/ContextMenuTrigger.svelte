@@ -137,26 +137,6 @@
 		});
 	});
 
-	// Upstream dismisses on an outside press with any button. The shared dismissal ignores all but
-	// the primary button, so a right click elsewhere closes the menu here. Its backdrop then turns
-	// inert, and the context menu event that follows reopens the menu where the pointer is.
-	$effect(() => {
-		const triggerElement = context.triggerElement;
-		if (store.disabled || !store.open || !triggerElement) return;
-		return on(
-			ownerDocument(triggerElement),
-			'pointerdown',
-			(event) => {
-				if (event.button === 0 || event.pointerType === 'touch') return;
-				const target = getTarget(event) as Element | null;
-				if (contains(context.menu?.positionerElement, target)) return;
-				if (target && findRootOwnerId(target) === context.rootId) return;
-				context.menu?.setOpen(false, createChangeEventDetails(REASONS.outsidePress, event));
-			},
-			{ capture: true }
-		);
-	});
-
 	const triggerState: ContextMenuTriggerState = $derived({ open: store.open });
 
 	const bindKey = createAttachmentKey();

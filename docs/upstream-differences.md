@@ -459,17 +459,6 @@ Upstream: the trigger adds a one-time `mouseup` listener to the document. React'
 
 Local: Svelte delegates the item handlers to the document and can add that listener only when the first item mounts, after the trigger's listener. The trigger listens on the window, so the item still runs first.
 
-### A right press outside closes the menu
-
-Upstream: `useDismiss` closes on an outside `pointerdown` with any mouse button. A right click elsewhere closes the open context menu, its backdrop turns inert, and the `contextmenu` event that follows reaches the trigger and reopens the menu at the pointer. The same press closes any other open `Menu` or `Popover`.
-
-Local: the shared `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` ignores non-primary presses. `ContextMenu.Trigger` closes its own open menu on a non-primary, non-touch `pointerdown` outside it, with reason `outside-press`, so the sequence matches for the context menu itself. The long-press grace before outside dismissal does not apply to this press. The listener does not run while the root is `disabled`. It is a stand-in until the shared dismissal handles non-primary presses, and it diverges in two ways.
-
-- A right press inside a popup opened from the context menu closes the whole context menu. The listener only tests the context menu's positioner and the `data-rootownerid` owner id, and skips the floating-tree check the shared dismissal makes. Upstream treats the press as inside, so a `Popover` opened from a context menu item stays open together with the context menu (run in the paired React fixture), and so does the inner menu of a context menu nested in an item (read from upstream's React-tree capture, not run). A left press in the same spots keeps everything open here too.
-- A right press elsewhere does not close other open popups. With a `Menu` open inside the trigger, a right click on the trigger area leaves that `Menu` open, the context menu does not open, and the browser's own menu appears, because `contextmenu` is never prevented. Upstream closes the `Menu` and opens the context menu. An open `Popover` outside the context menu also stays open on a right press.
-
-Test: `src/lib/context-menu/ContextMenu.svelte.spec.ts` (`closes on a right press over the backdrop and reopens where the pointer is`) and the paired fixture case `a right click elsewhere in the area moves the open menu`. Neither divergence has a passing spec, only the `it.todo` entries in the same file.
-
 ### Shift+Tab returns focus to the element focused before opening
 
 Upstream: list navigation closes the menu on Shift+Tab with `focus-out` and focuses the trigger element, which a context menu does not have. The focus manager then returns focus to the element focused before the menu opened.

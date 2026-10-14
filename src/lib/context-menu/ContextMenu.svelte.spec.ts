@@ -186,12 +186,40 @@ describe('ContextMenu', () => {
 		]);
 	});
 
-	// The shared useDismiss ignores non-primary presses. See "A right press outside closes the menu"
-	// in docs/upstream-differences.md.
-	it.todo('keeps the context menu open on a right press inside a popup opened from it');
-	it.todo(
-		'closes an open Menu and opens the context menu on a right click elsewhere in the trigger'
-	);
+	it('keeps the context menu open on a right press inside a popup opened from it', async () => {
+		const calls: [boolean, string][] = [];
+		render(ContextMenuHarness, {
+			scenario: 'with-popover',
+			rootProps: {
+				onOpenChange: (open: boolean, details: ContextMenuRootChangeEventDetails) => {
+					calls.push([open, details.reason]);
+				}
+			}
+		});
+		contextMenu(get('trigger'), { clientX: 20, clientY: 20 });
+		await expect.poll(shown('popup')).toBe(true);
+		clickElement(get('popover-trigger'));
+		await expect.poll(shown('popover-popup')).toBe(true);
+
+		await userEvent.click(get('popover-button'), { button: 'right' });
+		await tick();
+		expect(byTestId('popover-popup')).not.toBeNull();
+		expect(byTestId('popup')).not.toBeNull();
+		expect(calls).toEqual([[true, 'trigger-press']]);
+	});
+
+	it('closes an open Menu and opens the context menu on a right click elsewhere in the trigger', async () => {
+		render(ContextMenuHarness, { scenario: 'with-menu' });
+		clickElement(get('menu-trigger'));
+		await expect.poll(shown('menu-popup')).toBe(true);
+		await userEvent.click(get('trigger'), {
+			button: 'right',
+			position: { x: 300, y: 5 },
+			force: true
+		});
+		await expect.poll(shown('menu-popup')).toBe(false);
+		await expect.poll(shown('popup')).toBe(true);
+	});
 
 	it('is modal: locks scroll and covers the page with a backdrop that blocks native menus', async () => {
 		render(ContextMenuHarness);
