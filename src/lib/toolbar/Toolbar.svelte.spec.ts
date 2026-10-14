@@ -1,9 +1,9 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/toolbar/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// The Dialog and Popover blocks of ToolbarButton.test.tsx follow Base UI v1.9.0
-// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
-// describeConformance, Toolbar.Input, and rendering Menu, AlertDialog, Select,
-// Switch, or ToggleGroup are not ported.
+// The Dialog, Popover, Menu, Switch, and Toggle and ToggleGroup blocks of
+// ToolbarButton.test.tsx follow Base UI v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// Toolbar.Input is in ToolbarParts.svelte.spec.ts. describeConformance, rendering
+// AlertDialog or Select, and the Menu cases other than "disabled state" are not ported.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
@@ -407,25 +407,6 @@ describe('<Toolbar.Button />', () => {
 			});
 		});
 
-		describe('a native button', () => {
-			it('keeps a disabled button focusable without the disabled attribute', async () => {
-				const screen = render(ToolbarRenderHarness, { scenario: 'button', disabled: true });
-				const save = button('Save');
-				await expect.element(save).not.toHaveAttribute('disabled');
-				await expect.element(save).toHaveAttribute('aria-disabled', 'true');
-				await userEvent.keyboard('{Tab}');
-				await expect.element(save).toHaveFocus();
-
-				await screen.rerender({ disabled: false });
-				await expect.element(save).not.toHaveAttribute('disabled');
-				await expect.element(save).toHaveAttribute('aria-disabled', 'false');
-
-				await screen.rerender({ disabled: true });
-				await expect.element(save).toHaveAttribute('aria-disabled', 'true');
-				expect((save.element() as HTMLButtonElement).disabled).toBe(false);
-			});
-		});
-
 		describe('Menu', () => {
 			it('disabled state', async () => {
 				const handleOpenChange = vi.fn();
@@ -731,6 +712,23 @@ describe('<Toolbar.Link />', () => {
 });
 
 describe('native Svelte', () => {
+	it('a disabled button rendered by a snippet stays focusable without the disabled attribute', async () => {
+		const screen = render(ToolbarRenderHarness, { scenario: 'button', disabled: true });
+		const save = button('Save');
+		await expect.element(save).not.toHaveAttribute('disabled');
+		await expect.element(save).toHaveAttribute('aria-disabled', 'true');
+		await userEvent.keyboard('{Tab}');
+		await expect.element(save).toHaveFocus();
+
+		await screen.rerender({ disabled: false });
+		await expect.element(save).not.toHaveAttribute('disabled');
+		await expect.element(save).toHaveAttribute('aria-disabled', 'false');
+
+		await screen.rerender({ disabled: true });
+		await expect.element(save).toHaveAttribute('aria-disabled', 'true');
+		expect((save.element() as HTMLButtonElement).disabled).toBe(false);
+	});
+
 	it('a ToggleGroup shares the toolbar tab stop and arrow order', async () => {
 		render(ToolbarRenderHarness, { scenario: 'mixed' });
 		const ids = ['before', 'one', 'two', 'after'];

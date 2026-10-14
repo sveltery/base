@@ -422,6 +422,12 @@ Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7
 - `src/lib/combobox/*.spec.ts` assertions from `packages/react/src/combobox/**/*.test.tsx`, `packages/react/src/combobox/**/*.test.ts` and `packages/react/src/internals/filter.test.ts`, the Combobox cases of `src/lib/field/bound-control.svelte.spec.ts`, and `src/routes/fixtures/combobox/**` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 - `src/lib/autocomplete/*.svelte` and `types.ts` from the matching parts and types in `packages/react/src/autocomplete/**` of Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`): Root, Value, Trigger, InputGroup, Item and Separator, and `index.ts` from `packages/react/src/autocomplete/index.parts.ts`
 - `src/lib/autocomplete/*.spec.ts` and `types.test-d.ts` assertions from `packages/react/src/autocomplete/**/*.test.tsx` and `AutocompleteRoot.spec.tsx`, the Autocomplete cases of `packages/react/src/combobox/**/*.test.tsx`, the Autocomplete cases of `src/lib/field/bound-control.svelte.spec.ts`, and `src/routes/fixtures/autocomplete/**` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/toolbar/ToolbarInput.svelte` from `packages/react/src/toolbar/input/ToolbarInput.tsx` and the non-button path of `packages/react/src/utils/useFocusableWhenDisabled.ts`
+- `src/lib/toolbar/ToolbarSeparator.svelte` from `packages/react/src/toolbar/separator/ToolbarSeparator.tsx`
+- `src/lib/toolbar/ToolbarParts.svelte.spec.ts`, with the `src/tests/ToolbarPartsHarness.svelte` harness, assertions from `packages/react/src/toolbar/input/ToolbarInput.test.tsx` and `packages/react/src/toolbar/separator/ToolbarSeparator.test.tsx`, without the caret and selection cases
+- The Menu, Switch, and Toggle and ToggleGroup cases in `src/lib/toolbar/Toolbar.svelte.spec.ts`, with the `src/tests/ToolbarRenderHarness.svelte` harness, assertions from `packages/react/src/toolbar/button/ToolbarButton.test.tsx`
+- The forwarded `disabled` in `src/lib/toolbar/ToolbarButton.svelte`, and the inner `disabled` clearing in `src/lib/internal/button.svelte.ts`, from `packages/react/src/toolbar/button/ToolbarButton.tsx` and `packages/react/src/internals/use-button/useButton.ts`
+- `nativeButton` in `src/lib/toggle/Toggle.svelte` from `packages/react/src/toggle/Toggle.tsx`, and the Toolbar path of `src/lib/toggle-group/ToggleGroup.svelte` from `packages/react/src/toggle-group/ToggleGroup.tsx`
 
 MIT License
 

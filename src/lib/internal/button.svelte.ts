@@ -60,7 +60,7 @@ function isLink(element: HTMLElement) {
 
 export class ButtonBehavior {
 	readonly #checkKey = createAttachmentKey();
-	readonly #enableKey = createAttachmentKey();
+	readonly #keepFocusableKey = createAttachmentKey();
 
 	constructor(private readonly options: () => ButtonOptions) {}
 
@@ -104,7 +104,7 @@ export class ButtonBehavior {
 				? { disabled: true as const }
 				: {}),
 			...(DEV ? { [this.#checkKey]: this.#checkHost } : {}),
-			[this.#enableKey]: this.#keepFocusable,
+			[this.#keepFocusableKey]: this.#keepFocusable,
 			...rest,
 			onclick: (event: MouseEvent) => {
 				if (this.options().disabled) {
