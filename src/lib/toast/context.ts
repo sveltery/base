@@ -20,7 +20,7 @@ export interface ToastRootContext extends LabelIdHost {
 	readonly visibleIndex: number;
 	readonly expanded: boolean;
 	/** Measures the root's natural height and writes it to the store. */
-	recalculateHeight: (flushSync?: boolean) => void;
+	recalculateHeight: () => void;
 }
 
 export const [useToastRoot, setToastRoot] = defineContext<ToastRootContext>(
