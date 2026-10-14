@@ -9,13 +9,16 @@
 		modal = false,
 		portalOwnerRole,
 		wrapped = false,
-		returnUnlessOutsidePress = false
+		returnUnlessOutsidePress = false,
+		keepMounted = false
 	}: {
 		modal?: boolean;
 		portalOwnerRole?: AriaRole;
 		/** The floating element is a positioner around a focusable popup with no tabbable content. */
 		wrapped?: boolean;
 		returnUnlessOutsidePress?: boolean;
+		/** The popup stays mounted after a close until `unmount`, as during an exit animation. */
+		keepMounted?: boolean;
 	} = $props();
 
 	export const store = new TestStore();
@@ -47,6 +50,16 @@
 	export function close(reason: string, event: Event, trigger?: Element) {
 		store.setOpen(false, createChangeEventDetails(reason, event, trigger));
 	}
+
+	let mounted = $state(false);
+	$effect.pre(() => {
+		if (store.open) mounted = true;
+	});
+
+	/** Ends a `keepMounted` exit. */
+	export function unmount() {
+		mounted = false;
+	}
 </script>
 
 <button data-testid="before">before</button>
@@ -55,7 +68,7 @@
 </button>
 <button data-testid="after">after</button>
 <FloatingPortal {store} {portalOwnerRole}>
-	{#if store.open}
+	{#if store.open || (keepMounted && mounted)}
 		<FloatingFocusManager {store} {modal} {returnFocus}>
 			<div data-testid="floating" {@attach store.registerFloating}>
 				{#if wrapped}

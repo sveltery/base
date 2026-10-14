@@ -67,6 +67,26 @@ describe('FloatingFocusManager', () => {
 			expect(document.activeElement).toBe(document.body);
 		});
 
+		it('puts focus back on the trigger after the popup unmounts when a press blurs it to the body', async () => {
+			const { component } = render(PortalFocusHarness, { keepMounted: true });
+			flushSync(() => component.show('mouse'));
+			await expect.poll(focusedTestId).toBe('inside');
+			const reference = page.getByTestId('reference').element() as HTMLElement;
+
+			// A sloppy outside press closes on pointerdown, before its mousedown.
+			const press = new PointerEvent('pointerdown', { pointerType: 'mouse' });
+			flushSync(() => component.close('outside-press', press));
+			for (let i = 0; i < 5; i += 1) await Promise.resolve();
+			expect(document.activeElement).toBe(reference);
+			// The compatibility mousedown on a non-focusable target moves focus to the body.
+			reference.blur();
+			// The exit ends before the next frame.
+			flushSync(() => component.unmount());
+
+			await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+			expect(document.activeElement).toBe(reference);
+		});
+
 		it('returns focus after a focus-out close from a Shift+Tab inside a modal popup', async () => {
 			const { component } = render(PortalFocusHarness, { modal: true });
 			flushSync(() => component.show('keyboard'));
