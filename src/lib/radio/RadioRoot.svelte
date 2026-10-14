@@ -63,7 +63,7 @@
 	const generatedControlId = $derived(`base-ui-${uid}-control`);
 	// Radios that share their group's labelable scope leave the Field's id to the group.
 	const controlId = new LabelableId(labelable, {
-		id: () => id,
+		id: () => id ?? undefined,
 		fallback: () => generatedControlId,
 		enabled: () => !group || group.labelable !== labelable
 	});

@@ -50,7 +50,7 @@
 	const store = useSelectRoot();
 	const field = useFieldContext();
 	const labelable = findLabelableContext();
-	new LabelableId(labelable, { id: () => idProp });
+	new LabelableId(labelable, { id: () => idProp ?? undefined });
 
 	const bindKey = createAttachmentKey();
 	const disabled = $derived(field.disabled || store.root.disabled || (disabledProp ?? false));

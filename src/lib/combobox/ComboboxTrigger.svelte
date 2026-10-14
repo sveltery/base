@@ -42,7 +42,9 @@
 	const store = useComboboxRoot();
 	const field = useFieldContext();
 	const labelable = findLabelableContext();
-	new LabelableId(labelable, { id: () => (store.inputInsidePopup ? idProp : undefined) });
+	new LabelableId(labelable, {
+		id: () => (store.inputInsidePopup ? (idProp ?? undefined) : undefined)
+	});
 
 	const bindKey = createAttachmentKey();
 	const comboboxDisabled = $derived(store.root.disabled);

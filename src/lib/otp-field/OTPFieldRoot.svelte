@@ -78,7 +78,10 @@
 
 	const raw = $derived(value ?? '');
 	const generatedId = $derived(`base-ui-${uid}`);
-	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => generatedId });
+	const controlId = new LabelableId(labelable, {
+		id: () => idProp ?? undefined,
+		fallback: () => generatedId
+	});
 	const disabled = $derived(Boolean(field.disabled) || (disabledProp ?? false));
 	const name = $derived(field.name ?? nameProp ?? undefined);
 	const boundProps = $derived(bound.inputProps());

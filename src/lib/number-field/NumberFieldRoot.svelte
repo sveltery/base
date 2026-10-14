@@ -100,7 +100,10 @@
 	const inputName = $derived(bound.bound ? boundProps.name : name);
 	const step = $derived(stepProp === 'any' ? 1 : stepProp);
 	const generatedId = $derived(`base-ui-${uid}`);
-	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => generatedId });
+	const controlId = new LabelableId(labelable, {
+		id: () => idProp ?? undefined,
+		fallback: () => generatedId
+	});
 
 	function writeValue(next: number | null, details?: NumberFieldChangeEventDetails) {
 		const previous = current;

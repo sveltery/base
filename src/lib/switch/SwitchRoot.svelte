@@ -80,7 +80,7 @@
 	const generatedRootId = $derived(`base-ui-${uid}`);
 	const generatedControlId = $derived(`base-ui-${uid}` + '-control');
 	const controlId = new LabelableId(labelable, {
-		id: () => id,
+		id: () => id ?? undefined,
 		fallback: () => generatedControlId
 	});
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId.current);
