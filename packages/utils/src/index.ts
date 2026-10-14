@@ -8,6 +8,7 @@ export {
 	type BaseUIHighlightEventDetails
 } from './event-details.js';
 export { default as FocusGuard } from './FocusGuard.svelte';
+export { matchesFocusVisible } from './focus-visible.js';
 export { error, resetLogged, warn } from './log.js';
 export {
 	useOpenInteractionType,

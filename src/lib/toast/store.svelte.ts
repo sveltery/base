@@ -8,7 +8,13 @@
 // `promiseToast` returns the handled promise. The provider hands it back to the manager,
 // which replaces upstream's `setPromise` option probe.
 
-import { activeElement, contains, getTarget, ownerDocument } from '@sveltery/utils';
+import {
+	activeElement,
+	contains,
+	getTarget,
+	matchesFocusVisible,
+	ownerDocument
+} from '@sveltery/utils';
 import { applyLimited, createToastMetadata, type StoredToast } from './list.js';
 import { ToastTimers } from './timers.js';
 import type {
@@ -17,7 +23,7 @@ import type {
 	ToastManagerUpdate,
 	ToastObject
 } from './types.js';
-import { generateId, isFocusVisible, resolvePromiseOptions } from './utils.js';
+import { generateId, resolvePromiseOptions } from './utils.js';
 
 type ToastInternalUpdateOptions<Data extends object> = Partial<
 	Omit<ToastObject<Data>, 'id' | 'updateKey'>
@@ -278,7 +284,7 @@ export class ToastStore {
 	#handleFocusManagement(toastId: string | undefined) {
 		const viewport = this.viewport;
 		const activeEl = activeElement(ownerDocument(viewport));
-		if (!viewport || !contains(viewport, activeEl) || !isFocusVisible(activeEl)) return;
+		if (!viewport || !contains(viewport, activeEl) || !matchesFocusVisible(activeEl)) return;
 
 		if (toastId === undefined) {
 			this.restoreFocusToPrevElement();
