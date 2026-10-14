@@ -61,7 +61,7 @@
 		!seedStore.openedWithoutTrigger &&
 		seedStore.resolvedActiveTriggerId() == null
 	) {
-		seedStore.writeTriggerId(seedId);
+		seedStore.boundTriggerId.write(seedId);
 	}
 
 	function owned() {

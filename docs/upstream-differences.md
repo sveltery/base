@@ -187,6 +187,14 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`nested dialog count (Base UI v1.9
 
 Not ported: ref objects. Mouse and touch use separate outside-press modes on `DismissInteraction`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s, touchend does not close, and a mousedown while the finger is still down does not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
 
+### Trigger id after the dialog unmounts
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/popups/popupStoreUtils.ts` (`useOpenStateTransitions`). Once the popup unmounts, the store resets its own `activeTriggerId` to `null`. The `triggerId` prop is never written by the store. A controlled `open` with two or more triggers then associates none of them. With one trigger, the dialog claims it.
+
+Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). `BoundTriggerId` in `src/lib/internal/popups/boundTriggerId.svelte.ts` resets an id the store wrote to `null` once the popup unmounts, if the parent has not changed it since. An id that the parent set stays. Before, the stored id survived, so a `bind:open` reopen re-associated the trigger that last opened the dialog, even with two triggers. Now no trigger has `aria-expanded="true"` in that case.
+
+Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`leaves both triggers unassociated on a bind:open after the dialog that one opened unmounted` and `claims the only trigger on a bind:open after that trigger opened the dialog`).
+
 ## Alert Dialog
 
 Source: Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`), `packages/react/src/alert-dialog`. Upstream `AlertDialog.Root` calls the Dialog root setup in `alert-dialog` mode: `modal` is always `true`, pointer dismissal is disabled, and the popup role is `alertdialog`. Every other part is the Dialog part. `AlertDialog.Handle` extends `Dialog.Handle` with a type-only brand.
@@ -284,6 +292,14 @@ The popup has no `role` and the trigger has no `aria-describedby` or `type`, as 
 
 `payload`, `closeDelay` and `closeOnClick` are read live from the active trigger, and an active trigger that unmounts closes the tooltip, as described for PreviewCard under [Payload and close delay are read from the active trigger](#payload-and-close-delay-are-read-from-the-active-trigger) and [Active trigger tracking](#active-trigger-tracking).
 
+### Trigger id after the tooltip unmounts
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/popups/popupStoreUtils.ts` (`useOpenStateTransitions`). Once the popup unmounts, the store resets its own `activeTriggerId` to `null`. The `triggerId` prop is never written by the store. The next open that names no trigger, such as a controlled `open`, claims the only registered trigger.
+
+Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). `BoundTriggerId` in `src/lib/internal/popups/boundTriggerId.svelte.ts` resets an id the store wrote to `null` once the popup unmounts, if the parent has not changed it since. An id that the parent set stays. Before, a stale id from a trigger that remounted under a new id blocked the claim, so the tooltip opened without that trigger's payload or `data-popup-open`.
+
+Test: `src/lib/tooltip/TooltipOwnership.svelte.spec.ts` (`lets a remounted lone trigger claim a bind:open after the previous trigger claimed one`).
+
 ## PreviewCard
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/preview-card/**` and `packages/react/src/utils/popups/inlineRect.ts`. The rest of this file pins v1.8.0. The paired React fixture runs `@base-ui/react` 1.8.0, whose PreviewCard behaves the same for the covered cases.
@@ -321,6 +337,14 @@ Test: `src/lib/preview-card/PreviewCardPositioner.svelte.spec.ts` (`multiline in
 ### Not covered
 
 The "does not re-render inactive triggers" cases count React renders. "Cleans up the transition when a lagging payload remounts the current container" depends on a payload that arrives a render after the trigger id. Both have no Svelte counterpart.
+
+### Trigger id after the card unmounts
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/popups/popupStoreUtils.ts` (`useOpenStateTransitions`). Once the popup unmounts, the store resets its own `activeTriggerId` to `null`. The `triggerId` prop is never written by the store. The next open that names no trigger, such as a controlled `open`, claims the only registered trigger.
+
+Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). `BoundTriggerId` in `src/lib/internal/popups/boundTriggerId.svelte.ts` resets an id the store wrote to `null` once the popup unmounts, if the parent has not changed it since. An id that the parent set stays. Before, a stale id from a trigger that remounted under a new id blocked the claim, so the card opened without that trigger's payload or `data-popup-open`.
+
+Test: `src/lib/preview-card/PreviewCardOwnership.svelte.spec.ts` (`lets a remounted lone trigger claim a bind:open after the previous trigger claimed one`).
 
 ## NavigationMenu
 

@@ -33,8 +33,8 @@
 		readModal: () => modal,
 		readDisablePointerDismissal: () => disablePointerDismissal,
 		readTriggerId: () => triggerId,
-		publishTriggerId: (id) => {
-			if ((triggerId ?? null) !== id) triggerId = id;
+		writeTriggerId: (id) => {
+			triggerId = id;
 		},
 		readHandle: () => handle
 	});
