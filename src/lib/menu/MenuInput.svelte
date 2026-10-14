@@ -147,7 +147,12 @@
 			onkeydown(this: HTMLInputElement, event: KeyboardEvent) {
 				const preventedBefore = event.defaultPrevented;
 				onkeydown.call(this, event as never);
-				if (!preventedBefore && event.defaultPrevented) store.consumerHandledKey = event;
+				if (preventedBefore || !event.defaultPrevented) return;
+				// The key still bubbles through any ancestor popup that contains this one.
+				for (let menu = store; ; menu = menu.parent.store) {
+					menu.consumerHandledKey = event;
+					if (menu.parent.type !== 'menu') break;
+				}
 			}
 		};
 	});

@@ -103,7 +103,8 @@
 				onfocus(event: FocusEvent) {
 					const owner = store.focusOwner;
 					if (owner && store.open && event.relatedTarget === owner) {
-						owner.focus({ preventScroll: true });
+						// After the parent's own focus handling, so the trigger's blur clears the highlight.
+						queueMicrotask(() => owner.focus({ preventScroll: true }));
 					}
 				}
 			}

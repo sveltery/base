@@ -426,7 +426,7 @@ Local: nothing re-runs the parent popup's handlers. A key that a submenu does no
 
 Upstream: a consumer handler calls `event.preventBaseUIHandler()`, and the flag reaches every Base UI handler on the propagation path through React's shared synthetic event.
 
-Local: a consumer handler calls `event.preventDefault()`, as with every part (see `mergeProps`). When the consumer's `Menu.Input` handler prevents a key, the input records that key in the menu's store, and the popup skips its own handling of it. No other menu part forwards the opt-out to an ancestor. While a filterable menu is open, its trigger calls `preventDefault()` on ArrowLeft and ArrowRight to skip its own handlers for them. Upstream skips them with `preventBaseUIHandler()` and leaves the default action alone.
+Local: a consumer handler calls `event.preventDefault()`, as with every part (see `mergeProps`). When the consumer's `Menu.Input` handler prevents a key, the input records that key in its menu's store and in each ancestor menu's store, and every popup skips its own handling of it. No other menu part forwards the opt-out to an ancestor. While a filterable menu is open, its trigger calls `preventDefault()` on ArrowLeft and ArrowRight to skip its own handlers for them. Upstream skips them with `preventBaseUIHandler()` and leaves the default action alone.
 
 ### Internal filter roots
 
