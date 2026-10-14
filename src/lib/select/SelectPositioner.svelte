@@ -49,14 +49,15 @@
 	// popup counts as inside the parent.
 	useFloatingNodeId(store);
 
-	// A fallback to regular anchoring lasts until the popup mounts or unmounts again.
-	let alignFallback = $derived.by((): boolean => {
+	// The prop is read when the popup mounts or unmounts, so a change while open waits for the
+	// next open. A fallback to regular anchoring lasts until then too.
+	let alignLatched = $derived.by((): boolean => {
 		void store.mounted;
-		return false;
+		return untrack(() => alignItemWithTrigger);
 	});
 
 	const alignItemWithTriggerActive = $derived(
-		store.mounted && alignItemWithTrigger && !alignFallback && store.renderedOpenMethod !== 'touch'
+		store.mounted && alignLatched && store.renderedOpenMethod !== 'touch'
 	);
 
 	useAnchoredPopupScrollLock(() => ({
@@ -107,7 +108,7 @@
 			return alignItemWithTriggerActive;
 		},
 		disableAlignItemWithTrigger() {
-			alignFallback = true;
+			alignLatched = false;
 		}
 	});
 

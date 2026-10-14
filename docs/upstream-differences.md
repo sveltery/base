@@ -626,11 +626,11 @@ Local: list navigation queues its request after the focus manager's. The request
 
 Test: `src/lib/select/SelectRoot.popups.svelte.spec.ts` (`keeps focus outside when the popup closes before its open focus lands`). Upstream's `validates when the popup is blurred` fires a synthetic blur after a trigger blur whose queued focus-out check clears `insideReactTree`, so its popup closes. A real focus move without a press keeps a portaled popup open in upstream, so `src/lib/select/SelectRoot.field.svelte.spec.ts` blurs the popup with Tab.
 
-### Open method and alignment
+### Open method
 
-Upstream: the positioner keeps `alignItemWithTrigger` in state and resets it to the prop only while unmounted.
+Upstream: `SelectRoot` falls back to the previous render's open method once the open method resets (`usePreviousValue`).
 
-Local: the interaction that opened the popup is kept until the popup unmounts, so a touch-opened popup keeps regular anchoring while it animates out. A fallback to regular anchoring lasts until the popup mounts or unmounts again, and a change of the `alignItemWithTrigger` prop applies at once.
+Local: the interaction that opened the popup is kept until the popup unmounts, so a touch-opened popup keeps regular anchoring while it animates out.
 
 ### Not covered
 
