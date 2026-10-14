@@ -11,7 +11,6 @@ import { isHTMLElement } from '@floating-ui/utils/dom';
 import { REASONS, ScopedTimeout } from '@sveltery/utils';
 import {
 	DismissInteraction,
-	FloatingTreeStore,
 	ListNavigation,
 	Typeahead,
 	isMainOrientationKey,
@@ -108,10 +107,7 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		nested: parentNodeId != null,
 		parent,
 		rootId: `base-ui-${options.id}-root`,
-		// Only a context menu's menu events move to a new tree, so a nested one opens and closes on its
-		// own. Its floating nodes stay in the enclosing tree, so an enclosing popup sees it as an open
-		// child. Escape then closes only the context menu, and a press in its popup counts as inside.
-		tree: parent.type === 'context-menu' ? new FloatingTreeStore() : tree,
+		tree,
 		parentNodeId,
 		readDisabled: options.readDisabled,
 		readModal: options.readModal,

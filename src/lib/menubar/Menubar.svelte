@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
+	import { on } from 'svelte/events';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { setFloatingTree, useFloatingNodeId } from '@sveltery/floating-ui-svelte';
@@ -69,7 +70,11 @@
 			context.setHasSubmenuOpen(false);
 		}
 	}
-	$effect(() => tree.events.on('menuopenchange', (data) => untrack(() => onMenuOpenChange(data))));
+	$effect(() =>
+		on(context.menuEvents, 'menuopenchange', (event) =>
+			untrack(() => onMenuOpenChange((event as CustomEvent).detail))
+		)
+	);
 
 	const state: MenubarState = $derived({
 		orientation,

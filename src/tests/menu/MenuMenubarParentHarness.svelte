@@ -22,6 +22,7 @@
 		mouseUpGate: { allow: false },
 		rootId: undefined,
 		floatingTree: new FloatingTreeStore(),
+		menuEvents: new EventTarget(),
 		nodeId: 'menubar',
 		relayKeyboardEvent() {},
 		createItem() {

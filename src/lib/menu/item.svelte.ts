@@ -77,7 +77,7 @@ export class MenuItemBehavior {
 	#commonProps(): Props {
 		const list = this.list;
 		const { id, closeOnClick } = this.options();
-		const events = list.tree?.events;
+		const events = list.menuEvents;
 		const contextMenu = this.#contextMenu;
 		// A filterable list keeps real focus on its input.
 		const virtualFocus = list.virtualFocus;
@@ -102,11 +102,13 @@ export class MenuItemBehavior {
 			onmousemove: (event: MouseEvent) => {
 				if (!list.nodeId) return;
 				// Unrelated submenus of this menu close when another item is hovered.
-				events?.emit('itemhover', { nodeId: list.nodeId, target: event.currentTarget });
+				const detail = { nodeId: list.nodeId, target: event.currentTarget };
+				events.dispatchEvent(new CustomEvent('itemhover', { detail }));
 			},
 			onclick: (event: MouseEvent) => {
 				if (closeOnClick) {
-					events?.emit('close', { domEvent: event, reason: REASONS.itemPress });
+					const detail = { domEvent: event, reason: REASONS.itemPress };
+					events.dispatchEvent(new CustomEvent('close', { detail }));
 				}
 			},
 			onmouseup: (event: MouseEvent) => {
