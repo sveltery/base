@@ -12,7 +12,10 @@ async function openWide(lazyFlip: boolean | 'placement') {
 	const positioner = page.getByTestId('positioner');
 	await expect.element(positioner).toHaveAttribute('data-positioned', '');
 	await expect.element(positioner).toHaveAttribute('data-align', 'end');
+	const wideStyle = positioner.element().getAttribute('style');
 	await view.rerender({ lazyFlip, width: 20 });
+	// The narrow popup moves whichever alignment it keeps, so a new style means it repositioned.
+	await expect.poll(() => positioner.element().getAttribute('style')).not.toBe(wideStyle);
 	return positioner;
 }
 
@@ -24,7 +27,6 @@ describe('AnchorPositioning lazyFlip', () => {
 
 	it("keeps the flipped alignment once the popup fits with 'placement'", async () => {
 		const positioner = await openWide('placement');
-		await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 		expect(positioner.element().getAttribute('data-align')).toBe('end');
 	});
 });
