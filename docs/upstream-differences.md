@@ -435,7 +435,6 @@ Local: the polygon scopes to the parent popup through `getScope`.
 ### Behavior that waits on shared internals
 
 - The `data-base-ui-click-trigger` marker is not rendered. Upstream sets it only on Dialog and Popover triggers.
-- The shared `FloatingPortal` reads its focus manager state after moving focus out of a nested portal, when a close has already cleared it, so Tab out of a submenu throws in its after guard. The two upstream cases that Tab forward out of a filterable submenu (`closes a filterable submenu and moves focus to the next element when tabbing forward` and `closes a pointer-opened filterable submenu and moves focus forward when tabbing`) are not ported until it reads the state before moving focus.
 
 ### Not covered
 

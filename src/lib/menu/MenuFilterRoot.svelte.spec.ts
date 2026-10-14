@@ -1341,6 +1341,85 @@ describe('Menu.FilterProvider submenus', () => {
 		await frame();
 		expect(focused()).toBe(outside);
 	});
+
+	describe('Tab out of a filterable submenu', () => {
+		const sharing = {
+			type: 'submenu' as const,
+			label: 'Share',
+			filter: { inputLabel: 'Filter sharing options' },
+			items: items('Email')
+		};
+		const errors: string[] = [];
+		const onError = (event: ErrorEvent) => errors.push(event.message);
+
+		beforeEach(() => {
+			errors.length = 0;
+			window.addEventListener('error', onError);
+			return () => window.removeEventListener('error', onError);
+		});
+
+		function after() {
+			return page.getByRole('button', { name: 'After' }).element();
+		}
+
+		it('closes a filterable submenu and moves focus to the next element when tabbing forward', async () => {
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				open: true,
+				after: true,
+				rootProps: { modal: false },
+				filter: {},
+				items: [sharing]
+			});
+			await expect.poll(() => focused()).toBe(input());
+			await userEvent.keyboard('{ArrowDown}{ArrowRight}');
+			await expect.poll(() => focused()).toBe(input('Filter sharing options'));
+
+			await userEvent.tab();
+			await expect.poll(() => focused()).toBe(after());
+			await expect
+				.poll(() => document.querySelector('input[aria-label="Filter actions"]'))
+				.toBe(null);
+			expect(errors).toEqual([]);
+		});
+
+		it('closes a pointer-opened filterable submenu and moves focus forward when tabbing', async () => {
+			// Exit transitions keep the closing popups mounted while focus relocates.
+			const style = document.createElement('style');
+			style.textContent =
+				'.filter-popup { transition: opacity 50ms; opacity: 1; } .filter-popup[data-ending-style] { opacity: 0; }';
+			document.head.append(style);
+			try {
+				render(MenuHarness, {
+					triggerLabel: 'Actions',
+					open: false,
+					after: true,
+					rootProps: { modal: false },
+					popupProps: { class: 'filter-popup' },
+					filter: {},
+					items: [
+						{
+							...sharing,
+							triggerProps: { openOnHover: false },
+							popupProps: { class: 'filter-popup' }
+						}
+					]
+				});
+				await userEvent.click(page.getByRole('button', { name: 'Actions' }));
+				await userEvent.click(page.getByRole('menuitem', { name: 'Share' }));
+				await expect.poll(() => focused()).toBe(input('Filter sharing options'));
+
+				await userEvent.tab();
+				await expect.poll(() => focused()).toBe(after());
+				await expect
+					.poll(() => document.querySelector('input[aria-label="Filter actions"]'))
+					.toBe(null);
+				expect(errors).toEqual([]);
+			} finally {
+				style.remove();
+			}
+		});
+	});
 });
 
 describe('Menu.FilterProvider query and labels', () => {
