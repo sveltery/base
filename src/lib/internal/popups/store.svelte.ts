@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/utils/popups/store.ts
 // and packages/react/src/dialog/store/DialogStore.ts setOpen
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). `openedWithoutTrigger` follows v1.9.0
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). `openedWithoutTrigger` and clearing
+// `preventUnmountingOnClose` on open follow v1.9.0
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Immediate preventUnmountOnClose writes the flag before cancellation is checked.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
@@ -55,6 +56,15 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		// Cleared once the popup is closed, not on a close request a controlled root may decline.
 		$effect.pre(() => {
 			if (!this.open) this.openedWithoutTrigger = false;
+		});
+
+		// Any open starts a new close cycle, also one through `bind:open` that skips `setOpen`.
+		// Upstream `useUnmountAfterClose` clears the flag when `open` changes only, so an opt-out
+		// recorded on a canceled close while open stays.
+		$effect.pre(() => {
+			if (this.open && untrack(() => this.preventUnmountingOnClose)) {
+				this.preventUnmountingOnClose = false;
+			}
 		});
 
 		useOpenChangeComplete(() => ({
