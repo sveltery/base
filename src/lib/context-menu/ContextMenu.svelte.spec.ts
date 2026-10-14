@@ -9,6 +9,7 @@ import { userEvent } from 'vitest/browser';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ContextMenuHarness from '../../tests/context-menu/ContextMenuHarness.svelte';
+import ContextMenuInPopupHarness from '../../tests/context-menu/ContextMenuInPopupHarness.svelte';
 import { contextMenu } from '../../tests/context-menu/events.js';
 import { clickElement, mouse, pointer } from '../../tests/menu/mouse.js';
 import { parkPointer } from '../../tests/pointer.js';
@@ -365,6 +366,63 @@ describe('ContextMenu', () => {
 		await expect.poll(shown('outer-menu')).toBe(false);
 		expect(byTestId('inner-menu')).toBeNull();
 	});
+
+	describe.each([
+		{ outer: 'popover', inBox: false },
+		{ outer: 'popover', inBox: true },
+		{ outer: 'dialog', inBox: false },
+		{ outer: 'dialog', inBox: true },
+		{ outer: 'menu', inBox: false },
+		{ outer: 'menu', inBox: true },
+		{ outer: 'preview-card', inBox: false },
+		{ outer: 'preview-card', inBox: true },
+		{ outer: 'navigation-menu', inBox: false },
+		{ outer: 'navigation-menu', inBox: true }
+	] as const)(
+		'inside an open $outer, portaled into a box outside it: $inBox',
+		({ outer, inBox }) => {
+			async function openBoth() {
+				const reasons: string[] = [];
+				render(ContextMenuInPopupHarness, { outer, inBox, reasons });
+				if (!byTestId('outer')) clickElement(get('outer-trigger'));
+				await expect.poll(shown('outer')).toBe(true);
+				contextMenu(get('ctx-trigger'), { clientX: 30, clientY: 30 });
+				await expect.poll(shown('ctx-menu')).toBe(true);
+				expect(get('box').contains(get('ctx-menu'))).toBe(inBox);
+				await expect
+					.poll(
+						() => !!byTestId('ctx-menu')?.contains(document.activeElement) || reasons.length > 0
+					)
+					.toBe(true);
+				await new Promise(requestAnimationFrame);
+				await tick();
+				expect({ open: openStates(), reasons }).toEqual({ open: [true, true], reasons: [] });
+				return reasons;
+			}
+
+			const openStates = () => [
+				byTestId('outer')?.hasAttribute('data-open') ?? false,
+				byTestId('ctx-menu')?.hasAttribute('data-open') ?? false
+			];
+
+			it('keeps both open on a press inside the context menu', async () => {
+				const reasons = await openBoth();
+				clickElement(get('ctx-menu'));
+				await new Promise(requestAnimationFrame);
+				await tick();
+				expect({ open: openStates(), reasons }).toEqual({ open: [true, true], reasons: [] });
+			});
+
+			it('closes only the context menu on Escape', async () => {
+				const reasons = await openBoth();
+				await userEvent.keyboard('{Escape}');
+				await expect.poll(shown('ctx-menu')).toBe(false);
+				await tick();
+				expect(openStates()).toEqual([true, false]);
+				expect(reasons).toEqual([]);
+			});
+		}
+	);
 
 	describe('with a menu inside the trigger', () => {
 		it('opens the menu on click and the context menu on right click', async () => {
