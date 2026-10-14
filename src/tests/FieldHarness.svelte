@@ -314,6 +314,10 @@
 			</div>
 		{/snippet}
 	</Field.Root>
+{:else if scenario === 'standalone'}
+	<Field.Label id="email-label" data-testid="label">Email</Field.Label>
+	<Field.Description id="email-help" data-testid="description">We never share it.</Field.Description
+	>
 {:else if scenario === 'attach'}
 	<Field.Root data-testid="field" class="hosted">
 		<Field.Control data-testid="control" class="control-host" />
