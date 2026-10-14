@@ -164,7 +164,7 @@ Test: `src/lib/popover/PopoverTriggers.svelte.spec.ts` (`closes when hovering a 
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/popups/popupStoreUtils.ts` (`useOpenStateTransitions` and `useImplicitActiveTrigger`). Once the popup unmounts, the store resets its own `activeTriggerId` to `null`. The next open that names no trigger, such as a controlled `open`, claims the only registered trigger, and with two or more triggers anchors to none. The `triggerId` prop is never written by the store.
 
-Local: `triggerId` is one `$bindable` prop for both values. The store writes the active trigger's id into it. Once the popover unmounts, the store resets an id that it wrote to `null`, if the parent has not changed it since. An id that the parent set stays. A `bind:triggerId` therefore reads `null` once a popover that a trigger opened unmounts, unless the parent set that id.
+Local: `triggerId` is one `$bindable` prop for both values. The store writes the active trigger's id into it. Once the popover unmounts, the store resets an id that it wrote to `null`, if the parent has not changed it since. An id that the parent set stays until a trigger press replaces it. A `bind:triggerId` therefore reads `null` once a popover that a trigger opened unmounts, unless the parent set that id.
 
 Test: `src/lib/popover/PopoverPositioner.svelte.spec.ts` (`anchors to the only trigger when bind:open opens it after the trigger that last opened it remounted`) and `src/lib/popover/PopoverTriggers.svelte.spec.ts` (`claims the only trigger on a bind:open after the parent cleared triggerId` and `leaves both triggers unassociated on a bind:open after the popover that one opened unmounted`).
 
@@ -195,7 +195,7 @@ Not ported: ref objects. Mouse and touch use separate outside-press modes on `Di
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/popups/popupStoreUtils.ts` (`useOpenStateTransitions`). Once the popup unmounts, the store resets its own `activeTriggerId` to `null`. The `triggerId` prop is never written by the store. A controlled `open` with two or more triggers then associates none of them. With one trigger, the dialog claims it.
 
-Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). `BoundTriggerId` in `src/lib/internal/popups/boundTriggerId.svelte.ts` resets an id the store wrote to `null` once the popup unmounts, if the parent has not changed it since. An id that the parent set stays.
+Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). `BoundTriggerId` in `src/lib/internal/popups/boundTriggerId.svelte.ts` resets an id the store wrote to `null` once the popup unmounts, if the parent has not changed it since. An id that the parent set stays until a trigger press replaces it.
 
 Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`leaves both triggers unassociated on a bind:open after the dialog that one opened unmounted` and `claims the only trigger on a bind:open after that trigger opened the dialog`).
 
@@ -300,7 +300,7 @@ The popup has no `role` and the trigger has no `aria-describedby` or `type`, as 
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/popups/popupStoreUtils.ts` (`useOpenStateTransitions`). Once the popup unmounts, the store resets its own `activeTriggerId` to `null`. The `triggerId` prop is never written by the store. The next open that names no trigger, such as a controlled `open`, claims the only registered trigger.
 
-Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). `BoundTriggerId` in `src/lib/internal/popups/boundTriggerId.svelte.ts` resets an id the store wrote to `null` once the popup unmounts, if the parent has not changed it since. An id that the parent set stays.
+Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). `BoundTriggerId` in `src/lib/internal/popups/boundTriggerId.svelte.ts` resets an id the store wrote to `null` once the popup unmounts, if the parent has not changed it since. An id that the parent set stays until a trigger press replaces it.
 
 Test: `src/lib/tooltip/TooltipOwnership.svelte.spec.ts` (`lets a remounted lone trigger claim a bind:open after the previous trigger claimed one`).
 
@@ -346,7 +346,7 @@ The "does not re-render inactive triggers" cases count React renders. "Cleans up
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/popups/popupStoreUtils.ts` (`useOpenStateTransitions`). Once the popup unmounts, the store resets its own `activeTriggerId` to `null`. The `triggerId` prop is never written by the store. The next open that names no trigger, such as a controlled `open`, claims the only registered trigger.
 
-Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). `BoundTriggerId` in `src/lib/internal/popups/boundTriggerId.svelte.ts` resets an id the store wrote to `null` once the popup unmounts, if the parent has not changed it since. An id that the parent set stays.
+Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). `BoundTriggerId` in `src/lib/internal/popups/boundTriggerId.svelte.ts` resets an id the store wrote to `null` once the popup unmounts, if the parent has not changed it since. An id that the parent set stays until a trigger press replaces it.
 
 Test: `src/lib/preview-card/PreviewCardOwnership.svelte.spec.ts` (`lets a remounted lone trigger claim a bind:open after the previous trigger claimed one`).
 

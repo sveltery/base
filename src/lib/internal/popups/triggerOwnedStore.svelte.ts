@@ -136,8 +136,7 @@ export abstract class TriggerOwnedPopupStore<
 		if (eventDetails.isCanceled) return;
 
 		const registered = this.triggers.idOf(this.domReferenceElement);
-		this.boundTriggerId.write(registered ?? (this.domReferenceElement?.id || null));
-		if (!nextOpen) this.boundTriggerId.claimed = null;
+		this.boundTriggerId.write(registered ?? (this.domReferenceElement?.id || null), nextOpen);
 
 		const nextElement = this.domReferenceElement;
 		if (wasOpen && nextOpen && previousElement && nextElement && previousElement !== nextElement) {
@@ -149,6 +148,10 @@ export abstract class TriggerOwnedPopupStore<
 	/** Drop a prevented unmount. The shared close completion then removes the popup. */
 	override forceUnmount() {
 		this.preventUnmountingOnClose = false;
+	}
+
+	protected override onUnmount() {
+		this.boundTriggerId.reset();
 	}
 
 	/**

@@ -285,13 +285,8 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 
 		this.openChangeReason = reason;
 		const registered = this.triggers.idOf(this.domReferenceElement);
-		this.boundTriggerId.write(registered ?? (this.domReferenceElement?.id || null));
-		if (!nextOpen) {
-			this.openedFrom = null;
-			this.boundTriggerId.claimed = null;
-		} else {
-			this.openedFrom = this.activeTriggerElement;
-		}
+		this.boundTriggerId.write(registered ?? (this.domReferenceElement?.id || null), nextOpen);
+		this.openedFrom = nextOpen ? this.activeTriggerElement : null;
 
 		if (isHover) {
 			this.stickIfOpen = true;
@@ -320,6 +315,10 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	/** Drop a prevented unmount. The shared close completion then removes the popup. */
 	forceUnmount() {
 		this.preventUnmountingOnClose = false;
+	}
+
+	protected override onUnmount() {
+		this.boundTriggerId.reset();
 	}
 
 	closeImperative() {

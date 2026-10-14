@@ -66,6 +66,7 @@ export interface PopoverRootProps<Payload = unknown> {
 	modal?: PopoverModal;
 	/**
 	 * Id of the trigger that owns the popover. A string wins over the trigger that opened it.
+	 * An id written by a trigger press resets to `null` once the popup unmounts.
 	 */
 	triggerId?: string | null;
 	/** Associates detached triggers and imperative `open`, `close`, and `unmount`. */

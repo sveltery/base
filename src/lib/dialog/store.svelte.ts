@@ -103,4 +103,8 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 		super.setOpen(nextOpen, eventDetails);
 		this.boundTriggerId.write(this.activeTriggerId);
 	}
+
+	protected override onUnmount() {
+		this.boundTriggerId.reset();
+	}
 }

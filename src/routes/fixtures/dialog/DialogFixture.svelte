@@ -24,6 +24,7 @@
 		finalFocus = undefined as DialogFocusTarget | undefined,
 		onOpenChange = undefined as
 			((open: boolean, details: DialogChangeEventDetails) => void) | undefined,
+		onOpenChangeComplete = undefined as ((open: boolean) => void) | undefined,
 		title = 'Title',
 		description = 'Description',
 		triggerId = $bindable(undefined as string | null | undefined),
@@ -271,6 +272,7 @@
 		bind:triggerId={() => triggerId ?? defaultTriggerId, (next) => (triggerId = next)}
 		modal={modalValue}
 		onOpenChange={changed}
+		{onOpenChangeComplete}
 		{disablePointerDismissal}
 	>
 		{#if twoTriggers}

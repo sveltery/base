@@ -5,40 +5,37 @@
 // Upstream keeps the `triggerId` prop apart from the store's own `activeTriggerId`. The port
 // carries both in one `$bindable` prop, so it remembers which id the store wrote there.
 
-import { untrack } from 'svelte';
-
 export class BoundTriggerId {
 	/** Id written for this open. Survives a bound trigger id that the parent sets back. */
-	claimed: string | null = null;
+	private claimed: string | null = null;
 	/** Last id the store wrote. An id the parent set is never cleared. */
 	private written: string | null = null;
 
 	constructor(
-		private readonly popup: { readonly open: boolean; readonly mounted: boolean },
+		private readonly popup: { readonly open: boolean },
 		readonly read: () => string | null | undefined,
 		private readonly writeValue: (id: string | null) => void
-	) {
-		// Upstream resets `activeTriggerId` once the popup unmounts, so the next open without a
-		// trigger claims the only trigger again, even one that remounted under a new id.
-		$effect(() => {
-			if (popup.open || popup.mounted) return;
-			untrack(() => {
-				if (this.written !== null && this.read() === this.written) this.writeValue(null);
-				this.written = null;
-				this.claimed = null;
-			});
-		});
-	}
+	) {}
 
 	/** Upstream `activeTriggerId` state: the bound id, else the id claimed for this open. */
 	get active() {
 		return this.read() || (this.popup.open ? this.claimed : null);
 	}
 
-	write(id: string | null) {
-		this.claimed = id;
+	write(id: string | null, open = true) {
+		this.claimed = open ? id : null;
 		if ((this.read() ?? null) === id) return;
 		this.written = id;
 		this.writeValue(id);
+	}
+
+	/**
+	 * Upstream clears `activeTriggerId` on unmount, so the next open without a trigger claims the
+	 * only trigger again, even one that remounted under a new id.
+	 */
+	reset() {
+		if (this.written !== null && this.read() === this.written) this.writeValue(null);
+		this.written = null;
+		this.claimed = null;
 	}
 }
