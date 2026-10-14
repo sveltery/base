@@ -84,7 +84,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/slider/SliderRoot.svelte` from `packages/react/src/slider/root/SliderRoot.tsx`
 - `src/lib/slider/SliderControl.svelte` from `packages/react/src/slider/control/SliderControl.tsx`
 - `src/lib/slider/SliderTrack.svelte` from `packages/react/src/slider/track/SliderTrack.tsx`
-- `src/lib/slider/dom.ts` from the `isElement`, `matchesFocusVisible`, and `focusElement` helpers Slider calls
+- `src/lib/slider/dom.ts` from the `isElement` and `focusElement` helpers Slider calls
 - `src/lib/slider/Slider.svelte.spec.ts` assertions from `packages/react/src/slider/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/direction-provider/DirectionProvider.svelte` from `packages/react/src/direction-provider/DirectionProvider.tsx`
 - `src/lib/direction-provider/DirectionProvider.svelte.spec.ts` assertions from `packages/react/src/direction-provider/DirectionProvider.test.tsx`
@@ -377,7 +377,7 @@ Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7
 - `src/lib/toast/context.ts` from `packages/react/src/toast/provider/ToastProviderContext.ts`, `packages/react/src/toast/root/ToastRootContext.ts`, `packages/react/src/toast/positioner/ToastPositionerContext.ts`, and `packages/react/src/toast/useToastManager.ts`
 - `src/lib/toast/types.ts` from `packages/react/src/toast/useToastManager.ts`, `packages/react/src/toast/createToastManager.ts`, and the part prop and state types
 - `src/lib/toast/constants.ts` from `packages/react/src/toast/**/*DataAttributes.ts` and `*CssVars.ts`
-- `src/lib/toast/utils.ts` from `packages/react/src/toast/utils/isRenderableNode.ts`, `packages/react/src/toast/utils/resolvePromiseOptions.ts`, `packages/utils/src/generateId.ts`, `closest` in `packages/utils/src/shadowDom.ts`, `matchesFocusVisible` in `packages/react/src/floating-ui-react/utils/element.ts`, `getDisplacement` in `packages/react/src/utils/useSwipeDismiss.ts`, `packages/react/src/utils/getElementTransform.ts`, and the swipe-ignore selectors in `packages/react/src/internals/constants.ts`
+- `src/lib/toast/utils.ts` from `packages/react/src/toast/utils/isRenderableNode.ts`, `packages/react/src/toast/utils/resolvePromiseOptions.ts`, `packages/utils/src/generateId.ts`, `getDisplacement` in `packages/react/src/utils/useSwipeDismiss.ts`, and the swipe-ignore selectors in `packages/react/src/internals/constants.ts`
 - `packages/utils/src/focus-visible.ts` from `matchesFocusVisible` in `packages/react/src/floating-ui-react/utils/element.ts`
 - `src/lib/internal/useAnchorPositioning.svelte.ts` the `'placement'` mode of `lazyFlip` from `packages/react/src/internals/useAnchorPositioning.ts`, with `src/lib/internal/lazy-flip.svelte.spec.ts` and the `src/tests/LazyFlipHarness.svelte` harness
 
