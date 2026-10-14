@@ -38,9 +38,11 @@ export interface ToolbarButtonState extends ToolbarRootState {
 /**
  * Props passed to a `render` snippet. Spread them onto the host element.
  * Handlers are typed for a generic element so the same object spreads onto a
- * `<button>`, `<span>`, or `<a>`.
+ * `<button>`, `<span>`, or `<a>`. `disabled` lets a rendered part, such as a
+ * Switch or a Menu.Trigger, disable itself. A focusable disabled native button
+ * still ends without the `disabled` attribute.
  */
-export type ToolbarButtonHostProps = HTMLAttributes<HTMLElement>;
+export type ToolbarButtonHostProps = HTMLAttributes<HTMLElement> & { disabled?: boolean };
 
 export interface ToolbarButtonProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
 	/** Whether the button should ignore user interaction. @default false */

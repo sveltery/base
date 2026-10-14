@@ -60,6 +60,7 @@ function isLink(element: HTMLElement) {
 
 export class ButtonBehavior {
 	readonly #checkKey = createAttachmentKey();
+	readonly #enableKey = createAttachmentKey();
 
 	constructor(private readonly options: () => ButtonOptions) {}
 
@@ -67,6 +68,17 @@ export class ButtonBehavior {
 		const native = this.options().native;
 		if (native && !isButton(node)) error(NATIVE_MISMATCH);
 		else if (!native && isButton(node)) error(NON_NATIVE_MISMATCH);
+	};
+
+	/**
+	 * A focusable disabled composite button ends without native `disabled`, even when a part it
+	 * renders, such as a Menu.Trigger given Toolbar.Button's forwarded `disabled`, set it.
+	 */
+	#keepFocusable = (node: HTMLElement) => {
+		const { disabled, native, focusableWhenDisabled, composite } = this.options();
+		if (composite && disabled && (focusableWhenDisabled || !native) && isButton(node)) {
+			(node as HTMLButtonElement).disabled = false;
+		}
 	};
 
 	/**
@@ -92,6 +104,7 @@ export class ButtonBehavior {
 				? { disabled: true as const }
 				: {}),
 			...(DEV ? { [this.#checkKey]: this.#checkHost } : {}),
+			[this.#enableKey]: this.#keepFocusable,
 			...rest,
 			onclick: (event: MouseEvent) => {
 				if (this.options().disabled) {

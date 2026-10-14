@@ -56,7 +56,9 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, buttonState, children)}
+	<!-- The render child gets `disabled` so a part such as Switch disables itself.
+		The default button does not, so a focusable disabled button keeps hover events. -->
+	{@render render({ ...hostProps, disabled: disabledState }, buttonState, children)}
 {:else}
 	<button {...hostProps}>{@render children?.()}</button>
 {/if}

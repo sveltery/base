@@ -8,11 +8,13 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { resetLogged } from '@sveltery/utils';
 import ToolbarButton from './ToolbarButton.svelte';
 import ToolbarGroup from './ToolbarGroup.svelte';
 import ToolbarLink from './ToolbarLink.svelte';
 import ToolbarHarness from '../../tests/ToolbarHarness.svelte';
 import ToolbarOverlayHarness from '../../tests/ToolbarOverlayHarness.svelte';
+import ToolbarRenderHarness from '../../tests/ToolbarRenderHarness.svelte';
 
 function button(name: string) {
 	return page.getByRole('button', { name, exact: true });
@@ -402,6 +404,137 @@ describe('<Toolbar.Button />', () => {
 				await userEvent.keyboard('{ArrowUp}');
 				await userEvent.keyboard('{ArrowDown}');
 				expect(onOpenChange).toHaveBeenCalledTimes(0);
+			});
+		});
+
+		describe('a native button', () => {
+			it('keeps a disabled button focusable without the disabled attribute', async () => {
+				const screen = render(ToolbarRenderHarness, { scenario: 'button', disabled: true });
+				const save = button('Save');
+				await expect.element(save).not.toHaveAttribute('disabled');
+				await expect.element(save).toHaveAttribute('aria-disabled', 'true');
+				await userEvent.keyboard('{Tab}');
+				await expect.element(save).toHaveFocus();
+
+				await screen.rerender({ disabled: false });
+				await expect.element(save).not.toHaveAttribute('disabled');
+				await expect.element(save).toHaveAttribute('aria-disabled', 'false');
+
+				await screen.rerender({ disabled: true });
+				await expect.element(save).toHaveAttribute('aria-disabled', 'true');
+				expect((save.element() as HTMLButtonElement).disabled).toBe(false);
+			});
+		});
+
+		describe('Menu', () => {
+			it('disabled state', async () => {
+				const handleOpenChange = vi.fn();
+				const handleClick = vi.fn();
+				render(ToolbarRenderHarness, {
+					scenario: 'menu',
+					disabled: true,
+					onclick: handleClick,
+					onOpenChange: handleOpenChange
+				});
+				const trigger = button('Toggle');
+				await expect.element(trigger).not.toHaveAttribute('disabled');
+				await expect.element(trigger).toHaveAttribute('data-disabled');
+				await expect.element(trigger).toHaveAttribute('aria-disabled', 'true');
+				await expect.element(page.getByRole('menu')).not.toBeInTheDocument();
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(trigger).toHaveFocus();
+
+				await userEvent.keyboard('{Enter}');
+				await userEvent.keyboard(' ');
+				await userEvent.keyboard('{ArrowUp}');
+				await userEvent.keyboard('{ArrowDown}');
+				expect(handleClick).toHaveBeenCalledTimes(0);
+				expect(handleOpenChange).toHaveBeenCalledTimes(0);
+				await expect.element(page.getByRole('menu')).not.toBeInTheDocument();
+			});
+		});
+
+		describe('Switch', () => {
+			const mismatch =
+				'Base UI: A component that acts as a button expected a native <button> because the `nativeButton` prop is true. Rendering a non-<button> removes native button semantics, which can impact forms and accessibility. Use a real <button> in the `render` snippet, or set `nativeButton` to `false`.';
+
+			it('renders a switch', async () => {
+				resetLogged();
+				const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+				render(ToolbarRenderHarness, { scenario: 'switch' });
+
+				await expect.element(page.getByRole('switch')).toBeInTheDocument();
+				expect(error.mock.calls).toEqual([[mismatch]]);
+				expect(page.getByTestId('button').element()).toBe(page.getByRole('switch').element());
+				error.mockRestore();
+			});
+
+			it('handles interactions', async () => {
+				resetLogged();
+				const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+				const handleCheckedChange = vi.fn();
+				const handleClick = vi.fn();
+				render(ToolbarRenderHarness, {
+					scenario: 'switch',
+					onclick: handleClick,
+					onCheckedChange: handleCheckedChange
+				});
+				const switchElement = page.getByRole('switch');
+				await expect.element(switchElement).toHaveAttribute('data-unchecked');
+				expect(error.mock.calls).toEqual([[mismatch]]);
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(switchElement).toHaveAttribute('tabindex', '0');
+
+				(switchElement.element() as HTMLElement).click();
+				expect(handleCheckedChange).toHaveBeenCalledTimes(1);
+				expect(handleClick).toHaveBeenCalledTimes(1);
+				await expect.element(switchElement).toHaveAttribute('data-checked');
+
+				await userEvent.keyboard('{Enter}');
+				expect(handleCheckedChange).toHaveBeenCalledTimes(2);
+				expect(handleClick).toHaveBeenCalledTimes(2);
+				await expect.element(switchElement).toHaveAttribute('data-unchecked');
+
+				await userEvent.keyboard(' ');
+				expect(handleCheckedChange).toHaveBeenCalledTimes(3);
+				expect(handleClick).toHaveBeenCalledTimes(3);
+				await expect.element(switchElement).toHaveAttribute('data-checked');
+				error.mockRestore();
+			});
+
+			it('disabled state', async () => {
+				resetLogged();
+				const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+				const handleCheckedChange = vi.fn();
+				const handleClick = vi.fn();
+				render(ToolbarRenderHarness, {
+					scenario: 'switch',
+					disabled: true,
+					onclick: handleClick,
+					onCheckedChange: handleCheckedChange
+				});
+				const switchElement = page.getByRole('switch');
+				await expect.element(switchElement).not.toHaveAttribute('disabled');
+				await expect.element(switchElement).toHaveAttribute('data-disabled');
+				await expect.element(switchElement).toHaveAttribute('aria-disabled', 'true');
+				expect(error.mock.calls).toEqual([[mismatch]]);
+				// The forwarded `disabled` reaches the Switch itself: its hidden input is disabled too.
+				expect(
+					(switchElement.element().parentElement?.querySelector('input') as HTMLInputElement)
+						.disabled
+				).toBe(true);
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(switchElement).toHaveAttribute('tabindex', '0');
+
+				await userEvent.keyboard('{Enter}');
+				await userEvent.keyboard(' ');
+				(switchElement.element() as HTMLElement).click();
+				expect(handleCheckedChange).toHaveBeenCalledTimes(0);
+				expect(handleClick).toHaveBeenCalledTimes(0);
+				error.mockRestore();
 			});
 		});
 	});
