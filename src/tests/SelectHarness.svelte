@@ -60,6 +60,7 @@
 		itemStyle,
 		around = false,
 		triggerAsDiv = false,
+		triggerKey = 0,
 		wrapper,
 		direction,
 		popupPrefix,
@@ -97,6 +98,8 @@
 		around?: boolean;
 		/** Renders the trigger as a `<div>` through its `render` snippet. */
 		triggerAsDiv?: boolean;
+		/** Changing it remounts the trigger. */
+		triggerKey?: number;
 		/** Wraps the select in a `<div>` with these props. */
 		wrapper?: Record<string, unknown>;
 		/** Wraps the select in a `DirectionProvider`. */
@@ -192,23 +195,25 @@
 	{#if around}<input data-testid="before" aria-label="before" />{/if}
 	<Select.Root bind:this={select} bind:value bind:open {...root}>
 		{#if label}<Select.Label data-testid="label">{label}</Select.Label>{/if}
-		<Select.Trigger
-			data-testid="trigger"
-			render={triggerAsDiv ? divTrigger : undefined}
-			nativeButton={!triggerAsDiv}
-			{...trigger}
-		>
-			{#if triggerText}
-				{triggerText}
-			{:else if formatValue}
-				<Select.Value data-testid="value" {...valueProps}>
-					{#snippet children(current)}{formatValue(current)}{/snippet}
-				</Select.Value>
-			{:else}
-				<Select.Value data-testid="value" {...valueProps} />
-			{/if}
-			{#if icon}<Select.Icon data-testid="icon" />{/if}
-		</Select.Trigger>
+		{#key triggerKey}
+			<Select.Trigger
+				data-testid="trigger"
+				render={triggerAsDiv ? divTrigger : undefined}
+				nativeButton={!triggerAsDiv}
+				{...trigger}
+			>
+				{#if triggerText}
+					{triggerText}
+				{:else if formatValue}
+					<Select.Value data-testid="value" {...valueProps}>
+						{#snippet children(current)}{formatValue(current)}{/snippet}
+					</Select.Value>
+				{:else}
+					<Select.Value data-testid="value" {...valueProps} />
+				{/if}
+				{#if icon}<Select.Icon data-testid="icon" />{/if}
+			</Select.Trigger>
+		{/key}
 		{#if noPortal}
 			{@render positioned()}
 		{:else}

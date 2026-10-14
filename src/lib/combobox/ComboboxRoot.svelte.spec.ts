@@ -30,6 +30,11 @@ function keyDown(target: Element, key: string, init: KeyboardEventInit & { which
 	target.dispatchEvent(event);
 }
 
+const positionerRect = () => {
+	const { top, left } = page.getByTestId('positioner').element().getBoundingClientRect();
+	return { top, left };
+};
+
 function isElementOrAncestorInert(element: Element) {
 	let current: Element | null = element;
 	while (current) {
@@ -572,6 +577,27 @@ describe('Combobox.Root', () => {
 			.toBe(true);
 		expect(isElementOrAncestorInert(trigger().element())).toBe(true);
 		expect(isElementOrAncestorInert(input().element())).toBe(false);
+	});
+
+	it('anchors to a remounted trigger when bind:open reopens it', async () => {
+		const view = render(ComboboxHarness, {
+			items: ['Apple', 'Banana'],
+			inputInside: true,
+			positioner: { align: 'start' }
+		});
+		await userEvent.click(trigger());
+		await expect.element(listbox()).toBeVisible();
+		await expect.poll(() => positionerRect().top).toBeGreaterThan(0);
+		const anchored = positionerRect();
+		await userEvent.keyboard('{Escape}');
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+
+		await view.rerender({ triggerKey: 1 });
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+		await view.rerender({ open: true });
+		await expect.element(listbox()).toBeVisible();
+		await expect.poll(positionerRect).toEqual(anchored);
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
 	});
 
 	it('does not render the start dismiss button while closed', async () => {
