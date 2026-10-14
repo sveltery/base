@@ -87,6 +87,23 @@ describe('ClickInteraction', () => {
 			expect(component.store.open).toBe(false);
 		});
 
+		it('toggles on a screen reader press that another handler already opened', () => {
+			const { component } = render(ClickHarness, { event: 'mousedown' });
+			const trigger = page.getByTestId('trigger').element();
+			const otherHandlerPress = new MouseEvent('mousedown');
+
+			flushSync(() => pointerDownAs(true));
+			flushSync(() =>
+				component.store.setOpen(
+					true,
+					createChangeEventDetails(REASONS.triggerPress, otherHandlerPress, trigger)
+				)
+			);
+			flushSync(() => mouseDownAs(true));
+
+			expect(component.store.open).toBe(false);
+		});
+
 		it('opens a frame after a mouse press', async () => {
 			const { component } = render(ClickHarness, { event: 'mousedown' });
 

@@ -619,7 +619,7 @@
 					insideTree = false;
 					return;
 				}
-				// Modal focus is trapped. Only a non-modal popup closes when focus leaves it.
+				// A trapped popup keeps focus. A non-modal or untrapped combobox popup closes when focus leaves it.
 				if (trapped) return;
 				if (!(relatedTarget instanceof Element)) return;
 				if (focusStaysInTree(relatedTarget)) return;
