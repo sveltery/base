@@ -16,7 +16,7 @@
 	let {
 		value = $bindable(),
 		onValueChange,
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		'aria-labelledby': ariaLabelledBy,
 		hidden,
 		render,

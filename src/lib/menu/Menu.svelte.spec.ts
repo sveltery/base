@@ -2,7 +2,7 @@
 // group-label,checkbox-item,checkbox-item-indicator,radio-group,radio-item,
 // radio-item-indicator,popup,backdrop,positioner,arrow,viewport,portal}/*.test.tsx (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // MIT, see THIRD_PARTY_NOTICES.md.
-import { tick } from 'svelte';
+import { createRawSnippet, tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -46,35 +46,6 @@ async function settle() {
 }
 
 describe('Menu.Trigger', () => {
-	it('treats null id and disabled as absent', async () => {
-		render(MenuHarness, {
-			open: true,
-			trigger: { id: null, disabled: null },
-			items: [
-				{
-					type: 'radio-group',
-					props: { disabled: null },
-					items: [{ label: 'Small', value: 'small', props: { id: null, disabled: null } }]
-				}
-			]
-		});
-		const trigger = page.getByRole('button', { name: 'Open' }).element();
-		const radio = page.getByRole('menuitemradio', { name: 'Small' }).element();
-		expect({
-			triggerId: trigger.id.startsWith('base-ui-'),
-			triggerDisabled: trigger.hasAttribute('disabled') || trigger.hasAttribute('data-disabled'),
-			radioId: radio.id.startsWith('base-ui-'),
-			radioDisabled: radio.hasAttribute('aria-disabled'),
-			groupDisabled: page.getByRole('group').element().hasAttribute('aria-disabled')
-		}).toEqual({
-			triggerId: true,
-			triggerDisabled: false,
-			radioId: true,
-			radioDisabled: false,
-			groupDisabled: false
-		});
-	});
-
 	it('throws without Menu.Root or a handle', () => {
 		expect(() => render(MenuOrphan, { part: 'trigger' })).toThrow(
 			'Base UI: <Menu.Trigger> must be either used within a <Menu.Root> component or provided with a handle.'
@@ -1377,5 +1348,37 @@ describe('Menu.Arrow, Menu.Viewport and Menu.Portal', () => {
 		render(MenuHarness, { open: true, trigger: false, items: items('One') });
 		const portal = menus()[0].closest('[data-base-ui-portal]');
 		expect(portal?.parentElement).toBe(document.body);
+	});
+});
+
+describe('null attribute props', () => {
+	const showDisabled = (name: string) =>
+		createRawSnippet((_props: () => unknown, state: () => { disabled: boolean }) => ({
+			render: () => `<span>${name} disabled: ${state().disabled}</span>`
+		}));
+
+	it('treats null id and disabled as absent', async () => {
+		render(MenuHarness, {
+			open: true,
+			trigger: { id: null, disabled: null },
+			filter: {
+				providerProps: { value: 'Ren' },
+				clear: { disabled: null, render: showDisabled('clear') }
+			},
+			items: [
+				{ type: 'item', label: 'Rename', props: { id: null, disabled: null } },
+				{ type: 'radio-group', props: { disabled: null, render: showDisabled('group') }, items: [] }
+			]
+		});
+		const trigger = page.getByRole('button', { name: 'Open' }).element();
+		const item = page.getByRole('menuitem', { name: 'Rename' }).element();
+		expect({
+			triggerId: trigger.id.startsWith('base-ui-'),
+			triggerDisabled: trigger.hasAttribute('data-disabled'),
+			itemId: item.id.startsWith('base-ui-'),
+			itemDisabled: item.hasAttribute('aria-disabled')
+		}).toEqual({ triggerId: true, triggerDisabled: false, itemId: true, itemDisabled: false });
+		await expect.element(page.getByText('group disabled: false')).toBeInTheDocument();
+		await expect.element(page.getByText('clear disabled: false')).toBeInTheDocument();
 	});
 });
