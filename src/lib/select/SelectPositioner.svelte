@@ -45,8 +45,8 @@
 
 	const store = useSelectRoot();
 	const attachKey = createAttachmentKey();
-	// Upstream presses inside a portaled child bubble through the React tree to a parent popup.
-	// Here the select joins the parent's floating tree, so the parent sees it as a child.
+	// A select inside another popup joins that popup's floating tree, so a press in the select's
+	// popup counts as inside the parent.
 	useFloatingNodeId(store);
 
 	// A fallback to regular anchoring lasts until the popup mounts or unmounts again.

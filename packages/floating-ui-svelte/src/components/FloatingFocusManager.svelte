@@ -137,12 +137,12 @@
 	const portal = useFloatingPortal();
 	setFloatingPopupScope(untrack(() => store));
 	const pointerDownTimeout = new ScopedTimeout();
-	const insideTreeTimeout = new ScopedTimeout();
+	const focusLeftWithoutPressTimeout = new ScopedTimeout();
 	const focusOutTimeout = new ScopedTimeout();
 	/** The last press began outside this popup, its trigger and its portal. */
 	let pointerDownOutside = false;
-	/** Focus left a portaled popup without an outside press, as upstream `insideReactTree`. */
-	let insideTree = false;
+	/** Focus left a portaled popup without an outside press. Upstream names it `insideReactTree`. */
+	let focusLeftWithoutPress = false;
 	const restoreFrame = new ScopedAnimationFrame();
 	// Scheduled when the popup unmounts, so it outlives this instance. A reopen that mounts a new
 	// instance cannot cancel it, so the callback's open check is the guard.
@@ -635,8 +635,8 @@
 			};
 			queueMicrotask(() => {
 				if (!closeOnFocusOut || suppressFocusOut || !store.isOpen()) return;
-				if (insideTree) {
-					insideTree = false;
+				if (focusLeftWithoutPress) {
+					focusLeftWithoutPress = false;
 					return;
 				}
 				// A trapped popup keeps focus. A non-modal or untrapped combobox popup closes when focus leaves it.
@@ -666,15 +666,15 @@
 		const stopFloatingFocus = on(floating, 'focusout', handleFocusOutside);
 		// A portaled popup's children, such as a submenu, live outside its DOM subtree. Focus that
 		// leaves without an outside press, such as a pointer highlight moving it, stays in the tree.
-		const stopMarkInside = portal
+		const stopMarkLeftWithoutPress = portal
 			? on(
 					floating,
 					'focusout',
 					() => {
 						if (pointerDownOutside) return;
-						insideTree = true;
-						insideTreeTimeout.start(0, () => {
-							insideTree = false;
+						focusLeftWithoutPress = true;
+						focusLeftWithoutPressTimeout.start(0, () => {
+							focusLeftWithoutPress = false;
 						});
 					},
 					{ capture: true }
@@ -707,10 +707,10 @@
 			stopPointerCancel();
 			stopReferenceFocus();
 			stopFloatingFocus();
-			stopMarkInside();
-			insideTreeTimeout.clear();
+			stopMarkLeftWithoutPress();
+			focusLeftWithoutPressTimeout.clear();
 			focusOutTimeout.clear();
-			insideTree = false;
+			focusLeftWithoutPress = false;
 			pointerDownOutside = false;
 			stopRestore();
 			pointerDownTimeout.clear();
