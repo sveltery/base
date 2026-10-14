@@ -130,6 +130,7 @@
 		initialFocus === false && isTypeableCombobox(store.domReferenceElement)
 	);
 	const trapped = $derived(modal && !untrappedCombobox);
+	const guarded = $derived(!disabled && store.isOpen());
 
 	const tree = useFloatingTree();
 	const portaled = hasFloatingPortal();
@@ -759,7 +760,7 @@
 	});
 </script>
 
-{#if trapped && store.isOpen()}
+{#if trapped && guarded}
 	<FocusGuard
 		data-type="inside"
 		onfocus={() => {
@@ -768,14 +769,14 @@
 		}}
 	/>
 {/if}
-{#if portaled && !modal && !disabled && store.isOpen()}
+{#if portaled && !modal && guarded}
 	<FocusGuard data-type="inside" onfocus={enterThroughBeforeGuard} attach={attachBeforeInside} />
 {/if}
 {@render children?.()}
-{#if portaled && !modal && !disabled && store.isOpen()}
+{#if portaled && !modal && guarded}
 	<FocusGuard data-type="inside" onfocus={leaveThroughAfterGuard} attach={attachAfterInside} />
 {/if}
-{#if trapped && store.isOpen()}
+{#if trapped && guarded}
 	<FocusGuard
 		data-type="inside"
 		onfocus={() => {
