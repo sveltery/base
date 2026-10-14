@@ -653,6 +653,33 @@ describe('Dialog', () => {
 		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'false');
 	});
 
+	it('leaves both triggers unassociated on a bind:open after the dialog that one opened unmounted', async () => {
+		const view = render(DialogHarness, { twoTriggers: true });
+		click(button('One'));
+		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('one');
+		click(button('Close'));
+		await dialogs(0);
+
+		await view.rerender({ open: true });
+		await dialogs(1);
+		await frame();
+		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'false');
+		await expect.element(button('Two')).toHaveAttribute('aria-expanded', 'false');
+		expect(page.getByTestId('trigger-id').element().textContent).toBe('');
+	});
+
+	it('claims the only trigger on a bind:open after that trigger opened the dialog', async () => {
+		const view = render(DialogHarness);
+		await openDialog();
+		await dialogs(1);
+		click(button('Close'));
+		await dialogs(0);
+
+		await view.rerender({ open: true });
+		await dialogs(1);
+		await expect.element(button('Open')).toHaveAttribute('aria-expanded', 'true');
+	});
+
 	it('lets onOpenChangeComplete write $state when the dialog opens', async () => {
 		// Completion runs inside the effect when animations are skipped. A tracked
 		// callback that writes `$state` then exceeds the update depth.
