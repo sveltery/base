@@ -44,6 +44,7 @@
 		closest,
 		contains,
 		getTarget,
+		AnimationFrame,
 		ScopedAnimationFrame,
 		ScopedTimeout,
 		type OpenInteractionType
@@ -110,7 +111,10 @@
 	/** Focus left a portaled popup without an outside press, as upstream `insideReactTree`. */
 	let insideTree = false;
 	const restoreFrame = new ScopedAnimationFrame();
-	const bodyReturnFrame = new ScopedAnimationFrame();
+	// An exit can unmount the popup before this frame. Upstream's return job outlives the
+	// unmount too. The callback skips a reopened popup.
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- outlives the popup; an open cancels it
+	const bodyReturnFrame = new AnimationFrame();
 	let suppressFocusOut = false;
 	/** Focus before this open. A re-run while open sees focus inside, so it keeps the first. */
 	let focusedBeforeOpen: HTMLElement | null = null;
