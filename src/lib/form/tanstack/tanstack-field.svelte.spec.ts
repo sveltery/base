@@ -2,6 +2,7 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import TanstackAsyncHarness from '../../../tests/TanstackAsyncHarness.svelte';
 import TanstackFieldHarness from '../../../tests/TanstackFieldHarness.svelte';
 
 function json(testId: string) {
@@ -107,5 +108,24 @@ describe('tanstackField', () => {
 		expect(json('email-meta')).toEqual({ touched: false, dirty: false, issues: [] });
 		await expect.poll(() => text('email-error')).toBe('');
 		expect(input('email').getAttribute('aria-invalid')).toBe(null);
+	});
+
+	it('shows a field-level onChangeAsync error in Field.Error and blocks the submit', async () => {
+		render(TanstackAsyncHarness);
+		const submit = page.getByRole('button', { name: 'Submit' });
+
+		await userEvent.fill(page.getByTestId('username'), 'alice');
+		await expect.poll(() => text('error')).toBe('alice is not available.');
+		await expect.element(page.getByTestId('username')).toHaveAttribute('aria-invalid', 'true');
+		await expect.element(page.getByTestId('username')).toHaveAccessibleName('Username');
+
+		await submit.click();
+		await expect.poll(() => json('submission')).toEqual({ attempts: 1, submitting: false });
+		expect(json('submitted')).toEqual([]);
+
+		await userEvent.fill(page.getByTestId('username'), 'grace');
+		await expect.poll(() => text('error')).toBe('');
+		await submit.click();
+		await expect.poll(() => json('submitted')).toEqual(['grace']);
 	});
 });

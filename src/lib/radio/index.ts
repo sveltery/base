@@ -10,3 +10,4 @@ export const Radio = {
 };
 
 export type * from './types.js';
+export * from './data-attributes.js';

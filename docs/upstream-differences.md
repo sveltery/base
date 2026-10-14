@@ -199,7 +199,7 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`leaves both triggers unassociated
 
 Source: Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`), `packages/react/src/alert-dialog`. Upstream `AlertDialog.Root` calls the Dialog root setup in `alert-dialog` mode: `modal` is always `true`, pointer dismissal is disabled, and the popup role is `alertdialog`. Every other part is the Dialog part. `AlertDialog.Handle` extends `Dialog.Handle` with a type-only brand.
 
-Local: `AlertDialog.Root` calls the same `createDialogRoot` setup as `Dialog.Root` (`src/lib/dialog/root.svelte.ts`) with those three values. It takes `bind:open`, `bind:triggerId`, `onOpenChange`, `onOpenChangeComplete`, `handle`, and the `children` snippet, and has no `modal` or `disablePointerDismissal` prop. `bind:this` gives `close()` and `unmount()` in place of `actionsRef`. The other parts are the Dialog components, and their prop types are exported under `AlertDialog*` names. `AlertDialog.Trigger` renders `Dialog.Trigger` and takes an `AlertDialogHandle`, so a `Dialog.Handle` does not type-check on an alert dialog. Handle warnings name `Dialog.Handle`, as upstream's reused `DialogHandle` does. Upstream v1.9.0 exports `AlertDialogBackdropDataAttributes`, `AlertDialogPopupCssVariables` and the other attribute namespaces. Dialog exports no such namespaces in this port, so Alert Dialog does not either.
+Local: `AlertDialog.Root` calls the same `createDialogRoot` setup as `Dialog.Root` (`src/lib/dialog/root.svelte.ts`) with those three values. It takes `bind:open`, `bind:triggerId`, `onOpenChange`, `onOpenChangeComplete`, `handle`, and the `children` snippet, and has no `modal` or `disablePointerDismissal` prop. `bind:this` gives `close()` and `unmount()` in place of `actionsRef`. The other parts are the Dialog components, and their prop types are exported under `AlertDialog*` names. `AlertDialog.Trigger` renders `Dialog.Trigger` and takes an `AlertDialogHandle`, so a `Dialog.Handle` does not type-check on an alert dialog. Handle warnings name `Dialog.Handle`, as upstream's reused `DialogHandle` does.
 
 Test: `src/lib/alert-dialog/AlertDialog.svelte.spec.ts`, `src/lib/alert-dialog/ssr.spec.ts`, `src/routes/fixtures/alert-dialog/alert-dialog.e2e.ts`.
 
@@ -219,7 +219,6 @@ Local: `Drawer.Root` calls the same `createDialogRoot` setup as `Dialog.Root` wi
 
 - `snapPoint` cannot be told apart as controlled or uncontrolled. A value outside `snapPoints` resolves to the closest snap point, or to closed when it does not parse, which is upstream's controlled behavior. `defaultSnapPoint` stays as a prop, because a drawer returns to it when it closes.
 - `DrawerChangeEventDetails` and `DrawerSnapPointChangeEventDetails` do not narrow `event` by `reason`, the same as Dialog.
-- The `DrawerPopupCssVars`, `DrawerBackdropCssVars`, `DrawerViewportCssVars`, and `*DataAttributes` namespaces are not exported, the same as Dialog and Alert Dialog. The variable and attribute names are the same.
 - Portaled content bubbles through the DOM. A React portal bubbles synthetic events to its React ancestors, so a node portaled out of a drawer still reaches the drawer's touch handlers upstream. Here it does not, and only the document capture listener sees it.
 - Svelte delegates touch and pointer events and walks `composedPath()`. A touch event whose composed path starts at `window` never reaches the viewport, where upstream falls back to the viewport as the target.
 
@@ -286,7 +285,6 @@ Source: `packages/react/src/tooltip` at Base UI v1.9.0, commit `ad7ecda5296b0295
 | `Tooltip.createHandle()`                                 | `Tooltip.createHandle()`, and `createTooltipHandle` as a named export                                    |
 | `children` render function `{ payload }`                 | snippet argument `{ payload }`                                                                           |
 | `useDismiss` `referencePress`                            | the trigger-press close lives in `TooltipRootInteractions.svelte`, because `DismissInteraction` has none |
-| `*DataAttributes` and `*CssVars` enums                   | not exported, as for Popover                                                                             |
 
 The popup has no `role` and the trigger has no `aria-describedby` or `type`, as upstream renders them.
 
@@ -306,9 +304,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `defaultOpen`, `defaultTriggerId`, `actionsRef`, and the `PreviewCardPopupDataAttributes`, `PreviewCardPositionerCssVars` and similar namespaces. `PreviewCard.createHandle` is the only handle factory.
+Upstream: `defaultOpen`, `defaultTriggerId`, and `actionsRef`. `PreviewCard.createHandle` is the only handle factory.
 
-Local: `open` and `triggerId` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The data-attribute and CSS-variable namespaces are not exported. The attribute names come from the shared state mappings. `createHandle` exists as `PreviewCard.createHandle` and `createPreviewCardHandle`. There is no top-level `createHandle`, because Popover already exports that name from the library barrel.
+Local: `open` and `triggerId` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The attribute names come from the shared state mappings. `createHandle` exists as `PreviewCard.createHandle` and `createPreviewCardHandle`. There is no top-level `createHandle`, because Popover already exports that name from the library barrel.
 
 ### Payload and close delay are read from the active trigger
 
@@ -352,9 +350,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `value` and `defaultValue`, `actionsRef`, the `NavigationMenu*DataAttributes` and `NavigationMenu*CssVars` namespaces.
+Upstream: `value` and `defaultValue`, and `actionsRef`.
 
-Local: `value` is `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The namespaces are not exported.
+Local: `value` is `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`.
 
 ### Content moves into the viewport by an attachment
 
@@ -694,9 +692,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `value`/`defaultValue`/`onValueChange` hold the input text, with `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, the `Autocomplete.Item` `index` prop, a `ReactNode` or function `Autocomplete.Value` child, the item type taken from the `ItemValue` type argument, and the `*DataAttributes` namespaces of each part.
+Upstream: `value`/`defaultValue`/`onValueChange` hold the input text, with `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, the `Autocomplete.Item` `index` prop, a `ReactNode` or function `Autocomplete.Value` child, and the item type taken from the `ItemValue` type argument.
 
-Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef`, the item `index` prop and the data-attribute namespaces are not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
+Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef` and the item `index` prop are not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
 
 Test: `src/lib/autocomplete/types.test-d.ts`, `src/lib/autocomplete/AutocompleteValue.svelte.spec.ts`.
 
@@ -766,18 +764,18 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | Overlay foundation | Internal only. No public component                                                                  |
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                            |
 | Dialog             | ref objects                                                                                         |
-| AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                   |
+| AlertDialog        | ref objects                                                                                         |
 | Tooltip            | refs                                                                                                |
-| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs   |
-| NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                      |
-| Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                        |
+| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, refs                                               |
+| NavigationMenu     | `defaultValue`, `actionsRef`, refs                                                                  |
+| Drawer             | ref objects                                                                                         |
 | Menu               | `actionsRef`, refs                                                                                  |
 | Menubar            | the `MenubarDataAttributes` namespace, refs                                                         |
 | ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                            |
 | Toast              | refs, `className` and `style` callbacks                                                             |
 | Select             | `inputRef`, `ReactNode` labels and placeholder                                                      |
 | Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder                         |
-| Autocomplete       | `inputRef`, Item `index`, `ReactNode` value children, data-attribute namespaces                     |
+| Autocomplete       | `inputRef`, Item `index`, `ReactNode` value children                                                |
 
 ## Shared floating internals
 

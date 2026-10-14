@@ -384,6 +384,8 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/context-menu/ContextMenuRoot.svelte`, `ContextMenuTrigger.svelte`, `context.svelte.ts`, `types.ts` and `index.ts` from `packages/react/src/context-menu/root/ContextMenuRoot.tsx`, `root/ContextMenuRootContext.ts`, `trigger/ContextMenuTrigger.tsx`, `positioner/ContextMenuPositioner.tsx`, `index.ts` and `index.parts.ts`
 - `src/lib/context-menu/*.svelte.spec.ts` assertions from `packages/react/src/context-menu/**/*.test.tsx` and the context-menu cases of `packages/react/src/menu/positioner/MenuPositioner.test.tsx`
 - `src/tests/context-menu/**` harnesses from the fixtures of those tests
+- The data-attribute and CSS-variable namespaces derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/*/data-attributes.ts` from the `*DataAttributes.ts` and `*CssVars.ts` files that `packages/react/src/*/index.ts` exports, and `src/lib/data-attributes.spec.ts` asserting their values
 
 Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 

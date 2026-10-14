@@ -295,7 +295,6 @@ A trigger does not have to sit inside `Drawer.Root`. Create a handle with `Drawe
 - `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
 - `actionsRef` is replaced by `bind:this` on `Drawer.Root`, which exposes `close()` and `unmount()`.
 - Events bubble through the DOM, not through the component tree. Content portaled out of a drawer does not reach the drawer's swipe handling.
-- The data attribute and CSS variable namespaces, such as `DrawerPopupCssVars`, are not exported. The tables below list them.
 - Handlers use lowercase names, such as `onclick`. Refs are not supported.
 
 ## API reference
