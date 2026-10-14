@@ -479,6 +479,40 @@ describe('<NumberField />', () => {
 			await expect.element(page.getByTestId('root')).not.toHaveAttribute('data-scrubbing');
 		});
 
+		it('moves the cursor and blocks a single touch on a rendered scrub area', async () => {
+			render(NumberFieldHarness, { scenario: 'scrub-render' });
+			const area = page.getByTestId('scrub').element();
+			const touch = new TouchEvent('touchstart', { bubbles: true, cancelable: true });
+			Object.defineProperty(touch, 'touches', { value: [{ clientX: 0, clientY: 0 }] });
+			area.dispatchEvent(touch);
+			expect(touch.defaultPrevented).toBe(true);
+
+			area.dispatchEvent(
+				new PointerEvent('pointerdown', {
+					bubbles: true,
+					cancelable: true,
+					pointerType: 'mouse',
+					clientX: 20,
+					clientY: 20
+				})
+			);
+			const cursor = page.getByTestId('cursor');
+			await expect.element(cursor).toBeVisible();
+			window.dispatchEvent(
+				new PointerEvent('pointermove', {
+					bubbles: true,
+					cancelable: true,
+					movementX: 5,
+					movementY: 0
+				})
+			);
+			await expect.element(control()).toHaveValue('5');
+			expect((cursor.element() as HTMLElement).style.transform).toBe(
+				'translate3d(20px, 15px, 0px) scale(1)'
+			);
+			window.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, cancelable: true }));
+		});
+
 		it('blocks a single touch and leaves a second touch alone', async () => {
 			render(NumberFieldHarness, { scenario: 'scrub-touch' });
 			const area = page.getByTestId('scrub').element();

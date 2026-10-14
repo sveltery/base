@@ -22,7 +22,6 @@
 		isVirtualPointerEvent,
 		safePolygon
 	} from '@sveltery/floating-ui-svelte';
-	import { preventBaseUIHandler } from '../internal/mergeProps.js';
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { findMenuRoot } from './context.svelte.js';
@@ -104,8 +103,8 @@
 				onfocus(event: FocusEvent) {
 					const owner = store.focusOwner;
 					if (owner && store.open && event.relatedTarget === owner) {
-						preventBaseUIHandler(event);
-						owner.focus({ preventScroll: true });
+						// After the parent's own focus handling, so the trigger's blur clears the highlight.
+						queueMicrotask(() => owner.focus({ preventScroll: true }));
 					}
 				}
 			}

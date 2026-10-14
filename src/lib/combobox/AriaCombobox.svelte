@@ -619,28 +619,26 @@
 					store.stringifyLabel(candidate).toLowerCase() === lower
 			);
 
-		// Only single selection matches registered values. Rendered labels need the list mounted.
-		if (single && (!store.hasItems || serializedMatch() === -1)) {
+		if (multiple) return;
+		if (selectionMode === 'none') {
+			store.setInputValue(nextValue, details);
+			return;
+		}
+		// Rendered labels need the list mounted.
+		if (!store.hasItems || serializedMatch() === -1) {
 			store.forceMounted = true;
 			flushSync();
 		}
-		queueMicrotask(() => {
-			if (multiple) return;
-			if (selectionMode === 'none') {
-				store.setInputValue(nextValue, details);
-				return;
-			}
-			const values = store.values;
-			let index = serializedMatch();
-			if (index === -1) {
-				// Browsers can fill the rendered text of a primitive value, like `US` for "United States".
-				const labels = store.items.elements.map((element) => element.textContent?.trim());
-				index = labels.findIndex((label) => label && label.toLowerCase() === lower);
-			}
-			const match = index === -1 ? undefined : values[index];
-			if (match != null) store.setSelectedValue(match, details);
-			if (input.value !== serializedValue) input.value = serializedValue;
-		});
+		const values = store.values;
+		let index = serializedMatch();
+		if (index === -1) {
+			// Browsers can fill the rendered text of a primitive value, like `US` for "United States".
+			const labels = store.items.elements.map((element) => element.textContent?.trim());
+			index = labels.findIndex((label) => label && label.toLowerCase() === lower);
+		}
+		const match = index === -1 ? undefined : values[index];
+		if (match != null) store.setSelectedValue(match, details);
+		if (input.value !== serializedValue) input.value = serializedValue;
 	}
 
 	export function close() {
