@@ -19,7 +19,7 @@
 	import ComboboxInternalDismissButton from './ComboboxInternalDismissButton.svelte';
 	import { findComboboxChips, findComboboxPositioner, useComboboxRoot } from './context.svelte.js';
 	import { INERT_FIELD } from './inert-field.js';
-	import { stopEvent } from './dom.js';
+	import { stopEvent } from '@sveltery/floating-ui-svelte';
 	import { getChipNavigationKeys, triggerStateAttributesMapping } from './parts.js';
 	import type { ComboboxInputProps, ComboboxInputState } from './types.js';
 

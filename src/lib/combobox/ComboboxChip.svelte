@@ -13,7 +13,7 @@
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { findComboboxChips, setComboboxChip, useComboboxRoot } from './context.svelte.js';
-	import { stopEvent } from './dom.js';
+	import { stopEvent } from '@sveltery/floating-ui-svelte';
 	import { getChipNavigationKeys, getIndexAfterChipRemoval } from './parts.js';
 	import type { ComboboxChipProps, ComboboxChipState } from './types.js';
 

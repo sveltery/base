@@ -1,5 +1,4 @@
-// Derived from Base UI v1.9.0 packages/react/src/combobox/utils/handleInputPress.ts,
-// packages/react/src/floating-ui-react/utils/event.ts (stopEvent) and
+// Derived from Base UI v1.9.0 packages/react/src/combobox/utils/handleInputPress.ts and
 // packages/react/src/internals/useInitialLiveRegionTextMutation.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
@@ -68,9 +67,4 @@ export function announceInitialText(root: HTMLElement) {
 		clearTimeout(timeout);
 		restore();
 	};
-}
-
-export function stopEvent(event: Event) {
-	event.preventDefault();
-	event.stopPropagation();
 }
