@@ -810,9 +810,9 @@ Test: `src/tests/list-navigation/useListNavigation.svelte.spec.ts` (`drops a que
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`. `getInsideElements` lists elements outside the popup that count as inside it. A typeable `role="combobox"` reference with `initialFocus={false}` leaves focus untrapped: a modal popup renders no focus guards, does not stop Tab, closes on focus out, and keeps the reference exposed while it hides outside content. Each popup takes its tabbables from the floating focus element, so the guards of a manager inside a positioner are not among them. An untrapped combobox reference of an ancestor popup also stays exposed.
 
-Local: `FloatingFocusManager` takes `getInsideElements` for focus out, return focus and `aria-hidden`, and has the untrapped combobox mode and the tabbables of upstream. A press on an inside element is still tracked as an outside press, because focus out already counts that element as inside. The reference of an ancestor combobox popup is not kept exposed, so a modal popup nested in an untrapped combobox popup hides that combobox's input. `PopoverPopup` does not pass `getInsideElements` and still counts every Base UI focus guard as inside, as described under Popover.
+Local: `FloatingFocusManager` takes `getInsideElements` for focus out, return focus and `aria-hidden`, and has the untrapped combobox mode and the tabbables of upstream. A press on an inside element is still tracked as an outside press, because focus out already counts that element as inside. `PopoverPopup` does not pass `getInsideElements` and still counts every Base UI focus guard as inside, as described under Popover.
 
-Test: `packages/floating-ui-svelte/src/components/FloatingFocusManager.focusModes.svelte.spec.ts`.
+Test: `packages/floating-ui-svelte/src/components/FloatingFocusManager.focusModes.svelte.spec.ts`, `src/lib/combobox/ComboboxRoot.nested-modal.svelte.spec.ts`.
 
 ## Attribute props accept null
 

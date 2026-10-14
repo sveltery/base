@@ -495,8 +495,20 @@
 		const floating = store.floatingElement;
 		if (!floating) return;
 		const inside = markedInside(floating);
-		const exposed = [...inside, ...insideElements()];
-		if (untrappedCombobox && store.domReferenceElement) exposed.push(store.domReferenceElement);
+		// A modal opened from a combobox popup keeps that combobox's input exposed for typing.
+		const ancestorCombobox = untrack(() =>
+			tree && store.nodeId
+				? getNodeAncestors(tree.nodes, store.nodeId).find((node) =>
+						isTypeableCombobox(node.context?.domReferenceElement ?? null)
+					)?.context?.domReferenceElement
+				: null
+		);
+		const exposed = [
+			...inside,
+			...insideElements(),
+			ancestorCombobox,
+			untrappedCombobox ? store.domReferenceElement : null
+		].filter((element): element is Element => element != null);
 		const hideOutside =
 			modal || untrappedCombobox
 				? markOthers(exposed, { ariaHidden: true, mark: false })
