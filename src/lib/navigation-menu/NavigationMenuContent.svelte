@@ -8,6 +8,7 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
+	import { setFloatingPopupScope } from '@sveltery/floating-ui-svelte';
 	import { getTarget, contains } from '@sveltery/utils';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
@@ -36,6 +37,7 @@
 
 	const root = useNavigationMenuRoot();
 	const item = useNavigationMenuItem();
+	setFloatingPopupScope(root.floating);
 	const reading = useDirection();
 
 	const open = $derived(root.mounted && root.value === item.value);

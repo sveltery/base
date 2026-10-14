@@ -12,16 +12,13 @@ import TooltipHoverableHarness from '../../tests/TooltipHoverableHarness.svelte'
 import TooltipPairHarness from '../../tests/TooltipPairHarness.svelte';
 import TooltipRemountHarness from '../../tests/TooltipRemountHarness.svelte';
 import TooltipSpacedHarness from '../../tests/TooltipSpacedHarness.svelte';
-import { parkPointer } from '../../tests/pointer.js';
 import { byTestId, fire, hoverWithMouse } from '../../tests/tooltip-events.js';
 import { OPEN_DELAY } from './constants.js';
 import type { TooltipChangeEventDetails } from './types.js';
 
 const flags = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
 
-// A real pointer left resting on a trigger would sit over the next test's trigger.
-beforeEach(async () => {
-	await parkPointer();
+beforeEach(() => {
 	flags.BASE_UI_ANIMATIONS_DISABLED = true;
 });
 

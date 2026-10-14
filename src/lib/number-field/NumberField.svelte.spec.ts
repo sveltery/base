@@ -19,6 +19,12 @@ function decrease() {
 	return page.getByRole('button', { name: 'Decrease' });
 }
 
+function holdIncrease() {
+	increase()
+		.element()
+		.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'mouse' }));
+}
+
 function hiddenNumber(name = 'qty') {
 	const input = document.querySelector(`input[type="number"][name="${name}"]`);
 	if (!(input instanceof HTMLInputElement)) throw new Error('expected a hidden number input');
@@ -110,23 +116,32 @@ describe('<NumberField />', () => {
 		expect(control().element().getAttribute('aria-roledescription')).toBe('Number field');
 	});
 
-	it('repeats a held increment and stops when the field unmounts', async () => {
+	it('repeats a held increment until the pointer is released', async () => {
+		const onValueCommitted = vi.fn();
+		const onValueChange = vi.fn((value: number | null) => {
+			if (value !== 6) return;
+			// Release after the tick that reached 6 finishes and before the next one, as a user would.
+			queueMicrotask(() =>
+				increase()
+					.element()
+					.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'mouse' }))
+			);
+		});
+		render(NumberFieldHarness, { scenario: 'plain', onValueChange, onValueCommitted });
+		holdIncrease();
+		await expect.element(control()).toHaveValue('6');
+		await new Promise((resolve) => setTimeout(resolve, 180));
+		expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([5, 6]);
+		expect(onValueCommitted.mock.calls.map(([value]) => value)).toEqual([6]);
+	});
+
+	it('stops a held increment when the field unmounts', async () => {
 		const onValueChange = vi.fn();
 		const view = render(NumberFieldHarness, { scenario: 'plain', onValueChange });
-		const button = increase().element() as HTMLElement;
-		button.dispatchEvent(
-			new PointerEvent('pointerdown', {
-				bubbles: true,
-				button: 0,
-				pointerType: 'mouse',
-				clientX: 4,
-				clientY: 4
-			})
-		);
-		await expect.element(control()).toHaveValue('6');
-		const callsAtUnmount = onValueChange.mock.calls.length;
-		expect(callsAtUnmount).toBeGreaterThan(0);
+		holdIncrease();
+		await expect.poll(() => onValueChange.mock.calls.length).toBeGreaterThan(1);
 		view.unmount();
+		const callsAtUnmount = onValueChange.mock.calls.length;
 		await new Promise((resolve) => setTimeout(resolve, 180));
 		expect(document.querySelector('[data-testid="control"]')).toBeNull();
 		expect(onValueChange.mock.calls.length).toBe(callsAtUnmount);

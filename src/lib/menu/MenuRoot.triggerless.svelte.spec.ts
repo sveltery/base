@@ -4,12 +4,11 @@
 // order, and the floating node id comparison of the late-trigger case, which reads React store
 // internals. Both cases keep their user-facing assertions.
 import { page, userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
 import MenuTriggerlessHarness from '../../tests/menu/MenuTriggerlessHarness.svelte';
 import type { MenuItemSpec } from '../../tests/menu/types.js';
-import { parkPointer } from '../../tests/pointer.js';
 
 function menuItem(name: string) {
 	return page.getByRole('menuitem', { name, exact: true });
@@ -62,8 +61,6 @@ function triggerless(items: MenuItemSpec[], extra: Record<string, unknown> = {})
 }
 
 describe('Menu.Root without a trigger', () => {
-	beforeEach(parkPointer);
-
 	describe.each(['ltr', 'rtl'] as const)('%s', (direction) => {
 		it.each([false, true])(
 			'keeps nested Escape and focus local, keepMounted=%s',

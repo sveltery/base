@@ -27,6 +27,8 @@ export class NavigationMenuTriggerFloating extends FloatingRootStore {
 			get: () => root.hoverFloatingElement,
 			set: () => {}
 		});
+		// The content of every item registers its portals on the root.
+		Object.defineProperty(this, 'nestedPortals', { get: () => root.floating.nestedPortals });
 	}
 
 	override isOpen() {

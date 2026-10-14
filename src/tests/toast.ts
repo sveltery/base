@@ -2,7 +2,6 @@
 // disabled and a fake clock, so a closed toast unmounts as soon as its effects run.
 import { tick, type ComponentProps } from 'svelte';
 import { afterEach, beforeEach, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import type { GetToastManagerReturnValue } from '#lib';
 import ToastHarness from './ToastHarness.svelte';
@@ -34,13 +33,11 @@ export async function withAnimations(body: () => Promise<void>) {
 }
 
 /**
- * Fakes the clock for every test in the calling suite, after parking the mouse away from the
- * viewport. Animation frames stay real so the browser keeps painting; with animations disabled
- * no toast waits for one.
+ * Fakes the clock for every test in the calling suite. Animation frames stay real so the
+ * browser keeps painting; with animations disabled no toast waits for one.
  */
 export function useFakeClock() {
-	beforeEach(async () => {
-		await parkMouse();
+	beforeEach(() => {
 		vi.useFakeTimers({
 			toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date']
 		});
@@ -48,23 +45,6 @@ export function useFakeClock() {
 	afterEach(() => {
 		vi.useRealTimers();
 	});
-}
-
-/**
- * The browser's mouse stays where the last test in the same tab left it, whatever its spec
- * file. A viewport that renders under it gets a real `mousemove`, which pauses every toast
- * timer as a hover does. Moving the mouse to the far corner first keeps the timers running
- * until a test hovers.
- */
-async function parkMouse() {
-	const corner = document.createElement('div');
-	corner.style.cssText = 'position: fixed; right: 0; bottom: 0; width: 20px; height: 20px';
-	document.body.append(corner);
-	try {
-		await userEvent.hover(corner);
-	} finally {
-		corner.remove();
-	}
 }
 
 /** Advances the fake clock, then lets Svelte apply what the timers changed. */

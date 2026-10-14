@@ -26,7 +26,6 @@ import {
 	dispatch,
 	enter,
 	leave,
-	resetBrowserPointer,
 	settlePositioning
 } from '../../tests/previewCardEvents.js';
 
@@ -38,7 +37,6 @@ afterEach(async () => {
 	vi.useRealTimers();
 	vi.restoreAllMocks();
 	resetHover();
-	await resetBrowserPointer();
 	await settlePositioning();
 });
 

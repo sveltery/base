@@ -1,5 +1,8 @@
 export { default as FloatingFocusManager } from './components/FloatingFocusManager.svelte';
-export { default as FloatingPortal } from './components/FloatingPortal.svelte';
+export {
+	default as FloatingPortal,
+	setFloatingPopupScope
+} from './components/FloatingPortal.svelte';
 export {
 	FloatingRootStore,
 	type Anchor,

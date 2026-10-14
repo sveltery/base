@@ -29,7 +29,6 @@ import {
 	dispatch,
 	enter,
 	leave,
-	resetBrowserPointer,
 	settlePositioning
 } from '../../tests/previewCardEvents.js';
 import { PATIENT_CLICK_THRESHOLD } from './constants.js';
@@ -43,7 +42,6 @@ afterEach(async () => {
 	vi.useRealTimers();
 	vi.restoreAllMocks();
 	resetHover();
-	await resetBrowserPointer();
 	await settlePositioning();
 });
 

@@ -1106,9 +1106,10 @@ describe('Dialog', () => {
 			.poll(() => document.activeElement?.getAttribute('data-testid'))
 			.toBe('nested-inside');
 		await userEvent.keyboard('{Escape}');
-		await expect.poll(() => document.activeElement?.getAttribute('data-testid')).toBe('outside');
+		// Focus moves at close, and the nested popup unmounts after its exit animation frame.
+		await expect.poll(() => document.querySelector('[data-testid="nested-popup"]')).toBeNull();
+		expect(document.activeElement?.getAttribute('data-testid')).toBe('outside');
 		expect(document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
-		expect(document.querySelector('[data-testid="nested-popup"]')).toBeNull();
 	});
 
 	it('keeps final focus on the outside control when the inner dialog closes', async () => {
@@ -1120,9 +1121,10 @@ describe('Dialog', () => {
 			.poll(() => document.activeElement?.getAttribute('data-testid'))
 			.toBe('nested-inside');
 		await userEvent.keyboard('{Escape}');
-		await expect.poll(() => document.activeElement?.getAttribute('data-testid')).toBe('outside');
+		// Focus moves at close, and the nested popup unmounts after its exit animation frame.
+		await expect.poll(() => document.querySelector('[data-testid="nested-popup"]')).toBeNull();
+		expect(document.activeElement?.getAttribute('data-testid')).toBe('outside');
 		expect(document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
-		expect(document.querySelector('[data-testid="nested-popup"]')).toBeNull();
 	});
 
 	it('ignores a stray store prop on the portal', async () => {

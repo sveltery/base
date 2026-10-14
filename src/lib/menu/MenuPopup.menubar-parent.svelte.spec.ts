@@ -3,10 +3,9 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuMenubarParentHarness from '../../tests/menu/MenuMenubarParentHarness.svelte';
-import { parkPointer } from '../../tests/pointer.js';
 
 async function settle() {
 	await tick();
@@ -23,8 +22,6 @@ async function openFromButton() {
 }
 
 describe('Menu.Popup without a trigger under a menubar', () => {
-	beforeEach(parkPointer);
-
 	it('does not return focus after an outside press', async () => {
 		const changed = vi.fn();
 		render(MenuMenubarParentHarness, { onOpenChange: changed });

@@ -14,11 +14,13 @@ import PortalReleaseHarness from '../../tests/PortalReleaseHarness.svelte';
 import PopoverOpenCompleteStateHarness from '../../tests/PopoverOpenCompleteStateHarness.svelte';
 import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
+import PopoverPortalTooltipHarness from '../../tests/PopoverPortalTooltipHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
 import DisabledNonNativeHarness from '../../tests/DisabledNonNativeHarness.svelte';
 import PopoverDisabledHostHarness from '../../tests/PopoverDisabledHostHarness.svelte';
 import NestedPopoverFocusHarness from '../../tests/NestedPopoverFocusHarness.svelte';
 import PopoverCanceledFocusOutHarness from '../../tests/PopoverCanceledFocusOutHarness.svelte';
+import { clickElement } from '../../tests/menu/mouse.js';
 import { Popover, PopoverHandle } from './index.js';
 import { PopoverStore } from './store.svelte.js';
 
@@ -158,6 +160,24 @@ describe('Popover', () => {
 		await page.getByRole('button', { name: 'Outside' }).click();
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
+
+	it.each([
+		{ inPopup: true, open: true },
+		{ inPopup: false, open: false }
+	])(
+		'keeps the popover open on a press in a tooltip rendered in its popup: $inPopup',
+		async ({ inPopup, open }) => {
+			render(PopoverPortalTooltipHarness, { inPopup });
+			clickElement(page.getByTestId('trigger').element() as HTMLElement);
+			await expect.poll(() => page.getByTestId('tip').query()).not.toBeNull();
+			await new Promise(requestAnimationFrame);
+			expect(page.getByTestId('popup').element().hasAttribute('data-open')).toBe(true);
+
+			clickElement(page.getByTestId('tip').element() as HTMLElement);
+			await tick();
+			expect(page.getByTestId('popup').query()?.hasAttribute('data-open') ?? false).toBe(open);
+		}
+	);
 
 	it('lets onOpenChangeComplete write $state when the popover opens', async () => {
 		// Completion runs inside the effect when animations are skipped. A tracked

@@ -9,14 +9,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import TooltipHandleInRootHarness from '../../tests/TooltipHandleInRootHarness.svelte';
 import TooltipOwnershipHarness from '../../tests/TooltipOwnershipHarness.svelte';
-import { parkPointer } from '../../tests/pointer.js';
 import { byTestId, hoverWithMouse } from '../../tests/tooltip-events.js';
 import type { TooltipChangeEventDetails } from './types.js';
 
 const flags = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
 
-beforeEach(async () => {
-	await parkPointer();
+beforeEach(() => {
 	flags.BASE_UI_ANIMATIONS_DISABLED = true;
 });
 

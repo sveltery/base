@@ -7,14 +7,12 @@ import { userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PreviewCardOwnershipHarness from '../../tests/PreviewCardOwnershipHarness.svelte';
-import { parkPointer } from '../../tests/pointer.js';
 import { byTestId, hoverWithMouse } from '../../tests/tooltip-events.js';
 import type { PreviewCardChangeEventDetails } from './types.js';
 
 const flags = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
 
-beforeEach(async () => {
-	await parkPointer();
+beforeEach(() => {
 	flags.BASE_UI_ANIMATIONS_DISABLED = true;
 });
 

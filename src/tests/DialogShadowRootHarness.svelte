@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AlertDialog, Dialog, type DialogChangeEventDetails } from '#lib';
+	import { AlertDialog, ContextMenu, Dialog, type DialogChangeEventDetails } from '#lib';
 
 	type Container = HTMLElement | ShadowRoot | undefined;
 
@@ -10,7 +10,7 @@
 		onOpenChange
 	}: {
 		/** The nested popup kind, or none for a lone non-modal dialog with an outside element. */
-		nested?: 'modal dialog' | 'non-modal dialog' | 'alert dialog';
+		nested?: 'modal dialog' | 'non-modal dialog' | 'alert dialog' | 'context menu';
 		outerContainer?: Container;
 		nestedContainer?: Container;
 		onOpenChange?: (open: boolean, details: DialogChangeEventDetails) => void;
@@ -35,6 +35,17 @@
 						</AlertDialog.Popup>
 					</AlertDialog.Portal>
 				</AlertDialog.Root>
+			{:else if nested === 'context menu'}
+				<ContextMenu.Root>
+					<ContextMenu.Trigger data-testid="open-nested">Open nested</ContextMenu.Trigger>
+					<ContextMenu.Portal container={nestedContainer}>
+						<ContextMenu.Positioner>
+							<ContextMenu.Popup data-testid="nested">
+								<ContextMenu.Item>Item</ContextMenu.Item>
+							</ContextMenu.Popup>
+						</ContextMenu.Positioner>
+					</ContextMenu.Portal>
+				</ContextMenu.Root>
 			{:else if nested}
 				<Dialog.Root modal={nested === 'modal dialog'}>
 					<Dialog.Trigger data-testid="open-nested">Open nested</Dialog.Trigger>

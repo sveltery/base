@@ -1,6 +1,7 @@
 <script lang="ts" module>
 	import { createContext } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
+	import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
 
 	const MOUNT = createAttachmentKey();
 
@@ -37,6 +38,26 @@
 		return hasPortal() ? getPortal() : null;
 	}
 
+	type RegisterNestedPortal = (host: HTMLElement) => () => void;
+
+	const [getPopupScope, providePopupScope, hasPopupScope] = createContext<RegisterNestedPortal>();
+
+	/**
+	 * Records each portal rendered in the caller's content in `store.nestedPortals` and in those
+	 * of the enclosing popups. Call it in the component that renders the popup's content.
+	 */
+	export function setFloatingPopupScope(store: FloatingRootStore) {
+		const parent = hasPopupScope() ? getPopupScope() : null;
+		providePopupScope((host) => {
+			store.nestedPortals.add(host);
+			const leaveParent = parent?.(host);
+			return () => {
+				store.nestedPortals.delete(host);
+				leaveParent?.();
+			};
+		});
+	}
+
 	function insideClosedShadowRoot(node: Node) {
 		for (let root = node.getRootNode(); root instanceof ShadowRoot; root = root.host.getRootNode())
 			if (root.mode === 'closed') return true;
@@ -68,7 +89,6 @@
 		getTabbableCandidates,
 		isOutsideEvent
 	} from '../utils/tabbable.js';
-	import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
 	import DelegationRoot from './DelegationRoot.svelte';
 
 	type PortalState = Record<string, never>;
@@ -101,6 +121,7 @@
 	let client = $state(false);
 	let focusState = $state<FloatingPortalFocus | null>(null);
 	const parent = useFloatingPortal();
+	const registerInPopup = hasPopupScope() ? getPopupScope() : null;
 	// The open focus effect reads `home`, so a container swap re-runs it without looking like a close.
 	const home = $derived(
 		!client || container === null ? null : (container ?? parent?.node ?? document.body)
@@ -213,6 +234,7 @@
 			: null;
 		portalNode = node;
 		if (store) store.portalElement = node;
+		const leavePopup = registerInPopup?.(node);
 		const restore = carriedFocus;
 		carriedFocus = null;
 		if (restore?.isConnected) restore.focus({ preventScroll: true });
@@ -220,6 +242,7 @@
 			const active = document.activeElement;
 			if (active instanceof HTMLElement && node.contains(active)) carriedFocus = active;
 			if (store?.portalElement === node) store.portalElement = null;
+			leavePopup?.();
 			if (portalNode === node) portalNode = null;
 			if (delegation) void unmount(delegation);
 			node.remove();
