@@ -5,13 +5,13 @@
 // Items register in one ElementList. Their values and labels are read from it by index,
 // so there are no parallel arrays to keep in step.
 
-import { untrack } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import { createChangeEventDetails, REASONS, type OpenInteractionType } from '@sveltery/utils';
 import { ElementList } from '../internal/element-list.svelte.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
 import { normalizeScrollOffset } from '../internal/scrollEdges.js';
-import { getMaxScrollOffset, type InlineStyles } from './popup-utils.js';
+import { getMaxScrollOffset } from '../internal/scrollEdges.js';
+import type { InlineStyles } from './popup-utils.js';
 import {
 	compareItemEquality,
 	findSelectionIndex,
@@ -123,14 +123,6 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 			}
 		});
 		this.#options = options;
-
-		// A reopen through the binding skips `setOpen`, so it cancels a pending
-		// `preventUnmountOnClose` here. Remove once PopupStore clears the flag on any reopen.
-		$effect.pre(() => {
-			if (this.open && untrack(() => this.preventUnmountingOnClose)) {
-				this.preventUnmountingOnClose = false;
-			}
-		});
 
 		$effect.pre(() => {
 			const { value, multiple, isItemEqualToValue } = this.root;

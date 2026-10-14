@@ -13,7 +13,6 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { FloatingFocusManager } from '@sveltery/floating-ui-svelte';
 	import {
-		contains,
 		createChangeEventDetails,
 		ownerDocument,
 		ownerWindow,
@@ -365,55 +364,19 @@
 		return trigger instanceof Element && Boolean(trigger.closest('[role="toolbar"]'));
 	}
 
-	/** The popup is the focus target. The shared manager would fall back to the positioner. */
+	/**
+	 * The popup is the focus target. The shared manager counts its own focus guards as
+	 * tabbables, so its default would focus a guard and close on focus-out.
+	 */
 	function focusIn() {
 		return store.popupElement ?? true;
 	}
 
-	// Upstream returns focus to the element focused before the popup opened, which is the
-	// trigger unless something else opened the select.
-	let returnTarget: HTMLElement | null = null;
-	$effect.pre(() => {
-		if (!store.open) return;
-		untrack(() => {
-			const doc = ownerDocument(store.triggerElement);
-			const active = doc.activeElement;
-			returnTarget =
-				active instanceof HTMLElement &&
-				active !== doc.body &&
-				!contains(store.positionerElement, active)
-					? active
-					: null;
-		});
-	});
-
-	/**
-	 * Moves focus after the focus manager's teardown, where it would otherwise run the trigger's
-	 * focus handlers. Svelte does not keep a derived recomputed during a teardown, so a handler
-	 * reading one there leaves it stale.
-	 */
-	function focusReturn(closeType: string | null): false {
+	// Close interaction comes from the shared manager. `null` falls back to the trigger there.
+	function focusReturn(closeType: string | null): boolean | HTMLElement | null | void {
 		const spec = finalFocus;
-		if (spec === false || spec === null) return false;
-		const fromFunction = typeof spec === 'function';
-		const resolved = fromFunction ? spec(closeType ?? '') : (spec ?? true);
-		if (resolved === false || resolved === undefined) return false;
-		const target =
-			resolved instanceof HTMLElement
-				? resolved
-				: returnTarget?.isConnected
-					? returnTarget
-					: store.triggerElement;
-		if (!target?.isConnected) return false;
-		if (!fromFunction && !(spec instanceof HTMLElement)) {
-			const doc = ownerDocument(target);
-			const active = doc.activeElement;
-			const inside =
-				contains(store.positionerElement, active) || active === doc.body || active == null;
-			if (!inside) return false;
-		}
-		queueMicrotask(() => target.focus({ preventScroll: true }));
-		return false;
+		if (typeof spec !== 'function') return spec;
+		return spec(closeType ?? '');
 	}
 
 	const partState: SelectPopupState = $derived({
@@ -487,7 +450,7 @@
 	modal={false}
 	disabled={!store.mounted}
 	initialFocus={focusIn}
-	returnFocus={focusReturn}
+	returnFocus={typeof finalFocus === 'function' ? focusReturn : (finalFocus ?? true)}
 	restoreFocus
 >
 	{#if render}
