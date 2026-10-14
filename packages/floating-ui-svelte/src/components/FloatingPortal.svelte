@@ -85,7 +85,8 @@
 		portalOwnerRole,
 		...rest
 	}: {
-		store: FloatingRootStore;
+		/** The popup store that records the portal element. A portal without a popup omits it. */
+		store?: FloatingRootStore;
 		children?: Snippet;
 		container?: HTMLElement | ShadowRoot | null;
 		render?: Snippet<[props: PortalHostProps, state: PortalState, children: Snippet]>;
@@ -182,15 +183,18 @@
 
 	// Upstream FloatingPortal.tsx 277–291. Focus from outside enters through the trailing
 	// inside guard. Focus from inside closes and moves to the control after the trigger.
+	// The focus move can close this popup and clear `focusState`, so read it first, as the
+	// upstream handler reads the state of the render that attached it.
 	function focusAfterOutside(event: FocusEvent) {
-		if (!portalNode || !focusState) return;
+		const state = focusState;
+		if (!portalNode || !state) return;
 		if (isOutsideEvent(event, portalNode)) {
 			guards.afterInside?.focus();
 			return;
 		}
-		const reference = focusState.domReference;
+		const reference = state.domReference;
 		if (reference instanceof Element) getNextTabbableInDocument(reference)?.focus();
-		if (focusState.closeOnFocusOut) focusState.close(event);
+		if (state.closeOnFocusOut) state.close(event);
 	}
 
 	let carriedFocus: HTMLElement | null = null;
@@ -208,14 +212,14 @@
 			? mountRoot(DelegationRoot, { target: node })
 			: null;
 		portalNode = node;
-		store.portalElement = node;
+		if (store) store.portalElement = node;
 		const restore = carriedFocus;
 		carriedFocus = null;
 		if (restore?.isConnected) restore.focus({ preventScroll: true });
 		return () => {
 			const active = document.activeElement;
 			if (active instanceof HTMLElement && node.contains(active)) carriedFocus = active;
-			if (store.portalElement === node) store.portalElement = null;
+			if (store?.portalElement === node) store.portalElement = null;
 			if (portalNode === node) portalNode = null;
 			if (delegation) void unmount(delegation);
 			node.remove();

@@ -3,6 +3,7 @@
 -->
 <script lang="ts">
 	import { Menu, type MenuChangeEventDetails } from '#lib';
+	import { FloatingTreeStore } from '@sveltery/floating-ui-svelte';
 	import { setMenubarParent } from '#lib/menu/parent.svelte.js';
 
 	let {
@@ -20,6 +21,8 @@
 		orientation: 'horizontal',
 		mouseUpGate: { allow: false },
 		rootId: undefined,
+		floatingTree: new FloatingTreeStore(),
+		nodeId: 'menubar',
 		relayKeyboardEvent() {},
 		createItem() {
 			return { props: {} };

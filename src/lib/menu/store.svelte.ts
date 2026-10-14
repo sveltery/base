@@ -88,8 +88,8 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	/** Where the root sits. A menubar trigger can replace it while it owns the menu. */
 	parent = $state.raw<MenuParent>({ type: undefined });
 	readonly ownRootId: string;
-	readonly tree: FloatingTreeStore | null;
-	readonly parentNodeId: string | null;
+	private readonly ownTree: FloatingTreeStore | null;
+	private readonly ownParentNodeId: string | null;
 	/** Every item of this menu, in document order. */
 	readonly items = new ElementList<HTMLElement, MenuItemRecord>();
 	activeIndex = $state<number | null>(null);
@@ -158,8 +158,8 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		});
 		this.parent = options.parent;
 		this.ownRootId = options.rootId;
-		this.tree = options.tree;
-		this.parentNodeId = options.parentNodeId;
+		this.ownTree = options.tree;
+		this.ownParentNodeId = options.parentNodeId;
 		this.instantType = options.instantType;
 		this.readDisabled = options.readDisabled;
 		this.readModal = options.readModal;
@@ -228,6 +228,25 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 
 	get highlightItemOnHover() {
 		return this.readHighlightItemOnHover();
+	}
+
+	/**
+	 * Upstream `floatingTreeRoot`: the tree the menu emits its open changes on. A detached menu
+	 * takes its menubar's tree while a menubar trigger owns it, so its siblings and the menubar
+	 * hear it.
+	 */
+	get tree(): FloatingTreeStore | null {
+		const parent = this.parent;
+		if (parent.type === 'menu') return parent.store.tree;
+		if (parent.type === 'menubar') return parent.context.floatingTree;
+		return this.ownTree;
+	}
+
+	/** Upstream `floatingParentNodeId`, forwarded with the tree. */
+	get parentNodeId(): string | null {
+		const parent = this.parent;
+		if (parent.type === 'menubar') return parent.context.nodeId;
+		return this.ownParentNodeId;
 	}
 
 	get rootId(): string | undefined {

@@ -6,15 +6,11 @@
 // `gesture === null` is upstream's `activePointerIdRef.current === null`.
 
 import { on } from 'svelte/events';
-import { contains, getTarget, ownerDocument } from '@sveltery/utils';
+import { closest, contains, getTarget, ownerDocument, ownerWindow } from '@sveltery/utils';
+import { getElementTransform } from '../internal/getElementTransform.js';
 import { ToastRootCssVariables } from './constants.js';
 import type { ToastSwipeDirection } from './types.js';
-import {
-	TOAST_SWIPE_IGNORE_SELECTOR,
-	closest,
-	getDisplacement,
-	getElementTransform
-} from './utils.js';
+import { TOAST_SWIPE_IGNORE_SELECTOR, getDisplacement } from './utils.js';
 
 const SWIPE_THRESHOLD = 40;
 const REVERSE_CANCEL_THRESHOLD = 10;
@@ -131,7 +127,7 @@ export class ToastSwipe {
 			}
 		};
 
-		const transform = getElementTransform(element);
+		const transform = getElementTransform(ownerWindow(element).getComputedStyle(element));
 		this.initialTransform = transform;
 		this.dragOffset = { x: transform.x, y: transform.y };
 

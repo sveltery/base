@@ -84,12 +84,11 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/slider/SliderRoot.svelte` from `packages/react/src/slider/root/SliderRoot.tsx`
 - `src/lib/slider/SliderControl.svelte` from `packages/react/src/slider/control/SliderControl.tsx`
 - `src/lib/slider/SliderTrack.svelte` from `packages/react/src/slider/track/SliderTrack.tsx`
-- `src/lib/slider/dom.ts` from the `isElement`, `matchesFocusVisible`, and `focusElement` helpers Slider calls
+- `src/lib/slider/dom.ts` from the `isElement` and `focusElement` helpers Slider calls
 - `src/lib/slider/Slider.svelte.spec.ts` assertions from `packages/react/src/slider/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/direction-provider/DirectionProvider.svelte` from `packages/react/src/direction-provider/DirectionProvider.tsx`
 - `src/lib/direction-provider/DirectionProvider.svelte.spec.ts` assertions from `packages/react/src/direction-provider/DirectionProvider.test.tsx`
 - `src/lib/otp-field/OTPFieldRoot.svelte` from `packages/react/src/otp-field/root/OTPFieldRoot.tsx`
-- `src/lib/otp-field/dom.ts` from `packages/react/src/floating-ui-react/utils/event.ts` (`stopEvent`)
 - `src/lib/internal/css-style.ts` from the style-string helpers shared by Progress, NumberField, OTP Field, Slider, Checkbox, Radio, and Switch
 - `src/lib/internal/click.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts`
 - `src/lib/internal/button.svelte.ts` from `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`
@@ -363,6 +362,14 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/menu/dom.ts` from `packages/react/src/utils/getPseudoElementBounds.ts` and `packages/react/src/menu/utils/findRootOwnerId.ts`
 - `src/lib/menu/*.svelte.spec.ts` assertions from `packages/react/src/menu/**/*.test.tsx` that do not require the filter parts, React refs, StrictMode or React render counts, and from `packages/react/test/detachedTriggersConformanceTests.tsx`
 - `src/tests/menu/**` harnesses from the fixtures of those tests
+- Menubar derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/menubar/Menubar.svelte`, `context.svelte.ts`, `types.ts` and `index.ts` from `packages/react/src/menubar/Menubar.tsx`, `MenubarContext.ts`, `MenubarDataAttributes.ts` and `index.ts`, with the item hover highlight from `packages/react/src/internals/composite/item/useCompositeItem.ts`
+- `src/lib/menubar/Menubar.svelte.spec.ts` assertions from `packages/react/src/menubar/Menubar.test.tsx` that do not require the filter parts or `aria-owns`, and the `Menubar parent` cases of `packages/react/src/menu/positioner/MenuPositioner.test.tsx`
+- `src/tests/menubar/**` harnesses from the fixtures of those tests
+- ContextMenu derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/context-menu/ContextMenuRoot.svelte`, `ContextMenuTrigger.svelte`, `context.svelte.ts`, `types.ts` and `index.ts` from `packages/react/src/context-menu/root/ContextMenuRoot.tsx`, `root/ContextMenuRootContext.ts`, `trigger/ContextMenuTrigger.tsx`, `positioner/ContextMenuPositioner.tsx`, `index.ts` and `index.parts.ts`
+- `src/lib/context-menu/*.svelte.spec.ts` assertions from `packages/react/src/context-menu/**/*.test.tsx` and the context-menu cases of `packages/react/src/menu/positioner/MenuPositioner.test.tsx`
+- `src/tests/context-menu/**` harnesses from the fixtures of those tests
 
 Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 
@@ -383,7 +390,9 @@ Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7
 - `src/lib/toast/context.ts` from `packages/react/src/toast/provider/ToastProviderContext.ts`, `packages/react/src/toast/root/ToastRootContext.ts`, `packages/react/src/toast/positioner/ToastPositionerContext.ts`, and `packages/react/src/toast/useToastManager.ts`
 - `src/lib/toast/types.ts` from `packages/react/src/toast/useToastManager.ts`, `packages/react/src/toast/createToastManager.ts`, and the part prop and state types
 - `src/lib/toast/constants.ts` from `packages/react/src/toast/**/*DataAttributes.ts` and `*CssVars.ts`
-- `src/lib/toast/utils.ts` from `packages/react/src/toast/utils/isRenderableNode.ts`, `packages/react/src/toast/utils/resolvePromiseOptions.ts`, `packages/utils/src/generateId.ts`, `closest` in `packages/utils/src/shadowDom.ts`, `matchesFocusVisible` in `packages/react/src/floating-ui-react/utils/element.ts`, `getDisplacement` in `packages/react/src/utils/useSwipeDismiss.ts`, `packages/react/src/utils/getElementTransform.ts`, and the swipe-ignore selectors in `packages/react/src/internals/constants.ts`
+- `src/lib/toast/utils.ts` from `packages/react/src/toast/utils/isRenderableNode.ts`, `packages/react/src/toast/utils/resolvePromiseOptions.ts`, `packages/utils/src/generateId.ts`, `getDisplacement` in `packages/react/src/utils/useSwipeDismiss.ts`, and the swipe-ignore selectors in `packages/react/src/internals/constants.ts`
+- `packages/utils/src/focus-visible.ts` from `matchesFocusVisible` in `packages/react/src/floating-ui-react/utils/element.ts`
+- `src/lib/internal/useAnchorPositioning.svelte.ts` the `'placement'` mode of `lazyFlip` from `packages/react/src/internals/useAnchorPositioning.ts`, with `src/lib/internal/lazy-flip.svelte.spec.ts` and the `src/tests/LazyFlipHarness.svelte` harness
 - `src/lib/select/*.svelte` from the matching parts in `packages/react/src/select/**` of Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`): Root, Label, Trigger, Value, Icon, Portal, Backdrop, Positioner, Popup, List, Item, ItemIndicator, ItemText, Arrow, ScrollUpArrow, ScrollDownArrow, Group, GroupLabel and Separator
 - `src/lib/select/store.svelte.ts` from `packages/react/src/select/store.ts` and the state, refs and callbacks of `packages/react/src/select/root/SelectRoot.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 - `src/lib/select/context.svelte.ts` from `SelectRootContext.ts`, `SelectPositionerContext.ts`, `SelectItemContext.ts` and `SelectGroupContext.ts` in `packages/react/src/select/` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
