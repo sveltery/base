@@ -515,9 +515,9 @@ describe('Radio', () => {
 				expect(
 					document.querySelector('[data-testid="indicator"]')?.hasAttribute('data-ending-style')
 				).toBe(true);
-				const animations = indicator?.getAnimations() ?? [];
-				expect(animations).toHaveLength(1);
-				for (const animation of animations) animation.finish();
+				const animations = indicator!.getAnimations() as CSSAnimation[];
+				expect(animations.map((animation) => animation.animationName)).toEqual(['radio-test-anim']);
+				animations[0].finish();
 			} finally {
 				AnimationFrame.prototype.request = request;
 			}
