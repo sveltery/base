@@ -650,7 +650,7 @@ Test: `src/lib/combobox/ComboboxChips.svelte.spec.ts` (`lets a nested chip onmou
 
 Upstream: with the input outside the popup, the popup's focus manager is modal and counts the internal dismiss buttons as inside through `getInsideElements`. A field-aware element rendered for an input inside the popup reads the field context of the surrounding `Field.Root`.
 
-Local: the shared focus manager has no `getInsideElements` and no mode in which the reference counts as inside, so with the input outside the popup, the popup's focus manager is non-modal and focus stays on the input. With the input inside the popup, the trigger is the field's control, so the input gives its subtree an inert field context and a field-aware `render` element there does not take the field's name or validity. The positioner does not require `Combobox.Portal`, and a portal's `keepMounted` does not reach the positioner's anchoring.
+Local: with the input inside the popup, the trigger is the field's control, so the input gives its subtree the default field context and a field-aware `render` element there does not take the field's name or validity. The positioner does not require `Combobox.Portal`, and a portal's `keepMounted` does not reach the positioner's anchoring.
 
 Test: `src/lib/combobox/ComboboxRoot.form.svelte.spec.ts`, `src/lib/combobox/ComboboxPositioner.svelte.spec.ts`.
 

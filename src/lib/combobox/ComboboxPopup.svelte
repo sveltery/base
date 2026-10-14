@@ -2,8 +2,6 @@
 	A container for the list. Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/popup/ComboboxPopup.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	With the input outside the popup, focus stays on the input, so the focus manager is not
-	modal and outside content is not hidden from assistive technology.
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
@@ -104,7 +102,8 @@
 <FloatingFocusManager
 	{store}
 	disabled={!store.mounted}
-	modal={inputInsidePopup && store.root.modal}
+	modal={focusManagerModal}
+	getInsideElements={() => [store.startDismissElement, store.endDismissElement]}
 	initialFocus={initialFocus === undefined
 		? inputInsidePopup
 			? defaultInitialFocus
@@ -118,6 +117,6 @@
 		<div {...hostProps}>{@render children?.()}</div>
 	{/if}
 	{#if focusManagerModal}
-		<ComboboxInternalDismissButton />
+		<ComboboxInternalDismissButton edge="end" />
 	{/if}
 </FloatingFocusManager>
