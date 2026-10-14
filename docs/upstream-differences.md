@@ -558,7 +558,7 @@ Upstream: `value`/`defaultValue`/`onValueChange` hold the input text, with `open
 
 Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef`, the item `index` prop and the data-attribute namespaces are not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
 
-Test: `src/lib/autocomplete/types.spec.ts`, `src/lib/autocomplete/AutocompleteValue.svelte.spec.ts`.
+Test: `src/lib/autocomplete/types.test-d.ts`, `src/lib/autocomplete/AutocompleteValue.svelte.spec.ts`.
 
 ### Native reset and form sources
 
@@ -588,7 +588,7 @@ Upstream: a `keyboard` highlight reason carries a `KeyboardEvent`.
 
 Local: it carries an `Event`, as the shared `BaseUIHighlightEventDetails` types it.
 
-Test: `src/lib/autocomplete/types.spec.ts`.
+Test: `src/lib/autocomplete/types.test-d.ts`.
 
 ### Not covered
 
