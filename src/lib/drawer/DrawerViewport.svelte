@@ -141,7 +141,7 @@
 </script>
 
 <script lang="ts">
-	import { flushSync, untrack } from 'svelte';
+	import { untrack } from 'svelte';
 	import { on } from 'svelte/events';
 	import { isElement } from '@floating-ui/utils/dom';
 	import {
@@ -476,19 +476,17 @@
 				setSwipeDismissed(true);
 				releasePopup.style.removeProperty('transition');
 				releasePopup.setAttribute(DrawerPopupDataAttributes.endingStyle, '');
-				flushSync(() => {
-					swipeRelease = resolveSwipeRelease(
-						releasePopup,
-						resolvedDirection,
-						deltaX,
-						deltaY,
-						velocityX,
-						velocityY,
-						releaseVelocityX,
-						releaseVelocityY,
-						releaseSnapPointOffset
-					);
-				});
+				swipeRelease = resolveSwipeRelease(
+					releasePopup,
+					resolvedDirection,
+					deltaX,
+					deltaY,
+					velocityX,
+					velocityY,
+					releaseVelocityX,
+					releaseVelocityY,
+					releaseSnapPointOffset
+				);
 			}
 
 			if (!drawer.hasSnapPoints) {
