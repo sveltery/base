@@ -500,7 +500,7 @@ Local: the shared `CompositeRoot` focuses the next trigger synchronously. The po
 
 ### Not covered
 
-React-only cases: `describeConformance` (refs, `className` and style functions). The `filterable menubar menus` case waits on the Menu filter parts.
+React-only cases: `describeConformance` (refs, `className` and style functions).
 
 ## ContextMenu
 
