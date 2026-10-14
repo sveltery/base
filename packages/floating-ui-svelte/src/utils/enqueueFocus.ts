@@ -32,7 +32,9 @@ export function enqueueFocus(
 	queued = entry;
 	entry.frame.request(() => {
 		// The shared scheduler still runs a callback cancelled during its own frame's batch.
-		if (queued === entry) queued = null;
+		// A native cancelAnimationFrame, as upstream uses, would skip it.
+		if (queued !== entry) return;
+		queued = null;
 		exec();
 	});
 	return () => {

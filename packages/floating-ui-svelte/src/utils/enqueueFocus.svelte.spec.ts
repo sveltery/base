@@ -116,7 +116,7 @@ describe('enqueueFocus', () => {
 		expect(focusQueuedWithin(container)).toBe(false);
 	});
 
-	it('keeps reporting a request made by a callback earlier in the frame that runs a superseded one', async () => {
+	it('skips a superseded request that runs in the same frame as the request that replaced it', async () => {
 		const first = button();
 		const container = document.createElement('div');
 		const second = document.createElement('button');
@@ -127,6 +127,7 @@ describe('enqueueFocus', () => {
 		enqueueFocus(first);
 		await frame();
 		expect(focusQueuedWithin(container)).toBe(true);
+		expect(document.activeElement).toBe(document.body);
 		await frame();
 		expect(document.activeElement).toBe(second);
 	});
