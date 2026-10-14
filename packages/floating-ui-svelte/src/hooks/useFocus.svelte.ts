@@ -58,7 +58,7 @@ export class FocusInteraction {
 			const stops = [
 				// Returning to the tab refocuses the trigger. That must not reopen a popup that was closed.
 				on(win, 'blur', () => {
-					const reference = this.store.domReferenceElement;
+					const reference = this.store.lastDomReferenceElement;
 					if (
 						!this.store.isOpen() &&
 						isHTMLElement(reference) &&
@@ -161,8 +161,9 @@ export class FocusInteraction {
 				relatedTarget.getAttribute('data-type') === 'outside';
 
 			// Wait for the window blur listener to fire.
+			// This can run after the closed popup unmounted, so it reads the last trigger.
 			this.#timeout.start(0, () => {
-				const reference = this.store.domReferenceElement;
+				const reference = this.store.lastDomReferenceElement;
 				const active = activeElement(ownerDocument(reference));
 
 				// Focus left the page, keep it open.

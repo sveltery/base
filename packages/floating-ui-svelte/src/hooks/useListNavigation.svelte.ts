@@ -315,7 +315,9 @@ export class ListNavigation {
 			if (virtual) return;
 			this.#cancelQueuedFocus = enqueueFocus(item, {
 				sync: this.#forceSyncFocus,
-				preventScroll: true
+				preventScroll: true,
+				// A close (Tab, Escape) can land before the queued frame; drop the focus then.
+				shouldFocus: () => this.store.isOpen()
 			});
 		};
 

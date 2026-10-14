@@ -8,6 +8,8 @@ import { ScopedAnimationFrame } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from './animations-finished.js';
 import { getCssDimensions } from './getCssDimensions.js';
 
+type Size = { width: number; height: number };
+
 export interface PopupAutoResizeStore {
 	readonly mounted: boolean;
 	readonly payload: unknown;
@@ -19,13 +21,14 @@ export interface PopupAutoResizeStore {
 
 /** Animates the popup between the sizes of its old and new content. */
 export class PopupAutoResize {
-	private committedSize: { width: number; height: number } | null = null;
+	private committedSize: Size | null = null;
 	private readonly frame = new ScopedAnimationFrame();
 
 	constructor(
 		private readonly store: PopupAutoResizeStore,
 		readSide: () => string | null,
-		readDirection: () => string
+		readDirection: () => string,
+		private readonly onResize?: (previous: Size) => void
 	) {
 		$effect(() => {
 			const content = store.payload;
@@ -56,6 +59,7 @@ export class PopupAutoResize {
 		const mark = content;
 		const anchor = anchoring(side, textDirection);
 		const previous = this.committedSize;
+		if (previous) this.onResize?.(previous);
 		store.popupVars = { ...anchor, '--popup-width': 'auto', '--popup-height': 'auto' };
 		store.positionerVars = {
 			'--positioner-width': 'max-content',
@@ -99,7 +103,7 @@ function anchoring(side: string | null, textDirection: string) {
 	return vars;
 }
 
-function sizeVars(kind: 'popup' | 'positioner', size: { width: number; height: number }) {
+function sizeVars(kind: 'popup' | 'positioner', size: Size) {
 	const prefix = kind === 'popup' ? '--popup' : '--positioner';
 	return {
 		[`${prefix}-width`]: `${size.width}px`,

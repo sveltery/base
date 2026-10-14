@@ -3,7 +3,7 @@
 // The upstream case runs in jsdom only. These run in Chromium, where `:focus-visible` is real,
 // so focus comes from the keyboard and the extra cases cover what jsdom cannot.
 import { page, userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 import FocusHarness from './__tests__/FocusHarness.svelte';
@@ -30,28 +30,43 @@ async function tabToTrigger() {
 }
 
 describe('FocusInteraction', () => {
-	it('does not reopen when focus is restored after leaving the tab', async () => {
-		render(FocusHarness, { delay: 60 });
-		await tabToTrigger();
-		const first = page.getByTestId('first').element();
-		expect(document.activeElement).toBe(first);
+	describe('with an open delay', () => {
+		// A real 60ms delay can run out while a loaded browser handles the Tab, before the test
+		// checks that the popup is still closed. The fake clock only moves when the test says so.
+		beforeEach(() => {
+			vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+		});
+		afterEach(() => {
+			vi.useRealTimers();
+		});
 
-		window.dispatchEvent(new Event('blur'));
-		first.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
-		await wait(200);
+		it('does not reopen when focus is restored after leaving the tab', async () => {
+			render(FocusHarness, { delay: 60 });
+			await tabToTrigger();
+			const first = page.getByTestId('first').element();
+			expect(document.activeElement).toBe(first);
+			expect(state().open).toBe('false');
 
-		expect(state().open).toBe('false');
-		expect(document.querySelector('[role="tooltip"]')).toBeNull();
-	});
+			window.dispatchEvent(new Event('blur'));
+			first.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+			await vi.advanceTimersByTimeAsync(200);
 
-	it('opens after the delay when the same focus is not preceded by a window blur', async () => {
-		render(FocusHarness, { delay: 60 });
-		await tabToTrigger();
-		expect(state().open).toBe('false');
+			expect(state().open).toBe('false');
+			expect(document.querySelector('[role="tooltip"]')).toBeNull();
+		});
 
-		await expect.poll(() => state().open).toBe('true');
-		expect(state().reason).toBe('trigger-focus');
-		expect(document.querySelector('[role="tooltip"]')).not.toBeNull();
+		it('opens after the delay when the same focus is not preceded by a window blur', async () => {
+			render(FocusHarness, { delay: 60 });
+			await tabToTrigger();
+			expect(state().open).toBe('false');
+
+			await vi.advanceTimersByTimeAsync(59);
+			expect(state().open).toBe('false');
+			await vi.advanceTimersByTimeAsync(1);
+			expect(state().open).toBe('true');
+			expect(state().reason).toBe('trigger-focus');
+			expect(document.querySelector('[role="tooltip"]')).not.toBeNull();
+		});
 	});
 
 	it('opens at once on keyboard focus when there is no delay and closes when focus leaves', async () => {
@@ -118,6 +133,42 @@ describe('FocusInteraction', () => {
 		expect(removed.mock.calls.filter(([type]) => type === 'blur')).toEqual([]);
 		added.mockRestore();
 		removed.mockRestore();
+	});
+
+	it('keeps the Escape close when a pending blur check runs after the popup unmounts', async () => {
+		const { component } = render(FocusHarness, {});
+		const { store } = component;
+		await tabToTrigger();
+		const first = page.getByTestId('first').element() as HTMLElement;
+		expect(store.open).toBe(true);
+
+		// Focus leaves and comes back before the blur check's timer runs.
+		(page.getByTestId('outside').element() as HTMLElement).focus();
+		first.focus();
+		store.setOpen(false, createChangeEventDetails(REASONS.escapeKey));
+		// A popup store drops its trigger once the closed popup unmounts.
+		store.domReferenceElement = null;
+		await wait(50);
+
+		expect(document.activeElement).toBe(first);
+		expect(store.lastReason).toBe('escape-key');
+	});
+
+	it('does not reopen when focus returns to the tab after the closed popup unmounts', async () => {
+		const { component } = render(FocusHarness, {});
+		const { store } = component;
+		await tabToTrigger();
+		const first = page.getByTestId('first').element();
+		expect(store.open).toBe(true);
+
+		store.setOpen(false, createChangeEventDetails(REASONS.outsidePress));
+		store.domReferenceElement = null;
+		window.dispatchEvent(new Event('blur'));
+		first.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+
+		expect(document.activeElement).toBe(first);
+		expect(store.open).toBe(false);
+		expect(store.lastReason).toBe('outside-press');
 	});
 
 	it('does not reopen on refocus after Escape until the pointer leaves', async () => {

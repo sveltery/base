@@ -1,6 +1,33 @@
+<script module lang="ts">
+	const LIST_LIMIT = 20;
+	let previouslyFocusedElements: WeakRef<Element>[] = [];
+
+	function clearDisconnectedPreviouslyFocusedElements() {
+		previouslyFocusedElements = previouslyFocusedElements.filter(
+			(entry) => entry.deref()?.isConnected
+		);
+	}
+
+	function addPreviouslyFocusedElement(element: Element | null | undefined) {
+		clearDisconnectedPreviouslyFocusedElements();
+		if (!element || element.nodeName === 'BODY') return;
+		previouslyFocusedElements.push(new WeakRef(element));
+		if (previouslyFocusedElements.length > LIST_LIMIT) {
+			previouslyFocusedElements = previouslyFocusedElements.slice(-LIST_LIMIT);
+		}
+	}
+
+	function getPreviouslyFocusedElement() {
+		clearDisconnectedPreviouslyFocusedElements();
+		return previouslyFocusedElements.at(-1)?.deref();
+	}
+</script>
+
 <script lang="ts">
 	// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx
-	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The previously focused element stack, the
+	// `getReturnElement` order and the focus-out exemption for that element follow v1.9.0
+	// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	// The trap is focus guards plus aria-hidden on outside nodes. It does not set the inert attribute.
 
 	import { untrack } from 'svelte';
@@ -13,6 +40,7 @@
 		ownerDocument,
 		ownerWindow,
 		activeElement,
+		closest,
 		contains,
 		getTarget,
 		ScopedAnimationFrame,
@@ -81,43 +109,37 @@
 	const restoreFrame = new ScopedAnimationFrame();
 	const bodyReturnFrame = new ScopedAnimationFrame();
 	let suppressFocusOut = false;
-	/** Trigger (or the element focused before open). Not refreshed after focus moves inside. */
-	let returnTarget: HTMLElement | null = null;
-	/** The element focused when this open began, and whether it wins over the trigger. */
+	/** Focus before this open. A re-run while open sees focus inside, so it keeps the first. */
 	let focusedBeforeOpen: HTMLElement | null = null;
 	let preferPreviousFocus = false;
-	let openCaptured = false;
 
-	function captureReturnTarget(doc: Document, floating: HTMLElement) {
-		if (!openCaptured) {
-			openCaptured = true;
-			// Only an open with no interaction type, such as a programmatic or hover open,
-			// returns focus to where it was before the trigger (upstream `preferPreviousFocus`).
-			preferPreviousFocus = untrack(() => store.openMethod) == null;
-			const active = activeElement(doc);
-			focusedBeforeOpen =
-				active instanceof HTMLElement &&
-				active !== doc.body &&
-				!contains(floating, active) &&
-				!contains(store.portalElement, active)
-					? active
-					: null;
-		}
-		const reference = store.domReferenceElement;
-		if (reference instanceof HTMLElement && reference.isConnected) {
-			returnTarget = reference;
-			return;
-		}
-		if (returnTarget) return;
+	function captureFocusBeforeOpen(doc: Document, floating: HTMLElement) {
+		if (initialSettled) return;
 		const active = activeElement(doc);
-		if (
+		focusedBeforeOpen =
 			active instanceof HTMLElement &&
 			active !== doc.body &&
 			!contains(floating, active) &&
 			!contains(store.portalElement, active)
-		) {
-			returnTarget = active;
-		}
+				? active
+				: null;
+		// Upstream `preferPreviousFocus`: an open with no interaction type, such as `bind:open` or
+		// a hover open, returns focus to where it was before, not to the trigger it claimed.
+		preferPreviousFocus = untrack(() => store.openMethod) == null;
+	}
+
+	/** Upstream `getReturnElement`, resolved at close so a trigger switch while open counts. */
+	function defaultReturnTarget(): HTMLElement | null {
+		const reference = store.domReferenceElement;
+		const referenceTarget =
+			reference instanceof HTMLElement && reference.isConnected ? reference : null;
+		const previousTarget = focusedBeforeOpen?.isConnected ? focusedBeforeOpen : null;
+		const target = preferPreviousFocus
+			? (previousTarget ?? referenceTarget)
+			: (referenceTarget ?? previousTarget);
+		if (target) return target;
+		const lastFocused = getPreviouslyFocusedElement();
+		return lastFocused instanceof HTMLElement ? lastFocused : null;
 	}
 
 	function tabbables(floating: HTMLElement) {
@@ -285,9 +307,7 @@
 		// A function result of `null` falls back to the trigger, matching an empty ref.
 		// Only a boolean `true` requires focus to still be inside.
 		const explicit = fromFunction || spec instanceof HTMLElement;
-		const previous =
-			preferPreviousFocus && focusedBeforeOpen?.isConnected ? focusedBeforeOpen : null;
-		const target = resolved instanceof HTMLElement ? resolved : (previous ?? returnTarget);
+		const target = resolved instanceof HTMLElement ? resolved : defaultReturnTarget();
 		if (!target?.isConnected) return null;
 		if (!explicit) {
 			const doc = ownerDocument(target);
@@ -300,8 +320,6 @@
 			if (!inside) return null;
 		}
 		target.focus({ preventScroll: true });
-		returnTarget = null;
-		focusedBeforeOpen = null;
 		return target;
 	}
 
@@ -429,13 +447,13 @@
 		const portalHome = portal?.home;
 		if (disabled || !store.isOpen()) {
 			initialSettled = false;
-			openCaptured = false;
 			return;
 		}
 		const floating = store.floatingElement;
 		if (!floating || portalHome === null) return;
 		const doc = ownerDocument(floating);
-		captureReturnTarget(doc, floating);
+		addPreviouslyFocusedElement(activeElement(doc));
+		captureFocusBeforeOpen(doc, floating);
 		closeType = '';
 		closeReason = '';
 		bodyReturnFrame.cancel();
@@ -502,7 +520,7 @@
 						contains(store.domReferenceElement, target) ||
 						contains(portal?.node, target))
 				);
-				if (target instanceof Element && target.closest(`[${CLICK_TRIGGER_IDENTIFIER}]`)) {
+				if (closest(target, `[${CLICK_TRIGGER_IDENTIFIER}]`)) {
 					suppressFocusOut = true;
 					pointerDownTimeout.start(0, () => {
 						suppressFocusOut = false;
@@ -531,6 +549,8 @@
 				if (modal) return;
 				if (!(relatedTarget instanceof Element)) return;
 				if (focusStaysInTree(relatedTarget)) return;
+				// Moving back to where focus was before the popup opened keeps it open.
+				if (relatedTarget === getPreviouslyFocusedElement()) return;
 				// Upstream sets this before the close so return focus does not cancel the Tab.
 				closeReason = REASONS.focusOut;
 				store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));

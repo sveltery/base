@@ -124,6 +124,9 @@ forEachFramework((reference, framework) => {
 			const { trigger, menu, item } = await open(page, 'basic', reference);
 			await trigger.focus();
 			await page.keyboard.press('ArrowDown');
+			// Focus reaches the first item a frame after opening. An arrow key that lands on the trigger
+			// before then restarts from the first item, in React too.
+			await expect(item('Apple')).toBeFocused();
 			await page.keyboard.press('ArrowDown');
 			await expect(item('Banana')).toBeFocused();
 			await page.keyboard.press('Enter');
@@ -147,6 +150,7 @@ forEachFramework((reference, framework) => {
 			const { trigger, menu, item } = await open(page, 'submenu', reference);
 			await trigger.focus();
 			await page.keyboard.press('ArrowDown');
+			await expect(item('Apple')).toBeFocused();
 			await page.keyboard.press('ArrowDown');
 			const more = item('More');
 			await expect(more).toBeFocused();
