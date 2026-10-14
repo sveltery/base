@@ -16,7 +16,7 @@
 	import { isRenderable } from './utils.js';
 
 	let {
-		disabled = false,
+		disabled,
 		nativeButton = true,
 		render,
 		children,
@@ -24,7 +24,7 @@
 	}: ToastActionProps = $props();
 
 	const rootContext = useToastRoot();
-	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
+	const button = new ButtonBehavior(() => ({ disabled: disabled ?? false, native: nativeButton }));
 
 	const actionProps = $derived(rootContext.toast.actionProps);
 	const actionChildren = $derived(actionProps?.children);

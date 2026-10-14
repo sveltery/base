@@ -154,7 +154,7 @@ export interface SelectTriggerProps extends Omit<
 	'children' | 'disabled' | 'id'
 > {
 	/** Whether the trigger ignores user interaction. */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.
@@ -162,7 +162,7 @@ export interface SelectTriggerProps extends Omit<
 	 */
 	nativeButton?: boolean;
 	/** The trigger's id. Defaults to the root's id. */
-	id?: string;
+	id?: string | null;
 	render?: Snippet<
 		[props: HTMLButtonAttributes, state: SelectTriggerState, children: RenderChildren]
 	>;
@@ -356,7 +356,7 @@ export interface SelectItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	 * Whether the item ignores user interaction.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * @default false

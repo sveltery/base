@@ -43,9 +43,9 @@
 		inputmode: inputMode,
 		validationType = 'numeric',
 		normalizeValue,
-		required = false,
-		disabled: disabledProp = false,
-		readonly: readOnly = false,
+		required: requiredProp,
+		disabled: disabledProp,
+		readonly: readOnlyProp,
 		name: nameProp,
 		defaultValue = '',
 		value = $bindable<string | undefined>(),
@@ -58,6 +58,8 @@
 		children,
 		...elementProps
 	}: OTPFieldRootProps = $props();
+	const required = $derived(requiredProp ?? false);
+	const readOnly = $derived(readOnlyProp ?? false);
 
 	const field = useFieldContext();
 	const bound = new BoundControl<string>(field, {
@@ -76,9 +78,12 @@
 
 	const raw = $derived(value ?? '');
 	const generatedId = $derived(`base-ui-${uid}`);
-	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => generatedId });
-	const disabled = $derived(Boolean(field.disabled) || disabledProp);
-	const name = $derived(field.name ?? nameProp);
+	const controlId = new LabelableId(labelable, {
+		id: () => idProp ?? undefined,
+		fallback: () => generatedId
+	});
+	const disabled = $derived(Boolean(field.disabled) || (disabledProp ?? false));
+	const name = $derived(field.name ?? nameProp ?? undefined);
 	const boundProps = $derived(bound.inputProps());
 	const inputName = $derived(bound.bound ? boundProps.name : name);
 
@@ -100,7 +105,7 @@
 		getAutoComplete: () => autoComplete,
 		getMask: () => mask,
 		getInputMode: () => inputMode,
-		getFormId: () => formId,
+		getFormId: () => formId ?? undefined,
 		getName: () => name,
 		getControlId: () => controlId.current,
 		getAriaLabelledByProp: () => ariaLabelledByProp || undefined,
@@ -165,7 +170,7 @@
 	watchFieldControl(field, {
 		enabled: () => !disabled,
 		id: () => controlId.current,
-		name: () => nameProp,
+		name: () => nameProp ?? undefined,
 		element: () => model.slots.first ?? null,
 		getValue: () => model.value
 	});

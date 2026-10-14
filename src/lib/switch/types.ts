@@ -39,17 +39,17 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	 */
 	defaultChecked?: boolean;
 	/** Whether the component should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the user should be unable to activate or deactivate the switch.
 	 * @default false
 	 */
-	readonly?: boolean;
+	readonly?: boolean | null;
 	/**
 	 * Whether the user must activate the switch before submitting a form.
 	 * @default false
 	 */
-	required?: boolean;
+	required?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `true` and render a `<button>`. The `id` is then applied to that button
@@ -58,7 +58,7 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	 */
 	nativeButton?: boolean;
 	/** Identifies the field when a form is submitted. */
-	name?: string;
+	name?: string | null;
 	/**
 	 * The value submitted with the form when the switch is on.
 	 * By default, the switch submits `"on"`, matching a native checkbox.
@@ -73,12 +73,12 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	 * Identifies the form that owns the hidden input.
 	 * Useful when the switch is rendered outside the form.
 	 */
-	form?: string;
+	form?: string | null;
 	/**
 	 * The id of the hidden input.
 	 * When `nativeButton` is true, the id is applied to the root element instead.
 	 */
-	id?: string;
+	id?: string | null;
 	/** Called before the checked state changes. Call `eventDetails.cancel()` to veto it. */
 	onCheckedChange?: (checked: boolean, eventDetails: SwitchRootChangeEventDetails) => void;
 	/** Runs before the switch's click handler. Call `event.preventDefault()` to skip it. */

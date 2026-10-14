@@ -31,7 +31,7 @@ export interface CheckboxGroupProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 */
 	allValues?: string[];
 	/** Whether the component should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Called before the value changes. Call `eventDetails.cancel()` to veto it. */
 	onValueChange?: (value: string[], eventDetails: CheckboxGroupChangeEventDetails) => void;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */

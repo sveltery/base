@@ -130,7 +130,7 @@ export interface DialogTriggerProps<Payload = unknown> extends DialogControlProp
 	handle?: DialogHandle<Payload>;
 	/** Passed to the dialog when this trigger opens it. */
 	payload?: Payload;
-	id?: string;
+	id?: string | null;
 	render?: Snippet<
 		[props: DialogTriggerHostProps, state: DialogTriggerState, children: RenderChildren]
 	>;

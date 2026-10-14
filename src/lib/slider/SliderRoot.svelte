@@ -41,7 +41,7 @@
 	let {
 		id: idProp,
 		defaultValue,
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		format,
 		locale,
 		max = 100,
@@ -86,8 +86,8 @@
 		() => valueUnwrapped,
 		(next) => commitFieldValue(clampedFieldValue(next))
 	);
-	const disabled = $derived(Boolean(field.disabled) || disabledProp);
-	const name = $derived(field.name ?? nameProp);
+	const disabled = $derived(Boolean(field.disabled) || (disabledProp ?? false));
+	const name = $derived(field.name ?? nameProp ?? undefined);
 	const inputProps = $derived(bound.bound ? bound.inputProps() : name ? { name } : {});
 	const rootId = $derived(idProp || `base-ui-${uid}`);
 
@@ -112,7 +112,7 @@
 		getOrientation: () => orientation,
 		getDisabled: () => disabled,
 		getInputProps: () => inputProps,
-		getFormId: () => formId,
+		getFormId: () => formId ?? undefined,
 		getRootId: () => rootId,
 		getFormat: () => format,
 		getLocale: () => locale,
@@ -185,7 +185,7 @@
 	watchFieldControl(field, {
 		enabled: () => !disabled,
 		id: () => rootId,
-		name: () => nameProp,
+		name: () => nameProp ?? undefined,
 		element: () => model.fieldInput,
 		getValue: () => model.fieldValue
 	});

@@ -36,9 +36,9 @@
 		smallStep = 0.1,
 		step: stepProp = 1,
 		largeStep = 10,
-		required = false,
-		disabled: disabledProp = false,
-		readonly: readOnly = false,
+		required: requiredProp,
+		disabled: disabledProp,
+		readonly: readOnlyProp,
 		name: nameProp,
 		form: formId,
 		defaultValue = null,
@@ -54,6 +54,8 @@
 		children,
 		...elementProps
 	}: NumberFieldRootProps = $props();
+	const required = $derived(requiredProp ?? false);
+	const readOnly = $derived(readOnlyProp ?? false);
 
 	const field = useFieldContext();
 	// A source holds `undefined` for a cleared number input, and for one never set.
@@ -92,13 +94,16 @@
 			field.change(next);
 		}
 	);
-	const disabled = $derived(Boolean(field.disabled) || disabledProp);
-	const name = $derived(field.name ?? nameProp);
+	const disabled = $derived(Boolean(field.disabled) || (disabledProp ?? false));
+	const name = $derived(field.name ?? nameProp ?? undefined);
 	const boundProps = $derived(bound.inputProps());
 	const inputName = $derived(bound.bound ? boundProps.name : name);
 	const step = $derived(stepProp === 'any' ? 1 : stepProp);
 	const generatedId = $derived(`base-ui-${uid}`);
-	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => generatedId });
+	const controlId = new LabelableId(labelable, {
+		id: () => idProp ?? undefined,
+		fallback: () => generatedId
+	});
 
 	function writeValue(next: number | null, details?: NumberFieldChangeEventDetails) {
 		const previous = current;
@@ -136,7 +141,7 @@
 		getField: () => field,
 		getId: () => controlId.current,
 		getName: () => name,
-		getNameProp: () => nameProp
+		getNameProp: () => nameProp ?? undefined
 	});
 	setNumberFieldContext(model);
 

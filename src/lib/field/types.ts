@@ -55,12 +55,12 @@ interface FieldRootBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'child
 	 * Takes precedence over `disabled` on `<Field.Control>`.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Identifies the field when a form is submitted. Takes precedence over the control's `name`.
 	 * Inside a Form with a `form` source, the name resolves to that source's field, unchecked.
 	 */
-	name?: string;
+	name?: string | null;
 	/**
 	 * Custom validation. Return a message or messages when the value is invalid.
 	 * An empty result is valid. Asynchronous functions do not block form submission.
@@ -170,7 +170,7 @@ export interface FieldItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 * `<Field.Root disabled>` takes precedence.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FieldItemState, children: RenderChildren]

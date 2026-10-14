@@ -16,7 +16,7 @@
 	const group = useToolbarGroupContext();
 
 	let {
-		disabled = false,
+		disabled,
 		focusableWhenDisabled = true,
 		nativeButton = true,
 		onfocus,
@@ -25,7 +25,9 @@
 		...elementProps
 	}: ToolbarButtonProps = $props();
 
-	const disabledState = $derived(toolbar.disabled || (group?.disabled ?? false) || disabled);
+	const disabledState = $derived(
+		toolbar.disabled || (group?.disabled ?? false) || (disabled ?? false)
+	);
 	const buttonState: ToolbarButtonState = $derived({
 		disabled: disabledState,
 		orientation: toolbar.orientation,

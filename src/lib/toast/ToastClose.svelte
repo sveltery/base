@@ -14,7 +14,7 @@
 	import type { ToastCloseProps, ToastCloseState } from './types.js';
 
 	let {
-		disabled = false,
+		disabled,
 		nativeButton = true,
 		render,
 		children,
@@ -23,7 +23,7 @@
 
 	const store = useToastStore();
 	const rootContext = useToastRoot();
-	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
+	const button = new ButtonBehavior(() => ({ disabled: disabled ?? false, native: nativeButton }));
 
 	let hasFocus = $state(false);
 

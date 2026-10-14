@@ -13,15 +13,10 @@
 	} from './context.svelte.js';
 	import type { ToolbarGroupProps, ToolbarGroupState } from './types.js';
 
-	let {
-		disabled: disabledProp = false,
-		render,
-		children,
-		...elementProps
-	}: ToolbarGroupProps = $props();
+	let { disabled: disabledProp, render, children, ...elementProps }: ToolbarGroupProps = $props();
 
 	const toolbar = useToolbarRootContext();
-	const group = new ToolbarGroupContext(() => toolbar.disabled || disabledProp);
+	const group = new ToolbarGroupContext(() => toolbar.disabled || (disabledProp ?? false));
 	setToolbarGroupContext(group);
 
 	const disabled = $derived(group.disabled);

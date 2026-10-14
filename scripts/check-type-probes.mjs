@@ -1,6 +1,7 @@
-// Proves the forms API turns mistakes into type errors. svelte-check ignores `@ts-expect-error`
-// in templates, so each probe in type-probes/form names the error it must produce in a leading
-// `<!-- expect-error: ... -->` comment. A probe without that comment must have no errors.
+// Proves the public types accept what they should and turn mistakes into type errors.
+// svelte-check ignores `@ts-expect-error` in templates, so each probe under type-probes/ names the
+// error it must produce in a leading `<!-- expect-error: ... -->` comment. A probe without that
+// comment must have no errors.
 // The probes sit outside `src`, so `pnpm check` on the main tsconfig never sees them.
 import { spawnSync } from 'node:child_process';
 import { readdirSync, readFileSync } from 'node:fs';
@@ -8,7 +9,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
-const probeDir = path.join(root, 'type-probes', 'form');
+const probeDir = path.join(root, 'type-probes');
 const EXPECT = /^<!-- expect-error: (.+?) -->/;
 
 const require = createRequire(import.meta.url);
@@ -20,9 +21,11 @@ const svelteCheck = path.join(
 
 /** @type {Map<string, string | null>} probe path relative to the root -> expected message */
 const probes = new Map();
-for (const name of readdirSync(probeDir).filter((file) => file.endsWith('.svelte'))) {
+for (const name of readdirSync(probeDir, { recursive: true, encoding: 'utf8' })) {
+	if (!name.endsWith('.svelte')) continue;
 	const source = readFileSync(path.join(probeDir, name), 'utf8');
-	probes.set(path.posix.join('type-probes', 'form', name), EXPECT.exec(source)?.[1] ?? null);
+	const file = path.posix.join('type-probes', ...name.split(path.sep));
+	probes.set(file, EXPECT.exec(source)?.[1] ?? null);
 }
 
 const run = spawnSync(
@@ -31,6 +34,11 @@ const run = spawnSync(
 	{ cwd: root, encoding: 'utf8' }
 );
 if (run.error) throw run.error;
+// svelte-check exits 1 both for reported errors and for a bad setup, so look for its summary line.
+if (!/^\d+ COMPLETED /m.test(run.stdout)) {
+	console.error(run.stderr);
+	throw new Error(`svelte-check did not finish (status ${run.status}, signal ${run.signal})`);
+}
 
 /** @type {Map<string, string[]>} */
 const errors = new Map();
@@ -49,7 +57,7 @@ for (const [file, expected] of probes) {
 	const messages = errors.get(file) ?? [];
 	if (expected === null) {
 		if (messages.length > 0) failures.push(`${file} must pass, got: ${messages.join(' | ')}`);
-		console.log(`ok   ${file} passes`);
+		else console.log(`ok   ${file} passes`);
 	} else if (messages.length !== 1 || !messages[0].includes(expected)) {
 		failures.push(
 			`${file} must fail once with "${expected}", got: ${messages.join(' | ') || 'no error'}`
@@ -64,4 +72,4 @@ if (failures.length > 0) {
 	for (const failure of failures) console.error(`FAIL ${failure}`);
 	process.exit(1);
 }
-console.log(`${probes.size} form type probes behave as expected`);
+console.log(`${probes.size} type probes behave as expected`);

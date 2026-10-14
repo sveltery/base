@@ -33,24 +33,24 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	 */
 	defaultValue?: Value;
 	/** Whether the group should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the user should be unable to select a different radio button in the group.
 	 * @default false
 	 */
-	readonly?: boolean;
+	readonly?: boolean | null;
 	/**
 	 * Whether the user must choose a value before submitting a form.
 	 * @default false
 	 */
-	required?: boolean;
+	required?: boolean | null;
 	/** Identifies the field when a form is submitted. */
-	name?: string;
+	name?: string | null;
 	/**
 	 * Identifies the form that owns the radio inputs.
 	 * Useful when the radio group is rendered outside the form.
 	 */
-	form?: string;
+	form?: string | null;
 	/** Called before the value changes. Call `eventDetails.cancel()` to veto it. */
 	onValueChange?: (value: Value, eventDetails: RadioGroupChangeEventDetails) => void;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */

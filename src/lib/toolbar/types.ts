@@ -13,7 +13,7 @@ export interface ToolbarRootState {
 
 export interface ToolbarRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** Whether the toolbar's buttons ignore user interaction. Links stay active. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** The orientation of the toolbar. @default 'horizontal' */
 	orientation?: ToolbarOrientation;
 	/**
@@ -44,7 +44,7 @@ export type ToolbarButtonHostProps = HTMLAttributes<HTMLElement>;
 
 export interface ToolbarButtonProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
 	/** Whether the button should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether a disabled button stays in the toolbar's arrow order.
 	 * @default true
@@ -69,7 +69,7 @@ export type ToolbarGroupState = ToolbarRootState;
 
 export interface ToolbarGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** Whether every button in the group ignores user interaction. Links stay active. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: ToolbarGroupState, children: RenderChildren]

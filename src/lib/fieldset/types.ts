@@ -9,7 +9,7 @@ export interface FieldsetRootState {
 
 export interface FieldsetRootProps extends Omit<HTMLFieldsetAttributes, 'children'> {
 	/** Whether the fieldset should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Replace the default `<fieldset>`. Spread `props` onto the host element. */
 	render?: Snippet<
 		[props: HTMLFieldsetAttributes, state: FieldsetRootState, children: RenderChildren]

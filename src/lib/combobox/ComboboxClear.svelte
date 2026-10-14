@@ -21,7 +21,7 @@
 	import type { ComboboxClearProps, ComboboxClearState } from './types.js';
 
 	let {
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		nativeButton = true,
 		keepMounted = false,
 		render,
@@ -38,7 +38,7 @@
 		if (store.selectionMode === 'single') return store.selectedValue != null;
 		return store.hasSelectionChips;
 	});
-	const disabled = $derived(field.disabled || store.root.disabled || disabledProp);
+	const disabled = $derived(field.disabled || store.root.disabled || (disabledProp ?? false));
 	const button = new ButtonBehavior(() => ({ native: nativeButton, disabled }));
 	const transition = new TransitionStatus(() => visible);
 	transition.unmountAfterExit(() => store.clearElement);

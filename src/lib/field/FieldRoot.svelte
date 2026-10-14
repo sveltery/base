@@ -23,7 +23,7 @@
 	const uid = $props.id();
 
 	let {
-		disabled = false,
+		disabled,
 		name,
 		field: fieldProp,
 		type,
@@ -47,9 +47,9 @@
 	const field = new FieldRootModel({
 		form,
 		labelable,
-		getDisabledProp: () => disabled,
+		getDisabledProp: () => disabled ?? false,
 		getFieldsetDisabled: () => Boolean(fieldset?.disabled),
-		getName: () => name,
+		getName: () => name ?? undefined,
 		getInvalidProp: () => invalid,
 		getDirtyProp: () => dirty,
 		getTouchedProp: () => touched,

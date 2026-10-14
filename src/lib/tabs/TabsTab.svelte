@@ -17,7 +17,7 @@
 
 	let {
 		value,
-		disabled = false,
+		disabled: disabledProp,
 		nativeButton = true,
 		id,
 		onclick,
@@ -29,6 +29,7 @@
 		type: _type,
 		...elementProps
 	}: TabsTabProps = $props();
+	const disabled = $derived(disabledProp ?? false);
 
 	const tabs = useTabsRootContext();
 	const list = useTabsListContext();

@@ -19,19 +19,14 @@
 
 	const uid = $props.id();
 
-	let {
-		disabled: disabledProp = false,
-		render,
-		children,
-		...elementProps
-	}: FieldItemProps = $props();
+	let { disabled: disabledProp, render, children, ...elementProps }: FieldItemProps = $props();
 
 	const field = needFieldContext();
 	const parentLabelable = findLabelableContext();
 	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
 	setLabelableContext(labelable);
 
-	const disabled = $derived(field.disabled || disabledProp);
+	const disabled = $derived(field.disabled || (disabledProp ?? false));
 	setFieldItemContext({
 		get disabled() {
 			return disabled;
