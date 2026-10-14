@@ -364,14 +364,6 @@
 		return trigger instanceof Element && Boolean(trigger.closest('[role="toolbar"]'));
 	}
 
-	/**
-	 * The popup is the focus target. The shared manager counts its own focus guards as
-	 * tabbables, so its default would focus a guard and close on focus-out.
-	 */
-	function focusIn() {
-		return store.popupElement ?? true;
-	}
-
 	// Close interaction comes from the shared manager. `null` falls back to the trigger there.
 	function focusReturn(closeType: string | null): boolean | HTMLElement | null | void {
 		const spec = finalFocus;
@@ -449,7 +441,6 @@
 	{store}
 	modal={false}
 	disabled={!store.mounted}
-	initialFocus={focusIn}
 	returnFocus={typeof finalFocus === 'function' ? focusReturn : (finalFocus ?? true)}
 	restoreFocus
 >
