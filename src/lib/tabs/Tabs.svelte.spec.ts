@@ -306,6 +306,23 @@ describe('Tabs', () => {
 			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'true');
 		});
 
+		it('activates on Space keydown before keyup', async () => {
+			const values: unknown[] = [];
+			render(TabsHarness, {
+				passValue: true,
+				value: 'a',
+				tabs: [
+					{ value: 'a', label: 'A' },
+					{ value: 'b', label: 'B' }
+				],
+				onValueChange: (next) => values.push(next)
+			});
+			tab('B')
+				.element()
+				.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true }));
+			expect(values).toEqual(['b']);
+		});
+
 		it('wraps and jumps with Home and End', async () => {
 			render(TabsHarness, { passValue: true, value: 0, tabs: three });
 			await tab('One').click();
