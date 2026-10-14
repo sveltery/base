@@ -46,6 +46,35 @@ async function settle() {
 }
 
 describe('Menu.Trigger', () => {
+	it('treats null id and disabled as absent', async () => {
+		render(MenuHarness, {
+			open: true,
+			trigger: { id: null, disabled: null },
+			items: [
+				{
+					type: 'radio-group',
+					props: { disabled: null },
+					items: [{ label: 'Small', value: 'small', props: { id: null, disabled: null } }]
+				}
+			]
+		});
+		const trigger = page.getByRole('button', { name: 'Open' }).element();
+		const radio = page.getByRole('menuitemradio', { name: 'Small' }).element();
+		expect({
+			triggerId: trigger.id.startsWith('base-ui-'),
+			triggerDisabled: trigger.hasAttribute('disabled') || trigger.hasAttribute('data-disabled'),
+			radioId: radio.id.startsWith('base-ui-'),
+			radioDisabled: radio.hasAttribute('aria-disabled'),
+			groupDisabled: page.getByRole('group').element().hasAttribute('aria-disabled')
+		}).toEqual({
+			triggerId: true,
+			triggerDisabled: false,
+			radioId: true,
+			radioDisabled: false,
+			groupDisabled: false
+		});
+	});
+
 	it('throws without Menu.Root or a handle', () => {
 		expect(() => render(MenuOrphan, { part: 'trigger' })).toThrow(
 			'Base UI: <Menu.Trigger> must be either used within a <Menu.Root> component or provided with a handle.'

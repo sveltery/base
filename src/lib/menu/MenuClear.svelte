@@ -22,7 +22,7 @@
 	}: MenuClearProps = $props();
 
 	const { root, filter } = useMenuFilterPart('Clear');
-	const disabled = $derived(root.store.disabled || disabledProp);
+	const disabled = $derived(root.store.disabled || (disabledProp ?? false));
 	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
 
 	// `visible` is not part of the state: the button renders nothing while it is false.
