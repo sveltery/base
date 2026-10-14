@@ -189,6 +189,25 @@ describe('Menubar', () => {
 		]);
 	});
 
+	it('keeps a horizontal menu open when ArrowLeft closes its submenu', async () => {
+		render(MenubarHarness, { menuOrientation: 'horizontal' });
+		get('file-trigger').focus();
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(focused).toBe(get('file-item-1'));
+		await userEvent.keyboard('{ArrowRight}');
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.poll(focused).toBe(get('share-trigger'));
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(focused).toBe(get('share-item-1'));
+
+		await userEvent.keyboard('{ArrowLeft}');
+		await expect.poll(shown('share-menu')).toBe(false);
+		await expect.poll(focused).toBe(get('file-item-2'));
+		expect(shown('file-menu')()).toBe(true);
+		expect(shown('edit-menu')()).toBe(false);
+		expect(shown('view-menu')()).toBe(false);
+	});
+
 	describe('horizontal RTL', () => {
 		function expanded() {
 			return [get('first-trigger'), get('second-trigger')].map((trigger) =>

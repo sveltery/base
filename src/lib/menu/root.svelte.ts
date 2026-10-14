@@ -14,6 +14,7 @@ import {
 	ListNavigation,
 	Typeahead,
 	isMainOrientationKey,
+	stopEvent,
 	setFloatingTree,
 	useFloatingNodeId,
 	useFloatingParentNodeId
@@ -233,6 +234,8 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 	function moveParentFrom(trigger: Element, event: KeyboardEvent) {
 		if (virtualFocus || parent.type !== 'menu' || !parentRoot) return;
 		if (!isHTMLElement(trigger) || !isMainOrientationKey(event.key, parentRoot.orientation)) return;
+		// The parent handled the key, so a menubar must not move as well.
+		stopEvent(event);
 		const item = moveHighlightFrom(parentRoot.store, trigger, event, {
 			orientation: parentRoot.orientation,
 			rtl: direction.direction === 'rtl',

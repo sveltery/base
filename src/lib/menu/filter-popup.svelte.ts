@@ -29,7 +29,13 @@ export class MenuFilterPopupBehavior {
 		$effect(() => {
 			const popup = store.popupElement;
 			if (!store.open || !popup) return;
-			return on(ownerDocument(popup), 'focusin', (event) => this.#trackNestedFocus(event, popup));
+			const off = on(ownerDocument(popup), 'focusin', (event) =>
+				this.#trackNestedFocus(event, popup)
+			);
+			return () => {
+				off();
+				this.#nestedFocus = null;
+			};
 		});
 		if (DEV) {
 			$effect(() => {
