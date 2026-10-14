@@ -206,10 +206,7 @@ export class NavigationMenuTriggerController {
 		// trigger, and a hover back cannot leave the popup stuck open.
 		if (event.type !== 'click' && value != null) this.store.data.openEvent = undefined;
 
-		if (this.#pointerType === 'touch' && event.type !== 'click') {
-			flushSync();
-			return;
-		}
+		if (this.#pointerType === 'touch' && event.type !== 'click') return;
 
 		// A keyboard open already set the value with the `listNavigation` reason.
 		if (value != null && event.type !== 'keydown') {
@@ -240,8 +237,6 @@ export class NavigationMenuTriggerController {
 			if (value != null && value !== itemValue) queueMicrotask(apply);
 			else apply();
 		}
-
-		flushSync();
 	}
 
 	/** `value` is the value before the event, which a keyboard open has already changed. */
@@ -262,6 +257,8 @@ export class NavigationMenuTriggerController {
 			(event.type === 'click' || this.#pointerType !== 'touch');
 
 		this.#handleActivation(event, value);
+		// The resize measures the content of the item just activated.
+		flushSync();
 		if (shouldSkipAutoSizeSync) this.root.sizing.skipNextAutoSizeSync();
 		this.root.sizing.resize(this.#itemValue, size);
 	}
