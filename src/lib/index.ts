@@ -39,3 +39,4 @@ export * from './menubar/index.js';
 export * from './context-menu/index.js';
 export * from './navigation-menu/index.js';
 export * from './toast/index.js';
+export * from './select/index.js';

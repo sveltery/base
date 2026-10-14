@@ -403,6 +403,14 @@ Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7
 - `src/lib/toast/utils.ts` from `packages/react/src/toast/utils/isRenderableNode.ts`, `packages/react/src/toast/utils/resolvePromiseOptions.ts`, `packages/utils/src/generateId.ts`, `getDisplacement` in `packages/react/src/utils/useSwipeDismiss.ts`, and the swipe-ignore selectors in `packages/react/src/internals/constants.ts`
 - `packages/utils/src/focus-visible.ts` from `matchesFocusVisible` in `packages/react/src/floating-ui-react/utils/element.ts`
 - `src/lib/internal/useAnchorPositioning.svelte.ts` the `'placement'` mode of `lazyFlip` from `packages/react/src/internals/useAnchorPositioning.ts`, with `src/lib/internal/lazy-flip.svelte.spec.ts` and the `src/tests/LazyFlipHarness.svelte` harness
+- `src/lib/select/*.svelte` from the matching parts in `packages/react/src/select/**` of Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`): Root, Label, Trigger, Value, Icon, Portal, Backdrop, Positioner, Popup, List, Item, ItemIndicator, ItemText, Arrow, ScrollUpArrow, ScrollDownArrow, Group, GroupLabel and Separator
+- `src/lib/select/store.svelte.ts` from `packages/react/src/select/store.ts` and the state, refs and callbacks of `packages/react/src/select/root/SelectRoot.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/context.svelte.ts` from `SelectRootContext.ts`, `SelectPositionerContext.ts`, `SelectItemContext.ts` and `SelectGroupContext.ts` in `packages/react/src/select/` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/popup-utils.ts` from `packages/react/src/select/popup/utils.ts`, the helpers of `SelectPopup.tsx` and `SelectScrollArrow.tsx`, and `packages/react/src/utils/getPseudoElementBounds.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/constants.ts` from `packages/react/src/internals/constants.ts` and `packages/react/src/select/trigger/SelectTrigger.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/internal/listbox/itemEquality.ts` and `resolveValueLabel.ts` from `packages/react/src/internals/itemEquality.ts` and `resolveValueLabel.tsx`, with their specs from the matching `*.test.ts` files (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/internal/listbox/ItemIndicator.svelte` from `packages/react/src/utils/ItemIndicator.tsx`, and `ListboxSeparator.svelte` from `packages/react/src/utils/listbox-separator/ListboxSeparator.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/*.svelte.spec.ts` assertions from `packages/react/src/select/**/*.test.tsx`, and the Select cases of `src/lib/field/bound-control.svelte.spec.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 
 MIT License
 
