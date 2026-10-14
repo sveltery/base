@@ -55,11 +55,12 @@
 		</li>
 		<li>
 			<a href="/fixtures/form">Form</a> (add <code>&amp;reference</code> for React Base UI).
-			SvelteKit and TanStack integration, Svelte only:
+			SvelteKit, TanStack, and superforms integration, Svelte only:
 			<a href="/fixtures/form/remote">remote form</a>,
 			<a href="/fixtures/form/action">form action</a>,
 			<a href="/fixtures/form/native">no SvelteKit</a>,
 			<a href="/fixtures/form/tanstack">TanStack Form</a>,
+			<a href="/fixtures/form/superforms">sveltekit-superforms</a>,
 			<a href="/fixtures/form/composite">composite controls</a>,
 			<a href="/fixtures/form/render">render snippet</a>,
 			<a href="/fixtures/form/kit-reset">Kit reset bug</a>
