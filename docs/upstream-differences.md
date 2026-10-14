@@ -546,7 +546,7 @@ Test: `src/lib/combobox/ComboboxRoot.form.svelte.spec.ts`, `src/lib/combobox/Com
 
 ### Not covered
 
-`describeConformance` (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions, ref callbacks during commit and hydration, all through Autocomplete), the Strict Mode, `React.memo` and render-count cases, the `virtualized` and item `index` cases, the Label `captureOwnerStack` cases, and the Autocomplete cases in the Combobox suites have no Svelte counterpart here. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Live-region reset delays run on real timers instead of fake ones.
+`describeConformance` (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions, ref callbacks during commit and hydration, all through Autocomplete), the Strict Mode, `React.memo` and render-count cases, the `virtualized` and item `index` cases, the Label `captureOwnerStack` cases have no Svelte counterpart here. The Autocomplete cases in the Combobox suites run in `src/lib/autocomplete/AutocompleteRoot.svelte.spec.ts`. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Live-region reset delays run on real timers instead of fake ones.
 
 ## Autocomplete
 
@@ -636,7 +636,7 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Menu               | Filter parts, Menubar and ContextMenu components, `actionsRef`, refs                                   |
 | Toast              | refs, `className` and `style` callbacks                                                                |
 | Select             | `inputRef`, `ReactNode` labels and placeholder                                                         |
-| Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder, Autocomplete parts        |
+| Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder                            |
 | Autocomplete       | `inputRef`, Item `index`, `ReactNode` value children, data-attribute namespaces                        |
 
 ## Shared floating internals
