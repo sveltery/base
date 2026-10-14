@@ -6,8 +6,9 @@ import { tick } from 'svelte';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenubarNestedHarness from '../../tests/menubar/MenubarNestedHarness.svelte';
+import MenubarDetachedInDialogHarness from '../../tests/menubar/MenubarDetachedInDialogHarness.svelte';
 import { contextMenu } from '../../tests/context-menu/events.js';
-import { clickElement } from '../../tests/menu/mouse.js';
+import { clickElement, moveMouse } from '../../tests/menu/mouse.js';
 
 function get(id: string) {
 	const element = document.querySelector<HTMLElement>(`[data-testid="${id}"]`);
@@ -61,5 +62,25 @@ describe('a menu inside a menubar menu', () => {
 				'inner:close:item-press'
 			]
 		});
+	});
+});
+
+describe('detached menus whose roots sit inside a dialog', () => {
+	it('stay siblings of the menubar', async () => {
+		const log: string[] = [];
+		render(MenubarDetachedInDialogHarness, { log });
+		await expect.poll(() => document.querySelector('[data-testid="file-trigger"]')).not.toBe(null);
+		clickElement(get('file-trigger'));
+		await expect.poll(() => isOpen('file')).toBe(true);
+		expect(get('menubar').hasAttribute('data-has-submenu-open')).toBe(true);
+		moveMouse(get('file-trigger'), get('edit-trigger'));
+		await expect.poll(() => isOpen('edit')).toBe(true);
+		await expect.poll(() => isOpen('file')).toBe(false);
+		expect(log).toEqual([
+			'file:open:trigger-press',
+			'edit:open:trigger-hover',
+			'edit:open:trigger-focus',
+			'file:close:sibling-open'
+		]);
 	});
 });

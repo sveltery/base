@@ -70,6 +70,8 @@ export interface MenuStoreOptions {
 	/** The enclosing menu's event channel, for a root menu rendered inside another menu's popup. */
 	menuEvents?: EventTarget;
 	parentNodeId: string | null;
+	/** Whether another menu's root encloses this one. */
+	enclosed: boolean;
 	readDisabled: () => boolean;
 	readModal: () => boolean | undefined;
 	readHighlightItemOnHover: () => boolean;
@@ -100,6 +102,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	private readonly ownTree: FloatingTreeStore | null;
 	private readonly ownMenuEvents: EventTarget;
 	private readonly ownParentNodeId: string | null;
+	private readonly enclosed: boolean;
 	/** Every item of this menu, in document order. */
 	readonly items = new ElementList<HTMLElement, MenuItemRecord>();
 	activeIndex = $state<number | null>(null);
@@ -193,6 +196,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		this.ownTree = options.tree;
 		this.ownMenuEvents = options.menuEvents ?? new EventTarget();
 		this.ownParentNodeId = options.parentNodeId;
+		this.enclosed = options.enclosed;
 		this.instantType = options.instantType;
 		this.virtualFocus = options.virtualFocus ?? false;
 		this.readDisabled = options.readDisabled;
@@ -301,10 +305,8 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	/** Upstream `floatingParentNodeId`, forwarded with the tree. */
 	get parentNodeId(): string | null {
 		const parent = this.parent;
-		// A detached menu that a menubar trigger owns has no parent node of its own, so it takes the
-		// menubar's, as upstream's trigger forwards its ids. A root inside the menubar or inside a menu
-		// popup keeps the node it sits under.
-		if (parent.type === 'menubar') return this.ownParentNodeId ?? parent.context.nodeId;
+		// As upstream, a menubar menu that no menu encloses takes the ids its menubar trigger forwards.
+		if (parent.type === 'menubar' && !this.enclosed) return parent.context.nodeId;
 		return this.ownParentNodeId;
 	}
 

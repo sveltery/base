@@ -112,6 +112,7 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		// popup joins that menu's group.
 		menuEvents: enclosing?.menuEvents,
 		parentNodeId,
+		enclosed: enclosing != null,
 		readDisabled: options.readDisabled,
 		readModal: options.readModal,
 		readHighlightItemOnHover: options.readHighlightItemOnHover,
