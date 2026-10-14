@@ -77,11 +77,28 @@ describe('ClickInteraction', () => {
 			expect(component.store.open).toBe(true);
 		});
 
-		it('toggles on a later screen reader mousedown after a press with no click', () => {
+		it('closes at once on a later screen reader mousedown after a press with no click', () => {
 			const { component } = render(ClickHarness, { event: 'mousedown' });
 			press(true);
 			expect(component.store.open).toBe(true);
 
+			flushSync(() => mouseDownAs(true));
+
+			expect(component.store.open).toBe(false);
+		});
+
+		it('toggles on a screen reader press that another handler already opened', () => {
+			const { component } = render(ClickHarness, { event: 'mousedown' });
+			const trigger = page.getByTestId('trigger').element();
+			const otherHandlerPress = new MouseEvent('mousedown');
+
+			flushSync(() => pointerDownAs(true));
+			flushSync(() =>
+				component.store.setOpen(
+					true,
+					createChangeEventDetails(REASONS.triggerPress, otherHandlerPress, trigger)
+				)
+			);
 			flushSync(() => mouseDownAs(true));
 
 			expect(component.store.open).toBe(false);
@@ -95,5 +112,14 @@ describe('ClickInteraction', () => {
 			expect(component.store.open).toBe(false);
 			await expect.poll(() => component.store.open).toBe(true);
 		});
+	});
+
+	it('reports the configured input-press reason in the open change', async () => {
+		const { component } = render(ClickHarness, { reason: REASONS.inputPress });
+
+		await page.getByTestId('trigger').click();
+
+		expect(component.store.open).toBe(true);
+		expect(component.store.lastReason).toBe('input-press');
 	});
 });

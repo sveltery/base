@@ -22,8 +22,10 @@ function inert() {}
  * Setters and registration do nothing, matching upstream's default field context.
  * A standalone `Input` still mounts. It does not validate, join form values,
  * or set `data-focused`, `data-dirty`, `data-filled`, or `data-touched`.
+ * A part that renders its own field-aware controls sets it as the context to detach them from
+ * the surrounding `<Field.Root>`.
  */
-const INERT_FIELD: FieldContext = {
+export const DEFAULT_FIELD_ROOT_CONTEXT: FieldContext = {
 	validityData: INERT_VALIDITY,
 	disabled: false,
 	name: undefined,
@@ -55,6 +57,6 @@ const INERT_FIELD: FieldContext = {
 
 export const [useFieldContext, setFieldContext, needFieldContext] =
 	defineOptionalContext<FieldContext>(
-		INERT_FIELD,
+		DEFAULT_FIELD_ROOT_CONTEXT,
 		'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
 	);

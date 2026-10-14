@@ -27,8 +27,10 @@
 	// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx
 	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The initial focus fallback, the microtask
 	// return focus, `preventReturnFocusRef`, the previously focused element stack, the
-	// `getReturnElement` order and the focus-out exemption for that element follow v1.9.0
-	// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+	// `getReturnElement` order, the focus-out exemption for that element, `getInsideElements`,
+	// the untrapped typeable combobox and the tabbables taken from the floating focus element
+	// follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+	// MIT, see THIRD_PARTY_NOTICES.md.
 	// The trap is focus guards plus aria-hidden on outside nodes. It does not set the inert attribute.
 
 	import { untrack } from 'svelte';
@@ -53,7 +55,7 @@
 	import { isElementVisible } from '../utils/composite.js';
 	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
-	import { getFloatingFocusElement } from '../utils/focusTarget.js';
+	import { getFloatingFocusElement, isTypeableCombobox } from '../utils/focusTarget.js';
 	import { markOthers } from '../utils/markOthers.js';
 	import {
 		getNextTabbableInDocument,
@@ -75,7 +77,8 @@
 		modal = true,
 		closeOnFocusOut = true,
 		restoreFocus = false,
-		previousFocusableElement = null
+		previousFocusableElement = null,
+		getInsideElements
 	}: {
 		store: FloatingRootStore;
 		children?: Snippet;
@@ -105,7 +108,24 @@
 		 * Popover passes the trigger. Dialog leaves this unset and uses the portal's outside guard.
 		 */
 		previousFocusableElement?: HTMLElement | null;
+		/** Elements outside the popup that count as inside for focus out, return focus, `aria-hidden`. */
+		getInsideElements?: () => Array<Element | null | undefined>;
 	} = $props();
+
+	function insideElements() {
+		return getInsideElements?.().filter((element): element is Element => element != null) ?? [];
+	}
+
+	function inInsideElement(target: Node | null) {
+		return insideElements().some((element) => contains(element, target));
+	}
+
+	// Upstream `isUntrappedTypeableCombobox`: focus stays on a typeable combobox reference. A modal
+	// popup then renders no guards and closes on focus out, and the reference stays exposed.
+	const untrappedCombobox = $derived(
+		initialFocus === false && isTypeableCombobox(store.domReferenceElement)
+	);
+	const trapped = $derived(modal && !untrappedCombobox);
 
 	const tree = useFloatingTree();
 	const portaled = hasFloatingPortal();
@@ -156,8 +176,9 @@
 		return lastFocused instanceof HTMLElement ? lastFocused : null;
 	}
 
+	/** Tabbables of the popup, not of a positioner that also holds this manager's guards. */
 	function tabbables(floating: HTMLElement) {
-		return getTabbableCandidates(floating);
+		return getTabbableCandidates(getFloatingFocusElement(floating) ?? floating);
 	}
 
 	function focusEdge(floating: HTMLElement, edge: 'first' | 'last') {
@@ -335,7 +356,11 @@
 			// The portal host is not "inside" for return focus. A child that stayed
 			// open is mounted beside the popup, and pulling focus back would
 			// take it off that child. Upstream checks the floating element only.
-			const inside = contains(floating, active) || active === doc.body || active == null;
+			const inside =
+				contains(floating, active) ||
+				inInsideElement(active) ||
+				active === doc.body ||
+				active == null;
 			if (!inside) return null;
 		}
 		target.focus({ preventScroll: true });
@@ -392,6 +417,7 @@
 		const popup = store.floatingElement;
 		if (contains(popup, related) || contains(store.portalElement, related)) return true;
 		if (contains(store.domReferenceElement, related)) return true;
+		if (inInsideElement(related)) return true;
 		if (related instanceof Element && popup && contains(related, popup)) return true;
 		if (triggersContain(related)) return true;
 		if (!tree || !store.nodeId) return false;
@@ -468,7 +494,12 @@
 		const floating = store.floatingElement;
 		if (!floating) return;
 		const inside = markedInside(floating);
-		const hideOutside = modal ? markOthers(inside, { ariaHidden: true, mark: false }) : () => {};
+		const exposed = [...inside, ...insideElements()];
+		if (untrappedCombobox && store.domReferenceElement) exposed.push(store.domReferenceElement);
+		const hideOutside =
+			modal || untrappedCombobox
+				? markOthers(exposed, { ariaHidden: true, mark: false })
+				: () => {};
 		const mark = markOthers(inside);
 		return () => {
 			hideOutside();
@@ -535,7 +566,7 @@
 		// Tab wraps through the focus guards. This only blocks Tab when nothing inside is tabbable.
 		const stopKeys = on(doc, 'keydown', (event) => {
 			lastInteraction = 'keyboard';
-			if (!modal || event.key !== 'Tab') return;
+			if (!trapped || event.key !== 'Tab') return;
 			const items = tabbables(floating);
 			const active = activeElement(doc);
 			if (!contains(floating, active)) return;
@@ -588,12 +619,13 @@
 					insideTree = false;
 					return;
 				}
-				// Modal focus is trapped. Only a non-modal popup closes when focus leaves it.
-				if (modal) return;
+				// A trapped popup keeps focus. A non-modal or untrapped combobox popup closes when focus leaves it.
+				if (trapped) return;
 				if (!(relatedTarget instanceof Element)) return;
 				if (focusStaysInTree(relatedTarget)) return;
-				// Moving back to where focus was before the popup opened keeps it open.
-				if (relatedTarget === getPreviouslyFocusedElement()) return;
+				// Moving back to where focus was before the popup opened keeps it open. Tabbing out
+				// of a combobox input closes even when that is the next control.
+				if (!untrappedCombobox && relatedTarget === getPreviouslyFocusedElement()) return;
 				// A Menu pointer highlight moves focus from a submenu trigger to a sibling item on
 				// pointer enter, before the same move's mousemove closes the submenu with
 				// `sibling-open`. Upstream renders that highlight after the input events. Waiting
@@ -672,7 +704,7 @@
 	});
 </script>
 
-{#if modal && store.isOpen()}
+{#if trapped && store.isOpen()}
 	<FocusGuard
 		data-type="inside"
 		onfocus={() => {
@@ -688,7 +720,7 @@
 {#if portaled && !modal && !disabled && store.isOpen()}
 	<FocusGuard data-type="inside" onfocus={leaveThroughAfterGuard} attach={attachAfterInside} />
 {/if}
-{#if modal && store.isOpen()}
+{#if trapped && store.isOpen()}
 	<FocusGuard
 		data-type="inside"
 		onfocus={() => {
