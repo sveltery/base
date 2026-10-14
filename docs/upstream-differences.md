@@ -177,7 +177,7 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`nested dialog count (Base UI v1.9
 | React `useButton`                                                    | existing `Button`                                                                                   |
 | `useDismiss` outside press, including separate mouse and touch modes | the same modes on `DismissInteraction`. A press is inside the floating element, not the portal host |
 
-Not ported: ref objects. Mouse and touch use separate outside-press modes on `DismissInteraction`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s, touchend does not close, and a mousedown while the finger is still down does not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
+Not ported: ref objects. Mouse and touch use separate outside-press modes on `DismissInteraction`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s, touchend does not close, and a mousedown while the finger is still down does not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`. [Shared floating internals](#shared-floating-internals) covers a press inside a tree child's portal.
 
 ## Alert Dialog
 
@@ -418,7 +418,7 @@ Local: they are the classes in `filter-root.svelte.ts` and `filter-submenu-root.
 
 Upstream: a hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
 
-Local: the shared `FloatingFocusManager` skips return focus only for `focus-out`. `MenuPopup` passes a `returnFocus` that skips it after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
+Local: the shared `FloatingFocusManager` skips return focus only for a `focus-out` close that moves focus on itself, as upstream's `preventReturnFocusRef` does. `MenuPopup` passes a `returnFocus` that skips it after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
 
 Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`does not return focus to the element focused before a hover open when the pointer leaves`).
 
@@ -436,14 +436,12 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Behavior that waits on shared internals
 
-- The shared `FloatingFocusManager` closes a submenu with `focus-out` when the pointer highlight moves focus from its trigger to a sibling item before the press. Its `markInsideReactTree` port covers focus that leaves the popup, not focus that leaves the trigger. `it.todo` in `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` keeps `closes a sibling submenu without closing the root on click`.
-- The shared `ClickInteraction` opens a frame after a screen reader press. Upstream `useClick` opens at once, so `MenuSubmenuTrigger` handles that press itself. Test: `src/lib/menu/MenuSubmenuTrigger.screen-reader.svelte.spec.ts` (`opens on a screen reader press without waiting a frame`).
 - The `data-base-ui-click-trigger` marker is not rendered. Upstream sets it only on Dialog and Popover triggers.
 - The shared `FloatingPortal` reads its focus manager state after moving focus out of a nested portal, when a close has already cleared it, so Tab out of a submenu throws in its after guard. The two upstream cases that Tab forward out of a filterable submenu (`closes a filterable submenu and moves focus to the next element when tabbing forward` and `closes a pointer-opened filterable submenu and moves focus forward when tabbing`) are not ported until it reads the state before moving focus.
 
 ### Not covered
 
-React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The menubar and context-menu positioner cases have no public components here. Filter cases that need exit animations (`keeps submenu filtering updated during the exit transition`, `ignores %s in the input while the popup animates out`, the scoping cases that assert `data-ending-style`) are not ported, since the specs run without CSS transitions. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
+React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. Filter cases that need exit animations (`keeps submenu filtering updated during the exit transition`, `ignores %s in the input while the popup animates out`, the scoping cases that assert `data-ending-style`) are not ported, since the specs run without CSS transitions. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
 
 ### Filterable trigger keys skip the trigger's handlers
 
@@ -466,6 +464,63 @@ Test: `src/lib/menu/MenuFilterSubmenuRoot.pointerFocus.svelte.spec.ts` (`submenu
 Upstream: `useInitialLiveRegionTextMutation` is a hook that returns a ref, tested in `internals/useInitialLiveRegionTextMutation.test.tsx`.
 
 Local: `Menu.Empty` marks its text in an attachment. The cases run against `Menu.Empty` in `src/lib/menu/MenuEmpty.liveRegion.svelte.spec.ts`. `does nothing when its ref is not attached` is not ported: an attachment runs only on the element it is attached to, so there is no unattached state to test.
+
+## Menubar
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/menubar/**`. The paired React fixture runs `@base-ui/react` 1.9.0. `Menubar` provides the `MenubarParentContext` that `src/lib/menu/parent.svelte.ts` defines. Roving focus comes from the shared `CompositeRoot` in `src/lib/internal/composite-root.svelte.ts`.
+
+### Public surface
+
+Upstream: `Menubar` and the `MenubarDataAttributes` namespace.
+
+Local: `Menubar` takes the same props. The namespace is not exported. The attribute names are the same.
+
+### Detached menus take the menubar's tree for events only
+
+Upstream: a trigger lends its floating tree, node id and parent node id to the detached menu it opens. The menu's nodes then live in the menubar's tree.
+
+Local: a menubar trigger that owns a detached menu sets the menu's parent to the menubar, and `MenuStore.tree` and `MenuStore.parentNodeId` follow that parent. The menu emits and hears `menuopenchange`, `itemhover` and `close` on the menubar's tree, so separate detached menus close each other with `sibling-open` and the menubar keeps `data-has-submenu-open`. Svelte context does not change after init, so the menu's floating nodes stay in the tree its root was created in. The focus manager, dismiss and hover hooks read that tree.
+
+### Menu open events are emitted before the DOM update
+
+Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect, and the focus manager returns focus a microtask after a close.
+
+Local: the shared `FloatingFocusManager` returns focus inside the closing flush. `MenuPositioner` emits from `$effect.pre`, so the menubar clears `data-has-submenu-open` before the returned focus reaches the trigger. Without it, an outside press that closed a menu let the returned focus reopen it.
+
+### Arrow keys focus synchronously
+
+Upstream: `useCompositeRoot` moves focus to the next trigger in a microtask, after the focus manager's return.
+
+Local: the shared `CompositeRoot` focuses the next trigger synchronously. The ported keyboard cases pass with it.
+
+### Behavior that waits on shared internals
+
+- The shared `CompositeRoot` does not select the text of a native input on focus and has no text-field arrow exceptions. A menubar holds only triggers, so no ported case reaches them.
+- `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` keeps a press that started inside a popup until its `pointerup`, for sloppy presses too. Upstream checks that flag only for intentional presses. A touch press inside a submenu followed by a touch press outside, with no `pointerup` between them, closes the submenu but not its parent menu. Real taps always send `pointerup`. The ported touch case taps the submenu trigger with a full sequence.
+
+### Not covered
+
+React-only cases: `describeConformance` (refs, `className` and style functions). The `filterable menubar menus` case waits on the Menu filter parts.
+
+## ContextMenu
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/context-menu/**`. The paired React fixture runs `@base-ui/react` 1.9.0. `ContextMenu.Root` provides the `ContextMenuParentContext` that `src/lib/menu/parent.svelte.ts` defines, and renders a `Menu.Root` under it. Every part but `Root` and `Trigger` is the Menu part of the same name. `ContextMenu.Positioner` is `Menu.Positioner` typed as `ContextMenuPositionerProps`, which has no `positionMethod`.
+
+### Public surface
+
+Upstream: `ContextMenu.Root` accepts the deprecated `closeParentOnEsc`, and `ContextMenu.Positioner` the deprecated `positionMethod`. Neither has an effect. The entry also exports the `ContextMenu*DataAttributes` and `ContextMenuPositionerCssVariables` namespaces.
+
+Local: the deprecated props are not in the types. The namespaces are not exported. The attribute and variable names are those of Menu.
+
+### The right-click mouseup listener is on the window
+
+Upstream: the trigger adds a one-time `mouseup` listener to the document. React's root and portal listeners sit below the document, so an item's `onMouseUp` runs first and reads the gesture's mouse-up gate before the listener clears it.
+
+Local: Svelte delegates the item handlers to the document and can add that listener only when the first item mounts, after the trigger's listener. The trigger listens on the window, so the item still runs first.
+
+### Not covered
+
+React-only cases: `describeConformance` (refs, `className` and style functions). Upstream's positioner cases spy on `useAnchorPositioning` arguments. The local spec asserts the placement instead: the pointer anchor, explicit placement and offsets, fixed positioning, the alignment flip at the viewport edge, and a submenu against its trigger. The `uses the layout viewport for a root context menu` case is covered by a stand-in `window.visualViewport` half the page wide, since the test browser cannot pinch zoom. The `uses the visual viewport for a context menu submenu` case has no observable result in the test viewport. `-webkit-touch-callout: none` is set on the trigger, but Chromium drops it, so no spec reads it.
 
 ## Toast
 
@@ -540,7 +595,9 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                         |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
-| Menu               | Menubar and ContextMenu components, `actionsRef`, refs                                                 |
+| Menu               | `actionsRef`, refs                                                                                     |
+| Menubar            | the `MenubarDataAttributes` namespace, refs                                                            |
+| ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                               |
 | Toast              | refs, `className` and `style` callbacks                                                                |
 
 ## Shared floating internals
@@ -550,6 +607,14 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui
 Local: nested popups share one floating tree, and the DOM has no React tree. `DismissInteraction` counts a press inside a tree child's portal, which holds that child's internal backdrop, as inside the parent. `FloatingFocusManager` treats focus that leaves a portaled popup without an outside press as staying inside, as upstream's `markInsideReactTree` does.
 
 Test: `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.spec.ts`, `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` and `src/lib/internal/overlay-audit.svelte.spec.ts` (`closes only the inner modal popover on an outside touch tap`).
+
+`setFloatingTree({ fresh: true })` starts a new tree instead of joining the enclosing one, as upstream `<FloatingTree>` does. The nested root still records the enclosing node as its parent, as upstream's node context does.
+
+Test: `packages/floating-ui-svelte/src/components/FloatingTree.svelte.spec.ts` (`starts a fresh tree instead of joining the enclosing one`).
+
+`FloatingFocusManager` waits one task before a focus-out close when focus moves from a nested popup's trigger into an open ancestor popup without a keyboard press or an outside press. It then closes with `focus-out` if the popup is still open. A Menu pointer highlight moves focus from a submenu trigger to a sibling item on pointer enter, and the same move's mousemove closes the submenu with `sibling-open`. Upstream renders that highlight after the input events, so the `sibling-open` close lands first there.
+
+Test: `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` (`closes a sibling submenu without closing the root on click`) and `src/lib/popover/Popover.svelte.spec.ts` (`closes the inner popover when focus moves from its trigger to another control of the outer popup`).
 
 ### Queued list focus after close
 

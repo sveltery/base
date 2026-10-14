@@ -336,6 +336,12 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `packages/floating-ui-svelte/src/hooks/useHoverReferenceInteraction.svelte.ts` `isOverInactiveTrigger` and `externalTree` from `packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts`, and the open-method record on `pointerdown` in `packages/floating-ui-svelte/src/hooks/useClick.svelte.ts` from `packages/react/src/utils/useOpenInteractionType.ts` and `packages/utils/src/useEnhancedClickHandler.ts`
 - `packages/floating-ui-svelte/src/components/FloatingTree.svelte.ts` tree nodes without a floating context and the `externalTree` argument of `useFloatingNodeId` from `packages/react/src/floating-ui-react/components/FloatingTree.tsx`
 - `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` capture-phase outside press listeners that close from a one-time target listener, from `addTargetEventListenerOnce` and `closeOnPressOutsideCapture` in `packages/react/src/floating-ui-react/hooks/useDismiss.ts`
+- `packages/floating-ui-svelte/src/components/FloatingTree.svelte.ts` `setFloatingTree({ fresh: true })` from `FloatingTree` in `packages/react/src/floating-ui-react/components/FloatingTree.tsx`
+- `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` the non-primary outside press from `closeOnPressOutsideCapture` in `packages/react/src/floating-ui-react/hooks/useDismiss.ts`
+- `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte` the `getFloatingFocusElement` initial focus fallback, the microtask return focus and `preventReturnFocusRef` from `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`
+- `packages/floating-ui-svelte/src/hooks/useClick.svelte.ts` the immediate open on a virtual press from `packages/react/src/floating-ui-react/hooks/useClick.ts`
+- `src/lib/internal/button.svelte.ts` composite `aria-disabled` from `packages/react/src/utils/useFocusableWhenDisabled.ts`
+- `src/lib/internal/popups/store.svelte.ts` clearing `preventUnmountingOnClose` on open from `packages/react/src/internals/useUnmountAfterClose.ts`
 - `src/lib/popover/PopoverTriggers.svelte.spec.ts`, `PopoverFocusGuards.svelte.spec.ts` and `PopoverPositioner.svelte.spec.ts`, with the `src/tests/PopoverTriggersHarness.svelte`, `PopoverFocusGuardHarness.svelte` and `PopoverPositionerHarness.svelte` harnesses, assertions from `packages/react/src/popover/**/*.test.tsx`, `packages/react/src/utils/popups/useTriggerFocusGuards.test.tsx`, `packages/react/test/positionerConformanceTests.tsx` and `packages/react/test/viewportConformanceTests.tsx`
 - `packages/floating-ui-svelte/src/utils/tabbable.svelte.spec.ts` assertions from `packages/react/src/floating-ui-react/utils/tabbable.test.ts`, and `packages/floating-ui-svelte/src/utils/element.svelte.spec.ts` assertions from the shadow DOM cases of `packages/react/src/floating-ui-react/utils/element.ts`
 - `src/lib/dialog/DialogShadowRoot.svelte.spec.ts` with the `src/tests/DialogShadowRootHarness.svelte` harness, assertions from the closed shadow root cases of `packages/react/src/dialog/root/DialogRoot.test.tsx`, and `src/lib/popover/PopoverTransitionState.svelte.spec.ts` with the `src/tests/PopoverTransitionStateHarness.svelte` harness, assertions from `packages/react/src/popover/backdrop/PopoverBackdrop.test.tsx` and `packages/react/src/popover/popup/PopoverPopupTransitionState.test.tsx`
@@ -367,6 +373,14 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/menu/filter-part.ts` from `packages/react/src/menu/filter-root/MenuFilterContext.ts`
 - `src/lib/menu/filter.ts` from `packages/react/src/internals/filter.ts` and `stringifyAsLabel` of `packages/react/src/internals/resolveValueLabel.tsx`
 - `src/lib/menu/filter.spec.ts` assertions from `packages/react/src/internals/filter.test.ts`
+- Menubar derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/menubar/Menubar.svelte`, `context.svelte.ts`, `types.ts` and `index.ts` from `packages/react/src/menubar/Menubar.tsx`, `MenubarContext.ts`, `MenubarDataAttributes.ts` and `index.ts`, with the item hover highlight from `packages/react/src/internals/composite/item/useCompositeItem.ts`
+- `src/lib/menubar/Menubar.svelte.spec.ts` assertions from `packages/react/src/menubar/Menubar.test.tsx` that do not require the filter parts or `aria-owns`, and the `Menubar parent` cases of `packages/react/src/menu/positioner/MenuPositioner.test.tsx`
+- `src/tests/menubar/**` harnesses from the fixtures of those tests
+- ContextMenu derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
+- `src/lib/context-menu/ContextMenuRoot.svelte`, `ContextMenuTrigger.svelte`, `context.svelte.ts`, `types.ts` and `index.ts` from `packages/react/src/context-menu/root/ContextMenuRoot.tsx`, `root/ContextMenuRootContext.ts`, `trigger/ContextMenuTrigger.tsx`, `positioner/ContextMenuPositioner.tsx`, `index.ts` and `index.parts.ts`
+- `src/lib/context-menu/*.svelte.spec.ts` assertions from `packages/react/src/context-menu/**/*.test.tsx` and the context-menu cases of `packages/react/src/menu/positioner/MenuPositioner.test.tsx`
+- `src/tests/context-menu/**` harnesses from the fixtures of those tests
 
 Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 

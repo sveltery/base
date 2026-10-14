@@ -51,7 +51,6 @@
 	useMenuPortal();
 	const contextMenu = findContextMenuParent();
 	const attachKey = createAttachmentKey();
-	const events = store.tree?.events;
 
 	const layout = $derived.by(() => {
 		const parent = store.parent;
@@ -126,6 +125,7 @@
 
 	// A child menu that opens disables this menu's hover close. A sibling that opens closes this one.
 	$effect(() => {
+		const events = store.tree?.events;
 		if (!events) return;
 		return events.on('menuopenchange', (data) => {
 			const details = data as MenuOpenEventDetails;
@@ -139,6 +139,7 @@
 
 	// A submenu closes with its parent.
 	$effect(() => {
+		const events = store.tree?.events;
 		if (!events || store.parentNodeId == null) return;
 		return events.on('menuopenchange', (data) => {
 			const details = data as MenuOpenEventDetails;
@@ -154,6 +155,7 @@
 
 	// Hovering another item of the parent menu closes this submenu.
 	$effect(() => {
+		const events = store.tree?.events;
 		if (!events) return;
 		const open = store.open;
 		const trigger = store.domReferenceElement;
@@ -178,7 +180,11 @@
 		});
 	});
 
-	$effect(() => {
+	// Before the DOM update, so listeners such as a menubar see the change before a closing
+	// popup's focus manager returns focus. Upstream emits from a layout effect and returns focus
+	// a microtask later.
+	$effect.pre(() => {
+		const events = store.tree?.events;
 		const details: MenuOpenEventDetails = {
 			open: store.open,
 			nodeId: store.nodeId,

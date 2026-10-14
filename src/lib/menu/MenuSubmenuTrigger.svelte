@@ -162,30 +162,6 @@
 		stickIfOpen: openOnHover
 	}));
 
-	// Chrome performs a screen reader activation as a 1x1, zero-pressure mouse `pointerdown` with
-	// no pressed button. Upstream `useClick` opens on it at once. The shared click interaction
-	// waits a frame, so the trigger opens it itself. These handlers run after the click
-	// interaction's, which then decides from the state before this press, as upstream's handler
-	// does from its render.
-	let screenReaderPress = false;
-	const screenReaderProps = {
-		onpointerdown(event: PointerEvent) {
-			screenReaderPress =
-				event.pointerType === 'mouse' &&
-				event.width === 1 &&
-				event.height === 1 &&
-				event.pressure === 0 &&
-				event.detail === 0 &&
-				(platform.os.android || event.buttons === 0);
-		},
-		onmousedown(event: MouseEvent) {
-			const pressed = screenReaderPress;
-			screenReaderPress = false;
-			if (!pressed || !openOnHover || disabled || event.button !== 0 || !item.node) return;
-			store.setOpen(!store.open, createChangeEventDetails(REASONS.triggerPress, event, item.node));
-		}
-	};
-
 	function attachHover(node: HTMLElement) {
 		return untrack(() => hover.attachReference(node));
 	}
@@ -236,7 +212,6 @@
 	const hostProps = $derived(
 		item.props(
 			[
-				screenReaderProps,
 				click.reference,
 				hover.reference,
 				childTriggerProps,

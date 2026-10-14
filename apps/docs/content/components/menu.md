@@ -574,7 +574,7 @@ With several triggers, the positioner moves from one trigger to the next. Transi
 - `value` on `Menu.FilterProvider` is bindable. Use `bind:value` instead of `value` and `defaultValue` together.
 - Item text is trimmed before it is matched. A filtered-out item that has no `label` keeps the text it last rendered.
 - A consumer `onkeydown` on `Menu.Input` that calls `preventDefault()` skips the menu's own handling of that key, where React calls `preventBaseUIHandler()`.
-- Menubar and context menu parents are typed but have no public components yet. Refs are not supported.
+- Use [Context Menu](/components/context-menu) for a menu that opens on right click. Place menus in a [Menubar](/components/menubar) to build an application menu bar. Refs are not supported.
 
 ## API reference
 
