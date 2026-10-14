@@ -8,39 +8,307 @@ The form components build on the browser's [constraint validation API](https://h
 
 ```svelte demo
 <script lang="ts">
+	import { Autocomplete } from '@sveltery/base/autocomplete';
+	import { Checkbox } from '@sveltery/base/checkbox';
+	import { CheckboxGroup } from '@sveltery/base/checkbox-group';
+	import { Combobox } from '@sveltery/base/combobox';
 	import { Field } from '@sveltery/base/field';
+	import { Fieldset } from '@sveltery/base/fieldset';
 	import { Form } from '@sveltery/base/form';
+	import { NumberField } from '@sveltery/base/number-field';
+	import { Radio } from '@sveltery/base/radio';
+	import { RadioGroup } from '@sveltery/base/radio-group';
+	import { Select } from '@sveltery/base/select';
+	import { Slider } from '@sveltery/base/slider';
+	import { Switch } from '@sveltery/base/switch';
+	import { Toast } from '@sveltery/base/toast';
+	import ToastList from '#lib/components/ToastList.svelte';
 
-	let submitted = $state<Record<string, unknown> | null>(null);
+	interface Image {
+		name: string;
+		url: string;
+	}
+
+	const regions = ['us', 'eu', 'ap'].flatMap((area) =>
+		['central', 'east', 'west'].flatMap((zone) =>
+			['1', '2', '3'].map((n) => `${area}-${zone}-${n}`)
+		)
+	);
+	const images: Image[] = [
+		'nginx:1.29-alpine',
+		'node:22-slim',
+		'postgres:18',
+		'redis:8.2.2-alpine'
+	].map((name) => ({ name, url: `docker.io/library/${name}` }));
+	const serverTypes = [
+		{ label: 'Select server type', value: null },
+		...['t1', 't2', 'm1', 'm2'].flatMap((family) =>
+			['small', 'medium', 'large'].map((size) => ({
+				label: `${family}.${size}`,
+				value: `${family}.${size}`
+			}))
+		)
+	];
+
+	const toastManager = Toast.createToastManager();
+
+	const label = 'text-sm font-medium';
+	const input =
+		'h-9 w-full rounded-md border border-gray-200 bg-white px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900';
+	const description = 'text-sm text-gray-600 dark:text-gray-400';
+	const error = 'text-sm text-red-700 dark:text-red-400';
+	const popup =
+		'max-h-[min(var(--available-height),20rem)] origin-[var(--transform-origin)] overflow-y-auto rounded-md bg-gray-50 py-1 text-gray-900 shadow-lg outline outline-gray-200 dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700';
+	const item =
+		'grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none data-[highlighted]:bg-gray-900 data-[highlighted]:text-gray-50 dark:data-[highlighted]:bg-gray-100 dark:data-[highlighted]:text-gray-900';
+	const iconButton =
+		'flex size-8 items-center justify-center rounded text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800';
+	const stepper =
+		'flex size-9 items-center justify-center border border-gray-200 bg-gray-50 select-none hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700';
+	const choice =
+		'flex size-5 shrink-0 items-center justify-center border border-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:border-gray-900 data-[checked]:bg-gray-900 dark:border-gray-600 dark:data-[checked]:border-gray-100 dark:data-[checked]:bg-gray-100';
 </script>
 
-<Form
-	class="flex w-72 flex-col gap-4 text-gray-900 dark:text-gray-100"
-	onFormSubmit={(values) => (submitted = values)}
->
-	<Field.Root name="email" class="flex flex-col gap-1">
-		<Field.Label class="text-sm font-medium">Email</Field.Label>
-		<Field.Control
-			type="email"
-			required
-			placeholder="alice@example.com"
-			class="h-9 rounded-md border border-gray-200 px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900"
-		/>
-		<Field.Description class="text-sm text-gray-600 dark:text-gray-400">
-			We send the receipt to this address.
-		</Field.Description>
-		<Field.Error class="text-sm text-red-700 dark:text-red-400" />
-	</Field.Root>
-	<button
-		class="h-9 rounded-md bg-gray-900 px-3.5 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 dark:bg-gray-100 dark:text-gray-900"
+<Toast.Provider {toastManager}>
+	<Form
+		aria-label="Launch new cloud server"
+		class="flex w-80 flex-col gap-5 text-gray-900 dark:text-gray-100"
+		onFormSubmit={(values) => {
+			toastManager.add({ title: 'Form submitted', description: JSON.stringify(values) });
+		}}
 	>
-		Submit
-	</button>
-	{#if submitted}
-		<pre class="text-xs">{JSON.stringify(submitted)}</pre>
-	{/if}
-</Form>
+		<Field.Root name="serverName" class="flex flex-col gap-1">
+			<Field.Label class={label}>Server name</Field.Label>
+			<Field.Control
+				defaultValue=""
+				placeholder="e.g. api-server-01"
+				required
+				minlength={3}
+				pattern=".*[A-Za-z].*"
+				class={input}
+			/>
+			<Field.Description class={description}>Must be 3 or more characters long</Field.Description>
+			<Field.Error class={error} />
+		</Field.Root>
+
+		<Field.Root name="region" class="flex flex-col gap-1">
+			<Combobox.Root items={regions} required>
+				<Field.Label class={label}>Region</Field.Label>
+				<Combobox.InputGroup
+					class="relative flex h-9 items-center rounded-md border border-gray-200 bg-white pr-1 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-blue-800 dark:border-gray-700 dark:bg-gray-900"
+				>
+					<Combobox.Input
+						placeholder="e.g. eu-central-1"
+						class="h-full min-w-0 flex-1 bg-transparent pl-3 text-sm outline-none"
+					/>
+					<Combobox.Clear aria-label="Clear selection" class={iconButton}>×</Combobox.Clear>
+					<Combobox.Trigger aria-label="Open popup" class={iconButton}>▾</Combobox.Trigger>
+				</Combobox.InputGroup>
+				<Combobox.Portal>
+					<Combobox.Positioner class="z-10 outline-none" sideOffset={4}>
+						<Combobox.Popup class="{popup} w-[var(--anchor-width)]">
+							<Combobox.Empty
+								class="px-4 py-2 text-sm text-gray-600 empty:hidden dark:text-gray-400"
+							>
+								No matches
+							</Combobox.Empty>
+							<Combobox.List>
+								<Combobox.Collection>
+									{#snippet children(region: string)}
+										<Combobox.Item value={region} class={item}>
+											<Combobox.ItemIndicator class="col-start-1">✓</Combobox.ItemIndicator>
+											<span class="col-start-2">{region}</span>
+										</Combobox.Item>
+									{/snippet}
+								</Combobox.Collection>
+							</Combobox.List>
+						</Combobox.Popup>
+					</Combobox.Positioner>
+				</Combobox.Portal>
+			</Combobox.Root>
+			<Field.Error class={error} />
+		</Field.Root>
+
+		<Field.Root name="containerImage" class="flex flex-col gap-1">
+			<Autocomplete.Root
+				items={images}
+				mode="both"
+				itemToStringValue={(image: Image) => image.url}
+				required
+			>
+				<Field.Label class={label}>Container image</Field.Label>
+				<div class="relative">
+					<Autocomplete.Input placeholder="e.g. docker.io/library/node:latest" class={input} />
+				</div>
+				<Field.Description class={description}>
+					Enter a registry URL with optional tags
+				</Field.Description>
+				<Autocomplete.Portal>
+					<Autocomplete.Positioner class="z-10 outline-none" sideOffset={4}>
+						<Autocomplete.Popup class="{popup} w-[var(--anchor-width)]">
+							<Autocomplete.List>
+								<Autocomplete.Collection>
+									{#snippet children(image: Image)}
+										<Autocomplete.Item
+											value={image}
+											class="flex cursor-default flex-col gap-0.5 px-4 py-2 text-sm outline-none select-none data-[highlighted]:bg-gray-900 data-[highlighted]:text-gray-50 dark:data-[highlighted]:bg-gray-100 dark:data-[highlighted]:text-gray-900"
+										>
+											<span>{image.name}</span>
+											<span class="font-mono text-xs opacity-80">{image.url}</span>
+										</Autocomplete.Item>
+									{/snippet}
+								</Autocomplete.Collection>
+							</Autocomplete.List>
+						</Autocomplete.Popup>
+					</Autocomplete.Positioner>
+				</Autocomplete.Portal>
+			</Autocomplete.Root>
+			<Field.Error class={error} />
+		</Field.Root>
+
+		<Field.Root name="serverType" class="flex flex-col gap-1">
+			<Select.Root items={serverTypes} required>
+				<Select.Label class={label}>Server type</Select.Label>
+				<div class="relative w-48">
+					<Select.Trigger
+						class="flex h-9 w-full items-center justify-between gap-3 rounded-md border border-gray-200 bg-white pr-3 pl-3 text-sm select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+					>
+						<Select.Value />
+						<Select.Icon class="flex text-gray-600 dark:text-gray-400">▾</Select.Icon>
+					</Select.Trigger>
+				</div>
+				<Select.Portal>
+					<Select.Positioner class="z-10 outline-none select-none" sideOffset={8}>
+						<Select.Popup class={popup}>
+							{#each serverTypes as type (type.value)}
+								<Select.Item value={type.value} class="{item} min-w-[var(--anchor-width)]">
+									<Select.ItemIndicator class="col-start-1">✓</Select.ItemIndicator>
+									<Select.ItemText class="col-start-2">{type.label}</Select.ItemText>
+								</Select.Item>
+							{/each}
+						</Select.Popup>
+					</Select.Positioner>
+				</Select.Portal>
+			</Select.Root>
+			<Field.Error class={error} />
+		</Field.Root>
+
+		<Field.Root name="numOfInstances" class="flex flex-col gap-1">
+			<NumberField.Root min={1} max={64} required class="flex flex-col items-start gap-1">
+				<Field.Label class={label}>Number of instances</Field.Label>
+				<NumberField.Group class="flex">
+					<NumberField.Decrement class="{stepper} rounded-l-md" aria-label="Decrease"
+						>−</NumberField.Decrement
+					>
+					<NumberField.Input
+						class="h-9 w-20 border-y border-gray-200 bg-white text-center text-sm tabular-nums focus:z-1 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 dark:border-gray-700 dark:bg-gray-900"
+					/>
+					<NumberField.Increment class="{stepper} rounded-r-md" aria-label="Increase"
+						>+</NumberField.Increment
+					>
+				</NumberField.Group>
+			</NumberField.Root>
+			<Field.Error class={error} />
+		</Field.Root>
+
+		<Field.Root name="scalingThreshold">
+			<Fieldset.Root>
+				<Slider.Root
+					defaultValue={[0.2, 0.8]}
+					thumbAlignment="edge"
+					min={0}
+					max={1}
+					step={0.01}
+					format={{ style: 'percent', minimumFractionDigits: 0, maximumFractionDigits: 0 }}
+					class="grid grid-cols-2 gap-y-2"
+				>
+					<Fieldset.Legend class={label}>Scaling threshold</Fieldset.Legend>
+					<Slider.Value class="text-end text-sm" />
+					<Slider.Control class="col-span-2 flex touch-none items-center py-2 select-none">
+						<Slider.Track class="h-1 w-full rounded-sm bg-gray-200 dark:bg-gray-700">
+							<Slider.Indicator class="rounded-sm bg-gray-700 dark:bg-gray-300" />
+							{#each ['Minimum threshold', 'Maximum threshold'] as thumbLabel, index (thumbLabel)}
+								<Slider.Thumb
+									{index}
+									aria-label={thumbLabel}
+									class="size-4 rounded-full bg-white outline-1 outline-gray-300 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-blue-800 dark:bg-gray-900 dark:outline-gray-600"
+								/>
+							{/each}
+						</Slider.Track>
+					</Slider.Control>
+				</Slider.Root>
+			</Fieldset.Root>
+		</Field.Root>
+
+		<Field.Root name="storageType">
+			<Fieldset.Root>
+				<Fieldset.Legend class="mb-2 {label}">Storage type</Fieldset.Legend>
+				<RadioGroup defaultValue="ssd" class="flex gap-4">
+					{#each ['ssd', 'hdd'] as value (value)}
+						<Field.Item>
+							<Field.Label class="flex items-center gap-2 text-sm uppercase">
+								<Radio.Root {value} class="{choice} rounded-full">
+									<Radio.Indicator class="size-2 rounded-full bg-white dark:bg-gray-900" />
+								</Radio.Root>
+								{value}
+							</Field.Label>
+						</Field.Item>
+					{/each}
+				</RadioGroup>
+			</Fieldset.Root>
+		</Field.Root>
+
+		<Field.Root name="restartOnFailure">
+			<Field.Label class="flex items-center gap-3 text-sm">
+				Restart on failure
+				<Switch.Root
+					defaultChecked
+					class="relative flex h-6 w-10 shrink-0 rounded-full bg-gray-300 p-0.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 dark:bg-gray-600 dark:data-[checked]:bg-gray-100"
+				>
+					<Switch.Thumb
+						class="aspect-square h-full rounded-full bg-white shadow-sm transition-transform duration-150 data-[checked]:translate-x-4 dark:bg-gray-100 dark:data-[checked]:bg-gray-900"
+					/>
+				</Switch.Root>
+			</Field.Label>
+		</Field.Root>
+
+		<Field.Root name="allowedNetworkProtocols">
+			<Fieldset.Root>
+				<Fieldset.Legend class="mb-2 {label}">Allowed network protocols</Fieldset.Legend>
+				<CheckboxGroup defaultValue={[]} class="flex gap-4">
+					{#each ['http', 'https', 'ssh'] as value (value)}
+						<Field.Item>
+							<Field.Label class="flex items-center gap-2 text-sm uppercase">
+								<Checkbox.Root {value} class="{choice} rounded-sm">
+									<Checkbox.Indicator class="text-xs text-white dark:text-gray-900"
+										>✓</Checkbox.Indicator
+									>
+								</Checkbox.Root>
+								{value}
+							</Field.Label>
+						</Field.Item>
+					{/each}
+				</CheckboxGroup>
+			</Fieldset.Root>
+		</Field.Root>
+
+		<button
+			class="h-9 rounded-md bg-gray-900 px-3.5 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 dark:bg-gray-100 dark:text-gray-900"
+		>
+			Launch server
+		</button>
+	</Form>
+	<Toast.Portal>
+		<Toast.Viewport
+			class="fixed top-auto right-4 bottom-4 z-50 mx-auto w-[calc(100vw-2rem)] sm:right-8 sm:bottom-8 sm:w-[22.5rem]"
+		>
+			<ToastList />
+		</Toast.Viewport>
+	</Toast.Portal>
+</Toast.Provider>
 ```
+
+The demo shows the submitted values in a toast. It renders the toasts with the `ToastList` component from [Render the toasts](/components/toast#render-the-toasts).
 
 ## Naming form controls
 
@@ -53,6 +321,8 @@ Use `Field.Label` or a native `<label>` for these controls:
 - [Input](/components/input) and `Field.Control`
 - [Number Field](/components/number-field)
 - [OTP Field](/components/otp-field)
+- [Autocomplete](/components/autocomplete)
+- [Combobox](/components/combobox), when its input is outside the popup
 - [Checkbox](/components/checkbox)
 - [Radio Group](/components/radio-group)
 - [Switch](/components/switch)
@@ -68,9 +338,23 @@ A Checkbox, Radio, or Switch inside a `Field.Label` takes its name from the labe
 </Field.Root>
 ```
 
-### Other controls
+### Trigger-based controls
 
-A [Slider](/components/slider) takes its name from `Slider.Label`. For a slider with more than one thumb, also give each `Slider.Thumb` an `aria-label` to tell the thumbs apart.
+These controls have their own label part:
+
+- A [Combobox](/components/combobox) whose input is inside the popup takes its name from `Combobox.Label`.
+- A [Select](/components/select) takes its name from `Select.Label`.
+- A [Slider](/components/slider) takes its name from `Slider.Label`. For a slider with more than one thumb, also give each `Slider.Thumb` an `aria-label` to tell the thumbs apart.
+
+```svelte
+<Field.Root name="timezone">
+	<Select.Root>
+		<Select.Label>Time zone</Select.Label>
+		<Select.Trigger />
+	</Select.Root>
+	<Field.Description>Used for notifications and reminders.</Field.Description>
+</Field.Root>
+```
 
 ### Fallback
 
@@ -192,6 +476,19 @@ The controls support the native validation attributes, with their HTML names:
 Form turns off the browser's own validation bubbles once the page is hydrated, and shows the messages in `Field.Error` instead. Before hydration, or with JavaScript off, the browser validates as usual. A submit button with `formnovalidate` skips validation, as it does in HTML.
 
 Controls such as Checkbox, Switch, Radio Group, Slider, and Number Field submit through a hidden native input. Give the field a `name`, or a `field` from a form source, so that the input takes part in submission and validation.
+
+The browser's validation bubble points at that hidden input. It shows before hydration, or with JavaScript off. The hidden input is positioned absolutely, so wrap the control in a relatively positioned container. The bubble then points at the control:
+
+```svelte
+<Field.Root name="apple">
+	<Select.Root>
+		<Select.Label>Apple</Select.Label>
+		<div class="relative">
+			<Select.Trigger />
+		</div>
+	</Select.Root>
+</Field.Root>
+```
 
 ## Custom validation
 
@@ -709,3 +1006,30 @@ Bind the value to the library with `bind:value`, or with a getter and setter pai
 TanStack owns the value and the validation. The control reports each edit to the field, and Field reports blur. The field's `meta.errors` show in `Field.Error`, and its touched and dirty state sets `data-touched` and `data-dirty`. A native form reset resets the field to its TanStack default. `type` is checked against the field's value, as it is for a remote form, and the composite controls bind the same way.
 
 Form takes no `form` prop here. Each field binds on its own, and TanStack runs the submit through `form.handleSubmit()`.
+
+#### Field-level validation
+
+Pass `validators` to `form.Field` to check one field on top of the form-level validators. An `onChangeAsync` validator can ask a server, and `onChangeAsyncDebounceMs` waits between requests:
+
+```svelte
+<form.Field
+	name="username"
+	validators={{
+		onChangeAsyncDebounceMs: 300,
+		onChangeAsync: async ({ value }) => {
+			const available = await checkAvailability(value);
+			return available ? undefined : `${value} is not available.`;
+		}
+	}}
+>
+	{#snippet children(field)}
+		<Field.Root field={tanstackField(field)}>
+			<Field.Label>Username</Field.Label>
+			<Field.Control />
+			<Field.Error />
+		</Field.Root>
+	{/snippet}
+</form.Field>
+```
+
+The message shows in `Field.Error`, and the control gets `aria-invalid`. While the field has an error, `form.handleSubmit()` does not call `onSubmit`.
