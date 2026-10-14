@@ -1,6 +1,8 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/toolbar/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// describeConformance, Toolbar.Input, and rendering Menu, Dialog, Select, Popover,
+// The Dialog and Popover blocks of ToolbarButton.test.tsx follow Base UI v1.9.0
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// describeConformance, Toolbar.Input, and rendering Menu, AlertDialog, Select,
 // Switch, or ToggleGroup are not ported.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';
@@ -10,6 +12,7 @@ import ToolbarButton from './ToolbarButton.svelte';
 import ToolbarGroup from './ToolbarGroup.svelte';
 import ToolbarLink from './ToolbarLink.svelte';
 import ToolbarHarness from '../../tests/ToolbarHarness.svelte';
+import ToolbarOverlayHarness from '../../tests/ToolbarOverlayHarness.svelte';
 
 function button(name: string) {
 	return page.getByRole('button', { name, exact: true });
@@ -293,6 +296,116 @@ describe('<Toolbar.Button />', () => {
 		});
 	});
 
+	describe('rendering other Base UI components', () => {
+		const trigger = () => page.getByTestId('trigger');
+
+		describe('Dialog', () => {
+			it('renders a dialog trigger', async () => {
+				render(ToolbarOverlayHarness, { kind: 'dialog' });
+				expect(trigger().element()).toBe(page.getByRole('button').element());
+			});
+
+			it('handles interactions', async () => {
+				const onOpenChange = vi.fn();
+				render(ToolbarOverlayHarness, { kind: 'dialog', onOpenChange });
+				await expect.element(page.getByText('title text')).not.toBeInTheDocument();
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(trigger()).toHaveFocus();
+				expect(onOpenChange).toHaveBeenCalledTimes(0);
+
+				await userEvent.keyboard('{Enter}');
+				await expect.element(page.getByText('title text')).toBeInTheDocument();
+				expect(onOpenChange).toHaveBeenCalledTimes(1);
+				expect(onOpenChange).toHaveBeenNthCalledWith(1, true, expect.anything());
+
+				await userEvent.keyboard('{Escape}');
+				await expect.element(page.getByText('title text')).not.toBeInTheDocument();
+				expect(onOpenChange).toHaveBeenCalledTimes(2);
+				expect(onOpenChange).toHaveBeenNthCalledWith(2, false, expect.anything());
+				await expect.element(trigger()).toHaveFocus();
+			});
+
+			it('disabled state', async () => {
+				const onOpenChange = vi.fn();
+				render(ToolbarOverlayHarness, { kind: 'dialog', disabled: true, onOpenChange });
+				await expect.element(page.getByText('title text')).not.toBeInTheDocument();
+				await expect.element(trigger()).not.toHaveAttribute('disabled');
+				await expect.element(trigger()).toHaveAttribute('data-disabled');
+				await expect.element(trigger()).toHaveAttribute('aria-disabled', 'true');
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(trigger()).toHaveFocus();
+				expect(onOpenChange).toHaveBeenCalledTimes(0);
+
+				await userEvent.keyboard('{Enter}');
+				await userEvent.keyboard('{Space}');
+				await userEvent.keyboard('{ArrowUp}');
+				await userEvent.keyboard('{ArrowDown}');
+				expect(onOpenChange).toHaveBeenCalledTimes(0);
+			});
+
+			it('prevents composite keydowns from escaping', async () => {
+				render(ToolbarOverlayHarness, { kind: 'dialog', label: 'dialog', neighbor: true });
+				await expect.element(page.getByRole('dialog')).not.toBeInTheDocument();
+
+				await trigger().click();
+				await expect.element(page.getByRole('dialog')).toHaveFocus();
+
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.element(page.getByRole('dialog')).toHaveFocus();
+				await expect.element(button('empty')).not.toHaveFocus();
+			});
+		});
+
+		describe('Popover', () => {
+			it('renders a popover trigger', async () => {
+				render(ToolbarOverlayHarness, { kind: 'popover' });
+				expect(trigger().element()).toBe(page.getByRole('button').element());
+				await expect.element(trigger()).toHaveAttribute('aria-haspopup', 'dialog');
+			});
+
+			it('handles interactions', async () => {
+				const onOpenChange = vi.fn();
+				render(ToolbarOverlayHarness, { kind: 'popover', onOpenChange });
+				await expect.element(page.getByText('Content')).not.toBeInTheDocument();
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(trigger()).toHaveFocus();
+				expect(onOpenChange).toHaveBeenCalledTimes(0);
+
+				await userEvent.keyboard('{Enter}');
+				await expect.element(page.getByText('Content')).toBeInTheDocument();
+				expect(onOpenChange).toHaveBeenCalledTimes(1);
+				expect(onOpenChange).toHaveBeenNthCalledWith(1, true, expect.anything());
+
+				await userEvent.keyboard('{Escape}');
+				expect(onOpenChange).toHaveBeenCalledTimes(2);
+				expect(onOpenChange).toHaveBeenNthCalledWith(2, false, expect.anything());
+				await expect.element(trigger()).toHaveFocus();
+			});
+
+			it('disabled state', async () => {
+				const onOpenChange = vi.fn();
+				render(ToolbarOverlayHarness, { kind: 'popover', disabled: true, onOpenChange });
+				await expect.element(page.getByText('Content')).not.toBeInTheDocument();
+				await expect.element(trigger()).not.toHaveAttribute('disabled');
+				await expect.element(trigger()).toHaveAttribute('data-disabled');
+				await expect.element(trigger()).toHaveAttribute('aria-disabled', 'true');
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(trigger()).toHaveFocus();
+				expect(onOpenChange).toHaveBeenCalledTimes(0);
+
+				await userEvent.keyboard('{Enter}');
+				await userEvent.keyboard('{Space}');
+				await userEvent.keyboard('{ArrowUp}');
+				await userEvent.keyboard('{ArrowDown}');
+				expect(onOpenChange).toHaveBeenCalledTimes(0);
+			});
+		});
+	});
+
 	it('throws a descriptive error when rendered outside Toolbar.Root', () => {
 		expect(() => render(ToolbarButton)).toThrow(
 			'Base UI: ToolbarRootContext is missing. Toolbar parts must be placed within <Toolbar.Root>.'
@@ -386,4 +499,29 @@ describe('native Svelte', () => {
 		await userEvent.keyboard('{ArrowRight}');
 		await expect.element(page.getByRole('link', { name: 'Link' })).toHaveFocus();
 	});
+
+	// Guards the deferred return focus: a synchronous one left a reopened trigger at aria-expanded="false".
+	describe.each(['dialog', 'popover'] as const)(
+		'%s trigger through Toolbar.Button: aria-expanded',
+		(kind) => {
+			const trigger = () => page.getByTestId('trigger');
+
+			it('is true again after Enter, Escape, Enter', async () => {
+				render(ToolbarOverlayHarness, { kind });
+				await userEvent.keyboard('{Tab}');
+				await expect.element(trigger()).toHaveFocus();
+				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+
+				await userEvent.keyboard('{Enter}');
+				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+
+				await userEvent.keyboard('{Escape}');
+				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+				await expect.element(trigger()).toHaveFocus();
+
+				await userEvent.keyboard('{Enter}');
+				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+			});
+		}
+	);
 });
