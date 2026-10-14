@@ -1,7 +1,7 @@
 // Layout math from Base UI v1.9.0 packages/react/src/tabs/indicator/TabsIndicator.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// Shadow-boundary parent walks are not ported: scrolling ancestors are parentElement.
 
+import { getParentNode, isHTMLElement, isLastTraversableNode } from '@floating-ui/utils/dom';
 import { getCssDimensions } from '../internal/getCssDimensions.js';
 import { getElementTransform } from '../internal/getElementTransform.js';
 import {
@@ -86,11 +86,12 @@ function getLayoutOffset(element: HTMLElement, ancestor: HTMLElement) {
 	let left = elementOffset.left - ancestorOffset.left - ancestor.clientLeft;
 	let top = elementOffset.top - ancestorOffset.top - ancestor.clientTop;
 
-	let node: HTMLElement | null = element.parentElement;
-	while (node && node !== ancestor && node !== node.ownerDocument.documentElement) {
+	// `getParentNode` crosses shadow boundaries and slots to reach every scroll container.
+	let node = getParentNode(element);
+	while (isHTMLElement(node) && node !== ancestor && !isLastTraversableNode(node)) {
 		left -= node.scrollLeft;
 		top -= node.scrollTop;
-		node = node.parentElement;
+		node = getParentNode(node);
 	}
 
 	return { left, top };
