@@ -456,7 +456,7 @@ Local: `value` and `open` are `$bindable`. `defaultValue` stays, because Select 
 
 Upstream: a `multiple` select renders one hidden `<input>` per value.
 
-Local: one hidden `<select multiple>` holds an `<option>` per current value and per `defaultValue` entry. The current values are the options' selectedness, set after Svelte renders them. The `selected` attribute marks the defaults, so a native reset restores them. `FormData` holds the same entries as upstream. The select stays in the form when nothing is selected, so a form source still hears the edit that cleared it. A user edit fires `input` and `change` from it once the options are written. The helper is `src/lib/select/native-select.ts`.
+Local: one hidden `<select multiple>` holds an `<option>` per current value and per `defaultValue` entry. The current values are the options' selectedness, set after Svelte renders them. The `selected` attribute marks the defaults, so a native reset restores them. `FormData` holds the same entries as upstream. The select stays in the form when nothing is selected, so a form source still hears the edit that cleared it. A user edit fires `input` and `change` from it once the options are written. The helper is `src/lib/internal/listbox/native-select.ts`.
 
 Test: `src/lib/select/SelectRoot.multiple.svelte.spec.ts`, the `bound Select` cases of `src/lib/field/bound-control.svelte.spec.ts`.
 

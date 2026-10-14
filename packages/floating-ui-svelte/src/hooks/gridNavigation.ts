@@ -201,7 +201,10 @@ export function getGridNavigatedIndex(
 					});
 				}
 			} else if (loopFocus) {
-				nextIndex = findNonDisabledListIndex(list, { startingIndex: rowWrapStart, disabledIndices });
+				nextIndex = findNonDisabledListIndex(list, {
+					startingIndex: rowWrapStart,
+					disabledIndices
+				});
 			}
 			if (isDifferentGridRow(nextIndex, cols, prevRow)) nextIndex = prevIndex;
 		}
