@@ -185,6 +185,19 @@
 		<NumberField.Input data-testid="control" />
 		<NumberField.ScrubArea data-testid="scrub" />
 	</NumberField.Root>
+{:else if scenario === 'scrub-render'}
+	<NumberField.Root locale="en-US" defaultValue={0}>
+		<NumberField.Input data-testid="control" />
+		<NumberField.ScrubArea>
+			{#snippet render(props, _state, snippetChildren)}
+				<div {...props} data-testid="scrub">{@render snippetChildren?.()}</div>
+			{/snippet}
+			<NumberField.ScrubAreaCursor
+				data-testid="cursor"
+				style="display: block; width: 10px; height: 10px"
+			/>
+		</NumberField.ScrubArea>
+	</NumberField.Root>
 {:else if scenario === 'render'}
 	<NumberField.Root locale="en-US" defaultValue={1} data-testid="root">
 		{#snippet render(props, fieldState, snippetChildren)}
