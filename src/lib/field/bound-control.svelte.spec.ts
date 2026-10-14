@@ -440,6 +440,98 @@ describe('bound Select', () => {
 	});
 });
 
+describe('bound Combobox', () => {
+	const value = () => page.getByTestId('value');
+
+	function submitNames() {
+		return Array.from(form().querySelectorAll('[name]'), (element) => element.getAttribute('name'));
+	}
+
+	describe('single', () => {
+		it('submits the value under the encoded name', async () => {
+			const source = new FakeRemoteForm();
+			render(BoundControlHarness, { source, scenario: 'combobox' });
+
+			expect(submitNames()).toEqual(['fruit/fake']);
+			expect(submitted(source)).toEqual({ fruit: 'apple' });
+
+			await pickFruit('banana');
+			await expect.element(page.getByTestId('control')).toHaveValue('banana');
+			await expect.poll(() => source.input.fruit).toBe('banana');
+			expect(submitted(source)).toEqual({ fruit: 'banana' });
+		});
+
+		it('follows a value set on the source', async () => {
+			const source = new FakeRemoteForm();
+			render(BoundControlHarness, { source, scenario: 'combobox' });
+
+			source.field('fruit').set('banana' as never);
+			await expect.element(value()).toHaveTextContent('banana');
+			await expect.element(page.getByTestId('control')).toHaveValue('banana');
+			expect(submitted(source)).toEqual({ fruit: 'banana' });
+		});
+
+		it('starts from the source value, and a reset restores the default', async () => {
+			const source = new FakeRemoteForm('fake', { fruit: 'banana' });
+			render(BoundControlHarness, { source, scenario: 'combobox' });
+
+			await expect.element(value()).toHaveTextContent('banana');
+			expect(submitted(source)).toEqual({ fruit: 'banana' });
+
+			form().reset();
+			await expect.element(value()).toHaveTextContent('apple');
+			await expect.element(page.getByTestId('control')).toHaveValue('apple');
+			expect(submitted(source)).toEqual({ fruit: 'apple' });
+			await expect.poll(() => source.input.fruit).toBe('apple');
+		});
+	});
+
+	describe('multiple', () => {
+		it('submits the values as an array under the encoded name', async () => {
+			const source = new FakeRemoteForm();
+			render(BoundControlHarness, { source, scenario: 'combobox-multiple' });
+
+			expect(submitNames()).toEqual(['fruits[]/fake']);
+			expect(submitted(source)).toEqual({ fruits: ['apple'] });
+
+			await pickFruit('banana');
+			await expect.element(value()).toHaveTextContent('apple, banana');
+			await expect.poll(() => source.input.fruits).toEqual(['apple', 'banana']);
+			expect(submitted(source)).toEqual({ fruits: ['apple', 'banana'] });
+
+			await page.getByRole('option', { name: 'apple', exact: true }).click();
+			await expect.poll(() => source.input.fruits).toEqual(['banana']);
+			expect(submitted(source)).toEqual({ fruits: ['banana'] });
+		});
+
+		it('follows a value set on the source', async () => {
+			const source = new FakeRemoteForm();
+			render(BoundControlHarness, { source, scenario: 'combobox-multiple' });
+
+			source.field('fruits').set(['banana'] as never);
+			await expect.element(value()).toHaveTextContent('banana');
+			expect(submitted(source)).toEqual({ fruits: ['banana'] });
+
+			source.field('fruits').set([] as never);
+			await expect.element(value()).toHaveTextContent('');
+			expect(submitted(source)).toEqual({});
+		});
+
+		it('starts from the source value, and a reset restores the default', async () => {
+			const source = new FakeRemoteForm('fake', { fruits: ['banana'] });
+			render(BoundControlHarness, { source, scenario: 'combobox-multiple' });
+
+			await expect.element(value()).toHaveTextContent('banana');
+			expect(submitted(source)).toEqual({ fruits: ['banana'] });
+
+			form().reset();
+			await expect.element(value()).toHaveTextContent('apple');
+			expect(submitted(source)).toEqual({ fruits: ['apple'] });
+			await expect.poll(() => source.input.fruits).toEqual(['apple']);
+		});
+	});
+});
+
 describe('attachments from as()', () => {
 	for (const { scenario, edit, reports } of [
 		{
@@ -485,6 +577,11 @@ describe('attachments from as()', () => {
 		},
 		{
 			scenario: 'select',
+			edit: () => pickFruit('banana'),
+			reports: [{ name: 'fruit/fake', value: 'banana' }]
+		},
+		{
+			scenario: 'combobox',
 			edit: () => pickFruit('banana'),
 			reports: [{ name: 'fruit/fake', value: 'banana' }]
 		}
@@ -559,6 +656,18 @@ describe('inside a real Field.Root bound with `field`', () => {
 			initial: { fruits: ['apple'] },
 			edit: () => pickFruit('banana'),
 			after: { fruits: ['apple', 'banana'] }
+		},
+		{
+			scenario: 'combobox',
+			initial: { fruit: 'apple' },
+			edit: () => pickFruit('banana'),
+			after: { fruit: 'banana' }
+		},
+		{
+			scenario: 'combobox-multiple',
+			initial: { fruits: ['apple'] },
+			edit: () => pickFruit('banana'),
+			after: { fruits: ['apple', 'banana'] }
 		}
 	] as const) {
 		it(`binds a ${scenario}`, async () => {
@@ -601,7 +710,9 @@ describe('dev kind check', () => {
 		['slider', 'range', 'number'],
 		['otp-field', 'text', 'number'],
 		['select', 'select', 'text'],
-		['select-multiple', 'select multiple', 'select']
+		['select-multiple', 'select multiple', 'select'],
+		['combobox', 'select', 'text'],
+		['combobox-multiple', 'select multiple', 'select']
 	] as const) {
 		it(`logs when a ${kind} control sits in a Field declared as ${declared}`, async () => {
 			const log = vi.spyOn(console, 'error').mockImplementation(() => {});

@@ -100,3 +100,4 @@ export {
 	isVirtualPointerEvent,
 	stopEvent
 } from './sharedInternals.js';
+export { gridNavigation, getGridNavigatedIndex } from './hooks/gridNavigation.js';
