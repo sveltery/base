@@ -52,17 +52,17 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	 */
 	defaultChecked?: boolean;
 	/** Whether the component should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the user should be unable to tick or untick the checkbox.
 	 * @default false
 	 */
-	readonly?: boolean;
+	readonly?: boolean | null;
 	/**
 	 * Whether the user must tick the checkbox before submitting a form.
 	 * @default false
 	 */
-	required?: boolean;
+	required?: boolean | null;
 	/**
 	 * Whether the checkbox is in a mixed state: neither ticked nor unticked.
 	 * @default false
@@ -82,7 +82,7 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	 */
 	nativeButton?: boolean;
 	/** Identifies the field when a form is submitted. */
-	name?: string;
+	name?: string | null;
 	/**
 	 * The value submitted with the form when the checkbox is ticked.
 	 * By default, the checkbox submits `"on"`, matching a native checkbox.
@@ -97,12 +97,12 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	 * Identifies the form that owns the hidden input.
 	 * Useful when the checkbox is rendered outside the form.
 	 */
-	form?: string;
+	form?: string | null;
 	/**
 	 * The id of the hidden input.
 	 * When `nativeButton` is true, the id is applied to the root element instead.
 	 */
-	id?: string;
+	id?: string | null;
 	/** Called before the checked state changes. Call `eventDetails.cancel()` to veto it. */
 	onCheckedChange?: (checked: boolean, eventDetails: CheckboxRootChangeEventDetails) => void;
 	/** Runs before the checkbox's click handler. Call `event.preventDefault()` to skip it. */

@@ -65,7 +65,7 @@ export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	/** The value an empty `value` starts from. */
 	defaultValue?: SliderValue;
 	/** Whether the slider should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Options to format the value. */
 	format?: Intl.NumberFormatOptions;
 	/**
@@ -80,9 +80,9 @@ export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	/** The minimum steps between values in a range slider. @default 0 */
 	minStepsBetweenValues?: number;
 	/** Identifies the field when a form is submitted. */
-	name?: string;
+	name?: string | null;
 	/** Identifies the form that owns the slider inputs. */
-	form?: string;
+	form?: string | null;
 	/** The component orientation. @default 'horizontal' */
 	orientation?: SliderOrientation;
 	/**
@@ -144,7 +144,7 @@ export interface SliderThumbProps extends Omit<
 	'children' | 'onblur' | 'onfocus' | 'onkeydown'
 > {
 	/** Whether the thumb should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Forwarded to the nested input's `aria-valuetext`. Ignored when `getAriaValueText` is set. */
 	'aria-valuetext'?: string | undefined;
 	/** Returns the `aria-label` of the nested input. */

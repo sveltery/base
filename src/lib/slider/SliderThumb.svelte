@@ -42,7 +42,7 @@
 	const elementKey = createAttachmentKey();
 
 	let {
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		getAriaLabel,
 		getAriaValueText,
 		index: indexProp,
@@ -84,7 +84,7 @@
 	const percent = $derived(
 		Number.isFinite(thumbValue) ? valueToPercent(thumbValue, model.min, model.max) : Number.NaN
 	);
-	const disabled = $derived(model.disabled || disabledProp);
+	const disabled = $derived(model.disabled || (disabledProp ?? false));
 	const focusOwner = new FieldFocusOwner(field, {
 		disabled: () => disabled,
 		target: () => inputEl

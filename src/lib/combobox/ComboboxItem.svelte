@@ -17,7 +17,7 @@
 
 	let {
 		value: itemValue = null,
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		nativeButton = false,
 		render,
 		children,
@@ -30,7 +30,7 @@
 
 	let element = $state<HTMLElement | null>(null);
 
-	const disabled = $derived(store.root.disabled || disabledProp);
+	const disabled = $derived(store.root.disabled || (disabledProp ?? false));
 	const selectable = $derived(store.selectionMode !== 'none');
 	const index = $derived(store.items.indexOf(element));
 	const highlighted = $derived(index !== -1 && store.activeIndex === index);

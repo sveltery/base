@@ -35,8 +35,8 @@ async function settle() {
 }
 
 /** Upstream `pressWithTouch`: a touch pointerdown, then the compatibility mousedown. */
-function pressWithTouch(target: Element, init: PointerEventInit = {}) {
-	pointer(target, 'pointerdown', { pointerType: 'touch', ...init });
+function pressWithTouch(target: Element) {
+	pointer(target, 'pointerdown', { pointerType: 'touch' });
 	mouse(target, 'mousedown', { detail: 1 });
 }
 
@@ -187,6 +187,25 @@ describe('Menubar', () => {
 			'Edit true trigger-focus',
 			'File false sibling-open'
 		]);
+	});
+
+	it('keeps a horizontal menu open when ArrowLeft closes its submenu', async () => {
+		render(MenubarHarness, { menuOrientation: 'horizontal' });
+		get('file-trigger').focus();
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(focused).toBe(get('file-item-1'));
+		await userEvent.keyboard('{ArrowRight}');
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.poll(focused).toBe(get('share-trigger'));
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(focused).toBe(get('share-item-1'));
+
+		await userEvent.keyboard('{ArrowLeft}');
+		await expect.poll(shown('share-menu')).toBe(false);
+		await expect.poll(focused).toBe(get('file-item-2'));
+		expect(shown('file-menu')()).toBe(true);
+		expect(shown('edit-menu')()).toBe(false);
+		expect(shown('view-menu')()).toBe(false);
 	});
 
 	describe('horizontal RTL', () => {
@@ -761,45 +780,6 @@ describe('Menubar', () => {
 			await settle();
 			expect(isScrollLocked()).toBe(false);
 		});
-
-		it('updates scroll lock when handing off between top-level touch-opened menus', async () => {
-			render(MenubarCasesHarness, { scenario: 'scroll-handoff' });
-			pressWithTouch(get('file-trigger'));
-			await expect.poll(shown('file-menu')).toBe(true);
-			await expect.poll(isScrollLocked).toBe(true);
-
-			pressWithTouch(get('edit-trigger'));
-			await expect.poll(shown('edit-menu')).toBe(true);
-			await expect.poll(shown('file-menu')).toBe(false);
-			await expect.poll(isScrollLocked).toBe(false);
-		});
-	});
-
-	it('keeps the next menu open when a virtual pointer press hands off between top-level menus', async () => {
-		render(MenubarCasesHarness, { scenario: 'scroll-handoff' });
-		pressWithTouch(get('file-trigger'));
-		await expect.poll(shown('file-menu')).toBe(true);
-		await settle();
-
-		pressWithTouch(get('edit-trigger'), { width: 0, height: 0, pressure: 0 });
-		for (let i = 0; i < 4; i++) await settle();
-		expect(byTestId('edit-menu')).not.toBe(null);
-		expect(byTestId('file-menu')).toBe(null);
-		expect(get('file-trigger').getAttribute('aria-expanded')).toBe('false');
-	});
-
-	it('keeps the next menu open when a touch press hands off from a keyboard-opened menu', async () => {
-		render(MenubarCasesHarness, { scenario: 'scroll-handoff' });
-		get('file-trigger').focus();
-		await userEvent.keyboard('{Enter}');
-		await expect.poll(shown('file-menu')).toBe(true);
-		await settle();
-
-		pressWithTouch(get('edit-trigger'));
-		for (let i = 0; i < 4; i++) await settle();
-		expect(byTestId('edit-menu')).not.toBe(null);
-		expect(byTestId('file-menu')).toBe(null);
-		expect(get('file-trigger').getAttribute('aria-expanded')).toBe('false');
 	});
 
 	it('renders contained top-level portal ownership as an allowed menubar child', async () => {

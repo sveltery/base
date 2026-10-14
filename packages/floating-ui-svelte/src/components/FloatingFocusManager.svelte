@@ -54,7 +54,7 @@
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
 	import { isElementVisible } from '../utils/composite.js';
 	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
-	import { enqueueFocus, focusQueuedWithin } from '../utils/enqueueFocus.js';
+	import { enqueueFocus } from '../utils/enqueueFocus.js';
 	import { getFloatingFocusElement, isTypeableCombobox } from '../utils/focusTarget.js';
 	import { markOthers } from '../utils/markOthers.js';
 	import {
@@ -285,25 +285,6 @@
 		return null;
 	}
 
-	/**
-	 * A popup beside this one in the tree opened and a focus into it is still queued (its initial
-	 * focus or the item its list navigation focuses), as in the next menubar menu when a press
-	 * switches menus. Returning focus first would take focus from it.
-	 */
-	function siblingOpening() {
-		if (!tree || !store.nodeId) return false;
-		const nodeId = store.nodeId;
-		const parentId = tree.nodes.find((node) => node.id === nodeId)?.parentId;
-		if (parentId == null) return false;
-		return tree.nodes.some(
-			(node) =>
-				node.id !== nodeId &&
-				node.parentId === parentId &&
-				!!node.context?.isOpen() &&
-				focusQueuedWithin(node.context.floatingElement)
-		);
-	}
-
 	function scheduleBodyReturn(element: HTMLElement) {
 		bodyReturnFrame.cancel();
 		bodyReturnFrame.request(() => {
@@ -331,7 +312,7 @@
 		// The return function is not called when the return is prevented. React calls it and
 		// ignores the result.
 		const apply = () => {
-			if (spec === false || prevented || siblingOpening()) return null;
+			if (spec === false || prevented) return null;
 			const target = resolved === undefined ? returnTarget(leaving, spec) : resolved;
 			if (!target?.isConnected) return null;
 			target.focus({ preventScroll: true });

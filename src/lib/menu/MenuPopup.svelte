@@ -4,8 +4,7 @@
 	packages/react/src/menu/filter-root/MenuFilterPopup.tsx and
 	packages/react/src/internals/resolvePopupLabel.ts
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	A filterable menu's popup is a `dialog` that holds the input and the list. A portaled submenu
-	relays its keys and focus here through `relayKeyDown` and `relayFocusIn`.
+	A filterable menu's popup is a `dialog` that holds the input and the list.
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
@@ -214,38 +213,6 @@
 		stopInToolbar(event);
 	}
 
-	function relayFocusIn(event: FocusEvent) {
-		handoff?.focusIn();
-		const parent = store.parent;
-		if (parent.type === 'menu') parent.store.relayFocusIn?.(event);
-	}
-
-	// A portaled submenu's keys and focus reach this popup's handlers as they would through
-	// React's tree upstream.
-	$effect(() => {
-		const node = store.popupElement;
-		if (!filterPopup && !store.submenu && !handoff) return;
-		const relayKeyDown = (event: KeyboardEvent) => {
-			const run = (handler: ((event: KeyboardEvent) => void) | undefined) => {
-				if (!event.cancelBubble) handler?.(event);
-			};
-			run((nested) => store.listKeyDown?.(nested, true));
-			run((nested) => filterPopup?.keyDown(nested));
-			run(store.submenu?.onPopupKeyDown);
-			run(store.interactions?.popupKeyDown);
-		};
-		const relayNestedFocusIn = (event: FocusEvent) => {
-			if (node) filterPopup?.focusIn(event, node);
-			relayFocusIn(event);
-		};
-		store.relayKeyDown = relayKeyDown;
-		store.relayFocusIn = relayNestedFocusIn;
-		return () => {
-			if (store.relayKeyDown === relayKeyDown) store.relayKeyDown = undefined;
-			if (store.relayFocusIn === relayNestedFocusIn) store.relayFocusIn = undefined;
-		};
-	});
-
 	function stopInToolbar(event: KeyboardEvent) {
 		const current = event.currentTarget;
 		const inToolbar = current instanceof Element && current.closest('[role="toolbar"]') != null;
@@ -273,7 +240,7 @@
 				id: store.floatingId,
 				...roleProps,
 				onkeydown: ownKeyDown,
-				onfocusin: relayFocusIn,
+				onfocusin: () => handoff?.focusIn(),
 				...getStateAttributesProps(popupState, popupTransitionStateMapping),
 				[bindKey]: bindPopup,
 				[styleKey]: ownStyle

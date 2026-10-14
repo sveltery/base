@@ -57,7 +57,7 @@ export interface AccordionRootProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 */
 	value?: unknown[];
 	/** Whether the accordion should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Lets page search find a closed panel and open it.
 	 * Overrides `keepMounted` and uses `hidden="until-found"`.
@@ -104,7 +104,7 @@ export interface AccordionItemProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 * The root `disabled` value also disables it.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Called before this item opens or closes. Call `eventDetails.cancel()` to veto it. */
 	onOpenChange?: (open: boolean, eventDetails: AccordionItemChangeEventDetails) => void;
 	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
@@ -128,7 +128,7 @@ export interface AccordionTriggerProps extends Omit<
 	 * Whether the trigger should ignore user interaction.
 	 * `false` does not re-enable a disabled item or root.
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.

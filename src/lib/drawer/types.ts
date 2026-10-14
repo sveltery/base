@@ -205,7 +205,7 @@ export interface DrawerSwipeAreaProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * Ignore swipes.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** The direction a swipe opens the drawer in. Defaults to the opposite of the root's `swipeDirection`. */
 	swipeDirection?: DrawerSwipeDirection;
 	render?: PartRender<HTMLDivElement, DrawerSwipeAreaState>;

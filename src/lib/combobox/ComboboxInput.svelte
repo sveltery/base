@@ -29,7 +29,7 @@
 	const uid = $props.id();
 
 	let {
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		id: idProp,
 		'aria-describedby': ariaDescribedBy,
 		render,
@@ -46,7 +46,7 @@
 	const direction = useDirection();
 	const bindKey = createAttachmentKey();
 
-	const disabled = $derived(field.disabled || store.root.disabled || disabledProp);
+	const disabled = $derived(field.disabled || store.root.disabled || (disabledProp ?? false));
 	const readOnly = $derived(store.root.readOnly);
 	const isInsidePopup = $derived(hasPositionerParent || store.root.inline);
 	const focusManagerModal = $derived(!isInsidePopup || store.root.modal);

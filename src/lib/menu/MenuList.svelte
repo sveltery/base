@@ -9,13 +9,12 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { isHTMLElement } from '@floating-ui/utils/dom';
-	import { activeElement, contains, getTarget, ownerDocument } from '@sveltery/utils';
+	import { activeElement, getTarget, ownerDocument } from '@sveltery/utils';
 	import { isMainOrientationKey } from '@sveltery/floating-ui-svelte';
 	import { useDirection } from '../internal/direction-context.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useMenuRoot } from './context.svelte.js';
-	import { handleMenuFilterKeyDown, moveHighlightFrom, refocusOwner } from './filter-keydown.js';
+	import { handleMenuFilterKeyDown, refocusOwner } from './filter-keydown.js';
 	import { setMenuFilterGroup } from './filter-root.svelte.js';
 	import type { MenuListProps, MenuListState } from './types.js';
 
@@ -59,24 +58,11 @@
 		store.listId = resolvedId;
 	});
 
-	// The item whose `aria-controls` popup holds `target`. The popup shares the target's root.
-	function nestedPopupTrigger(target: Element) {
-		const rootNode = target.getRootNode() as Document | ShadowRoot;
-		return store.items.elements.find((item) => {
-			const popupId = item.getAttribute('aria-controls');
-			return (
-				popupId != null && isHTMLElement(item) && contains(rootNode.getElementById(popupId), target)
-			);
-		});
-	}
-
-	/** A key on the list, or relayed from a portaled submenu (`fromNested`). */
-	function listKeyDown(event: KeyboardEvent, fromNested: boolean) {
+	function listKeyDown(event: KeyboardEvent) {
 		const owner = store.focusOwner;
-		const target = getTarget(event) as Element;
 		const ownerFocused = owner != null && activeElement(ownerDocument(owner)) === owner;
 		// Keys the input forwards to its highlighted item arrive while the input holds focus.
-		if (owner == null || ownerFocused || fromNested) {
+		if (owner == null || ownerFocused) {
 			if (
 				event.which !== 229 &&
 				!event.shiftKey &&
@@ -85,19 +71,8 @@
 				!event.altKey &&
 				isMainOrientationKey(event.key, root.orientation)
 			) {
-				// Keep main-axis keys from this popup's own list navigation, which lost its place while
-				// the nested popup held focus. A plain submenu that closes on the key hands focus back,
-				// so move on from its trigger as a plain parent would.
+				// The input already moved the highlight. Keep the key from the popup's list navigation.
 				event.stopPropagation();
-				const trigger = fromNested && ownerFocused ? nestedPopupTrigger(target) : undefined;
-				if (trigger) {
-					moveHighlightFrom(store, trigger, event, {
-						orientation: root.orientation,
-						rtl,
-						loopFocus: root.loopFocus,
-						allowEscape: root.allowEscape
-					});
-				}
 			}
 			return;
 		}
@@ -119,14 +94,6 @@
 			filter!.value !== ''
 		);
 	}
-
-	$effect(() => {
-		if (!filter) return;
-		store.listKeyDown = listKeyDown;
-		return () => {
-			if (store.listKeyDown === listKeyDown) store.listKeyDown = undefined;
-		};
-	});
 
 	// `null` tells the first registration apart from a list emptied by filtering.
 	let previousItems: readonly HTMLElement[] | null = null;
@@ -153,7 +120,7 @@
 
 	const filterProps = filter
 		? {
-				onkeydown: (event: KeyboardEvent) => listKeyDown(event, false),
+				onkeydown: listKeyDown,
 				onfocusin(event: FocusEvent) {
 					// A press on the list's own content, such as its background or a group label,
 					// focuses the list. Hand focus back to the input.

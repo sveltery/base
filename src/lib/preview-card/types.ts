@@ -70,7 +70,7 @@ export interface PreviewCardTriggerProps<Payload = unknown> extends Omit<
 > {
 	handle?: PreviewCardHandle<Payload>;
 	payload?: Payload;
-	id?: string;
+	id?: string | null;
 	/**
 	 * How long to wait before the preview card opens, in milliseconds.
 	 * @default 600

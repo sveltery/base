@@ -12,12 +12,13 @@
 	import type { PopoverCloseProps, PopoverCloseState } from './types.js';
 
 	let {
-		disabled = false,
+		disabled: disabledProp,
 		nativeButton = true,
 		render,
 		children,
 		...elementProps
 	}: PopoverCloseProps = $props();
+	const disabled = $derived(disabledProp ?? false);
 
 	const store = usePopoverRoot();
 	const parts = useCloseParts();

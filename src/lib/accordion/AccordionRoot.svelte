@@ -14,7 +14,7 @@
 
 	let {
 		value = $bindable(),
-		disabled = false,
+		disabled,
 		hiddenUntilFound = false,
 		keepMounted,
 		loopFocus: _loopFocus = true,
@@ -35,7 +35,7 @@
 	);
 	const accordion = new AccordionRootModel(
 		() => selection.current ?? EMPTY,
-		() => disabled,
+		() => disabled ?? false,
 		() => multiple,
 		() => orientation,
 		() => hiddenUntilFound,

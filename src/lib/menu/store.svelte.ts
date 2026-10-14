@@ -151,15 +151,6 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	submenu: MenuSubmenuNavigation | null = null;
 	/** Whether a filterable menu's trigger was last pressed by a screen reader. */
 	virtualPress = false;
-	/**
-	 * Runs this popup's own key handling for a key a portaled submenu did not handle. The popup
-	 * sets it. Upstream reaches these handlers through React's tree.
-	 */
-	relayKeyDown: ((event: KeyboardEvent) => void) | undefined = undefined;
-	/** A filterable `Menu.List`'s key handling. `fromNested` marks a key relayed from a submenu. */
-	listKeyDown: ((event: KeyboardEvent, fromNested: boolean) => void) | undefined = undefined;
-	/** As `relayKeyDown`, for focus that enters a portaled submenu. */
-	relayFocusIn: ((event: FocusEvent) => void) | undefined = undefined;
 
 	/** Why the next `activeIndex` write happens, consumed by `onItemHighlighted`. */
 	private highlightReason: MenuHighlightReason = REASONS.none;
@@ -307,10 +298,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		if (this.ownKeyboardEventRelay) return this.ownKeyboardEventRelay;
 		const parent = this.parent;
 		if (parent.type === 'menubar') return parent.context.relayKeyboardEvent;
-		// A portaled submenu's keydown does not bubble into the parent popup. Forward it.
-		if (parent.type === 'menu') {
-			return parent.store.relayKeyDown ?? parent.store.interactions?.popupKeyDown;
-		}
+		if (parent.type === 'menu') return parent.store.keyboardEventRelay;
 		return undefined;
 	}
 

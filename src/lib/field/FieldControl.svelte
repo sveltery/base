@@ -69,7 +69,10 @@
 	const registeredValue = $derived(value != null ? textValue(value) : undefined);
 	const disabled = $derived(Boolean(field.disabled || disabledProp));
 	const name = $derived(field.name ?? nameProp ?? undefined);
-	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => fallbackId });
+	const controlId = new LabelableId(labelable, {
+		id: () => idProp ?? undefined,
+		fallback: () => fallbackId
+	});
 
 	let inputEl = $state<ValueElement | null>(null);
 

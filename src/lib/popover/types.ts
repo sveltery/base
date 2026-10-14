@@ -86,7 +86,7 @@ export interface PopoverTriggerProps<Payload = unknown> extends Omit<
 	HTMLButtonAttributes,
 	'children' | 'disabled' | 'id'
 > {
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.
@@ -95,7 +95,7 @@ export interface PopoverTriggerProps<Payload = unknown> extends Omit<
 	nativeButton?: boolean;
 	handle?: PopoverHandle<Payload>;
 	payload?: Payload;
-	id?: string;
+	id?: string | null;
 	/** Opens the popover when the pointer rests on the trigger. @default false */
 	openOnHover?: boolean;
 	/** Hover open delay in milliseconds. @default 300 */
@@ -347,7 +347,7 @@ export type PopoverDescriptionState = Record<string, never>;
 export type PopoverCloseState = Record<string, never>;
 
 export interface PopoverCloseProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
-	disabled?: boolean;
+	disabled?: boolean | null;
 	nativeButton?: boolean;
 	render?: Snippet<
 		[props: HTMLButtonAttributes, state: PopoverCloseState, children: RenderChildren]

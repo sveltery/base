@@ -49,13 +49,14 @@
 	const FALLBACK_SWIPE_OPEN_THRESHOLD = 40;
 
 	let {
-		disabled = false,
+		disabled: disabledProp,
 		swipeDirection: swipeDirectionProp,
 		id: idProp,
 		render,
 		children,
 		...elementProps
 	}: DrawerSwipeAreaProps = $props();
+	const disabled = $derived(disabledProp ?? false);
 
 	const drawer = useDrawerRootState();
 	const store = drawer.store;
