@@ -6,6 +6,7 @@ import { platform } from '@sveltery/utils';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuDialogHarness from '../../tests/menu/MenuDialogHarness.svelte';
+import MenuDialogReturnHarness from '../../tests/menu/MenuDialogReturnHarness.svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
 import MenuLateItemsHarness from '../../tests/menu/MenuLateItemsHarness.svelte';
 import MenuNestedDialogHarness from '../../tests/menu/MenuNestedDialogHarness.svelte';
@@ -1400,6 +1401,33 @@ describe.skipIf(!platform.engine.blink)('Menu.Root opening a dialog from an item
 			document.removeEventListener('click', recordClick, true);
 		}
 	});
+});
+
+describe('Menu.Root opening a separate dialog', () => {
+	// Upstream v1.9.0 `FloatingFocusManager` returns focus through the previously focused element
+	// stack when the dialog's opener, the menu item, is gone.
+	it.each(['keyboard', 'mouse'] as const)(
+		'returns focus to the menu trigger when the dialog closes on Escape (%s)',
+		async (mode) => {
+			render(MenuDialogReturnHarness);
+			const trigger = page.getByTestId('menu-trigger');
+			if (mode === 'keyboard') {
+				(trigger.element() as HTMLElement).focus();
+				await userEvent.keyboard('{Enter}');
+				await expect.poll(() => document.activeElement?.getAttribute('role')).toBe('menuitem');
+				await userEvent.keyboard('{Enter}');
+			} else {
+				await userEvent.click(trigger);
+				await userEvent.click(page.getByRole('menuitem'));
+			}
+			await expect.poll(() => byTestId('in-dialog')).toBe(document.activeElement);
+
+			await userEvent.keyboard('{Escape}');
+
+			await expect.poll(() => byTestId('dialog-popup')).toBeNull();
+			await expect.poll(focused).toBe(trigger.element());
+		}
+	);
 });
 
 describe('Menu.Root nested popups', () => {
