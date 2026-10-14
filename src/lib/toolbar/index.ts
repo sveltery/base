@@ -11,3 +11,4 @@ export const Toolbar = {
 };
 
 export type * from './types.js';
+export * from './data-attributes.js';

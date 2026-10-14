@@ -42,3 +42,4 @@ export const Select = {
 };
 
 export type * from './types.js';
+export * from './data-attributes.js';

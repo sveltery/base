@@ -261,7 +261,6 @@ You can also put several triggers inside one `Tooltip.Root` without a handle. Ea
 - `actionsRef` is not available. Use `bind:this` on `Tooltip.Root`, which exposes `close()` and `unmount()`.
 - `Tooltip.createHandle()` works as in Base UI. The library also exports `createTooltipHandle` by name.
 - The `Tooltip.Root` children snippet receives `{ payload }`, where React passes a render function.
-- The `*DataAttributes` and `*CssVars` enums are not exported. Use the attribute and variable names in this page.
 - The popup has no `role`, and the trigger has no `aria-describedby` or `type`. Base UI renders them the same way.
 - A disabled trigger renders `data-trigger-disabled`, as in Base UI v1.9.0. The shared helper that checks whether a target is inside an enabled trigger still looks for `data-disabled`. So it treats a disabled tooltip trigger as enabled. Base UI closes an open tooltip when focus moves to a disabled trigger.
 - The positioner is placed with `top` and `left`. Base UI v1.9.0 uses `transform` when no `Tooltip.Viewport` is mounted.

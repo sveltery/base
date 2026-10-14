@@ -38,3 +38,4 @@ export const Drawer = {
 
 export { DrawerHandle, createDrawerHandle };
 export type * from './types.js';
+export * from './data-attributes.js';
