@@ -95,5 +95,8 @@ export {
 	getNextTabbable,
 	getNodeChildren,
 	getPreviousTabbable,
-	hoverInteraction
+	hoverInteraction,
+	isTypeableElement,
+	isVirtualPointerEvent,
+	stopEvent
 } from './sharedInternals.js';

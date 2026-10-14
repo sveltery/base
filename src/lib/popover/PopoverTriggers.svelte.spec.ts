@@ -495,6 +495,8 @@ describe('trigger switch transition (Base UI v1.9.0)', () => {
 });
 
 describe('viewport (Base UI v1.9.0)', () => {
+	// The previous container leaves when the new pane's transition ends. A 300ms transition can
+	// end before a loaded runner's first poll, so this one outlasts the test.
 	it('sets --popup-width and --popup-height on the previous container', async () => {
 		render(PopoverTriggersHarness, {
 			triggers: [
@@ -503,7 +505,7 @@ describe('viewport (Base UI v1.9.0)', () => {
 			],
 			inside: false,
 			viewport: true,
-			css: '[data-current], [data-previous] { transition: opacity 300ms; } [data-starting-style], [data-ending-style] { opacity: 0; }'
+			css: '[data-current], [data-previous] { transition: opacity 10s; } [data-starting-style], [data-ending-style] { opacity: 0; }'
 		});
 		await page.getByRole('button', { name: 'Trigger 1' }).click();
 		await expect.poll(content).toBe('Content 0');

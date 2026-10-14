@@ -1,7 +1,8 @@
 // Button behavior for native and non-native hosts, shared by every part that acts as a button.
 // Derived from Base UI v1.8.0 packages/react/src/internals/use-button/useButton.ts
 // and packages/react/src/utils/useFocusableWhenDisabled.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). Composite `aria-disabled` follows v1.9.0
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { DEV } from 'esm-env';
 import { createAttachmentKey, type Attachment } from 'svelte/attachments';
@@ -75,15 +76,21 @@ export class ButtonBehavior {
 	props<T extends object>(external: T): WithButtonBehavior<T> {
 		const { onclick, onmousedown, onpointerdown, onkeydown, onkeyup, ...rest } = external as T &
 			ButtonHandlers;
-		const { disabled, native, focusableWhenDisabled = false, composite = false } = this.options();
+		const { disabled, native, focusableWhenDisabled, composite = false } = this.options();
+		// Upstream `useFocusableWhenDisabled`: a composite item that leaves the option unset is
+		// focusable when disabled for `aria-disabled`, and still gets native `disabled`.
+		const focusableComposite = composite && focusableWhenDisabled !== false;
+		const nonFocusableComposite = composite && focusableWhenDisabled === false;
 
 		return {
 			...(native ? { type: 'button' as const } : { role: 'button' as const }),
 			...(composite ? {} : { tabindex: !native && disabled && !focusableWhenDisabled ? -1 : 0 }),
-			...((native && focusableWhenDisabled) || (!native && disabled)
+			...((native && (focusableWhenDisabled || focusableComposite)) || (!native && disabled)
 				? { 'aria-disabled': disabled }
 				: {}),
-			...(native && !focusableWhenDisabled && disabled ? { disabled: true as const } : {}),
+			...(native && (!focusableWhenDisabled || nonFocusableComposite) && disabled
+				? { disabled: true as const }
+				: {}),
 			...(DEV ? { [this.#checkKey]: this.#checkHost } : {}),
 			...rest,
 			onclick: (event: MouseEvent) => {

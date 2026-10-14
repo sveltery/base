@@ -186,4 +186,22 @@ describe('FocusInteraction', () => {
 		first.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
 		expect(store.open).toBe(true);
 	});
+
+	it('does not reopen the last trigger after Escape closes a popup opened without one', async () => {
+		const { component } = render(FocusHarness, {});
+		const { store } = component;
+		await tabToTrigger();
+		const first = page.getByTestId('first').element();
+		expect(store.open).toBe(true);
+		store.setOpen(false, createChangeEventDetails(REASONS.outsidePress));
+		// A popup store clears the active trigger once the closed popup unmounts.
+		store.domReferenceElement = null;
+
+		store.setOpen(true, createChangeEventDetails(REASONS.imperativeAction));
+		store.setOpen(false, createChangeEventDetails(REASONS.escapeKey));
+		first.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+
+		expect(document.activeElement).toBe(first);
+		expect([store.open, store.lastReason]).toEqual([false, 'escape-key']);
+	});
 });
