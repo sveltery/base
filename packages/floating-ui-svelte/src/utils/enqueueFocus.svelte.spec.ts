@@ -1,5 +1,6 @@
+import { AnimationFrame } from '@sveltery/utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { enqueueFocus, focusQueuedBy } from './enqueueFocus.js';
+import { enqueueFocus, focusQueuedWithin } from './enqueueFocus.js';
 import { enqueueFocus as enqueueListFocus } from './focusTarget.js';
 
 function button() {
@@ -90,19 +91,43 @@ describe('enqueueFocus', () => {
 		expect(focused).toEqual(['item', 'manager']);
 	});
 
-	it('reports a queued focus for its owner until the frame runs or a request supersedes it', async () => {
-		const owner = {};
-		enqueueFocus(button(), { owner });
-		expect(focusQueuedBy(owner)).toBe(true);
+	it('reports a queued focus inside a container until the frame runs, a cleanup cancels it or a request supersedes it', async () => {
+		const container = document.createElement('div');
+		const inside = document.createElement('button');
+		container.append(inside);
+		document.body.append(container);
+
+		enqueueFocus(inside);
+		expect(focusQueuedWithin(container)).toBe(true);
+		expect(focusQueuedWithin(inside)).toBe(true);
+		expect(focusQueuedWithin(button())).toBe(false);
 		await frame();
-		expect(focusQueuedBy(owner)).toBe(false);
+		expect(focusQueuedWithin(container)).toBe(false);
 
-		enqueueFocus(button(), { owner });
-		enqueueListFocus(button());
-		expect(focusQueuedBy(owner)).toBe(false);
-
-		const cancel = enqueueFocus(button(), { owner });
+		const cancel = enqueueFocus(inside);
 		cancel();
-		expect(focusQueuedBy(owner)).toBe(false);
+		expect(focusQueuedWithin(container)).toBe(false);
+
+		enqueueFocus(inside);
+		enqueueListFocus(button());
+		expect(focusQueuedWithin(container)).toBe(false);
+
+		enqueueFocus(button());
+		expect(focusQueuedWithin(container)).toBe(false);
+	});
+
+	it('keeps reporting a request made by a callback earlier in the frame that runs a superseded one', async () => {
+		const first = button();
+		const container = document.createElement('div');
+		const second = document.createElement('button');
+		container.append(second);
+		document.body.append(container);
+
+		AnimationFrame.request(() => enqueueFocus(second));
+		enqueueFocus(first);
+		await frame();
+		expect(focusQueuedWithin(container)).toBe(true);
+		await frame();
+		expect(document.activeElement).toBe(second);
 	});
 });

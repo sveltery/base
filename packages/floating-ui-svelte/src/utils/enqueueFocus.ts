@@ -1,10 +1,10 @@
 // Derived from Base UI v1.9.0 packages/react/src/floating-ui-react/utils/enqueueFocus.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { AnimationFrame } from '@sveltery/utils';
+import { AnimationFrame, contains } from '@sveltery/utils';
 
 // One focus is queued at a time across the page: a later request, sync or not, supersedes it.
-let queued: { frame: AnimationFrame; owner: object | undefined } | null = null;
+let queued: { frame: AnimationFrame; element: HTMLElement | null } | null = null;
 
 export function enqueueFocus(
 	element: HTMLElement | null,
@@ -12,7 +12,6 @@ export function enqueueFocus(
 		preventScroll?: boolean;
 		sync?: boolean;
 		shouldFocus?: () => boolean;
-		owner?: object;
 	}
 ) {
 	queued?.frame.cancel();
@@ -29,10 +28,11 @@ export function enqueueFocus(
 	}
 
 	// eslint-disable-next-line sveltery/no-unscoped-timer -- the returned cleanup or the next request cancels it
-	const entry = { frame: new AnimationFrame(), owner: options?.owner };
+	const entry = { frame: new AnimationFrame(), element };
 	queued = entry;
 	entry.frame.request(() => {
-		queued = null;
+		// The shared scheduler still runs a callback cancelled during its own frame's batch.
+		if (queued === entry) queued = null;
 		exec();
 	});
 	return () => {
@@ -42,6 +42,6 @@ export function enqueueFocus(
 	};
 }
 
-export function focusQueuedBy(owner: object) {
-	return queued?.owner === owner;
+export function focusQueuedWithin(container: Element | null) {
+	return contains(container, queued?.element);
 }

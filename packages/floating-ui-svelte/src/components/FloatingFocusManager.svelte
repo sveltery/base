@@ -54,7 +54,7 @@
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
 	import { isElementVisible } from '../utils/composite.js';
 	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
-	import { enqueueFocus, focusQueuedBy } from '../utils/enqueueFocus.js';
+	import { enqueueFocus, focusQueuedWithin } from '../utils/enqueueFocus.js';
 	import { getFloatingFocusElement, isTypeableCombobox } from '../utils/focusTarget.js';
 	import { markOthers } from '../utils/markOthers.js';
 	import {
@@ -285,9 +285,9 @@
 	}
 
 	/**
-	 * A popup beside this one in the tree opened and still waits for its initial focus, as the
-	 * next menubar menu does when a press switches menus. Returning focus first would take
-	 * focus from it.
+	 * A popup beside this one in the tree opened and a focus into it is still queued (its initial
+	 * focus or the item its list navigation focuses), as in the next menubar menu when a press
+	 * switches menus. Returning focus first would take focus from it.
 	 */
 	function siblingOpening() {
 		if (!tree || !store.nodeId) return false;
@@ -299,7 +299,7 @@
 				node.id !== nodeId &&
 				node.parentId === parentId &&
 				!!node.context?.isOpen() &&
-				focusQueuedBy(node.context)
+				focusQueuedWithin(node.context.floatingElement)
 		);
 	}
 
@@ -554,8 +554,7 @@
 		const cancelFocus = enqueueFocus(initialTarget, {
 			preventScroll: initialTarget === getFloatingFocusElement(floating),
 			shouldFocus: () =>
-				store.isOpen() && !contains(floating, activeElement(doc)) && !skipForOpenChild,
-			owner: store
+				store.isOpen() && !contains(floating, activeElement(doc)) && !skipForOpenChild
 		});
 		return () => cancelFocus();
 	});
