@@ -483,7 +483,7 @@ With several triggers, the positioner moves from one trigger to the next. Transi
 - `actionsRef` is not available. Use `bind:this` on `Menu.Root` or `Menu.SubmenuRoot`, which exposes `close()` and `unmount()`.
 - Handlers use lowercase names, such as `onclick`.
 - Item labels for typeahead and `onItemHighlighted` are trimmed.
-- The filter parts (`Menu.FilterProvider`, `Menu.Input`, `Menu.Clear`, `Menu.Empty`, `Menu.List` and `Menu.useFilter`) are not available yet. Menubar and context menu parents are typed but have no public components yet. Refs are not supported.
+- The filter parts (`Menu.FilterProvider`, `Menu.Input`, `Menu.Clear`, `Menu.Empty`, `Menu.List` and `Menu.useFilter`) are not available yet. Context menu parents are typed but have no public component yet. Place menus in a [Menubar](/components/menubar) to build an application menu bar. Refs are not supported.
 
 ## API reference
 

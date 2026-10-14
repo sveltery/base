@@ -404,7 +404,44 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Not covered
 
-React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The menubar and context-menu positioner cases have no public components here. The filter, `Menu.List` and lazy flipping cases wait on the filter parts. The shadow-root focus-guard case depends on React portal ownership.
+React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases have no public component here. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter, `Menu.List` and lazy flipping cases wait on the filter parts. The shadow-root focus-guard case depends on React portal ownership.
+
+## Menubar
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/menubar/**`. The paired React fixture runs `@base-ui/react` 1.9.0. `Menubar` provides the `MenubarParentContext` that `src/lib/menu/parent.svelte.ts` defines. Roving focus comes from the shared `CompositeRoot` in `src/lib/internal/composite-root.svelte.ts`.
+
+### Public surface
+
+Upstream: `Menubar` and the `MenubarDataAttributes` namespace.
+
+Local: `Menubar` takes the same props. The namespace is not exported. The attribute names are the same.
+
+### Detached menus take the menubar's tree for events only
+
+Upstream: a trigger lends its floating tree, node id and parent node id to the detached menu it opens. The menu's nodes then live in the menubar's tree.
+
+Local: a menubar trigger that owns a detached menu sets the menu's parent to the menubar, and `MenuStore.tree` and `MenuStore.parentNodeId` follow that parent. The menu emits and hears `menuopenchange`, `itemhover` and `close` on the menubar's tree, so separate detached menus close each other with `sibling-open` and the menubar keeps `data-has-submenu-open`. Svelte context does not change after init, so the menu's floating nodes stay in the tree its root was created in. The focus manager, dismiss and hover hooks read that tree.
+
+### Menu open events are emitted before the DOM update
+
+Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect, and the focus manager returns focus a microtask after a close.
+
+Local: the shared `FloatingFocusManager` returns focus inside the closing flush. `MenuPositioner` emits from `$effect.pre`, so the menubar clears `data-has-submenu-open` before the returned focus reaches the trigger. Without it, an outside press that closed a menu let the returned focus reopen it.
+
+### Arrow keys focus synchronously
+
+Upstream: `useCompositeRoot` moves focus to the next trigger in a microtask, after the focus manager's return.
+
+Local: the shared `CompositeRoot` focuses the next trigger synchronously. The ported keyboard cases pass with it.
+
+### Behavior that waits on shared internals
+
+- The shared `CompositeRoot` does not select the text of a native input on focus and has no text-field arrow exceptions. A menubar holds only triggers, so no ported case reaches them.
+- `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` keeps a press that started inside a popup until its `pointerup`, for sloppy presses too. Upstream checks that flag only for intentional presses. A touch press inside a submenu followed by a touch press outside, with no `pointerup` between them, closes the submenu but not its parent menu. Real taps always send `pointerup`. The ported touch case taps the submenu trigger with a full sequence.
+
+### Not covered
+
+React-only cases: `describeConformance` (refs, `className` and style functions). The `filterable menubar menus` case waits on the Menu filter parts.
 
 ## Toast
 
@@ -479,7 +516,8 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                         |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
-| Menu               | Filter parts, Menubar and ContextMenu components, `actionsRef`, refs                                   |
+| Menu               | Filter parts, ContextMenu component, `actionsRef`, refs                                                |
+| Menubar            | the `MenubarDataAttributes` namespace, refs                                                            |
 | Toast              | refs, `className` and `style` callbacks                                                                |
 
 ## Shared floating internals
