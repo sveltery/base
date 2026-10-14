@@ -1,13 +1,17 @@
 import { userEvent } from 'vitest/browser';
 
 /**
- * Moves the real pointer to the bottom-right corner of the viewport. Chrome re-sends mouse
- * events to whatever renders under a resting pointer, so a pointer left on or near the
- * centre would hover a later test's trigger. `unhover` parks it on the body's centre.
+ * Moves the real pointer to the bottom-right corner of the viewport, where no test renders.
+ * The pointer stays where the last test in the tab left it, whatever its spec file, and Chrome
+ * sends hover events to whatever renders under it, so `setup.ts` parks it before every test.
+ * The root element keeps the locator stable while an earlier test's overlay still unmounts, and
+ * `force` skips the actionability check that such an overlay would fail. `clientWidth` survives
+ * a test that stubs `window.innerWidth`.
  */
 export async function parkPointer() {
-	await userEvent.hover(document.documentElement, {
-		position: { x: window.innerWidth - 1, y: window.innerHeight - 1 },
+	const root = document.documentElement;
+	await userEvent.hover(root, {
+		position: { x: root.clientWidth - 1, y: root.clientHeight - 1 },
 		force: true
 	});
 }

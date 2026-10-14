@@ -14,7 +14,6 @@ import MenuProgrammaticHarness from '../../tests/menu/MenuProgrammaticHarness.sv
 import { testMenu } from '../../tests/menu/test-menu.js';
 import { enterWithMouse, mouse, moveMouse, pointer } from '../../tests/menu/mouse.js';
 import { items } from '../../tests/menu/types.js';
-import { parkPointer } from '../../tests/pointer.js';
 
 function menus() {
 	return [...document.querySelectorAll('[role="menu"]')];
@@ -842,7 +841,6 @@ for (const detached of [false, true]) {
 			});
 
 			it('closes after hovering out of a popup opened by its trigger', async () => {
-				await parkPointer();
 				render(MenuHarness, {
 					...menu({ rootProps: { modal: false }, trigger: { openOnHover: true, delay: 0 } }),
 					bindOpen: true
@@ -933,7 +931,6 @@ for (const detached of [false, true]) {
 
 		describe('prop: openOnHover', () => {
 			it('opens when the trigger is hovered and closes when it is no longer hovered', async () => {
-				await parkPointer();
 				render(MenuHarness, menu({ trigger: { openOnHover: true, delay: 0 } }));
 				toggle().focus();
 				enterWithMouse(toggle());
@@ -946,7 +943,6 @@ for (const detached of [false, true]) {
 			});
 
 			it('does not return focus to the element focused before a hover open when the pointer leaves', async () => {
-				await parkPointer();
 				const input = document.createElement('input');
 				input.setAttribute('aria-label', 'Outside');
 				document.body.append(input);
@@ -1020,7 +1016,6 @@ for (const detached of [false, true]) {
 			});
 
 			it('does not close when the submenu is hovered after the root menu', async () => {
-				await parkPointer();
 				render(
 					MenuHarness,
 					menu({ trigger: { openOnHover: true, delay: 0 }, submenuTriggerProps: { delay: 0 } })
@@ -1042,7 +1037,6 @@ for (const detached of [false, true]) {
 			});
 
 			it('keeps the parent submenu open after a third-level submenu closes on sibling hover', async () => {
-				await parkPointer();
 				render(
 					MenuHarness,
 					menu({ trigger: { openOnHover: true, delay: 0 }, submenuTriggerProps: { delay: 0 } })
@@ -1063,7 +1057,6 @@ for (const detached of [false, true]) {
 
 			describe('modal behavior', () => {
 				it('reopens on hover after an impatient click closes via item press', async () => {
-					await parkPointer();
 					vi.useFakeTimers();
 					try {
 						render(MenuHarness, menu({ trigger: { openOnHover: true, delay: 100 } }));
@@ -1088,7 +1081,6 @@ for (const detached of [false, true]) {
 				});
 
 				it('treats hover-opened menus as modal after a click', async () => {
-					await parkPointer();
 					vi.useFakeTimers();
 					try {
 						render(
@@ -1114,7 +1106,6 @@ for (const detached of [false, true]) {
 
 		describe('prop: closeDelay', () => {
 			it('closes after the delay', async () => {
-				await parkPointer();
 				vi.useFakeTimers();
 				try {
 					render(MenuHarness, menu({ trigger: { openOnHover: true, delay: 0, closeDelay: 100 } }));
@@ -1134,7 +1125,6 @@ for (const detached of [false, true]) {
 			});
 
 			it('closes a submenu after the delay when a sibling item is hovered', async () => {
-				await parkPointer();
 				vi.useFakeTimers();
 				try {
 					render(
@@ -1164,7 +1154,6 @@ for (const detached of [false, true]) {
 			});
 
 			it('does not restart closeDelay on repeated mousemove over sibling items', async () => {
-				await parkPointer();
 				vi.useFakeTimers();
 				try {
 					render(
@@ -1198,7 +1187,6 @@ for (const detached of [false, true]) {
 
 		describe('submenu hover open', () => {
 			it('opens a submenu after a plain delay without waiting for the pointer to rest', async () => {
-				await parkPointer();
 				vi.useFakeTimers();
 				try {
 					render(MenuHarness, menu({ open: true, submenuTriggerProps: { delay: 100 } }));
@@ -1217,7 +1205,6 @@ for (const detached of [false, true]) {
 			});
 
 			it('cancels a pending submenu hover-open when the pointer leaves via mouseout', async () => {
-				await parkPointer();
 				vi.useFakeTimers();
 				try {
 					render(MenuHarness, menu({ open: true, submenuTriggerProps: { delay: 100 } }));
@@ -1233,7 +1220,6 @@ for (const detached of [false, true]) {
 			});
 
 			it('keeps a pending submenu hover-open when mouseout stays within the trigger', async () => {
-				await parkPointer();
 				vi.useFakeTimers();
 				try {
 					render(MenuHarness, menu({ open: true, submenuTriggerProps: { delay: 100 } }));

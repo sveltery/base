@@ -7,10 +7,9 @@ import { afterEach, describe, expect, it, onTestFinished } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import NavigationMenuContentHarness from '../../tests/NavigationMenuContentHarness.svelte';
 import { mockAnimations, withAnimations } from '../../tests/navigationMenuEvents.js';
-import { byId, resetBrowserPointer, settlePositioning } from '../../tests/previewCardEvents.js';
+import { byId, settlePositioning } from '../../tests/previewCardEvents.js';
 
 afterEach(async () => {
-	await resetBrowserPointer();
 	await settlePositioning();
 });
 
