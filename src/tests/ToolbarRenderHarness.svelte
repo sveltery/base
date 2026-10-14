@@ -18,7 +18,7 @@
 		onValueChange,
 		onOpenChange
 	}: {
-		scenario: 'button' | 'menu' | 'switch' | 'toggles' | 'direct' | 'group-disabled';
+		scenario: 'button' | 'menu' | 'switch' | 'toggles' | 'direct' | 'group-disabled' | 'mixed';
 		disabled?: boolean;
 		multiple?: boolean;
 		twoDisabled?: boolean;
@@ -83,6 +83,13 @@
 			<Toggle value="two" data-testid="two" disabled={twoDisabled} />
 			<Toggle value="three" data-testid="three" />
 		</ToggleGroup>
+	{:else if scenario === 'mixed'}
+		<Toolbar.Button data-testid="before" />
+		<ToggleGroup>
+			<Toggle value="one" data-testid="one" />
+			<Toggle value="two" data-testid="two" />
+		</ToggleGroup>
+		<Toolbar.Button data-testid="after" />
 	{:else}
 		<Toolbar.Button data-testid="before" />
 		<Toolbar.Group disabled>

@@ -3,7 +3,6 @@
 	Derived from Base UI v1.8.0 packages/react/src/toggle-group/ToggleGroup.tsx
 	and the linear composite keyboard path it mounts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Toolbar integration is not ported: the group always owns roving focus.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -11,6 +10,7 @@
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import { findToolbarRootContext, useToolbarGroupContext } from '../toolbar/context.svelte.js';
 	import { ToggleGroupContext, setToggleGroupContext } from './context.svelte.js';
 	import type { ToggleGroupProps, ToggleGroupState } from './types.js';
 
@@ -25,25 +25,32 @@
 		children,
 		...elementProps
 	}: ToggleGroupProps = $props();
-	const disabled = $derived(disabledProp ?? false);
+	const toolbar = findToolbarRootContext();
+	const toolbarGroup = useToolbarGroupContext();
+	const disabled = $derived(
+		(toolbar?.disabled ?? false) || (toolbarGroup?.disabled ?? false) || (disabledProp ?? false)
+	);
 
 	// Captured once. Assigning `value` later must not look like the parent passed it.
 	const valueProvided = untrack(() => value !== undefined);
 	const EMPTY: readonly string[] = [];
 
 	const reading = useDirection();
-	const roving = new CompositeRoot({
-		orientation: () => orientation,
-		loopFocus: () => loopFocus,
-		direction: () => reading.direction,
-		isItemDisabled: (element) =>
-			element.matches(':disabled') || element.getAttribute('aria-disabled') === 'true',
-		keys: 'composite',
-		homeEnd: true,
-		stopPropagation: true,
-		replacement: 'first',
-		keydown: 'item'
-	});
+	// Inside a Toolbar the toolbar owns roving focus, and the toggles are its items.
+	const roving =
+		toolbar?.roving ??
+		new CompositeRoot({
+			orientation: () => orientation,
+			loopFocus: () => loopFocus,
+			direction: () => reading.direction,
+			isItemDisabled: (element) =>
+				element.matches(':disabled') || element.getAttribute('aria-disabled') === 'true',
+			keys: 'composite',
+			homeEnd: true,
+			stopPropagation: true,
+			replacement: 'first',
+			keydown: 'item'
+		});
 	const group = new ToggleGroupContext(
 		valueProvided,
 		roving,

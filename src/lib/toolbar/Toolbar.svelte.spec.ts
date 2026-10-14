@@ -455,6 +455,149 @@ describe('<Toolbar.Button />', () => {
 			});
 		});
 
+		describe('Toggle and ToggleGroup', () => {
+			const testId = (id: string) => page.getByTestId(id);
+
+			it('renders toggle and toggle group', async () => {
+				render(ToolbarRenderHarness, { scenario: 'toggles' });
+				const buttons = page.getByRole('button').elements();
+				expect(buttons.map((element) => element.getAttribute('aria-pressed'))).toEqual([
+					'false',
+					'false',
+					'false'
+				]);
+			});
+
+			it('handles interactions', async () => {
+				const onPressedChange = vi.fn();
+				render(ToolbarRenderHarness, { scenario: 'toggles', onPressedChange });
+				const [button1, button2, button3] = page.getByRole('button').all();
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(button1).toHaveFocus();
+				await userEvent.keyboard('{Enter}');
+				expect(onPressedChange).toHaveBeenCalledTimes(1);
+				await expect.element(button1).toHaveAttribute('aria-pressed', 'true');
+
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.element(button2).toHaveFocus();
+				await userEvent.keyboard(' ');
+				expect(onPressedChange).toHaveBeenCalledTimes(2);
+				await expect.element(button2).toHaveAttribute('aria-pressed', 'true');
+
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.element(button3).toHaveFocus();
+				await userEvent.keyboard('{Enter}');
+				expect(onPressedChange).toHaveBeenCalledTimes(3);
+				await expect.element(button3).toHaveAttribute('aria-pressed', 'true');
+			});
+
+			it('disabled state', async () => {
+				const onPressedChange = vi.fn();
+				render(ToolbarRenderHarness, { scenario: 'toggles', disabled: true, onPressedChange });
+				const buttons = page.getByRole('button').all();
+				for (const toggle of buttons) {
+					await expect.element(toggle).toHaveAttribute('aria-pressed', 'false');
+					await expect.element(toggle).not.toHaveAttribute('disabled');
+					await expect.element(toggle).toHaveAttribute('data-disabled');
+					await expect.element(toggle).toHaveAttribute('aria-disabled', 'true');
+				}
+
+				await userEvent.keyboard('{Tab}');
+				for (const [index, toggle] of buttons.entries()) {
+					if (index > 0) await userEvent.keyboard('{ArrowRight}');
+					await expect.element(toggle).toHaveFocus();
+					await userEvent.keyboard('{Enter}');
+					await userEvent.keyboard(' ');
+				}
+				expect(onPressedChange).toHaveBeenCalledTimes(0);
+			});
+
+			it('navigates and selects direct ToggleGroup > Toggle children', async () => {
+				const onValueChange = vi.fn();
+				render(ToolbarRenderHarness, { scenario: 'direct', value: ['one'], onValueChange });
+				await expect.element(testId('one')).toHaveAttribute('aria-pressed', 'true');
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(testId('one')).toHaveFocus();
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.element(testId('two')).toHaveFocus();
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.element(testId('three')).toHaveFocus();
+
+				await userEvent.keyboard('{Enter}');
+				expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([['three']]);
+				await expect.element(testId('one')).toHaveAttribute('aria-pressed', 'false');
+				await expect.element(testId('three')).toHaveAttribute('aria-pressed', 'true');
+			});
+
+			it('skips disabled direct ToggleGroup > Toggle children', async () => {
+				render(ToolbarRenderHarness, { scenario: 'direct', twoDisabled: true });
+				await expect.element(testId('two')).toBeDisabled();
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(testId('one')).toHaveFocus();
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.element(testId('three')).toHaveFocus();
+				await expect.element(testId('two')).not.toHaveAttribute('tabindex', '0');
+			});
+
+			it('supports multiple selection for direct ToggleGroup > Toggle children', async () => {
+				const onValueChange = vi.fn();
+				render(ToolbarRenderHarness, {
+					scenario: 'direct',
+					multiple: true,
+					value: ['one'],
+					onValueChange
+				});
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(testId('one')).toHaveFocus();
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.element(testId('two')).toHaveFocus();
+				await userEvent.keyboard('{Enter}');
+				expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([['one', 'two']]);
+				await expect.element(testId('one')).toHaveAttribute('aria-pressed', 'true');
+				await expect.element(testId('two')).toHaveAttribute('aria-pressed', 'true');
+			});
+
+			it('supports a bound ToggleGroup value', async () => {
+				render(ToolbarRenderHarness, { scenario: 'direct', value: [] });
+				await expect.element(testId('one')).toHaveAttribute('aria-pressed', 'false');
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(testId('one')).toHaveFocus();
+				await userEvent.keyboard('{Enter}');
+				await expect.element(testId('one')).toHaveAttribute('aria-pressed', 'true');
+			});
+
+			it('disables direct ToggleGroup children when Toolbar.Group is disabled', async () => {
+				render(ToolbarRenderHarness, { scenario: 'group-disabled' });
+				for (const id of ['one', 'two']) {
+					await expect.element(testId(id)).toBeDisabled();
+					await expect.element(testId(id)).toHaveAttribute('data-disabled');
+				}
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(testId('before')).toHaveFocus();
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.element(testId('after')).toHaveFocus();
+				await expect.element(testId('one')).not.toHaveAttribute('tabindex', '0');
+				await expect.element(testId('two')).not.toHaveAttribute('tabindex', '0');
+			});
+
+			it('skips a direct Toggle that becomes disabled at runtime', async () => {
+				const screen = render(ToolbarRenderHarness, { scenario: 'direct' });
+
+				await userEvent.keyboard('{Tab}');
+				await expect.element(testId('one')).toHaveFocus();
+				await screen.rerender({ twoDisabled: true });
+				await expect.element(testId('two')).toBeDisabled();
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.element(testId('three')).toHaveFocus();
+			});
+		});
+
 		describe('Switch', () => {
 			const mismatch =
 				'Base UI: A component that acts as a button expected a native <button> because the `nativeButton` prop is true. Rendering a non-<button> removes native button semantics, which can impact forms and accessibility. Use a real <button> in the `render` snippet, or set `nativeButton` to `false`.';
@@ -588,6 +731,26 @@ describe('<Toolbar.Link />', () => {
 });
 
 describe('native Svelte', () => {
+	it('a ToggleGroup shares the toolbar tab stop and arrow order', async () => {
+		render(ToolbarRenderHarness, { scenario: 'mixed' });
+		const ids = ['before', 'one', 'two', 'after'];
+		const tabindexes = () =>
+			ids.map((id) => page.getByTestId(id).element().getAttribute('tabindex'));
+		await expect.poll(tabindexes).toEqual(['0', '-1', '-1', '-1']);
+
+		await userEvent.keyboard('{Tab}');
+		await expect.element(page.getByTestId('before')).toHaveFocus();
+		for (const id of ['one', 'two', 'after', 'before']) {
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.element(page.getByTestId(id)).toHaveFocus();
+		}
+		await userEvent.keyboard('{ArrowLeft}');
+		await expect.element(page.getByTestId('after')).toHaveFocus();
+		await userEvent.keyboard('{ArrowLeft}');
+		await expect.element(page.getByTestId('two')).toHaveFocus();
+		await expect.poll(tabindexes).toEqual(['-1', '-1', '0', '-1']);
+	});
+
 	it('activates a native button once from Space, Enter, and click', async () => {
 		render(ToolbarHarness, { scenario: 'activate' });
 		await focus('One');
