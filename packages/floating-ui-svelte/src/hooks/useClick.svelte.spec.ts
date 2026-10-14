@@ -96,4 +96,13 @@ describe('ClickInteraction', () => {
 			await expect.poll(() => component.store.open).toBe(true);
 		});
 	});
+
+	it('reports the configured input-press reason in the open change', async () => {
+		const { component } = render(ClickHarness, { reason: REASONS.inputPress });
+
+		await page.getByTestId('trigger').click();
+
+		expect(component.store.open).toBe(true);
+		expect(component.store.lastReason).toBe('input-press');
+	});
 });

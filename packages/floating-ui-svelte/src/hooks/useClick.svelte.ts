@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/useClick.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The virtual press follows v1.9.0
-// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The virtual press and the `input-press`
+// reason follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import {
@@ -23,7 +24,7 @@ export interface UseClickProps {
 	ignoreMouse?: boolean;
 	stickIfOpen?: boolean;
 	touchOpenDelay?: number;
-	reason?: typeof REASONS.triggerPress;
+	reason?: typeof REASONS.triggerPress | typeof REASONS.inputPress;
 }
 
 type PointerKind = 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
