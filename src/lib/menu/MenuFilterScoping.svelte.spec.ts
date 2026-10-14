@@ -2,13 +2,12 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
 import MenuIndependentHarness from '../../tests/menu/MenuIndependentHarness.svelte';
 import MenuOrphan from '../../tests/menu/MenuOrphan.svelte';
 import { mouse, pointer } from '../../tests/menu/mouse.js';
-import { parkPointer } from '../../tests/pointer.js';
 import { testStyle } from '../../tests/menu/style.js';
 import { items, type MenuFilterSpec, type MenuItemSpec } from '../../tests/menu/types.js';
 
@@ -74,8 +73,6 @@ function filterableMenu(
 		...options
 	});
 }
-
-beforeEach(parkPointer);
 
 describe('Menu.FilterProvider scoping', () => {
 	it('makes the menu filterable', async () => {
@@ -622,8 +619,6 @@ describe('focus navigation in a filterable menu', () => {
 });
 
 describe('independent menu focus inside a filterable menu', () => {
-	beforeEach(parkPointer);
-
 	it('returns to its own trigger on Shift+Tab', async () => {
 		render(MenuIndependentHarness);
 		const action = page.getByRole('menuitem', { name: 'Independent action' });

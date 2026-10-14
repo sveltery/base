@@ -10,8 +10,10 @@ import TooltipCursorHarness from '../../tests/TooltipCursorHarness.svelte';
 import TooltipHarness from '../../tests/TooltipHarness.svelte';
 import TooltipHoverableHarness from '../../tests/TooltipHoverableHarness.svelte';
 import TooltipPairHarness from '../../tests/TooltipPairHarness.svelte';
+import TooltipPopoverHarness from '../../tests/TooltipPopoverHarness.svelte';
 import TooltipRemountHarness from '../../tests/TooltipRemountHarness.svelte';
 import TooltipSpacedHarness from '../../tests/TooltipSpacedHarness.svelte';
+import { clickElement } from '../../tests/menu/mouse.js';
 import { byTestId, fire, hoverWithMouse } from '../../tests/tooltip-events.js';
 import { OPEN_DELAY } from './constants.js';
 import type { TooltipChangeEventDetails } from './types.js';
@@ -796,6 +798,31 @@ describe('Tooltip.Root scenarios', () => {
 			fire.mouseEnter(popupElement);
 			await tick();
 			expect(byTestId('popup')).toBeNull();
+		});
+	});
+
+	describe('popover portaled from the popup', () => {
+		async function openPopover() {
+			render(TooltipPopoverHarness, {});
+			await expect.poll(() => byTestId('tip')).not.toBeNull();
+			clickElement(byTestId('popover-trigger')!);
+			await expect.poll(() => byTestId('popover')?.hasAttribute('data-open')).toBe(true);
+			expect(byTestId('tip')!.contains(byTestId('popover'))).toBe(false);
+		}
+
+		it('keeps the tooltip open on a press inside the popover', async () => {
+			await openPopover();
+			clickElement(byTestId('popover')!);
+			await tick();
+			expect(byTestId('tip-open')!.textContent).toBe('true');
+			expect(byTestId('popover')?.hasAttribute('data-open')).toBe(true);
+		});
+
+		it('closes the tooltip on a press outside both popups', async () => {
+			await openPopover();
+			clickElement(byTestId('outside')!);
+			await tick();
+			expect(byTestId('tip-open')!.textContent).toBe('false');
 		});
 	});
 

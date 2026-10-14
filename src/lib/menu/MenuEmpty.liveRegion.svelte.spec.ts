@@ -1,12 +1,11 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/internals/useInitialLiveRegionTextMutation.test.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { page, userEvent } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuEmptyHarness from '../../tests/menu/MenuEmptyHarness.svelte';
 
 const MARKER = '\u2060';
-const RESET_DELAY = 200;
 
 function status() {
 	return document.querySelector<HTMLElement>('[data-testid="status"]');
@@ -22,17 +21,25 @@ function textNodes(root: Node) {
 async function showEmpty(props: { trailing?: string } = {}) {
 	render(MenuEmptyHarness, props);
 	expect(status()).toBe(null);
+	vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
 	const input = page.getByRole('searchbox', { name: 'Filter actions' });
 	await userEvent.type(input, 'zzz');
 	await expect.poll(status).not.toBe(null);
 	return status()!;
 }
 
+afterEach(() => {
+	vi.useRealTimers();
+});
+
 describe('Menu.Empty initial live-region text', () => {
 	it('marks the text when the message appears after mount', async () => {
 		const element = await showEmpty();
 		expect(element.textContent).toBe(`No matches${MARKER}`);
-		await expect.poll(() => element.textContent).toBe('No matches');
+		await vi.advanceTimersByTimeAsync(199);
+		expect(element.textContent).toBe(`No matches${MARKER}`);
+		await vi.advanceTimersByTimeAsync(1);
+		expect(element.textContent).toBe('No matches');
 	});
 
 	it('skips empty text nodes when finding the announcement text', async () => {
@@ -45,7 +52,7 @@ describe('Menu.Empty initial live-region text', () => {
 		const element = await showEmpty();
 		const [text] = textNodes(element).filter((node) => node.data !== '');
 		text.nodeValue = 'Updated';
-		await new Promise((resolve) => setTimeout(resolve, RESET_DELAY + 50));
+		await vi.advanceTimersByTimeAsync(200);
 		expect(element.textContent).toBe('Updated');
 	});
 });

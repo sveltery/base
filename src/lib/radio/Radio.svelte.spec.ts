@@ -26,6 +26,11 @@ const ENDING_CSS = `
 	.animation-test-indicator[data-ending-style] { animation: radio-test-anim 40ms; }
 `;
 
+const HELD_ENDING_CSS = `
+	@keyframes radio-test-anim { to { opacity: 0; } }
+	.animation-test-indicator[data-ending-style] { animation: radio-test-anim 600s; }
+`;
+
 function radioEl(name?: string) {
 	return name ? page.getByRole('radio', { name }) : page.getByRole('radio');
 }
@@ -479,7 +484,7 @@ describe('Radio', () => {
 
 		it('keeps data-ending-style until the exit animation ends', async () => {
 			render(RadioIndicatorHarness, {
-				css: ENDING_CSS,
+				css: HELD_ENDING_CSS,
 				indicatorClass: 'animation-test-indicator'
 			});
 			const button = page.getByRole('button', { name: 'Toggle' }).element() as HTMLButtonElement;
@@ -510,6 +515,9 @@ describe('Radio', () => {
 				expect(
 					document.querySelector('[data-testid="indicator"]')?.hasAttribute('data-ending-style')
 				).toBe(true);
+				const animations = indicator!.getAnimations() as CSSAnimation[];
+				expect(animations.map((animation) => animation.animationName)).toEqual(['radio-test-anim']);
+				animations[0].finish();
 			} finally {
 				AnimationFrame.prototype.request = request;
 			}

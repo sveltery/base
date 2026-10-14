@@ -3,11 +3,10 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
 import { mouse, pointer } from '../../tests/menu/mouse.js';
-import { parkPointer } from '../../tests/pointer.js';
 import { items } from '../../tests/menu/types.js';
 
 async function frame() {
@@ -60,8 +59,6 @@ async function press(trigger: HTMLElement, pointerType: string) {
 }
 
 describe.each([false, true])('submenu pointer focus with filteredParent=%s', (filteredParent) => {
-	beforeEach(parkPointer);
-
 	it.each(['mouse', 'touch', 'pen'])('handles a %s press without hover opening', async (type) => {
 		renderMenu(filteredParent, false);
 		await waitForParentFocus(filteredParent);
@@ -114,8 +111,6 @@ describe.each([false, true])('submenu pointer focus with filteredParent=%s', (fi
 // The trigger's click handler types the press the way upstream `useEnhancedClickHandler` does. A
 // plain parent leaves the submenu input's focus to that handler alone.
 describe('submenu press type in a plain parent', () => {
-	beforeEach(parkPointer);
-
 	async function pressWith(down: PointerEventInit, click: 'mouse' | 'touch' | null) {
 		const trigger = moreTrigger();
 		pointer(trigger, 'pointerdown', { width: 10, height: 10, pressure: 0.5, ...down });
