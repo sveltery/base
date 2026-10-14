@@ -8,6 +8,7 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
+	import { on } from 'svelte/events';
 	import {
 		REASONS,
 		activeElement,
@@ -63,15 +64,15 @@
 		}
 	}));
 
-	// An item press anywhere in the menu tree closes every menu in it.
-	$effect(() => {
-		const events = store.tree?.events;
-		if (!events) return;
-		return events.on('close', (data) => {
-			const event = data as { domEvent: Event | undefined; reason: MenuChangeReason };
-			store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));
-		});
-	});
+	// An item press anywhere in the menu group closes every menu in it.
+	$effect(() =>
+		on(store.menuEvents, 'close', (event) => {
+			const { domEvent, reason } = (
+				event as CustomEvent<{ domEvent: Event | undefined; reason: MenuChangeReason }>
+			).detail;
+			store.setOpen(false, createChangeEventDetails(reason, domEvent));
+		})
+	);
 
 	useHoverFloatingInteraction(store, () => ({
 		enabled:

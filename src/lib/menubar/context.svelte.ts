@@ -34,6 +34,7 @@ export class MenubarContext implements MenubarParentContext {
 	#hasSubmenuOpen = false;
 	#hasSubmenuOpenVersion = $state(0);
 	readonly mouseUpGate: MouseUpGate = { allow: false };
+	readonly menuEvents = new EventTarget();
 	readonly roving: CompositeRoot;
 
 	constructor(

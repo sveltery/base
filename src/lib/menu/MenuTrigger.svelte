@@ -113,7 +113,7 @@
 
 	// Upstream trigger data forwarding: a trigger in a menubar takes over the menu's parent while
 	// it owns the menu. A detached menu then forwards keys to the menubar and emits its open
-	// changes on the menubar's tree.
+	// changes on the menubar's event channel.
 	$effect(() => {
 		const current = live;
 		if (!menubar || !current || !mountedByThis) return;
@@ -145,7 +145,9 @@
 		}
 		if (target != null && findRootOwnerId(target) === current.rootId) return;
 		if (isMouseWithinBounds(event, node)) return;
-		current.tree?.events.emit('close', { domEvent: event, reason: REASONS.cancelOpen });
+		current.menuEvents.dispatchEvent(
+			new CustomEvent('close', { detail: { domEvent: event, reason: REASONS.cancelOpen } })
+		);
 	}
 
 	function listenForMouseUp(doc: Document) {
