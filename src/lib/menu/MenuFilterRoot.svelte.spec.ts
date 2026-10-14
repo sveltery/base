@@ -8,7 +8,6 @@ import MenuHarness from '../../tests/menu/MenuHarness.svelte';
 import MenuListTriggersHarness from '../../tests/menu/MenuListTriggersHarness.svelte';
 import MenuPaletteHarness from '../../tests/menu/MenuPaletteHarness.svelte';
 import { mouse, pointer } from '../../tests/menu/mouse.js';
-import { parkPointer } from '../../tests/pointer.js';
 import { testStyle } from '../../tests/menu/style.js';
 import { items, type MenuFilterSpec, type MenuItemSpec } from '../../tests/menu/types.js';
 
@@ -84,8 +83,6 @@ async function openWithInput(entries: MenuItemSpec[], filter: MenuFilterSpec = {
 }
 
 describe('Menu.FilterProvider', () => {
-	beforeEach(parkPointer);
-
 	describe('opening with a query', () => {
 		it('keeps only the matching items mounted', async () => {
 			filterable(items('Rename', 'Copy'), {
@@ -1102,8 +1099,6 @@ describe('Menu.FilterProvider', () => {
 });
 
 describe('Menu.FilterProvider submenus', () => {
-	beforeEach(parkPointer);
-
 	const share = (extra: MenuItemSpec = { type: 'item', label: 'Email' }): Submenu => ({
 		type: 'submenu',
 		label: 'Share',
@@ -1424,8 +1419,6 @@ describe('Menu.FilterProvider submenus', () => {
 });
 
 describe('Menu.FilterProvider while the popup animates out', () => {
-	beforeEach(parkPointer);
-
 	// The focus manager returns focus when the menu closes, not when the popup unmounts as
 	// upstream does, so `finalFocus: false` keeps focus on the input for the exit.
 	const EXIT =
@@ -1579,8 +1572,6 @@ describe('Menu.FilterProvider while the popup animates out', () => {
 });
 
 describe('Menu.FilterProvider query and labels', () => {
-	beforeEach(parkPointer);
-
 	it('clears a positional highlight when a controlled query replaces the visible item', async () => {
 		const onAppleClick = vi.fn();
 		const entries: MenuItemSpec[] = [
@@ -1654,8 +1645,6 @@ describe('Menu.FilterProvider query and labels', () => {
 });
 
 describe('Menu.FilterProvider keyboard and focus', () => {
-	beforeEach(parkPointer);
-
 	async function openWithKeyboard() {
 		filterable(items('Rename', 'Duplicate', 'Delete'), { open: false });
 		page.getByRole('button', { name: 'Actions' }).element().focus();
@@ -1892,8 +1881,6 @@ describe('Menu.FilterProvider keyboard and focus', () => {
 });
 
 describe('Menu.FilterProvider hover-opened submenu ownership', () => {
-	beforeEach(parkPointer);
-
 	const hoverMenu: MenuItemSpec[] = [
 		...items('Rename', 'Duplicate'),
 		{
@@ -1948,8 +1935,6 @@ describe('Menu.FilterProvider hover-opened submenu ownership', () => {
 });
 
 describe('Menu.FilterProvider submenu highlight details', () => {
-	beforeEach(parkPointer);
-
 	function submenuHighlightMenu(onItemHighlighted: (...args: unknown[]) => void) {
 		filterable(
 			[
@@ -1995,8 +1980,6 @@ describe('Menu.FilterProvider submenu highlight details', () => {
 });
 
 describe('filterable menu navigation regressions', () => {
-	beforeEach(parkPointer);
-
 	describe.each([false, true])('with a filtered submenu: %s', (filterSubmenu) => {
 		it.each([
 			['{ArrowRight}', '{ArrowLeft}'],
@@ -2031,8 +2014,6 @@ describe('filterable menu navigation regressions', () => {
 });
 
 describe('Menu.FilterProvider automatic highlight', () => {
-	beforeEach(parkPointer);
-
 	it.each([true, 'always'] as const)(
 		'does not allow arrow navigation to escape when autoHighlight is %s',
 		async (autoHighlight) => {
@@ -2156,8 +2137,6 @@ describe('Menu.FilterProvider automatic highlight', () => {
 });
 
 describe('Menu.FilterProvider lazy flipping', () => {
-	beforeEach(parkPointer);
-
 	it('keeps the flipped alignment while filtering narrows the popup', async () => {
 		render(MenuHarness, {
 			triggerLabel: 'Actions',
