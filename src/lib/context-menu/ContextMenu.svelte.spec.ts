@@ -462,12 +462,14 @@ describe('ContextMenu', () => {
 			await userEvent.hover(get('outer'));
 			await userEvent.click(get('ctx-trigger'), { button: 'right' });
 			await expect.poll(() => byTestId('ctx-menu') !== null || reasons.length > 0).toBe(true);
-			await new Promise((resolve) => setTimeout(resolve, 100));
+			await new Promise(requestAnimationFrame);
+			await tick();
 			expect({ open: open(), reasons }).toEqual({ open: [true, true], reasons: [] });
 
 			await userEvent.click(get('ctx-item'));
 			await expect.poll(shown('ctx-menu')).toBe(false);
-			await new Promise((resolve) => setTimeout(resolve, 100));
+			await new Promise(requestAnimationFrame);
+			await tick();
 			expect({ open: open(), reasons }).toEqual({ open: [true, false], reasons: [] });
 
 			await userEvent.hover(get('far'));
