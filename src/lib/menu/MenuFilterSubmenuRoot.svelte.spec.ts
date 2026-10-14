@@ -593,6 +593,7 @@ describe('Menu.FilterProvider around Menu.SubmenuRoot', () => {
 					.toBe(trigger.id);
 				await userEvent.keyboard('{ArrowDown}');
 				await expect.poll(() => document.querySelector('[data-testid="submenu"]')).not.toBe(null);
+				await expect.poll(focused).not.toBe(searchbox(PARENT));
 				await userEvent.keyboard('{ArrowLeft}');
 				await expect.poll(() => document.querySelector('[data-testid="submenu"]')).toBe(null);
 				expect(focused()).toBe(searchbox(PARENT));
