@@ -3,8 +3,7 @@
 // radio-group/MenuRadioGroupContext.ts, checkbox-item/MenuCheckboxItemContext.ts and
 // radio-item/MenuRadioItemContext.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// The filter fields of MenuRootContext (`virtualFocus`, `allowEscape`, rendered floating id)
-// are not ported.
+// The virtual-focus fields of upstream MenuRootContext live on the store.
 
 import { defineContext } from '../internal/context.js';
 import type { AnchorPositioning } from '../internal/popups/index.js';
@@ -17,6 +16,9 @@ export interface MenuRootContext {
 	/** Where this `Menu.Root` sits. A detached trigger never replaces it. */
 	readonly parent: MenuParent;
 	readonly orientation: MenuOrientation;
+	readonly loopFocus: boolean;
+	/** Whether virtual navigation can leave the list for the input at either end. */
+	readonly allowEscape: boolean;
 }
 
 export const [useMenuRoot, setMenuRoot, findMenuRoot] = defineContext<MenuRootContext>(

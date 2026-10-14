@@ -170,7 +170,13 @@ export class FakeRemoteForm {
 			const element = event.target as HTMLInputElement;
 			if (!element.name) return;
 			const field = this.parseKey(element.name);
-			if (field.isArray) {
+			if (field.isArray && element.tagName === 'SELECT') {
+				const options = element.querySelectorAll<HTMLOptionElement>('option:checked');
+				this.input[field.name] = coerce(
+					field.type,
+					Array.from(options, (option) => option.value)
+				);
+			} else if (field.isArray) {
 				const elements = Array.from(
 					node.querySelectorAll<HTMLInputElement>(`[name="${element.name}"]`)
 				);
