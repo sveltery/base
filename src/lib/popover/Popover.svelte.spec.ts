@@ -448,6 +448,21 @@ describe('Popover', () => {
 		await expect.element(page.getByRole('dialog')).toBeVisible();
 	});
 
+	it('renders no inside guards and tabs into a hover-opened modal popover in DOM order', async () => {
+		render(PopoverFixture, { scenario: 'modal-hover' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.hover();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		expect(document.querySelectorAll('[data-base-ui-focus-guard][data-type="inside"]').length).toBe(
+			0
+		);
+		(open.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Close');
+	});
+
 	it('focuses the previous control inside when the trailing guard is reached from outside', async () => {
 		render(PopoverFixture, { scenario: 'tab' });
 		await page.getByRole('button', { name: 'Open' }).click();

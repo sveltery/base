@@ -6,6 +6,7 @@ export const cases = [
 	'prevented',
 	'hover',
 	'modal',
+	'modal-hover',
 	'close',
 	'open',
 	'detached',

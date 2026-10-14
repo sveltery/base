@@ -42,7 +42,7 @@
 				{:else if scenario !== 'tab-empty'}
 					<button type="button">Inside</button>
 				{/if}
-				{#if scenario === 'close' || scenario === 'modal'}
+				{#if scenario === 'close' || scenario === 'modal' || scenario === 'modal-hover'}
 					<Popover.Close>Close</Popover.Close>
 				{/if}
 			</Popover.Popup>
@@ -75,11 +75,11 @@
 	{#if scenario === 'tab' || scenario === 'tab-empty' || scenario === 'tab-inline'}
 		<button type="button" data-testid="before">Before</button>
 	{/if}
-	<Popover.Root modal={scenario === 'modal'} onOpenChange={changed}>
+	<Popover.Root modal={scenario === 'modal' || scenario === 'modal-hover'} onOpenChange={changed}>
 		<Popover.Trigger
 			onclick={clicked}
 			disabled={scenario === 'disabled'}
-			openOnHover={scenario === 'hover'}
+			openOnHover={scenario === 'hover' || scenario === 'modal-hover'}
 			delay={0}
 		>
 			Open

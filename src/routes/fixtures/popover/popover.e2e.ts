@@ -224,6 +224,20 @@ for (const reference of [false, true]) {
 			await expect(popup).toBeVisible();
 		});
 
+		test('tab from a hover-opened modal trigger enters the popup in DOM order', async ({
+			page
+		}) => {
+			const { trigger, popup } = await open(page, 'modal-hover', reference);
+			await trigger.hover();
+			await expect(popup).toBeVisible();
+			await expect(page.locator('[data-base-ui-focus-guard][data-type="inside"]')).toHaveCount(0);
+			await trigger.focus();
+			await page.keyboard.press('Tab');
+			await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await page.keyboard.press('Tab');
+			await expect(popup.getByRole('button', { name: 'Close' })).toBeFocused();
+		});
+
 		test('a trailing guard reached from outside focuses inside and stays open', async ({
 			page
 		}) => {
