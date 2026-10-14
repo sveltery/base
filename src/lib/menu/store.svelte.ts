@@ -20,6 +20,7 @@ import {
 import type { FloatingTreeStore } from '@sveltery/floating-ui-svelte';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { ElementList } from '../internal/element-list.svelte.js';
+import { BoundTriggerId } from '../internal/popups/boundTriggerId.svelte.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
 import type { AnchorPositioning } from '../internal/popups/index.js';
 import { PATIENT_CLICK_THRESHOLD, isKeyboardClick, isKeyboardOpen } from './constants.js';
@@ -171,15 +172,12 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	private readonly readDisabled: () => boolean;
 	private readonly readModal: () => boolean | undefined;
 	private readonly readHighlightItemOnHover: () => boolean;
-	private readonly readTriggerId: () => string | null | undefined;
-	private readonly writeTriggerIdValue: (id: string | null) => void;
+	readonly boundTriggerId: BoundTriggerId;
 	private readonly readOnItemHighlighted: MenuStoreOptions['onItemHighlighted'];
 	private readonly readers = new SvelteMap<string, () => TriggerOwned>();
 	private readonly stickTimeout = new ScopedTimeout();
 	private readonly touchCloseTimeout = new ScopedTimeout();
 	private allowTouchToClose = true;
-	/** Id written for this open. Survives a bound trigger id that the parent sets back. */
-	private claimedTriggerId: string | null = null;
 	private openedFrom: Element | null = null;
 	private triggerChangeAbort: AbortController | null = null;
 
@@ -203,8 +201,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		this.readDisabled = options.readDisabled;
 		this.readModal = options.readModal;
 		this.readHighlightItemOnHover = options.readHighlightItemOnHover;
-		this.readTriggerId = options.readTriggerId;
-		this.writeTriggerIdValue = options.writeTriggerId;
+		this.boundTriggerId = new BoundTriggerId(this, options.readTriggerId, options.writeTriggerId);
 		this.readOnItemHighlighted = options.onItemHighlighted;
 
 		$effect.pre(() => {
@@ -222,15 +219,26 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 			if (!this.mounted) this.allowMouseEnter = false;
 		});
 
-		// Upstream useImplicitActiveTrigger: a trigger id set from outside while open anchors the
-		// menu to that trigger.
+		// Upstream useImplicitActiveTrigger: a bound trigger id moves the menu to that trigger, and
+		// a menu opened without naming a trigger, such as through `bind:open`, claims its only
+		// trigger until it finishes closing.
 		$effect(() => {
 			if (!this.open) return;
-			const id = this.readTriggerId();
-			const element = id ? this.triggers.getById(id) : undefined;
-			if (element && element !== untrack(() => this.domReferenceElement)) {
-				this.domReferenceElement = element;
+			const boundId = this.boundTriggerId.read();
+			const bound = boundId ? this.triggers.getById(boundId) : undefined;
+			if (bound) {
+				if (bound !== untrack(() => this.domReferenceElement)) this.domReferenceElement = bound;
+				return;
 			}
+			if (this.openedWithoutTrigger || this.triggerCount !== 1) return;
+			if (this.resolvedActiveTriggerId() != null) return;
+			untrack(() => {
+				const [only] = this.triggers.elements();
+				const id = this.triggers.idOf(only);
+				if (!id) return;
+				this.domReferenceElement = only;
+				this.boundTriggerId.write(id);
+			});
 		});
 
 		// The open of this menu commits, or the registry settles under the same index.
@@ -398,16 +406,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	resolvedActiveTriggerId() {
 		const registered = this.triggers.idOf(this.domReferenceElement);
 		if (registered) return registered;
-		const written = this.readTriggerId();
-		if (written) return written;
-		if (this.open && this.claimedTriggerId) return this.claimedTriggerId;
-		return this.domReferenceElement?.id || null;
-	}
-
-	writeTriggerId(id: string | null) {
-		this.claimedTriggerId = id;
-		if ((this.readTriggerId() ?? null) === id) return;
-		this.writeTriggerIdValue(id);
+		return this.boundTriggerId.active || this.domReferenceElement?.id || null;
 	}
 
 	private owned(): TriggerOwned | undefined {
@@ -460,7 +459,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		this.readers.set(id, read);
 		untrack(() => {
 			const active = this.domReferenceElement;
-			const activeId = this.readTriggerId();
+			const activeId = this.boundTriggerId.read();
 			if (
 				active === element ||
 				activeId === id ||
@@ -471,7 +470,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 					!this.openedWithoutTrigger)
 			) {
 				this.domReferenceElement = element;
-				this.writeTriggerId(id);
+				this.boundTriggerId.write(id);
 			}
 		});
 	}
@@ -530,13 +529,8 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		this.keyboardOpen = nextOpen && isKeyboardOpen(reason, nativeEvent);
 
 		const registered = this.triggers.idOf(this.domReferenceElement);
-		this.writeTriggerId(registered ?? (this.domReferenceElement?.id || null));
-		if (nextOpen) {
-			this.openedFrom = this.activeTriggerElement;
-		} else {
-			this.openedFrom = null;
-			this.claimedTriggerId = null;
-		}
+		this.boundTriggerId.write(registered ?? (this.domReferenceElement?.id || null), nextOpen);
+		this.openedFrom = nextOpen ? this.activeTriggerElement : null;
 
 		if (nextOpen && reason === REASONS.triggerHover) {
 			// A click within 500ms of a hover open keeps the menu open.
@@ -569,6 +563,10 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	/** Drop a prevented unmount. The shared close completion then removes the popup. */
 	override forceUnmount() {
 		this.preventUnmountingOnClose = false;
+	}
+
+	protected override onUnmount() {
+		this.boundTriggerId.reset();
 	}
 
 	/** The positioner animates between triggers, then the move is marked instant. */

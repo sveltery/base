@@ -480,6 +480,14 @@ Upstream: `useInitialLiveRegionTextMutation` is a hook that returns a ref, teste
 
 Local: `Menu.Empty` marks its text in an attachment. The cases run against `Menu.Empty` in `src/lib/menu/MenuEmpty.liveRegion.svelte.spec.ts`. `does nothing when its ref is not attached` is not ported: an attachment runs only on the element it is attached to, so there is no unattached state to test.
 
+### Trigger id after the menu unmounts
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/popups/popupStoreUtils.ts` (`useOpenStateTransitions` and `useImplicitActiveTrigger`). Once the menu unmounts, the store resets its own `activeTriggerId` to `null`. The next open that names no trigger, such as a controlled `open`, claims the only registered trigger.
+
+Local: `triggerId` is one `$bindable` prop for both values, as for Popover under [Trigger id after the popover unmounts](#trigger-id-after-the-popover-unmounts). The Menu store uses the shared `BoundTriggerId`, so a menubar menu behaves the same. A ContextMenu has no trigger id to bind.
+
+Test: `src/lib/menu/MenuRoot.triggerId.svelte.spec.ts`, run for a standalone menu and a menubar menu.
+
 ## Menubar
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/menubar/**`. The paired React fixture runs `@base-ui/react` 1.9.0. `Menubar` provides the `MenubarParentContext` that `src/lib/menu/parent.svelte.ts` defines. Roving focus comes from the shared `CompositeRoot` in `src/lib/internal/composite-root.svelte.ts`.

@@ -25,7 +25,33 @@ const option = (name: string) => page.getByRole('option', { name, exact: true })
 const listbox = () => page.getByRole('listbox');
 const hiddenInput = () => document.querySelector<HTMLInputElement>('input[aria-hidden="true"]')!;
 
+const positionerRect = () => {
+	const { top, left } = page.getByTestId('positioner').element().getBoundingClientRect();
+	return { top, left };
+};
+
 describe('Select.Root', () => {
+	it('anchors to a remounted trigger when bind:open reopens it', async () => {
+		const view = render(SelectHarness, {
+			items: ab,
+			root: { modal: false },
+			positioner: { alignItemWithTrigger: false, align: 'start' }
+		});
+		await userEvent.click(trigger());
+		await expect.element(listbox()).toBeVisible();
+		await expect.poll(() => positionerRect().top).toBeGreaterThan(0);
+		const anchored = positionerRect();
+		await userEvent.keyboard('{Escape}');
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+
+		await view.rerender({ triggerKey: 1 });
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+		await view.rerender({ open: true });
+		await expect.element(listbox()).toBeVisible();
+		await expect.poll(positionerRect).toEqual(anchored);
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+	});
+
 	it('focuses the popup and stays open when opened by a click', async () => {
 		render(SelectHarness, { items: ab });
 		await userEvent.click(trigger());

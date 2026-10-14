@@ -51,6 +51,7 @@
 		inputInside = false,
 		inline = false,
 		trigger = false,
+		triggerKey = 0,
 		triggerProps = {},
 		clear = false,
 		clearProps = {},
@@ -116,6 +117,8 @@
 		/** Renders the list without a popup. */
 		inline?: boolean;
 		trigger?: boolean;
+		/** Changing it remounts the trigger rendered with `inputInside`. */
+		triggerKey?: number;
 		triggerProps?: Partial<ComboboxTriggerProps> & Record<string, unknown>;
 		clear?: boolean;
 		clearProps?: Partial<ComboboxClearProps> & Record<string, unknown>;
@@ -403,10 +406,12 @@
 	>
 		{#if label}<Combobox.Label data-testid="label">{label}</Combobox.Label>{/if}
 		{#if inputInside}
-			<Combobox.Trigger data-testid="trigger" {...triggerProps}>
-				<Combobox.Value {...valueProps} />
-				{#if icon}<Combobox.Icon data-testid="icon" />{/if}
-			</Combobox.Trigger>
+			{#key triggerKey}
+				<Combobox.Trigger data-testid="trigger" {...triggerProps}>
+					<Combobox.Value {...valueProps} />
+					{#if icon}<Combobox.Icon data-testid="icon" />{/if}
+				</Combobox.Trigger>
+			{/key}
 		{:else if inputGroup}
 			<Combobox.InputGroup data-testid="input-group" {...inputGroupProps}
 				>{@render control()}</Combobox.InputGroup
