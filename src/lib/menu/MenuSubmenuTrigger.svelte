@@ -19,12 +19,12 @@
 	import {
 		ClickInteraction,
 		HoverReferenceInteraction,
+		isVirtualPointerEvent,
 		safePolygon
 	} from '@sveltery/floating-ui-svelte';
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { findMenuRoot } from './context.svelte.js';
-	import { isVirtualPointerEvent } from './filter-keydown.js';
 	import { MenuItemBehavior } from './item.svelte.js';
 	import type { MenuSubmenuTriggerProps, MenuSubmenuTriggerState } from './types.js';
 

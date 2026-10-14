@@ -398,7 +398,7 @@ Local: a submenu popup relays its `keydown` and `focusin` to the parent popup th
 
 Upstream: a consumer handler calls `event.preventBaseUIHandler()`, and the flag reaches every Base UI handler on the propagation path through React's shared synthetic event.
 
-Local: a consumer handler calls `event.preventDefault()`, which skips the part's own handlers through `mergeProps`. `Menu.Input` marks a key its consumer handler prevented, and the popup skips its own handlers for that key. No other part forwards the opt-out to an ancestor.
+Local: a consumer handler calls `event.preventDefault()`, as with every part (see `mergeProps`). `Menu.Input` passes its consumer handler through `forwardConsumerPrevention`, so the popup skips its own handlers for that key. No other menu part forwards the opt-out to an ancestor.
 
 ### Submenu trigger focus handback
 
@@ -446,14 +446,6 @@ Local: the polygon scopes to the parent popup through `getScope`.
 ### Not covered
 
 React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. Filter cases that need exit animations (`keeps submenu filtering updated during the exit transition`, `ignores %s in the input while the popup animates out`, the scoping cases that assert `data-ending-style`) are not ported, since the specs run without CSS transitions. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
-
-### Filterable trigger keys skip the trigger's handlers
-
-Upstream: while a filterable menu is open, ArrowLeft and ArrowRight on its trigger call `preventBaseUIHandler()`, which skips the trigger's own handlers and keeps the browser's handling of the key.
-
-Local: `mergeProps` has no such signal. A handler's `preventDefault()` is the only way to skip the handlers to its left, and it also cancels the key. The filter's trigger props are a function bag that wraps the trigger handlers merged before it, so a cross-axis key skips them without `preventDefault()`.
-
-Test: `src/lib/menu/MenuFilterRoot.svelte.spec.ts` (`leaves the cross-axis keys on the trigger to the browser while open`).
 
 ### Submenu trigger press type
 

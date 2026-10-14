@@ -22,14 +22,13 @@
 		type OpenChangePayload
 	} from '@sveltery/floating-ui-svelte';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
-	import { mergeProps } from '../internal/mergeProps.js';
+	import { isBaseUIHandlerPrevented, mergeProps } from '../internal/mergeProps.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { liveStyle } from './live-style.js';
 	import { useMenuPositioner, useMenuRoot } from './context.svelte.js';
-	import { isConsumerPrevented } from './filter-keydown.js';
 	import { MenuFilterPopupBehavior, useVirtualFocusParentHandoff } from './filter-popup.svelte.js';
 	import type { MenuChangeReason, MenuPopupProps, MenuPopupState } from './types.js';
 
@@ -165,21 +164,23 @@
 	const returnSpec = $derived(finalFocus === undefined ? returnFocusDefault : finalFocus);
 
 	/**
-	 * The internal return target of a submenu next to a filterable menu: the parent's input, or the
-	 * element a filterable submenu returns to. It is not a consumer target, so focus that already
-	 * moved out stays.
+	 * A submenu next to a filterable menu returns to the parent's input, or to the element a
+	 * filterable submenu returns to. These are internal defaults rather than consumer targets, so
+	 * focus that already moved out stays.
 	 */
+	const dynamicReturn = $derived(
+		finalFocus === undefined && parentType === 'menu' && (store.submenu != null || handoff != null)
+	);
+
 	function dynamicReturnElement(): HTMLElement | null | undefined {
-		if (finalFocus !== undefined || parentType !== 'menu') return undefined;
-		if (store.submenu) return store.submenu.getReturnElement();
-		if (handoff) return handoff.returnElement;
-		return undefined;
+		if (!dynamicReturn) return undefined;
+		return store.submenu ? store.submenu.getReturnElement() : handoff?.returnElement;
 	}
 
 	function returnFocus(closeType: string | null): boolean | HTMLElement | null | void {
 		if (leftByPointer) return false;
 		const dynamic = dynamicReturnElement();
-		if (dynamic) return focusInside() ? dynamic : false;
+		if (dynamic) return dynamic;
 		// Upstream's default returns focus from a triggerless menubar menu unless an outside press
 		// closed it.
 		if (
@@ -285,7 +286,7 @@
 				...baseProps,
 				// A key the consumer took from the input skips the menu's handlers here too.
 				onkeydown(event: KeyboardEvent) {
-					if (!isConsumerPrevented(event)) baseKeyDown(event);
+					if (!isBaseUIHandlerPrevented(event)) baseKeyDown(event);
 				}
 			},
 			elementProps,
@@ -302,6 +303,7 @@
 	disabled={!store.mounted}
 	{initialFocus}
 	returnFocus={returnSpec === false ? false : returnFocus}
+	explicitReturnFocus={dynamicReturn ? false : undefined}
 	restoreFocus={true}
 	previousFocusableElement={store.activeTriggerElement instanceof HTMLElement
 		? store.activeTriggerElement

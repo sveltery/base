@@ -11,14 +11,11 @@
 
 import { untrack } from 'svelte';
 import { REASONS, createChangeEventDetails, type BaseUIChangeEventDetails } from '@sveltery/utils';
+import { isVirtualPointerEvent } from '@sveltery/floating-ui-svelte';
 import { defineOptionalContext } from '../internal/context.js';
-import type { PropsGetter } from '../internal/mergeProps.js';
+import { preventBaseUIHandler } from '../internal/mergeProps.js';
 import { getFilter } from './filter.js';
-import {
-	handleMenuFilterKeyDown,
-	isVirtualPointerEvent,
-	type MenuFilterKeyDownContext
-} from './filter-keydown.js';
+import { handleMenuFilterKeyDown, type MenuFilterKeyDownContext } from './filter-keydown.js';
 import { findMenubarParent } from './parent.svelte.js';
 import type { MenuStore } from './store.svelte.js';
 
@@ -402,23 +399,16 @@ export class MenuFilter {
 
 	/**
 	 * Props the menu adds to its triggers: dialog semantics, screen reader press tracking, and a
-	 * relay of list navigation typed on the trigger to the input, which holds real focus. A
-	 * function bag, so a key can skip the trigger's own handlers without cancelling its default.
+	 * relay of list navigation typed on the trigger to the input, which holds real focus.
 	 */
-	readonly triggerProps: PropsGetter = (previous) => {
-		const ownPointerDown = previous.onpointerdown as ((event: PointerEvent) => void) | undefined;
-		const ownKeyDown = previous.onkeydown as ((event: KeyboardEvent) => void) | undefined;
-		return {
-			...previous,
-			'aria-haspopup': 'dialog',
-			onpointerdown: (event: PointerEvent) => {
-				this.store.virtualPress = isVirtualPointerEvent(event);
-				ownPointerDown?.(event);
-			},
-			onkeydown: (event: KeyboardEvent) => {
-				if (!this.#relayTriggerKey(event)) ownKeyDown?.(event);
-			}
-		};
+	readonly triggerProps = {
+		'aria-haspopup': 'dialog' as const,
+		onpointerdown: (event: PointerEvent) => {
+			this.store.virtualPress = isVirtualPointerEvent(event);
+		},
+		onkeydown: (event: KeyboardEvent) => {
+			if (this.#relayTriggerKey(event)) preventBaseUIHandler(event);
+		}
 	};
 
 	/** Handles a key typed on the trigger. Returns whether the trigger's own handlers skip it. */

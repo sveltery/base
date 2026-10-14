@@ -16,11 +16,12 @@ import {
 import {
 	isCrossOrientationCloseKey,
 	isCrossOrientationOpenKey,
-	isMainOrientationKey
+	isMainOrientationKey,
+	stopEvent
 } from '@sveltery/floating-ui-svelte';
 import { isKeyboardOpen } from './constants.js';
 import type { MenuRootContext } from './context.svelte.js';
-import { moveHighlightFrom, stopEvent } from './filter-keydown.js';
+import { moveHighlightFrom } from './filter-keydown.js';
 import type { MenuStore } from './store.svelte.js';
 import type { MenuChangeEventDetails, MenuOrientation } from './types.js';
 

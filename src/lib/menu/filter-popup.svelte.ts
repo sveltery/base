@@ -9,8 +9,8 @@ import { DEV } from 'esm-env';
 import { untrack } from 'svelte';
 import { isElement, isHTMLElement } from '@floating-ui/utils/dom';
 import { REASONS, activeElement, contains, getTarget, ownerDocument, warn } from '@sveltery/utils';
-import { isCrossOrientationCloseKey } from '@sveltery/floating-ui-svelte';
-import { isRefocusingOwner, isTypeableElement, refocusOwner } from './filter-keydown.js';
+import { isCrossOrientationCloseKey, isTypeableElement } from '@sveltery/floating-ui-svelte';
+import { isRefocusingOwner, refocusOwner } from './filter-keydown.js';
 import type { MenuStore } from './store.svelte.js';
 import type { MenuChangeReason, MenuOrientation } from './types.js';
 

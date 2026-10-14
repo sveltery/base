@@ -2,11 +2,9 @@
 // packages/react/src/menu/filter-root/moveHighlightFrom.ts and
 // packages/react/src/filter-dropdown/utils/refocusOwner.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// `isVirtualPointerEvent`, `stopEvent` and `isTypeableElement` mirror the floating-ui-svelte
-// helpers, which that package does not export.
 
 import { isHTMLElement } from '@floating-ui/utils/dom';
-import { REASONS, createChangeEventDetails, ownerWindow, platform } from '@sveltery/utils';
+import { REASONS, createChangeEventDetails, ownerWindow } from '@sveltery/utils';
 import {
 	getMaxListIndex,
 	getMinListIndex,
@@ -14,45 +12,14 @@ import {
 	isCrossOrientationCloseKey,
 	isCrossOrientationOpenKey,
 	isMainOrientationKey,
-	isMainOrientationToEndKey
+	isMainOrientationToEndKey,
+	stopEvent
 } from '@sveltery/floating-ui-svelte';
 import { dispatchClick } from '../internal/click.js';
 import type { MenuStore } from './store.svelte.js';
 import type { MenuOrientation } from './types.js';
 
 const NO_DISABLED: number[] = [];
-
-export function stopEvent(event: Event) {
-	event.preventDefault();
-	event.stopPropagation();
-}
-
-const TYPEABLE_SELECTOR =
-	'input:not([type="hidden"]):not([disabled]),[contenteditable]:not([contenteditable="false"]),textarea:not([disabled])';
-
-export function isTypeableElement(element: unknown): boolean {
-	return isHTMLElement(element) && element.matches(TYPEABLE_SELECTOR);
-}
-
-/** A screen reader press, which reports a pointer with no size or pressure. */
-export function isVirtualPointerEvent(event: PointerEvent) {
-	if (platform.env.jsdom) return false;
-	return (
-		(!platform.os.android && event.width === 0 && event.height === 0) ||
-		(event.type === 'pointerdown' &&
-			event.width === 1 &&
-			event.height === 1 &&
-			event.pressure === 0 &&
-			event.detail === 0 &&
-			event.pointerType === 'mouse' &&
-			(platform.os.android || event.buttons === 0)) ||
-		(event.width < 1 &&
-			event.height < 1 &&
-			event.pressure === 0 &&
-			event.detail === 0 &&
-			event.pointerType === 'touch')
-	);
-}
 
 let refocusing = false;
 
@@ -72,27 +39,6 @@ export function refocusOwner(owner: HTMLElement) {
 
 export function isRefocusingOwner() {
 	return refocusing;
-}
-
-const consumerPrevented = new WeakSet<Event>();
-
-/**
- * Wraps a consumer key handler on the input. A consumer that calls `preventDefault()` skips the
- * input's handlers through `mergeProps`, and the mark lets the popup skip its own, as
- * `preventBaseUIHandler` does across React's shared synthetic event upstream.
- */
-export function markConsumerPrevention<E extends Event>(
-	handler: (event: E) => unknown
-): (event: E) => void {
-	return function (this: unknown, event: E) {
-		const before = event.defaultPrevented;
-		handler.call(this, event);
-		if (!before && event.defaultPrevented) consumerPrevented.add(event);
-	};
-}
-
-export function isConsumerPrevented(event: Event) {
-	return consumerPrevented.has(event);
 }
 
 export interface MoveHighlightOptions {
