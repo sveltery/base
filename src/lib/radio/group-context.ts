@@ -43,7 +43,7 @@ export interface RadioGroupContextValue {
 	readonly defaultValue?: unknown;
 	readonly touched: boolean;
 	/** The labelable scope the group names itself from. Radios in it leave the control id alone. */
-	readonly labelable?: Labelable;
+	readonly labelable: Labelable;
 	/** Present when the real RadioGroup owns keyboard navigation. */
 	readonly roving?: RadioGroupRovingFocus;
 	setCheckedValue: (value: unknown, eventDetails: RadioRootChangeEventDetails) => void;

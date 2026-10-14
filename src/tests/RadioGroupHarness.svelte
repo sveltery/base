@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { Radio } from '#lib';
+	import { useLabelableContext } from '#lib/internal/labelable-provider.svelte.js';
 	import { setRadioGroupContext } from '#lib/radio/group-context.js';
 	import type { RadioRootChangeEventDetails } from '#lib/radio/types.js';
 
@@ -51,6 +52,7 @@
 	const groupName = initial === 'form' || initial === 'required' ? 'color' : undefined;
 
 	setRadioGroupContext({
+		labelable: useLabelableContext(),
 		get disabled() {
 			return scenario === 'disabled' || undefined;
 		},
