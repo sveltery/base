@@ -17,6 +17,7 @@
 		open = $bindable(false),
 		triggerId = $bindable(),
 		onOpenChange,
+		onOpenChangeComplete,
 		before = false,
 		inside = true,
 		popupClass,
@@ -31,6 +32,7 @@
 		open?: boolean;
 		triggerId?: string | null;
 		onOpenChange?: (open: boolean, details: PopoverChangeEventDetails) => void;
+		onOpenChangeComplete?: (open: boolean) => void;
 		before?: boolean;
 		inside?: boolean;
 		popupClass?: string;
@@ -60,7 +62,7 @@
 	{/each}
 </div>
 
-<Popover.Root {handle} bind:open bind:triggerId {onOpenChange}>
+<Popover.Root {handle} bind:open bind:triggerId {onOpenChange} {onOpenChangeComplete}>
 	{#snippet children({ payload })}
 		<Popover.Portal {keepMounted}>
 			<Popover.Positioner data-testid="positioner" class={positionerClass}>

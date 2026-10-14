@@ -51,6 +51,7 @@ export interface PreviewCardRootProps<Payload = unknown> {
 	onOpenChangeComplete?: (open: boolean) => void;
 	/**
 	 * Id of the trigger that owns the preview card. A string wins over the trigger that opened it.
+	 * An id written by a trigger press resets to `null` once the popup unmounts.
 	 */
 	triggerId?: string | null;
 	/** Associates detached triggers and imperative `open` and `close`. */

@@ -78,7 +78,10 @@ export interface TooltipRootProps<Payload = unknown> {
 	 * @default false
 	 */
 	disabled?: boolean;
-	/** Id of the trigger the tooltip belongs to. Use `bind:triggerId` to follow it. */
+	/**
+	 * Id of the trigger the tooltip belongs to. Use `bind:triggerId` to follow it.
+	 * An id written by a trigger press resets to `null` once the popup unmounts.
+	 */
 	triggerId?: string | null;
 	/** Associates detached triggers and imperative `open` and `close`. */
 	handle?: TooltipHandle<Payload>;

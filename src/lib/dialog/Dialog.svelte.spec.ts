@@ -14,6 +14,8 @@ import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.sve
 import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.svelte';
 import DialogOpenCompleteStateHarness from '../../tests/DialogOpenCompleteStateHarness.svelte';
 import DialogProgrammaticPayloadHarness from '../../tests/DialogProgrammaticPayloadHarness.svelte';
+import DialogFixture from '../../routes/fixtures/dialog/DialogFixture.svelte';
+import { renderBound } from '../../tests/bound-render.svelte.js';
 import PortalContainerHarness from '../../tests/PortalContainerHarness.svelte';
 import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
 import PortalLateAttachHarness from '../../tests/PortalLateAttachHarness.svelte';
@@ -651,6 +653,79 @@ describe('Dialog', () => {
 		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('two');
 		await expect.element(button('Two')).toHaveAttribute('aria-expanded', 'true');
 		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'false');
+	});
+
+	it('leaves both triggers unassociated on a bind:open after the dialog that one opened unmounted', async () => {
+		const view = render(DialogHarness, { twoTriggers: true });
+		click(button('One'));
+		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('one');
+		click(button('Close'));
+		await dialogs(0);
+
+		await view.rerender({ open: true });
+		await dialogs(1);
+		await frame();
+		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'false');
+		await expect.element(button('Two')).toHaveAttribute('aria-expanded', 'false');
+		expect(page.getByTestId('trigger-id').element().textContent).toBe('');
+	});
+
+	it('keeps a triggerId the parent set while open after the dialog unmounts', async () => {
+		const state = renderBound(DialogFixture, {
+			twoTriggers: true,
+			open: false,
+			triggerId: undefined
+		});
+		click(button('One'));
+		await dialogs(1);
+		expect(state.triggerId).toBe('one');
+		state.triggerId = 'two';
+		await expect.element(button('Two')).toHaveAttribute('aria-expanded', 'true');
+		state.open = false;
+		await dialogs(0);
+		await frame();
+		expect(state.triggerId).toBe('two');
+
+		state.open = true;
+		await dialogs(1);
+		await expect.element(button('Two')).toHaveAttribute('aria-expanded', 'true');
+		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'false');
+	});
+
+	it('leaves both triggers unassociated when onOpenChangeComplete(false) reopens through bind:open', async () => {
+		let reopened = false;
+		const state = renderBound(DialogFixture, {
+			twoTriggers: true,
+			open: false,
+			triggerId: undefined,
+			onOpenChangeComplete(open: boolean) {
+				if (open || reopened) return;
+				reopened = true;
+				state.open = true;
+			}
+		});
+		click(button('One'));
+		await dialogs(1);
+		click(button('Close'));
+		await expect.poll(() => reopened).toBe(true);
+
+		await dialogs(1);
+		await frame();
+		expect(state.triggerId).toBeNull();
+		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'false');
+		await expect.element(button('Two')).toHaveAttribute('aria-expanded', 'false');
+	});
+
+	it('claims the only trigger on a bind:open after that trigger opened the dialog', async () => {
+		const view = render(DialogHarness);
+		await openDialog();
+		await dialogs(1);
+		click(button('Close'));
+		await dialogs(0);
+
+		await view.rerender({ open: true });
+		await dialogs(1);
+		await expect.element(button('Open')).toHaveAttribute('aria-expanded', 'true');
 	});
 
 	it('lets onOpenChangeComplete write $state when the dialog opens', async () => {

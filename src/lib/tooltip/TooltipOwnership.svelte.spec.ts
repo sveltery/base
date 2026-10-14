@@ -128,6 +128,20 @@ describe('Tooltip.Root opened through a handle without a trigger', () => {
 		await expect.poll(popupText).toBe('Payload: from trigger');
 		expect(trigger().hasAttribute('data-popup-open')).toBe(true);
 	});
+
+	it('lets a remounted lone trigger claim a bind:open after the previous trigger claimed one', async () => {
+		const view = render(TooltipOwnershipHarness, { detached: true });
+		await view.rerender({ open: true });
+		await expect.poll(popupText).toBe('Payload: from trigger');
+		await view.rerender({ open: false });
+		await expect.poll(() => byTestId('popup')).toBeNull();
+		await view.rerender({ showTrigger: false });
+		await view.rerender({ showTrigger: true });
+
+		await view.rerender({ open: true });
+		await expect.poll(popupText).toBe('Payload: from trigger');
+		expect(trigger().hasAttribute('data-popup-open')).toBe(true);
+	});
 });
 
 describe('Tooltip.Trigger with a handle inside another Tooltip.Root', () => {

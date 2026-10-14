@@ -31,8 +31,8 @@
 		readModal: () => true,
 		readDisablePointerDismissal: () => true,
 		readTriggerId: () => triggerId,
-		publishTriggerId: (id) => {
-			if ((triggerId ?? null) !== id) triggerId = id;
+		writeTriggerId: (id) => {
+			triggerId = id;
 		},
 		readHandle: () => handle
 	});

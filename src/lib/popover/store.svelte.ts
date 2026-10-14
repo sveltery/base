@@ -12,6 +12,7 @@ import { SvelteMap } from 'svelte/reactivity';
 import type { HTMLAttributes } from 'svelte/elements';
 import { createChangeEventDetails, REASONS, ScopedTimeout } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
+import { BoundTriggerId } from '../internal/popups/boundTriggerId.svelte.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
 import { PATIENT_CLICK_THRESHOLD } from './constants.js';
 import type {
@@ -59,12 +60,9 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	popupVars = $state<Record<string, string>>({});
 	private readonly stickTimeout = new ScopedTimeout();
 	private readonly readModal: () => PopoverModal;
-	private readonly readTriggerId: () => string | null | undefined;
-	private readonly writeTriggerIdValue: (id: string | null) => void;
+	readonly boundTriggerId: BoundTriggerId;
 	private readonly readDismissReference: PopoverStoreOptions['readDismissReference'];
 	private readonly readDismissFloating: PopoverStoreOptions['readDismissFloating'];
-	/** Id written for this open. Survives a bound trigger id that the parent sets back. */
-	private claimedTriggerId: string | null = null;
 	private readonly readers = new SvelteMap<string, () => TriggerOwned>();
 	private pendingSwitch: AbortController | null = null;
 	/** Trigger that opened the popup. Click remembers the next node before setOpen. */
@@ -84,8 +82,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			onOpenChangeComplete: options.onOpenChangeComplete
 		});
 		this.readModal = options.readModal;
-		this.readTriggerId = options.readTriggerId;
-		this.writeTriggerIdValue = options.writeTriggerId;
+		this.boundTriggerId = new BoundTriggerId(this, options.readTriggerId, options.writeTriggerId);
 		this.readDismissReference = options.readDismissReference;
 		this.readDismissFloating = options.readDismissFloating;
 
@@ -94,7 +91,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		// trigger until it finishes closing.
 		$effect(() => {
 			if (!this.open) return;
-			const boundId = this.readTriggerId();
+			const boundId = this.boundTriggerId.read();
 			const bound = boundId ? this.triggers.getById(boundId) : undefined;
 			if (bound) {
 				if (bound !== untrack(() => this.domReferenceElement)) this.domReferenceElement = bound;
@@ -107,7 +104,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 				const id = this.triggers.idOf(only);
 				if (!id) return;
 				this.domReferenceElement = only;
-				this.writeTriggerId(id);
+				this.boundTriggerId.write(id);
 			});
 		});
 
@@ -193,16 +190,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	resolvedActiveTriggerId() {
 		const registered = this.triggers.idOf(this.domReferenceElement);
 		if (registered) return registered;
-		const written = this.readTriggerId();
-		if (written) return written;
-		if (this.open && this.claimedTriggerId) return this.claimedTriggerId;
-		return this.domReferenceElement?.id || null;
-	}
-
-	writeTriggerId(id: string | null) {
-		this.claimedTriggerId = id;
-		if ((this.readTriggerId() ?? null) === id) return;
-		this.writeTriggerIdValue(id);
+		return this.boundTriggerId.active || this.domReferenceElement?.id || null;
 	}
 
 	owned(): TriggerOwned | undefined {
@@ -264,11 +252,11 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			const active = this.domReferenceElement;
 			const open = this.open;
 			const count = this.triggerCount;
-			const currentId = this.readTriggerId();
+			const currentId = this.boundTriggerId.read();
 			const claimsLone = open && active == null && count === 1 && !this.openedWithoutTrigger;
 			if (active === element || currentId === id || claimsLone) {
 				this.domReferenceElement = element;
-				this.writeTriggerId(id);
+				this.boundTriggerId.write(id);
 			}
 		});
 	}
@@ -297,13 +285,8 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 
 		this.openChangeReason = reason;
 		const registered = this.triggers.idOf(this.domReferenceElement);
-		this.writeTriggerId(registered ?? (this.domReferenceElement?.id || null));
-		if (!nextOpen) {
-			this.openedFrom = null;
-			this.claimedTriggerId = null;
-		} else {
-			this.openedFrom = this.activeTriggerElement;
-		}
+		this.boundTriggerId.write(registered ?? (this.domReferenceElement?.id || null), nextOpen);
+		this.openedFrom = nextOpen ? this.activeTriggerElement : null;
 
 		if (isHover) {
 			this.stickIfOpen = true;
@@ -332,6 +315,10 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	/** Drop a prevented unmount. The shared close completion then removes the popup. */
 	forceUnmount() {
 		this.preventUnmountingOnClose = false;
+	}
+
+	protected override onUnmount() {
+		this.boundTriggerId.reset();
 	}
 
 	closeImperative() {
