@@ -534,6 +534,7 @@ describe('Menu.FilterProvider around Menu.SubmenuRoot', () => {
 
 	describe('a horizontal parent', () => {
 		const cases = [
+			{ parentFilterable: false, submenuFilterable: false },
 			{ parentFilterable: false, submenuFilterable: true },
 			{ parentFilterable: true, submenuFilterable: false },
 			{ parentFilterable: true, submenuFilterable: true }
