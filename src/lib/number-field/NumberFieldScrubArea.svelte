@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 	import { flushSync } from 'svelte';
+	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
 		createGenericEventDetails,
@@ -26,6 +27,7 @@
 	import { getViewportRect } from './viewport.js';
 
 	const SCRUB_STYLE = 'touch-action: none; -webkit-user-select: none; user-select: none';
+	const elementKey = createAttachmentKey();
 
 	let {
 		direction = 'horizontal',
@@ -53,6 +55,13 @@
 	const syntheticClickTimer = new ScopedTimeout();
 
 	const scrubState: NumberFieldScrubAreaState = $derived(model.state);
+
+	function remember(node: HTMLElement) {
+		areaEl = node;
+		return () => {
+			if (areaEl === node) areaEl = null;
+		};
+	}
 
 	function updateCursorTransform(cursor: HTMLElement, x: number, y: number) {
 		const scale = ownerWindow(cursor).visualViewport?.scale ?? 1;
@@ -249,12 +258,13 @@
 		...getStateAttributesProps(scrubState, numberFieldStateAttributes),
 		...elementProps,
 		onpointerdown: handlePointerDown,
-		onclickcapture: handleClickCapture
+		onclickcapture: handleClickCapture,
+		[elementKey]: remember
 	});
 </script>
 
 {#if render}
 	{@render render(hostProps, scrubState, children)}
 {:else}
-	<span {...hostProps} bind:this={areaEl}>{@render children?.()}</span>
+	<span {...hostProps}>{@render children?.()}</span>
 {/if}
