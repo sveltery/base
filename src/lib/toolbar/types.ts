@@ -1,5 +1,11 @@
 import type { Snippet } from 'svelte';
-import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+import type {
+	HTMLAnchorAttributes,
+	HTMLAttributes,
+	HTMLButtonAttributes,
+	HTMLInputAttributes
+} from 'svelte/elements';
+import type { SeparatorProps, SeparatorState } from '../separator/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
 export type ToolbarOrientation = 'horizontal' | 'vertical';
@@ -92,4 +98,39 @@ export interface ToolbarLinkProps extends Omit<HTMLAnchorAttributes, 'children'>
 		[props: ToolbarLinkHostProps, state: ToolbarLinkState, children: RenderChildren]
 	>;
 	children?: Snippet;
+}
+
+export interface ToolbarInputState extends ToolbarRootState {
+	/** Whether the input should ignore user interaction. */
+	disabled: boolean;
+	/** Whether the input remains focusable when disabled. */
+	focusable: boolean;
+}
+
+export type ToolbarInputHostProps = HTMLInputAttributes;
+
+export interface ToolbarInputProps extends Omit<HTMLInputAttributes, 'children' | 'disabled'> {
+	/**
+	 * Whether the input should ignore user interaction. A disabled input gets
+	 * `aria-disabled`, not the `disabled` attribute.
+	 * @default false
+	 */
+	disabled?: boolean | null;
+	/**
+	 * Whether a disabled input stays in the toolbar's arrow order.
+	 * @default true
+	 */
+	focusableWhenDisabled?: boolean;
+	/** Replace the default `<input>`. Spread `props` onto the host element. */
+	render?: Snippet<[props: ToolbarInputHostProps, state: ToolbarInputState]>;
+}
+
+export type ToolbarSeparatorState = SeparatorState;
+
+export interface ToolbarSeparatorProps extends SeparatorProps {
+	/**
+	 * The orientation of the separator. Defaults to the opposite of the toolbar's
+	 * orientation, so a horizontal toolbar renders vertical separators.
+	 */
+	orientation?: ToolbarOrientation;
 }
