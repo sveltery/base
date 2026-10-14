@@ -48,6 +48,7 @@ export function mountPopoverReference(
 		}
 
 		const between = scenario === 'tab-between-ext';
+		const hover = scenario === 'hover' || scenario === 'modal-hover';
 		const portal = h(
 			Popover.Portal,
 			scenario === 'tab-inline' || between ? { container: inlineContainer } : null,
@@ -69,7 +70,9 @@ export function mountPopoverReference(
 						: scenario === 'tab-empty'
 							? null
 							: h('button', { type: 'button' }, 'Inside'),
-					scenario === 'close' || scenario === 'modal' ? h(Popover.Close, null, 'Close') : null
+					scenario === 'close' || scenario === 'modal' || scenario === 'modal-hover'
+						? h(Popover.Close, null, 'Close')
+						: null
 				)
 			)
 		);
@@ -82,7 +85,7 @@ export function mountPopoverReference(
 				? { defaultOpen: true, onOpenChange: onOpen }
 				: {
 						open: external ? externalOpen : bound ? owner : undefined,
-						modal: scenario === 'modal' ? true : undefined,
+						modal: scenario === 'modal' || scenario === 'modal-hover' ? true : undefined,
 						onOpenChange: onOpen
 					};
 
@@ -92,8 +95,8 @@ export function mountPopoverReference(
 				id: scenario === 'detached' ? 'detached-trigger' : undefined,
 				handle: scenario === 'detached' ? handle : undefined,
 				disabled: scenario === 'disabled' ? true : undefined,
-				openOnHover: scenario === 'hover' ? true : undefined,
-				delay: scenario === 'hover' ? 0 : undefined,
+				openOnHover: hover ? true : undefined,
+				delay: hover ? 0 : undefined,
 				onClick: (event: { preventBaseUIHandler: () => void }) => {
 					if (scenario === 'prevented') event.preventBaseUIHandler();
 				}
