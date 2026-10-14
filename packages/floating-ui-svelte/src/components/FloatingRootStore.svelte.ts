@@ -39,7 +39,7 @@ export class FloatingRootStore {
 	portalElement = $state<HTMLElement | null>(null);
 	/**
 	 * Hosts of the portals rendered in this popup's content, directly or through a nested popup.
-	 * A press or focus inside one is inside this popup, as upstream's React tree bubbling makes it.
+	 * A press or focus inside one counts as inside this popup.
 	 */
 	readonly nestedPortals = new SvelteSet<HTMLElement>();
 	/**

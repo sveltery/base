@@ -165,6 +165,36 @@ describe('<Toast.Root />', () => {
 		expect(css(toastRoot, '--toast-height')).toBe(`${toastRoot.offsetHeight}px`);
 	});
 
+	it('writes the resized content height in the frame the content resizes', async () => {
+		const { manager } = renderToasts({ content: true, rootStyle: 'width: 120px' });
+		manager.add({ id: 'wrap', title: 'Title', description: 'one two three four five six' });
+		await tick();
+		const toastRoot = root();
+		const content = byTestId('content-wrap')!;
+		await expect.poll(() => css(toastRoot, '--toast-height')).toBe(`${toastRoot.offsetHeight}px`);
+		const initialHeight = toastRoot.offsetHeight;
+
+		// Observers run in creation order with a microtask checkpoint between callbacks, so this
+		// one sees what the toast's own observer callback wrote before the frame paints.
+		const seen: string[] = [];
+		const resized = new Promise<void>((resolve) => {
+			const observer = new ResizeObserver(() => {
+				seen.push(css(toastRoot, '--toast-height'));
+				if (seen.length < 2) return;
+				observer.disconnect();
+				resolve();
+			});
+			observer.observe(content);
+		});
+		await expect.poll(() => seen.length).toBe(1);
+
+		content.style.width = '40px';
+		await resized;
+
+		expect(toastRoot.offsetHeight).toBeGreaterThan(initialHeight);
+		expect(seen).toEqual([`${initialHeight}px`, `${toastRoot.offsetHeight}px`]);
+	});
+
 	it('clears the starting state and restores the height when re-adding an ending toast', async () => {
 		await withAnimations(async () => {
 			const { manager } = renderToasts({ css: exitTransition('[data-testid="root"]') });

@@ -167,25 +167,20 @@ export class NavigationMenuTriggerController {
 		if (this.#pointerType === 'touch' && isHover) return;
 		if (!nextOpen && this.root.value !== this.#itemValue) return;
 
-		const changeState = () => {
-			if (isHover) {
-				// A click soon after a hover open keeps the popup open. A patient click closes it.
-				this.#stickIfOpen = true;
-				this.#stickIfOpenTimeout.start(PATIENT_CLICK_THRESHOLD, () => {
-					this.#stickIfOpen = false;
-				});
-			}
+		if (isHover) {
+			// A click soon after a hover open keeps the popup open. A patient click closes it.
+			this.#stickIfOpen = true;
+			this.#stickIfOpenTimeout.start(PATIENT_CLICK_THRESHOLD, () => {
+				this.#stickIfOpen = false;
+			});
+		}
 
-			if (nextOpen) {
-				this.root.setValue(this.#itemValue, details);
-			} else {
-				this.root.setValue(null, details);
-				this.#pointerType = '';
-			}
-		};
-
-		changeState();
-		if (isHover) flushSync();
+		if (nextOpen) {
+			this.root.setValue(this.#itemValue, details);
+		} else {
+			this.root.setValue(null, details);
+			this.#pointerType = '';
+		}
 	}
 
 	#handleActivation(event: OpenEvent, value: unknown) {
@@ -211,10 +206,7 @@ export class NavigationMenuTriggerController {
 		// trigger, and a hover back cannot leave the popup stuck open.
 		if (event.type !== 'click' && value != null) this.store.data.openEvent = undefined;
 
-		if (this.#pointerType === 'touch' && event.type !== 'click') {
-			flushSync();
-			return;
-		}
+		if (this.#pointerType === 'touch' && event.type !== 'click') return;
 
 		// A keyboard open already set the value with the `listNavigation` reason.
 		if (value != null && event.type !== 'keydown') {
@@ -245,8 +237,6 @@ export class NavigationMenuTriggerController {
 			if (value != null && value !== itemValue) queueMicrotask(apply);
 			else apply();
 		}
-
-		flushSync();
 	}
 
 	/** `value` is the value before the event, which a keyboard open has already changed. */
@@ -267,6 +257,8 @@ export class NavigationMenuTriggerController {
 			(event.type === 'click' || this.#pointerType !== 'touch');
 
 		this.#handleActivation(event, value);
+		// The resize measures the content of the item just activated.
+		flushSync();
 		if (shouldSkipAutoSizeSync) this.root.sizing.skipNextAutoSizeSync();
 		this.root.sizing.resize(this.#itemValue, size);
 	}
