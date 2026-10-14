@@ -77,7 +77,7 @@ describe('ClickInteraction', () => {
 			expect(component.store.open).toBe(true);
 		});
 
-		it('toggles on a later screen reader mousedown after a press with no click', () => {
+		it('closes at once on a later screen reader mousedown after a press with no click', () => {
 			const { component } = render(ClickHarness, { event: 'mousedown' });
 			press(true);
 			expect(component.store.open).toBe(true);
