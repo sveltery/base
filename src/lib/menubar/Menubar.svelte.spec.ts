@@ -871,8 +871,6 @@ describe('Menubar', () => {
 });
 
 describe('filterable menubar menus', () => {
-	beforeEach(parkPointer);
-
 	it.each(['horizontal', 'vertical'] as const)(
 		'preserves %s trigger navigation',
 		async (orientation) => {
