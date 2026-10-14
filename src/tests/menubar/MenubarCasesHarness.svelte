@@ -35,7 +35,8 @@
 			| 'first-disabled'
 			| 'disabled-open'
 			| 'open'
-			| 'in-popover';
+			| 'in-popover'
+			| 'filterable';
 		direction?: TextDirection;
 		menubarProps?: MenubarProps;
 		onItemClick?: () => void;
@@ -185,5 +186,34 @@
 				</Popover.Positioner>
 			</Popover.Portal>
 		</Popover.Root>
+	{:else if scenario === 'filterable'}
+		<Menubar {...menubarProps}>
+			<Menu.FilterProvider>
+				<Menu.Root>
+					<Menu.Trigger>File</Menu.Trigger>
+					<Menu.Portal>
+						<Menu.Positioner>
+							<Menu.Popup>
+								<Menu.Input aria-label="Filter file actions" />
+								<Menu.List>
+									<Menu.Item>New file</Menu.Item>
+									<Menu.Item>Open file</Menu.Item>
+								</Menu.List>
+							</Menu.Popup>
+						</Menu.Positioner>
+					</Menu.Portal>
+				</Menu.Root>
+			</Menu.FilterProvider>
+			<Menu.Root>
+				<Menu.Trigger>Edit</Menu.Trigger>
+				<Menu.Portal>
+					<Menu.Positioner>
+						<Menu.Popup>
+							<Menu.Item>Copy</Menu.Item>
+						</Menu.Popup>
+					</Menu.Positioner>
+				</Menu.Portal>
+			</Menu.Root>
+		</Menubar>
 	{/if}
 </DirectionProvider>

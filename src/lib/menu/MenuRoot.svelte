@@ -5,6 +5,7 @@
 	`close` and `unmount` are exports. Bind the root with `bind:this`.
 -->
 <script lang="ts" generics="Payload = unknown">
+	import { takeMenuFilterProvider } from './filter-root.svelte.js';
 	import { createMenuRoot } from './root.svelte.js';
 	import type { MenuRootProps } from './types.js';
 
@@ -46,7 +47,8 @@
 		readLoopFocus: () => loopFocus,
 		readOrientation: () => orientation,
 		readCloseParentOnEsc: () => closeParentOnEsc,
-		readHandle: () => handle as never
+		readHandle: () => handle as never,
+		filter: takeMenuFilterProvider()
 	});
 
 	export function close() {
