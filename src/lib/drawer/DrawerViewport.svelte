@@ -471,11 +471,9 @@
 			const releaseSnapPointOffset = untrack(() => drawer.activeSnapPointOffset);
 
 			function startSwipeRelease(resolvedDirection: SwipeDirection) {
-				// Start the ending styles now, so the popup does not look stuck on release.
 				finishNestedSwipe();
 				setSwipeDismissed(true);
 				releasePopup.style.removeProperty('transition');
-				releasePopup.setAttribute(DrawerPopupDataAttributes.endingStyle, '');
 				swipeRelease = resolveSwipeRelease(
 					releasePopup,
 					resolvedDirection,
@@ -487,6 +485,11 @@
 					releaseVelocityY,
 					releaseSnapPointOffset
 				);
+				// The popup's style effect writes this a microtask later. An onOpenChange that forces a
+				// style recalc would start the exit transition with the previous strength.
+				releasePopup.style.setProperty(DrawerPopupCssVars.swipeStrength, `${swipeRelease ?? 1}`);
+				// Start the ending styles now, so the popup does not look stuck on release.
+				releasePopup.setAttribute(DrawerPopupDataAttributes.endingStyle, '');
 			}
 
 			if (!drawer.hasSnapPoints) {

@@ -1191,6 +1191,36 @@ describe('Drawer.Viewport', () => {
 		expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything());
 	});
 
+	it('starts the exit transition with the release strength when onOpenChange moves focus', async () => {
+		const style = document.createElement('style');
+		style.textContent =
+			'[data-testid="popup"][data-ending-style] { transform: translateY(300px); }';
+		document.head.append(style);
+		cleanups.push(() => style.remove());
+		const focusTarget = document.createElement('button');
+		document.body.append(focusTarget);
+		cleanups.push(() => focusTarget.remove());
+		await mount({
+			holdOpen: false,
+			swipeDirection: 'down',
+			popupStyle:
+				'height: 300px; transition: transform calc(var(--drawer-swipe-strength) * 1000ms) linear',
+			onOpenChange: () => focusTarget.focus()
+		});
+
+		hitTest(popup());
+		mouse(viewport(), 'down', 100, 100, { time: 1000 });
+		mouse(viewport(), 'move', 100, 125, { time: 1025 });
+		mouse(viewport(), 'move', 100, 150, { time: 1050 });
+		mouse(viewport(), 'up', 100, 150, { time: 1050 });
+		await tick();
+
+		const durations = popup()
+			.getAnimations()
+			.map((animation) => Math.round(Number(animation.effect?.getComputedTiming().duration)));
+		expect(durations).toEqual([727]);
+	});
+
 	describe('snap point gestures', () => {
 		const sheet = { viewportStyle: 'height: 400px', popupStyle: 'height: 300px', backdrop: false };
 
