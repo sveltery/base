@@ -738,7 +738,7 @@ Test: `src/lib/autocomplete/types.test-d.ts`.
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
 
-Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `inputRef`: each renders its hidden `<input>` in the DOM with its `name`, so reach it through the form, for example `form.elements.namedItem(name)`.
+Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `inputRef`. Given a `name`, each renders its native `<input>` elements in the DOM under that name (Radio items take the RadioGroup's), so reach them through the form with `form.elements.namedItem(name)`. That returns a `RadioNodeList` when several inputs share the name, as with radios, range thumbs or an `uncheckedValue`.
 
 | Component          | Not ported yet                                                                                         |
 | ------------------ | ------------------------------------------------------------------------------------------------------ |
