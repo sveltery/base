@@ -452,7 +452,7 @@ Wrap the content in `Popover.Viewport` to cross-fade it. While the viewport anim
 - `actionsRef` is not available. Use `bind:this` on `Popover.Root`, which exposes `close()` and `unmount()`.
 - `initialFocus` and `finalFocus` take an element, a boolean, or a function that receives how the popover opened or closed. They do not take ref objects.
 - Handlers use lowercase names, such as `onclick`. Call `event.preventDefault()` in a handler on `Popover.Trigger` or `Popover.Close` to skip its own handling.
-- `Popover.Portal` renders a `div` that keeps `data-base-ui-portal` even if you pass your own value. A `container` of `null` does not mount the popover until you set an element or shadow root.
+- A `Popover.Portal` `container` of `null` does not mount the popover until you set an element or shadow root.
 - The previous content that `Popover.Viewport` cross-fades is a copy of the live content. Each copied form control loses its `name` and gets an empty `form` attribute, so the copy is never submitted, never unchecks a live radio, and never blocks the surrounding form. A new trigger starts from its own content state.
 - Nesting a popover inside a Menu or Combobox is not available yet. Refs are not supported.
 
