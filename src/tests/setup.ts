@@ -2,8 +2,8 @@ import { beforeEach } from 'vitest';
 import { cleanup } from 'vitest-browser-svelte';
 import { parkPointer } from './pointer.js';
 
-// vitest-browser-svelte unmounts the previous test's components in its own beforeEach, which
-// runs after this one. Unmount first so the pointer does not leave through them.
+// Importing vitest-browser-svelte registers its cleanup hook ahead of this one. The explicit
+// cleanup() keeps the previous test unmounted before the park even if that import changes.
 beforeEach(async () => {
 	cleanup();
 	await parkPointer();
