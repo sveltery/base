@@ -5,10 +5,20 @@
 -->
 <script lang="ts">
 	import { mergeProps } from '../internal/mergeProps.js';
-	import { setMenuGroup } from './context.svelte.js';
+	import { findMenuRoot, setMenuGroup } from './context.svelte.js';
+	import {
+		MenuFilterGroup,
+		findMenuFilterGroup,
+		setMenuFilterGroup
+	} from './filter-root.svelte.js';
 	import type { MenuGroupProps, MenuGroupState } from './types.js';
 
-	let { render, children, ...elementProps }: MenuGroupProps = $props();
+	let { hidden, render, children, ...elementProps }: MenuGroupProps = $props();
+
+	// A filterable menu hides the group once the query filters out all its items.
+	const filter = findMenuRoot()?.store.filter;
+	const filterGroup = filter ? new MenuFilterGroup(filter, findMenuFilterGroup()) : null;
+	if (filterGroup) setMenuFilterGroup(filterGroup);
 
 	let labelId = $state<string | undefined>(undefined);
 	setMenuGroup({
@@ -22,7 +32,14 @@
 
 	const partState: MenuGroupState = {};
 	const hostProps = $derived(
-		mergeProps({ role: 'group' as const, 'aria-labelledby': labelId }, elementProps)
+		mergeProps(
+			{
+				role: 'group' as const,
+				'aria-labelledby': labelId,
+				hidden: filterGroup?.hidden || hidden || undefined
+			},
+			elementProps
+		)
 	);
 </script>
 

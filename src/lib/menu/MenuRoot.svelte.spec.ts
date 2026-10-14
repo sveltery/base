@@ -1785,3 +1785,23 @@ describe('Menu.Root prop: onItemHighlighted', () => {
 		});
 	});
 });
+
+describe('popup id', () => {
+	it('points aria-controls at the generated id once a popup id override is removed', async () => {
+		const result = render(MenuHarness, {
+			triggerLabel: 'Actions',
+			open: true,
+			popupProps: { id: 'custom-popup' },
+			items: items('Apple')
+		});
+		const trigger = page.getByRole('button', { name: 'Actions' }).element();
+		const popup = page.getByRole('menu').element();
+		expect(popup.id).toBe('custom-popup');
+		expect(trigger.getAttribute('aria-controls')).toBe('custom-popup');
+
+		await result.rerender({ popupProps: {} });
+		await expect.poll(() => popup.id).not.toBe('custom-popup');
+		expect(popup.id).not.toBe('');
+		await expect.poll(() => trigger.getAttribute('aria-controls')).toBe(popup.id);
+	});
+});

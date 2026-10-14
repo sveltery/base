@@ -146,7 +146,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui
 
 Shift+Tab from the popup's first control focuses the trigger and leaves the popup open, for the default `document.body` container and an inline container, including when `open` is set from another button. Tab from that open trigger focuses the first control again. That matches upstream.
 
-Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the trigger that opened the popup still closes onto the control before the trigger. A popup opened through `open` claims its only trigger, as upstream `useImplicitActiveTrigger` does, so Shift+Tab from that trigger closes a popover and leaves a dialog open, as React does. A focus-out close does not return focus, including when `finalFocus` is `null`, an element, or a function. The function is not called. React calls that function and ignores the result. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once. The port's focus manager does not merge its leading guard with `beforeContentFocusGuardRef`, and it counts every Base UI focus guard as inside instead of taking `getInsideElements`.
+Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the trigger that opened the popup still closes onto the control before the trigger. A popup opened through `open` claims its only trigger, as upstream `useImplicitActiveTrigger` does, so Shift+Tab from that trigger closes a popover and leaves a dialog open, as React does. A focus-out close does not return focus, including when `finalFocus` is `null`, an element, or a function. The function is not called. React calls that function and ignores the result. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once. The port's focus manager does not merge its leading guard with `beforeContentFocusGuardRef`, and it counts every Base UI focus guard as inside, because PopoverPopup does not pass `getInsideElements`.
 
 Test: `src/lib/popover/PopoverFocusGuards.svelte.spec.ts`.
 
@@ -368,19 +368,43 @@ The positioner case that spies on the arguments of the anchor positioning hook a
 
 ## Menu
 
-Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/menu/**` without the filter parts. The paired React fixture runs `@base-ui/react` 1.9.0. `MenuStore` extends `PopupStore<MenuChangeReason>`. List navigation and typeahead come from `packages/floating-ui-svelte`.
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/menu/**` with the filter parts and the `packages/react/src/filter-dropdown/**` code they use. The paired React fixture runs `@base-ui/react` 1.9.0. `MenuStore` extends `PopupStore<MenuChangeReason>`. List navigation and typeahead come from `packages/floating-ui-svelte`.
 
 ### Public surface
 
-Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup`, `actionsRef`, and the `*DataAttributes` and `*CssVars` namespaces.
+Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup` and `Menu.FilterProvider`, `actionsRef`, and the `*DataAttributes` and `*CssVars` namespaces.
 
-Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem` and `value` on `Menu.RadioGroup` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
+Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem`, `value` on `Menu.RadioGroup` and `value` on `Menu.FilterProvider` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
 
 ### Labels are trimmed
 
 Upstream: typeahead and `onItemHighlighted` read an item's `textContent` as it is.
 
 Local: the label is trimmed, because Svelte templates keep the whitespace around a text child.
+
+### Filter item text
+
+Upstream: a filtered-out item has no DOM, so the filter reads the text of its React children, and an item whose children change while it is hidden matches the new text.
+
+Local: Svelte children are a snippet with no readable text. An item's text is its rendered `textContent`, trimmed, and a `MutationObserver` catches changes while it is visible. A filtered-out item without `label` keeps the text it last rendered. Set `label` on an item whose text changes while it can be hidden.
+
+### Portaled filter events
+
+Upstream: keys and focus in a portaled submenu bubble through React's tree to the parent popup's handlers.
+
+Local: a submenu popup relays its `keydown` and `focusin` to the parent popup through `relayKeyDown` and `relayFocusIn` on the parent store.
+
+### Opting out of the menu's key handling
+
+Upstream: a consumer handler calls `event.preventBaseUIHandler()`, and the flag reaches every Base UI handler on the propagation path through React's shared synthetic event.
+
+Local: a consumer handler calls `event.preventDefault()`, as with every part (see `mergeProps`). `Menu.Input` passes its consumer handler through `forwardConsumerPrevention`, so the popup skips its own handlers for that key. No other menu part forwards the opt-out to an ancestor.
+
+### Internal filter roots
+
+Upstream: `MenuFilterRoot` and `MenuFilterSubmenuRoot` are internal components that `Menu.FilterProvider` renders around a root or a submenu root.
+
+Local: they are the classes in `filter-root.svelte.ts` and `filter-submenu-root.svelte.ts`, which `Menu.Root` and `Menu.SubmenuRoot` create when a provider surrounds them. Neither is public, as upstream.
 
 ### Return focus after a hover close
 
@@ -408,7 +432,21 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Not covered
 
-React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter, `Menu.List` and lazy flipping cases wait on the filter parts. The shadow-root focus-guard case depends on React portal ownership.
+React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter cases that need exit animations add a CSS animation or transition in the spec. The local focus manager returns focus when the menu closes, not when the popup unmounts (see [Menu open events are emitted before the DOM update](#menu-open-events-are-emitted-before-the-dom-update)). So the cases that type into the input while the popup animates out pass `finalFocus={false}` to keep focus on the input. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
+
+### Submenu trigger press type
+
+Upstream: a filterable submenu trigger types its click with `useEnhancedClickHandler`.
+
+Local: it uses the shared `useOpenInteractionType` and skips a `pointerdown` that was already prevented, as upstream does. The shared helper differs in two ways. A click whose own `pointerType` is empty takes the type of the `pointerdown` before it, where upstream keeps the empty type. On iOS an empty type counts as a touch. A touch and an empty type both leave focus where it is, so only the first can change the result.
+
+Test: `src/lib/menu/MenuFilterSubmenuRoot.pointerFocus.svelte.spec.ts` (`submenu press type in a plain parent`).
+
+### Initial live-region text
+
+Upstream: `useInitialLiveRegionTextMutation` is a hook that returns a ref, tested in `internals/useInitialLiveRegionTextMutation.test.tsx`.
+
+Local: `Menu.Empty` marks its text in an attachment. The cases run against `Menu.Empty` in `src/lib/menu/MenuEmpty.liveRegion.svelte.spec.ts`. `does nothing when its ref is not attached` is not ported: an attachment runs only on the element it is attached to, so there is no unattached state to test.
 
 ## Menubar
 
@@ -428,9 +466,9 @@ Local: a menubar trigger that owns a detached menu sets the menu's parent to the
 
 ### Menu open events are emitted before the DOM update
 
-Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect, and the focus manager returns focus a microtask after a close.
+Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect, and the focus manager returns focus a microtask after a close. With an exit animation, it returns focus once the popup unmounts, so focus stays in the closing popup until then.
 
-Local: the shared `FloatingFocusManager` returns focus inside the closing flush. `MenuPositioner` emits from `$effect.pre`, so the menubar clears `data-has-submenu-open` before the returned focus reaches the trigger. Without it, an outside press that closed a menu let the returned focus reopen it.
+Local: the shared `FloatingFocusManager` returns focus inside the closing flush, also while an exit animation runs. `MenuPositioner` emits from `$effect.pre`, so the menubar clears `data-has-submenu-open` before the returned focus reaches the trigger. Without it, an outside press that closed a menu let the returned focus reopen it.
 
 ### Arrow keys focus synchronously
 
@@ -445,7 +483,7 @@ Local: the shared `CompositeRoot` focuses the next trigger synchronously. The po
 
 ### Not covered
 
-React-only cases: `describeConformance` (refs, `className` and style functions). The `filterable menubar menus` case waits on the Menu filter parts.
+React-only cases: `describeConformance` (refs, `className` and style functions).
 
 ## ContextMenu
 
@@ -508,6 +546,60 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/toast/**`.
 
 Test: `src/lib/toast/store.svelte.spec.ts`, `src/lib/toast/toast-ssr.spec.ts`, `src/lib/toast/manager.svelte.spec.ts`, `src/lib/toast/manager-types.spec.ts`, `src/lib/toast/Toast.svelte.spec.ts`, `src/lib/toast/ToastRoot.svelte.spec.ts`, and `src/lib/toast/parts.svelte.spec.ts`. `src/lib/toast/Toast.svelte.spec.ts` (`keeps timers paused on mouseleave while the window is blurred`, `collapses a deferred mouseleave after a closing toast is removed while blurred`, `syncs a changed limit before descendant effects`). `src/lib/toast/manager.svelte.spec.ts` (`recomputes limited toasts when the limit prop changes`). `src/lib/toast/parts.svelte.spec.ts` (`renders content passed through the render snippet`, `does not render a childless render snippet when there is no content`).
 
+## Select
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/select/**`, with the shared helpers in `packages/react/src/internals/itemEquality.ts`, `resolveValueLabel.tsx`, `packages/react/src/utils/ItemIndicator.tsx` and `listbox-separator/`. The paired fixture runs `@base-ui/react` 1.9.0.
+
+### Public surface
+
+Upstream: `value`/`defaultValue`/`onValueChange`, `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, and `ReactNode` labels in `items` and on `Select.Value`'s `placeholder`.
+
+Local: `value` and `open` are `$bindable`. `defaultValue` stays, because Select is a form control: it is the value an empty binding starts from and the value a native reset restores. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`, and `unmount()` does nothing while the popup is open. `inputRef` is not ported. The root takes `readonly`, the HTML spelling. Labels, `placeholder`, and what `itemToStringLabel` returns are strings, because a part renders them as text. A `Select.Value` `children` snippet receives the value in place of the children function.
+
+### Multiple values submit through one hidden select
+
+Upstream: a `multiple` select renders one hidden `<input>` per value.
+
+Local: one hidden `<select multiple>` holds an `<option>` per current value and per `defaultValue` entry. The current values are the options' selectedness, set after Svelte renders them. The `selected` attribute marks the defaults, so a native reset restores them. `FormData` holds the same entries as upstream. The select stays in the form when nothing is selected, so a form source still hears the edit that cleared it. A user edit fires `input` and `change` from it once the options are written. The helper is `src/lib/select/native-select.ts`.
+
+Test: `src/lib/select/SelectRoot.multiple.svelte.spec.ts`, the `bound Select` cases of `src/lib/field/bound-control.svelte.spec.ts`.
+
+### Native reset and form sources
+
+Upstream: nothing listens for `reset`, as described under [Form reset](#form-reset).
+
+Local: Select joins the other form controls. A native reset restores `defaultValue` through the binding and calls no `onValueChange`. Inside a `Field.Root` bound to a form source, Select is kind `select`, or `select multiple` with `multiple`, per [Composite controls bound to a form source](#composite-controls-bound-to-a-form-source). A source value names an item by its serialized value, so an object or number item stays selected after the source echoes a string.
+
+Test: `src/lib/select/SelectRoot.field.svelte.spec.ts`, `src/routes/fixtures/select/select.e2e.ts` (`restores the default value on a native form reset`).
+
+### Event handling
+
+Upstream: a consumer handler calls `event.preventBaseUIHandler()` to skip a part's own handling, and the popup's typeahead runs through the merged props.
+
+Local: `event.preventDefault()` is the skip signal, as everywhere in this port. An item prevents a Space typed inside a typeahead match so that it does not select, and the merged popup handlers would skip a prevented event, so the popup chains the typeahead handler after the merged handlers instead of merging it.
+
+### Focus and nesting
+
+Upstream: closing returns focus to the element focused before the popup opened. Presses inside a select nested in another popup bubble through the React tree to the parent.
+
+Local: the select joins the parent popup's floating tree, so a parent popover treats the select's popup as its child.
+
+Upstream: on open, list navigation queues the highlighted item's focus for the next frame, then the focus manager queues its own focus, which replaces the first request. The focus manager's request does nothing once the popup has closed, so a Tab or Escape before that frame leaves focus where the close put it.
+
+Local: list navigation queues its request after the focus manager's. The request checks that the popup is still open, so a close in that frame leaves focus where the close put it, as upstream does.
+
+Test: `src/lib/select/SelectRoot.popups.svelte.spec.ts` (`keeps focus outside when the popup closes before its open focus lands`). Upstream's `validates when the popup is blurred` fires a synthetic blur after a trigger blur whose queued focus-out check clears `insideReactTree`, so its popup closes. A real focus move without a press keeps a portaled popup open in upstream, so `src/lib/select/SelectRoot.field.svelte.spec.ts` blurs the popup with Tab.
+
+### Open method and alignment
+
+Upstream: the positioner keeps `alignItemWithTrigger` in state and resets it to the prop only while unmounted.
+
+Local: the interaction that opened the popup is kept until the popup unmounts, so a touch-opened popup keeps regular anchoring while it animates out. A fallback to regular anchoring lasts until the popup mounts or unmounts again, and a change of the `alignItemWithTrigger` prop applies at once.
+
+### Not covered
+
+`describeConformance` and the popup conformance suites (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions), the Strict Mode, `React.startTransition`, `ReactDOM.createPortal` and render-count cases, and the requestAnimationFrame-mocked touch reopen case have no Svelte counterpart. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Upstream's jsdom-only keyboard, quick-selection and style-hook item cases run in Chromium with real timers.
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -520,7 +612,7 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | CheckboxGroup      | Disabled or other-form values filtered out of the Field value                                          |
 | Collapsible        | React.Activity animation resume, refs                                                                  |
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                                    |
-| Field              | Select integration; refs                                                                               |
+| Field              | refs                                                                                                   |
 | Input              | refs                                                                                                   |
 | Toggle             | Toolbar integration, `nativeButton={false}`                                                            |
 | ToggleGroup        | Toolbar integration, grid composite, scroll-into-view                                                  |
@@ -547,10 +639,11 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
 | NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                         |
 | Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
-| Menu               | Filter parts, `actionsRef`, refs                                                                       |
+| Menu               | `actionsRef`, refs                                                                                     |
 | Menubar            | the `MenubarDataAttributes` namespace, refs                                                            |
 | ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                               |
 | Toast              | refs, `className` and `style` callbacks                                                                |
+| Select             | `inputRef`, `ReactNode` labels and placeholder                                                         |
 
 ## Shared floating internals
 
@@ -575,3 +668,11 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui
 Local: the queued focus passes `shouldFocus: () => store.isOpen()`. A Tab or Escape that closes the popup before the frame drops the focus, so it does not land on an item of a closed popup that stays mounted.
 
 Test: `src/tests/list-navigation/useListNavigation.svelte.spec.ts` (`drops a queued item focus when the list closes before it lands`).
+
+### Elements inside the focus manager
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`. `getInsideElements` lists elements outside the popup that count as inside it. A typeable `role="combobox"` reference with `initialFocus={false}` leaves focus untrapped: a modal popup renders no focus guards, does not stop Tab, closes on focus out, and keeps the reference exposed while it hides outside content. Each popup takes its tabbables from the floating focus element, so the guards of a manager inside a positioner are not among them. An untrapped combobox reference of an ancestor popup also stays exposed.
+
+Local: `FloatingFocusManager` takes `getInsideElements` for focus out, return focus and `aria-hidden`, and has the untrapped combobox mode and the tabbables of upstream. A press on an inside element is still tracked as an outside press, because focus out already counts that element as inside. The reference of an ancestor combobox popup is not kept exposed, so a modal popup nested in an untrapped combobox popup hides that combobox's input. `PopoverPopup` does not pass `getInsideElements` and still counts every Base UI focus guard as inside, as described under Popover.
+
+Test: `packages/floating-ui-svelte/src/components/FloatingFocusManager.focusModes.svelte.spec.ts`.

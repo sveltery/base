@@ -214,6 +214,7 @@
 					[hoverKey]: attachReference
 				},
 				ownProps,
+				live?.filter?.triggerProps,
 				menubar ? { role: 'menuitem' as const } : {},
 				// A composite native button keeps `disabled` and also gets `aria-disabled`, which
 				// `ButtonBehavior` has no option for.

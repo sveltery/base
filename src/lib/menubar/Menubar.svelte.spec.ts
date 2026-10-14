@@ -869,3 +869,32 @@ describe('Menubar', () => {
 		});
 	});
 });
+
+describe('filterable menubar menus', () => {
+	beforeEach(parkPointer);
+
+	it.each(['horizontal', 'vertical'] as const)(
+		'preserves %s trigger navigation',
+		async (orientation) => {
+			render(MenubarCasesHarness, { scenario: 'filterable', menubarProps: { orientation } });
+			const triggers = [...menubar().querySelectorAll<HTMLElement>('[role="menuitem"]')];
+			const [file, edit] = triggers;
+			expect(triggers.map((trigger) => trigger.textContent?.trim())).toEqual(['File', 'Edit']);
+			const nextKey = orientation === 'vertical' ? '{ArrowDown}' : '{ArrowRight}';
+			const openKey = orientation === 'vertical' ? '{ArrowRight}' : '{ArrowDown}';
+
+			file.focus();
+			await userEvent.keyboard(nextKey);
+			await expect.poll(() => focused()).toBe(edit);
+			expect(document.querySelector('[role="searchbox"]')).toBe(null);
+
+			file.focus();
+			await userEvent.keyboard(openKey);
+			await expect.poll(() => focused()?.getAttribute('aria-label')).toBe('Filter file actions');
+			const newFile = [...document.querySelectorAll('[role="menuitem"]')].find(
+				(node) => node.textContent?.trim() === 'New file'
+			);
+			expect(newFile?.hasAttribute('data-highlighted')).toBe(true);
+		}
+	);
+});

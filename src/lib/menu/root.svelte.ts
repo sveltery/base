@@ -1,8 +1,8 @@
 // Derived from Base UI v1.9.0 packages/react/src/menu/root/MenuRoot.tsx (`MenuRootInternal`)
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Menu.Root and Menu.SubmenuRoot share this setup. Call it during component init: it sets
-// context and registers effects. The virtual-focus and filter options of `MenuRootInternal`
-// are not ported.
+// context and registers effects. A root that takes a `Menu.FilterProvider` gets virtual focus
+// and a `MenuFilter`, as upstream `MenuFilterRoot` and `useMenuFilterRoot` set up.
 
 import { DEV } from 'esm-env';
 import { getAbortSignal, untrack } from 'svelte';
@@ -24,6 +24,7 @@ import { mergeProps } from '../internal/mergeProps.js';
 import { FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
 import { TYPEAHEAD_RESET_MS } from './constants.js';
 import { findMenuRoot, setMenuRoot, type MenuRootContext } from './context.svelte.js';
+import { MenuFilter, type MenuFilterProviderContext } from './filter-root.svelte.js';
 import type { MenuHandle } from './handle.svelte.js';
 import {
 	NO_PARENT,
@@ -55,6 +56,8 @@ export interface MenuRootOptions extends Pick<
 	readOrientation: () => MenuOrientation;
 	readCloseParentOnEsc: () => boolean;
 	readHandle: () => MenuHandle<never> | undefined;
+	/** The `Menu.FilterProvider` this root consumed, which makes it filterable. */
+	filter?: MenuFilterProviderContext | null;
 }
 
 function withoutKeyDown(props: Props): Props {
@@ -88,6 +91,12 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		? untrack(() => parentStore?.instantType)
 		: undefined;
 
+	const filterProvider = options.filter ?? null;
+	const virtualFocus = filterProvider != null;
+	// A filter that highlights automatically keeps the arrow keys in the list.
+	const allowEscape = () => !(filterProvider?.autoHighlight ?? false);
+	const resetOnPointerLeave = () => filterProvider?.autoHighlight !== 'always';
+
 	const store = new MenuStore({
 		readOpen: options.readOpen,
 		writeOpen: options.writeOpen,
@@ -110,7 +119,8 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		onOpenChangeComplete: options.onOpenChangeComplete,
 		onItemHighlighted: options.onItemHighlighted,
 		animateInitialOpen,
-		instantType: seededInstantType
+		instantType: seededInstantType,
+		virtualFocus
 	});
 
 	// An inherited `instantType` is for the initial reveal only. Clear it once that settles.
@@ -170,28 +180,39 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 	const listNavigation = new ListNavigation(store, () => {
 		const current = store.parent;
 		const orientation = options.readOrientation();
+		const loopFocus = options.readLoopFocus();
 		return {
 			enabled: !store.disabled,
 			items: () => store.items.elements,
 			activeIndex: store.activeIndex,
-			nested: current.type !== undefined,
+			virtual: virtualFocus,
+			nested: current.type === 'menubar' || (!virtualFocus && current.type !== undefined),
 			parentOrientation: current.type === 'menubar' ? current.context.orientation : undefined,
-			loopFocus: options.readLoopFocus(),
+			loopFocus,
+			// Keyboard opens highlight an item as in a plain menu. The input stays in the arrow
+			// loop unless the filter highlights automatically.
+			focusItemOnOpen: virtualFocus ? store.keyboardOpen : undefined,
+			allowEscape: virtualFocus && loopFocus && allowEscape(),
 			orientation,
-			triggerOrientation: orientation,
+			// A virtual list navigates on either axis, but its trigger opens on the vertical one.
+			triggerOrientation: virtualFocus ? 'vertical' : orientation,
 			rtl: direction.direction === 'rtl',
 			disabledIndices: [],
 			onNavigate(index, event) {
 				store.setActiveIndex(index, getHighlightReason(event), event);
 			},
-			openOnArrowKeyDown: current.type !== 'context-menu',
+			// A filterable submenu opens from the keyboard through its own navigation handlers.
+			openOnArrowKeyDown: current.type !== 'context-menu' && !(virtualFocus && options.isSubmenu),
+			nestedReturnFocus:
+				current.type === 'menu' ? () => current.store.focusOwner ?? null : undefined,
 			focusItemOnHover: store.highlightItemOnHover,
-			resetOnPointerLeave: true
+			resetOnPointerLeave: resetOnPointerLeave()
 		};
 	});
 
 	const typeahead = new Typeahead(store, () => ({
-		enabled: !store.disabled,
+		// The input owns typing under virtual focus. Typeahead would race the query.
+		enabled: !store.disabled && !virtualFocus,
 		labels: () => store.labels(),
 		elements: () => store.items.elements,
 		activeIndex: store.activeIndex,
@@ -218,8 +239,17 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		if (relay && !event.cancelBubble) relay(event);
 	}
 
+	// Under virtual focus the input takes the navigation's reference props
+	// (`aria-activedescendant` and the key handling), and the trigger keeps the props that open.
+	// Focusing the trigger while open must not seed the virtual highlight.
+	const openTriggerProps = $derived.by((): Props => {
+		if (!virtualFocus) return listNavigation.reference;
+		const { onfocus: _onfocus, ...rest } = listNavigation.trigger;
+		return rest;
+	});
+
 	const activeTriggerProps = $derived(
-		mergeProps(typeahead.reference, listNavigation.reference, dismiss.reference, {
+		mergeProps(typeahead.reference, openTriggerProps, dismiss.reference, {
 			onmousemove() {
 				store.allowMouseEnter = true;
 			}
@@ -260,6 +290,9 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		get itemProps() {
 			return listNavigation.item;
 		},
+		get inputProps() {
+			return virtualFocus ? listNavigation.reference : {};
+		},
 		popupKeyDown
 	};
 	store.interactions = interactions;
@@ -269,9 +302,31 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		parent,
 		get orientation() {
 			return options.readOrientation();
+		},
+		get loopFocus() {
+			return options.readLoopFocus();
+		},
+		get allowEscape() {
+			return allowEscape();
 		}
 	};
 	setMenuRoot(context);
+
+	if (filterProvider) {
+		store.filter = new MenuFilter(store, {
+			provider: filterProvider,
+			id: options.id,
+			keys: {
+				store,
+				get orientation() {
+					return options.readOrientation();
+				},
+				get rtl() {
+					return direction.direction === 'rtl';
+				}
+			}
+		});
+	}
 
 	$effect(() => {
 		const handle = options.readHandle();

@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/useClick.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The virtual press follows v1.9.0
-// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The virtual press and the `input-press`
+// reason follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import {
@@ -23,7 +24,7 @@ export interface UseClickProps {
 	ignoreMouse?: boolean;
 	stickIfOpen?: boolean;
 	touchOpenDelay?: number;
-	reason?: typeof REASONS.triggerPress;
+	reason?: typeof REASONS.triggerPress | typeof REASONS.inputPress;
 }
 
 type PointerKind = 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
@@ -32,8 +33,6 @@ export class ClickInteraction {
 	readonly #frame = new ScopedAnimationFrame();
 	readonly #touchOpenTimeout = new ScopedTimeout();
 	#pointerType: PointerKind;
-	/** Open state when this press began. A part that toggled on this press itself wins. */
-	#openAtPointerDown: boolean | undefined;
 
 	constructor(
 		private readonly store: FloatingRootStore,
@@ -96,7 +95,6 @@ export class ClickInteraction {
 				isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
 					? 'virtual'
 					: (event.pointerType as PointerKind);
-			this.#openAtPointerDown = this.store.isOpen();
 			// Upstream `useOpenInteractionType` records the press on a closed trigger, so a popup
 			// that opens from it through another handler still knows how it was opened.
 			if (event.defaultPrevented || this.store.isOpen()) return;
@@ -104,8 +102,6 @@ export class ClickInteraction {
 				(platform.os.ios ? 'touch' : '')) as OpenInteractionType;
 		},
 		onmousedown: (event: MouseEvent) => {
-			const openAtPointerDown = this.#openAtPointerDown;
-			this.#openAtPointerDown = undefined;
 			const { enabled, event: eventOption, ignoreMouse } = this.#options();
 			if (!enabled || event.button !== 0 || eventOption === 'click') return;
 			if (isMouseLikePointerType(this.#pointerType, true) && ignoreMouse) return;
@@ -127,7 +123,6 @@ export class ClickInteraction {
 			// A screen reader press opens at once, so the popup's focus lands before the reader
 			// moves focus back to its cursor. A virtual press may target a descendant of the trigger.
 			if (pointerType === 'virtual') {
-				if (openAtPointerDown !== undefined && this.store.isOpen() !== openAtPointerDown) return;
 				this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method);
 				return;
 			}

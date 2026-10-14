@@ -347,6 +347,8 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - The press marker in `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` from `insideReactTree` in `packages/react/src/floating-ui-react/hooks/useDismiss.ts`
 - `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte` the module stack of previously focused elements, the `getReturnElement` order, and the focus-out exemption for the previously focused element, from `addPreviouslyFocusedElement`, `getPreviouslyFocusedElement` and `getReturnElement` in `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`
 - `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` touch and compatibility `mousedown` listeners that act from a one-time target listener, from `handleTouchStartCapture`, `handleTouchMoveCapture`, `handleTouchEndCapture` and `closeOnPressOutsideCapture` in `packages/react/src/floating-ui-react/hooks/useDismiss.ts`
+- `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte` `getInsideElements`, the untrapped typeable combobox mode and the tabbables of the floating focus element, from `getResolvedInsideElements`, `isUntrappedTypeableCombobox` and `getTabbableContent` in `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`, with `packages/floating-ui-svelte/src/components/FloatingFocusManager.focusModes.svelte.spec.ts` and the `packages/floating-ui-svelte/src/components/__tests__/FocusModesHarness.svelte` harness
+- `packages/floating-ui-svelte/src/hooks/useClick.svelte.ts` the `input-press` reason from `packages/react/src/floating-ui-react/hooks/useClick.ts`
 - Menu derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 - `src/lib/menu/MenuRoot.svelte`, `MenuSubmenuRoot.svelte` and `root.svelte.ts` from `packages/react/src/menu/root/MenuRoot.tsx` and `packages/react/src/menu/submenu-root/MenuSubmenuRoot.tsx`
 - `src/lib/menu/store.svelte.ts` from `packages/react/src/menu/store/MenuStore.ts` and the `setOpen` of `MenuRoot.tsx` (extends the shared `PopupStore`)
@@ -360,11 +362,21 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/menu/parent.svelte.ts` from `MenuParent` in `MenuRoot.tsx`, `packages/react/src/menubar/MenubarContext.ts` and `packages/react/src/context-menu/root/ContextMenuRootContext.ts`
 - `src/lib/menu/constants.ts` from `packages/react/src/internals/constants.ts` and `packages/react/src/menu/utils/isKeyboardOpen.ts`
 - `src/lib/menu/dom.ts` from `packages/react/src/utils/getPseudoElementBounds.ts` and `packages/react/src/menu/utils/findRootOwnerId.ts`
-- `src/lib/menu/*.svelte.spec.ts` assertions from `packages/react/src/menu/**/*.test.tsx` that do not require the filter parts, React refs, StrictMode or React render counts, and from `packages/react/test/detachedTriggersConformanceTests.tsx`
+- `src/lib/menu/*.svelte.spec.ts` assertions from `packages/react/src/menu/**/*.test.tsx` that do not require React refs, StrictMode or React render counts, and from `packages/react/test/detachedTriggersConformanceTests.tsx`
 - `src/tests/menu/**` harnesses from the fixtures of those tests
+- `src/lib/menu/MenuFilterProvider.svelte` from `packages/react/src/menu/filter-provider/MenuFilterProvider.tsx` and `MenuFilterProviderOptions.ts`
+- `src/lib/menu/MenuInput.svelte`, `MenuClear.svelte` and `MenuEmpty.svelte` from the matching files under `packages/react/src/menu/` and `packages/react/src/filter-dropdown/`, and `packages/react/src/internals/useInitialLiveRegionTextMutation.ts`
+- `src/lib/menu/MenuList.svelte` from `packages/react/src/menu/list/MenuList.tsx`, `packages/react/src/menu/filter-root/MenuFilterList.tsx` and `packages/react/src/filter-dropdown/list/FilterDropdownList.tsx`
+- `src/lib/menu/filter-root.svelte.ts` from `packages/react/src/filter-dropdown/root/FilterDropdownRoot.tsx`, `FilterDropdownRootContext.ts`, `useFilterDropdownCloseQuery.ts`, `store.ts`, `packages/react/src/filter-dropdown/item/useFilterDropdownItem.ts`, `packages/react/src/filter-dropdown/group/useFilterDropdownGroup.ts`, `packages/react/src/menu/filter-root/MenuFilterDropdown.tsx`, `useMenuFilterRoot.ts` and `packages/react/src/menu/filter-provider/MenuFilterProviderContext.ts`
+- `src/lib/menu/filter-popup.svelte.ts` from `packages/react/src/menu/filter-root/useMenuFilterPopup.ts`, `MenuFilterPopup.tsx` and `useVirtualFocusParentHandoff.ts`
+- `src/lib/menu/filter-keydown.ts` from `packages/react/src/menu/filter-root/useMenuFilterKeyDown.ts`, `moveHighlightFrom.ts` and `packages/react/src/filter-dropdown/utils/refocusOwner.ts`
+- `src/lib/menu/filter-submenu-root.svelte.ts` from `packages/react/src/menu/filter-submenu-root/MenuFilterSubmenuRoot.tsx` and `packages/react/src/menu/submenu-root/MenuSubmenuRootContext.ts`
+- `src/lib/menu/filter-part.ts` from `packages/react/src/menu/filter-root/MenuFilterContext.ts`
+- `src/lib/menu/filter.ts` from `packages/react/src/internals/filter.ts` and `stringifyAsLabel` of `packages/react/src/internals/resolveValueLabel.tsx`
+- `src/lib/menu/filter.spec.ts` assertions from `packages/react/src/internals/filter.test.ts`
 - Menubar derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 - `src/lib/menubar/Menubar.svelte`, `context.svelte.ts`, `types.ts` and `index.ts` from `packages/react/src/menubar/Menubar.tsx`, `MenubarContext.ts`, `MenubarDataAttributes.ts` and `index.ts`, with the item hover highlight from `packages/react/src/internals/composite/item/useCompositeItem.ts`
-- `src/lib/menubar/Menubar.svelte.spec.ts` assertions from `packages/react/src/menubar/Menubar.test.tsx` that do not require the filter parts or `aria-owns`, and the `Menubar parent` cases of `packages/react/src/menu/positioner/MenuPositioner.test.tsx`
+- `src/lib/menubar/Menubar.svelte.spec.ts` assertions from `packages/react/src/menubar/Menubar.test.tsx` that do not require `aria-owns`, and the `Menubar parent` cases of `packages/react/src/menu/positioner/MenuPositioner.test.tsx`
 - `src/tests/menubar/**` harnesses from the fixtures of those tests
 - ContextMenu derives from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`:
 - `src/lib/context-menu/ContextMenuRoot.svelte`, `ContextMenuTrigger.svelte`, `context.svelte.ts`, `types.ts` and `index.ts` from `packages/react/src/context-menu/root/ContextMenuRoot.tsx`, `root/ContextMenuRootContext.ts`, `trigger/ContextMenuTrigger.tsx`, `positioner/ContextMenuPositioner.tsx`, `index.ts` and `index.parts.ts`
@@ -393,6 +405,14 @@ Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7
 - `src/lib/toast/utils.ts` from `packages/react/src/toast/utils/isRenderableNode.ts`, `packages/react/src/toast/utils/resolvePromiseOptions.ts`, `packages/utils/src/generateId.ts`, `getDisplacement` in `packages/react/src/utils/useSwipeDismiss.ts`, and the swipe-ignore selectors in `packages/react/src/internals/constants.ts`
 - `packages/utils/src/focus-visible.ts` from `matchesFocusVisible` in `packages/react/src/floating-ui-react/utils/element.ts`
 - `src/lib/internal/useAnchorPositioning.svelte.ts` the `'placement'` mode of `lazyFlip` from `packages/react/src/internals/useAnchorPositioning.ts`, with `src/lib/internal/lazy-flip.svelte.spec.ts` and the `src/tests/LazyFlipHarness.svelte` harness
+- `src/lib/select/*.svelte` from the matching parts in `packages/react/src/select/**` of Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`): Root, Label, Trigger, Value, Icon, Portal, Backdrop, Positioner, Popup, List, Item, ItemIndicator, ItemText, Arrow, ScrollUpArrow, ScrollDownArrow, Group, GroupLabel and Separator
+- `src/lib/select/store.svelte.ts` from `packages/react/src/select/store.ts` and the state, refs and callbacks of `packages/react/src/select/root/SelectRoot.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/context.svelte.ts` from `SelectRootContext.ts`, `SelectPositionerContext.ts`, `SelectItemContext.ts` and `SelectGroupContext.ts` in `packages/react/src/select/` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/popup-utils.ts` from `packages/react/src/select/popup/utils.ts`, the helpers of `SelectPopup.tsx` and `SelectScrollArrow.tsx`, and `packages/react/src/utils/getPseudoElementBounds.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/constants.ts` from `packages/react/src/internals/constants.ts` and `packages/react/src/select/trigger/SelectTrigger.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/internal/listbox/itemEquality.ts` and `resolveValueLabel.ts` from `packages/react/src/internals/itemEquality.ts` and `resolveValueLabel.tsx`, with their specs from the matching `*.test.ts` files (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/internal/listbox/ItemIndicator.svelte` from `packages/react/src/utils/ItemIndicator.tsx`, and `ListboxSeparator.svelte` from `packages/react/src/utils/listbox-separator/ListboxSeparator.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- `src/lib/select/*.svelte.spec.ts` assertions from `packages/react/src/select/**/*.test.tsx`, and the Select cases of `src/lib/field/bound-control.svelte.spec.ts` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 
 MIT License
 
