@@ -1083,18 +1083,17 @@ describe('Dialog', () => {
 		target.remove();
 	});
 
-	it('does not call finalFocus when a pointer focus-out closes', async () => {
+	it('calls finalFocus and ignores its result when a pointer focus-out closes', async () => {
 		const target = document.createElement('button');
 		document.body.append(target);
-		// React calls this function and ignores the result. A focus-out close skips it.
-		const finalFocus = vi.fn(() => target);
+		const finalFocus = vi.fn((_closeType: string | null) => target);
 		render(DialogHarness, { scenario: 'outside', finalFocus });
 		await page.getByRole('button', { name: 'Open' }).click();
 		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
 		await page.getByTestId('outside').click();
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 		await expect.element(page.getByTestId('outside')).toHaveFocus();
-		expect(finalFocus).not.toHaveBeenCalled();
+		expect(finalFocus.mock.calls).toEqual([['mouse']]);
 		target.remove();
 	});
 

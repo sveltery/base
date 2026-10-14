@@ -67,6 +67,23 @@ describe.for(['forward', 'backward'] as const)('tabbing %s from an open popover'
 		}
 	);
 
+	it('calls the finalFocus function on a focus-out close and keeps the tab destination', async () => {
+		const calls: (string | null)[] = [];
+		render(PopoverFocusGuardHarness, {
+			tabindex: 0,
+			finalFocus: 'function',
+			onFinalFocus: (closeType) => calls.push(closeType)
+		});
+		await openPopup();
+		focusTabOrigin();
+
+		await userEvent.tab({ shift: direction === 'backward' });
+		await expect.poll(popupCount).toBe(0);
+
+		expect(calls).toEqual(['keyboard']);
+		expect(document.activeElement).toBe(byTestId(direction === 'backward' ? 'before' : 'after'));
+	});
+
 	it.for(['disabled', 'tabIndex', 'hidden', 'removed', 'inserted', 'reordered'] as const)(
 		'uses the current tab order when an adjacent control is %s during close',
 		async (change) => {
