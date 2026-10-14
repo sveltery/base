@@ -38,13 +38,13 @@
 		}
 	};
 	const read = (key: string | symbol) =>
-		key in own ? Reflect.get(own, key) : Reflect.get(elementProps, key);
+		Object.hasOwn(own, key) ? Reflect.get(own, key) : Reflect.get(elementProps, key);
 	const hostProps = new Proxy(own, {
 		get: (_target, key) => read(key),
-		has: (_target, key) => key in own || key in elementProps,
+		has: (_target, key) => Object.hasOwn(own, key) || key in elementProps,
 		ownKeys: () => [...new Set([...Reflect.ownKeys(elementProps), ...Reflect.ownKeys(own)])],
 		getOwnPropertyDescriptor: (_target, key) =>
-			key in own || key in elementProps
+			Object.hasOwn(own, key) || key in elementProps
 				? { configurable: true, enumerable: true, value: read(key) }
 				: undefined
 	}) as HTMLFieldsetAttributes;
