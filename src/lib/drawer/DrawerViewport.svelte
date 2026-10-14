@@ -488,7 +488,8 @@
 				// The popup's style effect writes this a microtask later. An onOpenChange that forces a
 				// style recalc would start the exit transition with the previous strength.
 				releasePopup.style.setProperty(DrawerPopupCssVars.swipeStrength, `${swipeRelease ?? 1}`);
-				// Start the ending styles now, so the popup does not look stuck on release.
+				// Start the ending styles now, so the popup does not look stuck on release. Set them after
+				// resolveSwipeRelease, whose size read forces a style recalc that would start the transition.
 				releasePopup.setAttribute(DrawerPopupDataAttributes.endingStyle, '');
 			}
 
