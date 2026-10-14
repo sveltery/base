@@ -4,7 +4,7 @@
 // MIT, see THIRD_PARTY_NOTICES.md.
 // Upstream's positioner cases spy on `useAnchorPositioning` arguments. These cases assert the
 // placement those arguments produce instead.
-import { tick } from 'svelte';
+import { flushSync, tick } from 'svelte';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -378,11 +378,16 @@ describe('ContextMenu', () => {
 	] as const)(
 		'inside an open $outer, portaled into a box outside it: $inBox',
 		({ outer, inBox }) => {
-			async function openBoth() {
+			async function openOuter() {
 				const reasons: string[] = [];
 				render(ContextMenuInPopupHarness, { outer, inBox, reasons });
 				if (!byTestId('outer')) clickElement(get('outer-trigger'));
 				await expect.poll(shown('outer')).toBe(true);
+				return reasons;
+			}
+
+			async function openBoth() {
+				const reasons = await openOuter();
 				contextMenu(get('ctx-trigger'), { clientX: 30, clientY: 30 });
 				await expect.poll(shown('ctx-menu')).toBe(true);
 				expect(get('box').contains(get('ctx-menu'))).toBe(inBox);
@@ -417,6 +422,28 @@ describe('ContextMenu', () => {
 				await tick();
 				expect(openStates()).toEqual([true, false]);
 				expect(reasons).toEqual([]);
+			});
+
+			it('closes only the context menu on Escape before the menu takes focus', async () => {
+				const reasons = await openOuter();
+				flushSync(() => contextMenu(get('ctx-trigger'), { clientX: 30, clientY: 30 }));
+				expect(get('ctx-menu').contains(document.activeElement)).toBe(false);
+				flushSync(() =>
+					document.activeElement!.dispatchEvent(
+						new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+					)
+				);
+				await expect.poll(shown('ctx-menu')).toBe(false);
+				await tick();
+				expect({ open: openStates(), reasons }).toEqual({ open: [true, false], reasons: [] });
+			});
+
+			it('closes only the context menu on an item click', async () => {
+				const reasons = await openBoth();
+				clickElement(get('ctx-item'));
+				await expect.poll(shown('ctx-menu')).toBe(false);
+				await tick();
+				expect({ open: openStates(), reasons }).toEqual({ open: [true, false], reasons: [] });
 			});
 		}
 	);

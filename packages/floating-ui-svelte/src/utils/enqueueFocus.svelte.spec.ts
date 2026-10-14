@@ -1,6 +1,6 @@
 import { AnimationFrame } from '@sveltery/utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { enqueueFocus, focusQueuedWithin } from './enqueueFocus.js';
+import { enqueueFocus } from './enqueueFocus.js';
 import { enqueueFocus as enqueueListFocus } from './focusTarget.js';
 
 function button() {
@@ -91,42 +91,13 @@ describe('enqueueFocus', () => {
 		expect(focused).toEqual(['item', 'manager']);
 	});
 
-	it('reports a queued focus inside a container until the frame runs, a cleanup cancels it or a request supersedes it', async () => {
-		const container = document.createElement('div');
-		const inside = document.createElement('button');
-		container.append(inside);
-		document.body.append(container);
-
-		enqueueFocus(inside);
-		expect(focusQueuedWithin(container)).toBe(true);
-		expect(focusQueuedWithin(inside)).toBe(true);
-		expect(focusQueuedWithin(button())).toBe(false);
-		await frame();
-		expect(focusQueuedWithin(container)).toBe(false);
-
-		const cancel = enqueueFocus(inside);
-		cancel();
-		expect(focusQueuedWithin(container)).toBe(false);
-
-		enqueueFocus(inside);
-		enqueueListFocus(button());
-		expect(focusQueuedWithin(container)).toBe(false);
-
-		enqueueFocus(button());
-		expect(focusQueuedWithin(container)).toBe(false);
-	});
-
 	it('skips a superseded request that runs in the same frame as the request that replaced it', async () => {
 		const first = button();
-		const container = document.createElement('div');
-		const second = document.createElement('button');
-		container.append(second);
-		document.body.append(container);
+		const second = button();
 
 		AnimationFrame.request(() => enqueueFocus(second));
 		enqueueFocus(first);
 		await frame();
-		expect(focusQueuedWithin(container)).toBe(true);
 		expect(document.activeElement).toBe(document.body);
 		await frame();
 		expect(document.activeElement).toBe(second);
