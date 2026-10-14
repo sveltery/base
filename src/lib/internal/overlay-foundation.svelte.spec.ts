@@ -348,7 +348,7 @@ describe('overlay foundation', () => {
 		await expect.element(checked).toHaveFocus();
 	});
 
-	it('returns focus when flushSync commits the close', async () => {
+	it('returns focus in the microtask after flushSync commits the close', async () => {
 		render(OverlayFoundationHarness, { scenario: 'modal' });
 		const trigger = page.getByRole('button', { name: 'Open', includeHidden: true });
 		await trigger.click();
@@ -356,6 +356,8 @@ describe('overlay foundation', () => {
 		flushSync(() => {
 			(trigger.element() as HTMLElement).click();
 		});
+		// Upstream returns focus from a microtask too, after the teardown has read fresh props.
+		await Promise.resolve();
 		expect(document.activeElement).toBe(trigger.element());
 	});
 

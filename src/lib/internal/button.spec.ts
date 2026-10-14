@@ -47,6 +47,31 @@ describe('ButtonBehavior', () => {
 			'aria-disabled': true,
 			disabled: undefined
 		});
+		expect(attributes({ disabled: true, native: true, composite: true })).toEqual({
+			type: 'button',
+			role: undefined,
+			tabindex: undefined,
+			'aria-disabled': true,
+			disabled: true
+		});
+		expect(
+			attributes({ disabled: true, native: true, composite: true, focusableWhenDisabled: false })
+		).toEqual({
+			type: 'button',
+			role: undefined,
+			tabindex: undefined,
+			'aria-disabled': undefined,
+			disabled: true
+		});
+		expect(
+			attributes({ disabled: true, native: true, composite: true, focusableWhenDisabled: true })
+		).toEqual({
+			type: 'button',
+			role: undefined,
+			tabindex: undefined,
+			'aria-disabled': true,
+			disabled: undefined
+		});
 		expect(attributes({ disabled: true, native: false, composite: true })).toEqual({
 			type: undefined,
 			role: 'button',

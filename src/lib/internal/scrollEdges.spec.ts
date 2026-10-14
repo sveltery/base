@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { normalizeScrollOffset } from './scrollEdges.js';
+import { getMaxScrollOffset, normalizeScrollOffset } from './scrollEdges.js';
+
+describe('getMaxScrollOffset', () => {
+	it('returns how far the content scrolls, and 0 when it fits', () => {
+		expect(getMaxScrollOffset(300, 120)).toBe(180);
+		expect(getMaxScrollOffset(120, 120)).toBe(0);
+		expect(getMaxScrollOffset(100, 120)).toBe(0);
+	});
+});
 
 describe('normalizeScrollOffset', () => {
 	it('returns 0 when there is nothing to scroll', () => {
