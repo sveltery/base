@@ -152,6 +152,40 @@ describe('Select.Root', () => {
 			await expect.element(page.getByTestId('error')).toHaveTextContent('required');
 		});
 
+		it('blocks the submit while the selected item value is null', async () => {
+			const onFormSubmit = vi.fn();
+			const serverTypes = [
+				{ value: null, label: 'Select server type' },
+				{ value: 't1.small', label: 't1.small' }
+			];
+			render(SelectFieldHarness, {
+				form: { onFormSubmit },
+				field: { name: 'serverType' },
+				submit: true,
+				errorMatch: 'valueMissing',
+				errorText: 'Pick a server type',
+				select: {
+					root: { required: true, items: serverTypes },
+					items: serverTypes.map(({ value, label }) => ({ value, text: label }))
+				}
+			});
+			await expect.element(trigger()).toHaveTextContent('Select server type');
+
+			await openSelect();
+			await userEvent.click(option('Select server type'));
+			await userEvent.click(page.getByText('Submit', { exact: true }));
+			await expect.element(page.getByTestId('error')).toHaveTextContent('Pick a server type');
+			await expect.element(trigger()).toHaveAttribute('aria-invalid', 'true');
+			expect(onFormSubmit).not.toHaveBeenCalled();
+
+			await openSelect();
+			await userEvent.click(option('t1.small'));
+			await userEvent.click(page.getByText('Submit', { exact: true }));
+			expect(onFormSubmit.mock.calls.map(([values]) => values)).toEqual([
+				{ serverType: 't1.small' }
+			]);
+		});
+
 		it('clears external errors on change', async () => {
 			render(SelectFieldHarness, {
 				form: { errors: { select: 'test' } },
