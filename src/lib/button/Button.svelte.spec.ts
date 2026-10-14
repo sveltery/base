@@ -6,8 +6,10 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { createRawSnippet } from 'svelte';
 import { resetLogged } from '@sveltery/utils';
 import Button from './Button.svelte';
+import type { ButtonHostProps, ButtonState } from './types.js';
 import ButtonHarness from '../../tests/ButtonHarness.svelte';
 import ButtonAsPopoverTriggerHarness from '../../tests/ButtonAsPopoverTriggerHarness.svelte';
 
@@ -348,11 +350,14 @@ describe('Button', () => {
 			await expect.element(trigger).toHaveAttribute('data-disabled', '');
 		});
 
-		it('treats disabled={null} as an absent attribute, like <button>', async () => {
-			render(Button, { disabled: null, 'aria-label': 'Go' });
-			const button = page.getByRole('button', { name: 'Go' });
-			await expect.element(button).toBeEnabled();
-			await expect.element(button).not.toHaveAttribute('data-disabled');
+		it('treats disabled={null} as false in the render state', async () => {
+			const showState = createRawSnippet(
+				(_props: () => ButtonHostProps, state: () => ButtonState) => ({
+					render: () => `<button>disabled: ${state().disabled}</button>`
+				})
+			);
+			render(Button, { disabled: null, render: showState });
+			await expect.element(page.getByRole('button')).toHaveTextContent('disabled: false');
 		});
 
 		it('defaults to type="button" and keeps an explicit submit type', async () => {
