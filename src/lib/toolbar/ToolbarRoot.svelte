@@ -14,7 +14,7 @@
 	import type { ToolbarRootProps, ToolbarRootState } from './types.js';
 
 	let {
-		disabled = false,
+		disabled: disabledProp,
 		orientation = 'horizontal',
 		loopFocus = true,
 		onkeydown,
@@ -22,6 +22,7 @@
 		children,
 		...elementProps
 	}: ToolbarRootProps = $props();
+	const disabled = $derived(disabledProp ?? false);
 
 	const reading = useDirection();
 	const roving = new CompositeRoot({

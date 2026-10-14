@@ -18,7 +18,7 @@ export type ButtonHostProps = HTMLAttributes<HTMLElement>;
 
 export interface ButtonProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
 	/** Whether the button should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether a disabled button stays in the tab order.
 	 * Native buttons then use `aria-disabled` instead of the `disabled` attribute.

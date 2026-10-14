@@ -16,7 +16,7 @@
 
 	let {
 		value = $bindable(),
-		disabled = false,
+		disabled: disabledProp,
 		loopFocus = true,
 		onValueChange,
 		orientation = 'horizontal',
@@ -25,6 +25,7 @@
 		children,
 		...elementProps
 	}: ToggleGroupProps = $props();
+	const disabled = $derived(disabledProp ?? false);
 
 	// Captured once. Assigning `value` later must not look like the parent passed it.
 	const valueProvided = untrack(() => value !== undefined);

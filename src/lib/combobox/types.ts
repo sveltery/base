@@ -325,7 +325,7 @@ export interface ComboboxInputProps extends Omit<
 	 * Whether the input ignores user interaction.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	render?: Snippet<
 		[props: HTMLInputAttributes, state: ComboboxInputState, children: RenderChildren]
 	>;
@@ -351,7 +351,7 @@ export interface ComboboxTriggerProps extends Omit<
 	'children' | 'disabled' | 'id'
 > {
 	/** Whether the trigger ignores user interaction. */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.
@@ -359,7 +359,7 @@ export interface ComboboxTriggerProps extends Omit<
 	 */
 	nativeButton?: boolean;
 	/** The trigger's id. With the input inside the popup, defaults to the root's id. */
-	id?: string;
+	id?: string | null;
 	render?: Snippet<
 		[props: HTMLButtonAttributes, state: ComboboxTriggerState, children: RenderChildren]
 	>;
@@ -574,7 +574,7 @@ export interface ComboboxItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Whether the item ignores user interaction.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * @default false
@@ -633,7 +633,7 @@ export interface ComboboxChipRemoveProps extends Omit<
 	 * Whether the button ignores user interaction.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * @default true
@@ -680,7 +680,7 @@ export interface ComboboxClearProps extends Omit<HTMLButtonAttributes, 'children
 	 * Whether the button ignores user interaction.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * @default true

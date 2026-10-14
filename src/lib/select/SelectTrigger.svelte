@@ -31,7 +31,7 @@
 	import type { SelectTriggerProps, SelectTriggerState } from './types.js';
 
 	let {
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		nativeButton = true,
 		id: idProp,
 		'aria-describedby': ariaDescribedBy,
@@ -53,7 +53,7 @@
 	new LabelableId(labelable, { id: () => idProp });
 
 	const bindKey = createAttachmentKey();
-	const disabled = $derived(field.disabled || store.root.disabled || disabledProp);
+	const disabled = $derived(field.disabled || store.root.disabled || (disabledProp ?? false));
 	const id = $derived(idProp ?? store.root.id);
 	const open = $derived(store.open);
 	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));

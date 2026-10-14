@@ -16,7 +16,7 @@
 	import type { ComboboxChipRemoveProps, ComboboxChipRemoveState } from './types.js';
 
 	let {
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		nativeButton = true,
 		render,
 		children,
@@ -25,7 +25,7 @@
 
 	const store = useComboboxRoot();
 	const chip = useComboboxChip();
-	const disabled = $derived(store.root.disabled || disabledProp);
+	const disabled = $derived(store.root.disabled || (disabledProp ?? false));
 	const button = new ButtonBehavior(() => ({
 		native: nativeButton,
 		disabled: disabled || store.root.readOnly,

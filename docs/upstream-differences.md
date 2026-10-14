@@ -822,3 +822,11 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui
 Local: `FloatingFocusManager` takes `getInsideElements` for focus out, return focus and `aria-hidden`, and has the untrapped combobox mode and the tabbables of upstream. A press on an inside element is still tracked as an outside press, because focus out already counts that element as inside. The reference of an ancestor combobox popup is not kept exposed, so a modal popup nested in an untrapped combobox popup hides that combobox's input. `PopoverPopup` does not pass `getInsideElements` and still counts every Base UI focus guard as inside, as described under Popover.
 
 Test: `packages/floating-ui-svelte/src/components/FloatingFocusManager.focusModes.svelte.spec.ts`.
+
+## Attribute props accept null
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`. React's element types have no `null`, so upstream types `disabled`, `id`, `name`, `form`, `required` and `readOnly` without it.
+
+Local: Svelte's element types accept `null` for every attribute, and each part's `render` snippet receives those types as `props`. The parts that declare `disabled`, `id`, `name`, `form`, `required` or `readonly` accept `null` too, and treat it as an absent attribute, as `<button disabled={null}>` does. A part's render snippet can therefore spread `props` onto another part on the same element, such as `Popover.Trigger` onto `Button`. The Menu parts still reject `null`.
+
+Test: `type-probes/render/PartAsPart.svelte`, `src/lib/button/Button.svelte.spec.ts` (`renders a popover trigger and opens its popover`, `treats disabled={null} as an absent attribute, like <button>`).

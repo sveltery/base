@@ -20,7 +20,7 @@ export interface MenubarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chil
 	/** Whether the menubar is modal. @default true */
 	modal?: boolean;
 	/** Whether the whole menubar is disabled. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** The orientation of the menubar. @default 'horizontal' */
 	orientation?: MenubarOrientation;
 	/**

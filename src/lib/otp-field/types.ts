@@ -51,7 +51,7 @@ type RootRender = Snippet<
 
 export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** The id of the first input element. Later slots use `{id}-2`, `{id}-3`, and so on. */
-	id?: string;
+	id?: string | null;
 	/**
 	 * The input autocomplete attribute. Applied to the first slot and hidden validation input.
 	 * @default 'one-time-code'
@@ -61,7 +61,7 @@ export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Identifies the form that owns the hidden input and the slots.
 	 * The value must match a form element's id in the same document.
 	 */
-	form?: string;
+	form?: string | null;
 	/**
 	 * The number of OTP input slots.
 	 * Required so the root can clamp values, detect completion, and render
@@ -86,13 +86,13 @@ export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 */
 	normalizeValue?: (value: string) => string;
 	/** Whether the user must enter a value before submitting a form. @default false */
-	required?: boolean;
+	required?: boolean | null;
 	/** Whether the component should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** Whether the user should be unable to change the field value. @default false */
-	readonly?: boolean;
+	readonly?: boolean | null;
 	/** Identifies the field when a form is submitted. */
-	name?: string;
+	name?: string | null;
 	/**
 	 * The OTP value. Use `bind:value` to share it with the parent.
 	 */

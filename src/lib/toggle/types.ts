@@ -22,7 +22,7 @@ export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
 	 */
 	pressed?: boolean;
 	/** Whether the toggle should ignore user interaction. @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Identifies this toggle inside a ToggleGroup.
 	 * An empty string is treated as omitted and replaced with a generated id.

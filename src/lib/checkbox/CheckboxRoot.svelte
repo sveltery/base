@@ -52,9 +52,9 @@
 	let {
 		checked = $bindable(),
 		defaultChecked = false,
-		disabled = false,
-		readonly: readOnly = false,
-		required = false,
+		disabled: disabledProp,
+		readonly: readOnlyProp,
+		required: requiredProp,
 		indeterminate = false,
 		parent = false,
 		nativeButton = false,
@@ -74,6 +74,9 @@
 		children,
 		...elementProps
 	}: CheckboxRootProps = $props();
+	const disabled = $derived(disabledProp ?? false);
+	const readOnly = $derived(readOnlyProp ?? false);
+	const required = $derived(requiredProp ?? false);
 
 	// In a group, the group binds the value.
 	const bound = group
@@ -101,7 +104,7 @@
 	});
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId.current);
 	const rootId = $derived(nativeButton ? controlId.current : generatedRootId);
-	const name = $derived(field.name ?? nameProp);
+	const name = $derived(field.name ?? nameProp ?? undefined);
 
 	const checkedState = $derived(checked === true);
 
@@ -169,7 +172,7 @@
 	const fieldControl = attachFieldControl(field, {
 		enabled: () => !group && !isDisabled,
 		id: () => generatedRootId,
-		name: () => nameProp,
+		name: () => nameProp ?? undefined,
 		getValue: () => checkedState
 	});
 

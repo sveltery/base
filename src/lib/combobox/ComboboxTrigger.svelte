@@ -30,7 +30,7 @@
 	import type { ComboboxTriggerProps, ComboboxTriggerState } from './types.js';
 
 	let {
-		disabled: disabledProp = false,
+		disabled: disabledProp,
 		nativeButton = true,
 		id: idProp,
 		'aria-describedby': ariaDescribedBy,
@@ -46,7 +46,7 @@
 
 	const bindKey = createAttachmentKey();
 	const comboboxDisabled = $derived(store.root.disabled);
-	const disabled = $derived(field.disabled || comboboxDisabled || disabledProp);
+	const disabled = $derived(field.disabled || comboboxDisabled || (disabledProp ?? false));
 	const readOnly = $derived(store.root.readOnly);
 	const open = $derived(store.open);
 	const inputInsidePopup = $derived(store.inputInsidePopup);

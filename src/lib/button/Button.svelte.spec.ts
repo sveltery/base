@@ -9,6 +9,7 @@ import { render } from 'vitest-browser-svelte';
 import { resetLogged } from '@sveltery/utils';
 import Button from './Button.svelte';
 import ButtonHarness from '../../tests/ButtonHarness.svelte';
+import ButtonAsPopoverTriggerHarness from '../../tests/ButtonAsPopoverTriggerHarness.svelte';
 
 function key(
 	target: Element,
@@ -331,6 +332,29 @@ describe('Button', () => {
 	});
 
 	describe('native Svelte', () => {
+		it('renders a popover trigger and opens its popover', async () => {
+			render(ButtonAsPopoverTriggerHarness);
+			const trigger = page.getByRole('button', { name: 'Open' });
+			await expect.element(trigger).toHaveAttribute('aria-expanded', 'false');
+			await trigger.click();
+			await expect.element(trigger).toHaveAttribute('aria-expanded', 'true');
+			await expect.element(page.getByText('Content')).toBeVisible();
+		});
+
+		it('takes the disabled state of the popover trigger it renders', async () => {
+			render(ButtonAsPopoverTriggerHarness, { disabled: true });
+			const trigger = page.getByRole('button', { name: 'Open' });
+			await expect.element(trigger).toBeDisabled();
+			await expect.element(trigger).toHaveAttribute('data-disabled', '');
+		});
+
+		it('treats disabled={null} as an absent attribute, like <button>', async () => {
+			render(Button, { disabled: null, 'aria-label': 'Go' });
+			const button = page.getByRole('button', { name: 'Go' });
+			await expect.element(button).toBeEnabled();
+			await expect.element(button).not.toHaveAttribute('data-disabled');
+		});
+
 		it('defaults to type="button" and keeps an explicit submit type', async () => {
 			const blocked = vi.fn();
 			render(ButtonHarness, { variant: 'form', onsubmit: blocked });

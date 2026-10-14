@@ -36,11 +36,11 @@
 	let {
 		value = $bindable(),
 		defaultValue,
-		disabled: disabledProp = false,
-		readonly: readOnly = false,
-		required = false,
+		disabled: disabledProp,
+		readonly: readOnlyProp,
+		required: requiredProp,
 		name: nameProp,
-		form,
+		form: formProp,
 		onValueChange,
 		onfocusout,
 		onkeydown,
@@ -49,6 +49,9 @@
 		children,
 		...elementProps
 	}: RadioGroupProps = $props();
+	const readOnly = $derived(readOnlyProp ?? false);
+	const required = $derived(requiredProp ?? false);
+	const form = $derived(formProp ?? undefined);
 
 	const field = useFieldContext();
 	const roving: CompositeRoot = new CompositeRoot({
@@ -98,8 +101,8 @@
 	const formContext = useFormContext();
 	const fieldset = findFieldsetRootContext();
 	const labelable = findLabelableContext();
-	const disabled = $derived(field.disabled || disabledProp);
-	const name = $derived(field.name ?? nameProp);
+	const disabled = $derived(field.disabled || (disabledProp ?? false));
+	const name = $derived(field.name ?? nameProp ?? undefined);
 
 	// The group takes its name from `aria-labelledby`, so Field.Label must not point `for`
 	// at one radio inside it.
@@ -116,7 +119,7 @@
 	const registration = attachFieldControl(field, {
 		enabled: () => !disabled,
 		id: () => elementProps.id ?? `base-ui-${uid}`,
-		name: () => nameProp,
+		name: () => nameProp ?? undefined,
 		getValue: () => checkedValue ?? null
 	});
 

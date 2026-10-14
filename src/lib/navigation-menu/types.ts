@@ -131,7 +131,7 @@ export interface NavigationMenuTriggerProps extends Omit<
 	 * Whether the trigger ignores user interaction.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.

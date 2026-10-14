@@ -43,9 +43,9 @@
 
 	let {
 		value,
-		disabled: disabledProp = false,
-		readonly: readOnlyProp = false,
-		required: requiredProp = false,
+		disabled: disabledProp,
+		readonly: readOnlyProp,
+		required: requiredProp,
 		nativeButton = false,
 		id,
 		onclick,
@@ -72,11 +72,11 @@
 
 	const checked = $derived(group !== undefined ? group.checkedValue === value : value === '');
 	const disabled = $derived(
-		field.disabled || fieldItem.disabled || Boolean(group?.disabled) || disabledProp
+		field.disabled || fieldItem.disabled || Boolean(group?.disabled) || (disabledProp ?? false)
 	);
 	const renderClaim = group?.roving?.claim(untrack(() => disabled));
-	const readOnly = $derived(Boolean(group?.readOnly) || readOnlyProp);
-	const required = $derived(Boolean(group?.required) || requiredProp);
+	const readOnly = $derived(Boolean(group?.readOnly) || (readOnlyProp ?? false));
+	const required = $derived(Boolean(group?.required) || (requiredProp ?? false));
 	const serialized = $derived(value !== undefined ? serializeValue(value) : undefined);
 	// Inside a bound Field the source encodes the name and the option value.
 	const boundProps: BoundInputProps = $derived(

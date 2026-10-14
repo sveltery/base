@@ -40,9 +40,9 @@
 	let {
 		checked = $bindable(),
 		defaultChecked = false,
-		disabled: disabledProp = false,
-		readonly: readOnly = false,
-		required = false,
+		disabled: disabledProp,
+		readonly: readOnlyProp,
+		required: requiredProp,
 		nativeButton = false,
 		name: nameProp,
 		value,
@@ -59,6 +59,8 @@
 		children,
 		...elementProps
 	}: SwitchRootProps = $props();
+	const readOnly = $derived(readOnlyProp ?? false);
+	const required = $derived(requiredProp ?? false);
 
 	const bound = new BoundControl(field, {
 		kind: 'switch',
@@ -83,8 +85,8 @@
 	});
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId.current);
 	const rootId = $derived(nativeButton ? controlId.current : generatedRootId);
-	const disabled = $derived(field.disabled || disabledProp);
-	const name = $derived(field.name ?? nameProp);
+	const disabled = $derived(field.disabled || (disabledProp ?? false));
+	const name = $derived(field.name ?? nameProp ?? undefined);
 	// Inside a bound Field the source encodes the name. The switch then submits `on` or nothing.
 	const boundProps = $derived(bound.inputProps());
 	const inputName = $derived(bound.bound ? boundProps.name : name);
@@ -132,7 +134,7 @@
 	const fieldControl = attachFieldControl(field, {
 		enabled: () => !disabled,
 		id: () => generatedRootId,
-		name: () => nameProp,
+		name: () => nameProp ?? undefined,
 		getValue: () => checkedState
 	});
 

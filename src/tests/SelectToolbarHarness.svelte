@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import { Select, Toolbar, type ToolbarButtonProps } from '#lib';
+	import { Select, Toolbar } from '#lib';
 
 	let { onToolbarKeyDown }: { onToolbarKeyDown?: (event: KeyboardEvent) => void } = $props();
 </script>
@@ -11,7 +11,7 @@
 	_state: unknown,
 	children: Snippet | undefined
 )}
-	<Toolbar.Button {...props as ToolbarButtonProps}>{@render children?.()}</Toolbar.Button>
+	<Toolbar.Button {...props}>{@render children?.()}</Toolbar.Button>
 {/snippet}
 
 <Toolbar.Root onkeydown={onToolbarKeyDown}>
