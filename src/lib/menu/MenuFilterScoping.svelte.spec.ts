@@ -9,6 +9,7 @@ import MenuIndependentHarness from '../../tests/menu/MenuIndependentHarness.svel
 import MenuOrphan from '../../tests/menu/MenuOrphan.svelte';
 import { mouse, pointer } from '../../tests/menu/mouse.js';
 import { parkPointer } from '../../tests/pointer.js';
+import { testStyle } from '../../tests/menu/style.js';
 import { items, type MenuFilterSpec, type MenuItemSpec } from '../../tests/menu/types.js';
 
 type Bag = Record<string, unknown>;
@@ -259,6 +260,79 @@ describe('Menu.FilterProvider scoping', () => {
 		await expect
 			.poll(() => searchbox()!.getAttribute('aria-activedescendant'))
 			.toBe(shareTrigger.id);
+	});
+
+	describe('leaving a plain submenu while it animates out', () => {
+		function plainSubmenuMenu() {
+			testStyle(
+				'.exiting { transition: opacity 300ms; } .exiting[data-ending-style] { opacity: 0; }'
+			);
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				open: true,
+				popupProps: { class: 'exiting' },
+				filter: {},
+				items: [
+					...items('Rename'),
+					{
+						type: 'submenu',
+						label: 'Share',
+						popupProps: { class: 'exiting', 'data-testid': 'submenu' },
+						items: items('Email')
+					}
+				]
+			});
+		}
+
+		function submenu() {
+			return page.getByTestId('submenu').element();
+		}
+
+		async function enterSubmenu() {
+			await expect.poll(() => focused()).toBe(searchbox());
+			await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowRight}');
+			await expect.poll(() => focused()).toBe(item('Email'));
+		}
+
+		it.each(['ArrowLeft', 'Escape'])(
+			'highlights the trigger as soon as %s closes the submenu',
+			async (key) => {
+				plainSubmenuMenu();
+				await enterSubmenu();
+
+				await userEvent.keyboard(`{${key}}`);
+
+				expect(submenu().hasAttribute('data-ending-style')).toBe(true);
+				expect(focused()).toBe(searchbox());
+				expect(item('Share').hasAttribute('data-highlighted')).toBe(true);
+				expect(searchbox()!.hasAttribute('data-highlighted')).toBe(false);
+			}
+		);
+
+		it('keeps focus off the input while an item press closes the whole menu', async () => {
+			plainSubmenuMenu();
+			await enterSubmenu();
+			const input = searchbox()!;
+
+			await userEvent.keyboard('{Enter}');
+
+			expect(submenu().hasAttribute('data-ending-style')).toBe(true);
+			expect(input.isConnected).toBe(true);
+			expect(focused()).not.toBe(input);
+		});
+
+		it('returns focus to the input as soon as the pointer closes the submenu', async () => {
+			plainSubmenuMenu();
+			await expect.poll(() => focused()).toBe(searchbox());
+			await userEvent.hover(item('Share'));
+			await expect.poll(() => queryItem('Email')).not.toBe(null);
+			await userEvent.hover(item('Email'));
+			await expect.poll(() => focused()).toBe(item('Email'));
+
+			await userEvent.hover(item('Rename'));
+			await expect.poll(() => submenu().hasAttribute('data-ending-style')).toBe(true);
+			expect(focused()).toBe(searchbox());
+		});
 	});
 
 	describe('trigger key relay', () => {

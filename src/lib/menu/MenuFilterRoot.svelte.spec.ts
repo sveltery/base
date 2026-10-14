@@ -9,6 +9,7 @@ import MenuListTriggersHarness from '../../tests/menu/MenuListTriggersHarness.sv
 import MenuPaletteHarness from '../../tests/menu/MenuPaletteHarness.svelte';
 import { mouse, pointer } from '../../tests/menu/mouse.js';
 import { parkPointer } from '../../tests/pointer.js';
+import { testStyle } from '../../tests/menu/style.js';
 import { items, type MenuFilterSpec, type MenuItemSpec } from '../../tests/menu/types.js';
 
 type Bag = Record<string, unknown>;
@@ -1419,6 +1420,161 @@ describe('Menu.FilterProvider submenus', () => {
 				style.remove();
 			}
 		});
+	});
+});
+
+describe('Menu.FilterProvider while the popup animates out', () => {
+	beforeEach(parkPointer);
+
+	// The focus manager returns focus when the menu closes, not when the popup unmounts as
+	// upstream does, so `finalFocus: false` keeps focus on the input for the exit.
+	const EXIT =
+		'@keyframes filter-exit { to { opacity: 0; } } .filter-exit[data-ending-style] { animation: filter-exit 10s linear; }';
+
+	function popup() {
+		return document.querySelector('[role="dialog"]') as HTMLElement;
+	}
+
+	async function closeWithEscape() {
+		const trigger = page.getByRole('button', { name: 'Actions' }).element() as HTMLElement;
+		trigger.focus();
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.poll(() => focused()).toBe(input());
+		return trigger;
+	}
+
+	it.each(['ArrowDown', 'ArrowUp'])(
+		'ignores %s in the input while the popup animates out',
+		async (key) => {
+			testStyle(EXIT);
+			const onOpenChange = vi.fn();
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				rootProps: { onOpenChange },
+				popupProps: { class: 'filter-exit', finalFocus: false },
+				filter: {},
+				items: items('Rename')
+			});
+			const trigger = await closeWithEscape();
+			const field = input();
+			await userEvent.keyboard('{Escape}');
+			await expect.poll(() => popup().hasAttribute('data-ending-style')).toBe(true);
+			expect(focused()).toBe(field);
+
+			await userEvent.keyboard(`{${key}}`);
+
+			expect(onOpenChange.mock.calls.map(([open]) => open)).toEqual([true, false]);
+			expect(trigger.getAttribute('aria-expanded')).toBe('false');
+		}
+	);
+
+	it.each([
+		{ name: 'an empty query', query: '', matches: 2 },
+		{ name: 'a query', query: 're', matches: 1 }
+	])(
+		'ignores text typed in the input while the popup animates out with $name',
+		async ({ query, matches }) => {
+			testStyle(EXIT);
+			const onValueChange = vi.fn();
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				popupProps: { class: 'filter-exit', finalFocus: false },
+				filter: { providerProps: { value: query, onValueChange } },
+				items: items('Rename', 'Delete')
+			});
+			await closeWithEscape();
+			const field = input();
+			await expect.poll(() => itemNames().length).toBe(matches);
+
+			await userEvent.keyboard('{Escape}');
+			await expect.poll(() => popup().hasAttribute('data-ending-style')).toBe(true);
+			expect(focused()).toBe(field);
+			// The closing popup keeps showing the query it closed with.
+			expect(field.value).toBe(query);
+			const changesBeforeTyping = onValueChange.mock.calls.map(([value, details]) => [
+				value,
+				details.reason
+			]);
+
+			await userEvent.keyboard('n');
+
+			expect(onValueChange.mock.calls.map(([value, details]) => [value, details.reason])).toEqual(
+				changesBeforeTyping
+			);
+			expect(field.value).toBe(query);
+			expect(itemNames().length).toBe(matches);
+		}
+	);
+
+	it('does not highlight the first item while closing from the trigger with a pointer', async () => {
+		testStyle(EXIT);
+		filterable(items('Rename'), {
+			open: false,
+			popupProps: { class: 'filter-exit', 'data-testid': 'popup' }
+		});
+		const trigger = page.getByRole('button', { name: 'Actions' });
+		await userEvent.click(trigger);
+		await expect.poll(() => focused()).toBe(input());
+		const field = input();
+		const rename = item('Rename');
+		expect(rename.hasAttribute('data-highlighted')).toBe(false);
+
+		// Pressing the trigger can move focus before its close handler runs in Safari.
+		(trigger.element() as HTMLElement).focus();
+		await tick();
+		expect(rename.hasAttribute('data-highlighted')).toBe(false);
+		await userEvent.click(trigger);
+
+		await expect.poll(() => popup().hasAttribute('data-ending-style')).toBe(true);
+		expect(field.hasAttribute('aria-activedescendant')).toBe(false);
+		expect(rename.hasAttribute('data-highlighted')).toBe(false);
+
+		// The exit runs for 10s, so re-check past the first frames of it.
+		await frame();
+		await frame();
+		expect(field.hasAttribute('aria-activedescendant')).toBe(false);
+		expect(rename.hasAttribute('data-highlighted')).toBe(false);
+	});
+
+	it('keeps submenu filtering updated during the exit transition', async () => {
+		testStyle(EXIT);
+		const fruit = (open: boolean, labels: string[]): MenuItemSpec => ({
+			type: 'submenu',
+			label: 'Fruit',
+			rootProps: { open },
+			popupProps: { class: 'filter-exit', 'data-testid': 'popup' },
+			filter: { inputLabel: 'Filter fruit' },
+			items: items(...labels)
+		});
+		const result = render(MenuHarness, {
+			triggerLabel: 'Actions',
+			open: true,
+			items: [fruit(true, ['Apple', 'Banana'])]
+		});
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).not.toBe(null);
+		const field = input('Filter fruit');
+		await userEvent.click(field);
+		await userEvent.type(field, 'ap');
+		await expect.poll(() => field.value).toBe('ap');
+
+		await result.rerender({ items: [fruit(false, ['Apple', 'Banana'])] });
+		const submenu = page.getByTestId('popup').element() as HTMLElement;
+		await expect.poll(() => submenu.hasAttribute('data-ending-style')).toBe(true);
+		expect(field.value).toBe('ap');
+
+		await result.rerender({ items: [fruit(false, ['Apple', 'Banana', 'Apricot'])] });
+		await expect.poll(() => queryItem('Apricot')).not.toBe(null);
+		expect(queryItem('Banana')).toBe(null);
+
+		submenu.getAnimations().forEach((animation) => animation.finish());
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBe(null);
+
+		await result.rerender({ items: [fruit(true, ['Apple', 'Banana', 'Apricot'])] });
+		await expect
+			.poll(() => document.querySelector('input[aria-label="Filter fruit"]'))
+			.not.toBe(null);
+		expect(input('Filter fruit').value).toBe('');
+		await expect.poll(() => queryItem('Banana')).not.toBe(null);
 	});
 });
 
