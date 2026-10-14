@@ -588,7 +588,7 @@ Local: `event.preventDefault()` is the skip signal, as everywhere in this port. 
 
 Upstream: closing returns focus to the element focused before the popup opened. Presses inside a select nested in another popup bubble through the React tree to the parent.
 
-Local: the popup hands its initial focus to the popup element itself, because the shared focus manager counts its own focus guards as tabbables and would focus a guard. The select joins the parent popup's floating tree, so a parent popover treats the select's popup as its child.
+Local: the select joins the parent popup's floating tree, so a parent popover treats the select's popup as its child.
 
 Upstream: on open, list navigation queues the highlighted item's focus for the next frame, then the focus manager queues its own focus, which replaces the first request. The focus manager's request does nothing once the popup has closed, so a Tab or Escape before that frame leaves focus where the close put it.
 
