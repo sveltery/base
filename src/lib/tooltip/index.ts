@@ -23,3 +23,4 @@ export const Tooltip = {
 
 export { TooltipHandle, createTooltipHandle } from './handle.svelte.js';
 export type * from './types.js';
+export * from './data-attributes.js';

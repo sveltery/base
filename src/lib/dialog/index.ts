@@ -26,3 +26,4 @@ export const Dialog = {
 
 export { DialogHandle, createDialogHandle };
 export type * from './types.js';
+export * from './data-attributes.js';
