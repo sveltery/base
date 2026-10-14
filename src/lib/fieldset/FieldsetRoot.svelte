@@ -5,7 +5,6 @@
 -->
 <script lang="ts">
 	import type { HTMLFieldsetAttributes } from 'svelte/elements';
-	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import {
 		FieldsetRootContextValue,
 		setFieldsetRootContext,
@@ -24,12 +23,31 @@
 		disabled: fieldset.disabled
 	});
 
-	const hostProps: HTMLFieldsetAttributes = $derived({
-		...elementProps,
-		...getStateAttributesProps(state),
-		'aria-labelledby': fieldset.legendId,
-		disabled: fieldset.disabled
-	});
+	// One object whose keys each read their own source. A control rendered through `render`
+	// spreads it, and Svelte drops an unbound prop's local value whenever a spread object it
+	// reads is replaced. A new object when the legend id arrives would reset the control's value.
+	const own: Record<string, unknown> = {
+		get 'aria-labelledby'() {
+			return fieldset.legendId;
+		},
+		get disabled() {
+			return fieldset.disabled;
+		},
+		get 'data-disabled'() {
+			return fieldset.disabled ? '' : undefined;
+		}
+	};
+	const read = (key: string | symbol) =>
+		key in own ? Reflect.get(own, key) : Reflect.get(elementProps, key);
+	const hostProps = new Proxy(own, {
+		get: (_target, key) => read(key),
+		has: (_target, key) => key in own || key in elementProps,
+		ownKeys: () => [...new Set([...Reflect.ownKeys(elementProps), ...Reflect.ownKeys(own)])],
+		getOwnPropertyDescriptor: (_target, key) =>
+			key in own || key in elementProps
+				? { configurable: true, enumerable: true, value: read(key) }
+				: undefined
+	}) as HTMLFieldsetAttributes;
 </script>
 
 {#if render}
