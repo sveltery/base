@@ -11,6 +11,7 @@ import DialogHandleHarness from '../../tests/DialogHandleHarness.svelte';
 import DialogHarness from '../../tests/DialogHarness.svelte';
 import DialogNestedCountHarness from '../../tests/DialogNestedCountHarness.svelte';
 import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
+import DialogSiblingNestedHarness from '../../tests/DialogSiblingNestedHarness.svelte';
 import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.svelte';
 import DialogOpenCompleteStateHarness from '../../tests/DialogOpenCompleteStateHarness.svelte';
 import DialogProgrammaticPayloadHarness from '../../tests/DialogProgrammaticPayloadHarness.svelte';
@@ -249,8 +250,7 @@ describe('Dialog', () => {
 		expect(document.activeElement).toBe(button('Inside').element());
 
 		click(button('Close'));
-		await frame();
-		expect(document.activeElement).toBe(trigger.element());
+		await expect.poll(() => document.activeElement).toBe(trigger.element());
 	});
 
 	it('does not move focus when initialFocus and finalFocus are false', async () => {
@@ -608,8 +608,7 @@ describe('Dialog', () => {
 		await openDialog();
 		await frame();
 		click(button('Close'));
-		await frame();
-		expect(document.activeElement).toBe(element);
+		await expect.poll(() => document.activeElement).toBe(element);
 		first.unmount();
 
 		const target = document.createElement('button');
@@ -620,9 +619,8 @@ describe('Dialog', () => {
 		await frame();
 		expect(finalFocus).not.toHaveBeenCalled();
 		click(button('Close'));
-		await frame();
+		await expect.poll(() => document.activeElement).toBe(target);
 		expect(finalFocus).toHaveBeenCalled();
-		expect(document.activeElement).toBe(target);
 		element.remove();
 		target.remove();
 	});
@@ -1113,6 +1111,21 @@ describe('Dialog', () => {
 		await expect.poll(() => document.querySelector('[data-testid="nested-popup"]')).toBeNull();
 		expect(document.activeElement?.getAttribute('data-testid')).toBe('outside');
 		expect(document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+	});
+
+	it('returns focus into an open sibling nested dialog when the dialog it opened closes', async () => {
+		render(DialogSiblingNestedHarness);
+		await expect.poll(() => document.activeElement?.textContent).toBe('Edit');
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Discard');
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Cancel');
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(() => document.querySelector('[data-testid="discard"]')).toBeNull();
+		await frame();
+		await frame();
+		expect(document.activeElement).toBe(button('Discard').element());
+		expect(document.querySelector('[data-testid="edit"]')?.isConnected).toBe(true);
 	});
 
 	it('keeps final focus on the outside control when the inner dialog closes', async () => {

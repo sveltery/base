@@ -10,7 +10,8 @@
 		portalOwnerRole,
 		wrapped = false,
 		returnUnlessOutsidePress = false,
-		keepMounted = false
+		keepMounted = false,
+		container
 	}: {
 		modal?: boolean;
 		portalOwnerRole?: AriaRole;
@@ -19,6 +20,7 @@
 		returnUnlessOutsidePress?: boolean;
 		/** The popup stays mounted after a close until `unmount`, as during an exit animation. */
 		keepMounted?: boolean;
+		container?: HTMLElement;
 	} = $props();
 
 	export const store = new TestStore();
@@ -67,7 +69,7 @@
 	reference
 </button>
 <button data-testid="after">after</button>
-<FloatingPortal {store} {portalOwnerRole}>
+<FloatingPortal {store} {portalOwnerRole} {container}>
 	{#if store.open || (keepMounted && mounted)}
 		<FloatingFocusManager {store} {modal} {returnFocus}>
 			<div data-testid="floating" {@attach store.registerFloating}>

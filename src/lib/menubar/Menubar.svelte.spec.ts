@@ -35,8 +35,8 @@ async function settle() {
 }
 
 /** Upstream `pressWithTouch`: a touch pointerdown, then the compatibility mousedown. */
-function pressWithTouch(target: Element) {
-	pointer(target, 'pointerdown', { pointerType: 'touch' });
+function pressWithTouch(target: Element, init: PointerEventInit = {}) {
+	pointer(target, 'pointerdown', { pointerType: 'touch', ...init });
 	mouse(target, 'mousedown', { detail: 1 });
 }
 
@@ -149,6 +149,19 @@ describe('Menubar', () => {
 		await expect.poll(() => get('triggerless-menu').hasAttribute('data-open')).toBe(false);
 		await settle();
 		expect(focused()).toBe(document.body);
+	});
+
+	it('returns focus to the trigger when a press on the page background closes its menu', async () => {
+		render(MenubarHarness);
+		await userEvent.click(get('file-trigger'));
+		await expect.poll(shown('file-menu')).toBe(true);
+		await expect.poll(() => get('file-menu').contains(focused())).toBe(true);
+
+		// A press on the page background moves focus to the body and closes the menu.
+		await userEvent.click(document.body, { position: { x: 5, y: window.innerHeight - 5 } });
+		await expect.poll(shown('file-menu')).toBe(false);
+		await settle();
+		expect(focused()).toBe(get('file-trigger'));
 	});
 
 	it('closes open submenus when navigating to the next menubar item with ArrowRight', async () => {
@@ -760,6 +773,33 @@ describe('Menubar', () => {
 			await expect.poll(shown('file-menu')).toBe(false);
 			await expect.poll(isScrollLocked).toBe(false);
 		});
+	});
+
+	it('keeps the next menu open when a virtual pointer press hands off between top-level menus', async () => {
+		render(MenubarCasesHarness, { scenario: 'scroll-handoff' });
+		pressWithTouch(get('file-trigger'));
+		await expect.poll(shown('file-menu')).toBe(true);
+		await settle();
+
+		pressWithTouch(get('edit-trigger'), { width: 0, height: 0, pressure: 0 });
+		for (let i = 0; i < 4; i++) await settle();
+		expect(byTestId('edit-menu')).not.toBe(null);
+		expect(byTestId('file-menu')).toBe(null);
+		expect(get('file-trigger').getAttribute('aria-expanded')).toBe('false');
+	});
+
+	it('keeps the next menu open when a touch press hands off from a keyboard-opened menu', async () => {
+		render(MenubarCasesHarness, { scenario: 'scroll-handoff' });
+		get('file-trigger').focus();
+		await userEvent.keyboard('{Enter}');
+		await expect.poll(shown('file-menu')).toBe(true);
+		await settle();
+
+		pressWithTouch(get('edit-trigger'));
+		for (let i = 0; i < 4; i++) await settle();
+		expect(byTestId('edit-menu')).not.toBe(null);
+		expect(byTestId('file-menu')).toBe(null);
+		expect(get('file-trigger').getAttribute('aria-expanded')).toBe('false');
 	});
 
 	it('renders contained top-level portal ownership as an allowed menubar child', async () => {

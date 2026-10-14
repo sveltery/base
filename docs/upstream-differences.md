@@ -464,7 +464,7 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Not covered
 
-React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter cases that need exit animations add a CSS animation or transition in the spec. The local focus manager returns focus when the menu closes, not when the popup unmounts (see [Menu open events are emitted before the DOM update](#menu-open-events-are-emitted-before-the-dom-update)). So the cases that type into the input while the popup animates out pass `finalFocus={false}` to keep focus on the input. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
+React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter cases that need exit animations add a CSS animation or transition in the spec. The cases that type into the input while the popup animates out still pass `finalFocus={false}`. This port does not need it, because the focus manager returns focus once the popup unmounts, as upstream does. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
 
 ### Submenu trigger press type
 
@@ -506,9 +506,13 @@ Local: a menubar trigger that owns a detached menu sets the menu's parent to the
 
 ### Menu open events are emitted before the DOM update
 
-Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect, and the focus manager returns focus a microtask after a close. With an exit animation, it returns focus once the popup unmounts, so focus stays in the closing popup until then.
+Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect. The focus manager returns focus a microtask after the popup unmounts, so focus stays in a popup that animates out until then.
 
-Local: the shared `FloatingFocusManager` returns focus inside the closing flush, also while an exit animation runs. `MenuPositioner` emits from `$effect.pre`, so the menubar clears `data-has-submenu-open` before the returned focus reaches the trigger. Without it, an outside press that closed a menu let the returned focus reopen it.
+Local: `MenuPositioner` emits from `$effect.pre`. The shared `FloatingFocusManager` returns focus a microtask after the popup unmounts, as upstream does. An outside press that closes a menu clears `data-has-submenu-open` before the returned focus reaches the trigger, also when the close and the unmount share a flush, so that focus does not reopen the menu.
+
+A press that moves from one open menu to the next, such as a touch press on the Edit trigger while File is open, keeps Edit open and File closed. File unmounts about a frame after that press, before Edit's initial focus lands. Upstream returns focus to the File trigger then. When that focus matches `:focus-visible`, as it does after synthetic events, the trigger's focus handler reopens File and closes Edit. The local focus manager skips that return, as described in [Return focus skips an opening sibling](#return-focus-skips-an-opening-sibling).
+
+Test: `src/lib/menubar/Menubar.svelte.spec.ts` (`updates scroll lock when handing off between top-level touch-opened menus`).
 
 ### Arrow keys focus synchronously
 
@@ -794,6 +798,14 @@ Test: `packages/floating-ui-svelte/src/components/FloatingTree.svelte.spec.ts` (
 `FloatingFocusManager` waits one task before a focus-out close when focus moves from a nested popup's trigger into an open ancestor popup without a keyboard press or an outside press. It then closes with `focus-out` if the popup is still open. A Menu pointer highlight moves focus from a submenu trigger to a sibling item on pointer enter, and the same move's mousemove closes the submenu with `sibling-open`. Upstream renders that highlight after the input events, so the `sibling-open` close lands first there.
 
 Test: `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` (`closes a sibling submenu without closing the root on click`) and `src/lib/popover/Popover.svelte.spec.ts` (`closes the inner popover when focus moves from its trigger to another control of the outer popup`).
+
+### Return focus skips an opening sibling
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`. The cleanup that runs when the popup unmounts returns focus in a microtask. With a boolean `returnFocus`, it returns only when focus is in the popup, its inside elements or a child popup, on the body, or already on the return target. An explicit element or function always returns.
+
+Local: `FloatingFocusManager` skips that return while another popup with the same parent node in the floating tree is open and a focus into the sibling popup is still queued (its initial focus or the item its list navigation focuses), such as the next menubar menu after a press switches menus. That focus lands a frame after the popup opens, and a return to the closed popup's trigger would take focus from it first. A menubar trigger that takes that focus reopens its menu. Once the queued focus has run, or a focus request outside the sibling popup has replaced it, the return goes ahead as upstream's does. Closing a nested dialog that another open nested dialog opened returns focus to the control that opened it.
+
+Test: `src/lib/menubar/Menubar.svelte.spec.ts` (`updates scroll lock when handing off between top-level touch-opened menus`, `keeps the next menu open when a virtual pointer press hands off between top-level menus` and `keeps the next menu open when a touch press hands off from a keyboard-opened menu`) and `src/lib/dialog/Dialog.svelte.spec.ts` (`returns focus into an open sibling nested dialog when the dialog it opened closes`).
 
 ### Queued list focus after close
 

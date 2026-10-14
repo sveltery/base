@@ -1097,3 +1097,24 @@ describe('Popover.Positioner transitions', () => {
 		expect(backdrop()?.hasAttribute('inert')).toBe(true);
 	});
 });
+
+describe('Popover.Popup return focus during an exit animation', () => {
+	it('keeps focus in the popup until it unmounts, then returns it to the trigger', async () => {
+		render(PopoverExitHarness);
+		const trigger = page.getByRole('button', { name: 'Open' }).element() as HTMLElement;
+		await userEvent.click(trigger);
+		const close = page.getByRole('button', { name: 'Close' }).element() as HTMLElement;
+		await expect.poll(() => document.activeElement).toBe(close);
+
+		await userEvent.keyboard('{Escape}');
+		const popup = page.getByTestId('popup').element() as HTMLElement;
+		await expect.poll(() => popup.hasAttribute('data-ending-style')).toBe(true);
+		await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+		expect(document.activeElement).toBe(close);
+
+		popup.getAnimations().forEach((animation) => animation.finish());
+
+		await expect.poll(() => popup.isConnected).toBe(false);
+		await expect.poll(() => document.activeElement).toBe(trigger);
+	});
+});

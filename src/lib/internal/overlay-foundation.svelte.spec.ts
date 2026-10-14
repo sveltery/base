@@ -348,17 +348,20 @@ describe('overlay foundation', () => {
 		await expect.element(checked).toHaveFocus();
 	});
 
-	it('returns focus in the microtask after flushSync commits the close', async () => {
+	it('returns focus once the popup unmounts, not when flushSync commits the close', async () => {
 		render(OverlayFoundationHarness, { scenario: 'modal' });
 		const trigger = page.getByRole('button', { name: 'Open', includeHidden: true });
 		await trigger.click();
-		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		const inside = page.getByRole('button', { name: 'Inside' });
+		await expect.element(inside).toHaveFocus();
 		flushSync(() => {
 			(trigger.element() as HTMLElement).click();
 		});
-		// Upstream returns focus from a microtask too, after the teardown has read fresh props.
 		await Promise.resolve();
-		expect(document.activeElement).toBe(trigger.element());
+		expect(document.activeElement).toBe(inside.element());
+
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+		await expect.poll(() => document.activeElement).toBe(trigger.element());
 	});
 
 	it('closes from Escape handled on the trigger', async () => {

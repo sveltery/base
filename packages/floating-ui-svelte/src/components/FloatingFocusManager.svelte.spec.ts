@@ -67,8 +67,8 @@ describe('FloatingFocusManager', () => {
 			expect(document.activeElement).toBe(document.body);
 		});
 
-		it('puts focus back on the trigger after the popup unmounts when a press blurs it to the body', async () => {
-			const { component } = render(PortalFocusHarness, { keepMounted: true });
+		it('puts focus back on the trigger when a press blurs it to the body after the popup unmounts on close', async () => {
+			const { component } = render(PortalFocusHarness);
 			flushSync(() => component.show('mouse'));
 			await expect.poll(focusedTestId).toBe('inside');
 			const reference = page.getByTestId('reference').element() as HTMLElement;
@@ -80,11 +80,47 @@ describe('FloatingFocusManager', () => {
 			expect(document.activeElement).toBe(reference);
 			// The compatibility mousedown on a non-focusable target moves focus to the body.
 			reference.blur();
-			// The exit ends before the next frame.
-			flushSync(() => component.unmount());
 
 			await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 			expect(document.activeElement).toBe(reference);
+		});
+
+		it('returns focus to the trigger when the popup unmounts inside an iframe', async () => {
+			const iframe = document.createElement('iframe');
+			document.body.appendChild(iframe);
+			try {
+				const frameDocument = iframe.contentDocument!;
+				const { component } = render(PortalFocusHarness, {
+					target: frameDocument.body,
+					props: { container: frameDocument.body }
+				});
+				flushSync(() => component.show('mouse'));
+				const focused = () => frameDocument.activeElement?.getAttribute('data-testid') ?? null;
+				await expect.poll(focused).toBe('inside');
+
+				flushSync(() => component.hide());
+
+				await expect.poll(focused).toBe('reference');
+			} finally {
+				iframe.remove();
+			}
+		});
+
+		it('keeps focus in a closed popup until it unmounts, then returns it to the trigger', async () => {
+			const { component } = render(PortalFocusHarness, { keepMounted: true });
+			flushSync(() => component.show('mouse'));
+			await expect.poll(focusedTestId).toBe('inside');
+
+			// A sloppy outside press closes on pointerdown, before its mousedown.
+			const press = new PointerEvent('pointerdown', { pointerType: 'mouse' });
+			flushSync(() => component.close('outside-press', press));
+			await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+			expect(focusedTestId()).toBe('inside');
+			// The compatibility mousedown on a non-focusable target moves focus to the body.
+			(page.getByTestId('inside').element() as HTMLElement).blur();
+			flushSync(() => component.unmount());
+
+			await expect.poll(focusedTestId).toBe('reference');
 		});
 
 		it('returns focus after a focus-out close from a Shift+Tab inside a modal popup', async () => {
