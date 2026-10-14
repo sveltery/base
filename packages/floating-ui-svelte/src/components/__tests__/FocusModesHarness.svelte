@@ -53,11 +53,16 @@
 		getInsideElements={withInsideElement ? () => [insideElement] : undefined}
 	>
 		{#if registerPopup}
-			<div data-testid="popup" tabindex="-1" {@attach store.registerFloating}>
+			<div
+				id="focus-modes-popup"
+				data-testid="popup"
+				tabindex="-1"
+				{@attach store.registerFloating}
+			>
 				{@render popupContent()}
 			</div>
 		{:else}
-			<div data-testid="popup" tabindex="-1" data-base-ui-focusable>
+			<div id="focus-modes-popup" data-testid="popup" tabindex="-1" data-base-ui-focusable>
 				{@render popupContent()}
 			</div>
 		{/if}
@@ -69,6 +74,7 @@
 	<input
 		data-testid="reference"
 		role="combobox"
+		aria-controls="focus-modes-popup"
 		aria-expanded={store.open}
 		bind:this={reference}
 		{@attach store.registerTrigger}
