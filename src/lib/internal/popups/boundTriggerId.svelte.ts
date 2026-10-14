@@ -14,7 +14,7 @@ export class BoundTriggerId {
 	private written: string | null = null;
 
 	constructor(
-		popup: { readonly open: boolean; readonly mounted: boolean },
+		private readonly popup: { readonly open: boolean; readonly mounted: boolean },
 		readonly read: () => string | null | undefined,
 		private readonly writeValue: (id: string | null) => void
 	) {
@@ -28,6 +28,11 @@ export class BoundTriggerId {
 				this.claimed = null;
 			});
 		});
+	}
+
+	/** Upstream `activeTriggerId` state: the bound id, else the id claimed for this open. */
+	get active() {
+		return this.read() || (this.popup.open ? this.claimed : null);
 	}
 
 	write(id: string | null) {

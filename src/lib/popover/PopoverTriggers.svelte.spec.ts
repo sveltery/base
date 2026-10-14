@@ -233,6 +233,41 @@ describe('opened without a trigger (Base UI v1.9.0)', () => {
 			.toBe(anchor.bottom);
 	});
 
+	it('leaves both triggers unassociated on a bind:open after the popover that one opened unmounted', async () => {
+		let open = $state(false);
+		let triggerId = $state<string | null>();
+		render(PopoverTriggersHarness, {
+			triggers: [...lone, { id: 'trigger-2', label: 'Trigger 2', payload: 2 }],
+			get open() {
+				return open;
+			},
+			set open(next) {
+				open = next;
+			},
+			get triggerId() {
+				return triggerId;
+			},
+			set triggerId(next) {
+				triggerId = next;
+			}
+		});
+		await trigger().click();
+		await expect.poll(content).toBe('1');
+		expect(triggerId).toBe('trigger-1');
+		await trigger().click();
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+		await expect.poll(() => triggerId).toBeNull();
+
+		open = true;
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+		await frame();
+		expect(content()).toBe('');
+		await expectUnassociatedTrigger();
+		await expect
+			.element(page.getByRole('button', { name: 'Trigger 2' }))
+			.toHaveAttribute('aria-expanded', 'false');
+	});
+
 	it('takes the only trigger payload on a bind:open after an open without a trigger closed', async () => {
 		const handle = Popover.createHandle<number | string>();
 		const view = render(PopoverTriggersHarness, { handle, triggers: lone });

@@ -190,10 +190,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	resolvedActiveTriggerId() {
 		const registered = this.triggers.idOf(this.domReferenceElement);
 		if (registered) return registered;
-		const written = this.boundTriggerId.read();
-		if (written) return written;
-		if (this.open && this.boundTriggerId.claimed) return this.boundTriggerId.claimed;
-		return this.domReferenceElement?.id || null;
+		return this.boundTriggerId.active || this.domReferenceElement?.id || null;
 	}
 
 	owned(): TriggerOwned | undefined {

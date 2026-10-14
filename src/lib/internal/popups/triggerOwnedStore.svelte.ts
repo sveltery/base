@@ -70,15 +70,7 @@ export abstract class TriggerOwnedPopupStore<
 	resolvedActiveTriggerId() {
 		const registered = this.triggers.idOf(this.domReferenceElement);
 		if (registered) return registered;
-		const written = this.boundTriggerId.read();
-		if (written) return written;
-		if (this.open && this.boundTriggerId.claimed) return this.boundTriggerId.claimed;
-		return this.domReferenceElement?.id || null;
-	}
-
-	/** Upstream `activeTriggerId` state: the bound id, else the id claimed for this open. */
-	private activeTriggerKey() {
-		return this.boundTriggerId.read() || (this.open ? this.boundTriggerId.claimed : null);
+		return this.boundTriggerId.active || this.domReferenceElement?.id || null;
 	}
 
 	/** Values of the active trigger, or of the owning trigger that unmounted. */
@@ -107,7 +99,7 @@ export abstract class TriggerOwnedPopupStore<
 		// trigger's registration effect. Only the trigger id stays tracked there.
 		untrack(() => {
 			if (this.retained?.id === id) this.retained = null;
-			const activeId = this.activeTriggerKey();
+			const activeId = this.boundTriggerId.active;
 			if (activeId === id || this.domReferenceElement === element) {
 				this.domReferenceElement = element;
 				this.boundTriggerId.write(id);
@@ -171,7 +163,7 @@ export abstract class TriggerOwnedPopupStore<
 			return;
 		}
 
-		const activeId = this.activeTriggerKey();
+		const activeId = this.boundTriggerId.active;
 		if (activeId) {
 			const registered = this.triggers.getById(activeId);
 			if (registered) {
@@ -202,7 +194,7 @@ export abstract class TriggerOwnedPopupStore<
 
 	private closeForLostTrigger(lostId: string) {
 		queueMicrotask(() => {
-			if (this.destroyed || !this.open || this.activeTriggerKey() !== lostId) return;
+			if (this.destroyed || !this.open || this.boundTriggerId.active !== lostId) return;
 			if (this.triggers.getById(lostId)) return;
 			// Every hover popup's reasons include `none`, the reason upstream closes with here.
 			const details = createChangeEventDetails(REASONS.none as Reason);
