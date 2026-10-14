@@ -167,25 +167,20 @@ export class NavigationMenuTriggerController {
 		if (this.#pointerType === 'touch' && isHover) return;
 		if (!nextOpen && this.root.value !== this.#itemValue) return;
 
-		const changeState = () => {
-			if (isHover) {
-				// A click soon after a hover open keeps the popup open. A patient click closes it.
-				this.#stickIfOpen = true;
-				this.#stickIfOpenTimeout.start(PATIENT_CLICK_THRESHOLD, () => {
-					this.#stickIfOpen = false;
-				});
-			}
+		if (isHover) {
+			// A click soon after a hover open keeps the popup open. A patient click closes it.
+			this.#stickIfOpen = true;
+			this.#stickIfOpenTimeout.start(PATIENT_CLICK_THRESHOLD, () => {
+				this.#stickIfOpen = false;
+			});
+		}
 
-			if (nextOpen) {
-				this.root.setValue(this.#itemValue, details);
-			} else {
-				this.root.setValue(null, details);
-				this.#pointerType = '';
-			}
-		};
-
-		changeState();
-		if (isHover) flushSync();
+		if (nextOpen) {
+			this.root.setValue(this.#itemValue, details);
+		} else {
+			this.root.setValue(null, details);
+			this.#pointerType = '';
+		}
 	}
 
 	#handleActivation(event: OpenEvent, value: unknown) {
