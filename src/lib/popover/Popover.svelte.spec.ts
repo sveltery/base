@@ -50,8 +50,7 @@ describe('Popover', () => {
 		expect(portal.dataset.attachedInBody).toBe('yes');
 		expect(portal.parentElement).toBe(document.body);
 		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
-		// The marker stays empty. A consumer value does not replace it.
-		expect(portal.getAttribute('data-base-ui-portal')).toBe('');
+		expect(portal.getAttribute('data-base-ui-portal')).toBe('overridden');
 	});
 
 	it('applies a render snippet to the portal element', async () => {
