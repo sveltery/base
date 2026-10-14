@@ -520,6 +520,9 @@ describe('Select.Item', () => {
 
 			await expect.element(option('a')).toHaveAttribute('data-highlighted', '');
 			await expect.element(option('b')).not.toHaveAttribute('data-highlighted');
+			// The popup focuses the highlighted item a frame after opening. A key pressed before
+			// that frame misses the popup, and the late focus then re-highlights 'a'.
+			await expect.element(option('a')).toHaveFocus();
 
 			await userEvent.keyboard('{ArrowDown}');
 
