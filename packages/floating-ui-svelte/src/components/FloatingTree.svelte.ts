@@ -13,8 +13,13 @@ import {
 const [getTree, setTree, hasTree] = createContext<FloatingTreeStore>();
 const [getParentNodeId, setParentNodeId, hasParentNodeId] = createContext<string>();
 
-export function setFloatingTree() {
-	return hasTree() ? getTree() : setTree(new FloatingTreeStore());
+/**
+ * Joins the enclosing tree, or provides a new one when there is none.
+ * `fresh` always provides a new tree, as upstream `<FloatingTree>` does.
+ */
+export function setFloatingTree(options: { fresh?: boolean } = {}) {
+	if (!options.fresh && hasTree()) return getTree();
+	return setTree(new FloatingTreeStore());
 }
 
 export function useFloatingTree() {

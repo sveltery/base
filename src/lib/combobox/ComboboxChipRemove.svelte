@@ -12,7 +12,7 @@
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useComboboxChip, useComboboxRoot } from './context.svelte.js';
-	import { stopEvent } from './dom.js';
+	import { stopEvent } from '@sveltery/floating-ui-svelte';
 	import type { ComboboxChipRemoveProps, ComboboxChipRemoveState } from './types.js';
 
 	let {

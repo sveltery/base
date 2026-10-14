@@ -3,8 +3,8 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // ReactStore state becomes `$state` fields. Selectors that read `parent` become getters over
 // the `MenuParent` union. The item registry is one `ElementList` in place of
-// `itemDomElements`, `itemLabels` and `CompositeList`. The filter state (`listElement`,
-// `inputProps`, `highlightedItem`, `filterTriggerProps`) is not ported.
+// `itemDomElements`, `itemLabels` and `CompositeList`. A filterable menu keeps its filter on
+// `filter`, and a filterable submenu its keyboard handling on `submenu`.
 // Trigger-owned values (payload, close delay) are read from the active trigger, as Popover does.
 
 import type { Middleware } from '@floating-ui/dom';
@@ -23,6 +23,8 @@ import { ElementList } from '../internal/element-list.svelte.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
 import type { AnchorPositioning } from '../internal/popups/index.js';
 import { PATIENT_CLICK_THRESHOLD, isKeyboardClick, isKeyboardOpen } from './constants.js';
+import type { MenuFilter } from './filter-root.svelte.js';
+import type { MenuSubmenuNavigation } from './filter-submenu-root.svelte.js';
 import type { MenuParent, MouseUpGate } from './parent.svelte.js';
 import type {
 	MenuChangeEventDetails,
@@ -50,6 +52,8 @@ export interface MenuInteractions {
 	readonly inactiveTriggerProps: Props;
 	readonly popupProps: Props;
 	readonly itemProps: Props;
+	/** The list navigation's reference props, for the filter input. */
+	readonly inputProps: Props;
 	/** Runs the popup's keyboard handling for a key a portaled submenu did not handle. */
 	popupKeyDown(event: KeyboardEvent): void;
 }
@@ -74,6 +78,8 @@ export interface MenuStoreOptions {
 		((item: HTMLElement | undefined, details: MenuHighlightEventDetails) => void) | undefined;
 	animateInitialOpen?: boolean;
 	instantType?: MenuInstant;
+	/** Keeps real focus on the filter input and navigates the list virtually. */
+	virtualFocus?: boolean;
 }
 
 const GROUP_REASONS: ReadonlySet<string> = new Set([
@@ -88,8 +94,8 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	/** Where the root sits. A menubar trigger can replace it while it owns the menu. */
 	parent = $state.raw<MenuParent>({ type: undefined });
 	readonly ownRootId: string;
-	readonly tree: FloatingTreeStore | null;
-	readonly parentNodeId: string | null;
+	private readonly ownTree: FloatingTreeStore | null;
+	private readonly ownParentNodeId: string | null;
 	/** Every item of this menu, in document order. */
 	readonly items = new ElementList<HTMLElement, MenuItemRecord>();
 	activeIndex = $state<number | null>(null);
@@ -121,6 +127,38 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	typing = false;
 	/** The event that last opened or closed the menu. */
 	openEvent: Event | undefined = undefined;
+
+	/**
+	 * Whether real focus stays on the filter input while `aria-activedescendant` points at the
+	 * highlighted item. Only a menu inside `Menu.FilterProvider` sets it.
+	 */
+	readonly virtualFocus: boolean;
+	/** The filter input, which keeps real focus while the list is navigated virtually. */
+	focusOwner = $state<HTMLElement | null>(null);
+	/** A rendered `Menu.List`, which takes the `menu` role from the popup. */
+	listElement = $state<HTMLElement | null>(null);
+	listId = $state<string | undefined>(undefined);
+	/** The rendered popup's `id`, tracked so `aria-controls` follows a changed override. */
+	popupDomId = $state('');
+	/** Whether the filter input has focus. WebKit items read it for `aria-selected`. */
+	inputFocused = $state(false);
+	/** The highlighted item, published under virtual focus for `aria-activedescendant`. */
+	highlightedItem = $state.raw<HTMLElement | undefined>(undefined);
+	/** The filter of a menu inside `Menu.FilterProvider`. */
+	filter: MenuFilter | null = null;
+	/** The keyboard handling a filterable submenu adds to its trigger and popup. */
+	submenu: MenuSubmenuNavigation | null = null;
+	/** Whether a filterable menu's trigger was last pressed by a screen reader. */
+	virtualPress = false;
+	/**
+	 * Runs this popup's own key handling for a key a portaled submenu did not handle. The popup
+	 * sets it. Upstream reaches these handlers through React's tree.
+	 */
+	relayKeyDown: ((event: KeyboardEvent) => void) | undefined = undefined;
+	/** A filterable `Menu.List`'s key handling. `fromNested` marks a key relayed from a submenu. */
+	listKeyDown: ((event: KeyboardEvent, fromNested: boolean) => void) | undefined = undefined;
+	/** As `relayKeyDown`, for focus that enters a portaled submenu. */
+	relayFocusIn: ((event: FocusEvent) => void) | undefined = undefined;
 
 	/** Why the next `activeIndex` write happens, consumed by `onItemHighlighted`. */
 	private highlightReason: MenuHighlightReason = REASONS.none;
@@ -158,9 +196,10 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		});
 		this.parent = options.parent;
 		this.ownRootId = options.rootId;
-		this.tree = options.tree;
-		this.parentNodeId = options.parentNodeId;
+		this.ownTree = options.tree;
+		this.ownParentNodeId = options.parentNodeId;
 		this.instantType = options.instantType;
+		this.virtualFocus = options.virtualFocus ?? false;
 		this.readDisabled = options.readDisabled;
 		this.readModal = options.readModal;
 		this.readHighlightItemOnHover = options.readHighlightItemOnHover;
@@ -230,6 +269,25 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		return this.readHighlightItemOnHover();
 	}
 
+	/**
+	 * Upstream `floatingTreeRoot`: the tree the menu emits its open changes on. A detached menu
+	 * takes its menubar's tree while a menubar trigger owns it, so its siblings and the menubar
+	 * hear it.
+	 */
+	get tree(): FloatingTreeStore | null {
+		const parent = this.parent;
+		if (parent.type === 'menu') return parent.store.tree;
+		if (parent.type === 'menubar') return parent.context.floatingTree;
+		return this.ownTree;
+	}
+
+	/** Upstream `floatingParentNodeId`, forwarded with the tree. */
+	get parentNodeId(): string | null {
+		const parent = this.parent;
+		if (parent.type === 'menubar') return parent.context.nodeId;
+		return this.ownParentNodeId;
+	}
+
 	get rootId(): string | undefined {
 		const parent = this.parent;
 		if (parent.type === 'menu') return parent.store.rootId;
@@ -242,7 +300,9 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		const parent = this.parent;
 		if (parent.type === 'menubar') return parent.context.relayKeyboardEvent;
 		// A portaled submenu's keydown does not bubble into the parent popup. Forward it.
-		if (parent.type === 'menu') return parent.store.interactions?.popupKeyDown;
+		if (parent.type === 'menu') {
+			return parent.store.relayKeyDown ?? parent.store.interactions?.popupKeyDown;
+		}
 		return undefined;
 	}
 
@@ -283,6 +343,17 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		return this.interactions?.itemProps ?? {};
 	}
 
+	/** The list navigation's reference props, which the filter input takes under virtual focus. */
+	get inputProps(): Props {
+		return this.interactions?.inputProps ?? {};
+	}
+
+	/** Whether the parent menu keeps real focus on its own filter input. */
+	get parentVirtualFocus(): boolean {
+		const parent = this.parent;
+		return parent.type === 'menu' && parent.store.virtualFocus;
+	}
+
 	setActiveIndex(index: number | null, reason: MenuHighlightReason, event?: Event) {
 		// Only a write that changes the index is reported. A write back to the reported item
 		// reports `none`.
@@ -309,6 +380,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		if (this.lastHighlightIndex === itemIndex && this.reportedItem === item) return;
 		this.lastHighlightIndex = itemIndex;
 		this.reportedItem = item;
+		if (this.virtualFocus) this.highlightedItem = item;
 		const reason = this.highlightReason;
 		const event = this.highlightEvent;
 		this.highlightReason = REASONS.none;
@@ -375,10 +447,12 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		return this.resolvedActiveTriggerId() === triggerId;
 	}
 
+	/** The trigger's `aria-controls`: the list when one holds the `menu` role, else the popup. */
 	popupIdFor(triggerId: string | undefined) {
-		const popup = this.popupElement;
-		if (popup == null || popup.id === '') return undefined;
-		return this.openedBy(triggerId) ? popup.id : undefined;
+		const id = this.popupDomId;
+		if (this.popupElement == null || id === '') return undefined;
+		if (!this.openedBy(triggerId)) return undefined;
+		return (this.listElement ? this.listId : undefined) || id;
 	}
 
 	noteTrigger(id: string, element: HTMLElement, read: () => TriggerOwned) {

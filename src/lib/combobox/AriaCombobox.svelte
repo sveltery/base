@@ -360,7 +360,7 @@
 		toggle: false,
 		// A short delay on touch lets the viewport and virtual keyboard settle before positioning.
 		touchOpenDelay: store.inputInsidePopup ? 0 : 100,
-		reason: REASONS.inputPress as typeof REASONS.triggerPress
+		reason: REASONS.inputPress
 	}));
 
 	const dismiss = new DismissInteraction(store, () => ({

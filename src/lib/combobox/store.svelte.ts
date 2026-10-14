@@ -158,6 +158,9 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 	pointerDownItem: Element | null = null;
 	/** The keyboard event that clicked the highlighted item, reported as the selection event. */
 	selectionEvent: KeyboardEvent | null = null;
+	/** The internal dismiss buttons, which count as inside the popup for its focus manager. */
+	startDismissElement: HTMLElement | null = null;
+	endDismissElement: HTMLElement | null = null;
 	#lastHighlight = NO_HIGHLIGHT;
 	#pendingQueryHighlight: PendingQueryHighlight | null = null;
 	#hadInputClear = false;
@@ -168,9 +171,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 			readOpen: options.readOpen,
 			writeOpen: options.writeOpen,
 			floatingId: options.floatingId,
-			// The popup, else the positioner or inline list, is the floating element. The positioner
-			// also holds the focus manager's guards, which must not count as its tabbables.
-			floatingElement: 'popup',
+			floatingElement: 'positioner',
 			onOpenChange: options.onOpenChange as () =>
 				| ((open: boolean, details: BaseUIChangeEventDetails<ComboboxChangeReason>) => void)
 				| undefined,
@@ -194,7 +195,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 		});
 
 		$effect.pre(() => {
-			const floating = this.popupElement ?? this.positionerElement;
+			const floating = this.positionerElement ?? this.popupElement;
 			untrack(() => {
 				this.floatingElement = floating;
 			});

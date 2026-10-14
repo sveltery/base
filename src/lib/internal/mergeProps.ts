@@ -9,6 +9,8 @@
 // A function bag receives the props merged so far and replaces them. That function
 // chains handlers itself: this helper does not wrap the handlers it returns.
 // Attachment symbols are all kept. There is no ref.
+// `preventBaseUIHandler(event)` is upstream's flag on the shared event: once set, every merged
+// handler the event reaches next, on this element or an ancestor, skips the handlers to its left.
 
 import type { Attachment } from 'svelte/attachments';
 import type { ClassValue } from 'svelte/elements';
@@ -53,6 +55,38 @@ function isHandler(value: unknown): value is Handler {
 	return typeof value === 'function';
 }
 
+const baseUIHandlerPrevented = new WeakSet<Event>();
+
+/**
+ * Upstream `event.preventBaseUIHandler()`. The component handlers that `mergeProps` merged to
+ * the left skip this event on every element it still reaches, while consumer handlers run.
+ */
+export function preventBaseUIHandler(event: Event) {
+	baseUIHandlerPrevented.add(event);
+}
+
+/** Upstream `event.baseUIHandlerPrevented`. */
+export function isBaseUIHandlerPrevented(event: Event) {
+	return baseUIHandlerPrevented.has(event);
+}
+
+/**
+ * Wraps a consumer handler so its `preventDefault()` also calls `preventBaseUIHandler`. A part
+ * whose ancestors handle the same event, such as a menu popup around its input, passes the
+ * consumer's opt-out up the tree this way.
+ */
+export function forwardConsumerPrevention<E extends Event>(
+	handler: ((event: E) => unknown) | null | undefined
+): ((event: E) => unknown) | undefined {
+	if (!handler) return undefined;
+	return function (this: unknown, event: E) {
+		const preventedBefore = event.defaultPrevented;
+		const result = handler.call(this, event);
+		if (!preventedBefore && event.defaultPrevented) preventBaseUIHandler(event);
+		return result;
+	};
+}
+
 function mergeEventHandlers(our: unknown, their: unknown): unknown {
 	if (!isHandler(their)) return our;
 	if (!isHandler(our)) return their;
@@ -60,6 +94,7 @@ function mergeEventHandlers(our: unknown, their: unknown): unknown {
 		const event = args[0];
 		const preventedBefore = isDomEvent(event) && event.defaultPrevented;
 		const result = their(...args);
+		if (isDomEvent(event) && isBaseUIHandlerPrevented(event)) return result;
 		if (preventedBefore || !(isDomEvent(event) && event.defaultPrevented)) our(...args);
 		return result;
 	};

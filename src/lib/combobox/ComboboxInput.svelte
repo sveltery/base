@@ -10,7 +10,11 @@
 	import { createChangeEventDetails, platform, REASONS } from '@sveltery/utils';
 	import { DEFAULT_FIELD_STATE } from '../field/model.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
-	import { setFieldContext, useFieldContext } from '../internal/field-root-context.js';
+	import {
+		DEFAULT_FIELD_ROOT_CONTEXT,
+		setFieldContext,
+		useFieldContext
+	} from '../internal/field-root-context.js';
 	import { getHighlightReason } from '../internal/getHighlightReason.js';
 	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { mergeProps } from '../internal/mergeProps.js';
@@ -18,8 +22,7 @@
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import ComboboxInternalDismissButton from './ComboboxInternalDismissButton.svelte';
 	import { findComboboxChips, findComboboxPositioner, useComboboxRoot } from './context.svelte.js';
-	import { INERT_FIELD } from './inert-field.js';
-	import { stopEvent } from './dom.js';
+	import { stopEvent } from '@sveltery/floating-ui-svelte';
 	import { getChipNavigationKeys, triggerStateAttributesMapping } from './parts.js';
 	import type { ComboboxInputProps, ComboboxInputState } from './types.js';
 
@@ -39,7 +42,7 @@
 	const chips = findComboboxChips();
 	const hasPositionerParent = findComboboxPositioner() !== undefined;
 	// The trigger is the field's control, so a field-aware `render` element inside the popup is not.
-	if (hasPositionerParent) setFieldContext(INERT_FIELD);
+	if (hasPositionerParent) setFieldContext(DEFAULT_FIELD_ROOT_CONTEXT);
 	const direction = useDirection();
 	const bindKey = createAttachmentKey();
 
@@ -323,7 +326,7 @@
 </script>
 
 {#if store.open && focusManagerModal}
-	<ComboboxInternalDismissButton />
+	<ComboboxInternalDismissButton edge="start" />
 {/if}
 {#if render}
 	{@render render(hostProps, partState, undefined)}

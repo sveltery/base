@@ -45,44 +45,50 @@ Import the component and assemble its parts:
 	import { Menu } from '@sveltery/base/menu';
 </script>
 
-<Menu.Root>
-	<Menu.Trigger />
-	<Menu.Portal>
-		<Menu.Backdrop />
-		<Menu.Positioner>
-			<Menu.Popup>
-				<Menu.Arrow />
-				<Menu.Item />
-				<Menu.LinkItem />
-				<Menu.Separator />
+<Menu.FilterProvider>
+	<Menu.Root>
+		<Menu.Trigger />
+		<Menu.Portal>
+			<Menu.Backdrop />
+			<Menu.Positioner>
+				<Menu.Popup>
+					<Menu.Arrow />
+					<Menu.Input />
+					<Menu.Clear />
+					<Menu.Empty />
+					<Menu.List>
+						<Menu.Item />
+						<Menu.LinkItem />
+						<Menu.Separator />
 
-				<Menu.SubmenuRoot>
-					<Menu.SubmenuTrigger />
-				</Menu.SubmenuRoot>
+						<Menu.SubmenuRoot>
+							<Menu.SubmenuTrigger />
+						</Menu.SubmenuRoot>
 
-				<Menu.Group>
-					<Menu.GroupLabel />
-				</Menu.Group>
+						<Menu.Group>
+							<Menu.GroupLabel />
+						</Menu.Group>
 
-				<Menu.RadioGroup>
-					<Menu.GroupLabel />
-					<Menu.RadioItem>
-						<Menu.RadioItemIndicator />
-					</Menu.RadioItem>
-				</Menu.RadioGroup>
+						<Menu.RadioGroup>
+							<Menu.GroupLabel />
+							<Menu.RadioItem>
+								<Menu.RadioItemIndicator />
+							</Menu.RadioItem>
+						</Menu.RadioGroup>
 
-				<Menu.CheckboxItem>
-					<Menu.CheckboxItemIndicator />
-				</Menu.CheckboxItem>
-
-				<Menu.Viewport />
-			</Menu.Popup>
-		</Menu.Positioner>
-	</Menu.Portal>
-</Menu.Root>
+						<Menu.CheckboxItem>
+							<Menu.CheckboxItemIndicator />
+						</Menu.CheckboxItem>
+					</Menu.List>
+					<Menu.Viewport />
+				</Menu.Popup>
+			</Menu.Positioner>
+		</Menu.Portal>
+	</Menu.Root>
+</Menu.FilterProvider>
 ```
 
-`Menu.Backdrop`, `Menu.Arrow` and `Menu.Viewport` are optional. `Menu.Positioner` and `Menu.Popup` are required.
+`Menu.Backdrop`, `Menu.Arrow` and `Menu.Viewport` are optional. `Menu.Positioner` and `Menu.Popup` are required. `Menu.FilterProvider`, `Menu.Input`, `Menu.Clear` and `Menu.Empty` make the menu filterable and are optional. `Menu.List` holds the items when other content, such as the input, shares the popup.
 
 ## Examples
 
@@ -441,6 +447,88 @@ Bind `triggerId` next to `open` to know which trigger owns the menu. Give each t
 </div>
 ```
 
+### Filtering
+
+Wrap `Menu.Root` in `Menu.FilterProvider`, add `Menu.Input` to the popup, and put the items inside `Menu.List`. Label the input with `aria-label`, `aria-labelledby`, or a visible `<label>`. Type to narrow the items, then use the arrow keys to move through the matches.
+
+```svelte demo
+<script lang="ts">
+	import { Menu } from '@sveltery/base/menu';
+
+	const item =
+		'flex cursor-default py-2 pr-8 pl-4 text-sm outline-none select-none data-[highlighted]:bg-gray-900 data-[highlighted]:text-gray-50 dark:data-[highlighted]:bg-gray-100 dark:data-[highlighted]:text-gray-900';
+	const label = 'px-4 pt-2 pb-1 text-xs font-medium text-gray-500 dark:text-gray-400';
+</script>
+
+<Menu.FilterProvider>
+	<Menu.Root>
+		<Menu.Trigger
+			class="rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
+		>
+			Actions
+		</Menu.Trigger>
+		<Menu.Portal>
+			<Menu.Positioner sideOffset={8}>
+				<Menu.Popup
+					class="w-56 rounded-md bg-gray-50 py-1 text-gray-900 shadow-lg outline outline-gray-200 dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700"
+				>
+					<div
+						class="flex items-center gap-1 border-b border-gray-200 px-2 pb-1 dark:border-gray-700"
+					>
+						<Menu.Input
+							aria-label="Filter actions"
+							placeholder="Filter actions"
+							class="h-8 min-w-0 flex-1 bg-transparent px-2 text-sm outline-none placeholder:text-gray-500"
+						/>
+						<Menu.Clear
+							class="rounded px-2 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+						>
+							Clear
+						</Menu.Clear>
+					</div>
+					<Menu.List>
+						<Menu.Group>
+							<Menu.GroupLabel class={label}>File</Menu.GroupLabel>
+							<Menu.Item class={item}>Rename</Menu.Item>
+							<Menu.Item class={item}>Duplicate</Menu.Item>
+							<Menu.Item class={item}>Move to trash</Menu.Item>
+						</Menu.Group>
+						<Menu.Group>
+							<Menu.GroupLabel class={label}>Share</Menu.GroupLabel>
+							<Menu.Item class={item}>Copy link</Menu.Item>
+							<Menu.Item class={item}>Send by email</Menu.Item>
+						</Menu.Group>
+					</Menu.List>
+					<Menu.Empty class="px-4 py-2 text-sm text-gray-500">No actions found.</Menu.Empty>
+				</Menu.Popup>
+			</Menu.Positioner>
+		</Menu.Portal>
+	</Menu.Root>
+</Menu.FilterProvider>
+```
+
+Items match their text by default. Set `label` on an item to match against other text. By default, an item matches when its text contains the query, ignoring case, accents, and punctuation. Pass `filter` to `Menu.FilterProvider` to replace the matching. It receives each item's label and the trimmed query, and keeps the item when it returns `true`. `Menu.useFilter()` returns the same locale-aware `contains`, `startsWith` and `endsWith` comparisons.
+
+```svelte
+<script lang="ts">
+	const { startsWith } = Menu.useFilter();
+</script>
+
+<Menu.FilterProvider filter={startsWith}>
+	<Menu.Root>…</Menu.Root>
+</Menu.FilterProvider>
+```
+
+A group whose items all fail to match gets the `hidden` attribute and stays mounted. If your styles set `display` on a group, add a `[hidden]` rule so it still hides. `Menu.Empty` shows its content when nothing matches. To filter the items yourself, pass `filter={null}`, bind `value`, and render only the results, leaving out empty groups.
+
+Bind `value` on `Menu.FilterProvider` to read and set the query. `onValueChange` runs before every change, with a reason of `input-change`, `input-clear`, `clear-press` or `popup-close`. Closing the menu clears the query. Call `eventDetails.cancel()` on the `popup-close` change to keep it.
+
+Set `autoHighlight` to highlight the first match while the query is not empty, or `autoHighlight="always"` to highlight it even when the query is empty. Either way, the arrow keys then wrap within the list instead of returning to the input.
+
+Opening the menu with a click or the keyboard focuses the input. Opening it on hover, touch, or with a pen does not, so the on-screen keyboard stays hidden. The arrow keys move the highlight while the input keeps focus, and `aria-activedescendant` on the input names the highlighted item. <kbd>Tab</kbd> closes the menu, and <kbd>Shift</kbd>+<kbd>Tab</kbd> returns focus to the trigger. The popup is a `dialog` that holds the `searchbox` input and the `menu` list.
+
+Wrap each searchable `Menu.SubmenuRoot` in its own `Menu.FilterProvider`. A submenu without a provider is not filtered. For a detached trigger, pass the same handle to the trigger and to the `Menu.Root` inside the provider.
+
 ### Highlighted item
 
 `onItemHighlighted` on `Menu.Root` reports each change of the highlighted item. It receives the item element, or `undefined` when nothing is highlighted, and details with a `reason` of `keyboard`, `pointer`, or `none`, the `event`, and the item's `label`. The label is the item's `label` prop, or its text when the prop is not set.
@@ -483,9 +571,18 @@ With several triggers, the positioner moves from one trigger to the next. Transi
 - `actionsRef` is not available. Use `bind:this` on `Menu.Root` or `Menu.SubmenuRoot`, which exposes `close()` and `unmount()`.
 - Handlers use lowercase names, such as `onclick`.
 - Item labels for typeahead and `onItemHighlighted` are trimmed.
-- The filter parts (`Menu.FilterProvider`, `Menu.Input`, `Menu.Clear`, `Menu.Empty`, `Menu.List` and `Menu.useFilter`) are not available yet. Menubar and context menu parents are typed but have no public components yet. Refs are not supported.
+- `value` on `Menu.FilterProvider` is bindable. Use `bind:value` instead of `value` and `defaultValue` together.
+- Item text is trimmed before it is matched. A filtered-out item that has no `label` keeps the text it last rendered.
+- A consumer `onkeydown` on `Menu.Input` that calls `preventDefault()` skips the menu's own handling of that key, where React calls `preventBaseUIHandler()`.
+- Use [Context Menu](/components/context-menu) for a menu that opens on right click. Place menus in a [Menubar](/components/menubar) to build an application menu bar. Refs are not supported.
 
 ## API reference
+
+### FilterProvider
+
+<ApiPart name="menu" part="FilterProvider" />
+
+`Menu.FilterProvider` renders no element, so it has no data attributes.
 
 ### Root
 
@@ -580,6 +677,34 @@ A top-level menu sits below its trigger, centered. A submenu sits at the inline 
 | `data-activation-direction` | Where the new trigger sits relative to the previous one, such as `left` or `right down`. |
 | `data-transitioning`        | Present while the previous content is on screen.                                         |
 | `data-instant`              | The change that should not animate.                                                      |
+
+### Input
+
+<ApiPart name="menu" part="Input" />
+
+| Attribute          | Description                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| `data-highlighted` | Present while the input shows its focus ring. Keyboard highlighting an item clears it. |
+
+### Clear
+
+<ApiPart name="menu" part="Clear" />
+
+`Menu.Clear` renders only while the input has text. It is hidden from assistive technology and skipped by <kbd>Tab</kbd>, so focus stays on the input.
+
+| Attribute       | Description                          |
+| --------------- | ------------------------------------ |
+| `data-disabled` | Present when the button is disabled. |
+
+### Empty
+
+<ApiPart name="menu" part="Empty" />
+
+`Menu.Empty` renders only when no item matches. It is a polite `status` live region, so screen readers announce it.
+
+### List
+
+<ApiPart name="menu" part="List" />
 
 ### Item
 

@@ -1,6 +1,11 @@
 import type { Attachment } from 'svelte/attachments';
 import type { Snippet } from 'svelte';
-import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+import type {
+	HTMLAnchorAttributes,
+	HTMLAttributes,
+	HTMLButtonAttributes,
+	HTMLInputAttributes
+} from 'svelte/elements';
 import type {
 	REASONS,
 	BaseUIChangeEventDetails,
@@ -10,7 +15,15 @@ import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { RenderChildren } from '../internal/render-children.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
+import type {
+	MenuFilterChangeEventDetails,
+	MenuFilterChangeReason,
+	MenuFilterFunction
+} from './filter-root.svelte.js';
 import type { MenuHandle } from './handle.svelte.js';
+
+export type { Filter, GetFilterParameters } from './filter.js';
+export type { MenuFilterChangeEventDetails, MenuFilterChangeReason, MenuFilterFunction };
 
 export type { Align, Side };
 
@@ -445,5 +458,83 @@ export interface MenuSubmenuTriggerProps
 	/** Hover close delay in milliseconds. @default 0 */
 	closeDelay?: number;
 	render?: PartRender<HTMLDivElement, MenuSubmenuTriggerState>;
+	children?: Snippet;
+}
+
+export interface MenuFilterProviderProps {
+	/**
+	 * The filter query.
+	 * Use `bind:value` to share it with the parent.
+	 * A value passed without `bind:` is the initial query. Closing the popup clears the query.
+	 * @default ''
+	 */
+	value?: string;
+	/** Called before the query changes. Call `eventDetails.cancel()` to veto it. */
+	onValueChange?: (value: string, details: MenuFilterChangeEventDetails) => void;
+	/**
+	 * Matches items against the query. Receives each item's `label` (or its rendered text) and the
+	 * trimmed query, and keeps the item when it returns `true`.
+	 * By default, items match when they contain the query, ignoring case, accents and punctuation.
+	 * Pass `null` when rendering filtered items yourself.
+	 */
+	filter?: MenuFilterFunction | null;
+	/**
+	 * Whether filtering highlights the first matching item.
+	 * `true` highlights it while the query is not empty, and `'always'` also when it is empty.
+	 * With either value the arrow keys wrap within the list instead of returning to the input.
+	 * @default false
+	 */
+	autoHighlight?: boolean | 'always';
+	/** The locale the default `filter` compares with. Defaults to the runtime locale. */
+	locale?: Intl.LocalesArgument;
+	children?: Snippet;
+}
+
+export interface MenuInputState {
+	/**
+	 * Whether the input shows its focus ring.
+	 * Cleared when keyboard navigation highlights an item.
+	 */
+	highlighted: boolean;
+}
+
+export interface MenuInputProps extends Omit<
+	HTMLInputAttributes,
+	'children' | 'disabled' | 'id' | 'value'
+> {
+	id?: string;
+	/** @default false */
+	disabled?: boolean;
+	render?: Snippet<[props: HTMLInputAttributes, state: MenuInputState, children: RenderChildren]>;
+}
+
+export interface MenuClearState {
+	disabled: boolean;
+}
+
+export interface MenuClearProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
+	/** @default false */
+	disabled?: boolean;
+	/**
+	 * Whether the host is a native `<button>`.
+	 * Set `false` when `render` supplies a non-button element.
+	 * @default true
+	 */
+	nativeButton?: boolean;
+	render?: Snippet<[props: HTMLButtonAttributes, state: MenuClearState, children: RenderChildren]>;
+	children?: Snippet;
+}
+
+export type MenuEmptyState = Record<string, never>;
+
+export interface MenuEmptyProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	render?: PartRender<HTMLDivElement, MenuEmptyState>;
+	children?: Snippet;
+}
+
+export type MenuListState = Record<string, never>;
+
+export interface MenuListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	render?: PartRender<HTMLDivElement, MenuListState>;
 	children?: Snippet;
 }

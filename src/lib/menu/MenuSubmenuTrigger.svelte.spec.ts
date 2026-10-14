@@ -124,6 +124,44 @@ describe('Menu.SubmenuTrigger', () => {
 		await expect.poll(focused).toBe(item('Play Next'));
 	});
 
+	it('closes the menus without an error when Tab leaves a nested submenu', async () => {
+		const errors: string[] = [];
+		const onError = (event: ErrorEvent) => errors.push(event.message);
+		window.addEventListener('error', onError);
+		try {
+			render(MenuHarness, {
+				triggerLabel: 'Actions',
+				after: true,
+				rootProps: { modal: false },
+				items: [
+					more({
+						items: [
+							{
+								type: 'submenu',
+								label: 'Deeper',
+								popupProps: { 'data-testid': 'nested-submenu' },
+								items: items('Omega')
+							}
+						]
+					})
+				]
+			});
+			page.getByRole('button', { name: 'Actions' }).element().focus();
+			await userEvent.keyboard('{ArrowDown}');
+			await expect.poll(focused).toBe(item('More'));
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(focused).toBe(item('Deeper'));
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.poll(focused).toBe(item('Omega'));
+			await userEvent.keyboard('{Tab}');
+			await expect.poll(focused).toBe(page.getByRole('button', { name: 'After' }).element());
+			await expect.poll(() => document.querySelectorAll('[role="menu"]').length).toBe(0);
+			expect(errors).toEqual([]);
+		} finally {
+			window.removeEventListener('error', onError);
+		}
+	});
+
 	it('follows a submenu trigger id change', async () => {
 		let id = $state('first');
 		render(MenuHarness, {

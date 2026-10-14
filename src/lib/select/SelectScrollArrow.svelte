@@ -17,7 +17,8 @@
 	} from '../internal/state-attributes.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { useSelectPositioner, useSelectRoot } from './context.svelte.js';
-	import { getMaxScrollOffset, getTargetScrollTop } from './popup-utils.js';
+	import { getMaxScrollOffset } from '../internal/scrollEdges.js';
+	import { getTargetScrollTop } from './popup-utils.js';
 	import type { SelectScrollArrowProps, SelectScrollArrowState } from './types.js';
 
 	let {

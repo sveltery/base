@@ -9,7 +9,17 @@
 	import { toCssStyle } from '../internal/css-style.js';
 	import { useComboboxRoot } from './context.svelte.js';
 
+	let { edge }: { edge: 'start' | 'end' } = $props();
+
 	const store = useComboboxRoot();
+
+	function register(element: HTMLElement) {
+		const key = edge === 'start' ? 'startDismissElement' : 'endDismissElement';
+		store[key] = element;
+		return () => {
+			if (store[key] === element) store[key] = null;
+		};
+	}
 	const button = new ButtonBehavior(() => ({ disabled: false, native: false }));
 
 	const hostProps = $derived({
@@ -27,4 +37,4 @@
 	});
 </script>
 
-<span {...hostProps}></span>
+<span {...hostProps} {@attach register}></span>

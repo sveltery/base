@@ -1,5 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/useClick.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The virtual press and the `input-press`
+// reason follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import {
@@ -22,7 +24,7 @@ export interface UseClickProps {
 	ignoreMouse?: boolean;
 	stickIfOpen?: boolean;
 	touchOpenDelay?: number;
-	reason?: typeof REASONS.triggerPress;
+	reason?: typeof REASONS.triggerPress | typeof REASONS.inputPress;
 }
 
 type PointerKind = 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
@@ -108,7 +110,8 @@ export class ClickInteraction {
 				event.currentTarget,
 				(openEventType) => openEventType === 'click' || openEventType === 'mousedown'
 			);
-			const method = useOpenInteractionType(event, this.#pointerType);
+			const pointerType = this.#pointerType;
+			const method = useOpenInteractionType(event, pointerType);
 			if (eventOption === 'mousedown-only') this.#pointerType = undefined;
 			const target = getTarget(event);
 			if (isTypeableElement(target) && target instanceof HTMLElement) {
@@ -117,6 +120,12 @@ export class ClickInteraction {
 			}
 			const currentTarget = event.currentTarget;
 			if (!(currentTarget instanceof HTMLElement)) return;
+			// A screen reader press opens at once, so the popup's focus lands before the reader
+			// moves focus back to its cursor. A virtual press may target a descendant of the trigger.
+			if (pointerType === 'virtual') {
+				this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method);
+				return;
+			}
 			this.#frame.request(() =>
 				this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method)
 			);

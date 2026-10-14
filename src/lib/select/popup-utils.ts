@@ -1,17 +1,16 @@
 // Derived from Base UI v1.9.0 packages/react/src/select/popup/utils.ts,
 // the helpers of packages/react/src/select/popup/SelectPopup.tsx and
-// packages/react/src/select/scroll-arrow/SelectScrollArrow.tsx,
-// packages/react/src/utils/getPseudoElementBounds.ts, and `getMaxScrollOffset` of
-// packages/react/src/utils/scrollEdges.ts (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// packages/react/src/select/scroll-arrow/SelectScrollArrow.tsx and
+// packages/react/src/utils/getPseudoElementBounds.ts (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // MIT, see THIRD_PARTY_NOTICES.md.
 
 import { platform as floatingPlatform } from '@floating-ui/dom';
 import { rectToClientRect, type ClientRectObject } from '@floating-ui/utils';
-import { normalizeScrollOffset, SCROLL_EDGE_TOLERANCE_PX } from '../internal/scrollEdges.js';
-
-export function getMaxScrollOffset(scrollSize: number, clientSize: number) {
-	return Math.max(0, scrollSize - clientSize);
-}
+import {
+	getMaxScrollOffset,
+	normalizeScrollOffset,
+	SCROLL_EDGE_TOLERANCE_PX
+} from '../internal/scrollEdges.js';
 
 export function getMaxScrollTop(scroller: HTMLElement) {
 	return getMaxScrollOffset(scroller.scrollHeight, scroller.clientHeight);

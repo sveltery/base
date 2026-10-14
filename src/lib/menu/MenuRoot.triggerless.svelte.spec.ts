@@ -124,11 +124,31 @@ describe('Menu.Root without a trigger', () => {
 		}
 	);
 
-	// The highlight that follows the pointer onto "Second" moves focus off the "First" trigger
-	// before the press. The shared focus manager's `focusout` listener on that trigger closes
-	// "First" with `focus-out`. Its `markInsideReactTree` port covers focus that leaves the
-	// popup, not focus that leaves the trigger.
-	it.todo('closes a sibling submenu without closing the root on click');
+	it('closes a sibling submenu without closing the root on click', async () => {
+		const changed = vi.fn();
+		const firstChanged = vi.fn();
+		render(
+			MenuHarness,
+			triggerless(
+				[
+					submenu('First', 'First item', { onOpenChange: firstChanged }),
+					submenu('Second', 'Second item')
+				],
+				{ onOpenChange: changed }
+			)
+		);
+		await userEvent.click(await focusItem('First'));
+		await expect.poll(() => queryItem('First item')).not.toBeNull();
+		firstChanged.mockClear();
+
+		await userEvent.click(menuItem('Second'));
+		await expect.poll(() => queryItem('Second item')).not.toBeNull();
+		await expect.poll(() => queryItem('First item')).toBeNull();
+		expect(firstChanged).toHaveBeenCalledTimes(1);
+		expect(firstChanged.mock.calls[0][0]).toBe(false);
+		expect(firstChanged.mock.calls[0][1].reason).toBe('sibling-open');
+		expect(changed).not.toHaveBeenCalled();
+	});
 
 	it('closes a sibling submenu without closing the root on hover', async () => {
 		const changed = vi.fn();

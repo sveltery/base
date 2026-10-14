@@ -26,6 +26,14 @@ const listbox = () => page.getByRole('listbox');
 const hiddenInput = () => document.querySelector<HTMLInputElement>('input[aria-hidden="true"]')!;
 
 describe('Select.Root', () => {
+	it('focuses the popup and stays open when opened by a click', async () => {
+		render(SelectHarness, { items: ab });
+		await userEvent.click(trigger());
+		await expect.element(listbox()).toHaveFocus();
+		await wait(50);
+		expect(trigger().element().getAttribute('aria-expanded')).toBe('true');
+	});
+
 	describe('prop: modal', () => {
 		it('renders an internal backdrop when true', async () => {
 			render(SelectHarness, { root: { modal: true }, items: [{ value: '1' }], around: true });

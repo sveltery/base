@@ -24,7 +24,7 @@
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { isMouseWithinBounds } from '../select/popup-utils.js';
 	import { useComboboxRoot } from './context.svelte.js';
-	import { stopEvent } from './dom.js';
+	import { stopEvent } from '@sveltery/floating-ui-svelte';
 	import { getComboboxPopupId } from './filter.js';
 	import { triggerStateAttributesMapping } from './parts.js';
 	import type { ComboboxTriggerProps, ComboboxTriggerState } from './types.js';

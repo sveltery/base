@@ -561,16 +561,17 @@ describe('Combobox.Root', () => {
 		await expect.element(input()).toHaveAttribute('aria-expanded', 'true');
 	});
 
-	// Upstream hides outside content with a modal focus manager. Here the focus manager is not
-	// modal while the input is outside the popup, so outside content stays exposed.
-	it('keeps the trigger and outside content exposed while open with the input outside the popup', async () => {
+	it('hides the trigger and outside content while open with the input outside the popup', async () => {
 		render(ComboboxHarness, { items: ['Apple', 'Banana'], trigger: true, around: true });
 
 		await userEvent.click(input());
 		await expect.element(listbox()).toBeVisible();
 
-		expect(isElementOrAncestorInert(page.getByTestId('outside').element())).toBe(false);
-		expect(isElementOrAncestorInert(trigger().element())).toBe(false);
+		await expect
+			.poll(() => isElementOrAncestorInert(page.getByTestId('outside').element()))
+			.toBe(true);
+		expect(isElementOrAncestorInert(trigger().element())).toBe(true);
+		expect(isElementOrAncestorInert(input().element())).toBe(false);
 	});
 
 	it('does not render the start dismiss button while closed', async () => {
