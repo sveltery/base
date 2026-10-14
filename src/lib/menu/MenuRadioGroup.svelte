@@ -16,7 +16,7 @@
 	let {
 		value = $bindable(),
 		onValueChange,
-		disabled = false,
+		disabled: disabledProp,
 		'aria-labelledby': ariaLabelledBy,
 		hidden,
 		render,
@@ -38,6 +38,7 @@
 			labelId = id;
 		}
 	});
+	const disabled = $derived(disabledProp ?? false);
 	setMenuRadioGroup({
 		get value() {
 			return value;

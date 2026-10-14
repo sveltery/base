@@ -5,7 +5,7 @@
 	The root writes its element into the toast as `element` (upstream `ref`), with its height.
 -->
 <script lang="ts">
-	import { flushSync, untrack } from 'svelte';
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { activeElement, contains, ownerDocument } from '@sveltery/utils';
 	import { toCssStyle } from '../internal/css-style.js';
@@ -76,9 +76,8 @@
 	}));
 
 	// Measures the natural height and writes it, with the element, to the store.
-	// `flush` avoids visual flickers when called from observer callbacks.
 	// The store ignores this write while the toast is transitioning out.
-	function recalculateHeight(flush = false) {
+	function recalculateHeight() {
 		const element = root;
 		if (!element) return;
 
@@ -87,11 +86,7 @@
 		const height = element.offsetHeight;
 		element.style.height = previousHeight;
 
-		const update = () =>
-			store.updateToastInternal(toast.id, { element, height, transitionStatus: undefined });
-
-		if (flush) flushSync(update);
-		else update();
+		store.updateToastInternal(toast.id, { element, height, transitionStatus: undefined });
 	}
 
 	// Initialize the toast on mount, and again when it begins a new lifecycle: re-adding an

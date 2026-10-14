@@ -18,10 +18,10 @@
 
 	// Content changes resize the root, so its stored height follows them.
 	function observe(node: HTMLElement) {
-		untrack(() => rootContext.recalculateHeight());
+		const recalculate = () => untrack(() => rootContext.recalculateHeight());
+		recalculate();
 		if (typeof ResizeObserver !== 'function' || typeof MutationObserver !== 'function') return;
 
-		const recalculate = () => untrack(() => rootContext.recalculateHeight(true));
 		const resizeObserver = new ResizeObserver(recalculate);
 		const mutationObserver = new MutationObserver(recalculate);
 		resizeObserver.observe(node);

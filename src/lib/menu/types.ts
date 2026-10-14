@@ -150,7 +150,7 @@ export interface MenuTriggerProps<Payload = unknown> extends Omit<
 	'children' | 'disabled' | 'id'
 > {
 	/** @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.
@@ -160,7 +160,7 @@ export interface MenuTriggerProps<Payload = unknown> extends Omit<
 	handle?: MenuHandle<Payload>;
 	/** A payload passed to the menu while this trigger owns it. */
 	payload?: Payload;
-	id?: string;
+	id?: string | null;
 	/** Whether the menu also opens when the trigger is hovered. */
 	openOnHover?: boolean;
 	/** Hover open delay in milliseconds. Requires `openOnHover`. @default 100 */
@@ -296,7 +296,7 @@ export interface MenuViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 interface ItemCommonProps {
 	/** Text used by keyboard typeahead. Defaults to the item's text content. */
 	label?: string;
-	id?: string;
+	id?: string | null;
 }
 
 export interface MenuItemState {
@@ -307,7 +307,7 @@ export interface MenuItemState {
 export interface MenuItemProps
 	extends ItemCommonProps, Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
 	/** @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`. Set `true` when `render` supplies a button.
 	 * @default false
@@ -350,7 +350,7 @@ export interface MenuCheckboxItemProps
 	/** Called before the checked state changes. Call `eventDetails.cancel()` to veto it. */
 	onCheckedChange?: (checked: boolean, details: MenuChangeEventDetails) => void;
 	/** @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** @default false */
 	nativeButton?: boolean;
 	/** Whether clicking the item closes the menu. @default false */
@@ -406,7 +406,7 @@ export interface MenuRadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>
 	/** Called before the value changes. Call `eventDetails.cancel()` to veto it. */
 	onValueChange?: (value: unknown, details: MenuChangeEventDetails) => void;
 	/** @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	render?: PartRender<HTMLDivElement, MenuRadioGroupState>;
 	children?: Snippet;
 }
@@ -422,7 +422,7 @@ export interface MenuRadioItemProps
 	/** The value the radio group takes when this item is selected. */
 	value: unknown;
 	/** @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** @default false */
 	nativeButton?: boolean;
 	/** Whether clicking the item closes the menu. @default false */
@@ -448,7 +448,7 @@ export interface MenuSubmenuTriggerState {
 export interface MenuSubmenuTriggerProps
 	extends ItemCommonProps, Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
 	/** @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/** @default false */
 	nativeButton?: boolean;
 	/** Whether the submenu opens when the trigger is hovered. @default true */
@@ -502,9 +502,9 @@ export interface MenuInputProps extends Omit<
 	HTMLInputAttributes,
 	'children' | 'disabled' | 'id' | 'value'
 > {
-	id?: string;
+	id?: string | null;
 	/** @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	render?: Snippet<[props: HTMLInputAttributes, state: MenuInputState, children: RenderChildren]>;
 }
 
@@ -514,7 +514,7 @@ export interface MenuClearState {
 
 export interface MenuClearProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
 	/** @default false */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `false` when `render` supplies a non-button element.
