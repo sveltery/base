@@ -448,6 +448,36 @@ describe('ContextMenu', () => {
 		}
 	);
 
+	describe.each(['popover', 'preview-card'] as const)('inside a hover-opened %s', (outer) => {
+		it('stays open while the pointer is in the context menu and closes on leaving', async () => {
+			const reasons: string[] = [];
+			render(ContextMenuInPopupHarness, { outer, hover: true, reasons });
+			const open = () => [
+				byTestId('outer')?.hasAttribute('data-open') ?? false,
+				byTestId('ctx-menu')?.hasAttribute('data-open') ?? false
+			];
+
+			await userEvent.hover(get('outer-trigger'));
+			await expect.poll(shown('outer')).toBe(true);
+			await userEvent.hover(get('outer'));
+			await userEvent.click(get('ctx-trigger'), { button: 'right' });
+			await expect.poll(() => byTestId('ctx-menu') !== null || reasons.length > 0).toBe(true);
+			await new Promise(requestAnimationFrame);
+			await tick();
+			expect({ open: open(), reasons }).toEqual({ open: [true, true], reasons: [] });
+
+			await userEvent.click(get('ctx-item'));
+			await expect.poll(shown('ctx-menu')).toBe(false);
+			await new Promise(requestAnimationFrame);
+			await tick();
+			expect({ open: open(), reasons }).toEqual({ open: [true, false], reasons: [] });
+
+			await userEvent.hover(get('far'));
+			await expect.poll(shown('outer')).toBe(false);
+			expect(reasons).toEqual(['trigger-hover']);
+		});
+	});
+
 	describe('with a menu inside the trigger', () => {
 		it('opens the menu on click and the context menu on right click', async () => {
 			render(ContextMenuHarness, { scenario: 'with-menu' });

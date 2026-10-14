@@ -10,10 +10,6 @@ Local: `src/lib/internal/mergeProps.ts`. `@sveltery/base` and `@sveltery/base/me
 
 Test: `src/lib/internal/mergeProps.spec.ts`. `src/lib/merge-props/merge-props.spec.ts`. `src/lib/popover/Popover.svelte.spec.ts` (`skips the toggle when an iframe event calls preventDefault`).
 
-Internal: React shares one synthetic event across the propagation path, so `preventBaseUIHandler()` in a descendant's handler also skips the merged handlers of its ancestors. A native event is shared the same way, but `preventDefault()` cannot carry that meaning, because component handlers call it for their own keys. `src/lib/internal/mergeProps.ts` keeps upstream's flag in a module `WeakSet`. A part calls `preventBaseUIHandler(event)`, and every merged handler the event reaches next skips the handlers to its left, as upstream. `forwardConsumerPrevention(handler)` wraps a consumer handler so its `preventDefault()` sets the flag, for a part whose ancestor handles the same event. Consumers still call `preventDefault()`. Neither helper is public.
-
-Test: `src/lib/internal/mergeProps.svelte.spec.ts`.
-
 ## Public helpers and types
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/use-render/useRender.ts`, `packages/react/src/unstable-use-media-query/index.ts`, `packages/react/src/types/index.ts`, `packages/react/src/utils/resolveClassName.ts`, and `packages/react/src/utils/resolveStyle.ts`. `useRender` builds a custom part from a `render` prop, state attributes, and merged refs. `unstable_useMediaQuery` subscribes to `matchMedia`. The `types` entry exports `BaseUIChangeEventDetails`, `BaseUIGenericEventDetails`, `BaseUIEvent`, `HTMLProps`, and `ComponentRenderFn`. Every part accepts `className` and `style` as a function of its state.
@@ -430,7 +426,7 @@ Local: nothing re-runs the parent popup's handlers. A key that a submenu does no
 
 Upstream: a consumer handler calls `event.preventBaseUIHandler()`, and the flag reaches every Base UI handler on the propagation path through React's shared synthetic event.
 
-Local: a consumer handler calls `event.preventDefault()`, as with every part (see `mergeProps`). `Menu.Input` passes its consumer handler through `forwardConsumerPrevention`, so the popup skips its own handlers for that key. No other menu part forwards the opt-out to an ancestor.
+Local: a consumer handler calls `event.preventDefault()`, as with every part (see `mergeProps`). When the consumer's `Menu.Input` handler prevents a key, the input records that key in its menu's store and in each ancestor menu's store, and every popup skips its own handling of it. No other menu part forwards the opt-out to an ancestor. While a filterable menu is open, its trigger calls `preventDefault()` on ArrowLeft and ArrowRight to skip its own handlers for them. Upstream skips them with `preventBaseUIHandler()` and leaves the default action alone.
 
 ### Internal filter roots
 
@@ -545,9 +541,9 @@ Local: Svelte delegates the item handlers to the document and can add that liste
 
 Upstream: `ContextMenu.Root` starts a new `FloatingTree`, so a context menu opened from another context menu's item has its own menu events and closes on its own. A press in the inner popup still counts as inside the outer menu: the inner popup is a React child of the outer item, so the press bubbles through the outer floating element's capture handlers, and `useDismiss` reads that as `insideReactTree`.
 
-Local: a portaled popup's events do not bubble through the element that rendered it, so `DismissInteraction` counts a press as inside only when it lands in the menu's own popup or a tree child's popup. A context menu root therefore gets a new tree for its menu events only (item `close`, `menuopenchange` and `itemhover`), so an inner item press closes only the inner menu. Its floating node stays in the enclosing tree, so the outer menu counts presses in the inner popup as inside. A fully separate tree would close the outer menu on every inner press. An enclosing Dialog or Popover also sees the open context menu as a child, so an Escape pressed before the menu takes focus closes only the menu.
+Local: a portaled popup's events do not bubble through the element that rendered it, so `DismissInteraction` counts a press as inside only when it lands in the menu's own popup or a tree child's popup. A context menu root therefore gets a new tree for its menu events only (item `close`, `menuopenchange` and `itemhover`), so an inner item press closes only the inner menu. Its floating node stays in the enclosing tree, so the outer menu counts presses in the inner popup as inside. A fully separate tree would close the outer menu on every inner press. An enclosing Dialog or Popover also sees the open context menu as a child, so an Escape pressed before the menu takes focus closes only the menu. A hover-opened Popover or PreviewCard likewise treats the pointer moving into its context menu as moving into a child and stays open, then closes with `trigger-hover` once the menu is closed and the pointer leaves. A NavigationMenu shares the same hover hook, but no spec drives it.
 
-Test: `src/lib/context-menu/ContextMenu.svelte.spec.ts` (`closes a context menu opened from an item without closing the outer one` and the `inside an open` cases) and the `nested` case in `src/routes/fixtures/context-menu/context-menu.e2e.ts`.
+Test: `src/lib/context-menu/ContextMenu.svelte.spec.ts` (`closes a context menu opened from an item without closing the outer one`, the `inside an open` cases and the `inside a hover-opened` cases) and the `nested` case in `src/routes/fixtures/context-menu/context-menu.e2e.ts`.
 
 ### Not covered
 

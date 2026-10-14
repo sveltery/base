@@ -4,10 +4,13 @@
 	let {
 		outer,
 		inBox = false,
+		hover = false,
 		reasons = []
 	}: {
 		outer: 'popover' | 'dialog' | 'menu' | 'preview-card' | 'navigation-menu';
 		inBox?: boolean;
+		/** Opens the popover or preview card on pointer hover, with no delay. */
+		hover?: boolean;
 		reasons?: string[];
 	} = $props();
 
@@ -19,7 +22,9 @@
 
 {#snippet contextMenu()}
 	<ContextMenu.Root>
-		<ContextMenu.Trigger data-testid="ctx-trigger">Card</ContextMenu.Trigger>
+		<ContextMenu.Trigger data-testid="ctx-trigger" style="display:block;width:150px;height:40px"
+			>Card</ContextMenu.Trigger
+		>
 		<ContextMenu.Portal container={inBox ? box : undefined}>
 			<ContextMenu.Positioner>
 				<ContextMenu.Popup data-testid="ctx-menu">
@@ -33,7 +38,9 @@
 <div data-testid="box" bind:this={box}></div>
 {#if outer === 'popover'}
 	<Popover.Root {onOpenChange}>
-		<Popover.Trigger data-testid="outer-trigger">Open</Popover.Trigger>
+		<Popover.Trigger data-testid="outer-trigger" openOnHover={hover} delay={0} closeDelay={0}
+			>Open</Popover.Trigger
+		>
 		<Popover.Portal>
 			<Popover.Positioner>
 				<Popover.Popup data-testid="outer">{@render contextMenu()}</Popover.Popup>
@@ -57,8 +64,10 @@
 		</Menu.Portal>
 	</Menu.Root>
 {:else if outer === 'preview-card'}
-	<PreviewCard.Root open {onOpenChange}>
-		<PreviewCard.Trigger href="#" data-testid="outer-trigger">Link</PreviewCard.Trigger>
+	<PreviewCard.Root open={hover ? undefined : true} {onOpenChange}>
+		<PreviewCard.Trigger href="#" data-testid="outer-trigger" delay={0} closeDelay={0}
+			>Link</PreviewCard.Trigger
+		>
 		<PreviewCard.Portal>
 			<PreviewCard.Positioner>
 				<PreviewCard.Popup data-testid="outer">{@render contextMenu()}</PreviewCard.Popup>
@@ -87,3 +96,4 @@
 		</NavigationMenu.Portal>
 	</NavigationMenu.Root>
 {/if}
+<div data-testid="far" style="position:fixed;right:0;bottom:0;width:50px;height:50px">far</div>
