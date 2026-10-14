@@ -459,6 +459,14 @@ Upstream: the trigger adds a one-time `mouseup` listener to the document. React'
 
 Local: Svelte delegates the item handlers to the document and can add that listener only when the first item mounts, after the trigger's listener. The trigger listens on the window, so the item still runs first.
 
+### A nested context menu shares the outer floating tree
+
+Upstream: `ContextMenu.Root` starts a new `FloatingTree`, so a context menu opened from another context menu's item has its own menu events and closes on its own. A press in the inner popup still counts as inside the outer menu: the inner popup is a React child of the outer item, so the press bubbles through the outer floating element's capture handlers, and `useDismiss` reads that as `insideReactTree`.
+
+Local: a portaled popup's events do not bubble through the element that rendered it, so `DismissInteraction` counts a press as inside only when it lands in the menu's own popup or a tree child's popup. A context menu root therefore gets a new tree for its menu events only (item `close`, `menuopenchange` and `itemhover`), so an inner item press closes only the inner menu. Its floating node stays in the enclosing tree, so the outer menu counts presses in the inner popup as inside. A fully separate tree would close the outer menu on every inner press.
+
+Test: `src/lib/context-menu/ContextMenu.svelte.spec.ts` (`closes a context menu opened from an item without closing the outer one`) and the `nested` case in `src/routes/fixtures/context-menu/context-menu.e2e.ts`.
+
 ### Not covered
 
 React-only cases: `describeConformance` (refs, `className` and style functions). Upstream's positioner cases spy on `useAnchorPositioning` arguments. The local spec asserts the placement instead: the pointer anchor, explicit placement and offsets, fixed positioning, the alignment flip at the viewport edge, and a submenu against its trigger. The `uses the layout viewport for a root context menu` case is covered by a stand-in `window.visualViewport` half the page wide, since the test browser cannot pinch zoom. The `uses the visual viewport for a context menu submenu` case has no observable result in the test viewport. `-webkit-touch-callout: none` is set on the trigger, but Chromium drops it, so no spec reads it.
