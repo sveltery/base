@@ -9,3 +9,4 @@ export const Collapsible = {
 };
 
 export type * from './types.js';
+export * from './data-attributes.js';

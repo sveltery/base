@@ -10,3 +10,4 @@ export const Switch = {
 };
 
 export type * from './types.js';
+export * from './data-attributes.js';

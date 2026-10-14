@@ -6,3 +6,4 @@ import Root from './Root.svelte';
 export const Avatar = { Root, Image, Fallback };
 
 export type * from './types.js';
+export * from './data-attributes.js';

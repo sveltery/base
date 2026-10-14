@@ -30,3 +30,4 @@ export const Popover = {
 
 export { PopoverHandle, createPopoverHandle as createHandle } from './handle.svelte.js';
 export type * from './types.js';
+export * from './data-attributes.js';

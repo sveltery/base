@@ -358,7 +358,6 @@ You can also put several triggers inside one `AlertDialog.Root` without a handle
 - `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`. `AlertDialog.Root` renders no element, so it has no `render`.
 - The `AlertDialog.Root` children snippet receives `{ payload }`, where React passes a render function.
 - `actionsRef` is replaced by `bind:this` on `AlertDialog.Root`, which exposes `close()` and `unmount()`.
-- The data attribute and CSS variable namespaces, such as `AlertDialogPopupDataAttributes`, are not exported. The tables below list them.
 - Handlers use lowercase names, such as `onclick`. Refs are not supported.
 
 ## API reference

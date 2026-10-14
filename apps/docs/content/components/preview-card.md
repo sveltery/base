@@ -222,7 +222,6 @@ You can also put several triggers inside one `PreviewCard.Root` without a handle
 
 - `open` and `triggerId` are bindable props. Use `bind:open` and `bind:triggerId` instead of `open`, `defaultOpen`, `triggerId`, and `defaultTriggerId`. There are no `defaultOpen` or `defaultTriggerId` props. The first value you pass is the default.
 - `actionsRef` is not available. Use `bind:this` on `PreviewCard.Root`, which exposes `close()` and `unmount()`.
-- The `PreviewCard*DataAttributes` and `PreviewCard*CssVars` namespaces are not exported. Use the attribute and variable names in this page.
 - Create a handle with `PreviewCard.createHandle()` or `createPreviewCardHandle`. There is no top-level `createHandle` export, because Popover already exports that name from the library barrel.
 - Each trigger supplies its `payload` and `closeDelay`, and the card reads them from the active trigger. A change to the payload of the active trigger shows at once. If the active trigger unmounts while the card stays open, for example after you cancel a close, the card keeps the values the trigger had when it unmounted.
 - A bound `triggerId` whose element registers late moves the anchor to that element. A card opened without a trigger press uses its only trigger as the anchor.

@@ -287,7 +287,6 @@ The popup stays mounted until its closing animation finishes. To animate the clo
 
 - `value` is a bindable prop. Use `bind:value` instead of `value` and `defaultValue`. There is no `defaultValue` prop. A value passed without `bind:` is the initial value.
 - `actionsRef` is not available. Use `bind:this` on `NavigationMenu.Root`, which exposes `close()` and `unmount()`.
-- The `NavigationMenu*DataAttributes` and `NavigationMenu*CssVars` namespaces are not exported. Use the attribute and variable names in this page.
 - `NavigationMenu.Content` stays in the component tree of its item. While the item is active, the element moves into the viewport. Base UI renders it there through a React portal. Events from the content bubble through the viewport and the popup, as the DOM places it.
 - The size variables are part of each element's `style`. A `style` you pass merges with them.
 - Item values compare by identity. A `$state` object is a deep proxy and never equals the original object, so use primitive values or keep object values in `$state.raw`.
