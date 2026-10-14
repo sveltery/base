@@ -497,3 +497,11 @@ Test: `packages/floating-ui-svelte/src/components/FloatingTree.svelte.spec.ts` (
 `FloatingFocusManager` waits one task before a focus-out close when focus moves from a nested popup's trigger into an open ancestor popup without a keyboard press or an outside press. It then closes with `focus-out` if the popup is still open. A Menu pointer highlight moves focus from a submenu trigger to a sibling item on pointer enter, and the same move's mousemove closes the submenu with `sibling-open`. Upstream renders that highlight after the input events, so the `sibling-open` close lands first there.
 
 Test: `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` (`closes a sibling submenu without closing the root on click`) and `src/lib/popover/Popover.svelte.spec.ts` (`closes the inner popover when focus moves from its trigger to another control of the outer popup`).
+
+### Queued list focus after close
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/hooks/useListNavigation.ts`. `focusItem` calls `enqueueFocus(item, { sync, preventScroll: true })` with no `shouldFocus`. A deferred item focus runs on the next frame even when the popup has closed in between.
+
+Local: the queued focus passes `shouldFocus: () => store.isOpen()`. A Tab or Escape that closes the popup before the frame drops the focus, so it does not land on an item of a closed popup that stays mounted.
+
+Test: `src/tests/list-navigation/useListNavigation.svelte.spec.ts` (`drops a queued item focus when the list closes before it lands`).
