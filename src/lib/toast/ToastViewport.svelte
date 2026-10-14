@@ -14,6 +14,7 @@
 		activeElement,
 		contains,
 		getTarget,
+		matchesFocusVisible,
 		ownerDocument,
 		ownerWindow,
 		visuallyHiddenStyle
@@ -25,7 +26,6 @@
 	import { useToastStore } from './context.js';
 	import ToastText from './ToastText.svelte';
 	import type { ToastViewportProps, ToastViewportState } from './types.js';
-	import { isFocusVisible } from './utils.js';
 
 	let { render, children, ...elementProps }: ToastViewportProps = $props();
 
@@ -75,7 +75,7 @@
 
 			const target = getTarget(event);
 			const activeEl = activeElement(ownerDocument(viewport));
-			if (target === win || !contains(viewport, target) || !isFocusVisible(activeEl)) {
+			if (target === win || !contains(viewport, target) || !matchesFocusVisible(activeEl)) {
 				store.resumeTimers();
 			}
 
@@ -165,7 +165,7 @@
 
 		// Only expand when the active element is focus-visible, so a click inside without
 		// keyboard navigation does not keep the viewport expanded.
-		if (isFocusVisible(activeElement(ownerDocument(store.viewport)))) {
+		if (matchesFocusVisible(activeElement(ownerDocument(store.viewport)))) {
 			store.focused = true;
 			store.pauseTimers();
 		}
