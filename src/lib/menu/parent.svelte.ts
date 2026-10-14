@@ -10,7 +10,7 @@ import type { Attachment } from 'svelte/attachments';
 import type { FloatingTreeStore } from '@sveltery/floating-ui-svelte';
 import { defineContext } from '../internal/context.js';
 import type { MenuStore } from './store.svelte.js';
-import type { MenuChangeEventDetails, MenuOrientation } from './types.js';
+import type { MenuOrientation } from './types.js';
 
 /** Shared flag: a press that opened a menu may activate an item on mouseup. */
 export interface MouseUpGate {
@@ -44,7 +44,7 @@ export interface MenubarParentContext {
 }
 
 export interface ContextMenuTarget {
-	setOpen(open: boolean, details: MenuChangeEventDetails): void;
+	setOpen: MenuStore['setOpen'];
 	readonly positionerElement: HTMLElement | null;
 }
 
@@ -54,6 +54,8 @@ export interface ContextMenuParentContext {
 	backdropElement: HTMLElement | null;
 	/** The positioner's internal backdrop publishes its element here. */
 	internalBackdropElement: HTMLElement | null;
+	/** `ContextMenu.Trigger` publishes its element here. */
+	triggerElement: HTMLElement | null;
 	/**
 	 * `Menu.Root` publishes itself here, so the context menu trigger can open it and read its
 	 * positioner.
