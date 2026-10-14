@@ -1419,8 +1419,7 @@ describe('Menu.FilterProvider submenus', () => {
 });
 
 describe('Menu.FilterProvider while the popup animates out', () => {
-	// The focus manager returns focus when the menu closes, not when the popup unmounts as
-	// upstream does, so `finalFocus: false` keeps focus on the input for the exit.
+	// The focus manager returns focus once the popup unmounts, so the input keeps focus for the exit.
 	const EXIT =
 		'@keyframes filter-exit { to { opacity: 0; } } .filter-exit[data-ending-style] { animation: filter-exit 10s linear; }';
 
@@ -1444,7 +1443,7 @@ describe('Menu.FilterProvider while the popup animates out', () => {
 			render(MenuHarness, {
 				triggerLabel: 'Actions',
 				rootProps: { onOpenChange },
-				popupProps: { class: 'filter-exit', finalFocus: false },
+				popupProps: { class: 'filter-exit' },
 				filter: {},
 				items: items('Rename')
 			});
@@ -1471,7 +1470,7 @@ describe('Menu.FilterProvider while the popup animates out', () => {
 			const onValueChange = vi.fn();
 			render(MenuHarness, {
 				triggerLabel: 'Actions',
-				popupProps: { class: 'filter-exit', finalFocus: false },
+				popupProps: { class: 'filter-exit' },
 				filter: { providerProps: { value: query, onValueChange } },
 				items: items('Rename', 'Delete')
 			});
