@@ -400,12 +400,6 @@ Upstream: a consumer handler calls `event.preventBaseUIHandler()`, and the flag 
 
 Local: a consumer handler calls `event.preventDefault()`, as with every part (see `mergeProps`). `Menu.Input` passes its consumer handler through `forwardConsumerPrevention`, so the popup skips its own handlers for that key. No other menu part forwards the opt-out to an ancestor.
 
-### Submenu trigger focus handback
-
-Upstream: when focus that left a filterable submenu's input lands on its trigger, the trigger hands it back, and the consumer's `onFocus` runs.
-
-Local: the trigger hands focus back to the input without calling the consumer's `onfocus`, since that focus never settles on the trigger.
-
 ### Internal filter roots
 
 Upstream: `MenuFilterRoot` and `MenuFilterSubmenuRoot` are internal components that `Menu.FilterProvider` renders around a root or a submenu root.
@@ -438,7 +432,7 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Not covered
 
-React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. Filter cases that need exit animations (`keeps submenu filtering updated during the exit transition`, `ignores %s in the input while the popup animates out`, the scoping cases that assert `data-ending-style`) are not ported, since the specs run without CSS transitions. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
+React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter cases that need exit animations add a CSS animation or transition in the spec. The local focus manager returns focus when the menu closes, not when the popup unmounts (see [Menu open events are emitted before the DOM update](#menu-open-events-are-emitted-before-the-dom-update)). So the cases that type into the input while the popup animates out pass `finalFocus={false}` to keep focus on the input. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
 
 ### Submenu trigger press type
 
@@ -472,9 +466,9 @@ Local: a menubar trigger that owns a detached menu sets the menu's parent to the
 
 ### Menu open events are emitted before the DOM update
 
-Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect, and the focus manager returns focus a microtask after a close.
+Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect, and the focus manager returns focus a microtask after a close. With an exit animation, it returns focus once the popup unmounts, so focus stays in the closing popup until then.
 
-Local: the shared `FloatingFocusManager` returns focus inside the closing flush. `MenuPositioner` emits from `$effect.pre`, so the menubar clears `data-has-submenu-open` before the returned focus reaches the trigger. Without it, an outside press that closed a menu let the returned focus reopen it.
+Local: the shared `FloatingFocusManager` returns focus inside the closing flush, also while an exit animation runs. `MenuPositioner` emits from `$effect.pre`, so the menubar clears `data-has-submenu-open` before the returned focus reaches the trigger. Without it, an outside press that closed a menu let the returned focus reopen it.
 
 ### Arrow keys focus synchronously
 

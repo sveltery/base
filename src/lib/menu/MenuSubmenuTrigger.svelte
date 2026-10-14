@@ -22,6 +22,7 @@
 		isVirtualPointerEvent,
 		safePolygon
 	} from '@sveltery/floating-ui-svelte';
+	import { preventBaseUIHandler } from '../internal/mergeProps.js';
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { findMenuRoot } from './context.svelte.js';
@@ -96,21 +97,19 @@
 					) {
 						store.focusOwner?.focus({ preventScroll: true });
 					}
+				},
+				// A plain parent moves focus to whichever item the pointer crosses. While the submenu
+				// is open and its input held focus, focus goes straight back so crossing the trigger
+				// does not interrupt typing.
+				onfocus(event: FocusEvent) {
+					const owner = store.focusOwner;
+					if (owner && store.open && event.relatedTarget === owner) {
+						preventBaseUIHandler(event);
+						owner.focus({ preventScroll: true });
+					}
 				}
 			}
 		: undefined;
-
-	/**
-	 * A plain parent moves focus to whichever item the pointer crosses. While the submenu is open
-	 * and its input held focus, focus goes straight back so crossing the trigger does not
-	 * interrupt typing.
-	 */
-	function handBackFocus(event: FocusEvent) {
-		const owner = store.focusOwner;
-		if (!filterable || !owner || !store.open || event.relatedTarget !== owner) return false;
-		owner.focus({ preventScroll: true });
-		return true;
-	}
 
 	function owned() {
 		return { payload: undefined, closeDelay };
@@ -245,22 +244,12 @@
 			elementProps
 		)
 	);
-
-	const hostPropsWithHandBack = $derived.by(() => {
-		const { onfocus } = hostProps;
-		return {
-			...hostProps,
-			onfocus(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
-				if (!handBackFocus(event)) onfocus?.(event);
-			}
-		};
-	});
 </script>
 
 {#if visible}
 	{#if render}
-		{@render render(hostPropsWithHandBack, state, children)}
+		{@render render(hostProps, state, children)}
 	{:else}
-		<div {...hostPropsWithHandBack}>{@render children?.()}</div>
+		<div {...hostProps}>{@render children?.()}</div>
 	{/if}
 {/if}
