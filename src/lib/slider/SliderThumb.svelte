@@ -288,6 +288,9 @@
 	<input {...inputProps} bind:this={inputEl} />
 	{#if showScript}
 		<!-- Upstream's edge-alignment script. The body is static and the nonce is escaped. -->
+		<!-- The client script is empty and hydration keeps the server one. -->
+		<!-- eslint-disable-next-line svelte/no-unused-svelte-ignore -- a hydration-time warning -->
+		<!-- svelte-ignore hydration_html_changed -->
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html prehydrationScriptElement(prehydrationScript, csp.nonce)}
 	{/if}
