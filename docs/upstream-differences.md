@@ -738,11 +738,12 @@ Test: `src/lib/autocomplete/types.test-d.ts`.
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
 
+Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `inputRef`. Given a `name`, each renders its native `<input>` elements in the DOM under that name (Radio items take the RadioGroup's), so reach them through the form with `form.elements.namedItem(name)`. That returns a `RadioNodeList` when several inputs share the name, as with radios, range thumbs or an `uncheckedValue`.
+
 | Component          | Not ported yet                                                                                         |
 | ------------------ | ------------------------------------------------------------------------------------------------------ |
 | Accordion          | React.Activity animation resume, refs, roving focus (`orientation`, `loopFocus`)                       |
 | Button             | Composite and Toolbar integration                                                                      |
-| Checkbox           | `inputRef`                                                                                             |
 | CheckboxGroup      | Disabled or other-form values filtered out of the Field value                                          |
 | Collapsible        | React.Activity animation resume, refs                                                                  |
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                                    |
@@ -754,16 +755,14 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Meter              | React `ref`, numeric production error codes                                                            |
 | Progress           | refs                                                                                                   |
 | Form               | Fieldset Form-spec cases; `actionsRef`                                                                 |
-| Switch             | `inputRef`                                                                                             |
-| Radio              | `inputRef`                                                                                             |
-| RadioGroup         | `inputRef`, scroll-into-view, text-field arrow exceptions                                              |
+| RadioGroup         | scroll-into-view, text-field arrow exceptions                                                          |
 | Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, shadow-boundary offsets, refs    |
 | Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers |
-| NumberField        | refs, `inputRef`                                                                                       |
+| NumberField        | refs                                                                                                   |
 | ScrollArea         | refs                                                                                                   |
-| Slider             | refs, `inputRef`, keeping the prehydration script body out of client bundles                           |
+| Slider             | refs, keeping the prehydration script body out of client bundles                                       |
 | DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                             |
-| OTPField           | refs, `inputRef`, React controlled lock                                                                |
+| OTPField           | refs, React controlled lock                                                                            |
 | CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                          |
 | Overlay foundation | Internal only. No public component                                                                     |
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
