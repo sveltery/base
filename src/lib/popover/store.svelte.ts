@@ -65,6 +65,8 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	private readonly readDismissFloating: PopoverStoreOptions['readDismissFloating'];
 	/** Id written for this open. Survives a bound trigger id that the parent sets back. */
 	private claimedTriggerId: string | null = null;
+	/** Last id this store wrote to `triggerId`. A consumer's own id is never cleared. */
+	private writtenTriggerId: string | null = null;
 	private readonly readers = new SvelteMap<string, () => TriggerOwned>();
 	private pendingSwitch: AbortController | null = null;
 	/** Trigger that opened the popup. Click remembers the next node before setOpen. */
@@ -108,6 +110,19 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 				if (!id) return;
 				this.domReferenceElement = only;
 				this.writeTriggerId(id);
+			});
+		});
+
+		// Upstream resets `activeTriggerId` once the popup unmounts, so the next open without a
+		// trigger claims the only trigger again, even one that remounted under a new id.
+		$effect(() => {
+			if (this.open || this.mounted) return;
+			untrack(() => {
+				if (this.writtenTriggerId !== null && this.readTriggerId() === this.writtenTriggerId) {
+					this.writeTriggerIdValue(null);
+				}
+				this.writtenTriggerId = null;
+				this.claimedTriggerId = null;
 			});
 		});
 
@@ -202,6 +217,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	writeTriggerId(id: string | null) {
 		this.claimedTriggerId = id;
 		if ((this.readTriggerId() ?? null) === id) return;
+		this.writtenTriggerId = id;
 		this.writeTriggerIdValue(id);
 	}
 

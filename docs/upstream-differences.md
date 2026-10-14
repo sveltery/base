@@ -156,6 +156,14 @@ Local: a disabled `Popover.Trigger` also renders `data-trigger-disabled`, so tha
 
 Test: `src/lib/popover/PopoverTriggers.svelte.spec.ts` (`closes when hovering a disabled trigger while another trigger is open`).
 
+### Trigger id after the popover unmounts
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/popups/popupStoreUtils.ts` (`useOpenStateTransitions` and `useImplicitActiveTrigger`). Once the popup unmounts, the store resets its own `activeTriggerId` to `null`. The next open that names no trigger, such as a controlled `open`, claims the only registered trigger. The `triggerId` prop is never written by the store.
+
+Local: `triggerId` is one `$bindable` prop for both values. The store writes the active trigger's id into it. Once the popover unmounts, the store resets an id that it wrote to `null`, if the parent has not changed it since. An id that the parent set stays. A `bind:triggerId` therefore reads `null` after the popover closes from a trigger whose id the parent did not set.
+
+Test: `src/lib/popover/PopoverPositioner.svelte.spec.ts` (`anchors to the only trigger when bind:open opens it after the trigger that last opened it remounted`) and `src/lib/popover/PopoverTriggers.svelte.spec.ts` (`claims the only trigger on a bind:open after the parent cleared triggerId`).
+
 ## Dialog
 
 Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed. `finalFocus={null}` does not return focus. A function that returns `null` focuses the trigger. `openWithPayload` stays on `Dialog.Handle`. Popover does not have it.
