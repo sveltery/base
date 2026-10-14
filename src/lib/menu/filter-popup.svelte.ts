@@ -1,12 +1,12 @@
 // Derived from Base UI v1.9.0 packages/react/src/menu/filter-root/useMenuFilterPopup.ts,
 // MenuFilterPopup.tsx and useVirtualFocusParentHandoff.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// Upstream sees a portaled submenu's events because they bubble through React's tree. Here a
-// submenu popup relays its `focusin` to the parent popup, which calls `focusIn` with its own
-// element.
+// Upstream sees focus in a portaled submenu because its events bubble through React's tree. Here
+// the popup listens for `focusin` on the document and matches the menu's root id.
 
 import { DEV } from 'esm-env';
 import { untrack } from 'svelte';
+import { on } from 'svelte/events';
 import { isElement, isHTMLElement } from '@floating-ui/utils/dom';
 import { REASONS, activeElement, contains, getTarget, ownerDocument, warn } from '@sveltery/utils';
 import { isCrossOrientationCloseKey, isTypeableElement } from '@sveltery/floating-ui-svelte';
@@ -26,6 +26,17 @@ export class MenuFilterPopupBehavior {
 		private readonly store: MenuStore,
 		private readonly read: () => { orientation: MenuOrientation; rtl: boolean }
 	) {
+		$effect(() => {
+			const popup = store.popupElement;
+			if (!store.open || !popup) return;
+			const off = on(ownerDocument(popup), 'focusin', (event) =>
+				this.#trackNestedFocus(event, popup)
+			);
+			return () => {
+				off();
+				this.#nestedFocus = null;
+			};
+		});
 		if (DEV) {
 			$effect(() => {
 				if (!store.open) return;
@@ -102,20 +113,29 @@ export class MenuFilterPopupBehavior {
 		refocusOwner(owner);
 	}
 
-	/** `focusin` on the popup, or relayed from a portaled submenu. */
-	focusIn(event: FocusEvent, popup: HTMLElement) {
-		const owner = this.store.focusOwner;
+	#trackNestedFocus(event: FocusEvent, popup: HTMLElement) {
 		const target = getTarget(event);
-		if (target === owner) {
+		if (target === this.store.focusOwner) {
 			this.#nestedFocus = null;
-		} else if (isHTMLElement(target) && !contains(popup, target) && !isRefocusingOwner()) {
-			this.#nestedFocus = target;
+			return;
 		}
-		// Focus that lands on the popup itself, the focus manager's fallback, moves to the input.
-		if (this.store.open && target === popup) owner?.focus({ preventScroll: true });
+		if (!isHTMLElement(target) || contains(popup, target) || isRefocusingOwner()) return;
+		// Every popup of this menu carries the root's id. Focus in an ancestor popup is not nested.
+		const host = target.closest('[data-rootownerid]');
+		if (host?.getAttribute('data-rootownerid') !== this.store.rootId) return;
+		for (let parent = this.store.parent; parent.type === 'menu'; parent = parent.store.parent) {
+			if (contains(parent.store.popupElement, target)) return;
+		}
+		this.#nestedFocus = target;
 	}
 
-	/** `keydown` on the popup, or relayed from a portaled submenu. */
+	#focusIn(event: FocusEvent) {
+		// Focus that lands on the popup itself, the focus manager's fallback, moves to the input.
+		if (this.store.open && getTarget(event) === event.currentTarget) {
+			this.store.focusOwner?.focus({ preventScroll: true });
+		}
+	}
+
 	keyDown(event: KeyboardEvent) {
 		const owner = this.store.focusOwner;
 		const target = getTarget(event);
@@ -123,7 +143,6 @@ export class MenuFilterPopupBehavior {
 		const { orientation, rtl } = this.read();
 		if (isCrossOrientationCloseKey(event.key, orientation, rtl, false)) {
 			owner?.focus({ preventScroll: true });
-			// Keeps a nested popup's key from the parent.
 			event.stopPropagation();
 		}
 	}
@@ -148,7 +167,7 @@ export class MenuFilterPopupBehavior {
 		onmouseover: (event: MouseEvent) => {
 			if (this.#pointerType === 'mouse' && this.#nestedFocus) this.#restoreInputFocus(event, true);
 		},
-		onfocusin: (event: FocusEvent) => this.focusIn(event, event.currentTarget as HTMLElement),
+		onfocusin: (event: FocusEvent) => this.#focusIn(event),
 		onkeydown: (event: KeyboardEvent) => this.keyDown(event)
 	};
 }

@@ -7,11 +7,14 @@
 import { DEV } from 'esm-env';
 import { getAbortSignal, untrack } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
+import { isHTMLElement } from '@floating-ui/utils/dom';
 import { REASONS, ScopedTimeout } from '@sveltery/utils';
 import {
 	DismissInteraction,
 	ListNavigation,
 	Typeahead,
+	isMainOrientationKey,
+	stopEvent,
 	setFloatingTree,
 	useFloatingNodeId,
 	useFloatingParentNodeId
@@ -23,6 +26,7 @@ import { mergeProps } from '../internal/mergeProps.js';
 import { FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
 import { TYPEAHEAD_RESET_MS } from './constants.js';
 import { findMenuRoot, setMenuRoot, type MenuRootContext } from './context.svelte.js';
+import { moveHighlightFrom } from './filter-keydown.js';
 import { MenuFilter, type MenuFilterProviderContext } from './filter-root.svelte.js';
 import type { MenuHandle } from './handle.svelte.js';
 import {
@@ -224,12 +228,31 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 
 	useFloatingNodeId(store);
 
+	// A plain submenu that closes on its parent's main-axis key moves the parent's highlight on
+	// from the trigger, as the parent's own list navigation does for that key. A filterable
+	// submenu does this in its own key handling.
+	function moveParentFrom(trigger: Element, event: KeyboardEvent) {
+		if (virtualFocus || parent.type !== 'menu' || !parentRoot) return;
+		if (!isHTMLElement(trigger) || !isMainOrientationKey(event.key, parentRoot.orientation)) return;
+		// The parent handled the key, so a menubar must not move as well.
+		stopEvent(event);
+		const item = moveHighlightFrom(parentRoot.store, trigger, event, {
+			orientation: parentRoot.orientation,
+			rtl: direction.direction === 'rtl',
+			loopFocus: parentRoot.loopFocus,
+			allowEscape: parentRoot.store.virtualFocus && parentRoot.allowEscape
+		});
+		if (!parentRoot.store.virtualFocus) item?.focus({ preventScroll: true });
+	}
+
 	// Upstream merges these handlers, and every one runs. `mergeProps` here would skip the
 	// handlers left of one that calls `preventDefault()`, so the chain is explicit.
 	function popupKeyDown(event: KeyboardEvent) {
+		const trigger = store.open ? store.activeTriggerElement : null;
 		(dismiss.floating.onkeydown as (event: KeyboardEvent) => void)(event);
 		(listNavigation.floating.onkeydown as ((event: KeyboardEvent) => void) | undefined)?.(event);
 		(typeahead.floating.onkeydown as ((event: KeyboardEvent) => void) | undefined)?.(event);
+		if (trigger && !store.open) moveParentFrom(trigger, event);
 		const relay = store.keyboardEventRelay;
 		if (relay && !event.cancelBubble) relay(event);
 	}

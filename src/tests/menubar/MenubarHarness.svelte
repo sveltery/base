@@ -14,12 +14,15 @@
 		variant = 'contained',
 		menubarProps = {},
 		outside = false,
+		menuOrientation,
 		onOpenChange
 	}: {
 		variant?: 'contained' | 'detached' | 'separate' | 'multiple';
 		menubarProps?: MenubarProps;
 		/** Renders an `outside` button after the menubar. */
 		outside?: boolean;
+		/** The orientation of each contained menu. */
+		menuOrientation?: 'horizontal' | 'vertical';
 		/** Called with the menu label for every root open change. */
 		onOpenChange?: (label: string, open: boolean, reason: string) => void;
 	} = $props();
@@ -72,7 +75,10 @@
 <Menubar {...menubarProps} style="max-width: 25vw; display: flex">
 	{#if variant === 'contained'}
 		{#each menuContents as menu (menu.label)}
-			<Menu.Root onOpenChange={(open, details) => onOpenChange?.(menu.label, open, details.reason)}>
+			<Menu.Root
+				orientation={menuOrientation}
+				onOpenChange={(open, details) => onOpenChange?.(menu.label, open, details.reason)}
+			>
 				<Menu.Trigger data-testid={menu.triggerTestId}>{menu.label}</Menu.Trigger>
 				{@render portal(menu)}
 			</Menu.Root>
