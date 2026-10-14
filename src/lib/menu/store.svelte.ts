@@ -67,6 +67,8 @@ export interface MenuStoreOptions {
 	parent: MenuParent;
 	rootId: string;
 	tree: FloatingTreeStore | null;
+	/** The enclosing menu's event channel, for a root menu rendered inside another menu's popup. */
+	menuEvents?: EventTarget;
 	parentNodeId: string | null;
 	readDisabled: () => boolean;
 	readModal: () => boolean | undefined;
@@ -96,7 +98,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	parent = $state.raw<MenuParent>({ type: undefined });
 	readonly ownRootId: string;
 	private readonly ownTree: FloatingTreeStore | null;
-	private readonly ownMenuEvents = new EventTarget();
+	private readonly ownMenuEvents: EventTarget;
 	private readonly ownParentNodeId: string | null;
 	/** Every item of this menu, in document order. */
 	readonly items = new ElementList<HTMLElement, MenuItemRecord>();
@@ -189,6 +191,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		this.parent = options.parent;
 		this.ownRootId = options.rootId;
 		this.ownTree = options.tree;
+		this.ownMenuEvents = options.menuEvents ?? new EventTarget();
 		this.ownParentNodeId = options.parentNodeId;
 		this.instantType = options.instantType;
 		this.virtualFocus = options.virtualFocus ?? false;
@@ -273,9 +276,9 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 
 	/**
 	 * Upstream `floatingTreeRoot`'s events: the channel for item `close`, `menuopenchange` and
-	 * `itemhover`. A root menu, a context menu and a menubar each own one, and submenus share it, so
-	 * another menu group in the same floating tree, such as a context menu inside this popup, does
-	 * not hear them.
+	 * `itemhover`. A context menu, a menubar and a root menu outside any menu each own one. Submenus
+	 * and a root menu inside a menu's popup share their enclosing menu's, so another group in the
+	 * same floating tree, such as a context menu inside this popup, does not hear them.
 	 */
 	get menuEvents(): EventTarget {
 		const parent = this.parent;

@@ -1,6 +1,7 @@
-// A menu group is a root menu, a context menu or a menubar with its submenus. Menus of different
-// groups share the floating tree but not their open changes, item presses or item hovers, as
-// upstream gives each group its own `floatingTreeRoot`.
+// A menu group is a context menu, a menubar or an outermost root menu, with its submenus and any
+// root menu inside its popups. Menus of different groups share the floating tree but not their
+// open changes, item presses or item hovers, as upstream gives each group its own
+// `floatingTreeRoot`.
 import { tick } from 'svelte';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
@@ -82,7 +83,7 @@ describe('menu groups in one floating tree', () => {
 		});
 	});
 
-	it('keeps a nested root menu open when the pointer crosses an outer item', async () => {
+	it('closes a root menu inside a menu popup when the pointer crosses an outer item', async () => {
 		const reasons: string[] = [];
 		await hoverOpen(reasons, 'plain');
 		clickElement(get('plain-trigger'));
@@ -90,10 +91,13 @@ describe('menu groups in one floating tree', () => {
 		await settle();
 		mouse(get('outer-item'), 'mousemove');
 		await settle();
-		expect({ plain: isOpen('plain'), reasons }).toEqual({ plain: true, reasons: [] });
+		expect({ plain: isOpen('plain'), reasons }).toEqual({
+			plain: false,
+			reasons: ['plain:sibling-open']
+		});
 	});
 
-	it('closes only a nested root menu on its item press', async () => {
+	it('closes the enclosing menu on an item press in a root menu inside its popup', async () => {
 		const reasons: string[] = [];
 		await hoverOpen(reasons, 'plain');
 		clickElement(get('plain-trigger'));
@@ -101,10 +105,10 @@ describe('menu groups in one floating tree', () => {
 		await settle();
 		clickElement(get('plain').querySelector<HTMLElement>('[role="menuitem"]')!);
 		await settle();
-		expect({ outer: isOpen('outer'), plain: isOpen('plain'), reasons }).toEqual({
-			outer: true,
-			plain: false,
-			reasons: ['plain:item-press']
+		expect({ outer: isOpen('outer'), plain: isOpen('plain') }).toEqual({
+			outer: false,
+			plain: false
 		});
+		expect(reasons.toSorted()).toEqual(['outer:item-press', 'plain:item-press']);
 	});
 });
