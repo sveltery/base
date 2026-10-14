@@ -431,6 +431,15 @@ describe('Field', () => {
 			expect(description.getAttributeNames().sort()).toEqual(['data-testid', 'id']);
 		});
 
+		it('keeps an author `for` on Field.Label inside and outside Field.Root', () => {
+			render(FieldHarness, { scenario: 'label-for' });
+			expect(
+				['inside', 'standalone', 'div'].map((id) =>
+					page.getByTestId(id).element().getAttribute('for')
+				)
+			).toEqual(['inside-target', 'standalone-target', 'div-target']);
+		});
+
 		it('throws when Field.Validity is rendered outside Field.Root', () => {
 			expect(() => render(Field.Validity)).toThrow(
 				'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'

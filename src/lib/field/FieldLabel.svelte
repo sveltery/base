@@ -111,10 +111,10 @@
 	}
 
 	const hostProps: HTMLLabelAttributes = $derived({
+		...(nativeLabel ? { for: labelable.controlId ?? undefined } : {}),
 		...elementProps,
 		...getStateAttributesProps(labelState, fieldValidityMapping),
 		id,
-		...(nativeLabel ? { for: labelable.controlId ?? undefined } : {}),
 		onmousedown: handleMouseDown,
 		onclick: handleClick,
 		...(!nativeLabel ? { onpointerdown: handlePointerDown } : {}),
