@@ -650,7 +650,53 @@ Test: `src/lib/combobox/ComboboxRoot.form.svelte.spec.ts`, `src/lib/combobox/Com
 
 ### Not covered
 
-`describeConformance` (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions, ref callbacks during commit and hydration, all through Autocomplete), the Strict Mode, `React.memo` and render-count cases, the `virtualized` and item `index` cases, the Label `captureOwnerStack` cases, and the Autocomplete cases in the Combobox suites have no Svelte counterpart here. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Live-region reset delays run on real timers instead of fake ones.
+`describeConformance` (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions, ref callbacks during commit and hydration, all through Autocomplete), the Strict Mode, `React.memo` and render-count cases, the `virtualized` and item `index` cases, the Label `captureOwnerStack` cases have no Svelte counterpart here. The Autocomplete cases in the Combobox suites run in `src/lib/autocomplete/AutocompleteRoot.svelte.spec.ts`. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Live-region reset delays run on real timers instead of fake ones.
+
+## Autocomplete
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/react/src/autocomplete/**`, over the same `AriaCombobox` core as Combobox. The paired fixture runs `@base-ui/react` 1.9.0.
+
+### Public surface
+
+Upstream: `value`/`defaultValue`/`onValueChange` hold the input text, with `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, the `Autocomplete.Item` `index` prop, a `ReactNode` or function `Autocomplete.Value` child, the item type taken from the `ItemValue` type argument, and the `*DataAttributes` namespaces of each part.
+
+Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef`, the item `index` prop and the data-attribute namespaces are not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
+
+Test: `src/lib/autocomplete/types.test-d.ts`, `src/lib/autocomplete/AutocompleteValue.svelte.spec.ts`.
+
+### Native reset and form sources
+
+Upstream: a native reset keeps the typed text, because React state does not follow the browser's reset of the input. See [Form reset](#form-reset).
+
+Local: a native reset restores `defaultValue` and calls no `onValueChange`. The input carries the name and the default as its `value` attribute, so a form source that reads the form after a reset sees the default. Inside a `Field.Root` bound to a form source, the autocomplete is kind `text`, per [Composite controls bound to a form source](#composite-controls-bound-to-a-form-source).
+
+Test: `src/routes/fixtures/autocomplete/autocomplete.e2e.ts` (`restores the default text on a native form reset`), the `bound Autocomplete` cases of `src/lib/field/bound-control.svelte.spec.ts`.
+
+### Server rendering names one input
+
+Upstream: the root starts with the input owning the form value, and a popup input takes the name once it mounts.
+
+Local: the server renders no popup input, so until the client hydrates, the rendered input owns the value and the server HTML names one control at most. After hydration a popup input hands the name to the hidden input until it mounts.
+
+Test: `src/lib/autocomplete/ssr.spec.ts`, `src/routes/fixtures/autocomplete/autocomplete.e2e.ts` (`svelte SSR renders the input with the name and default text`).
+
+### Fixes in the shared core
+
+The Autocomplete port corrected four behaviors of `AriaCombobox` that Combobox shares. With no selection the input text always counts as provided, as upstream Autocomplete always passes `inputValue`, so a popup input does not clear it on mount. The popup listens for `focusin`, because React's `onFocus` bubbles, so focus moving into the list returns to the input. `submitOnItemClick` submits only when the form has `requestSubmit`. An input that owns the form value carries its default for a native reset.
+
+Test: `src/lib/autocomplete/AutocompleteRoot.svelte.spec.ts`, `src/lib/autocomplete/AutocompleteRoot.form.svelte.spec.ts`.
+
+### Event types
+
+Upstream: a `keyboard` highlight reason carries a `KeyboardEvent`.
+
+Local: it carries an `Event`, as the shared `BaseUIHighlightEventDetails` types it.
+
+Test: `src/lib/autocomplete/types.test-d.ts`.
+
+### Not covered
+
+`describeConformance` (ref forwarding, render-prop cloning), the `React.startTransition` unmount case, and the `store.test.tsx` cases that observe React store transactions, `useStore` re-reads and ref callbacks during commit have no Svelte counterpart here. Upstream's click-open highlight case fires a click that neither focuses nor opens, so the local case asserts the highlight after a real click. The validation-ref case runs without its Switch, because each control registers its own input. The `onChange` and `onBlur` validation cases that upstream skips in a browser run here.
 
 ## Not ported yet
 
@@ -696,7 +742,8 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                               |
 | Toast              | refs, `className` and `style` callbacks                                                                |
 | Select             | `inputRef`, `ReactNode` labels and placeholder                                                         |
-| Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder, Autocomplete parts        |
+| Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder                            |
+| Autocomplete       | `inputRef`, Item `index`, `ReactNode` value children, data-attribute namespaces                        |
 
 ## Shared floating internals
 

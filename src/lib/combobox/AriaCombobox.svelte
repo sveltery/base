@@ -9,7 +9,7 @@
 	the values, as in Select.
 -->
 <script lang="ts">
-	import { flushSync, untrack } from 'svelte';
+	import { flushSync, onMount, untrack } from 'svelte';
 	import {
 		ClickInteraction,
 		DismissInteraction,
@@ -112,8 +112,10 @@
 		autoHighlight === 'always' ? 'always' : autoHighlight ? 'input-change' : false
 	);
 	const emptyValue = () => (selectionMode === 'multiple' ? [] : null);
+	// Without a selection the input text is the value, which Autocomplete always provides.
 	// svelte-ignore state_referenced_locally
-	const hasInputValue = inputValue !== undefined || defaultInputValue !== undefined;
+	const hasInputValue =
+		selectionMode === 'none' || inputValue !== undefined || defaultInputValue !== undefined;
 
 	// A popover nested in the popup joins this tree, so presses inside it are not outside presses.
 	setFloatingTree();
@@ -288,10 +290,14 @@
 		},
 		requestSubmit: () => {
 			const form = hiddenInput?.form ?? store.inputElement?.form;
-			form?.requestSubmit();
+			if (typeof form?.requestSubmit === 'function') form.requestSubmit();
 		},
 		readInputProps: () => inputProps,
-		readInputFormProps: () => (inputOwnsFormValue ? { name: submitName, ...boundProps } : {}),
+		// The default value is what a native reset restores, before the restore phase runs.
+		readInputFormProps: () =>
+			inputOwnsFormValue
+				? { name: submitName, defaultValue: serializedDefault, ...boundProps }
+				: {},
 		readPopupProps: () => popupProps,
 		readListProps: () => listProps,
 		readItemProps: () => itemProps
@@ -566,9 +572,15 @@
 	});
 
 	const boundProps = $derived(bound.inputProps());
+	// The server renders no popup input, so until the input registers, the rendered input owns
+	// the value and the server HTML names one control at most.
+	let hydrated = $state(false);
+	onMount(() => {
+		hydrated = true;
+	});
 	/** Without a selection, Autocomplete submits its input, which then carries the name. */
 	const inputOwnsFormValue = $derived(
-		selectionMode === 'none' && (inline || !store.inputInsidePopup)
+		selectionMode === 'none' && (inline || !hydrated || !store.inputInsidePopup)
 	);
 	const submitName = $derived(bound.bound ? boundProps.name : name);
 	const hiddenInputName = $derived(multiple || inputOwnsFormValue ? undefined : submitName);
