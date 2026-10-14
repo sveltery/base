@@ -10,13 +10,13 @@ import type {
 	ComboboxHighlightReason,
 	ComboboxInputGroupState,
 	ComboboxItemProps,
-	ComboboxItemsData,
 	ComboboxOpenChangeEventDetails,
 	ComboboxSharedRootProps,
 	ComboboxTriggerProps,
 	ComboboxTriggerState,
 	ComboboxInputGroupProps
 } from '../combobox/types.js';
+import type { Group } from '../internal/listbox/resolveValueLabel.js';
 import type { RenderChildren } from '../internal/render-children.js';
 import type { SeparatorProps, SeparatorState } from '../separator/types.js';
 
@@ -91,12 +91,12 @@ export interface AutocompleteRootProps<ItemValue = unknown> extends Omit<
 	/** Called before the input text changes. Call `eventDetails.cancel()` to keep the text. */
 	onValueChange?: (value: string, eventDetails: AutocompleteChangeEventDetails) => void;
 	/** The items of the list: flat, or groups with an `items` array. */
-	items?: ComboboxItemsData<ItemValue>;
+	items?: readonly ItemValue[] | readonly Group<ItemValue>[];
 	/**
 	 * Items filtered by the consumer. The list shows them instead of filtering `items` itself.
 	 * Keep the flat or grouped shape of `items`.
 	 */
-	filteredItems?: ComboboxItemsData<ItemValue>;
+	filteredItems?: readonly ItemValue[] | readonly Group<ItemValue>[];
 	/**
 	 * How the list filters and whether the input completes inline with the highlighted item.
 	 * @default 'list'
@@ -121,6 +121,25 @@ export interface AutocompleteRootProps<ItemValue = unknown> extends Omit<
 	itemToStringValue?: (itemValue: ItemValue) => string;
 }
 
+/** The item type of `items`: the element type, or a group's item type for grouped items. */
+export type AutocompleteItemOf<Items> = Items extends readonly (infer Entry)[]
+	? Entry extends { readonly items: readonly (infer Item)[] }
+		? Item
+		: Entry
+	: never;
+
+/**
+ * `Autocomplete.Root` props with the item type read from `items`, so the item of a group, not
+ * the group, types `itemToStringValue`, `filter` and `onItemHighlighted`.
+ */
+export type AutocompleteRootItemsProps<Items extends readonly unknown[]> = Omit<
+	AutocompleteRootProps<AutocompleteItemOf<Items>>,
+	'items'
+> & {
+	/** The items of the list: flat, or groups with an `items` array. */
+	items?: Items;
+};
+
 export interface AutocompleteValueProps {
 	/** Formats the input text. Without it the text renders as is. */
 	children?: Snippet<[value: string]>;
@@ -130,11 +149,7 @@ export type AutocompleteTriggerState = Omit<ComboboxTriggerState, 'placeholder'>
 
 export interface AutocompleteTriggerProps extends Omit<ComboboxTriggerProps, 'render'> {
 	render?: Snippet<
-		[
-			props: HTMLButtonAttributes,
-			state: AutocompleteTriggerState,
-			children: RenderChildren
-		]
+		[props: HTMLButtonAttributes, state: AutocompleteTriggerState, children: RenderChildren]
 	>;
 }
 

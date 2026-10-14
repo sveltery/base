@@ -5,13 +5,17 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	`actionsRef` is the exported `close` and `unmount`. Bind the root with `bind:this`.
 -->
-<script lang="ts" generics="ItemValue = unknown">
+<script lang="ts" generics="Items extends readonly unknown[] = readonly unknown[]">
 	import { REASONS } from '@sveltery/utils';
 	import AriaCombobox from '../combobox/AriaCombobox.svelte';
 	import type { ComboboxChangeEventDetails } from '../combobox/types.js';
 	import { stringifyAsLabel } from '../internal/listbox/resolveValueLabel.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
-	import type { AutocompleteHighlightEventDetails, AutocompleteRootProps } from './types.js';
+	import type {
+		AutocompleteHighlightEventDetails,
+		AutocompleteItemOf,
+		AutocompleteRootItemsProps
+	} from './types.js';
 
 	let {
 		value = $bindable(),
@@ -25,7 +29,7 @@
 		onItemHighlighted,
 		readonly = false,
 		...rest
-	}: AutocompleteRootProps<ItemValue> = $props();
+	}: AutocompleteRootItemsProps<Items> = $props();
 
 	// Inline completion writes the highlighted label into the input, which `readonly` prevents.
 	const enableInline = $derived((mode === 'inline' || mode === 'both') && !readonly);
@@ -53,7 +57,7 @@
 	}
 
 	function handleItemHighlighted(
-		highlighted: ItemValue | undefined,
+		highlighted: AutocompleteItemOf<Items> | undefined,
 		details: AutocompleteHighlightEventDetails
 	) {
 		onItemHighlighted?.(highlighted, details);

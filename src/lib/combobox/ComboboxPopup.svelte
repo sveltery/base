@@ -83,7 +83,8 @@
 			{
 				id: popupId,
 				role: inputInsidePopup ? ('dialog' as const) : ('presentation' as const),
-				onfocus(event: FocusEvent) {
+				// React's `onFocus` bubbles, so focus moving into the list reaches the popup.
+				onfocusin(event: FocusEvent) {
 					const target = getTarget(event) as Element | null;
 					if (
 						store.openMethod !== 'touch' &&

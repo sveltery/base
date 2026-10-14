@@ -293,7 +293,11 @@
 			if (typeof form?.requestSubmit === 'function') form.requestSubmit();
 		},
 		readInputProps: () => inputProps,
-		readInputFormProps: () => (inputOwnsFormValue ? { name: submitName, ...boundProps } : {}),
+		// The default value is what a native reset restores, before the restore phase runs.
+		readInputFormProps: () =>
+			inputOwnsFormValue
+				? { name: submitName, defaultValue: serializedDefault, ...boundProps }
+				: {},
 		readPopupProps: () => popupProps,
 		readListProps: () => listProps,
 		readItemProps: () => itemProps
@@ -568,9 +572,15 @@
 	});
 
 	const boundProps = $derived(bound.inputProps());
+	// The server renders no popup input, so until the input registers, the rendered input owns
+	// the value and the server HTML names one control at most.
+	let hydrated = $state(false);
+	$effect(() => {
+		hydrated = true;
+	});
 	/** Without a selection, Autocomplete submits its input, which then carries the name. */
 	const inputOwnsFormValue = $derived(
-		selectionMode === 'none' && (inline || !store.inputInsidePopup)
+		selectionMode === 'none' && (inline || !hydrated || !store.inputInsidePopup)
 	);
 	const submitName = $derived(bound.bound ? boundProps.name : name);
 	const hiddenInputName = $derived(multiple || inputOwnsFormValue ? undefined : submitName);

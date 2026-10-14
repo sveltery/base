@@ -1,5 +1,6 @@
 <script lang="ts">
 	import {
+		Autocomplete,
 		Checkbox,
 		CheckboxGroup,
 		Combobox,
@@ -30,7 +31,8 @@
 		| 'select'
 		| 'select-multiple'
 		| 'combobox'
-		| 'combobox-multiple';
+		| 'combobox-multiple'
+		| 'autocomplete';
 
 	let {
 		source,
@@ -59,7 +61,8 @@
 		select: ['fruit', 'select'],
 		'select-multiple': ['fruits', 'select multiple'],
 		combobox: ['fruit', 'select'],
-		'combobox-multiple': ['fruits', 'select multiple']
+		'combobox-multiple': ['fruits', 'select multiple'],
+		autocomplete: ['query', 'text']
 	};
 	const [path, kind] = $derived(paths[scenario]);
 </script>
@@ -136,6 +139,20 @@
 				</Combobox.Positioner>
 			</Combobox.Portal>
 		</Combobox.Root>
+	{:else if scenario === 'autocomplete'}
+		<Autocomplete.Root defaultValue="apple">
+			<Autocomplete.Input data-testid="control" />
+			<Autocomplete.Portal>
+				<Autocomplete.Positioner>
+					<Autocomplete.Popup>
+						<Autocomplete.List>
+							<Autocomplete.Item value="apple">apple</Autocomplete.Item>
+							<Autocomplete.Item value="banana">banana</Autocomplete.Item>
+						</Autocomplete.List>
+					</Autocomplete.Popup>
+				</Autocomplete.Positioner>
+			</Autocomplete.Portal>
+		</Autocomplete.Root>
 	{/if}
 {/snippet}
 

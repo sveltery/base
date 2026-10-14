@@ -23,7 +23,9 @@ function leaveList(item: Element) {
 	const outside = document.createElement('div');
 	document.body.append(outside);
 	// React derives `onPointerLeave` from `pointerout`; Svelte listens for `pointerleave`.
-	item.dispatchEvent(new PointerEvent('pointerleave', { pointerType: 'mouse', relatedTarget: outside }));
+	item.dispatchEvent(
+		new PointerEvent('pointerleave', { pointerType: 'mouse', relatedTarget: outside })
+	);
 	return () => outside.remove();
 }
 

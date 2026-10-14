@@ -397,20 +397,23 @@ describe('Autocomplete.Root', () => {
 			await expect.element(input()).toHaveValue('beta');
 		});
 
-		it.each(['readonly', 'disabled'] as const)('ignores hidden-input autofill when %s', async (prop) => {
-			const onValueChange = vi.fn();
-			render(AutocompleteHarness, {
-				staticItems: alphaBeta,
-				field: { name: 'auto' },
-				root: { defaultValue: '', [prop]: true, onValueChange }
-			});
+		it.each(['readonly', 'disabled'] as const)(
+			'ignores hidden-input autofill when %s',
+			async (prop) => {
+				const onValueChange = vi.fn();
+				render(AutocompleteHarness, {
+					staticItems: alphaBeta,
+					field: { name: 'auto' },
+					root: { defaultValue: '', [prop]: true, onValueChange }
+				});
 
-			autofill(hiddenInput(), 'beta');
-			await flush();
+				autofill(hiddenInput(), 'beta');
+				await flush();
 
-			expect(onValueChange).not.toHaveBeenCalled();
-			await expect.element(input()).toHaveValue('');
-		});
+				expect(onValueChange).not.toHaveBeenCalled();
+				await expect.element(input()).toHaveValue('');
+			}
+		);
 	});
 
 	describe('readonly', () => {

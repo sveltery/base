@@ -195,7 +195,9 @@
 				<Autocomplete.Value children={valueChildren} />
 			</Autocomplete.Trigger>
 		{:else if inputGroup}
-			<Autocomplete.InputGroup data-testid="input-group">{@render control()}</Autocomplete.InputGroup>
+			<Autocomplete.InputGroup data-testid="input-group"
+				>{@render control()}</Autocomplete.InputGroup
+			>
 		{:else}
 			{@render control()}
 		{/if}
