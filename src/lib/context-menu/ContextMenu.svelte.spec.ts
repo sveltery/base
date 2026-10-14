@@ -346,6 +346,26 @@ describe('ContextMenu', () => {
 		expect(byTestId('outer-menu')?.hasAttribute('data-open')).toBe(true);
 	});
 
+	it('keeps both context menus open on a press inside the portaled inner popup', async () => {
+		render(ContextMenuHarness, { scenario: 'in-popup' });
+		contextMenu(get('outer-trigger'), { clientX: 20, clientY: 20 });
+		await expect.poll(shown('outer-menu')).toBe(true);
+		contextMenu(get('inner-trigger'), { clientX: 60, clientY: 70 });
+		await expect.poll(shown('inner-menu')).toBe(true);
+		expect(get('outer-menu').contains(get('inner-menu'))).toBe(false);
+
+		clickElement(get('inner-menu'));
+		await tick();
+		expect([
+			byTestId('outer-menu')?.hasAttribute('data-open'),
+			byTestId('inner-menu')?.hasAttribute('data-open')
+		]).toEqual([true, true]);
+
+		clickElement(document.body);
+		await expect.poll(shown('outer-menu')).toBe(false);
+		expect(byTestId('inner-menu')).toBeNull();
+	});
+
 	describe('with a menu inside the trigger', () => {
 		it('opens the menu on click and the context menu on right click', async () => {
 			render(ContextMenuHarness, { scenario: 'with-menu' });

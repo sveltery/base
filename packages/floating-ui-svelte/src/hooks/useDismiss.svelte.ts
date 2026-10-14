@@ -1,8 +1,9 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/DismissInteraction.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The non-primary outside press follows v1.9.0
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// A press is inside when the target is in the floating element, the trigger, or a
-// floating-tree child's floating element or portal. The popup's own portal host is not inside.
+// A press is inside when the target is in the floating element, the trigger, a
+// floating-tree child's floating element or portal, or a portal nested in this popup's portal
+// host. The popup's own portal host is not inside.
 
 import { on } from 'svelte/events';
 import {
@@ -75,6 +76,16 @@ function resolvePressMode(
 	return configured[touch ? 'touch' : 'mouse'] ?? (touch ? 'sloppy' : 'intentional');
 }
 
+const PRESS_EVENTS = [
+	'pointerdown',
+	'mousedown',
+	'mouseup',
+	'click',
+	'touchstart',
+	'touchmove',
+	'touchend'
+] as const;
+
 export class DismissInteraction {
 	readonly #tree = useFloatingTree();
 	readonly #compositionTimeout = new ScopedTimeout();
@@ -121,26 +132,17 @@ export class DismissInteraction {
 			}
 
 			const doc = ownerDocument(this.store.floatingElement ?? this.store.portalElement);
-			const floating = this.store.floatingElement;
 			// Upstream marks presses through React's tree. A document listener sees only the
-			// host of a closed shadow root, so the floating element reports its own presses.
-			const markers = floating
-				? (
-						[
-							'pointerdown',
-							'mousedown',
-							'mouseup',
-							'click',
-							'touchstart',
-							'touchmove',
-							'touchend'
-						] as const
-					).map((type) =>
-						on(floating, type, this.#markInsideTree, { capture: true, passive: true })
-					)
-				: [];
+			// host of a closed shadow root, so the floating element reports its own presses. A
+			// portal rendered from the popup's content mounts in its portal host, so the host
+			// reports presses in that nested portal.
+			const mark = (node: HTMLElement | null, marker: (event: Event) => void) =>
+				node
+					? PRESS_EVENTS.map((type) => on(node, type, marker, { capture: true, passive: true }))
+					: [];
 			const cleanups = [
-				...markers,
+				...mark(this.store.floatingElement, this.#markInsideTree),
+				...mark(this.store.portalElement, this.#markInsideNestedPortal),
 				on(doc, 'compositionstart', () => {
 					this.#compositionTimeout.clear();
 					this.#composing = true;
@@ -299,6 +301,12 @@ export class DismissInteraction {
 
 	#markInsideTree = (event: Event) => {
 		this.#insideEvent = event;
+	};
+
+	#markInsideNestedPortal = (event: Event) => {
+		const { target } = event;
+		if (!(target instanceof Element)) return;
+		if (target.closest('[data-base-ui-portal]') !== event.currentTarget) this.#insideEvent = event;
 	};
 
 	#options() {
