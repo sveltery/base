@@ -510,10 +510,6 @@ Upstream: `MenuPositioner` emits `menuopenchange` from a layout effect. The focu
 
 Local: `MenuPositioner` emits from `$effect.pre`. The shared `FloatingFocusManager` returns focus a microtask after the popup unmounts, as upstream does. An outside press that closes a menu clears `data-has-submenu-open` before the returned focus reaches the trigger, also when the close and the unmount share a flush, so that focus does not reopen the menu.
 
-A press that moves from one open menu to the next, such as a touch press on the Edit trigger while File is open, keeps Edit open and File closed. File unmounts about a frame after that press, before Edit's initial focus lands. Upstream returns focus to the File trigger then. When that focus matches `:focus-visible`, as it does after synthetic events, the trigger's focus handler reopens File and closes Edit. The local focus manager skips that return, as described in [Return focus skips an opening sibling](#return-focus-skips-an-opening-sibling).
-
-Test: `src/lib/menubar/Menubar.svelte.spec.ts` (`updates scroll lock when handing off between top-level touch-opened menus`).
-
 ### Arrow keys focus synchronously
 
 Upstream: `useCompositeRoot` moves focus to the next trigger in a microtask, after the focus manager's return.
@@ -797,14 +793,6 @@ Test: `packages/floating-ui-svelte/src/components/FloatingTree.svelte.spec.ts` (
 `FloatingFocusManager` waits one task before a focus-out close when focus moves from a nested popup's trigger into an open ancestor popup without a keyboard press or an outside press. It then closes with `focus-out` if the popup is still open. A Menu pointer highlight moves focus from a submenu trigger to a sibling item on pointer enter, and the same move's mousemove closes the submenu with `sibling-open`. Upstream renders that highlight after the input events, so the `sibling-open` close lands first there.
 
 Test: `src/lib/menu/MenuRoot.triggerless.svelte.spec.ts` (`closes a sibling submenu without closing the root on click`) and `src/lib/popover/Popover.svelte.spec.ts` (`closes the inner popover when focus moves from its trigger to another control of the outer popup`).
-
-### Return focus skips an opening sibling
-
-Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`. The cleanup that runs when the popup unmounts returns focus in a microtask. With a boolean `returnFocus`, it returns only when focus is in the popup, its inside elements or a child popup, on the body, or already on the return target. An explicit element or function always returns.
-
-Local: `FloatingFocusManager` skips that return while another popup with the same parent node in the floating tree is open and a focus into the sibling popup is still queued (its initial focus or the item its list navigation focuses), such as the next menubar menu after a press switches menus. That focus lands a frame after the popup opens, and a return to the closed popup's trigger would take focus from it first. A menubar trigger that takes that focus reopens its menu. Once the queued focus has run, or a focus request outside the sibling popup has replaced it, the return goes ahead as upstream's does. Closing a nested dialog that another open nested dialog opened returns focus to the control that opened it.
-
-Test: `src/lib/menubar/Menubar.svelte.spec.ts` (`updates scroll lock when handing off between top-level touch-opened menus`, `keeps the next menu open when a virtual pointer press hands off between top-level menus` and `keeps the next menu open when a touch press hands off from a keyboard-opened menu`) and `src/lib/dialog/Dialog.svelte.spec.ts` (`returns focus into an open sibling nested dialog when the dialog it opened closes`).
 
 ### Queued list focus after close
 

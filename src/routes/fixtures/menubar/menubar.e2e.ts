@@ -1,5 +1,5 @@
 // Each case runs against the Svelte Menubar and the React Base UI 1.9.0 reference.
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import { forEachFramework } from '../framework-loop.js';
 import { openFixture } from '../open-fixture.js';
 import { readOutput as json } from '../read-output.js';
@@ -19,6 +19,37 @@ async function hover(page: Page, target: ReturnType<Page['getByRole']>) {
 	const box = await target.boundingBox();
 	if (!box) throw new Error('target is not rendered');
 	await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 5 });
+}
+
+async function center(target: ReturnType<Page['getByRole']>) {
+	const box = await target.boundingBox();
+	if (!box) throw new Error('target is not rendered');
+	return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+}
+
+async function tap(page: Page, target: ReturnType<Page['getByRole']>) {
+	const { x, y } = await center(target);
+	await page.touchscreen.tap(x, y);
+}
+
+/** A trusted touch with no contact size or pressure, which is how a virtual pointer press arrives. */
+async function virtualTap(page: Page, target: ReturnType<Page['getByRole']>) {
+	const point = { ...(await center(target)), radiusX: 0, radiusY: 0, force: 0 };
+	const cdp = await page.context().newCDPSession(page);
+	await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
+	await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+	await cdp.detach();
+}
+
+function isScrollLocked(page: Page) {
+	return page.evaluate(() => {
+		const html = document.documentElement;
+		return (
+			html.hasAttribute('data-base-ui-scroll-locked') ||
+			html.style.overflowY === 'hidden' ||
+			document.body.style.overflowY === 'hidden'
+		);
+	});
 }
 
 forEachFramework((reference, framework) => {
@@ -202,6 +233,71 @@ forEachFramework((reference, framework) => {
 			await expect(trigger('View')).toBeFocused();
 			await page.keyboard.press('ArrowLeft');
 			await expect(trigger('File')).toBeFocused();
+		});
+
+		test.describe('touch handoff', () => {
+			test.use({ hasTouch: true });
+
+			async function openTouch(page: Page) {
+				const fixture = await open(page, 'basic', reference);
+				// Touch locks scroll only for a menu as wide as the viewport.
+				await page.addStyleTag({
+					content: '[aria-label="File menu"] { width: calc(100vw - 10px) }'
+				});
+				return fixture;
+			}
+
+			/** Once Edit's initial focus lands, File's return focus can no longer reopen File. */
+			async function expectEditOpen(fixture: Awaited<ReturnType<typeof open>>, focused: Locator) {
+				await expect(focused).toBeFocused();
+				await expect(fixture.menu('Edit')).toBeVisible();
+				await expect(fixture.menu('File')).toHaveCount(0);
+				await expect(fixture.trigger('File')).toHaveAttribute('aria-expanded', 'false');
+			}
+
+			test('a tap on Edit while a tapped File menu is open keeps Edit open', async ({ page }) => {
+				const fixture = await openTouch(page);
+				await tap(page, fixture.trigger('File'));
+				await expect(fixture.menu('File')).toBeVisible();
+				await expect.poll(() => isScrollLocked(page)).toBe(true);
+
+				await tap(page, fixture.trigger('Edit'));
+				await expectEditOpen(fixture, fixture.menu('Edit'));
+				await expect.poll(() => isScrollLocked(page)).toBe(false);
+				expect(await json(page, 'calls')).toEqual([
+					{ menu: 'File', open: true, reason: 'trigger-press' },
+					{ menu: 'File', open: false, reason: 'outside-press' },
+					{ menu: 'Edit', open: true, reason: 'trigger-press' }
+				]);
+			});
+
+			test('a virtual pointer press on Edit while a tapped File menu is open keeps Edit open', async ({
+				page
+			}) => {
+				const fixture = await openTouch(page);
+				await tap(page, fixture.trigger('File'));
+				await expect(fixture.menu('File')).toBeVisible();
+
+				await virtualTap(page, fixture.trigger('Edit'));
+				await expectEditOpen(fixture, fixture.item('Copy'));
+				expect(await json(page, 'calls')).toEqual([
+					{ menu: 'File', open: true, reason: 'trigger-press' },
+					{ menu: 'File', open: false, reason: 'outside-press' },
+					{ menu: 'Edit', open: true, reason: 'trigger-press' }
+				]);
+			});
+
+			test('a tap on Edit while a keyboard-opened File menu is open keeps Edit open', async ({
+				page
+			}) => {
+				const fixture = await openTouch(page);
+				await fixture.trigger('File').focus();
+				await page.keyboard.press('Enter');
+				await expect(fixture.item('New')).toBeFocused();
+
+				await tap(page, fixture.trigger('Edit'));
+				await expectEditOpen(fixture, fixture.menu('Edit'));
+			});
 		});
 
 		test('server HTML renders the menubar and its triggers', async ({ request }) => {

@@ -31,7 +31,6 @@
 			| 'render'
 			| 'scroll-wide'
 			| 'scroll-narrow'
-			| 'scroll-handoff'
 			| 'first-disabled'
 			| 'disabled-open'
 			| 'open'
@@ -110,14 +109,6 @@
 				width: scenario === 'scroll-wide' ? 'calc(100vw - 10px)' : '240px',
 				menuTestId: 'file-menu'
 			})}
-		</Menubar>
-	{:else if scenario === 'scroll-handoff'}
-		<Menubar modal style="display: flex" {...menubarProps}>
-			{@render menu('File', 'file-trigger', 'Open', {
-				width: 'calc(100vw - 10px)',
-				menuTestId: 'file-menu'
-			})}
-			{@render menu('Edit', 'edit-trigger', 'Copy', { width: '240px', menuTestId: 'edit-menu' })}
 		</Menubar>
 	{:else if scenario === 'first-disabled'}
 		<Menubar style="display: flex" {...menubarProps}>
