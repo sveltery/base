@@ -7,9 +7,10 @@
 // `transform` are not ported, because this positioner uses `top` and `left`.
 import { tick, type ComponentProps } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, onTestFinished } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { renderBound } from '../../tests/bound-render.svelte.js';
+import { wait } from '../../tests/select-events.js';
 import SelectGroupHarness from '../../tests/SelectGroupHarness.svelte';
 import SelectHarness from '../../tests/SelectHarness.svelte';
 
@@ -221,6 +222,33 @@ describe('Select.Positioner', () => {
 
 			await expect.poll(offsetFromTrigger).toMatchObject(functionPosition);
 		});
+	});
+
+	it('keeps the alignment it opened with until the popup unmounts', async () => {
+		document.body.style.padding = '100px 0 0 10px';
+		onTestFinished(() => {
+			document.body.style.padding = '';
+		});
+		const view = render(SelectHarness, {
+			root: { defaultValue: 'a' },
+			trigger: { style: 'width:120px;height:36px' },
+			popup: { style: 'max-height:none' },
+			items: ab
+		});
+		const positioner = page.getByTestId('positioner');
+
+		await userEvent.click(page.getByTestId('trigger'));
+		await expect.element(positioner).toHaveAttribute('data-side', 'none');
+
+		await view.rerender({ positioner: { alignItemWithTrigger: false } });
+		await wait(20);
+		expect(positioner.element().getAttribute('data-side')).toBe('none');
+
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => (positioner.element() as HTMLElement).hidden).toBe(true);
+		await userEvent.click(page.getByTestId('trigger'));
+
+		await expect.element(positioner).toHaveAttribute('data-side', 'bottom');
 	});
 
 	describe('kept-mounted positioner', () => {
