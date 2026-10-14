@@ -422,6 +422,7 @@ Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7
 - `src/lib/combobox/*.spec.ts` assertions from `packages/react/src/combobox/**/*.test.tsx`, `packages/react/src/combobox/**/*.test.ts` and `packages/react/src/internals/filter.test.ts`, the Combobox cases of `src/lib/field/bound-control.svelte.spec.ts`, and `src/routes/fixtures/combobox/**` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 - `src/lib/autocomplete/*.svelte` and `types.ts` from the matching parts and types in `packages/react/src/autocomplete/**` of Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`): Root, Value, Trigger, InputGroup, Item and Separator, and `index.ts` from `packages/react/src/autocomplete/index.parts.ts`
 - `src/lib/autocomplete/*.spec.ts` and `types.test-d.ts` assertions from `packages/react/src/autocomplete/**/*.test.tsx` and `AutocompleteRoot.spec.tsx`, the Autocomplete cases of `packages/react/src/combobox/**/*.test.tsx`, the Autocomplete cases of `src/lib/field/bound-control.svelte.spec.ts`, and `src/routes/fixtures/autocomplete/**` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
+- The disabled-Fieldset cases of `src/lib/form/Form.svelte.spec.ts` from `packages/react/src/form/Form.test.tsx`, and `src/lib/checkbox-group/CheckboxGroup.form.svelte.spec.ts` from `getFormValue` in `packages/react/src/checkbox-group/CheckboxGroup.tsx` (Base UI v1.9.0 (commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`))
 
 MIT License
 
