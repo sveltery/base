@@ -7,7 +7,7 @@
 import { DEV } from 'esm-env';
 import { getAbortSignal, untrack } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import { REASONS, ScopedTimeout, activeElement, ownerDocument } from '@sveltery/utils';
+import { REASONS, ScopedTimeout } from '@sveltery/utils';
 import {
 	DismissInteraction,
 	ListNavigation,
@@ -143,19 +143,6 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		});
 	});
 
-	// Upstream's Shift+Tab close in a context menu leaves return focus to the focus manager, which
-	// focuses the element focused before the menu opened. The shared manager skips return focus
-	// for `focus-out`, so list navigation focuses that element itself.
-	let focusBeforeOpen: HTMLElement | null = null;
-	if (parent.type === 'context-menu') {
-		const { context } = parent;
-		$effect.pre(() => {
-			if (!store.open) return;
-			const active = activeElement(ownerDocument(context.triggerElement));
-			focusBeforeOpen = active instanceof HTMLElement ? active : null;
-		});
-	}
-
 	if (parent.type === 'context-menu') {
 		parent.context.menu = {
 			setOpen: (open, details) => store.setOpen(open, details),
@@ -193,10 +180,6 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 				store.setActiveIndex(index, getHighlightReason(event), event);
 			},
 			openOnArrowKeyDown: current.type !== 'context-menu',
-			nestedReturnFocus:
-				current.type === 'context-menu'
-					? () => (focusBeforeOpen?.isConnected ? focusBeforeOpen : null)
-					: undefined,
 			focusItemOnHover: store.highlightItemOnHover,
 			resetOnPointerLeave: true
 		};

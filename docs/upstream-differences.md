@@ -459,14 +459,6 @@ Upstream: the trigger adds a one-time `mouseup` listener to the document. React'
 
 Local: Svelte delegates the item handlers to the document and can add that listener only when the first item mounts, after the trigger's listener. The trigger listens on the window, so the item still runs first.
 
-### Shift+Tab returns focus to the element focused before opening
-
-Upstream: list navigation closes the menu on Shift+Tab with `focus-out` and focuses the trigger element, which a context menu does not have. The focus manager then returns focus to the element focused before the menu opened.
-
-Local: the shared `FloatingFocusManager` skips return focus after `focus-out`. A context menu's `Menu.Root` records the element focused when the menu opens and passes it to list navigation as `nestedReturnFocus` (`src/lib/menu/root.svelte.ts`). The spec below fails without it on the current shared manager.
-
-Test: `src/lib/context-menu/ContextMenuRoot.svelte.spec.ts` (`returns focus to the focused surface when closing with Shift+Tab`).
-
 ### Floating tree
 
 Upstream: each menu root owns its floating tree, and a menu's node becomes the parent node only inside its positioner. A context menu inside another context menu's trigger is a separate root.
