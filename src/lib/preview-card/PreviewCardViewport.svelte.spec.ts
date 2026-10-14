@@ -8,9 +8,8 @@ import { userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PreviewCardViewportHarness from '../../tests/PreviewCardViewportHarness.svelte';
-import { byId, resetBrowserPointer, settlePositioning } from '../../tests/previewCardEvents.js';
+import { byId, settlePositioning } from '../../tests/previewCardEvents.js';
 
-beforeEach(resetBrowserPointer);
 afterEach(settlePositioning);
 
 function trigger(testId: string) {

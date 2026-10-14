@@ -4,12 +4,11 @@
 // Kept in its own file so the platform mock does not reach the other context menu specs.
 import { tick } from 'svelte';
 import { userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ContextMenuHarness from '../../tests/context-menu/ContextMenuHarness.svelte';
 import { contextMenu, rightMouseUp } from '../../tests/context-menu/events.js';
 import { enterWithMouse, mouse } from '../../tests/menu/mouse.js';
-import { parkPointer } from '../../tests/pointer.js';
 import type { ContextMenuRootChangeEventDetails } from './types.js';
 
 vi.mock('@sveltery/utils', async (importOriginal) => {
@@ -42,8 +41,6 @@ function recorder() {
 	};
 	return { calls, onOpenChange };
 }
-
-beforeEach(parkPointer);
 
 describe('ContextMenu.Root', () => {
 	describe('interactions', () => {

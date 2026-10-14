@@ -9,12 +9,11 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import NavigationMenuTriggerHarness from '../../tests/NavigationMenuTriggerHarness.svelte';
 import { hover, isVisible, observeValue, resetHover } from '../../tests/navigationMenuEvents.js';
-import { byId, resetBrowserPointer, settlePositioning } from '../../tests/previewCardEvents.js';
+import { byId, settlePositioning } from '../../tests/previewCardEvents.js';
 
 afterEach(async () => {
 	vi.restoreAllMocks();
 	resetHover();
-	await resetBrowserPointer();
 	await settlePositioning();
 });
 

@@ -6,7 +6,6 @@ import { page } from 'vitest/browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import TooltipTriggersHarness from '../../tests/TooltipTriggersHarness.svelte';
-import { parkPointer } from '../../tests/pointer.js';
 import { byTestId, fire } from '../../tests/tooltip-events.js';
 import { createTooltipHandle } from './handle.svelte.js';
 import type { TooltipChangeEventDetails } from './types.js';
@@ -14,7 +13,6 @@ import type { TooltipChangeEventDetails } from './types.js';
 const flags = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
 
 beforeEach(async () => {
-	await parkPointer();
 	flags.BASE_UI_ANIMATIONS_DISABLED = true;
 	document.body.click();
 	await expect.poll(() => document.querySelectorAll('[data-open]').length).toBe(0);

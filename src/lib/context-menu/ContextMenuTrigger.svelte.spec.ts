@@ -4,13 +4,12 @@
 // Not ported: `describeConformance` (refs and React render-prop cloning).
 import { tick } from 'svelte';
 import { userEvent } from 'vitest/browser';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ContextMenuHarness from '../../tests/context-menu/ContextMenuHarness.svelte';
 import ContextMenuOrphan from '../../tests/context-menu/ContextMenuOrphan.svelte';
 import { contextMenu, touch, touchPoint } from '../../tests/context-menu/events.js';
 import { mouse, pointer } from '../../tests/menu/mouse.js';
-import { parkPointer } from '../../tests/pointer.js';
 import type { ContextMenuRootChangeEventDetails } from './types.js';
 
 function byTestId(id: string) {
@@ -52,7 +51,6 @@ async function advance(ms: number) {
 	await tick();
 }
 
-beforeEach(parkPointer);
 afterEach(() => {
 	vi.useRealTimers();
 });

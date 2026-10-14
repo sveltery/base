@@ -18,8 +18,7 @@ import {
 	enter,
 	hover,
 	leave,
-	pointerDown,
-	resetBrowserPointer
+	pointerDown
 } from '../../tests/previewCardEvents.js';
 
 type Mode = 'contained' | 'detached' | 'multiple';
@@ -37,8 +36,6 @@ function link() {
 function content() {
 	return byId('popup');
 }
-
-beforeEach(resetBrowserPointer);
 
 describe.each(MODES)('PreviewCard.Root with $name', ({ mode }) => {
 	describe('uncontrolled open', () => {

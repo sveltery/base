@@ -1,13 +1,15 @@
 import { userEvent } from 'vitest/browser';
 
 /**
- * Moves the real pointer to the bottom-right corner of the viewport. Chrome re-sends mouse
- * events to whatever renders under a resting pointer, so a pointer left on or near the
- * centre would hover a later test's trigger. `unhover` parks it on the body's centre.
+ * Moves the real pointer to the bottom-right pixel of the viewport, off the next test's elements.
+ * A fixture fixed to the bottom-right corner is the exception and is hovered on mount.
+ * `force` skips the actionability check that an unmounting overlay would fail, and `clientWidth`
+ * survives a test that stubs `window.innerWidth`.
  */
 export async function parkPointer() {
-	await userEvent.hover(document.documentElement, {
-		position: { x: window.innerWidth - 1, y: window.innerHeight - 1 },
+	const root = document.documentElement;
+	await userEvent.hover(root, {
+		position: { x: root.clientWidth - 1, y: root.clientHeight - 1 },
 		force: true
 	});
 }

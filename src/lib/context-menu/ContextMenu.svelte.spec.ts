@@ -6,13 +6,12 @@
 // placement those arguments produce instead.
 import { tick } from 'svelte';
 import { userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ContextMenuHarness from '../../tests/context-menu/ContextMenuHarness.svelte';
 import ContextMenuInPopupHarness from '../../tests/context-menu/ContextMenuInPopupHarness.svelte';
 import { contextMenu } from '../../tests/context-menu/events.js';
 import { clickElement, mouse, pointer } from '../../tests/menu/mouse.js';
-import { parkPointer } from '../../tests/pointer.js';
 import type { ContextMenuRootChangeEventDetails } from './types.js';
 
 function byTestId(id: string) {
@@ -45,8 +44,6 @@ function pressOutside() {
 	pointer(document.body, 'pointerdown', { pointerType: 'mouse', button: 0 });
 	mouse(document.body, 'mousedown', { button: 0 });
 }
-
-beforeEach(parkPointer);
 
 describe('ContextMenu.Positioner', () => {
 	it('opens at the pointer below and after it, with fixed positioning', async () => {
