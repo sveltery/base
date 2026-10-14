@@ -5,6 +5,7 @@
 import { cdp, page } from 'vitest/browser';
 import { describe, expect, it, onTestFinished, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import SliderFieldsetHarness from '../../tests/SliderFieldsetHarness.svelte';
 import SliderHarness from '../../tests/SliderHarness.svelte';
 
 function click(node: Element) {
@@ -625,6 +626,24 @@ describe('<Slider />', () => {
 			});
 			click(page.getByRole('button', { name: 'Submit' }).element());
 			await expect.element(page.getByTestId('submitted')).toHaveTextContent('"slider":[25,50]');
+		});
+
+		it('sits in a Fieldset named by its legend, with a name on each thumb', async () => {
+			render(SliderFieldsetHarness);
+
+			await expect.element(page.getByTestId('fieldset')).toHaveAccessibleName('Scaling threshold');
+			await expect
+				.element(page.getByRole('slider', { name: 'Minimum threshold' }))
+				.toHaveAttribute('aria-valuetext', '20% start range');
+			await expect
+				.element(page.getByRole('slider', { name: 'Maximum threshold' }))
+				.toHaveAttribute('aria-valuetext', '80% end range');
+			await expect.element(page.getByTestId('value')).toHaveTextContent('20% – 80%');
+
+			click(page.getByRole('button', { name: 'Submit' }).element());
+			await expect
+				.element(page.getByTestId('submitted'))
+				.toHaveTextContent('{"scalingThreshold":[0.2,0.8]}');
 		});
 
 		it('submits the named input to an external form', async () => {
