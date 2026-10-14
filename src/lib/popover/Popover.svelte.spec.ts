@@ -1023,6 +1023,28 @@ describe('Popover return focus', () => {
 			[false, 'outside-press']
 		]);
 	});
+
+	it('returns focus to the trigger on an outside press after a canceled focus-out close from the trigger', async () => {
+		const changed = vi.fn();
+		render(PopoverCanceledFocusOutHarness, { onOpenChange: changed });
+		const trigger = page.getByTestId('trigger').element() as HTMLElement;
+		await userEvent.click(trigger);
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).not.toBeNull();
+		trigger.focus();
+
+		(page.getByTestId('outside').element() as HTMLElement).focus();
+		await expect.poll(() => changed.mock.calls.length).toBe(2);
+		expect(document.querySelector('[data-testid="popup"]')).not.toBeNull();
+		await userEvent.click(page.getByTestId('blank'));
+
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+		await expect.poll(() => document.activeElement).toBe(trigger);
+		expect(changed.mock.calls).toEqual([
+			[true, 'trigger-press'],
+			[false, 'focus-out'],
+			[false, 'outside-press']
+		]);
+	});
 });
 
 describe('Popover.Positioner transitions', () => {
