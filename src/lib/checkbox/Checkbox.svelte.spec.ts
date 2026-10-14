@@ -27,6 +27,11 @@ const ENDING_CSS = `
 	.animation-test-indicator[data-ending-style] { animation: checkbox-test-anim 40ms; }
 `;
 
+const HELD_ENDING_CSS = `
+	@keyframes checkbox-test-anim { to { opacity: 0; } }
+	.animation-test-indicator[data-ending-style] { animation: checkbox-test-anim 600s; }
+`;
+
 function checkboxEl(name?: string) {
 	return name ? page.getByRole('checkbox', { name }) : page.getByRole('checkbox');
 }
@@ -561,7 +566,7 @@ describe('Checkbox', () => {
 
 		it('keeps data-ending-style until the exit animation ends', async () => {
 			render(CheckboxIndicatorHarness, {
-				css: ENDING_CSS,
+				css: HELD_ENDING_CSS,
 				indicatorClass: 'animation-test-indicator'
 			});
 			const button = page.getByRole('button', { name: 'Toggle' }).element() as HTMLButtonElement;
@@ -592,6 +597,9 @@ describe('Checkbox', () => {
 				expect(
 					document.querySelector('[data-testid="indicator"]')?.hasAttribute('data-ending-style')
 				).toBe(true);
+				const animations = indicator?.getAnimations() ?? [];
+				expect(animations).toHaveLength(1);
+				for (const animation of animations) animation.finish();
 			} finally {
 				AnimationFrame.prototype.request = request;
 			}
