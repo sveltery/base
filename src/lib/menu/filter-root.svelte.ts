@@ -13,7 +13,6 @@ import { untrack } from 'svelte';
 import { REASONS, createChangeEventDetails, type BaseUIChangeEventDetails } from '@sveltery/utils';
 import { isVirtualPointerEvent } from '@sveltery/floating-ui-svelte';
 import { defineOptionalContext } from '../internal/context.js';
-import { preventBaseUIHandler } from '../internal/mergeProps.js';
 import { getFilter } from './filter.js';
 import { handleMenuFilterKeyDown, type MenuFilterKeyDownContext } from './filter-keydown.js';
 import { findMenubarParent } from './parent.svelte.js';
@@ -407,7 +406,7 @@ export class MenuFilter {
 			this.store.virtualPress = isVirtualPointerEvent(event);
 		},
 		onkeydown: (event: KeyboardEvent) => {
-			if (this.#relayTriggerKey(event)) preventBaseUIHandler(event);
+			if (this.#relayTriggerKey(event)) event.preventDefault();
 		}
 	};
 

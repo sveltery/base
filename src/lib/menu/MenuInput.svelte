@@ -17,7 +17,7 @@
 		platform
 	} from '@sveltery/utils';
 	import { useDirection } from '../internal/direction-context.js';
-	import { forwardConsumerPrevention, mergeProps } from '../internal/mergeProps.js';
+	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { handleMenuFilterKeyDown, isRefocusingOwner, refocusOwner } from './filter-keydown.js';
 	import { useMenuFilterPart } from './filter-part.js';
@@ -142,7 +142,14 @@
 	const consumerProps = $derived.by(() => {
 		const { onkeydown, ...rest } = elementProps;
 		if (typeof onkeydown !== 'function') return elementProps;
-		return { ...rest, onkeydown: forwardConsumerPrevention(onkeydown) };
+		return {
+			...rest,
+			onkeydown(this: HTMLInputElement, event: KeyboardEvent) {
+				const preventedBefore = event.defaultPrevented;
+				onkeydown.call(this, event as never);
+				if (!preventedBefore && event.defaultPrevented) store.consumerHandledKey = event;
+			}
+		};
 	});
 
 	const hostProps = $derived(
