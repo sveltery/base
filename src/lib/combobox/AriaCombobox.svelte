@@ -9,7 +9,7 @@
 	the values, as in Select.
 -->
 <script lang="ts">
-	import { flushSync, untrack } from 'svelte';
+	import { flushSync, onMount, untrack } from 'svelte';
 	import {
 		ClickInteraction,
 		DismissInteraction,
@@ -575,7 +575,7 @@
 	// The server renders no popup input, so until the input registers, the rendered input owns
 	// the value and the server HTML names one control at most.
 	let hydrated = $state(false);
-	$effect(() => {
+	onMount(() => {
 		hydrated = true;
 	});
 	/** Without a selection, Autocomplete submits its input, which then carries the name. */
