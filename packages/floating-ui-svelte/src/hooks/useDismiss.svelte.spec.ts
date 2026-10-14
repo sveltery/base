@@ -79,6 +79,68 @@ describe('DismissInteraction', () => {
 		});
 	});
 
+	describe('outside press button', () => {
+		it.each([
+			['middle', 1],
+			['right', 2]
+		])('closes on a %s-button outside press', (_name, button) => {
+			render(DismissNode, { testId: 'outer', open: true });
+			expect(mounted()).toEqual(['outer']);
+
+			flushSync(() =>
+				document.body.dispatchEvent(
+					new PointerEvent('pointerdown', { bubbles: true, button, pointerType: 'mouse' })
+				)
+			);
+
+			expect(mounted()).toEqual([]);
+		});
+
+		it('does not count a non-primary press for a later intentional click', () => {
+			const { component } = render(DismissOrderHarness, { outsidePressEvent: 'intentional' });
+			const press = (button: number) =>
+				flushSync(() => {
+					document.body.dispatchEvent(
+						new PointerEvent('pointerdown', { bubbles: true, button, pointerType: 'mouse' })
+					);
+					document.body.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 }));
+				});
+
+			press(2);
+			expect(component.store.open).toBe(true);
+
+			press(0);
+			expect(component.store.open).toBe(false);
+		});
+	});
+
+	describe('outside press target listener', () => {
+		it('does not close when an ancestor capture listener stops the press before its target', () => {
+			render(DismissNode, { testId: 'outer', open: true });
+			const ancestor = document.body.appendChild(document.createElement('div'));
+			const target = ancestor.appendChild(document.createElement('span'));
+			const stop = (event: Event) => event.stopPropagation();
+			ancestor.addEventListener('pointerdown', stop, { capture: true });
+			const press = () =>
+				flushSync(() =>
+					target.dispatchEvent(
+						new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerType: 'mouse' })
+					)
+				);
+
+			try {
+				press();
+				expect(mounted()).toEqual(['outer']);
+
+				ancestor.removeEventListener('pointerdown', stop, { capture: true });
+				press();
+				expect(mounted()).toEqual([]);
+			} finally {
+				ancestor.remove();
+			}
+		});
+	});
+
 	describe('outside press order', () => {
 		it('dismisses on a click before the pressed control closes a bound popup', () => {
 			const { component } = render(DismissOrderHarness, { outsidePressEvent: 'intentional' });
