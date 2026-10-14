@@ -6,7 +6,7 @@
 // (`useImplicitActiveTrigger`), even one that remounted under a new id. Menu and menubar menus
 // run both hooks. The active trigger element anchors the positioner and receives focus on close.
 import { userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuTriggerIdHarness from '../../tests/menu/MenuTriggerIdHarness.svelte';
 import { parkPointer } from '../../tests/pointer.js';
@@ -67,8 +67,6 @@ async function openWithClickThenEscape() {
 	// A pointer resting on a remounted menubar trigger hovers it open and hides the bind:open path.
 	await parkPointer();
 }
-
-beforeEach(parkPointer);
 
 describe.each([
 	['Menu', false],
