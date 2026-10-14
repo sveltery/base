@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import FieldsetLegend from './FieldsetLegend.svelte';
 import FieldsetAttachHarness from '../../tests/FieldsetAttachHarness.svelte';
+import FieldsetControlHarness from '../../tests/FieldsetControlHarness.svelte';
 import FieldsetHarness from '../../tests/FieldsetHarness.svelte';
 import FieldsetRenderHarness from '../../tests/FieldsetRenderHarness.svelte';
 
@@ -132,6 +133,26 @@ describe('Fieldset', () => {
 			await expect.element(custom).toHaveClass('from-root');
 			const id = page.getByTestId('legend').element().id;
 			await expect.element(custom).toHaveAttribute('aria-labelledby', id);
+		});
+
+		it('keeps the default value of a group rendered as the fieldset once the legend mounts', async () => {
+			render(FieldsetControlHarness);
+
+			await expect.element(page.getByRole('radiogroup')).toHaveAccessibleName('Storage type');
+			await expect
+				.element(page.getByRole('radio', { name: 'HDD' }))
+				.toHaveAttribute('aria-checked', 'true');
+			await expect
+				.element(page.getByRole('group', { name: 'Allowed network protocols' }))
+				.toBeVisible();
+			await expect
+				.element(page.getByRole('checkbox', { name: 'SSH' }))
+				.toHaveAttribute('aria-checked', 'true');
+
+			await page.getByRole('button', { name: 'Submit' }).click();
+			await expect
+				.element(page.getByTestId('submitted'))
+				.toHaveTextContent('{"storageType":"hdd","protocols":["ssh"]}');
 		});
 
 		it('passes consumer attachments to the default fieldset', async () => {

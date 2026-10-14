@@ -204,7 +204,8 @@ To bind a new control, such as Select:
 6. **Register in `$effect`, not `<script>`.** Script registration overlaps a swapped sibling's unregister.
 7. **A reset restores `defaultValue`, not the initial bound value.** Without `defaultValue`, a bound input resets to `""`. When the user clicks a reset button, sync and microtask code in a `reset` listener still sees the old values, and only a task later (`setTimeout`) sees the reset ones. A programmatic `form.reset()` already shows reset values to microtasks. `isTrusted` is true in both cases.
 8. **A one-way prop is not controlled.** A child with `$bindable` can diverge from a parent value that is not bound. Use `bind:x={get, set}` for strict control.
-9. **`type="button"` follows spread props onto other tags.** A part that renders a consumer-chosen element drops tag-specific defaults.
-10. **SvelteKit 3 removed `$lib`.** Declare `"imports": { "#lib/*": "./src/lib/*" }` and import with the file extension.
-11. **SvelteKit 3 takes Svelte options in the Vite plugin.** Compiler options and Kit options go into `sveltekit({ compilerOptions, ... })` in `vite.config.ts`.
-12. **A remote form field's `type="email"` triggers native validation** unless the form sets `novalidate`, which can block the submit before preflight runs.
+9. **A replaced spread object drops an unbound prop's local value.** A component that receives a spread reads each prop through the whole spread object. When the parent replaces that object, the component re-reads `value` and discards the value it wrote itself, such as its `defaultValue`. A part whose `render` snippet can host a stateful control, such as `Fieldset.Root`, passes an object whose keys read their own sources. `FieldsetRoot.svelte` has the pattern.
+10. **`type="button"` follows spread props onto other tags.** A part that renders a consumer-chosen element drops tag-specific defaults.
+11. **SvelteKit 3 removed `$lib`.** Declare `"imports": { "#lib/*": "./src/lib/*" }` and import with the file extension.
+12. **SvelteKit 3 takes Svelte options in the Vite plugin.** Compiler options and Kit options go into `sveltekit({ compilerOptions, ... })` in `vite.config.ts`.
+13. **A remote form field's `type="email"` triggers native validation** unless the form sets `novalidate`, which can block the submit before preflight runs.
