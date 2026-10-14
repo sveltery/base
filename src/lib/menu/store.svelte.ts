@@ -143,6 +143,8 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	popupDomId = $state('');
 	/** Whether the filter input has focus. WebKit items read it for `aria-selected`. */
 	inputFocused = $state(false);
+	/** A key the consumer's `Menu.Input` handler prevented. The popup's key handling skips it. */
+	consumerHandledKey: KeyboardEvent | null = null;
 	/** The highlighted item, published under virtual focus for `aria-activedescendant`. */
 	highlightedItem = $state.raw<HTMLElement | undefined>(undefined);
 	/** The filter of a menu inside `Menu.FilterProvider`. */

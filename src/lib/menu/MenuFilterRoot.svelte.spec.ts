@@ -1736,7 +1736,7 @@ describe('Menu.FilterProvider keyboard and focus', () => {
 		expect(item('Rename').hasAttribute('data-highlighted')).toBe(false);
 	});
 
-	it('leaves the cross-axis keys on the trigger to the browser while open', async () => {
+	it('ignores the cross-axis keys on the trigger while open', async () => {
 		filterable(
 			[
 				{
@@ -1763,7 +1763,8 @@ describe('Menu.FilterProvider keyboard and focus', () => {
 			return event.defaultPrevented;
 		});
 		await frame();
-		expect(prevented).toEqual([false, false]);
+		// `preventDefault()` is what skips the trigger's own handlers.
+		expect(prevented).toEqual([true, true]);
 		expect(focused()).toBe(trigger);
 		expect(document.querySelector('input[aria-label="Filter sharing options"]')).toBe(null);
 		expect(highlightedNames()).toEqual(['Share']);

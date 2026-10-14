@@ -252,6 +252,51 @@ describe('Menu.FilterProvider around Menu.SubmenuRoot', () => {
 			expect(queryItem('Archive')).not.toBe(null);
 		});
 
+		it('leaves the trigger unhighlighted when it hands focus back to the submenu input', async () => {
+			plainParent({ triggerProps: { delay: 0, 'data-testid': 'submenu-trigger' } });
+			const trigger = page.getByTestId('submenu-trigger').element() as HTMLElement;
+			await userEvent.hover(trigger);
+			await expect.poll(() => searchbox(FOLDERS)).not.toBe(null);
+			const input = searchbox(FOLDERS)!;
+			mouse(input, 'mousemove');
+			await expect.poll(() => focused()).toBe(input);
+
+			mouse(trigger, 'mousemove');
+			await frame();
+			await frame();
+			expect(focused()).toBe(input);
+			expect(trigger.hasAttribute('data-highlighted')).toBe(false);
+		});
+
+		it('keeps a key the consumer prevented from a parent popup that contains the submenu', async () => {
+			const container = document.createElement('div');
+			plainParent(
+				{
+					triggerProps: { delay: 0, 'data-testid': 'submenu-trigger' },
+					portalProps: { container }
+				},
+				{
+					inputProps: {
+						onkeydown: (event: KeyboardEvent) => {
+							if (event.key === 'End') event.preventDefault();
+						}
+					}
+				}
+			);
+			await frame();
+			page.getByRole('menu').first().element().append(container);
+			await userEvent.hover(page.getByTestId('submenu-trigger').element());
+			await expect.poll(() => searchbox(FOLDERS)).not.toBe(null);
+			const input = searchbox(FOLDERS)!;
+			input.focus();
+			await frame();
+
+			await userEvent.keyboard('{End}');
+			await frame();
+			expect(focused()).toBe(input);
+			expect(item('Delete').hasAttribute('data-highlighted')).toBe(false);
+		});
+
 		it('runs the trigger onfocus when the trigger hands focus back to the submenu input', async () => {
 			const focusFrom: (EventTarget | null)[] = [];
 			plainParent({

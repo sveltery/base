@@ -21,7 +21,7 @@
 		type OpenChangePayload
 	} from '@sveltery/floating-ui-svelte';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
-	import { isBaseUIHandlerPrevented, mergeProps } from '../internal/mergeProps.js';
+	import { mergeProps } from '../internal/mergeProps.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
@@ -253,7 +253,7 @@
 				...baseProps,
 				// A key the consumer took from the input skips the menu's handlers here too.
 				onkeydown(event: KeyboardEvent) {
-					if (!isBaseUIHandlerPrevented(event)) baseKeyDown(event);
+					if (store.consumerHandledKey !== event) baseKeyDown(event);
 				}
 			},
 			elementProps,

@@ -10,10 +10,6 @@ Local: `src/lib/internal/mergeProps.ts`. `@sveltery/base` and `@sveltery/base/me
 
 Test: `src/lib/internal/mergeProps.spec.ts`. `src/lib/merge-props/merge-props.spec.ts`. `src/lib/popover/Popover.svelte.spec.ts` (`skips the toggle when an iframe event calls preventDefault`).
 
-Internal: React shares one synthetic event across the propagation path, so `preventBaseUIHandler()` in a descendant's handler also skips the merged handlers of its ancestors. A native event is shared the same way, but `preventDefault()` cannot carry that meaning, because component handlers call it for their own keys. `src/lib/internal/mergeProps.ts` keeps upstream's flag in a module `WeakSet`. A part calls `preventBaseUIHandler(event)`, and every merged handler the event reaches next skips the handlers to its left, as upstream. `forwardConsumerPrevention(handler)` wraps a consumer handler so its `preventDefault()` sets the flag, for a part whose ancestor handles the same event. Consumers still call `preventDefault()`. Neither helper is public.
-
-Test: `src/lib/internal/mergeProps.svelte.spec.ts`.
-
 ## Public helpers and types
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/use-render/useRender.ts`, `packages/react/src/unstable-use-media-query/index.ts`, `packages/react/src/types/index.ts`, `packages/react/src/utils/resolveClassName.ts`, and `packages/react/src/utils/resolveStyle.ts`. `useRender` builds a custom part from a `render` prop, state attributes, and merged refs. `unstable_useMediaQuery` subscribes to `matchMedia`. The `types` entry exports `BaseUIChangeEventDetails`, `BaseUIGenericEventDetails`, `BaseUIEvent`, `HTMLProps`, and `ComponentRenderFn`. Every part accepts `className` and `style` as a function of its state.
@@ -430,7 +426,7 @@ Local: nothing re-runs the parent popup's handlers. A key that a submenu does no
 
 Upstream: a consumer handler calls `event.preventBaseUIHandler()`, and the flag reaches every Base UI handler on the propagation path through React's shared synthetic event.
 
-Local: a consumer handler calls `event.preventDefault()`, as with every part (see `mergeProps`). `Menu.Input` passes its consumer handler through `forwardConsumerPrevention`, so the popup skips its own handlers for that key. No other menu part forwards the opt-out to an ancestor.
+Local: a consumer handler calls `event.preventDefault()`, as with every part (see `mergeProps`). When the consumer's `Menu.Input` handler prevents a key, the input records that key in its menu's store and in each ancestor menu's store, and every popup skips its own handling of it. No other menu part forwards the opt-out to an ancestor. While a filterable menu is open, its trigger calls `preventDefault()` on ArrowLeft and ArrowRight to skip its own handlers for them. Upstream skips them with `preventBaseUIHandler()` and leaves the default action alone.
 
 ### Internal filter roots
 
