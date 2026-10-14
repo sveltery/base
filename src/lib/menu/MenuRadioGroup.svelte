@@ -5,7 +5,12 @@
 -->
 <script lang="ts">
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { setMenuGroup, setMenuRadioGroup } from './context.svelte.js';
+	import { findMenuRoot, setMenuGroup, setMenuRadioGroup } from './context.svelte.js';
+	import {
+		MenuFilterGroup,
+		findMenuFilterGroup,
+		setMenuFilterGroup
+	} from './filter-root.svelte.js';
 	import type { MenuRadioGroupProps, MenuRadioGroupState } from './types.js';
 
 	let {
@@ -13,10 +18,16 @@
 		onValueChange,
 		disabled = false,
 		'aria-labelledby': ariaLabelledBy,
+		hidden,
 		render,
 		children,
 		...elementProps
 	}: MenuRadioGroupProps = $props();
+
+	// A filterable menu hides the group once the query filters out all its items.
+	const filter = findMenuRoot()?.store.filter;
+	const filterGroup = filter ? new MenuFilterGroup(filter, findMenuFilterGroup()) : null;
+	if (filterGroup) setMenuFilterGroup(filterGroup);
 
 	let labelId = $state<string | undefined>(undefined);
 	setMenuGroup({
@@ -45,6 +56,7 @@
 		role: 'group' as const,
 		'aria-labelledby': ariaLabelledBy ?? labelId,
 		'aria-disabled': disabled || undefined,
+		hidden: filterGroup?.hidden || hidden || undefined,
 		...getStateAttributesProps(partState),
 		...elementProps
 	});

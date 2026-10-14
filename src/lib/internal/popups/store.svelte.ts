@@ -161,8 +161,12 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		this.transition.setMounted(false);
 		this.domReferenceElement = null;
 		this.preventUnmountingOnClose = false;
+		this.onUnmount();
 		this.emitOpenChangeComplete(false);
 	}
+
+	/** Upstream `useOpenStateTransitions` onUnmount. Runs before `onOpenChangeComplete(false)`. */
+	protected onUnmount() {}
 
 	/** Dialog calls this when the open animation finishes. Close completion stays in `finishClose`. */
 	notifyOpenChangeComplete(open: boolean) {

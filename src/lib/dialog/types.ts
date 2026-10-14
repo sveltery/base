@@ -110,6 +110,7 @@ export interface DialogRootProps<Payload = unknown> {
 	 * Id of the trigger that owns the dialog.
 	 * Use `bind:triggerId` to share it with the parent.
 	 * Pass it with an initial `open` to name the trigger the dialog starts from.
+	 * An id written by a trigger press resets to `null` once the popup unmounts.
 	 * @default null
 	 */
 	triggerId?: string | null;

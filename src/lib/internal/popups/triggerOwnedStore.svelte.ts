@@ -9,6 +9,7 @@
 import { untrack } from 'svelte';
 import { SvelteMap } from 'svelte/reactivity';
 import { createChangeEventDetails, REASONS, type BaseUIChangeEventDetails } from '@sveltery/utils';
+import { BoundTriggerId } from './boundTriggerId.svelte.js';
 import { PopupStore, type PopupStoreOptions } from './store.svelte.js';
 
 export interface TriggerOwnedPopupStoreOptions<
@@ -25,11 +26,8 @@ export abstract class TriggerOwnedPopupStore<
 	/** Bumps when an open popup changes trigger. The viewport snapshots on this. */
 	triggerSwitch = $state(0);
 	switchedFrom = $state<Element | null>(null);
-	private readonly readTriggerId: () => string | null | undefined;
-	private readonly writeTriggerIdValue: (id: string | null) => void;
+	private readonly boundTriggerId: BoundTriggerId;
 	private readonly readers = new SvelteMap<string, () => Owned>();
-	/** Id written for this open. Survives a bound trigger id that the parent sets back. */
-	private claimedTriggerId: string | null = null;
 	/** Values of the owning trigger that unmounted. Kept until the popup finishes closing. */
 	private retained = $state.raw<{ id: string; owned: Owned } | null>(null);
 	/** The active id once it matched a registered trigger. Tells a lost trigger from a pending one. */
@@ -44,14 +42,13 @@ export abstract class TriggerOwnedPopupStore<
 				options.onOpenChangeComplete()?.(open);
 			}
 		});
-		this.readTriggerId = options.readTriggerId;
-		this.writeTriggerIdValue = options.writeTriggerId;
+		this.boundTriggerId = new BoundTriggerId(this, options.readTriggerId, options.writeTriggerId);
 
 		$effect(() => {
 			const open = this.open;
 			// Registration changes and an element swapped under one id must rerun this.
 			void this.triggers.size;
-			const activeId = this.readTriggerId();
+			const activeId = this.boundTriggerId.read();
 			if (activeId) void this.triggers.getById(activeId);
 			void this.domReferenceElement;
 			untrack(() => this.reconcileActiveTrigger(open));
@@ -73,21 +70,7 @@ export abstract class TriggerOwnedPopupStore<
 	resolvedActiveTriggerId() {
 		const registered = this.triggers.idOf(this.domReferenceElement);
 		if (registered) return registered;
-		const written = this.readTriggerId();
-		if (written) return written;
-		if (this.open && this.claimedTriggerId) return this.claimedTriggerId;
-		return this.domReferenceElement?.id || null;
-	}
-
-	writeTriggerId(id: string | null) {
-		this.claimedTriggerId = id;
-		if ((this.readTriggerId() ?? null) === id) return;
-		this.writeTriggerIdValue(id);
-	}
-
-	/** Upstream `activeTriggerId` state: the bound id, else the id claimed for this open. */
-	private activeTriggerKey() {
-		return this.readTriggerId() || (this.open ? this.claimedTriggerId : null);
+		return this.boundTriggerId.active || this.domReferenceElement?.id || null;
 	}
 
 	/** Values of the active trigger, or of the owning trigger that unmounted. */
@@ -116,10 +99,10 @@ export abstract class TriggerOwnedPopupStore<
 		// trigger's registration effect. Only the trigger id stays tracked there.
 		untrack(() => {
 			if (this.retained?.id === id) this.retained = null;
-			const activeId = this.activeTriggerKey();
+			const activeId = this.boundTriggerId.active;
 			if (activeId === id || this.domReferenceElement === element) {
 				this.domReferenceElement = element;
-				this.writeTriggerId(id);
+				this.boundTriggerId.write(id);
 				return;
 			}
 			if (
@@ -129,7 +112,7 @@ export abstract class TriggerOwnedPopupStore<
 				!this.openedWithoutTrigger
 			) {
 				this.domReferenceElement = element;
-				this.writeTriggerId(id);
+				this.boundTriggerId.write(id);
 			}
 		});
 	}
@@ -153,8 +136,7 @@ export abstract class TriggerOwnedPopupStore<
 		if (eventDetails.isCanceled) return;
 
 		const registered = this.triggers.idOf(this.domReferenceElement);
-		this.writeTriggerId(registered ?? (this.domReferenceElement?.id || null));
-		if (!nextOpen) this.claimedTriggerId = null;
+		this.boundTriggerId.write(registered ?? (this.domReferenceElement?.id || null), nextOpen);
 
 		const nextElement = this.domReferenceElement;
 		if (wasOpen && nextOpen && previousElement && nextElement && previousElement !== nextElement) {
@@ -166,6 +148,10 @@ export abstract class TriggerOwnedPopupStore<
 	/** Drop a prevented unmount. The shared close completion then removes the popup. */
 	override forceUnmount() {
 		this.preventUnmountingOnClose = false;
+	}
+
+	protected override onUnmount() {
+		this.boundTriggerId.reset();
 	}
 
 	/**
@@ -180,7 +166,7 @@ export abstract class TriggerOwnedPopupStore<
 			return;
 		}
 
-		const activeId = this.activeTriggerKey();
+		const activeId = this.boundTriggerId.active;
 		if (activeId) {
 			const registered = this.triggers.getById(activeId);
 			if (registered) {
@@ -191,7 +177,7 @@ export abstract class TriggerOwnedPopupStore<
 			const renamed = this.triggers.idOf(this.domReferenceElement);
 			if (renamed) {
 				this.resolvedTriggerId = renamed;
-				this.writeTriggerId(renamed);
+				this.boundTriggerId.write(renamed);
 				return;
 			}
 			if (this.resolvedTriggerId === activeId) this.closeForLostTrigger(activeId);
@@ -206,12 +192,12 @@ export abstract class TriggerOwnedPopupStore<
 		if (!id) return;
 		this.resolvedTriggerId = id;
 		this.domReferenceElement = only;
-		this.writeTriggerId(id);
+		this.boundTriggerId.write(id);
 	}
 
 	private closeForLostTrigger(lostId: string) {
 		queueMicrotask(() => {
-			if (this.destroyed || !this.open || this.activeTriggerKey() !== lostId) return;
+			if (this.destroyed || !this.open || this.boundTriggerId.active !== lostId) return;
 			if (this.triggers.getById(lostId)) return;
 			// Every hover popup's reasons include `none`, the reason upstream closes with here.
 			const details = createChangeEventDetails(REASONS.none as Reason);
@@ -219,7 +205,7 @@ export abstract class TriggerOwnedPopupStore<
 			// A canceled close keeps the previous trigger as the owner of the popup that stays open.
 			if (details.isCanceled) return;
 			this.domReferenceElement = null;
-			this.writeTriggerId(null);
+			this.boundTriggerId.write(null);
 		});
 	}
 }

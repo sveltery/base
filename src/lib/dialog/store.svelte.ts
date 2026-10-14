@@ -10,6 +10,7 @@
 
 import { untrack } from 'svelte';
 import type { BaseUIChangeEventDetails } from '@sveltery/utils';
+import { BoundTriggerId } from '../internal/popups/boundTriggerId.svelte.js';
 import { PopupStore, type PopupChangeEventDetails } from '../internal/popups/store.svelte.js';
 import type { DialogChangeEventReason } from './types.js';
 
@@ -35,7 +36,8 @@ export interface DialogStoreOptions {
 	onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
 	readModal: () => boolean | 'trap-focus';
 	readDisablePointerDismissal: () => boolean;
-	publishTriggerId?: (id: string | null) => void;
+	readTriggerId: () => string | null | undefined;
+	writeTriggerId: (id: string | null) => void;
 }
 
 export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEventReason> {
@@ -43,7 +45,7 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 	readonly drawer: boolean;
 	readonly readModal: () => boolean | 'trap-focus';
 	readonly readDisablePointerDismissal: () => boolean;
-	readonly publishTriggerId: ((id: string | null) => void) | undefined;
+	readonly boundTriggerId: BoundTriggerId;
 	/** `ClickInteraction` reference props. Set once from the root. Detached triggers read this. */
 	click: DialogClickReference | undefined = undefined;
 	payload = $state<Payload | undefined>(undefined);
@@ -71,7 +73,7 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 		this.drawer = options.drawer ?? false;
 		this.readModal = options.readModal;
 		this.readDisablePointerDismissal = options.readDisablePointerDismissal;
-		this.publishTriggerId = options.publishTriggerId;
+		this.boundTriggerId = new BoundTriggerId(this, options.readTriggerId, options.writeTriggerId);
 	}
 
 	get modal() {
@@ -99,6 +101,10 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 		eventDetails: BaseUIChangeEventDetails<DialogChangeEventReason>
 	) {
 		super.setOpen(nextOpen, eventDetails);
-		this.publishTriggerId?.(this.activeTriggerId);
+		this.boundTriggerId.write(this.activeTriggerId);
+	}
+
+	protected override onUnmount() {
+		this.boundTriggerId.reset();
 	}
 }

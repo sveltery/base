@@ -1,13 +1,16 @@
 <script lang="ts">
 	import {
+		Autocomplete,
 		Checkbox,
 		CheckboxGroup,
+		Combobox,
 		Field,
 		Form,
 		NumberField,
 		OTPField,
 		Radio,
 		RadioGroup,
+		Select,
 		Slider,
 		Switch
 	} from '#lib';
@@ -24,7 +27,12 @@
 		| 'number-field'
 		| 'slider'
 		| 'range-slider'
-		| 'otp-field';
+		| 'otp-field'
+		| 'select'
+		| 'select-multiple'
+		| 'combobox'
+		| 'combobox-multiple'
+		| 'autocomplete';
 
 	let {
 		source,
@@ -49,7 +57,12 @@
 		'number-field': ['seats', 'number'],
 		slider: ['volume', 'range'],
 		'range-slider': ['volume', 'range'],
-		'otp-field': ['code', 'text']
+		'otp-field': ['code', 'text'],
+		select: ['fruit', 'select'],
+		'select-multiple': ['fruits', 'select multiple'],
+		combobox: ['fruit', 'select'],
+		'combobox-multiple': ['fruits', 'select multiple'],
+		autocomplete: ['query', 'text']
 	};
 	const [path, kind] = $derived(paths[scenario]);
 </script>
@@ -93,6 +106,53 @@
 				<OTPField.Input data-testid={`slot-${index}`} />
 			{/each}
 		</OTPField.Root>
+	{:else if scenario === 'select' || scenario === 'select-multiple'}
+		<Select.Root
+			multiple={scenario === 'select-multiple'}
+			defaultValue={scenario === 'select' ? 'apple' : ['apple']}
+		>
+			<Select.Trigger data-testid="control"><Select.Value /></Select.Trigger>
+			<Select.Portal>
+				<Select.Positioner>
+					<Select.Popup>
+						<Select.Item value="apple">apple</Select.Item>
+						<Select.Item value="banana">banana</Select.Item>
+					</Select.Popup>
+				</Select.Positioner>
+			</Select.Portal>
+		</Select.Root>
+	{:else if scenario === 'combobox' || scenario === 'combobox-multiple'}
+		<Combobox.Root
+			multiple={scenario === 'combobox-multiple'}
+			defaultValue={scenario === 'combobox' ? 'apple' : ['apple']}
+		>
+			<Combobox.Input data-testid="control" />
+			<span data-testid="value"><Combobox.Value /></span>
+			<Combobox.Portal>
+				<Combobox.Positioner>
+					<Combobox.Popup>
+						<Combobox.List>
+							<Combobox.Item value="apple">apple</Combobox.Item>
+							<Combobox.Item value="banana">banana</Combobox.Item>
+						</Combobox.List>
+					</Combobox.Popup>
+				</Combobox.Positioner>
+			</Combobox.Portal>
+		</Combobox.Root>
+	{:else if scenario === 'autocomplete'}
+		<Autocomplete.Root defaultValue="apple">
+			<Autocomplete.Input data-testid="control" />
+			<Autocomplete.Portal>
+				<Autocomplete.Positioner>
+					<Autocomplete.Popup>
+						<Autocomplete.List>
+							<Autocomplete.Item value="apple">apple</Autocomplete.Item>
+							<Autocomplete.Item value="banana">banana</Autocomplete.Item>
+						</Autocomplete.List>
+					</Autocomplete.Popup>
+				</Autocomplete.Positioner>
+			</Autocomplete.Portal>
+		</Autocomplete.Root>
 	{/if}
 {/snippet}
 

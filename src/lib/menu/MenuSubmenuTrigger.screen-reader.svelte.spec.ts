@@ -1,7 +1,6 @@
 // Assertions follow Base UI v1.9.0
 // packages/react/src/menu/submenu-trigger/MenuSubmenuTrigger.screenReaderPress.test.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// The filterable submenu cases are out of scope with the filter parts.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
@@ -142,5 +141,51 @@ describe('Menu.SubmenuTrigger with a screen reader press', () => {
 		);
 		await frames();
 		expect(byTestId('submenu')).toBeNull();
+	});
+});
+
+describe('Menu.SubmenuTrigger screen reader press in a filterable menu', () => {
+	function filterableTree(keepMounted: boolean) {
+		const portalProps = keepMounted ? { keepMounted: true } : {};
+		render(MenuHarness, {
+			triggerLabel: 'Open menu',
+			open: true,
+			portalProps,
+			filter: {},
+			items: [
+				...items('Share'),
+				{
+					type: 'submenu' as const,
+					label: 'More',
+					portalProps,
+					triggerProps: { 'data-testid': 'submenu-trigger' },
+					popupProps: { 'data-testid': 'submenu' },
+					filter: { inputLabel: 'Filter more' },
+					items: items('Alpha')
+				}
+			]
+		});
+	}
+
+	const input = (name: string) =>
+		document.querySelector<HTMLInputElement>(`input[aria-label="${name}"]`);
+
+	it('opens a filterable submenu from a filterable parent and focuses its input', async () => {
+		filterableTree(false);
+		await expect.poll(() => document.activeElement).toBe(input('Filter actions'));
+
+		screenReaderPress(byTestId('submenu-trigger')!);
+		await expect.poll(() => byTestId('submenu')).not.toBeNull();
+		await expect.poll(() => document.activeElement).toBe(input('Filter more'));
+	});
+
+	it('keeps focus in a kept-mounted filterable submenu opened by a screen reader press', async () => {
+		filterableTree(true);
+		await expect.poll(() => document.activeElement).toBe(input('Filter actions'));
+
+		screenReaderPress(byTestId('submenu-trigger')!);
+		await expect.poll(() => document.activeElement).toBe(input('Filter more'));
+		await frames();
+		expect(document.activeElement).toBe(input('Filter more'));
 	});
 });

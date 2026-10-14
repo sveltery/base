@@ -5,6 +5,7 @@ import { Menu } from '@base-ui/react/menu';
 import type { MenuCase } from './cases.js';
 
 type Call = { open: boolean; reason: string };
+type Query = { value: string; reason: string };
 type Highlight = { item: string | null; reason: string; label: string | null };
 
 export function mountMenuReference(node: HTMLElement, scenario: MenuCase, onReady: () => void) {
@@ -15,6 +16,7 @@ export function mountMenuReference(node: HTMLElement, scenario: MenuCase, onRead
 		const [clicks, setClicks] = useState<string[]>([]);
 		const [bold, setBold] = useState(false);
 		const [size, setSize] = useState<unknown>('small');
+		const [queries, setQueries] = useState<Query[]>([]);
 		useEffect(onReady, []);
 
 		function item(label: string) {
@@ -26,60 +28,96 @@ export function mountMenuReference(node: HTMLElement, scenario: MenuCase, onRead
 		}
 
 		const content =
-			scenario === 'choices'
+			scenario === 'filter'
 				? h(
 						Fragment,
 						null,
+						h(Menu.Input, { 'aria-label': 'Filter fruits' }),
+						h(Menu.Clear, { 'aria-label': 'Clear filter' }, '×'),
 						h(
-							Menu.CheckboxItem,
-							{ checked: bold, onCheckedChange: setBold },
-							h(Menu.CheckboxItemIndicator, { 'data-testid': 'bold-indicator' } as never, '✓'),
-							'Bold'
+							Menu.List,
+							null,
+							item('Apple'),
+							item('Banana'),
+							h(Menu.Group, null, h(Menu.GroupLabel, null, 'Citrus'), item('Lemon'), item('Lime'))
 						),
-						h(Menu.Separator),
-						h(
-							Menu.RadioGroup,
-							{ value: size, onValueChange: setSize },
-							h(Menu.GroupLabel, null, 'Size'),
+						h(Menu.Empty, null, 'No fruits')
+					)
+				: scenario === 'choices'
+					? h(
+							Fragment,
+							null,
 							h(
-								Menu.RadioItem,
-								{ value: 'small' },
-								h(Menu.RadioItemIndicator, { 'data-testid': 'small-indicator' } as never, '•'),
-								'Small'
+								Menu.CheckboxItem,
+								{ checked: bold, onCheckedChange: setBold },
+								h(Menu.CheckboxItemIndicator, { 'data-testid': 'bold-indicator' } as never, '✓'),
+								'Bold'
 							),
+							h(Menu.Separator),
 							h(
-								Menu.RadioItem,
-								{ value: 'large' },
-								h(Menu.RadioItemIndicator, { 'data-testid': 'large-indicator' } as never, '•'),
-								'Large'
+								Menu.RadioGroup,
+								{ value: size, onValueChange: setSize },
+								h(Menu.GroupLabel, null, 'Size'),
+								h(
+									Menu.RadioItem,
+									{ value: 'small' },
+									h(Menu.RadioItemIndicator, { 'data-testid': 'small-indicator' } as never, '•'),
+									'Small'
+								),
+								h(
+									Menu.RadioItem,
+									{ value: 'large' },
+									h(Menu.RadioItemIndicator, { 'data-testid': 'large-indicator' } as never, '•'),
+									'Large'
+								)
 							)
 						)
-					)
-				: h(
-						Fragment,
-						null,
-						item('Apple'),
-						scenario === 'submenu' || scenario === 'delay'
-							? h(
-									Menu.SubmenuRoot,
-									{
-										onOpenChange: (open: boolean, details: { reason: string }) =>
-											setSubcalls((list) => list.concat({ open, reason: details.reason }))
-									},
-									h(
-										Menu.SubmenuTrigger,
-										{ closeDelay: scenario === 'delay' ? 400 : 0 } as never,
-										'More'
-									),
-									h(
-										Menu.Portal,
-										null,
-										h(Menu.Positioner, null, h(Menu.Popup, null, item('Delta'), item('Echo')))
+					: h(
+							Fragment,
+							null,
+							item('Apple'),
+							scenario === 'submenu' || scenario === 'delay'
+								? h(
+										Menu.SubmenuRoot,
+										{
+											onOpenChange: (open: boolean, details: { reason: string }) =>
+												setSubcalls((list) => list.concat({ open, reason: details.reason }))
+										},
+										h(
+											Menu.SubmenuTrigger,
+											{ closeDelay: scenario === 'delay' ? 400 : 0 } as never,
+											'More'
+										),
+										h(
+											Menu.Portal,
+											null,
+											h(Menu.Positioner, null, h(Menu.Popup, null, item('Delta'), item('Echo')))
+										)
 									)
-								)
-							: item('Banana'),
-						item('Cherry')
-					);
+								: item('Banana'),
+							item('Cherry')
+						);
+
+		const menu = h(
+			Menu.Root,
+			{
+				onOpenChange: (open: boolean, details: { reason: string }) =>
+					setCalls((list) => list.concat({ open, reason: details.reason })),
+				onItemHighlighted: (
+					item: HTMLElement | undefined,
+					details: { reason: string; label: string | undefined }
+				) =>
+					setHighlights((list) =>
+						list.concat({
+							item: item?.textContent?.trim() ?? null,
+							reason: details.reason,
+							label: details.label ?? null
+						})
+					)
+			},
+			h(Menu.Trigger, { openOnHover: scenario === 'hover', delay: 0 } as never, 'Open'),
+			h(Menu.Portal, null, h(Menu.Positioner, null, h(Menu.Popup, null, content)))
+		);
 
 		return h(
 			Fragment,
@@ -90,26 +128,17 @@ export function mountMenuReference(node: HTMLElement, scenario: MenuCase, onRead
 			h('pre', { 'data-testid': 'highlights' }, JSON.stringify(highlights)),
 			h('pre', { 'data-testid': 'clicks' }, JSON.stringify(clicks)),
 			h('pre', { 'data-testid': 'choices' }, JSON.stringify({ bold, size })),
-			h(
-				Menu.Root,
-				{
-					onOpenChange: (open: boolean, details: { reason: string }) =>
-						setCalls((list) => list.concat({ open, reason: details.reason })),
-					onItemHighlighted: (
-						item: HTMLElement | undefined,
-						details: { reason: string; label: string | undefined }
-					) =>
-						setHighlights((list) =>
-							list.concat({
-								item: item?.textContent?.trim() ?? null,
-								reason: details.reason,
-								label: details.label ?? null
-							})
-						)
-				},
-				h(Menu.Trigger, { openOnHover: scenario === 'hover', delay: 0 } as never, 'Open'),
-				h(Menu.Portal, null, h(Menu.Positioner, null, h(Menu.Popup, null, content)))
-			)
+			h('pre', { 'data-testid': 'queries' }, JSON.stringify(queries)),
+			scenario === 'filter'
+				? h(
+						Menu.FilterProvider,
+						{
+							onValueChange: (value: string, details: { reason: string }) =>
+								setQueries((list) => list.concat({ value, reason: details.reason }))
+						},
+						menu
+					)
+				: menu
 		);
 	}
 

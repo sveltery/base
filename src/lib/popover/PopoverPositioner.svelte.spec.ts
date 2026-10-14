@@ -29,3 +29,30 @@ it('updates positioning when Viewport mounts and unmounts', async () => {
 	toggleViewport();
 	await expect.poll(() => positioner().style.transform).toBe('translate(10px, 36px)');
 });
+
+function trigger() {
+	return page.getByRole('button', { name: 'Trigger' });
+}
+
+it('anchors to the only trigger when bind:open opens it after the trigger mounted', async () => {
+	const view = render(PopoverPositionerHarness, { open: false, offset: 100 });
+	await expect.element(trigger()).toBeInTheDocument();
+
+	await view.rerender({ open: true });
+	await expect.poll(() => positioner().style.transform).toBe('translate(110px, 136px)');
+	await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+});
+
+it('anchors to the only trigger when bind:open opens it after the trigger that last opened it remounted', async () => {
+	const view = render(PopoverPositionerHarness, { open: false, offset: 100 });
+	await trigger().click();
+	await expect.poll(() => positioner().style.transform).toBe('translate(110px, 136px)');
+	await trigger().click();
+	await expect.element(page.getByTestId('positioner')).not.toBeInTheDocument();
+
+	await view.rerender({ triggerKey: 1 });
+	await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+	await view.rerender({ open: true });
+	await expect.poll(() => positioner().style.transform).toBe('translate(110px, 136px)');
+	await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+});

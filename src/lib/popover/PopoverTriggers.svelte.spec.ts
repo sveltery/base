@@ -5,6 +5,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PopoverTriggersHarness from '../../tests/PopoverTriggersHarness.svelte';
+import { renderBound } from '../../tests/bound-render.svelte.js';
 import { Popover, type PopoverChangeEventDetails } from './index.js';
 
 function recordOpenChanges() {
@@ -215,6 +216,98 @@ describe('opened without a trigger (Base UI v1.9.0)', () => {
 			)
 			.toBe(true);
 		expect(content()).toBe('1');
+	});
+
+	it('claims the only trigger on a bind:open after the parent cleared triggerId', async () => {
+		const view = render(PopoverTriggersHarness, { triggers: lone });
+		await view.rerender({ open: true });
+		await expect.poll(content).toBe('1');
+		await view.rerender({ open: false, triggerId: null });
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+
+		await view.rerender({ open: true });
+		await expect.poll(content).toBe('1');
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+		const anchor = trigger().element().getBoundingClientRect();
+		await expect
+			.poll(() => page.getByTestId('positioner').element().getBoundingClientRect().top)
+			.toBe(anchor.bottom);
+	});
+
+	const pair = [...lone, { id: 'trigger-2', label: 'Trigger 2', payload: 2 }];
+
+	function trigger2() {
+		return page.getByRole('button', { name: 'Trigger 2' });
+	}
+
+	function popupGone() {
+		return expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+	}
+
+	it('leaves both triggers unassociated on a bind:open after the popover that one opened unmounted', async () => {
+		const state = renderBound(PopoverTriggersHarness, {
+			triggers: pair,
+			open: false,
+			triggerId: undefined
+		});
+		await trigger().click();
+		await expect.poll(content).toBe('1');
+		expect(state.triggerId).toBe('trigger-1');
+		await trigger().click();
+		await popupGone();
+		await expect.poll(() => state.triggerId).toBeNull();
+
+		state.open = true;
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+		await frame();
+		expect(content()).toBe('');
+		await expectUnassociatedTrigger();
+		await expect.element(trigger2()).toHaveAttribute('aria-expanded', 'false');
+	});
+
+	it('keeps a triggerId the parent set while open after the popover unmounts', async () => {
+		const state = renderBound(PopoverTriggersHarness, {
+			triggers: pair,
+			open: false,
+			triggerId: undefined
+		});
+		await trigger().click();
+		await expect.poll(content).toBe('1');
+		state.triggerId = 'trigger-2';
+		await expect.poll(content).toBe('2');
+		state.open = false;
+		await popupGone();
+		await frame();
+		expect(state.triggerId).toBe('trigger-2');
+
+		state.open = true;
+		await expect.element(trigger2()).toHaveAttribute('aria-expanded', 'true');
+		expect(content()).toBe('2');
+	});
+
+	it('leaves both triggers unassociated when onOpenChangeComplete(false) reopens through bind:open', async () => {
+		let reopened = false;
+		const state = renderBound(PopoverTriggersHarness, {
+			triggers: pair,
+			open: false,
+			triggerId: undefined,
+			onOpenChangeComplete(open: boolean) {
+				if (open || reopened) return;
+				reopened = true;
+				state.open = true;
+			}
+		});
+		await trigger().click();
+		await expect.poll(content).toBe('1');
+		await trigger().click();
+		await expect.poll(() => reopened).toBe(true);
+
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+		await frame();
+		expect(state.triggerId).toBeNull();
+		expect(content()).toBe('');
+		await expectUnassociatedTrigger();
+		await expect.element(trigger2()).toHaveAttribute('aria-expanded', 'false');
 	});
 
 	it('takes the only trigger payload on a bind:open after an open without a trigger closed', async () => {

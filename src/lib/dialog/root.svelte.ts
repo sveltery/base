@@ -18,7 +18,6 @@ import type { DialogHandle } from './handle.svelte.js';
 import { DialogStore, type DialogStoreOptions } from './store.svelte.js';
 
 export interface DialogRootOptions<Payload> extends Omit<DialogStoreOptions, 'nested'> {
-	readTriggerId: () => string | null | undefined;
 	readHandle: () => DialogHandle<Payload> | undefined;
 }
 
@@ -77,7 +76,7 @@ export function createDialogRoot<Payload>(
 	}));
 
 	$effect(() => {
-		const id = options.readTriggerId();
+		const id = store.boundTriggerId.read();
 		if (id == null) return;
 		const node = store.triggers.getById(id);
 		if (node && store.domReferenceElement !== node) store.domReferenceElement = node;
