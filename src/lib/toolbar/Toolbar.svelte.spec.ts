@@ -404,25 +404,6 @@ describe('<Toolbar.Button />', () => {
 				expect(onOpenChange).toHaveBeenCalledTimes(0);
 			});
 		});
-
-		describe.each(['dialog', 'popover'] as const)('%s trigger: aria-expanded', (kind) => {
-			it('is true again after Enter, Escape, Enter', async () => {
-				render(ToolbarOverlayHarness, { kind });
-				await userEvent.keyboard('{Tab}');
-				await expect.element(trigger()).toHaveFocus();
-				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
-
-				await userEvent.keyboard('{Enter}');
-				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
-
-				await userEvent.keyboard('{Escape}');
-				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
-				await expect.element(trigger()).toHaveFocus();
-
-				await userEvent.keyboard('{Enter}');
-				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
-			});
-		});
 	});
 
 	it('throws a descriptive error when rendered outside Toolbar.Root', () => {
@@ -518,4 +499,29 @@ describe('native Svelte', () => {
 		await userEvent.keyboard('{ArrowRight}');
 		await expect.element(page.getByRole('link', { name: 'Link' })).toHaveFocus();
 	});
+
+	// Guards the deferred return focus: a synchronous one left a reopened trigger at aria-expanded="false".
+	describe.each(['dialog', 'popover'] as const)(
+		'%s trigger through Toolbar.Button: aria-expanded',
+		(kind) => {
+			const trigger = () => page.getByTestId('trigger');
+
+			it('is true again after Enter, Escape, Enter', async () => {
+				render(ToolbarOverlayHarness, { kind });
+				await userEvent.keyboard('{Tab}');
+				await expect.element(trigger()).toHaveFocus();
+				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+
+				await userEvent.keyboard('{Enter}');
+				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+
+				await userEvent.keyboard('{Escape}');
+				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'false');
+				await expect.element(trigger()).toHaveFocus();
+
+				await userEvent.keyboard('{Enter}');
+				await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+			});
+		}
+	);
 });

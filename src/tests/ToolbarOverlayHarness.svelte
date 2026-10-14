@@ -1,5 +1,7 @@
 <!--
 	A Dialog or Popover trigger rendered through Toolbar.Button.
+	`disabled` goes on the trigger so Toolbar.Button reads it from the spread props, as in real
+	usage; an explicit `disabled` after the spread hides the aria-expanded regression.
 	Derived from Base UI v1.9.0 packages/react/src/toolbar/button/ToolbarButton.test.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

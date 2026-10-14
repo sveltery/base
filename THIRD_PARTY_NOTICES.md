@@ -71,7 +71,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/toolbar/ToolbarRoot.svelte` from `packages/react/src/toolbar/root/ToolbarRoot.tsx`
 - `src/lib/toolbar/ToolbarButton.svelte` from `packages/react/src/toolbar/button/ToolbarButton.tsx`
 - `src/lib/toolbar/ToolbarGroup.svelte` from `packages/react/src/toolbar/group/ToolbarGroup.tsx`
-- `src/lib/toolbar/Toolbar.svelte.spec.ts` assertions from `packages/react/src/toolbar/**/*.test.tsx` that do not require Toolbar.Input, Menu, AlertDialog, Select, Switch or ToggleGroup
+- `src/lib/toolbar/Toolbar.svelte.spec.ts` assertions from `packages/react/src/toolbar/**/*.test.tsx` that do not require Toolbar.Input or render another Base UI component
 - `src/lib/number-field/NumberFieldRoot.svelte` from `packages/react/src/number-field/root/NumberFieldRoot.tsx`
 - `src/lib/number-field/NumberFieldStepper.svelte`, `NumberFieldIncrement.svelte`, and `NumberFieldDecrement.svelte` from `packages/react/src/number-field/root/useNumberFieldStepperButton.ts`, `packages/react/src/number-field/increment/NumberFieldIncrement.tsx`, and `packages/react/src/number-field/decrement/NumberFieldDecrement.tsx`
 - `src/lib/internal/usePressAndHold.svelte.ts` from `packages/react/src/internals/usePressAndHold.ts`
