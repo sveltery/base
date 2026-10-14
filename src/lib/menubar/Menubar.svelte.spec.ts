@@ -3,13 +3,12 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { tick } from 'svelte';
 import { userEvent } from 'vitest/browser';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenubarHarness from '../../tests/menubar/MenubarHarness.svelte';
 import MenubarCasesHarness from '../../tests/menubar/MenubarCasesHarness.svelte';
 import MenubarOrphan from '../../tests/menubar/MenubarOrphan.svelte';
 import { clickElement, mouse, pointer } from '../../tests/menu/mouse.js';
-import { parkPointer } from '../../tests/pointer.js';
 
 function byTestId(id: string) {
 	return document.querySelector(`[data-testid="${id}"]`) as HTMLElement | null;
@@ -68,8 +67,6 @@ function isScrollLocked() {
 }
 
 const shown = (id: string) => () => byTestId(id) !== null;
-
-beforeEach(parkPointer);
 
 describe('Menubar', () => {
 	it('throws when the menubar context is missing', () => {
@@ -874,8 +871,6 @@ describe('Menubar', () => {
 });
 
 describe('filterable menubar menus', () => {
-	beforeEach(parkPointer);
-
 	it.each(['horizontal', 'vertical'] as const)(
 		'preserves %s trigger navigation',
 		async (orientation) => {

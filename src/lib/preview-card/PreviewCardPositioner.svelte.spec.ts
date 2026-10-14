@@ -9,12 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PreviewCardMultilineHarness from '../../tests/PreviewCardMultilineHarness.svelte';
 import PreviewCardPositionerHarness from '../../tests/PreviewCardPositionerHarness.svelte';
-import {
-	byId,
-	leave,
-	resetBrowserPointer,
-	settlePositioning
-} from '../../tests/previewCardEvents.js';
+import { byId, leave, settlePositioning } from '../../tests/previewCardEvents.js';
 
 const anchorWidth = 72;
 const anchorHeight = 36;
@@ -22,7 +17,6 @@ const popupWidth = 52;
 const baselineX = (anchorWidth - popupWidth) / 2;
 const baselineY = anchorHeight;
 
-beforeEach(resetBrowserPointer);
 afterEach(settlePositioning);
 
 function expectWithin(actual: number, expected: number, tolerance = 2) {

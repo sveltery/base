@@ -5,17 +5,11 @@
 // `defaultOpen` / `defaultTriggerId` (a root takes an initial `open` and `triggerId` instead),
 // and the Strict-Mode and JSDOM-only branches.
 import { userEvent } from 'vitest/browser';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PreviewCardHandoffHarness from '../../tests/PreviewCardHandoffHarness.svelte';
 import PreviewCardMultiHarness from '../../tests/PreviewCardMultiHarness.svelte';
-import {
-	byId,
-	hover,
-	leave,
-	resetBrowserPointer,
-	settlePositioning
-} from '../../tests/previewCardEvents.js';
+import { byId, hover, leave, settlePositioning } from '../../tests/previewCardEvents.js';
 import { OPEN_DELAY } from './constants.js';
 import { PreviewCard } from './index.js';
 
@@ -59,7 +53,6 @@ function expectActiveTrigger(activeNumber: number | null, count = 2) {
 	}
 }
 
-beforeEach(resetBrowserPointer);
 afterEach(settlePositioning);
 
 function leftOffset(element: Element, reference: Element) {
