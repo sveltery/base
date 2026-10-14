@@ -30,8 +30,10 @@ export interface MenubarParentContext {
 	readonly orientation: MenuOrientation;
 	readonly mouseUpGate: MouseUpGate;
 	readonly rootId: string | undefined;
-	/** The menubar's own floating tree. Its menus emit their open changes here. */
+	/** The menubar's own floating tree. */
 	readonly floatingTree: FloatingTreeStore;
+	/** The menu events of the menubar's menus. */
+	readonly menuEvents: EventTarget;
 	/** The menubar's node in that tree, the parent node of its menus. */
 	readonly nodeId: string;
 	/** Forwards a key from a detached menu popup to the menubar's roving focus. */

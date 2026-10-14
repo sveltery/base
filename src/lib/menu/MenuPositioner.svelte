@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
+	import { on } from 'svelte/events';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { REASONS, ScopedTimeout, createChangeEventDetails } from '@sveltery/utils';
 	import { toCssStyle } from '../internal/css-style.js';
@@ -124,25 +125,22 @@
 	});
 
 	// A child menu that opens disables this menu's hover close. A sibling that opens closes this one.
-	$effect(() => {
-		const events = store.tree?.events;
-		if (!events) return;
-		return events.on('menuopenchange', (data) => {
-			const details = data as MenuOpenEventDetails;
+	$effect(() =>
+		on(store.menuEvents, 'menuopenchange', (event) => {
+			const details = (event as CustomEvent<MenuOpenEventDetails>).detail;
 			if (!details.open) return;
 			if (details.parentNodeId === store.nodeId) store.hoverEnabled = false;
 			if (details.nodeId !== store.nodeId && details.parentNodeId === store.parentNodeId) {
 				store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
 			}
-		});
-	});
+		})
+	);
 
 	// A submenu closes with its parent.
 	$effect(() => {
-		const events = store.tree?.events;
-		if (!events || store.parentNodeId == null) return;
-		return events.on('menuopenchange', (data) => {
-			const details = data as MenuOpenEventDetails;
+		if (store.parentNodeId == null) return;
+		return on(store.menuEvents, 'menuopenchange', (event) => {
+			const details = (event as CustomEvent<MenuOpenEventDetails>).detail;
 			if (details.open || details.nodeId !== store.parentNodeId) return;
 			store.setOpen(false, createChangeEventDetails(details.reason ?? REASONS.siblingOpen));
 		});
@@ -155,12 +153,11 @@
 
 	// Hovering another item of the parent menu closes this submenu.
 	$effect(() => {
-		const events = store.tree?.events;
-		if (!events) return;
 		const open = store.open;
 		const trigger = store.domReferenceElement;
-		return events.on('itemhover', (data) => {
-			const event = data as { nodeId: string | null; target: Element | null };
+		return on(store.menuEvents, 'itemhover', (itemHover) => {
+			const event = (itemHover as CustomEvent<{ nodeId: string | null; target: Element | null }>)
+				.detail;
 			if (!open || event.nodeId !== store.parentNodeId) return;
 			if (event.target && trigger && trigger !== event.target) {
 				const delay = store.closeDelay;
@@ -182,14 +179,13 @@
 
 	// Before the DOM update, as upstream emits from a layout effect.
 	$effect.pre(() => {
-		const events = store.tree?.events;
 		const details: MenuOpenEventDetails = {
 			open: store.open,
 			nodeId: store.nodeId,
 			parentNodeId: store.parentNodeId,
 			reason: untrack(() => store.openChangeReason)
 		};
-		events?.emit('menuopenchange', details);
+		store.menuEvents.dispatchEvent(new CustomEvent('menuopenchange', { detail: details }));
 	});
 
 	const state: MenuPositionerState = $derived({
