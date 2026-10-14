@@ -2,8 +2,8 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The non-primary outside press follows v1.9.0
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // A press is inside when the target is in the floating element, the trigger, a
-// floating-tree child's floating element or portal, or a portal nested in this popup's portal
-// host. The popup's own portal host is not inside.
+// floating-tree child's floating element or portal, or a portal rendered in this popup's content.
+// The popup's own portal host is not inside.
 
 import { on } from 'svelte/events';
 import {
@@ -86,6 +86,10 @@ const PRESS_EVENTS = [
 	'touchend'
 ] as const;
 
+function onPress(node: HTMLElement, listener: (event: Event) => void) {
+	return PRESS_EVENTS.map((type) => on(node, type, listener, { capture: true, passive: true }));
+}
+
 export class DismissInteraction {
 	readonly #tree = useFloatingTree();
 	readonly #compositionTimeout = new ScopedTimeout();
@@ -132,17 +136,11 @@ export class DismissInteraction {
 			}
 
 			const doc = ownerDocument(this.store.floatingElement ?? this.store.portalElement);
+			const floating = this.store.floatingElement;
 			// Upstream marks presses through React's tree. A document listener sees only the
-			// host of a closed shadow root, so the floating element reports its own presses. A
-			// portal rendered from the popup's content mounts in its portal host, so the host
-			// reports presses in that nested portal.
-			const mark = (node: HTMLElement | null, marker: (event: Event) => void) =>
-				node
-					? PRESS_EVENTS.map((type) => on(node, type, marker, { capture: true, passive: true }))
-					: [];
+			// host of a closed shadow root, so the floating element reports its own presses.
 			const cleanups = [
-				...mark(this.store.floatingElement, this.#markInsideTree),
-				...mark(this.store.portalElement, this.#markInsideNestedPortal),
+				...(floating ? onPress(floating, this.#markInsideTree) : []),
 				on(doc, 'compositionstart', () => {
 					this.#compositionTimeout.clear();
 					this.#composing = true;
@@ -297,16 +295,22 @@ export class DismissInteraction {
 				this.#insideEvent = null;
 			};
 		});
+
+		// A portal rendered in the popup's content mounts outside the floating element, so its host
+		// reports its own presses.
+		$effect(() => {
+			if (!this.#options().enabled || !this.store.isOpen()) return;
+			const cleanups = [...this.store.nestedPortals].flatMap((host) =>
+				onPress(host, this.#markInsideTree)
+			);
+			return () => {
+				for (const cleanup of cleanups) cleanup();
+			};
+		});
 	}
 
 	#markInsideTree = (event: Event) => {
 		this.#insideEvent = event;
-	};
-
-	#markInsideNestedPortal = (event: Event) => {
-		const { target } = event;
-		if (!(target instanceof Element)) return;
-		if (target.closest('[data-base-ui-portal]') !== event.currentTarget) this.#insideEvent = event;
 	};
 
 	#options() {

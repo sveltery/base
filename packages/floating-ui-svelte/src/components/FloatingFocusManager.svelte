@@ -63,7 +63,11 @@
 		getTabbableCandidates,
 		isOutsideEvent
 	} from '../utils/tabbable.js';
-	import { hasFloatingPortal, useFloatingPortal } from './FloatingPortal.svelte';
+	import {
+		hasFloatingPortal,
+		setFloatingPopupScope,
+		useFloatingPortal
+	} from './FloatingPortal.svelte';
 	import { useFloatingTree } from './FloatingTree.svelte.js';
 	import { getNodeAncestors, getNodeChildren } from './FloatingTreeStore.js';
 
@@ -130,6 +134,7 @@
 	const tree = useFloatingTree();
 	const portaled = hasFloatingPortal();
 	const portal = useFloatingPortal();
+	setFloatingPopupScope(untrack(() => store));
 	const pointerDownTimeout = new ScopedTimeout();
 	const insideTreeTimeout = new ScopedTimeout();
 	const focusOutTimeout = new ScopedTimeout();
@@ -406,7 +411,8 @@
 	}
 
 	/**
-	 * Focus is still inside this popup, its trigger, its portal, or a parent or child popup.
+	 * Focus is still inside this popup, its trigger, its portal, a portal rendered in its content,
+	 * or a parent or child popup.
 	 * Upstream closes only when focus leaves those nodes (`FloatingFocusManager.tsx` 431–484).
 	 */
 	function focusStaysInTree(related: EventTarget | null) {
@@ -416,6 +422,7 @@
 		if (related instanceof Element && related.hasAttribute('data-base-ui-focus-guard')) return true;
 		const popup = store.floatingElement;
 		if (contains(popup, related) || contains(store.portalElement, related)) return true;
+		if ([...store.nestedPortals].some((host) => contains(host, related))) return true;
 		if (contains(store.domReferenceElement, related)) return true;
 		if (inInsideElement(related)) return true;
 		if (related instanceof Element && popup && contains(related, popup)) return true;

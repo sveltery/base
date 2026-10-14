@@ -3,6 +3,7 @@
 // One store owns elements. There is no dataRef or nodesRef bag.
 
 import type { VirtualElement } from '@floating-ui/dom';
+import { SvelteSet } from 'svelte/reactivity';
 import type { BaseUIChangeEventDetails, OpenInteractionType } from '@sveltery/utils';
 import type { HoverInteraction } from '../hooks/useHoverInteractionSharedState.svelte.js';
 import { createEventEmitter, type FloatingEvents } from '../utils/createEventEmitter.js';
@@ -36,6 +37,11 @@ export class FloatingRootStore {
 	popupElement = $state<HTMLElement | null>(null);
 	positionerElement = $state<HTMLElement | null>(null);
 	portalElement = $state<HTMLElement | null>(null);
+	/**
+	 * Hosts of the portals rendered in this popup's content, directly or through a nested popup.
+	 * A press or focus inside one is inside this popup, as upstream's React tree bubbling makes it.
+	 */
+	readonly nestedPortals = new SvelteSet<HTMLElement>();
 	/**
 	 * Focus guard rendered after the active trigger.
 	 * Tab leaving a non-modal popup lands here, then on the next control.
