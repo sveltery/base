@@ -390,3 +390,39 @@ describe('ContextMenu.Trigger', () => {
 		expect(byTestId('inner-menu')).toBeNull();
 	});
 });
+
+describe('ContextMenu.Trigger that remounts', () => {
+	// The trigger area never registers as a menu trigger, so no trigger id goes stale: the menu
+	// anchors at the pointer and focus returns to the area that had focus.
+	it('opens at the pointer from the new trigger and returns focus to it', async () => {
+		const view = render(ContextMenuHarness, { triggerProps: { tabindex: 0 } });
+		get('trigger').focus();
+		contextMenu(get('trigger'), { clientX: 40, clientY: 50 });
+		await expect.poll(() => byTestId('positioner')).not.toBeNull();
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => byTestId('positioner')).toBeNull();
+		const previous = get('trigger');
+
+		await view.rerender({ showTrigger: false });
+		await view.rerender({ showTrigger: true });
+		const remounted = get('trigger');
+		expect(remounted).not.toBe(previous);
+
+		remounted.focus();
+		contextMenu(remounted, { clientX: 60, clientY: 70 });
+		await expect.poll(() => byTestId('positioner')).not.toBeNull();
+		// alignOffset 2 and sideOffset -5 put the popup's corner just under the cursor.
+		await expect
+			.poll(() => {
+				const rect = get('positioner').getBoundingClientRect();
+				return [Math.round(rect.left), Math.round(rect.top)];
+			})
+			.toEqual([62, 65]);
+		expect(remounted.hasAttribute('data-popup-open')).toBe(true);
+
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => byTestId('positioner')).toBeNull();
+		expect(document.activeElement).toBe(remounted);
+		expect(remounted.hasAttribute('data-popup-open')).toBe(false);
+	});
+});
