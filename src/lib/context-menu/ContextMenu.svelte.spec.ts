@@ -415,6 +415,17 @@ describe('ContextMenu', () => {
 				expect({ open: openStates(), reasons }).toEqual({ open: [true, true], reasons: [] });
 			});
 
+			it.runIf(outer === 'menu')(
+				'keeps the context menu open while the pointer crosses an outer item',
+				async () => {
+					const reasons = await openBoth();
+					mouse(get('outer-item'), 'mousemove');
+					await new Promise(requestAnimationFrame);
+					await tick();
+					expect({ open: openStates(), reasons }).toEqual({ open: [true, true], reasons: [] });
+				}
+			);
+
 			it('closes only the context menu on Escape', async () => {
 				const reasons = await openBoth();
 				await userEvent.keyboard('{Escape}');

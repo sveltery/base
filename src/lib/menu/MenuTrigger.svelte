@@ -145,7 +145,11 @@
 		}
 		if (target != null && findRootOwnerId(target) === current.rootId) return;
 		if (isMouseWithinBounds(event, node)) return;
-		current.tree?.events.emit('close', { domEvent: event, reason: REASONS.cancelOpen });
+		current.tree?.events.emit('close', {
+			rootId: current.rootId,
+			domEvent: event,
+			reason: REASONS.cancelOpen
+		});
 	}
 
 	function listenForMouseUp(doc: Document) {

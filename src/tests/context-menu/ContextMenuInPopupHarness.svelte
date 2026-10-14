@@ -52,7 +52,10 @@
 		<Menu.Trigger data-testid="outer-trigger">Open</Menu.Trigger>
 		<Menu.Portal>
 			<Menu.Positioner>
-				<Menu.Popup data-testid="outer">{@render contextMenu()}</Menu.Popup>
+				<Menu.Popup data-testid="outer">
+					<Menu.Item data-testid="outer-item">Rename</Menu.Item>
+					{@render contextMenu()}
+				</Menu.Popup>
 			</Menu.Positioner>
 		</Menu.Portal>
 	</Menu.Root>

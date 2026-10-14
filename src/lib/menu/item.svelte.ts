@@ -106,7 +106,11 @@ export class MenuItemBehavior {
 			},
 			onclick: (event: MouseEvent) => {
 				if (closeOnClick) {
-					events?.emit('close', { domEvent: event, reason: REASONS.itemPress });
+					events?.emit('close', {
+						rootId: list.rootId,
+						domEvent: event,
+						reason: REASONS.itemPress
+					});
 				}
 			},
 			onmouseup: (event: MouseEvent) => {

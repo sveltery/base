@@ -63,12 +63,18 @@
 		}
 	}));
 
-	// An item press anywhere in the menu tree closes every menu in it.
+	// An item press closes every menu of its root. Another menu in the same tree, such as a context
+	// menu inside this popup, has its own root.
 	$effect(() => {
 		const events = store.tree?.events;
 		if (!events) return;
 		return events.on('close', (data) => {
-			const event = data as { domEvent: Event | undefined; reason: MenuChangeReason };
+			const event = data as {
+				rootId: string | undefined;
+				domEvent: Event | undefined;
+				reason: MenuChangeReason;
+			};
+			if (event.rootId !== store.rootId) return;
 			store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));
 		});
 	});
