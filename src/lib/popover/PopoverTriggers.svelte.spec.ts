@@ -217,6 +217,22 @@ describe('opened without a trigger (Base UI v1.9.0)', () => {
 		expect(content()).toBe('1');
 	});
 
+	it('claims the only trigger on a bind:open after the parent cleared triggerId', async () => {
+		const view = render(PopoverTriggersHarness, { triggers: lone });
+		await view.rerender({ open: true });
+		await expect.poll(content).toBe('1');
+		await view.rerender({ open: false, triggerId: null });
+		await expect.poll(() => document.querySelector('[data-testid="popup"]')).toBeNull();
+
+		await view.rerender({ open: true });
+		await expect.poll(content).toBe('1');
+		await expect.element(trigger()).toHaveAttribute('aria-expanded', 'true');
+		const anchor = trigger().element().getBoundingClientRect();
+		await expect
+			.poll(() => page.getByTestId('positioner').element().getBoundingClientRect().top)
+			.toBe(anchor.bottom);
+	});
+
 	it('takes the only trigger payload on a bind:open after an open without a trigger closed', async () => {
 		const handle = Popover.createHandle<number | string>();
 		const view = render(PopoverTriggersHarness, { handle, triggers: lone });
