@@ -34,6 +34,11 @@ const run = spawnSync(
 	{ cwd: root, encoding: 'utf8' }
 );
 if (run.error) throw run.error;
+// svelte-check exits 1 both for reported errors and for a bad setup, so look for its summary line.
+if (!/^\d+ COMPLETED /m.test(run.stdout)) {
+	console.error(run.stderr);
+	throw new Error(`svelte-check did not finish (status ${run.status}, signal ${run.signal})`);
+}
 
 /** @type {Map<string, string[]>} */
 const errors = new Map();
