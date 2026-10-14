@@ -1,5 +1,5 @@
 // Each case runs against the Svelte Menubar and the React Base UI 1.9.0 reference.
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import { forEachFramework } from '../framework-loop.js';
 import { openFixture } from '../open-fixture.js';
 import { readOutput as json } from '../read-output.js';
@@ -247,9 +247,9 @@ forEachFramework((reference, framework) => {
 				return fixture;
 			}
 
-			/** Waits past File's unmount, where a return focus to its trigger could reopen File. */
-			async function expectEditOpen(page: Page, fixture: Awaited<ReturnType<typeof open>>) {
-				await page.waitForTimeout(150);
+			/** Once Edit's initial focus lands, File's return focus can no longer reopen File. */
+			async function expectEditOpen(fixture: Awaited<ReturnType<typeof open>>, focused: Locator) {
+				await expect(focused).toBeFocused();
 				await expect(fixture.menu('Edit')).toBeVisible();
 				await expect(fixture.menu('File')).toHaveCount(0);
 				await expect(fixture.trigger('File')).toHaveAttribute('aria-expanded', 'false');
@@ -262,7 +262,7 @@ forEachFramework((reference, framework) => {
 				await expect.poll(() => isScrollLocked(page)).toBe(true);
 
 				await tap(page, fixture.trigger('Edit'));
-				await expectEditOpen(page, fixture);
+				await expectEditOpen(fixture, fixture.menu('Edit'));
 				await expect.poll(() => isScrollLocked(page)).toBe(false);
 				expect(await json(page, 'calls')).toEqual([
 					{ menu: 'File', open: true, reason: 'trigger-press' },
@@ -279,8 +279,7 @@ forEachFramework((reference, framework) => {
 				await expect(fixture.menu('File')).toBeVisible();
 
 				await virtualTap(page, fixture.trigger('Edit'));
-				await expectEditOpen(page, fixture);
-				await expect(fixture.item('Copy')).toBeFocused();
+				await expectEditOpen(fixture, fixture.item('Copy'));
 				expect(await json(page, 'calls')).toEqual([
 					{ menu: 'File', open: true, reason: 'trigger-press' },
 					{ menu: 'File', open: false, reason: 'outside-press' },
@@ -297,7 +296,7 @@ forEachFramework((reference, framework) => {
 				await expect(fixture.item('New')).toBeFocused();
 
 				await tap(page, fixture.trigger('Edit'));
-				await expectEditOpen(page, fixture);
+				await expectEditOpen(fixture, fixture.menu('Edit'));
 			});
 		});
 
