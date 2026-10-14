@@ -760,7 +760,7 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers |
 | NumberField        | refs                                                                                                   |
 | ScrollArea         | refs                                                                                                   |
-| Slider             | refs                                                                                                   |
+| Slider             | refs, the prehydration `<script>` stays in the DOM after hydration (empty in client-only mounts)       |
 | DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                             |
 | OTPField           | refs, React controlled lock                                                                            |
 | CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                          |
