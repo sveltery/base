@@ -95,6 +95,9 @@ export {
 	getNextTabbable,
 	getNodeChildren,
 	getPreviousTabbable,
-	hoverInteraction
+	hoverInteraction,
+	isTypeableElement,
+	isVirtualPointerEvent,
+	stopEvent
 } from './sharedInternals.js';
 export { gridNavigation, getGridNavigatedIndex } from './hooks/gridNavigation.js';

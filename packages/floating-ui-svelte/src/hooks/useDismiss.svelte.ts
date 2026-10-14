@@ -1,7 +1,8 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/DismissInteraction.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The non-primary outside press follows v1.9.0
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // A press is inside when the target is in the floating element, the trigger, or a
-// floating-tree child's floating element. The portal host is not inside.
+// floating-tree child's floating element or portal. The popup's own portal host is not inside.
 
 import { on } from 'svelte/events';
 import {
@@ -155,13 +156,15 @@ export class DismissInteraction {
 					'pointerdown',
 					(event) => {
 						this.#lastPointerType = event.pointerType;
-						if (event.button !== 0) return;
-						this.#ignoreInsideReleaseClick = false;
+						// Only a primary press can produce a click. Any button still dismisses below.
+						if (event.button === 0) this.#ignoreInsideReleaseClick = false;
 						// Classify at the target, after the floating element's capture listener has
 						// marked a press it saw inside a closed shadow root.
 						onTargetOnce(event, () => {
-							if (this.#insideDismissTree(event)) this.#pressStartedInside = true;
-							else this.#sawPressWhileOpen = true;
+							if (event.button === 0) {
+								if (this.#insideDismissTree(event)) this.#pressStartedInside = true;
+								else this.#sawPressWhileOpen = true;
+							}
 							// Upstream `handlePointerDown` (DismissInteraction.ts 515–524): touch waits for
 							// touchend, for the finger to scroll away, or for the compatibility mousedown.
 							if (event.pointerType === 'touch') return;
@@ -370,7 +373,6 @@ export class DismissInteraction {
 		if (!this.store.isOpen() || !current.enabled || current.outsidePress === false) return;
 		if (mode === 'intentional' && event.type !== 'click') return;
 		if (mode === 'sloppy' && event.type === 'click') return;
-		if (event.type === 'pointerdown' && 'button' in event && event.button !== 0) return;
 		if (this.#insideDismissTree(event)) return;
 		if (mode === 'intentional' && !this.#sawPressWhileOpen && event.detail !== 0) return;
 		if (typeof current.outsidePress === 'function' && !current.outsidePress(event)) return;

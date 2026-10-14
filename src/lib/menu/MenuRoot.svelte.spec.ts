@@ -6,6 +6,7 @@ import { platform } from '@sveltery/utils';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import MenuDialogHarness from '../../tests/menu/MenuDialogHarness.svelte';
+import MenuDialogReturnHarness from '../../tests/menu/MenuDialogReturnHarness.svelte';
 import MenuHarness from '../../tests/menu/MenuHarness.svelte';
 import MenuLateItemsHarness from '../../tests/menu/MenuLateItemsHarness.svelte';
 import MenuNestedDialogHarness from '../../tests/menu/MenuNestedDialogHarness.svelte';
@@ -1402,6 +1403,33 @@ describe.skipIf(!platform.engine.blink)('Menu.Root opening a dialog from an item
 	});
 });
 
+describe('Menu.Root opening a separate dialog', () => {
+	// Upstream v1.9.0 `FloatingFocusManager` returns focus through the previously focused element
+	// stack when the dialog's opener, the menu item, is gone.
+	it.each(['keyboard', 'mouse'] as const)(
+		'returns focus to the menu trigger when the dialog closes on Escape (%s)',
+		async (mode) => {
+			render(MenuDialogReturnHarness);
+			const trigger = page.getByTestId('menu-trigger');
+			if (mode === 'keyboard') {
+				(trigger.element() as HTMLElement).focus();
+				await userEvent.keyboard('{Enter}');
+				await expect.poll(() => document.activeElement?.getAttribute('role')).toBe('menuitem');
+				await userEvent.keyboard('{Enter}');
+			} else {
+				await userEvent.click(trigger);
+				await userEvent.click(page.getByRole('menuitem'));
+			}
+			await expect.poll(() => byTestId('in-dialog')).toBe(document.activeElement);
+
+			await userEvent.keyboard('{Escape}');
+
+			await expect.poll(() => byTestId('dialog-popup')).toBeNull();
+			await expect.poll(focused).toBe(trigger.element());
+		}
+	);
+});
+
 describe('Menu.Root nested popups', () => {
 	async function openNested(kind: 'dialog' | 'alert-dialog') {
 		render(MenuNestedDialogHarness, { kind });
@@ -1769,5 +1797,25 @@ describe('Menu.Root prop: onItemHighlighted', () => {
 			await expect.poll(() => onItemHighlighted.mock.lastCall?.[0]).toBeUndefined();
 			expect(onItemHighlighted.mock.lastCall?.[1].reason).toBe('pointer');
 		});
+	});
+});
+
+describe('popup id', () => {
+	it('points aria-controls at the generated id once a popup id override is removed', async () => {
+		const result = render(MenuHarness, {
+			triggerLabel: 'Actions',
+			open: true,
+			popupProps: { id: 'custom-popup' },
+			items: items('Apple')
+		});
+		const trigger = page.getByRole('button', { name: 'Actions' }).element();
+		const popup = page.getByRole('menu').element();
+		expect(popup.id).toBe('custom-popup');
+		expect(trigger.getAttribute('aria-controls')).toBe('custom-popup');
+
+		await result.rerender({ popupProps: {} });
+		await expect.poll(() => popup.id).not.toBe('custom-popup');
+		expect(popup.id).not.toBe('');
+		await expect.poll(() => trigger.getAttribute('aria-controls')).toBe(popup.id);
 	});
 });

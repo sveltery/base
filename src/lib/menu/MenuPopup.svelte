@@ -1,9 +1,11 @@
 <!--
 	A container for the menu items. Renders a `<div>` element.
-	Derived from Base UI v1.9.0 packages/react/src/menu/popup/MenuPopup.tsx and
+	Derived from Base UI v1.9.0 packages/react/src/menu/popup/MenuPopup.tsx,
+	packages/react/src/menu/filter-root/MenuFilterPopup.tsx and
 	packages/react/src/internals/resolvePopupLabel.ts
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	The filter variant (`Menu.List`, virtual focus handoff) is not ported.
+	A filterable menu's popup is a `dialog` that holds the input and the list. A portaled submenu
+	relays its keys and focus here through `relayKeyDown` and `relayFocusIn`.
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
@@ -20,12 +22,14 @@
 		type OpenChangePayload
 	} from '@sveltery/floating-ui-svelte';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
-	import { mergeProps } from '../internal/mergeProps.js';
+	import { isBaseUIHandlerPrevented, mergeProps } from '../internal/mergeProps.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
+	import { useDirection } from '../internal/direction-context.js';
 	import { liveStyle } from './live-style.js';
 	import { useMenuPositioner, useMenuRoot } from './context.svelte.js';
+	import { MenuFilterPopupBehavior, useVirtualFocusParentHandoff } from './filter-popup.svelte.js';
 	import type { MenuChangeReason, MenuPopupProps, MenuPopupState } from './types.js';
 
 	let { finalFocus = undefined, render, children, ...elementProps }: MenuPopupProps = $props();
@@ -35,6 +39,14 @@
 	const positioning = useMenuPositioner();
 	const bindKey = createAttachmentKey();
 	const styleKey = createAttachmentKey();
+	const direction = useDirection();
+	const filterPopup = store.filter
+		? new MenuFilterPopupBehavior(store, () => ({
+				orientation: root.orientation,
+				rtl: direction.direction === 'rtl'
+			}))
+		: null;
+	const handoff = useVirtualFocusParentHandoff(store);
 	const ownStyle = liveStyle(
 		() => ({
 			...store.popupVars,
@@ -74,7 +86,13 @@
 	function bindPopup(node: HTMLElement) {
 		store.popupElement = node;
 		store.floatingElement = node;
+		store.popupDomId = node.id;
+		const observer = new MutationObserver(() => {
+			if (store.popupElement === node) store.popupDomId = node.id;
+		});
+		observer.observe(node, { attributes: true, attributeFilter: ['id'] });
 		return () => {
+			observer.disconnect();
 			if (store.popupElement === node) store.popupElement = null;
 			if (store.floatingElement === node) store.floatingElement = null;
 		};
@@ -90,6 +108,9 @@
 		nested: parentType === 'menu',
 		instant: store.instantType
 	});
+
+	// A rendered plain `Menu.List` carries the `menu` semantics instead.
+	const listElement = $derived(store.listElement);
 
 	// The trigger names the menu unless the consumer labels it.
 	const labelledBy = $derived.by(() => {
@@ -142,8 +163,24 @@
 
 	const returnSpec = $derived(finalFocus === undefined ? returnFocusDefault : finalFocus);
 
+	/**
+	 * A submenu next to a filterable menu returns to the parent's input, or to the element a
+	 * filterable submenu returns to. These are internal defaults rather than consumer targets, so
+	 * focus that already moved out stays.
+	 */
+	const dynamicReturn = $derived(
+		finalFocus === undefined && parentType === 'menu' && (store.submenu != null || handoff != null)
+	);
+
+	function dynamicReturnElement(): HTMLElement | null | undefined {
+		if (!dynamicReturn) return undefined;
+		return store.submenu ? store.submenu.getReturnElement() : handoff?.returnElement;
+	}
+
 	function returnFocus(closeType: string | null): boolean | HTMLElement | null | void {
 		if (leftByPointer) return false;
+		const dynamic = dynamicReturnElement();
+		if (dynamic) return dynamic;
 		// Upstream's default returns focus from a triggerless menubar menu unless an outside press
 		// closed it.
 		if (
@@ -161,6 +198,54 @@
 		return spec === true ? focusInside() : (spec ?? false);
 	}
 
+	const initialFocus = $derived.by(() => {
+		if (filterPopup) return filterPopup.initialFocus();
+		const list = listElement;
+		if (list && parentType !== 'menu') {
+			// A keyboard or screen reader open highlights an item, which list navigation focuses.
+			// Otherwise the list holds the `menu` role, so a pointer open focuses it.
+			return () => (store.activeIndex !== null ? false : list);
+		}
+		return parentType !== 'menu';
+	});
+
+	function ownKeyDown(event: KeyboardEvent) {
+		store.submenu?.onPopupKeyDown(event);
+		stopInToolbar(event);
+	}
+
+	function relayFocusIn(event: FocusEvent) {
+		handoff?.focusIn();
+		const parent = store.parent;
+		if (parent.type === 'menu') parent.store.relayFocusIn?.(event);
+	}
+
+	// A portaled submenu's keys and focus reach this popup's handlers as they would through
+	// React's tree upstream.
+	$effect(() => {
+		const node = store.popupElement;
+		if (!filterPopup && !store.submenu && !handoff) return;
+		const relayKeyDown = (event: KeyboardEvent) => {
+			const run = (handler: ((event: KeyboardEvent) => void) | undefined) => {
+				if (!event.cancelBubble) handler?.(event);
+			};
+			run((nested) => store.listKeyDown?.(nested, true));
+			run((nested) => filterPopup?.keyDown(nested));
+			run(store.submenu?.onPopupKeyDown);
+			run(store.interactions?.popupKeyDown);
+		};
+		const relayNestedFocusIn = (event: FocusEvent) => {
+			if (node) filterPopup?.focusIn(event, node);
+			relayFocusIn(event);
+		};
+		store.relayKeyDown = relayKeyDown;
+		store.relayFocusIn = relayNestedFocusIn;
+		return () => {
+			if (store.relayKeyDown === relayKeyDown) store.relayKeyDown = undefined;
+			if (store.relayFocusIn === relayNestedFocusIn) store.relayFocusIn = undefined;
+		};
+	});
+
 	function stopInToolbar(event: KeyboardEvent) {
 		const current = event.currentTarget;
 		const inToolbar = current instanceof Element && current.closest('[role="toolbar"]') != null;
@@ -172,20 +257,41 @@
 		}
 	}
 
+	const roleProps = $derived.by(() => {
+		if (listElement) return { role: 'presentation' as const };
+		return {
+			role: 'menu' as const,
+			...(root.orientation === 'horizontal' ? { 'aria-orientation': 'horizontal' as const } : {}),
+			...(labelledBy ? { 'aria-labelledby': labelledBy } : {})
+		};
+	});
+
 	const hostProps = $derived.by(() => {
-		return mergeProps(
+		const baseProps = mergeProps(
 			store.popupProps,
 			{
 				id: store.floatingId,
-				role: 'menu' as const,
-				...(root.orientation === 'horizontal' ? { 'aria-orientation': 'horizontal' as const } : {}),
-				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
-				onkeydown: stopInToolbar,
+				...roleProps,
+				onkeydown: ownKeyDown,
+				onfocusin: relayFocusIn,
 				...getStateAttributesProps(popupState, popupTransitionStateMapping),
 				[bindKey]: bindPopup,
 				[styleKey]: ownStyle
 			},
+			filterPopup?.props
+		);
+		const baseKeyDown = baseProps.onkeydown as (event: KeyboardEvent) => void;
+		return mergeProps(
+			{
+				...baseProps,
+				// A key the consumer took from the input skips the menu's handlers here too.
+				onkeydown(event: KeyboardEvent) {
+					if (!isBaseUIHandlerPrevented(event)) baseKeyDown(event);
+				}
+			},
 			elementProps,
+			// The input holds real focus. The popup is a dialog around it and the list.
+			filterPopup ? { role: 'dialog' as const } : undefined,
 			{ 'data-rootownerid': store.rootId }
 		);
 	});
@@ -195,8 +301,9 @@
 	{store}
 	modal={parentType === 'context-menu'}
 	disabled={!store.mounted}
-	initialFocus={parentType !== 'menu'}
+	{initialFocus}
 	returnFocus={returnSpec === false ? false : returnFocus}
+	explicitReturnFocus={dynamicReturn ? false : undefined}
 	restoreFocus={true}
 	previousFocusableElement={store.activeTriggerElement instanceof HTMLElement
 		? store.activeTriggerElement

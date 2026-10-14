@@ -9,13 +9,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
-	import {
-		REASONS,
-		FocusGuard,
-		contains,
-		createChangeEventDetails,
-		ownerDocument
-	} from '@sveltery/utils';
+	import { REASONS, FocusGuard, contains, ownerDocument } from '@sveltery/utils';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { mergePropsN } from '../internal/mergeProps.js';
 	import { pressableTriggerOpenStateMapping } from '../internal/popupStateMapping.js';
@@ -36,7 +30,7 @@
 		nativeButton = true,
 		payload,
 		id,
-		openOnHover: openOnHoverProp,
+		openOnHover,
 		delay = 100,
 		closeDelay = 0,
 		render,
@@ -108,14 +102,18 @@
 	const disabled = $derived(
 		disabledProp || (live?.disabled ?? false) || (menubar?.disabled ?? false)
 	);
-	const menubarHasSubmenuOpen = $derived(menubar?.hasSubmenuOpen ?? false);
-	const openOnHover = $derived(openOnHoverProp ?? menubarHasSubmenuOpen);
 	const partState: MenuTriggerState = $derived({ disabled, open: opened });
-	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
+	// Upstream `useButton` makes a trigger inside the menubar's CompositeRoot a composite item.
+	const button = new ButtonBehavior(() => ({
+		disabled,
+		native: nativeButton,
+		composite: menubar != null
+	}));
 	const menubarItem = menubar?.createItem(() => disabled);
 
-	// A trigger in a menubar takes over the menu's parent while it owns the menu, so a detached
-	// popup still forwards keys to the menubar.
+	// Upstream trigger data forwarding: a trigger in a menubar takes over the menu's parent while
+	// it owns the menu. A detached menu then forwards keys to the menubar and emits its open
+	// changes on the menubar's tree.
 	$effect(() => {
 		const current = live;
 		if (!menubar || !current || !mountedByThis) return;
@@ -194,15 +192,6 @@
 			if (!ignoreNextClick) return;
 			ignoreNextClick = false;
 			event.preventDefault();
-		},
-		onfocus(event: FocusEvent) {
-			// With a menubar submenu open, focusing another trigger opens its menu.
-			const current = live;
-			if (!current || disabled || !menubarHasSubmenuOpen || current.open) return;
-			current.setOpen(
-				true,
-				createChangeEventDetails(REASONS.triggerFocus, event, event.currentTarget as HTMLElement)
-			);
 		}
 	};
 
@@ -211,6 +200,7 @@
 	const hostProps = $derived.by(() =>
 		button.props(
 			mergePropsN([
+				armed?.focus,
 				armed?.click,
 				armed?.hover,
 				live?.triggerProps(mountedByThis),
@@ -224,7 +214,11 @@
 					[hoverKey]: attachReference
 				},
 				ownProps,
+				live?.filter?.triggerProps,
 				menubar ? { role: 'menuitem' as const } : {},
+				// A composite native button keeps `disabled` and also gets `aria-disabled`, which
+				// `ButtonBehavior` has no option for.
+				menubar && nativeButton ? { 'aria-disabled': disabled } : {},
 				menubarItem?.props,
 				elementProps
 			])

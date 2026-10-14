@@ -4,8 +4,9 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { DirectionProvider, Menu } from '#lib';
-	import type { MenuItemSpec } from './types.js';
+	import type { MenuFilterSpec, MenuItemSpec } from './types.js';
 
 	type Bag = Record<string, unknown>;
 
@@ -27,7 +28,9 @@
 		bindOpen = false,
 		detached = false,
 		direction = 'ltr',
-		opener = false
+		opener = false,
+		filter,
+		list: listProps
 	}: {
 		items?: MenuItemSpec[];
 		rootProps?: Bag;
@@ -49,14 +52,23 @@
 		direction?: 'ltr' | 'rtl';
 		/** Renders a "Show" button that opens the bound menu. */
 		opener?: boolean;
+		/** Makes the menu filterable. */
+		filter?: MenuFilterSpec;
+		/** Wraps a plain menu's items in `Menu.List`. */
+		list?: Bag | boolean;
 	} = $props();
+
+	function bag(value: Bag | boolean | undefined) {
+		return value === true || value === undefined || value === false ? {} : value;
+	}
 
 	const handle = Menu.createHandle();
 	let root = $state<{ close(): void; unmount(): void }>();
 
 	// Keyed by label, like React children that keep their element when an entry is inserted before.
 	function keyOf(entries: MenuItemSpec[], index: number) {
-		const label = (entry: MenuItemSpec) => ('label' in entry ? entry.label : entry.type);
+		const label = (entry: MenuItemSpec) =>
+			entry.type === 'item' && entry.key ? entry.key : 'label' in entry ? entry.label : entry.type;
 		const own = label(entries[index]);
 		const seen = entries.slice(0, index).filter((entry) => label(entry) === own).length;
 		return `${own}#${seen}`;
@@ -109,18 +121,47 @@
 		{:else if entry.type === 'button'}
 			<button type="button">{entry.label}</button>
 		{:else if entry.type === 'submenu'}
-			<Menu.SubmenuRoot {...entry.rootProps}>
-				<Menu.SubmenuTrigger {...entry.triggerProps}>{entry.label}</Menu.SubmenuTrigger>
-				<Menu.Portal {...entry.portalProps}>
-					<Menu.Positioner {...entry.positionerProps}>
-						<Menu.Popup {...entry.popupProps}>
-							{@render list(entry.items)}
-						</Menu.Popup>
-					</Menu.Positioner>
-				</Menu.Portal>
-			</Menu.SubmenuRoot>
+			{#snippet submenu()}
+				<Menu.SubmenuRoot {...entry.rootProps}>
+					<Menu.SubmenuTrigger {...entry.triggerProps}>{entry.label}</Menu.SubmenuTrigger>
+					<Menu.Portal {...entry.portalProps}>
+						<Menu.Positioner {...entry.positionerProps}>
+							<Menu.Popup {...entry.popupProps}>
+								{@render content(entry.items, entry.filter, entry.list)}
+							</Menu.Popup>
+						</Menu.Positioner>
+					</Menu.Portal>
+				</Menu.SubmenuRoot>
+			{/snippet}
+			{@render filterable(entry.filter, submenu)}
 		{/if}
 	{/each}
+{/snippet}
+
+{#snippet content(
+	entries: MenuItemSpec[],
+	spec: MenuFilterSpec | undefined,
+	plainList: Bag | boolean | undefined
+)}
+	{#if spec}
+		<Menu.Input aria-label={spec.inputLabel ?? 'Filter actions'} {...spec.inputProps} />
+		{#if spec.clear}<Menu.Clear aria-label="Clear filter" {...bag(spec.clear)} />{/if}
+		{#if spec.extra}<button type="button">{spec.extra}</button>{/if}
+		<Menu.List {...spec.listProps}>{@render list(entries)}</Menu.List>
+		{#if spec.empty}<Menu.Empty>{spec.empty}</Menu.Empty>{/if}
+	{:else if plainList}
+		<Menu.List {...bag(plainList)}>{@render list(entries)}</Menu.List>
+	{:else}
+		{@render list(entries)}
+	{/if}
+{/snippet}
+
+{#snippet filterable(spec: MenuFilterSpec | undefined, menu: Snippet)}
+	{#if spec}
+		<Menu.FilterProvider {...spec.providerProps}>{@render menu()}</Menu.FilterProvider>
+	{:else}
+		{@render menu()}
+	{/if}
 {/snippet}
 
 {#snippet triggerPart()}
@@ -146,18 +187,18 @@
 			<Menu.Popup {...popupProps}>
 				{#if arrow}<Menu.Arrow data-testid="arrow" />{/if}
 				{#if viewport}
-					<Menu.Viewport data-testid="viewport">{@render list(items)}</Menu.Viewport>
+					<Menu.Viewport data-testid="viewport"
+						>{@render content(items, filter, listProps)}</Menu.Viewport
+					>
 				{:else}
-					{@render list(items)}
+					{@render content(items, filter, listProps)}
 				{/if}
 			</Menu.Popup>
 		</Menu.Positioner>
 	</Menu.Portal>
 {/snippet}
 
-<DirectionProvider {direction}>
-	{#if before}<button type="button">Before</button>{/if}
-	{#if opener}<button type="button" onclick={() => (open = true)}>Show</button>{/if}
+{#snippet menuRoot()}
 	{#if bindOpen}
 		<Menu.Root bind:this={root} bind:open handle={detached ? handle : undefined} {...rootProps}
 			>{@render body()}</Menu.Root
@@ -167,6 +208,12 @@
 			>{@render body()}</Menu.Root
 		>
 	{/if}
+{/snippet}
+
+<DirectionProvider {direction}>
+	{#if before}<button type="button">Before</button>{/if}
+	{#if opener}<button type="button" onclick={() => (open = true)}>Show</button>{/if}
+	{@render filterable(filter, menuRoot)}
 	{#if detached}{@render triggerPart()}{/if}
 	{#if after}<button type="button">After</button>{/if}
 </DirectionProvider>

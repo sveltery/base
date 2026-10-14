@@ -5,6 +5,7 @@ import type { TriggerFocusGuards } from '../internal/popups/triggerFocusGuards.j
 export interface TriggerArmed {
 	click: HTMLAttributes<HTMLElement>;
 	hover: HTMLAttributes<HTMLElement>;
+	focus: HTMLAttributes<HTMLElement>;
 	attach: (node: HTMLElement) => () => void;
 	guards: TriggerFocusGuards;
 }

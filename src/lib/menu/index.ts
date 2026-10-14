@@ -3,10 +3,15 @@ import MenuArrow from './MenuArrow.svelte';
 import MenuBackdrop from './MenuBackdrop.svelte';
 import MenuCheckboxItem from './MenuCheckboxItem.svelte';
 import MenuCheckboxItemIndicator from './MenuCheckboxItemIndicator.svelte';
+import MenuClear from './MenuClear.svelte';
+import MenuEmpty from './MenuEmpty.svelte';
+import MenuFilterProvider from './MenuFilterProvider.svelte';
 import MenuGroup from './MenuGroup.svelte';
 import MenuGroupLabel from './MenuGroupLabel.svelte';
+import MenuInput from './MenuInput.svelte';
 import MenuItem from './MenuItem.svelte';
 import MenuLinkItem from './MenuLinkItem.svelte';
+import MenuList from './MenuList.svelte';
 import MenuPopup from './MenuPopup.svelte';
 import MenuPortal from './MenuPortal.svelte';
 import MenuPositioner from './MenuPositioner.svelte';
@@ -18,6 +23,7 @@ import MenuSubmenuRoot from './MenuSubmenuRoot.svelte';
 import MenuSubmenuTrigger from './MenuSubmenuTrigger.svelte';
 import MenuTrigger from './MenuTrigger.svelte';
 import MenuViewport from './MenuViewport.svelte';
+import { getFilter } from './filter.js';
 import { MenuHandle, createMenuHandle } from './handle.svelte.js';
 
 // A generic component needs `as typeof` so the emitted .d.ts can name its type.
@@ -43,7 +49,13 @@ export const Menu = {
 	SubmenuTrigger: MenuSubmenuTrigger,
 	Separator,
 	Handle: MenuHandle,
-	createHandle: createMenuHandle
+	createHandle: createMenuHandle,
+	FilterProvider: MenuFilterProvider,
+	Input: MenuInput,
+	List: MenuList,
+	Clear: MenuClear,
+	Empty: MenuEmpty,
+	useFilter: getFilter
 };
 
 export { MenuHandle, createMenuHandle };
