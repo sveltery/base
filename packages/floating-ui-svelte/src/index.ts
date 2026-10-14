@@ -11,6 +11,8 @@ export {
 	type ReferenceElement
 } from './components/FloatingRootStore.svelte.js';
 export {
+	provideFloatingNodeId,
+	registerFloatingNode,
 	setFloatingTree,
 	useFloatingNodeId,
 	useFloatingParentNodeId,

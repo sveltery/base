@@ -15,8 +15,8 @@ import {
 	Typeahead,
 	isMainOrientationKey,
 	stopEvent,
+	registerFloatingNode,
 	setFloatingTree,
-	useFloatingNodeId,
 	useFloatingParentNodeId
 } from '@sveltery/floating-ui-svelte';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
@@ -230,7 +230,8 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		}
 	}));
 
-	useFloatingNodeId(store);
+	// The positioner publishes the node, so a trigger inside this root reports the node above it.
+	registerFloatingNode(store, tree, () => store.parentNodeId);
 
 	// A plain submenu that closes on its parent's main-axis key moves the parent's highlight on
 	// from the trigger, as the parent's own list navigation does for that key. A filterable
