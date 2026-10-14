@@ -2,6 +2,7 @@
 	import {
 		Checkbox,
 		CheckboxGroup,
+		Combobox,
 		Field,
 		Form,
 		NumberField,
@@ -27,7 +28,9 @@
 		| 'range-slider'
 		| 'otp-field'
 		| 'select'
-		| 'select-multiple';
+		| 'select-multiple'
+		| 'combobox'
+		| 'combobox-multiple';
 
 	let {
 		source,
@@ -54,7 +57,9 @@
 		'range-slider': ['volume', 'range'],
 		'otp-field': ['code', 'text'],
 		select: ['fruit', 'select'],
-		'select-multiple': ['fruits', 'select multiple']
+		'select-multiple': ['fruits', 'select multiple'],
+		combobox: ['fruit', 'select'],
+		'combobox-multiple': ['fruits', 'select multiple']
 	};
 	const [path, kind] = $derived(paths[scenario]);
 </script>
@@ -113,6 +118,24 @@
 				</Select.Positioner>
 			</Select.Portal>
 		</Select.Root>
+	{:else if scenario === 'combobox' || scenario === 'combobox-multiple'}
+		<Combobox.Root
+			multiple={scenario === 'combobox-multiple'}
+			defaultValue={scenario === 'combobox' ? 'apple' : ['apple']}
+		>
+			<Combobox.Input data-testid="control" />
+			<span data-testid="value"><Combobox.Value /></span>
+			<Combobox.Portal>
+				<Combobox.Positioner>
+					<Combobox.Popup>
+						<Combobox.List>
+							<Combobox.Item value="apple">apple</Combobox.Item>
+							<Combobox.Item value="banana">banana</Combobox.Item>
+						</Combobox.List>
+					</Combobox.Popup>
+				</Combobox.Positioner>
+			</Combobox.Portal>
+		</Combobox.Root>
 	{/if}
 {/snippet}
 
