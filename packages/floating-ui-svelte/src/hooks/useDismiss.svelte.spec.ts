@@ -7,6 +7,7 @@ import { render } from 'vitest-browser-svelte';
 import DismissBubblesHarness from './__tests__/DismissBubblesHarness.svelte';
 import DismissNode from './__tests__/DismissNode.svelte';
 import DismissOrderHarness from './__tests__/DismissOrderHarness.svelte';
+import DismissPortalHarness from './__tests__/DismissPortalHarness.svelte';
 
 function pressOutside() {
 	flushSync(() => {
@@ -164,5 +165,36 @@ describe('DismissInteraction', () => {
 
 			expect(component.store.lastReason).toBe('outside-press');
 		});
+	});
+
+	describe('nested portal', () => {
+		it.each([false, true])(
+			'counts a press in a portal rendered in its content as inside, and its own host as outside (in a box: %s)',
+			async (inBox) => {
+				render(DismissPortalHarness, { inBox });
+				await expect.poll(mounted).toEqual(['outer']);
+				flushSync(() =>
+					(page.getByRole('button', { name: 'open inner' }).element() as HTMLElement).click()
+				);
+				await expect.poll(mounted).toEqual(['outer', 'inner']);
+				const outerPortal = page.getByTestId('outer-portal').element();
+				const innerPortal = page.getByTestId('inner-portal').element();
+				expect(innerPortal.parentElement).toBe(
+					inBox ? page.getByTestId('box').element() : outerPortal
+				);
+				const press = (target: Element) =>
+					flushSync(() =>
+						target.dispatchEvent(
+							new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerType: 'mouse' })
+						)
+					);
+
+				press(page.getByTestId('inner').element());
+				expect(mounted()).toEqual(['outer', 'inner']);
+
+				press(outerPortal);
+				expect(mounted()).toEqual([]);
+			}
+		);
 	});
 });

@@ -10,7 +10,6 @@ import type { HTMLAttributes } from 'svelte/elements';
 import { REASONS, ScopedTimeout } from '@sveltery/utils';
 import {
 	DismissInteraction,
-	FloatingTreeStore,
 	ListNavigation,
 	Typeahead,
 	setFloatingTree,
@@ -82,7 +81,7 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 	}
 
 	const parentNodeId = useFloatingParentNodeId();
-	const tree = setFloatingTree();
+	const tree = setFloatingTree({ fresh: parent.type === 'context-menu' });
 	const parentStore = parent.type === 'menu' ? parent.store : undefined;
 	// An initially open submenu animates in only while its parent plays its own enter transition.
 	const animateInitialOpen =
@@ -104,11 +103,7 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		nested: parentNodeId != null,
 		parent,
 		rootId: `base-ui-${options.id}-root`,
-		// Upstream starts a `FloatingTree` per context menu, so a nested one opens and closes on its
-		// own. Only its menu events move to the new tree. Its floating nodes stay in the enclosing
-		// tree, which is how the outer menu's dismissal counts a press in the inner popup as inside
-		// without React's tree to bubble through.
-		tree: parent.type === 'context-menu' ? new FloatingTreeStore() : tree,
+		tree,
 		parentNodeId,
 		readDisabled: options.readDisabled,
 		readModal: options.readModal,

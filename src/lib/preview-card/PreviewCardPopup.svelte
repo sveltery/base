@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { useHoverFloatingInteraction } from '@sveltery/floating-ui-svelte';
+	import { setFloatingPopupScope, useHoverFloatingInteraction } from '@sveltery/floating-ui-svelte';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
@@ -20,6 +20,7 @@
 	const store = usePreviewCardRoot();
 	const positioning = usePreviewCardPositioner();
 	const bindKey = createAttachmentKey();
+	setFloatingPopupScope(store);
 
 	useOpenChangeComplete(() => ({
 		enabled: store.open && store.mounted,

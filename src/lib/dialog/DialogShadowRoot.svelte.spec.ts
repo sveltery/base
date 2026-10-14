@@ -101,6 +101,39 @@ describe('closed shadow root', () => {
 		}
 	);
 
+	it.for(portalSetups)(
+		'keeps the dialog open on a press inside a nested context menu (outer: $outer, nested: $nested)',
+		async ({ outer, nested: nestedContainer }) => {
+			const onOpenChange = vi.fn();
+			render({
+				nested: 'context menu',
+				outerContainer: resolveContainer(outer),
+				nestedContainer: resolveContainer(nestedContainer),
+				onOpenChange
+			});
+			const init = { bubbles: true, composed: true, button: 0 };
+			(await query('open-nested')).dispatchEvent(
+				new MouseEvent('contextmenu', { ...init, cancelable: true, button: 2 })
+			);
+			flushSync();
+			const menu = await query('nested');
+
+			menu.dispatchEvent(new PointerEvent('pointerdown', { ...init, pointerType: 'mouse' }));
+			menu.dispatchEvent(new MouseEvent('mousedown', init));
+			menu.dispatchEvent(new PointerEvent('pointerup', { ...init, pointerType: 'mouse' }));
+			menu.dispatchEvent(new MouseEvent('mouseup', init));
+			menu.dispatchEvent(new MouseEvent('click', { ...init, detail: 1 }));
+			flushSync();
+
+			await new Promise((resolve) => setTimeout(resolve, 50));
+			expect([find('outer') != null, find('nested')?.hasAttribute('data-open')]).toEqual([
+				true,
+				true
+			]);
+			expect(onOpenChange).not.toHaveBeenCalled();
+		}
+	);
+
 	it('still dismisses on a press outside the popup', async () => {
 		const reasons: string[] = [];
 		render({

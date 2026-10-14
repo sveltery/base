@@ -1,8 +1,9 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/DismissInteraction.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). The non-primary outside press follows v1.9.0
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// A press is inside when the target is in the floating element, the trigger, or a
-// floating-tree child's floating element or portal. The popup's own portal host is not inside.
+// A press is inside when the target is in the floating element, the trigger, a
+// floating-tree child's floating element or portal, or a portal rendered in this popup's content.
+// The popup's own portal host is not inside.
 
 import { on } from 'svelte/events';
 import {
@@ -75,6 +76,20 @@ function resolvePressMode(
 	return configured[touch ? 'touch' : 'mouse'] ?? (touch ? 'sloppy' : 'intentional');
 }
 
+const PRESS_EVENTS = [
+	'pointerdown',
+	'mousedown',
+	'mouseup',
+	'click',
+	'touchstart',
+	'touchmove',
+	'touchend'
+] as const;
+
+function onPress(node: HTMLElement, listener: (event: Event) => void) {
+	return PRESS_EVENTS.map((type) => on(node, type, listener, { capture: true, passive: true }));
+}
+
 export class DismissInteraction {
 	readonly #tree = useFloatingTree();
 	readonly #compositionTimeout = new ScopedTimeout();
@@ -124,23 +139,8 @@ export class DismissInteraction {
 			const floating = this.store.floatingElement;
 			// Upstream marks presses through React's tree. A document listener sees only the
 			// host of a closed shadow root, so the floating element reports its own presses.
-			const markers = floating
-				? (
-						[
-							'pointerdown',
-							'mousedown',
-							'mouseup',
-							'click',
-							'touchstart',
-							'touchmove',
-							'touchend'
-						] as const
-					).map((type) =>
-						on(floating, type, this.#markInsideTree, { capture: true, passive: true })
-					)
-				: [];
 			const cleanups = [
-				...markers,
+				...(floating ? onPress(floating, this.#markInsideTree) : []),
 				on(doc, 'compositionstart', () => {
 					this.#compositionTimeout.clear();
 					this.#composing = true;
@@ -293,6 +293,18 @@ export class DismissInteraction {
 				this.#cancelDismissOnEndTimeout.clear();
 				this.#touchState = null;
 				this.#insideEvent = null;
+			};
+		});
+
+		// A portal rendered in the popup's content mounts outside the floating element, so its host
+		// reports its own presses.
+		$effect(() => {
+			if (!this.#options().enabled || !this.store.isOpen()) return;
+			const cleanups = [...this.store.nestedPortals].flatMap((host) =>
+				onPress(host, this.#markInsideTree)
+			);
+			return () => {
+				for (const cleanup of cleanups) cleanup();
 			};
 		});
 	}
