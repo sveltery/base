@@ -34,7 +34,7 @@
 	import {
 		AriaLabelledBy,
 		LabelableId,
-		findLabelableContext
+		useLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { getDefaultFormSubmitter } from '../internal/getDefaultFormSubmitter.js';
@@ -47,7 +47,7 @@
 	const field = useFieldContext();
 	const fieldItem = useFieldItemContext();
 	const formContext = useFormContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 
 	let {
 		checked = $bindable(),
@@ -165,7 +165,7 @@
 		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined),
 		ariaLabel: () => elementProps['aria-label']
 	});
-	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
+	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
 	const invalid = $derived(field.valid === false && !isDisabled);
 
 	// Inside a group, the group is the field's control and owns its value.

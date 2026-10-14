@@ -10,7 +10,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFormContext } from '../internal/form-context.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { BoundControl, sourceNumber } from '../field/bound-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
@@ -71,7 +71,7 @@
 	if (value === undefined) value = bound.initial(defaultValue);
 
 	const form = useFormContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 
 	const current = $derived<number | null>(value ?? null);
 	// The reason of the write this component made. A parent write has none.

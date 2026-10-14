@@ -116,7 +116,7 @@ export interface FieldControlProps extends Omit<
 
 export type FieldLabelState = FieldRootState;
 
-export interface FieldLabelProps extends Omit<HTMLLabelAttributes, 'children' | 'for'> {
+export interface FieldLabelProps extends Omit<HTMLLabelAttributes, 'children'> {
 	/**
 	 * Whether the rendered element is a native `<label>`.
 	 * Set `false` when `render` produces a different element.

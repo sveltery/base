@@ -5,7 +5,7 @@
 import { getAbortSignal, tick, untrack } from 'svelte';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import { findAssociatedLabel } from './associated-label.js';
-import { defineContext } from './context.js';
+import { defineOptionalContext } from './context.js';
 
 /**
  * Accessible name and description for one labelable scope.
@@ -19,9 +19,9 @@ export class Labelable {
 	messageIds = new SvelteSet<string>();
 	readonly parent: Labelable | undefined;
 	private readonly registrations = new SvelteMap<symbol, string | null>();
-	private readonly readDefaultId: () => string;
+	private readonly readDefaultId: () => string | undefined;
 
-	constructor(parent: Labelable | undefined, readDefaultId: () => string) {
+	constructor(parent: Labelable | undefined, readDefaultId: () => string | undefined) {
 		this.parent = parent;
 		this.readDefaultId = readDefaultId;
 		this.controlId = readDefaultId();
@@ -71,10 +71,24 @@ export class Labelable {
 	}
 }
 
-export const [useLabelableContext, setLabelableContext, findLabelableContext] =
-	defineContext<Labelable>(
-		'Base UI: LabelableContext is missing. Field parts must be placed within <Field.Root>.'
-	);
+/**
+ * The scope outside `<Field.Root>`, as upstream's default `LabelableContext`.
+ * It names no control or label and drops every write, so standalone parts can share it.
+ */
+class DetachedLabelable extends Labelable {
+	constructor() {
+		super(undefined, () => undefined);
+	}
+	override registerControlId() {}
+	override resetControlId() {}
+	override setLabelId() {}
+	override addMessageId() {}
+	override deleteMessageId() {}
+}
+
+export const [useLabelableContext, setLabelableContext] = defineOptionalContext<Labelable>(
+	new DetachedLabelable()
+);
 
 /**
  * A control's id within its labelable scope. An explicit `id` claims the scope, so
@@ -87,7 +101,7 @@ export class LabelableId<Fallback extends string | undefined = undefined> {
 	private readonly enabled: boolean;
 
 	constructor(
-		private readonly labelable: Labelable | undefined,
+		private readonly labelable: Labelable,
 		private readonly read: {
 			id: () => string | null | undefined;
 			/** The id when nothing claims the scope. A group that only omits `for` has none. */
@@ -99,7 +113,6 @@ export class LabelableId<Fallback extends string | undefined = undefined> {
 		this.enabled = $derived(this.read.enabled?.() ?? true);
 		$effect(() => {
 			const scope = this.labelable;
-			if (!scope) return;
 			const enabled = this.enabled;
 			const explicit = this.read.id();
 			const fallback = this.read.fallback?.();
@@ -124,7 +137,7 @@ export class LabelableId<Fallback extends string | undefined = undefined> {
 
 	/** The scope's id wins so server HTML pairs the label with the control before registration runs. */
 	get current(): string | Fallback {
-		const owned = this.enabled ? this.labelable?.controlId : undefined;
+		const owned = this.enabled ? this.labelable.controlId : undefined;
 		return (owned || this.read.id() || this.read.fallback?.()) as string | Fallback;
 	}
 }
@@ -138,7 +151,7 @@ export class AriaLabelledBy {
 	private fallback = $state<string | undefined>(undefined);
 
 	constructor(
-		private readonly labelable: Labelable | undefined,
+		private readonly labelable: Labelable,
 		private readonly read: {
 			explicit: () => string | undefined;
 			/** The hidden input, or null when the host is a native button. */
@@ -153,7 +166,7 @@ export class AriaLabelledBy {
 		$effect(() => {
 			const input = this.read.input();
 			const sourceId = this.read.labelId();
-			if (this.read.explicit() || this.labelable?.labelId || this.hasAriaLabel || !input) {
+			if (this.read.explicit() || this.labelable.labelId || this.hasAriaLabel || !input) {
 				this.fallback = undefined;
 				return;
 			}
@@ -174,7 +187,7 @@ export class AriaLabelledBy {
 	}
 
 	get current(): string | undefined {
-		const implicit = this.hasAriaLabel ? undefined : this.labelable?.labelId;
+		const implicit = this.hasAriaLabel ? undefined : this.labelable.labelId;
 		return this.read.explicit() ?? implicit ?? this.fallback;
 	}
 }

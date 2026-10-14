@@ -26,7 +26,7 @@
 	import {
 		AriaLabelledBy,
 		LabelableId,
-		findLabelableContext
+		useLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { boundInputProps, type BoundInputProps } from '../field/bound-control.svelte.js';
@@ -39,7 +39,7 @@
 	const group = useRadioGroupContext();
 	const field = useFieldContext();
 	const fieldItem = useFieldItemContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 
 	let {
 		value,
@@ -120,7 +120,7 @@
 		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined),
 		ariaLabel: () => elementProps['aria-label']
 	});
-	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
+	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
 	const invalid = $derived(group !== undefined && field.valid === false && !disabled);
 
 	// The group is the field's control. Each radio input joins its validity.

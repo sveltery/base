@@ -14,7 +14,7 @@
 	import {
 		Labelable,
 		setLabelableContext,
-		findLabelableContext
+		useLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
 	import { FieldRootModel } from './model.svelte.js';
 	import type { FieldHandle } from '../form/source.js';
@@ -40,7 +40,7 @@
 
 	const form = useFormContext();
 	const fieldset = findFieldsetRootContext();
-	const parentLabelable = findLabelableContext();
+	const parentLabelable = useLabelableContext();
 	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
 	setLabelableContext(labelable);
 

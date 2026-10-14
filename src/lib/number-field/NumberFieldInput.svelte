@@ -8,7 +8,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -33,14 +33,14 @@
 
 	const model = useNumberFieldContext();
 	const field = useFieldContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 
 	const state: NumberFieldInputState = $derived(model.state);
 	const focusOwner = new FieldFocusOwner(field, {
 		disabled: () => state.disabled,
 		target: () => model.inputElement
 	});
-	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
+	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
 	const ariaInvalid = $derived(
 		!state.disabled && (field.invalid || field.state.valid === false) ? true : undefined
 	);
@@ -107,7 +107,7 @@
 		spellcheck: false,
 		'aria-roledescription': ariaRoleDescription,
 		...(ariaInvalid ? { 'aria-invalid': true as const } : {}),
-		...(labelable?.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
+		...(labelable.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
 		...(describedBy ? { 'aria-describedby': describedBy } : {}),
 		onfocus: handleFocus,
 		onblur: handleBlur,

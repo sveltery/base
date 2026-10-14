@@ -14,7 +14,7 @@
 	import { fieldValidityMapping } from '../field/attributes.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { BoundControl } from '../field/bound-control.svelte.js';
-	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
@@ -59,7 +59,7 @@
 	// svelte-ignore state_referenced_locally
 	if (value === undefined) value = bound.bound ? bound.initial(defaultValue ?? []) : defaultValue;
 	const formContext = useFormContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 	const disabled = $derived(field.disabled || (disabledProp ?? false));
 
 	// The group takes its name from `aria-labelledby`, so Field.Label must not point `for`
@@ -142,11 +142,11 @@
 
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLElement>> =
 		$derived.by(() => {
-			const describedBy = labelable?.describedBy(ariaDescribedBy ?? undefined);
+			const describedBy = labelable.describedBy(ariaDescribedBy ?? undefined);
 			return {
 				...getStateAttributesProps(groupState, fieldValidityMapping),
 				role: 'group',
-				...(labelable?.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
+				...(labelable.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
 				...elementProps,
 				...(describedBy ? { 'aria-describedby': describedBy } : {}),
 				[controlKey]: registration,

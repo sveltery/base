@@ -24,7 +24,7 @@
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
-	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import {
 		defaultItemEquality,
 		type ItemEqualityComparer
@@ -76,7 +76,7 @@
 
 	const field = useFieldContext();
 	const formContext = useFormContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 
 	/** The item value a source value names, so a bound select keeps non-string values. */
 	function optionFor(raw: unknown): unknown {
@@ -312,7 +312,7 @@
 	const boundProps = $derived(bound.inputProps());
 	const submitName = $derived(bound.bound ? boundProps.name : name);
 	const hiddenInputName = $derived(multiple ? undefined : submitName);
-	const describedBy = $derived(labelable?.describedBy(undefined));
+	const describedBy = $derived(labelable.describedBy(undefined));
 	const invalid = $derived(field.state.valid === false && !disabled);
 
 	function focusTrigger() {

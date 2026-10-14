@@ -16,7 +16,7 @@
 		useFieldContext
 	} from '../internal/field-root-context.js';
 	import { getHighlightReason } from '../internal/getHighlightReason.js';
-	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
@@ -38,7 +38,7 @@
 
 	const store = useComboboxRoot();
 	const field = useFieldContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 	const chips = findComboboxChips();
 	const hasPositionerParent = findComboboxPositioner() !== undefined;
 	// The trigger is the field's control, so a field-aware `render` element inside the popup is not.
@@ -259,7 +259,7 @@
 	});
 
 	const describedBy = $derived(
-		hasPositionerParent ? ariaDescribedBy : labelable?.describedBy(ariaDescribedBy ?? undefined)
+		hasPositionerParent ? ariaDescribedBy : labelable.describedBy(ariaDescribedBy ?? undefined)
 	);
 
 	const hostProps: HTMLInputAttributes = $derived.by(() => {
@@ -270,7 +270,7 @@
 				value: displayed,
 				'aria-readonly': readOnly || undefined,
 				'aria-required': store.root.required || undefined,
-				...(labelable?.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
+				...(labelable.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
 				...(describedBy ? { 'aria-describedby': describedBy } : {}),
 				...(!hasPositionerParent && field.state.valid === false && !disabled
 					? { 'aria-invalid': true as const }

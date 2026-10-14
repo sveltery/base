@@ -11,7 +11,7 @@
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { BoundControl, sourceNumber } from '../field/bound-control.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { clamp } from '../internal/clamp.js';
@@ -79,7 +79,7 @@
 
 	const reading = useDirection();
 	const form = useFormContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 
 	const valueUnwrapped: SliderValue = $derived(value ?? min);
 	useValueChanged(
@@ -119,7 +119,7 @@
 		getThumbAlignment: () => thumbAlignment,
 		getCollision: () => thumbCollisionBehavior,
 		getAriaLabelledBy: () => ariaLabelledByProp || undefined,
-		getFieldLabelId: () => labelable?.labelId || undefined,
+		getFieldLabelId: () => labelable.labelId || undefined,
 		getOnValueChange: () => onValueChange,
 		getOnValueCommitted: () => onValueCommitted,
 		getField: () => field,
@@ -197,7 +197,7 @@
 
 	const partState: SliderRootState = $derived(model.snapshot());
 	const describedBy = $derived(
-		labelable?.describedBy(elementProps['aria-describedby'] || undefined)
+		labelable.describedBy(elementProps['aria-describedby'] || undefined)
 	);
 
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>> =

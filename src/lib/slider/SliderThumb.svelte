@@ -10,7 +10,7 @@
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { useCSPContext } from '../internal/csp-context.js';
 	import { formatNumber } from '../internal/formatNumber.js';
@@ -65,7 +65,7 @@
 	const model = useSliderContext();
 	const field = useFieldContext();
 	const csp = useCSPContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 
 	let thumbEl: HTMLDivElement | null = $state(null);
 	let inputEl: HTMLInputElement | null = $state(null);
@@ -73,7 +73,7 @@
 
 	const generatedInputId = $derived(`base-ui-${uid}`);
 	const inputId = $derived(
-		model.range ? generatedInputId : labelable?.controlId || generatedInputId
+		model.range ? generatedInputId : labelable.controlId || generatedInputId
 	);
 	const thumbId = $derived(idProp || `base-ui-${uid}-thumb`);
 	const position = $derived(model.positionOf(thumbEl));
@@ -205,7 +205,7 @@
 		if (ariaValueTextProp != null) return ariaValueTextProp;
 		return defaultAriaValueText(values, index, model.format, model.locale);
 	});
-	const describedBy = $derived(labelable?.describedBy(ariaDescribedByProp || undefined));
+	const describedBy = $derived(labelable.describedBy(ariaDescribedByProp || undefined));
 	const labelledBy = $derived(
 		ariaLabelledByProp ?? (ariaLabel == null ? model.linkedLabel : undefined)
 	);

@@ -314,6 +314,22 @@
 			</div>
 		{/snippet}
 	</Field.Root>
+{:else if scenario === 'label-for'}
+	<Field.Root>
+		<Field.Label for="inside-target" data-testid="inside">Email</Field.Label>
+		<Field.Control id="field-control" />
+	</Field.Root>
+	<Field.Label for="standalone-target" data-testid="standalone">Name</Field.Label>
+	<Field.Label for="div-target" nativeLabel={false} data-testid="div">
+		{#snippet render(props, _state, children)}
+			<div {...props}>{@render children?.()}</div>
+		{/snippet}
+		Plan
+	</Field.Label>
+{:else if scenario === 'standalone'}
+	<Field.Label id="email-label" data-testid="label">Email</Field.Label>
+	<Field.Description id="email-help" data-testid="description">We never share it.</Field.Description
+	>
 {:else if scenario === 'attach'}
 	<Field.Root data-testid="field" class="hosted">
 		<Field.Control data-testid="control" class="control-host" />

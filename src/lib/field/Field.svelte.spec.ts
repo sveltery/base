@@ -413,8 +413,31 @@ describe('Field', () => {
 			await expect.element(page.getByTestId('control')).toBeVisible();
 		});
 
-		it('throws when a part is rendered outside Field.Root', () => {
-			expect(() => render(Field.Label)).toThrow(/LabelableContext is missing/);
+		it('renders Field.Label and Field.Description outside Field.Root', async () => {
+			render(FieldHarness, { scenario: 'standalone' });
+			const label = page.getByTestId('label').element();
+			const description = page.getByTestId('description').element();
+			expect([label.tagName, label.id, label.textContent]).toEqual([
+				'LABEL',
+				'email-label',
+				'Email'
+			]);
+			expect(label.getAttributeNames().sort()).toEqual(['data-testid', 'id']);
+			expect([description.tagName, description.id, description.textContent]).toEqual([
+				'P',
+				'email-help',
+				'We never share it.'
+			]);
+			expect(description.getAttributeNames().sort()).toEqual(['data-testid', 'id']);
+		});
+
+		it('keeps an author `for` on Field.Label inside and outside Field.Root', () => {
+			render(FieldHarness, { scenario: 'label-for' });
+			expect(
+				['inside', 'standalone', 'div'].map((id) =>
+					page.getByTestId(id).element().getAttribute('for')
+				)
+			).toEqual(['inside-target', 'standalone-target', 'div-target']);
 		});
 
 		it('throws when Field.Validity is rendered outside Field.Root', () => {
