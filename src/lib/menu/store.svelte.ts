@@ -301,7 +301,10 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	/** Upstream `floatingParentNodeId`, forwarded with the tree. */
 	get parentNodeId(): string | null {
 		const parent = this.parent;
-		if (parent.type === 'menubar') return parent.context.nodeId;
+		// A detached menu that a menubar trigger owns has no parent node of its own, so it takes the
+		// menubar's, as upstream's trigger forwards its ids. A root inside the menubar or inside a menu
+		// popup keeps the node it sits under.
+		if (parent.type === 'menubar') return this.ownParentNodeId ?? parent.context.nodeId;
 		return this.ownParentNodeId;
 	}
 
