@@ -76,9 +76,9 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 
 	let parent: MenuParent = NO_PARENT;
 	if (options.isSubmenu && enclosing) parent = { type: 'menu', store: enclosing };
-	else if (menubar) parent = { type: 'menubar', context: menubar };
 	// A plain menu inside a context menu's popup is not the context menu's own root.
 	else if (contextMenu && !enclosing) parent = { type: 'context-menu', context: contextMenu };
+	else if (menubar) parent = { type: 'menubar', context: menubar };
 
 	if (DEV && parent.type !== undefined && untrack(options.readModal) !== undefined) {
 		console.warn('Base UI: The `modal` prop is not supported on nested menus. It will be ignored.');
@@ -112,6 +112,7 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		// popup joins that menu's group.
 		menuEvents: enclosing?.menuEvents,
 		parentNodeId,
+		enclosed: enclosing != null,
 		readDisabled: options.readDisabled,
 		readModal: options.readModal,
 		readHighlightItemOnHover: options.readHighlightItemOnHover,
