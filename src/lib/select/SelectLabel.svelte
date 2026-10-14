@@ -12,7 +12,7 @@
 	import { fieldValidityMapping } from '../field/attributes.js';
 	import type { FieldRootState } from '../field/types.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { getControlById } from '../internal/useLabel.js';
@@ -25,7 +25,7 @@
 
 	const store = useSelectRoot();
 	const field = useFieldContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 	const id = $derived(`${store.root.id}-label`);
 
 	registerLabelId(
@@ -37,8 +37,8 @@
 	);
 	registerLabelId(
 		() => id,
-		(next) => labelable?.setLabelId(next),
-		() => labelable?.labelId
+		(next) => labelable.setLabelId(next),
+		() => labelable.labelId
 	);
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
@@ -47,7 +47,7 @@
 		if (closest(getTarget(event), 'button,input,select,textarea')) return;
 		// A double click must not select the label text.
 		if (event.detail > 1) event.preventDefault();
-		const controlId = labelable?.controlId ?? store.triggerElement?.id ?? store.root.id;
+		const controlId = labelable.controlId ?? store.triggerElement?.id ?? store.root.id;
 		if (!controlId) return;
 		const control = getControlById(event.currentTarget, controlId);
 		if (control instanceof HTMLElement) control.focus({ focusVisible: true } as FocusOptions);

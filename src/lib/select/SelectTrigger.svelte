@@ -17,7 +17,7 @@
 	import { fieldValidityMapping } from '../field/attributes.js';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { pressableTriggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import {
@@ -49,7 +49,7 @@
 
 	const store = useSelectRoot();
 	const field = useFieldContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 	new LabelableId(labelable, { id: () => idProp ?? undefined });
 
 	const bindKey = createAttachmentKey();
@@ -142,7 +142,7 @@
 		placeholder: !store.hasSelectedValue
 	});
 
-	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
+	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
 
 	const hostProps: HTMLButtonAttributes = $derived.by(() => {
 		const props: HTMLButtonAttributes = button.props(
@@ -157,8 +157,8 @@
 						: open && store.popupElement?.id
 							? { 'aria-controls': store.popupElement.id }
 							: {}),
-					...(labelable?.labelId || store.labelId
-						? { 'aria-labelledby': labelable?.labelId ?? store.labelId }
+					...(labelable.labelId || store.labelId
+						? { 'aria-labelledby': labelable.labelId ?? store.labelId }
 						: {}),
 					...(store.root.readOnly ? { 'aria-readonly': true as const } : {}),
 					...(store.root.required ? { 'aria-required': true as const } : {}),

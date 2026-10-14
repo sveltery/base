@@ -13,7 +13,7 @@
 	import {
 		Labelable,
 		setLabelableContext,
-		findLabelableContext
+		useLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
 	import type { FieldItemProps, FieldItemState } from './types.js';
 
@@ -22,7 +22,7 @@
 	let { disabled: disabledProp, render, children, ...elementProps }: FieldItemProps = $props();
 
 	const field = needFieldContext();
-	const parentLabelable = findLabelableContext();
+	const parentLabelable = useLabelableContext();
 	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
 	setLabelableContext(labelable);
 

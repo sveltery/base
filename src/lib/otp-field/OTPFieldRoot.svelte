@@ -14,7 +14,7 @@
 	import {
 		AriaLabelledBy,
 		LabelableId,
-		findLabelableContext
+		useLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
 	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
@@ -74,7 +74,7 @@
 	if (value === undefined) value = bound.initial(defaultValue);
 
 	const form = useFormContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 
 	const raw = $derived(value ?? '');
 	const generatedId = $derived(`base-ui-${uid}`);
@@ -133,11 +133,7 @@
 		}
 	});
 
-	const describedBy = $derived(
-		labelable
-			? labelable.describedBy(ariaDescribedByProp || undefined)
-			: ariaDescribedByProp || undefined
-	);
+	const describedBy = $derived(labelable.describedBy(ariaDescribedByProp || undefined));
 
 	function rememberRoot(node: HTMLElement) {
 		if (node instanceof HTMLDivElement) model.root = node;

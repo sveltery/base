@@ -31,7 +31,7 @@ export interface CheckboxGroupContextValue {
 	readonly disabled: boolean;
 	readonly parent: CheckboxGroupParentApi | undefined;
 	/** The labelable scope the group names itself from. Checkboxes in it leave the control id alone. */
-	readonly labelable: Labelable | undefined;
+	readonly labelable: Labelable;
 	/** The named inputs of the child checkboxes, in registration order. */
 	readonly inputs: ReadonlySet<HTMLInputElement>;
 	registerInput(input: HTMLInputElement): () => void;

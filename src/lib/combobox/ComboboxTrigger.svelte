@@ -18,7 +18,7 @@
 	} from '@sveltery/utils';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
@@ -41,7 +41,7 @@
 
 	const store = useComboboxRoot();
 	const field = useFieldContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 	new LabelableId(labelable, {
 		id: () => (store.inputInsidePopup ? (idProp ?? undefined) : undefined)
 	});
@@ -141,8 +141,8 @@
 		return store.listElement?.id;
 	});
 
-	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
-	const labelledBy = $derived(labelable?.labelId ?? store.labelId);
+	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
+	const labelledBy = $derived(labelable.labelId ?? store.labelId);
 
 	const hostProps: HTMLButtonAttributes = $derived.by(() => {
 		const { onmousedown: baseMouseDown, ...base } = mergeProps(

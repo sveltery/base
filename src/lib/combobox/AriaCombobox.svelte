@@ -34,7 +34,7 @@
 	import { useFormContext } from '../internal/form-context.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { getHighlightReason } from '../internal/getHighlightReason.js';
-	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import {
 		defaultItemEquality,
 		type ItemEqualityComparer
@@ -121,7 +121,7 @@
 	setFloatingTree();
 	const field = useFieldContext();
 	const formContext = useFormContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 	const direction = useDirection();
 
 	// Svelte proxies an object or array written to the prop. Items compare the written one.
@@ -591,7 +591,7 @@
 		return serialize(defaultSelectedValue ?? null);
 	});
 	const hasMultipleSelection = $derived(multiple && Array.isArray(current) && current.length > 0);
-	const describedBy = $derived(labelable?.describedBy(undefined));
+	const describedBy = $derived(labelable.describedBy(undefined));
 	const invalid = $derived(field.state.valid === false && !disabled);
 
 	function focusControl() {

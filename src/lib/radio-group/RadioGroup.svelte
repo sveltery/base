@@ -19,7 +19,7 @@
 	import { fieldValidityMapping } from '../field/attributes.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { BoundControl } from '../field/bound-control.svelte.js';
-	import { LabelableId, findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
@@ -100,7 +100,7 @@
 	const reading = useDirection();
 	const formContext = useFormContext();
 	const fieldset = findFieldsetRootContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 	const disabled = $derived(field.disabled || (disabledProp ?? false));
 	const name = $derived(field.name ?? nameProp ?? undefined);
 
@@ -230,8 +230,8 @@
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLElement>> =
 		$derived.by(() => {
 			const explicitLabel = elementProps['aria-labelledby'];
-			const labelledBy = explicitLabel ?? labelable?.labelId ?? fieldset?.legendId;
-			const describedBy = labelable?.describedBy(ariaDescribedBy ?? undefined);
+			const labelledBy = explicitLabel ?? labelable.labelId ?? fieldset?.legendId;
+			const describedBy = labelable.describedBy(ariaDescribedBy ?? undefined);
 			return {
 				...getStateAttributesProps(groupState, fieldValidityMapping),
 				role: 'radiogroup',

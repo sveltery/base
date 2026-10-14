@@ -25,7 +25,7 @@
 	import {
 		AriaLabelledBy,
 		LabelableId,
-		findLabelableContext
+		useLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
@@ -35,7 +35,7 @@
 	const rootKey = createAttachmentKey();
 	const field = useFieldContext();
 	const formContext = useFormContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 
 	let {
 		checked = $bindable(),
@@ -128,7 +128,7 @@
 		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined),
 		ariaLabel: () => elementProps['aria-label']
 	});
-	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
+	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
 	const invalid = $derived(field.valid === false && !disabled);
 
 	const fieldControl = attachFieldControl(field, {

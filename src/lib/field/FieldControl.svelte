@@ -17,11 +17,7 @@
 	import { nativeType } from '../form/source.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import {
-		Labelable,
-		LabelableId,
-		findLabelableContext
-	} from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
@@ -55,12 +51,11 @@
 
 	const form = useFormContext();
 	const fallbackId = `base-ui-${uid}`;
-	// Outside Field.Root this is the shared inert field. Registration and
-	// validation no-op. A private labelable still supplies ids.
+	// Outside Field.Root these are the shared inert field and labelable scope. Registration
+	// and validation no-op, and the control keeps its own id.
 	const field = useFieldContext();
 	const commitTimer = new ScopedTimeout();
-	const labelableFromContext = findLabelableContext();
-	const labelable = labelableFromContext ?? new Labelable(undefined, () => fallbackId);
+	const labelable = useLabelableContext();
 
 	useValueChanged(
 		() => value,

@@ -8,7 +8,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { findLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { getControlById } from '../internal/useLabel.js';
 	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -21,7 +21,7 @@
 	let { render, children, onclick, onpointerdown, ...elementProps }: SliderLabelProps = $props();
 
 	const model = useSliderContext();
-	const labelable = findLabelableContext();
+	const labelable = useLabelableContext();
 	const state: SliderRootState = $derived(model.snapshot());
 	const id = $derived(model.rootDomId ? `${model.rootDomId}-label` : undefined);
 
@@ -34,12 +34,12 @@
 	);
 	registerLabelId(
 		() => id,
-		(next) => labelable?.setLabelId(next),
-		() => labelable?.labelId
+		(next) => labelable.setLabelId(next),
+		() => labelable.labelId
 	);
 
 	function focusControl(event: MouseEvent) {
-		const controlId = labelable?.controlId;
+		const controlId = labelable.controlId;
 		if (controlId) {
 			const controlElement = getControlById(event.currentTarget as Element, controlId);
 			if (controlElement instanceof HTMLElement) {
