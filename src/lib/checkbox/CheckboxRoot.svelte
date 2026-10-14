@@ -195,7 +195,7 @@
 	});
 
 	$effect(() => {
-		if (group && inputNode && inputName) return group.registerInput(inputNode);
+		if (group && inputNode && inputName) return group.registerInput(inputNode, identified);
 	});
 
 	function registerRoot(element: HTMLElement) {
@@ -292,7 +292,7 @@
 				return;
 			}
 			// The children change from code, so they fire the events a click on each would.
-			for (const input of group.inputs) {
+			for (const input of group.inputs.keys()) {
 				queueValueEvent(input, 'input');
 				queueValueEvent(input, 'change');
 			}

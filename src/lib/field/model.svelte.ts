@@ -19,6 +19,8 @@ interface FieldControlIdentity {
 	id: string | undefined;
 	name: string | undefined;
 	element: HTMLElement | null;
+	/** What the Form submits when it differs from the control value, as for a checkbox group. */
+	getFormValue?: () => unknown;
 }
 
 /**
@@ -624,7 +626,10 @@ export class FieldRootModel implements FieldContext {
 		const readName = () => this.name;
 		const readValidity = () => this.combinedForForm();
 		const readControl = () => this.controlElement;
-		const readValue = () => this.readRegisteredValue();
+		const readValue = () => {
+			const formValue = this.registration?.getFormValue;
+			return formValue ? formValue() : this.readRegisteredValue();
+		};
 		const validate = () => this.validateField();
 		const blocksSubmit = () => this.blocksSubmit();
 		this.options.form.fields.set(id, {

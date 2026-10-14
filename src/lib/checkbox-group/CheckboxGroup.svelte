@@ -8,10 +8,11 @@
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { SvelteSet } from 'svelte/reactivity';
+	import { SvelteMap } from 'svelte/reactivity';
 	import { areArraysEqual } from '@sveltery/utils';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
+	import { isEligibleInput } from '../field/validity.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
@@ -70,6 +71,14 @@
 		return Array.isArray(value) ? value : EMPTY;
 	}
 
+	// What native FormData sends: checked values of enabled inputs in this form.
+	function submittedValue() {
+		const successful = [...inputs]
+			.filter(([input]) => input.checked && isEligibleInput(input, formContext.element))
+			.map(([, item]) => item);
+		return currentValue().filter((item) => successful.includes(item));
+	}
+
 	function setValue(next: string[], details: CheckboxGroupChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
@@ -86,7 +95,8 @@
 		enabled: () => Boolean(field.name) && !disabled,
 		id: () => elementProps.id ?? `base-ui-${uid}`,
 		name: () => field.name,
-		getValue: () => currentValue()
+		getValue: () => currentValue(),
+		getFormValue: submittedValue
 	});
 
 	new FieldValueSync(field, formContext, {
@@ -97,9 +107,9 @@
 	});
 
 	let rootNode = $state<HTMLElement | null>(null);
-	const inputs = new SvelteSet<HTMLInputElement>();
+	const inputs = new SvelteMap<HTMLInputElement, string | undefined>();
 	// A child input's `form` attribute decides which form resets the group.
-	restoreOnReset(() => inputs.values().next().value ?? rootNode, {
+	restoreOnReset(() => inputs.keys().next().value ?? rootNode, {
 		restore: () => {
 			const next = defaultValue ? [...defaultValue] : [];
 			if (!areArraysEqual(currentValue(), next)) value = next;
@@ -128,8 +138,8 @@
 		},
 		labelable,
 		inputs,
-		registerInput(input) {
-			inputs.add(input);
+		registerInput(input, item) {
+			inputs.set(input, item);
 			return () => inputs.delete(input);
 		},
 		setValue

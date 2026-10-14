@@ -16,6 +16,7 @@ export interface FieldControlRead {
 	name: () => string | undefined;
 	element: () => HTMLElement | null;
 	getValue: () => unknown;
+	getFormValue?: () => unknown;
 }
 
 interface PublishedControl {
@@ -101,7 +102,8 @@ class FieldRegistration {
 			id: next.id,
 			name: next.name,
 			element: next.element,
-			getValue: this.read.getValue
+			getValue: this.read.getValue,
+			getFormValue: this.read.getFormValue
 		});
 	}
 
