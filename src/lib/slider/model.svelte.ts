@@ -16,7 +16,8 @@ import {
 	ownerWindow,
 	activeElement,
 	contains,
-	getTarget
+	getTarget,
+	matchesFocusVisible
 } from '@sveltery/utils';
 import { clamp } from '../internal/clamp.js';
 import { ElementList } from '../internal/element-list.svelte.js';
@@ -26,7 +27,7 @@ import type { BoundInputProps } from '../field/bound-control.svelte.js';
 import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../internal/form-context.js';
 import { asc } from './asc.js';
-import { focusElement, isElement, matchesFocusVisible } from './dom.js';
+import { focusElement, isElement } from './dom.js';
 import { getMidpoint } from './getMidpoint.js';
 import { areValuesEqual, getSliderValue } from './getSliderValue.js';
 import {

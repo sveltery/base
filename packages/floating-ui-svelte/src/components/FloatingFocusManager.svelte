@@ -71,6 +71,7 @@
 		disabled = false,
 		initialFocus = true,
 		returnFocus = true,
+		explicitReturnFocus,
 		modal = true,
 		closeOnFocusOut = true,
 		restoreFocus = false,
@@ -89,6 +90,12 @@
 			| HTMLElement
 			| null
 			| ((closeType: OpenInteractionType | null) => boolean | HTMLElement | null | void);
+		/**
+		 * Whether `returnFocus` is an explicit target that wins over focus that already left the
+		 * popup. Defaults to true for an element or a function and false for a boolean.
+		 * @internal
+		 */
+		explicitReturnFocus?: boolean;
 		modal?: boolean;
 		closeOnFocusOut?: boolean;
 		/** `'popup'` focuses the popup when a focused control inside it is removed. */
@@ -316,8 +323,9 @@
 		const resolved = fromFunction ? spec(endedBy) : spec;
 		if (resolved === false || resolved === undefined) return null;
 		// A function result of `null` falls back to the trigger, matching an empty ref.
-		// Only a boolean `true` requires focus to still be inside.
-		const explicit = fromFunction || spec instanceof HTMLElement;
+		// Without `explicitReturnFocus`, only a boolean `true` requires focus to still be inside.
+		// `explicitReturnFocus={false}` requires it for a function or an element target too.
+		const explicit = explicitReturnFocus ?? (fromFunction || spec instanceof HTMLElement);
 		const target = resolved instanceof HTMLElement ? resolved : defaultReturnTarget();
 		if (!target?.isConnected) return null;
 		if (!explicit) {

@@ -17,9 +17,9 @@
 		REASONS,
 		warn
 	} from '@sveltery/utils';
+	import { stopEvent } from '@sveltery/floating-ui-svelte';
 	import { inputStateAttributes } from './attributes.js';
 	import { useOTPFieldContext } from './context.svelte.js';
-	import { stopEvent } from './dom.js';
 	import { normalizeOTPValueWithDetails, removeOTPCharacter, replaceOTPValue } from './otp.js';
 	import type { OTPFieldInputProps, OTPFieldInputState } from './types.js';
 
