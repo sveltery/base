@@ -510,7 +510,7 @@ Local: the shared `CompositeRoot` focuses the next trigger synchronously. The po
 
 ### Behavior that waits on shared internals
 
-- The shared `CompositeRoot` does not select the text of a native input on focus and has no text-field arrow exceptions. A menubar holds only triggers, so no ported case reaches them.
+- `Menubar.svelte` does not spread `CompositeRoot.rootProps`, an omission in the owner and not a limit of `CompositeRoot`. The menubar therefore does not select the text of a native input on focus and does not scroll a keyboard-highlighted trigger into view. The text-field arrow exceptions apply. A menubar holds only triggers, so no ported case reaches them.
 - `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` keeps a press that started inside a popup until its `pointerup`, for sloppy presses too. Upstream checks that flag only for intentional presses. A touch press inside a submenu followed by a touch press outside, with no `pointerup` between them, closes the submenu but not its parent menu. Real taps always send `pointerup`. The ported touch case taps the submenu trigger with a full sequence.
 
 ### Not covered
@@ -744,14 +744,13 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                              |
 | Field              | refs                                                                                             |
 | Input              | refs                                                                                             |
-| ToggleGroup        | grid composite, scroll-into-view                                                                 |
+| ToggleGroup        | grid composite                                                                                   |
 | Separator          | React render-element cloning, `ref`                                                              |
 | Meter              | React `ref`, numeric production error codes                                                      |
 | Progress           | refs                                                                                             |
 | Form               | `actionsRef`                                                                                     |
-| RadioGroup         | scroll-into-view, text-field arrow exceptions                                                    |
-| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, refs                       |
-| Toolbar            | text-field arrow exceptions, scroll-into-view, overlay triggers                                  |
+| Tabs               | `renderBeforeHydration` script (accepted, ignored), refs                                         |
+| Toolbar            | overlay triggers                                                                                 |
 | NumberField        | refs                                                                                             |
 | ScrollArea         | refs                                                                                             |
 | Slider             | refs, the prehydration `<script>` stays in the DOM after hydration (empty in client-only mounts) |
