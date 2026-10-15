@@ -59,4 +59,5 @@ export const Menu = {
 };
 
 export { MenuHandle, createMenuHandle };
+export * from './data-attributes.js';
 export type * from './types.js';

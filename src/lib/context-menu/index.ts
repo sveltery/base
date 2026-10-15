@@ -43,4 +43,5 @@ export const ContextMenu = {
 	Separator
 };
 
+export * from './data-attributes.js';
 export type * from './types.js';
