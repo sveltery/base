@@ -7,6 +7,7 @@
 	import { flushSync, untrack } from 'svelte';
 	import { ScopedTimeout, createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { createAttachmentKey } from 'svelte/attachments';
+	import { on } from 'svelte/events';
 	import { BROWSER } from 'esm-env';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../internal/form-context.js';
@@ -133,10 +134,14 @@
 		}
 	});
 
-	function publish(node: HTMLElement) {
+	function publish(node: HTMLInputElement) {
 		const stopRemember = remember(node);
 		const stopRegistration = registration(node);
+		// Not `oninput`: Svelte delegates that to the root, after listeners on the form. A form
+		// library that reads the value from the form's `input` event needs it written before.
+		const stopInput = on(node, 'input', handleInput);
 		return () => {
+			stopInput();
 			stopRegistration?.();
 			stopRemember();
 		};
@@ -250,7 +255,6 @@
 		...(defaultValue != null ? { defaultValue: textValue(defaultValue) } : {}),
 		...(!BROWSER && shownValue !== undefined ? { value: shownValue } : {}),
 		...bound?.props,
-		oninput: handleInput,
 		onfocus: handleFocus,
 		onblur: handleBlur,
 		onkeydown: handleKeyDown,
