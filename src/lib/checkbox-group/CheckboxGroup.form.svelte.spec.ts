@@ -80,16 +80,16 @@ describe('CheckboxGroup in a Form', () => {
 		expect(output('values')).toBe('{"fruits":["apple"],"other":"value"}');
 	});
 
-	it('reports the whole value when the Field has no Form', async () => {
-		render(CheckboxGroupFormHarness, { scenario: 'no-form' });
-		(page.getByTestId('cherry').element() as HTMLElement).click();
-
-		await expect
-			.poll(() => output('validated'))
-			.toBe('["apple","banana","cherry"] {"fruits":["apple","banana","cherry"]}');
-	});
-
 	describe('native Svelte', () => {
+		it('reports the whole value when the Field has no Form', async () => {
+			render(CheckboxGroupFormHarness, { scenario: 'no-form' });
+			(page.getByTestId('cherry').element() as HTMLElement).click();
+
+			await expect
+				.poll(() => output('validated'))
+				.toBe('["apple","banana","cherry"] {"fruits":["apple","banana","cherry"]}');
+		});
+
 		it('submits and validates only checked values of enabled inputs in the same form', async () => {
 			render(CheckboxGroupFormHarness);
 			await submit();

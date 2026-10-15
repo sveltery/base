@@ -77,7 +77,7 @@
 		if (!formElement) return currentValue();
 		const successful = [...field.registeredInputs]
 			.filter(([input]) => input.checked && isEligibleInput(input, formElement))
-			.map(([, input]) => input.value);
+			.map(([, registration]) => registration.value);
 		return currentValue().filter((item) => successful.includes(item));
 	}
 

@@ -61,7 +61,7 @@ export interface FieldContext {
 	validateField: () => void;
 	registerControl: (source: symbol, registration: FieldControlRegistration | undefined) => void;
 	registerInput: (element: HTMLInputElement, registration: RegisteredInput) => () => void;
-	/** The native inputs of a group control. A checkbox's entry carries the value it submits when checked. */
+	/** Native inputs registered with this Field. A grouped checkbox's entry carries the value it submits. */
 	readonly registeredInputs: ReadonlyMap<HTMLInputElement, RegisteredInput>;
 	change: (value: unknown, cancelPending?: boolean) => void;
 	commit: (value: unknown, revalidate?: boolean) => void;
