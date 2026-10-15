@@ -23,6 +23,7 @@ export abstract class TriggerOwnedPopupStore<
 	Reason extends string,
 	Owned extends object
 > extends PopupStore<Reason> {
+	protected override readonly closeTriggerFill = 'never';
 	/** Bumps when an open popup changes trigger. The viewport snapshots on this. */
 	triggerSwitch = $state(0);
 	switchedFrom = $state<Element | null>(null);

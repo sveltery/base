@@ -131,6 +131,7 @@ interface PendingQueryHighlight {
 type PopupSide = 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end';
 
 export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
+	protected override readonly closeTriggerFill = 'never';
 	readonly items = new ElementList<HTMLElement, ComboboxItemMeta>();
 
 	activeIndex = $state<number | null>(null);

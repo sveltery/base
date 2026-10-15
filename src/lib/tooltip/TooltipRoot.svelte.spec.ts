@@ -478,6 +478,21 @@ describe('Tooltip.Root popup conformance', () => {
 		expect(onOpenChange.mock.calls[1][1].reason).toBe('escape-key');
 	});
 
+	it('reports no trigger when Escape closes the popup', async () => {
+		const onOpenChange = vi.fn();
+		render(TooltipHarness, { rootProps: { onOpenChange }, triggerProps: { delay: 0 } });
+		hoverWithMouse(trigger());
+		await expect.poll(popup).not.toBeNull();
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(popup).toBeNull();
+		expect(
+			onOpenChange.mock.calls.map(([open, details]) => [open, details.reason, details.trigger])
+		).toEqual([
+			[true, 'trigger-hover', trigger()],
+			[false, 'escape-key', undefined]
+		]);
+	});
+
 	it('keeps the popup closed when the open change is canceled', async () => {
 		const onOpenChange = vi.fn((open: boolean, details: TooltipChangeEventDetails) => {
 			if (open) details.cancel();

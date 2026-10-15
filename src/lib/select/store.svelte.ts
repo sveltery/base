@@ -77,6 +77,7 @@ export interface SelectStoreOptions {
 }
 
 export class SelectStore extends PopupStore<SelectChangeReason> {
+	protected override readonly closeTriggerFill = 'never';
 	readonly items = new ElementList<HTMLElement, SelectItemMeta>();
 
 	activeIndex = $state<number | null>(null);

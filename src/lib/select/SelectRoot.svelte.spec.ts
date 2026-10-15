@@ -417,6 +417,22 @@ describe('Select.Root', () => {
 		});
 	});
 
+	describe('prop: onOpenChange', () => {
+		it('reports no trigger when Escape closes the popup', async () => {
+			const onOpenChange = vi.fn();
+			render(SelectHarness, { root: { onOpenChange }, items: ab });
+			await openSelect();
+			await userEvent.keyboard('{Escape}');
+			await expect.element(listbox()).not.toBeInTheDocument();
+			expect(
+				onOpenChange.mock.calls.map(([open, details]) => [open, details.reason, details.trigger])
+			).toEqual([
+				[true, REASONS.triggerPress, trigger().element()],
+				[false, REASONS.escapeKey, undefined]
+			]);
+		});
+	});
+
 	describe('initially open', () => {
 		it('opens the select', async () => {
 			render(SelectHarness, { open: true, items: ab });
