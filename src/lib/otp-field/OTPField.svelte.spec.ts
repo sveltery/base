@@ -5,6 +5,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import OTPFieldHarness from '../../tests/OTPFieldHarness.svelte';
+import PreventedHandlerHarness from '../../tests/PreventedHandlerHarness.svelte';
 
 function inputs() {
 	return page.getByRole('textbox').elements() as HTMLInputElement[];
@@ -393,3 +394,33 @@ function keyStopped(input: HTMLInputElement, keyName: string) {
 	input.dispatchEvent(event);
 	return event.defaultPrevented;
 }
+
+describe('OTPField.Input consumer preventDefault', () => {
+	const prevent = (event: Event) => event.preventDefault();
+
+	it('skips marking the field focused when onfocus calls preventDefault', async () => {
+		render(PreventedHandlerHarness, { part: 'otp', handlers: { onfocus: prevent } });
+		await userEvent.click(page.getByRole('textbox').first());
+		await expect.element(page.getByRole('textbox').first()).toHaveFocus();
+		await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-focused');
+	});
+
+	it('skips touching the field when onblur calls preventDefault', async () => {
+		render(PreventedHandlerHarness, { part: 'otp', handlers: { onblur: prevent } });
+		await userEvent.click(page.getByRole('textbox').first());
+		await userEvent.click(page.getByRole('button', { name: 'After' }));
+		await expect.element(page.getByRole('button', { name: 'After' })).toHaveFocus();
+		await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-touched');
+	});
+
+	it('skips the value change when oninput calls preventDefault', async () => {
+		const onValueChange = vi.fn();
+		render(PreventedHandlerHarness, {
+			part: 'otp',
+			onValueChange,
+			handlers: { oninput: prevent }
+		});
+		await userEvent.type(page.getByRole('textbox').first(), '7');
+		expect([hidden().value, onValueChange.mock.calls.length]).toEqual(['', 0]);
+	});
+});

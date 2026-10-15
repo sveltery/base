@@ -15,6 +15,7 @@
 	import { useNumberFieldContext } from './context.svelte.js';
 	import { isTouchLikePointerType, PressAndHold } from '../internal/usePressAndHold.svelte.js';
 	import { mergeCssStyle } from '../internal/css-style.js';
+	import { chain } from '../internal/mergeProps.js';
 	import type { NumberFieldStepperProps, NumberFieldStepperState } from './types.js';
 
 	const SELECT_NONE = '-webkit-user-select: none; user-select: none';
@@ -123,34 +124,10 @@
 		press.onPointerMove(event);
 	}
 
-	function handleMouseEnter(
-		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }
-	) {
-		onmouseenter?.(event);
-		if (event.defaultPrevented) return;
-		press.onMouseEnter(event);
-	}
-
-	function handleMouseLeave(
-		event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }
-	) {
-		onmouseleave?.(event);
-		if (event.defaultPrevented) return;
-		press.onMouseLeave();
-	}
-
 	function handleMouseUp(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onmouseup?.(event);
 		if (event.defaultPrevented) return;
 		press.onMouseUp();
-	}
-
-	function handleTouchStart(
-		event: TouchEvent & { currentTarget: EventTarget & HTMLButtonElement }
-	) {
-		ontouchstart?.(event);
-		if (event.defaultPrevented) return;
-		press.onTouchStart();
 	}
 
 	function handleTouchEnd(event: TouchEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
@@ -172,10 +149,10 @@
 			onpointerdown: handlePointerDown,
 			onpointerup: handlePointerUp,
 			onpointermove: handlePointerMove,
-			onmouseenter: handleMouseEnter,
-			onmouseleave: handleMouseLeave,
+			onmouseenter: chain((event) => press.onMouseEnter(event), onmouseenter),
+			onmouseleave: chain(() => press.onMouseLeave(), onmouseleave),
 			onmouseup: handleMouseUp,
-			ontouchstart: handleTouchStart,
+			ontouchstart: chain(() => press.onTouchStart(), ontouchstart),
 			ontouchend: handleTouchEnd,
 			[releaseKey]: press.attach
 		})

@@ -82,12 +82,20 @@ export default defineConfig(
 			'sveltery/no-derived-inline-attachment': 'error',
 			'sveltery/no-layout-read-in-derived': 'error',
 			'sveltery/no-unscoped-timer': 'error',
+			'sveltery/no-unseen-handler-prevention': 'error',
 			'sveltery/no-previous-value-effect': 'error',
 			'sveltery/no-process-env': 'error',
 			'sveltery/no-prop-state-sync': 'error',
 			'sveltery/no-react-refs': 'error',
 			'sveltery/no-split-effect-lifecycle': 'error',
 			'sveltery/no-state-updater': 'error'
+		}
+	},
+	{
+		// A spec reads `defaultPrevented` to assert what a merged handler did.
+		files: ['**/*.spec.ts'],
+		rules: {
+			'sveltery/no-unseen-handler-prevention': 'off'
 		}
 	},
 	{

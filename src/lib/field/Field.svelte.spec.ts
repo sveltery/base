@@ -10,6 +10,7 @@ import { renderBound } from '../../tests/bound-render.svelte.js';
 import FieldControlDefaultHarness from '../../tests/FieldControlDefaultHarness.svelte';
 import FieldHarness from '../../tests/FieldHarness.svelte';
 import FieldLowHarness from '../../tests/FieldLowHarness.svelte';
+import PreventedHandlerHarness from '../../tests/PreventedHandlerHarness.svelte';
 import { Field } from './index.js';
 
 function text(name: string) {
@@ -642,5 +643,41 @@ describe('Field.Control defaultValue changes', () => {
 
 		await expect.element(page.getByRole('textbox')).toHaveValue('typed');
 		await expect.element(root).toHaveAttribute('data-filled', '');
+	});
+});
+
+describe('Field.Control consumer preventDefault', () => {
+	const prevent = (event: Event) => event.preventDefault();
+
+	it('skips marking the field focused when onfocus calls preventDefault', async () => {
+		render(PreventedHandlerHarness, { part: 'field', handlers: { onfocus: prevent } });
+		await userEvent.click(page.getByTestId('control'));
+		await expect.element(page.getByTestId('control')).toHaveFocus();
+		await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-focused');
+	});
+
+	it('skips touching and validating the field when onblur calls preventDefault', async () => {
+		render(PreventedHandlerHarness, {
+			part: 'field',
+			validationMode: 'onBlur',
+			handlers: { onblur: prevent }
+		});
+		await userEvent.click(page.getByTestId('control'));
+		await userEvent.tab();
+		await expect.element(page.getByRole('button', { name: 'After' })).toHaveFocus();
+		await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-touched');
+		await expect.element(page.getByTestId('error')).not.toBeInTheDocument();
+	});
+
+	it('skips the Enter commit when onkeydown calls preventDefault', async () => {
+		render(PreventedHandlerHarness, {
+			part: 'field',
+			validationMode: 'onBlur',
+			handlers: { onkeydown: prevent }
+		});
+		await userEvent.click(page.getByTestId('control'));
+		await userEvent.keyboard('{Enter}');
+		await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-touched');
+		await expect.element(page.getByTestId('error')).not.toBeInTheDocument();
 	});
 });

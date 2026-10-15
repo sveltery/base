@@ -10,14 +10,12 @@
 		getStateAttributesProps,
 		transitionStatusMapping
 	} from '../internal/state-attributes.js';
+	import { chain } from '../internal/mergeProps.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { avatarStateAttributesMapping } from './attributes.js';
 	import { useAvatarContext } from './context.js';
 	import { ImageProbe, type ImageProbeSource } from './image-loading-status.svelte.js';
-	import type { HTMLImgAttributes } from 'svelte/elements';
 	import type { AvatarImageProps, AvatarImageState, ImageLoadingStatus } from './types.js';
-
-	type ImageEvent = Parameters<NonNullable<HTMLImgAttributes['onload']>>[0];
 
 	let {
 		render,
@@ -103,16 +101,8 @@
 		return () => root.setImageLoadingStatus('idle');
 	});
 
-	function handleLoad(event: ImageEvent) {
-		onload?.(event);
-		if (!keepMounted || event.defaultPrevented) return;
-		loading.status = 'loaded';
-	}
-
-	function handleError(event: ImageEvent) {
-		onerror?.(event);
-		if (!keepMounted || event.defaultPrevented) return;
-		loading.status = 'error';
+	function settle(status: ImageLoadingStatus) {
+		if (keepMounted) loading.status = status;
 	}
 
 	const shown = $derived(keepMounted || transition.mounted);
@@ -142,8 +132,8 @@
 		...(crossorigin !== undefined ? { crossorigin } : {}),
 		...(referrerpolicy !== undefined ? { referrerpolicy } : {}),
 		...sourceProps,
-		onload: handleLoad,
-		onerror: handleError,
+		onload: chain(() => settle('loaded'), onload),
+		onerror: chain(() => settle('error'), onerror),
 		[hostKey]: attachHost
 	});
 </script>

@@ -13,6 +13,7 @@ import { render } from 'vitest-browser-svelte';
 import { ariaLabelPreferenceCases } from '../../tests/aria-label-preference-cases.js';
 import RadioAttachHarness from '../../tests/RadioAttachHarness.svelte';
 import RadioClickHarness from '../../tests/RadioClickHarness.svelte';
+import PreventedHandlerHarness from '../../tests/PreventedHandlerHarness.svelte';
 import RadioFormHarness from '../../tests/RadioFormHarness.svelte';
 import RadioGroupHarness from '../../tests/RadioGroupHarness.svelte';
 import RadioIndicatorHarness from '../../tests/RadioIndicatorHarness.svelte';
@@ -616,4 +617,22 @@ describe('Radio', () => {
 
 describe('Radio labels', () => {
 	ariaLabelPreferenceCases('radio');
+});
+
+describe('Radio.Root consumer preventDefault', () => {
+	it('keeps the checked radio when arrow keys focus a radio whose onfocus calls preventDefault', async () => {
+		render(PreventedHandlerHarness, {
+			part: 'radio',
+			handlers: { onfocus: (event: Event) => event.preventDefault() }
+		});
+		await userEvent.click(page.getByRole('radio', { name: 'A' }));
+		await userEvent.keyboard('{ArrowDown}');
+		await expect.element(page.getByRole('radio', { name: 'B' })).toHaveFocus();
+		await expect
+			.element(page.getByRole('radio', { name: 'B' }))
+			.toHaveAttribute('aria-checked', 'false');
+		await expect
+			.element(page.getByRole('radio', { name: 'A' }))
+			.toHaveAttribute('aria-checked', 'true');
+	});
 });

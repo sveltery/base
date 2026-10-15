@@ -462,3 +462,28 @@ describe('Avatar.Image transitions', () => {
 		expect(ended).toBe(false);
 	});
 });
+
+describe('Avatar.Image consumer preventDefault', () => {
+	it('keeps a keepMounted image loading when onload calls preventDefault', async () => {
+		const onload = vi.fn((event: Event) => event.preventDefault());
+		render(AvatarHarness, {
+			mode: 'keep',
+			src: `/static/favicon.svg?prevent-load=${Date.now()}`,
+			onload
+		});
+		await expect.poll(() => onload.mock.calls.length).toBe(1);
+		const image = page.getByTestId('image');
+		await expect.element(image).toHaveAttribute('data-loading', '');
+		await expect.element(image).toHaveAttribute('aria-hidden', 'true');
+		await expect.element(page.getByTestId('fallback')).toBeInTheDocument();
+	});
+
+	it('keeps a keepMounted image loading when onerror calls preventDefault', async () => {
+		const onerror = vi.fn((event: Event) => event.preventDefault());
+		render(AvatarHarness, { mode: 'keep', src: '/missing-avatar.png', onerror });
+		await expect.poll(() => onerror.mock.calls.length).toBe(1);
+		const image = page.getByTestId('image');
+		await expect.element(image).toHaveAttribute('data-loading', '');
+		await expect.element(image).not.toHaveAttribute('data-error');
+	});
+});

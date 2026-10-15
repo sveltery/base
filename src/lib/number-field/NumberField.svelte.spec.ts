@@ -6,6 +6,7 @@ import { page, userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import NumberFieldHarness from '../../tests/NumberFieldHarness.svelte';
+import PreventedHandlerHarness from '../../tests/PreventedHandlerHarness.svelte';
 
 function control() {
 	return page.getByTestId('control');
@@ -531,5 +532,95 @@ describe('<NumberField />', () => {
 			area.dispatchEvent(two);
 			expect(two.defaultPrevented).toBe(false);
 		});
+	});
+});
+
+describe('NumberField consumer preventDefault', () => {
+	const prevent = (event: Event) => event.preventDefault();
+
+	it('skips marking the field focused when onfocus calls preventDefault', async () => {
+		render(PreventedHandlerHarness, { part: 'number', handlers: { onfocus: prevent } });
+		await userEvent.click(control());
+		await expect.element(control()).toHaveFocus();
+		await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-focused');
+	});
+
+	it('skips the blur commit when onblur calls preventDefault', async () => {
+		const onValueCommitted = vi.fn();
+		render(PreventedHandlerHarness, {
+			part: 'number',
+			onValueCommitted,
+			handlers: { onblur: prevent }
+		});
+		await userEvent.type(control(), '5');
+		await userEvent.tab();
+		await expect.element(page.getByRole('button', { name: 'After' })).toHaveFocus();
+		expect(onValueCommitted.mock.calls.length).toBe(0);
+		await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-touched');
+	});
+
+	it('skips the value change when oninput calls preventDefault', async () => {
+		const onValueChange = vi.fn();
+		render(PreventedHandlerHarness, {
+			part: 'number',
+			onValueChange,
+			handlers: { oninput: prevent }
+		});
+		await userEvent.type(control(), '5');
+		expect([hiddenNumber().value, onValueChange.mock.calls.length]).toEqual(['', 0]);
+	});
+
+	it('keeps a held increment running when onmouseleave calls preventDefault', async () => {
+		const onValueChange = vi.fn((value: number | null) => {
+			if (value === 4) {
+				window.dispatchEvent(
+					new PointerEvent('pointerup', { bubbles: true, pointerType: 'mouse' })
+				);
+			}
+		});
+		render(PreventedHandlerHarness, {
+			part: 'number',
+			onValueChange,
+			stepperHandlers: { onmouseleave: prevent }
+		});
+		await userEvent.hover(increase());
+		holdIncrease();
+		await userEvent.hover(control());
+		await expect.element(control()).toHaveValue('4');
+		expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([0, 1, 2, 3, 4]);
+	});
+
+	it('keeps a held increment stopped when the mouse re-enters after onmouseenter called preventDefault', async () => {
+		const onValueChange = vi.fn();
+		render(PreventedHandlerHarness, {
+			part: 'number',
+			onValueChange,
+			stepperHandlers: { onmouseenter: prevent }
+		});
+		await userEvent.hover(increase());
+		holdIncrease();
+		await userEvent.hover(control());
+		await userEvent.hover(increase());
+		await new Promise((resolve) => setTimeout(resolve, 600));
+		expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([0]);
+		window.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'mouse' }));
+	});
+
+	it('stops a held increment when the mouse leaves after ontouchstart called preventDefault', async () => {
+		const onValueChange = vi.fn();
+		render(PreventedHandlerHarness, {
+			part: 'number',
+			onValueChange,
+			stepperHandlers: { ontouchstart: prevent }
+		});
+		await userEvent.hover(increase());
+		holdIncrease();
+		increase()
+			.element()
+			.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, cancelable: true }));
+		await userEvent.hover(control());
+		await new Promise((resolve) => setTimeout(resolve, 600));
+		expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([0]);
+		window.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'mouse' }));
 	});
 });
