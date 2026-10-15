@@ -10,7 +10,7 @@
 
 	const toolbar = useToolbarRootContext();
 
-	let props: ToolbarSeparatorProps = $props();
+	let { ...props }: ToolbarSeparatorProps = $props();
 </script>
 
 <Separator

@@ -204,7 +204,7 @@ Set `disabled` on the group to disable every toggle, or on a single `Toggle` to 
 - Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
 - `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
 - Every `Toggle` in the group needs its own `value`. A toggle without one gets a generated id, and the toggle logs an error when the group has a `value`.
-- The group always owns roving focus. Toolbar integration, grid composite keyboard navigation, and scroll-into-view are not available.
+- Inside a `Toolbar`, the group joins the toolbar's arrow key order. Grid composite keyboard navigation and scroll-into-view are not available.
 
 ## API reference
 
