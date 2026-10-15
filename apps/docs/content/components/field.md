@@ -261,7 +261,6 @@ Inside a Form with a `form` source, `<Field.Root name="email">` binds to the sou
 - The `name` on `Field.Root` takes precedence over the `name` on the control.
 - `field` and `type` on `Field.Root` have no upstream counterpart. They bind the field to a form source.
 - Checkbox, Switch, Radio Group, and Checkbox Group register with the field the same way upstream does. A radio group is named by `aria-labelledby`, so every radio keeps its own id. A radio inside a `Field.Item` is labeled by that item's `Field.Label`.
-- A Checkbox Group reports its whole value to `validate` and `onFormSubmit`. Upstream drops the values of disabled checkboxes and of checkboxes that belong to another form.
 - Handlers use lowercase names such as `oninput`. `readonly`, `autocomplete`, and `inputmode` use the HTML spelling.
 
 ## API reference

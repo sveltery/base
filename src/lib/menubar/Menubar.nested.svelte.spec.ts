@@ -31,6 +31,8 @@ describe('a menu inside a menubar menu', () => {
 		render(MenubarNestedHarness, { log, scenario: 'context-menu' });
 		clickElement(get('file-trigger'));
 		await expect.poll(() => isOpen('file')).toBe(true);
+		// Focus leaves the trigger for the popup before a person can right-click inside it.
+		await expect.poll(() => get('file').contains(document.activeElement)).toBe(true);
 		contextMenu(get('ctx-trigger'), { clientX: 30, clientY: 30 });
 		await expect.poll(() => isOpen('ctx')).toBe(true);
 		await settle();

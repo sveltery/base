@@ -19,6 +19,8 @@ interface FieldControlIdentity {
 	id: string | undefined;
 	name: string | undefined;
 	element: HTMLElement | null;
+	/** What the Form submits when it differs from the control value, as for a checkbox group. */
+	getFormValue?: () => unknown;
 }
 
 /**
@@ -59,6 +61,8 @@ export interface FieldContext {
 	validateField: () => void;
 	registerControl: (source: symbol, registration: FieldControlRegistration | undefined) => void;
 	registerInput: (element: HTMLInputElement, registration: RegisteredInput) => () => void;
+	/** Native inputs registered with this Field. A grouped checkbox's entry carries the value it submits. */
+	readonly registeredInputs: ReadonlyMap<HTMLInputElement, RegisteredInput>;
 	change: (value: unknown, cancelPending?: boolean) => void;
 	commit: (value: unknown, revalidate?: boolean) => void;
 	/** The handle this Field is bound to through `field` or a `name` in a bound Form. */
@@ -150,7 +154,7 @@ export class FieldRootModel implements FieldContext {
 		[HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, string, string] | null = null;
 	/** When set, the form registry uses this instead of the live external invalid flag. */
 	private reportedInvalid: boolean | undefined = undefined;
-	private readonly registeredInputs = new SvelteMap<HTMLInputElement, RegisteredInput>();
+	readonly registeredInputs = new SvelteMap<HTMLInputElement, RegisteredInput>();
 	private readonly debounceTimer = new ScopedTimeout();
 	private readonly options: FieldRootModelOptions;
 	private readonly resetForm: HTMLFormElement | null;
@@ -624,7 +628,10 @@ export class FieldRootModel implements FieldContext {
 		const readName = () => this.name;
 		const readValidity = () => this.combinedForForm();
 		const readControl = () => this.controlElement;
-		const readValue = () => this.readRegisteredValue();
+		const readValue = () => {
+			const formValue = this.registration?.getFormValue;
+			return formValue ? formValue() : this.readRegisteredValue();
+		};
 		const validate = () => this.validateField();
 		const blocksSubmit = () => this.blocksSubmit();
 		this.options.form.fields.set(id, {

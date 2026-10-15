@@ -7,7 +7,6 @@
 import { DEV } from 'esm-env';
 import { getAbortSignal, untrack } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import { isHTMLElement } from '@floating-ui/utils/dom';
 import { REASONS, ScopedTimeout } from '@sveltery/utils';
 import {
 	DismissInteraction,
@@ -15,8 +14,8 @@ import {
 	Typeahead,
 	isMainOrientationKey,
 	stopEvent,
+	registerFloatingNode,
 	setFloatingTree,
-	useFloatingNodeId,
 	useFloatingParentNodeId
 } from '@sveltery/floating-ui-svelte';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
@@ -230,23 +229,29 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		}
 	}));
 
-	useFloatingNodeId(store);
+	// The positioner publishes the node, so a trigger inside this root reports the node above it.
+	registerFloatingNode(store, tree, () => store.parentNodeId);
 
-	// A plain submenu that closes on its parent's main-axis key moves the parent's highlight on
-	// from the trigger, as the parent's own list navigation does for that key. A filterable
-	// submenu does this in its own key handling.
+	// A main-axis key the submenu leaves unhandled moves the parent's highlight on, as upstream's
+	// parent list navigation does for keys from a nested popup (`useListNavigation.ts:644-650`). A
+	// filterable submenu does this in its own key handling.
 	function moveParentFrom(trigger: Element, event: KeyboardEvent) {
 		if (virtualFocus || parent.type !== 'menu' || !parentRoot) return;
-		if (!isHTMLElement(trigger) || !isMainOrientationKey(event.key, parentRoot.orientation)) return;
+		if (!isMainOrientationKey(event.key, parentRoot.orientation)) return;
 		// The parent handled the key, so a menubar must not move as well.
 		stopEvent(event);
-		const item = moveHighlightFrom(parentRoot.store, trigger, event, {
+		const parentStore = parentRoot.store;
+		// A key that closed the submenu moves on from the trigger, where focus returns first.
+		const from = store.open
+			? (parentStore.activeIndex ?? -1)
+			: parentStore.items.elements.findIndex((item) => item === trigger);
+		const item = moveHighlightFrom(parentStore, from, event, {
 			orientation: parentRoot.orientation,
 			rtl: direction.direction === 'rtl',
 			loopFocus: parentRoot.loopFocus,
-			allowEscape: parentRoot.store.virtualFocus && parentRoot.allowEscape
+			allowEscape: parentStore.virtualFocus && parentRoot.allowEscape
 		});
-		if (!parentRoot.store.virtualFocus) item?.focus({ preventScroll: true });
+		if (!parentStore.virtualFocus) item?.focus({ preventScroll: true });
 	}
 
 	// Upstream merges these handlers, and every one runs. `mergeProps` here would skip the
@@ -256,7 +261,7 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		(dismiss.floating.onkeydown as (event: KeyboardEvent) => void)(event);
 		(listNavigation.floating.onkeydown as ((event: KeyboardEvent) => void) | undefined)?.(event);
 		(typeahead.floating.onkeydown as ((event: KeyboardEvent) => void) | undefined)?.(event);
-		if (trigger && !store.open) moveParentFrom(trigger, event);
+		if (trigger && !event.cancelBubble) moveParentFrom(trigger, event);
 		const relay = store.keyboardEventRelay;
 		if (relay && !event.cancelBubble) relay(event);
 	}

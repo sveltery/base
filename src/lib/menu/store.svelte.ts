@@ -59,6 +59,13 @@ export interface MenuInteractions {
 	popupKeyDown(event: KeyboardEvent): void;
 }
 
+/** Upstream's trigger-forwarded state: the trigger's parent, floating parent node and key relay. */
+export interface MenuTriggerData {
+	parent: MenuParent;
+	parentNodeId: string | null;
+	keyboardEventRelay: ((event: KeyboardEvent) => void) | undefined;
+}
+
 export interface MenuStoreOptions {
 	readOpen: () => boolean | undefined;
 	writeOpen: (open: boolean) => void;
@@ -96,8 +103,9 @@ const GROUP_REASONS: ReadonlySet<string> = new Set([
 ]);
 
 export class MenuStore extends PopupStore<MenuChangeReason> {
-	/** Where the root sits. A menubar trigger can replace it while it owns the menu. */
-	parent = $state.raw<MenuParent>({ type: undefined });
+	/** What the trigger that last owned the menu lends it, as upstream's trigger data forwarding. */
+	triggerData = $state.raw<MenuTriggerData | null>(null);
+	private readonly ownParent: MenuParent;
 	readonly ownRootId: string;
 	private readonly ownTree: FloatingTreeStore | null;
 	private readonly ownMenuEvents: EventTarget;
@@ -127,8 +135,6 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	/** Bumps when an open menu changes trigger. The viewport snapshots on it. */
 	triggerSwitch = $state(0);
 	switchedFrom = $state<Element | null>(null);
-	/** Set by a trigger in a menubar so a detached popup can forward keys to the menubar. */
-	ownKeyboardEventRelay = $state.raw<((event: KeyboardEvent) => void) | undefined>(undefined);
 	interactions = $state.raw<MenuInteractions | null>(null);
 	/** Whether a typeahead session is in progress. Space then types instead of clicking. */
 	typing = false;
@@ -191,7 +197,7 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 			onOpenChangeComplete: options.onOpenChangeComplete,
 			animateInitialOpen: options.animateInitialOpen
 		});
-		this.parent = options.parent;
+		this.ownParent = options.parent;
 		this.ownRootId = options.rootId;
 		this.ownTree = options.tree;
 		this.ownMenuEvents = options.menuEvents ?? new EventTarget();
@@ -302,12 +308,24 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 		return this.ownTree;
 	}
 
-	/** Upstream `floatingParentNodeId`, forwarded with the tree. */
+	/**
+	 * Where the root sits. A context menu's root keeps its own, as upstream re-applies it after its
+	 * trigger forwards one. Any other root takes the parent its trigger forwards.
+	 */
+	get parent(): MenuParent {
+		if (this.ownParent.type === 'context-menu') return this.ownParent;
+		return this.triggerData?.parent ?? this.ownParent;
+	}
+
+	/**
+	 * Upstream `floatingParentNodeId`. As `MenuRoot.tsx:283-300`, the root supplies its own when it
+	 * is a context menu's, when a menu encloses it, or while no trigger is active.
+	 */
 	get parentNodeId(): string | null {
-		const parent = this.parent;
-		// As upstream, a menubar menu that no menu encloses takes the ids its menubar trigger forwards.
-		if (parent.type === 'menubar' && !this.enclosed) return parent.context.nodeId;
-		return this.ownParentNodeId;
+		const data = this.triggerData;
+		const ownIds =
+			this.ownParent.type === 'context-menu' || this.enclosed || !this.activeTriggerElement;
+		return ownIds || !data ? this.ownParentNodeId : data.parentNodeId;
 	}
 
 	get rootId(): string | undefined {
@@ -318,7 +336,8 @@ export class MenuStore extends PopupStore<MenuChangeReason> {
 	}
 
 	get keyboardEventRelay(): ((event: KeyboardEvent) => void) | undefined {
-		if (this.ownKeyboardEventRelay) return this.ownKeyboardEventRelay;
+		const relay = this.triggerData?.keyboardEventRelay;
+		if (relay) return relay;
 		const parent = this.parent;
 		if (parent.type === 'menubar') return parent.context.relayKeyboardEvent;
 		if (parent.type === 'menu') return parent.store.keyboardEventRelay;

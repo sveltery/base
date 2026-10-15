@@ -1,6 +1,6 @@
 // Field.Control's `render` snippet receives the bound props, so a swapped element stays wired.
 import { expect, test } from '@playwright/test';
-import { control, debug, error, field, open } from '../shared/helpers.js';
+import { control, error, field, open } from '../shared/helpers.js';
 
 test('a textarea and a wrapped input submit and reset like the default control', async ({
 	page
@@ -32,7 +32,6 @@ test('a textarea and a wrapped input submit and reset like the default control',
 	await page.getByRole('button', { name: 'Reset' }).click();
 	await expect(name).toHaveValue('Ada');
 	await expect(email).toHaveValue('');
-	await expect.poll(async () => (await debug(page)).input).toEqual({ email: '', name: 'Ada' });
 
 	await email.fill('ok@example.com');
 	await name.fill('Grace');

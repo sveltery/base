@@ -49,6 +49,7 @@ export const DEFAULT_FIELD_ROOT_CONTEXT: FieldContext = {
 	validateField: inert,
 	registerControl: inert,
 	registerInput: () => inert,
+	registeredInputs: new Map(),
 	change: inert,
 	commit: inert,
 	binding: undefined,
