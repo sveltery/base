@@ -1,12 +1,13 @@
-// A menu group is a context menu, a menubar or an outermost root menu, with its submenus and any
-// root menu inside its popups. Menus of different groups share the floating tree but not their
-// open changes, item presses or item hovers, as upstream gives each group its own
-// `floatingTreeRoot`.
+// A menu group is a root menu, a context menu or a menubar with its submenus. Menus of different
+// groups share the floating tree but not their open changes, item presses or item hovers, as
+// upstream gives each group its own `floatingTreeRoot`. Expected values come from
+// `@base-ui/react` 1.9.0 driven with the same events.
 import { tick } from 'svelte';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ContextMenuGroupHarness from '../../tests/context-menu/ContextMenuGroupHarness.svelte';
+import ContextMenuInnerMenuHarness from '../../tests/context-menu/ContextMenuInnerMenuHarness.svelte';
 import { contextMenu } from '../../tests/context-menu/events.js';
 import { clickElement, mouse } from '../../tests/menu/mouse.js';
 
@@ -83,7 +84,7 @@ describe('menu groups in one floating tree', () => {
 		});
 	});
 
-	it('closes a root menu inside a menu popup when the pointer crosses an outer item', async () => {
+	it('keeps a root menu inside a menu popup open when the pointer crosses an outer item', async () => {
 		const reasons: string[] = [];
 		await hoverOpen(reasons, 'plain');
 		clickElement(get('plain-trigger'));
@@ -91,13 +92,10 @@ describe('menu groups in one floating tree', () => {
 		await settle();
 		mouse(get('outer-item'), 'mousemove');
 		await settle();
-		expect({ plain: isOpen('plain'), reasons }).toEqual({
-			plain: false,
-			reasons: ['plain:sibling-open']
-		});
+		expect({ plain: isOpen('plain'), reasons }).toEqual({ plain: true, reasons: [] });
 	});
 
-	it('closes the enclosing menu on an item press in a root menu inside its popup', async () => {
+	it('closes only a root menu inside a menu popup on its item press', async () => {
 		const reasons: string[] = [];
 		await hoverOpen(reasons, 'plain');
 		clickElement(get('plain-trigger'));
@@ -105,10 +103,28 @@ describe('menu groups in one floating tree', () => {
 		await settle();
 		clickElement(get('plain').querySelector<HTMLElement>('[role="menuitem"]')!);
 		await settle();
-		expect({ outer: isOpen('outer'), plain: isOpen('plain') }).toEqual({
-			outer: false,
-			plain: false
+		expect({ outer: isOpen('outer'), plain: isOpen('plain'), reasons }).toEqual({
+			outer: true,
+			plain: false,
+			reasons: ['plain:item-press']
 		});
-		expect(reasons.toSorted()).toEqual(['outer:item-press', 'plain:item-press']);
+	});
+
+	it('closes only a root menu inside a context menu popup on its item press', async () => {
+		const log: string[] = [];
+		render(ContextMenuInnerMenuHarness, { log });
+		await userEvent.click(get('area'), { button: 'right' });
+		await expect.poll(() => isOpen('ctx')).toBe(true);
+		await settle();
+		await userEvent.click(get('inner-trigger'));
+		await expect.poll(() => isOpen('inner')).toBe(true);
+		await settle();
+		await userEvent.click(get('inner-item'));
+		await settle();
+		expect({ ctx: isOpen('ctx'), inner: isOpen('inner'), log }).toEqual({
+			ctx: true,
+			inner: false,
+			log: ['ctx:open:trigger-press', 'inner:open:trigger-press', 'inner:close:item-press']
+		});
 	});
 });
