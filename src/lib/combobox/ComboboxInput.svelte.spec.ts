@@ -612,6 +612,36 @@ describe('Combobox.Input', () => {
 		});
 	});
 
+	describe('prop: oninput', () => {
+		it('runs before the input value changes', async () => {
+			const seen: unknown[] = [];
+			const props = renderBound(ComboboxHarness, {
+				inputValue: '',
+				items: ['apple'] as string[],
+				input: { oninput: () => seen.push(props.inputValue) }
+			});
+			await userEvent.type(input(), 'a');
+			expect([seen, props.inputValue]).toEqual([[''], 'a']);
+		});
+
+		it('skips the input value change and the open when it calls preventDefault', async () => {
+			const onInputValueChange = vi.fn();
+			const props = renderBound(ComboboxHarness, {
+				inputValue: '',
+				open: false,
+				items: ['apple'] as string[],
+				root: { onInputValueChange },
+				input: { oninput: (event: Event) => event.preventDefault() }
+			});
+			await userEvent.type(input(), 'a');
+			expect([props.inputValue, props.open, onInputValueChange.mock.calls.length]).toEqual([
+				'',
+				false,
+				0
+			]);
+		});
+	});
+
 	describe('data state attributes', () => {
 		it('sets data-popup-side to the current popup side', async () => {
 			render(ComboboxHarness, { items: ['apple'], positioner: { side: 'right' } });

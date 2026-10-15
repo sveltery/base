@@ -26,4 +26,21 @@ describe('public merge-props entry', () => {
 		merged.onclick(event);
 		expect([event.defaultPrevented, left.mock.calls.length]).toEqual([true, 0]);
 	});
+
+	it('skips the handlers left of one that calls preventDefault on a non-cancelable event', () => {
+		const calls: string[] = [];
+		const merged = mergeProps<{ oninput: (event: Event) => void }>(
+			{ oninput: () => calls.push('left') },
+			{
+				oninput: (event: Event) => {
+					calls.push('middle');
+					event.preventDefault();
+				}
+			},
+			{ oninput: () => calls.push('right') }
+		);
+		const event = new Event('input', { bubbles: true });
+		merged.oninput(event);
+		expect([event.defaultPrevented, calls]).toEqual([false, ['right', 'middle']]);
+	});
 });
