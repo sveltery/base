@@ -9,6 +9,7 @@
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { chain } from '../internal/mergeProps.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -60,22 +61,12 @@
 		getValue: () => model.options.getValue()
 	});
 
-	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		onfocus?.(event);
-		if (event.defaultPrevented) return;
-		focusOwner.set(true);
-	}
-
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		onblur?.(event);
-		if (event.defaultPrevented) return;
 		focusOwner.set(false);
 		model.handleBlur(event);
 	}
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		oninput?.(event);
-		if (event.defaultPrevented) return;
 		const accepted = model.applyInputText(event.currentTarget.value, event);
 		if (!accepted) event.currentTarget.value = model.inputValue;
 	}
@@ -109,9 +100,9 @@
 		...(ariaInvalid ? { 'aria-invalid': true as const } : {}),
 		...(labelable.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
 		...(describedBy ? { 'aria-describedby': describedBy } : {}),
-		onfocus: handleFocus,
-		onblur: handleBlur,
-		oninput: handleInput,
+		onfocus: chain(() => focusOwner.set(true), onfocus),
+		onblur: chain(handleBlur, onblur),
+		oninput: chain(handleInput, oninput),
 		onkeydown: handleKeyDown,
 		onpaste: handlePaste,
 		[elementKey]: remember
