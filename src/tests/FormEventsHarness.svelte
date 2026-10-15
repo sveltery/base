@@ -5,6 +5,7 @@
 		CheckboxGroup,
 		Field,
 		Form,
+		isSubmitBlocked,
 		NumberField,
 		OTPField,
 		Radio,
@@ -31,6 +32,8 @@
 	let log = $state<string[]>([]);
 	// `defaultPrevented` as each later submit listener call saw it.
 	let submits = $state<boolean[]>([]);
+	// `isSubmitBlocked` as each later submit listener call read it.
+	let blocked = $state<boolean[]>([]);
 
 	function record(event: Event) {
 		const target = event.target;
@@ -45,6 +48,7 @@
 	const laterSubmitListener: Attachment<HTMLFormElement> = (node) => {
 		const listener = (event: SubmitEvent) => {
 			submits.push(event.defaultPrevented);
+			blocked.push(isSubmitBlocked(node));
 			event.preventDefault();
 		};
 		node.addEventListener('submit', listener);
@@ -116,3 +120,4 @@
 {/if}
 <output data-testid="log">{JSON.stringify(log)}</output>
 <output data-testid="submits">{JSON.stringify(submits)}</output>
+<output data-testid="blocked">{JSON.stringify(blocked)}</output>

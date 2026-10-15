@@ -29,6 +29,10 @@ function submits() {
 	return page.getByTestId('submits').element().textContent;
 }
 
+function blocked() {
+	return page.getByTestId('blocked').element().textContent;
+}
+
 describe('submit gate', () => {
 	it('prevents an invalid submit and still runs a later submit listener', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
@@ -46,6 +50,21 @@ describe('submit gate', () => {
 		await page.getByRole('button', { name: 'Skip validation' }).click();
 		await expect.poll(submits).toBe('[false]');
 		await expect.element(page.getByTestId('control')).not.toHaveAttribute('data-invalid');
+	});
+
+	it('tells a later submit listener whether it blocked this submit', async () => {
+		render(FormEventsHarness, { scenario: 'gate' });
+		const submit = page.getByRole('button', { name: 'Submit' });
+		await submit.click();
+		await expect.poll(blocked).toBe('[true]');
+		await page.getByTestId('control').fill('a@b.c');
+		await submit.click();
+		await expect.poll(blocked).toBe('[true,false]');
+		await page.getByTestId('control').fill('');
+		await submit.click();
+		await expect.poll(blocked).toBe('[true,false,true]');
+		await page.getByRole('button', { name: 'Skip validation' }).click();
+		await expect.poll(blocked).toBe('[true,false,true,false]');
 	});
 
 	it('sets novalidate once mounted', async () => {
