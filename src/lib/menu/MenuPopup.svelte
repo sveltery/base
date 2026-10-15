@@ -119,27 +119,20 @@
 		return trigger ? trigger.id || undefined : store.resolvedActiveTriggerId() || undefined;
 	});
 
-	// Upstream returns focus nowhere when a hover menu closes because the pointer left, whatever
-	// `finalFocus` says. The manager resolves `returnFocus` in an effect teardown, where Svelte
-	// reads state as it was before the close. This flag is set during the close, so it is a plain
-	// variable that `returnFocus` reads when the manager calls it.
-	let leftByPointer = false;
-	// Read at call time for the same reason: an outside press closed the menu.
+	// The manager resolves `returnFocus` in an effect teardown, where Svelte reads state as it was
+	// before the close. This flag is set during the close, so it is a plain variable that
+	// `returnFocus` reads when the manager calls it.
 	let closedByOutsidePress = false;
 	// Tracks only `store.open`, so it runs once per opening.
 	$effect.pre(() => {
 		if (!store.open) return;
-		leftByPointer = false;
 		closedByOutsidePress = false;
 	});
 
 	$effect(() => {
 		const stop = store.events.on('openchange', (data) => {
-			const { open, reason, nativeEvent } = data as OpenChangePayload;
+			const { open, reason } = data as OpenChangePayload;
 			if (!open) closedByOutsidePress = reason === REASONS.outsidePress;
-			if (!open && reason === REASONS.triggerHover && nativeEvent?.type === 'mouseleave') {
-				leftByPointer = true;
-			}
 		});
 		return () => {
 			stop();
@@ -178,7 +171,6 @@
 	}
 
 	function returnFocus(closeType: string | null): boolean | HTMLElement | null | void {
-		if (leftByPointer) return false;
 		const dynamic = dynamicReturnElement();
 		if (dynamic) return dynamic;
 		// Upstream's default returns focus from a triggerless menubar menu unless an outside press
