@@ -674,6 +674,8 @@ Pass a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form
 
 Remote functions are experimental in SvelteKit. Turn them on with `experimental: { remoteFunctions: true }` in the `sveltekit()` options in `vite.config.ts`.
 
+Form replays a reset to work around a SvelteKit bug in reset buttons. The workaround goes away once SvelteKit fixes the bug.
+
 Put the schema in its own module, so that the server and the page can both import it. Any [Standard Schema](https://standardschema.dev) library works. These examples use Valibot.
 
 ```ts
@@ -917,38 +919,94 @@ A form library can own the values and the validation, while Field shows the stat
 - `dirty` marks the value as changed from its initial value.
 - `touched` marks the field as visited.
 
-Bind the value to the library with `bind:value`, or with a getter and setter pair. Render the library's message in a `Field.Error` with `match={true}`, inside an `{#if}` that checks for an error. This demo uses component state in place of a library:
+Bind the value to the library with `bind:value`, or with a getter and setter pair. Render the library's message in a `Field.Error` with `match={true}`, inside an `{#if}` that checks for an error. `invalid` sets `aria-invalid` on the control and `data-invalid` on every part of the field. It also blocks a Form submit: while a Field is `invalid`, Form stops the submit before the library sees it. A library that sets errors on the server has to clear them when the user edits, as Superforms does.
+
+### sveltekit-superforms
+
+[Superforms](https://superforms.rocks) owns the values, the validation, and the errors. `$form` holds the values, `$errors` holds the messages, and `$tainted` marks the fields the user changed. Bind each control to `$form`, then pass the library's state to `Field.Root`:
+
+- `invalid` is true while the field has a message in `$errors`.
+- `dirty` is true while the field is in `$tainted`.
+- `touched` is left out. Superforms does not track it, so Field marks a field touched on blur.
+
+Superforms' `enhance` is an action, so `fromAction` turns it into an attachment on Form. The enhanced form shows errors on submit, then updates them as the user types. Superforms' validation on blur does not run for `Field.Control`, because Field.Control receives input through a delegated Svelte handler and superforms listens for input on the form. `onUpdate` runs after a valid submit. This demo sets `SPA: true`, so superforms validates in the browser with no server action:
 
 ```svelte demo
 <script lang="ts">
+	import { fromAction } from 'svelte/attachments';
+	import { defaults, superForm } from 'sveltekit-superforms';
+	import { valibot } from 'sveltekit-superforms/adapters';
+	import * as v from 'valibot';
 	import { Field } from '@sveltery/base/field';
+	import { Form } from '@sveltery/base/form';
 
-	let value = $state('');
-	let touched = $state(false);
-	const error = $derived(/^\d{5}$/.test(value) ? null : 'Enter a 5-digit ZIP code.');
+	const schema = v.object({
+		username: v.pipe(v.string(), v.minLength(3, 'At least 3 characters')),
+		email: v.pipe(v.string(), v.email('Invalid email address'))
+	});
+	const adapter = valibot(schema);
+	let saved = $state('');
+
+	const { form, errors, tainted, enhance } = superForm(defaults(adapter), {
+		SPA: true,
+		validators: adapter,
+		onUpdate: ({ form }) => {
+			if (form.valid) saved = form.data.username;
+		}
+	});
 </script>
 
-<Field.Root
-	name="zip"
-	invalid={touched && error !== null}
-	{touched}
-	dirty={value !== ''}
-	class="flex w-72 flex-col gap-1 text-gray-900 dark:text-gray-100"
+<Form
+	{@attach fromAction(enhance)}
+	class="flex w-72 flex-col gap-4 text-gray-900 dark:text-gray-100"
 >
-	<Field.Label class="text-sm font-medium">ZIP code</Field.Label>
-	<Field.Control
-		bind:value
-		onblur={() => (touched = true)}
-		inputmode="numeric"
-		class="h-9 rounded-md border border-gray-200 px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900"
-	/>
-	{#if touched && error}
-		<Field.Error match={true} class="text-sm text-red-700 dark:text-red-400">{error}</Field.Error>
+	<Field.Root
+		name="username"
+		invalid={!!$errors.username}
+		dirty={!!$tainted?.username}
+		class="flex flex-col gap-1"
+	>
+		<Field.Label class="text-sm font-medium">Username</Field.Label>
+		<Field.Control
+			bind:value={$form.username}
+			class="h-9 rounded-md border border-gray-200 px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900"
+		/>
+		{#if $errors.username}
+			<Field.Error match={true} class="text-sm text-red-700 dark:text-red-400">
+				{$errors.username[0]}
+			</Field.Error>
+		{/if}
+	</Field.Root>
+	<Field.Root
+		name="email"
+		invalid={!!$errors.email}
+		dirty={!!$tainted?.email}
+		class="flex flex-col gap-1"
+	>
+		<Field.Label class="text-sm font-medium">Email</Field.Label>
+		<Field.Control
+			type="email"
+			bind:value={$form.email}
+			class="h-9 rounded-md border border-gray-200 px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900"
+		/>
+		{#if $errors.email}
+			<Field.Error match={true} class="text-sm text-red-700 dark:text-red-400">
+				{$errors.email[0]}
+			</Field.Error>
+		{/if}
+	</Field.Root>
+	<button
+		class="h-9 rounded-md bg-gray-900 px-3.5 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 dark:bg-gray-100 dark:text-gray-900"
+	>
+		Subscribe
+	</button>
+	{#if saved}
+		<p role="status" class="text-sm">Subscribed as {saved}.</p>
 	{/if}
-</Field.Root>
+</Form>
 ```
 
-`invalid` sets `aria-invalid` on the control and `data-invalid` on every part of the field. It also blocks a Form submit. To let the library decide whether to submit, handle the submit through the library, not through `onFormSubmit`.
+To validate on the server too, remove `SPA` and add a form action that calls `superValidate`, as the Superforms docs describe. The props on `Field.Root` stay the same.
 
 ### TanStack Form
 
