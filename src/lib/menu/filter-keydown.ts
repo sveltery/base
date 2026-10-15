@@ -50,17 +50,17 @@ export interface MoveHighlightOptions {
 }
 
 /**
- * Moves the highlight from `item` one step in the direction of a main-axis arrow key, with the
+ * Moves the highlight from the item at `fromIndex` one step in the direction of a main-axis arrow key, with the
  * step the menu's own list navigation takes, and returns the newly highlighted item.
  */
 export function moveHighlightFrom(
 	store: MenuStore,
-	item: HTMLElement,
+	fromIndex: number,
 	event: KeyboardEvent,
 	options: MoveHighlightOptions
 ): HTMLElement | undefined {
 	const items = store.items.elements;
-	const { index } = getNextListIndex(items, items.indexOf(item), {
+	const { index } = getNextListIndex(items, fromIndex, {
 		decrement: !isMainOrientationToEndKey(event.key, options.orientation, options.rtl),
 		loopFocus: options.loopFocus,
 		allowEscape: options.allowEscape,

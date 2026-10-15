@@ -41,7 +41,7 @@ Test: `src/tests/controllable-root-cases.ts`, `src/lib/tabs/Tabs.svelte.spec.ts`
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`. `useButton` infers composite mode from a `CompositeRootContext`. In development it logs an error once after mount, and again when `nativeButton` changes, if the host tag does not match `nativeButton`. The message ends with React's owner stack. A disabled composite button that renders another button clears that inner button's `disabled` property.
 
-Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, Checkbox, Switch, Radio, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack. The inner `disabled` clearing is not ported.
+Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, Toggle, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, Checkbox, Switch, Radio, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack.
 
 Test: `src/lib/internal/button.spec.ts`. `src/lib/button/Button.svelte.spec.ts` (`nativeButton mismatch`).
 
@@ -236,7 +236,7 @@ Test: `src/lib/internal/InternalBackdrop.svelte.spec.ts` (`updates the cutout wh
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/checkbox/root/CheckboxRoot.tsx`, `switch/root/SwitchRoot.tsx`, `radio/root/RadioRoot.tsx`, `radio-group/RadioGroup.tsx`, `checkbox-group/CheckboxGroup.tsx` and `internals/labelable-provider/useLabelableId.ts`. Checkbox, Switch, RadioGroup and CheckboxGroup register with Field and Form, take `Field.Root name` and `disabled`, carry `aria-invalid`, `aria-describedby` and the Field `data-*` state, and are named by `Field.Label`. CheckboxGroup claims the label with `id: null`, so the label omits `for`, and a checkbox in the group's scope does not claim the Field's control id. Each radio calls `useLabelableId({ id })` in the scope it is rendered in, so radios outside a `Field.Item` all render the Field's control id and `Field.Label for` points at the first one.
 
-Local: the same registration, through `attachFieldControl`, `Field`'s `registerInput` and the `LabelableId` and `AriaLabelledBy` classes in `src/lib/internal/labelable-provider.svelte.ts`. RadioGroup claims the label with `id: null` the way CheckboxGroup does, and a radio leaves the control id to its group unless a `Field.Item` gives it its own scope. Radios therefore keep distinct ids, the group is named by `aria-labelledby`, and a `Field.Item` label still points `for` at its radio. CheckboxGroup reports its whole `value` to `onFormSubmit` and `validate`. Upstream drops values whose checkbox is disabled or belongs to another form.
+Local: the same registration, through `attachFieldControl`, `Field`'s `registerInput` and the `LabelableId` and `AriaLabelledBy` classes in `src/lib/internal/labelable-provider.svelte.ts`. RadioGroup claims the label with `id: null` the way CheckboxGroup does, and a radio leaves the control id to its group unless a `Field.Item` gives it its own scope. Radios therefore keep distinct ids, the group is named by `aria-labelledby`, and a `Field.Item` label still points `for` at its radio.
 
 Test: `src/lib/field/choice-controls.svelte.spec.ts`.
 
@@ -252,7 +252,7 @@ Test: `src/lib/slider/Slider.svelte.spec.ts` (`marks the Field filled, as a rang
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/form/Form.tsx`, `field/root/FieldRoot.tsx` and the form controls. Nothing listens for `reset`. A reset puts the native inputs back to their HTML defaults, while each control keeps its React state, so the control, its hidden input and `FormData` can disagree. Field dirty, touched and validity, and Form `errors`, stay as they were.
 
-Local: the controls follow `bind:value` and `bind:checked`. Each named input carries `defaultValue` or `defaultChecked`. A task after an uncanceled `reset`, Checkbox, Switch, RadioGroup, CheckboxGroup, Slider, NumberField and OTPField write their `defaultChecked` or `defaultValue` back through the binding, and Field.Control and Input read the input's value back as `bind:value` does. No `onValueChange` or `onCheckedChange` is called, because a native reset fires no `input` or `change` event. Then each Field clears dirty, touched, validity and its custom validity message, and takes the restored value as its initial value. Form clears `errors` and its submit count. A control listens to the form its named input belongs to, so a control outside the `<form>` that joins it through `form` restores too. A Slider with no `defaultValue` returns each thumb to `min`, as its range inputs do. Checkbox and Switch submit `uncheckedValue` from a hidden checkbox that the browser resets together with the visible one, so `FormData` never holds both values. The visible state of a custom control (`aria-checked`, `data-checked`, the thumb position) catches up one task after a native reset, because the browser resets the inputs only after the `reset` listeners have run. The helper is `src/lib/internal/form-reset.svelte.ts`.
+Local: the controls follow `bind:value` and `bind:checked`. Each named input carries `defaultValue` or `defaultChecked`. A task after an uncanceled `reset`, Checkbox, Switch, RadioGroup, CheckboxGroup, Slider, NumberField, OTPField, Select, Combobox and Autocomplete write their `defaultChecked` or `defaultValue` back through the binding, and Field.Control and Input read the input's value back as `bind:value` does. No `onValueChange` or `onCheckedChange` is called, because a native reset fires no `input` or `change` event. Then each Field clears dirty, touched, validity and its custom validity message, and takes the restored value as its initial value. Form clears `errors` and its submit count. A control listens to the form its named input belongs to, so a control outside the `<form>` that joins it through `form` restores too. A Slider with no `defaultValue` returns each thumb to `min`, as its range inputs do. Checkbox and Switch submit `uncheckedValue` from a hidden checkbox that the browser resets together with the visible one, so `FormData` never holds both values. The visible state of a custom control (`aria-checked`, `data-checked`, the thumb position) catches up one task after a native reset, because the browser resets the inputs only after the `reset` listeners have run. The helper is `src/lib/internal/form-reset.svelte.ts`.
 
 Test: `src/lib/form/form-reset.svelte.spec.ts`.
 
@@ -416,7 +416,7 @@ Local: Svelte children are a snippet with no readable text. An item's text is it
 
 Upstream: keys and focus in a portaled submenu bubble through React's tree to the parent popup's handlers.
 
-Local: nothing re-runs the parent popup's handlers. A key that a submenu does not handle goes straight to the menubar's `relayKeyboardEvent`, so ArrowRight on a plain item moves to the next menubar menu. A plain submenu that closes on its parent's main-axis key moves the parent's highlight on from its trigger. The parent's other main-axis key, such as ArrowRight on a plain item of a vertical submenu in a horizontal menu, does nothing. Upstream moves the parent's highlight to the next item. A filterable popup learns that focus moved into one of its submenus from a `focusin` listener on the document, matched by the menu's root id.
+Local: nothing re-runs the parent popup's handlers. A key that a submenu does not handle goes straight to the menubar's `relayKeyboardEvent`, so ArrowRight on a plain item moves to the next menubar menu. A plain submenu passes a main-axis key it leaves unhandled to its parent's highlight by an explicit call. The parent moves on from its trigger when the key closed the submenu, and otherwise from its current item, as upstream's parent list navigation does. A filterable popup learns that focus moved into one of its submenus from a `focusin` listener on the document, matched by the menu's root id.
 
 ### Opting out of the menu's key handling
 
@@ -736,45 +736,43 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 
 Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `inputRef`. Given a `name`, each renders its native `<input>` elements in the DOM under that name (Radio items take the RadioGroup's), so reach them through the form with `form.elements.namedItem(name)`. That returns a `RadioNodeList` when several inputs share the name, as with radios, range thumbs or an `uncheckedValue`.
 
-| Component          | Not ported yet                                                                                         |
-| ------------------ | ------------------------------------------------------------------------------------------------------ |
-| Accordion          | React.Activity animation resume, refs, roving focus (`orientation`, `loopFocus`)                       |
-| Button             | Composite and Toolbar integration                                                                      |
-| CheckboxGroup      | Disabled or other-form values filtered out of the Field value                                          |
-| Collapsible        | React.Activity animation resume, refs                                                                  |
-| Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                                    |
-| Field              | refs                                                                                                   |
-| Input              | refs                                                                                                   |
-| Toggle             | Toolbar integration, `nativeButton={false}`                                                            |
-| ToggleGroup        | Toolbar integration, grid composite, scroll-into-view                                                  |
-| Separator          | React render-element cloning, `ref`, Menu/Select/Toolbar separators                                    |
-| Meter              | React `ref`, numeric production error codes                                                            |
-| Progress           | refs                                                                                                   |
-| Form               | Fieldset Form-spec cases; `actionsRef`                                                                 |
-| RadioGroup         | scroll-into-view, text-field arrow exceptions                                                          |
-| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, refs                             |
-| Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers |
-| NumberField        | refs                                                                                                   |
-| ScrollArea         | refs                                                                                                   |
-| Slider             | refs, the prehydration `<script>` stays in the DOM after hydration (empty in client-only mounts)       |
-| DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                             |
-| OTPField           | refs, React controlled lock                                                                            |
-| CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                          |
-| Overlay foundation | Internal only. No public component                                                                     |
-| Popover            | `actionsRef`, refs                                                                                     |
-| Dialog             | ref objects                                                                                            |
-| AlertDialog        | ref objects                                                                                            |
-| Tooltip            | refs                                                                                                   |
-| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, refs                                                  |
-| NavigationMenu     | `defaultValue`, `actionsRef`, refs                                                                     |
-| Drawer             | ref objects                                                                                            |
-| Menu               | `actionsRef`, refs                                                                                     |
-| Menubar            | the `MenubarDataAttributes` namespace, refs                                                            |
-| ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                               |
-| Toast              | refs, `className` and `style` callbacks                                                                |
-| Select             | `inputRef`, `ReactNode` labels and placeholder                                                         |
-| Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder                            |
-| Autocomplete       | `inputRef`, Item `index`, `ReactNode` value children                                                   |
+| Component          | Not ported yet                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------------ |
+| Accordion          | React.Activity animation resume, refs, roving focus (`orientation`, `loopFocus`)                 |
+| Button             | Composite and Toolbar integration                                                                |
+| Collapsible        | React.Activity animation resume, refs                                                            |
+| Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                              |
+| Field              | refs                                                                                             |
+| Input              | refs                                                                                             |
+| ToggleGroup        | grid composite, scroll-into-view                                                                 |
+| Separator          | React render-element cloning, `ref`                                                              |
+| Meter              | React `ref`, numeric production error codes                                                      |
+| Progress           | refs                                                                                             |
+| Form               | `actionsRef`                                                                                     |
+| RadioGroup         | scroll-into-view, text-field arrow exceptions                                                    |
+| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, refs                       |
+| Toolbar            | text-field arrow exceptions, scroll-into-view, overlay triggers                                  |
+| NumberField        | refs                                                                                             |
+| ScrollArea         | refs                                                                                             |
+| Slider             | refs, the prehydration `<script>` stays in the DOM after hydration (empty in client-only mounts) |
+| DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                       |
+| OTPField           | refs, React controlled lock                                                                      |
+| CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                    |
+| Overlay foundation | Internal only. No public component                                                               |
+| Popover            | `actionsRef`, refs                                                                               |
+| Dialog             | ref objects                                                                                      |
+| AlertDialog        | ref objects                                                                                      |
+| Tooltip            | refs                                                                                             |
+| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, refs                                            |
+| NavigationMenu     | `defaultValue`, `actionsRef`, refs                                                               |
+| Drawer             | ref objects                                                                                      |
+| Menu               | `actionsRef`, refs                                                                               |
+| Menubar            | the `MenubarDataAttributes` namespace, refs                                                      |
+| ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                         |
+| Toast              | refs, `className` and `style` callbacks                                                          |
+| Select             | `inputRef`, `ReactNode` labels and placeholder                                                   |
+| Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder                      |
+| Autocomplete       | `inputRef`, Item `index`, `ReactNode` value children                                             |
 
 ## Shared floating internals
 

@@ -662,19 +662,11 @@ It renders a `<div>` with `role="alert"`. When a submit fails with only messages
 
 A `<button type="reset">` in the form resets it, as in HTML. Each control returns to its `defaultValue` or `defaultChecked`, and a bound value follows. Each field clears its dirty, touched, and validity state, and Form clears its `errors`. With a form source, the reset also hides the source's issues.
 
-<Callout title="Known SvelteKit issue: reset and remote forms">
-
-In SvelteKit 3.0.1, a remote form keeps the edited values in `fields.x.value()` after the user clicks a reset button, while the inputs show their defaults. Form works around it. It resets once more a task later, so that the remote form reads the reset values. A plain `<form {...remote}>` without Form still has the issue.
-
-</Callout>
-
 ## Bind a SvelteKit remote form
 
 Pass a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form) to the `form` prop of Form. Pass each of its fields to the `field` prop of a `Field.Root`. The remote form then owns the values and the issues. Field shows them, and Form sends the submit through the remote form.
 
 Remote functions are experimental in SvelteKit. Turn them on with `experimental: { remoteFunctions: true }` in the `sveltekit()` options in `vite.config.ts`.
-
-Form replays a reset to work around a SvelteKit bug in reset buttons. The workaround goes away once SvelteKit fixes the bug.
 
 Put the schema in its own module, so that the server and the page can both import it. Any [Standard Schema](https://standardschema.dev) library works. These examples use Valibot.
 
