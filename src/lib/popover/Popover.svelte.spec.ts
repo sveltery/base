@@ -1,6 +1,7 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/popover/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Menu, Combobox, shadow-root outside press, and actionsRef are not ported.
+// actionsRef is not ported. Menu, Combobox, and shadow-root outside press are in
+// PopoverNesting.svelte.spec.ts.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
