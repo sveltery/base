@@ -29,7 +29,8 @@
 	const box = 'display: inline-block; width: 16px; height: 16px';
 
 	let log = $state<string[]>([]);
-	let submits = $state(0);
+	// `defaultPrevented` as each later submit listener call saw it.
+	let submits = $state<boolean[]>([]);
 
 	function record(event: Event) {
 		const target = event.target;
@@ -39,11 +40,12 @@
 		log.push(`${event.type} ${target.name}=${value}`);
 	}
 
-	// A bubble-phase listener added after Form's own, as SvelteKit's `enhance` is.
+	// A bubble-phase listener added after Form's own, as a form library's `enhance` is. It
+	// prevents the submit only after recording, so the page does not navigate.
 	const laterSubmitListener: Attachment<HTMLFormElement> = (node) => {
 		const listener = (event: SubmitEvent) => {
+			submits.push(event.defaultPrevented);
 			event.preventDefault();
-			submits += 1;
 		};
 		node.addEventListener('submit', listener);
 		return () => node.removeEventListener('submit', listener);
@@ -113,4 +115,4 @@
 	</form>
 {/if}
 <output data-testid="log">{JSON.stringify(log)}</output>
-<output data-testid="submits">{submits}</output>
+<output data-testid="submits">{JSON.stringify(submits)}</output>

@@ -30,21 +30,21 @@ function submits() {
 }
 
 describe('submit gate', () => {
-	it('stops a later submit listener while a field is invalid', async () => {
+	it('prevents an invalid submit and still runs a later submit listener', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
 		await page.getByRole('button', { name: 'Submit' }).click();
 		await expect.element(page.getByTestId('control')).toHaveFocus();
-		expect(submits()).toBe('0');
+		expect(submits()).toBe('[true]');
 
 		await page.getByTestId('control').fill('a@b.c');
 		await page.getByRole('button', { name: 'Submit' }).click();
-		await expect.poll(submits).toBe('1');
+		await expect.poll(submits).toBe('[true,false]');
 	});
 
 	it('lets a formnovalidate submitter skip validation', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
 		await page.getByRole('button', { name: 'Skip validation' }).click();
-		await expect.poll(submits).toBe('1');
+		await expect.poll(submits).toBe('[false]');
 		await expect.element(page.getByTestId('control')).not.toHaveAttribute('data-invalid');
 	});
 
