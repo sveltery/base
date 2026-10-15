@@ -197,6 +197,41 @@ describe('Form with a source', () => {
 				document.removeEventListener('submit', stopNavigation);
 			}
 		});
+
+		it('does not settle a submit the source left to the browser when a later one is blocked', async () => {
+			const source = new FakeSource({ server: nameTaken });
+			render(BoundFormHarness, { source, required: true });
+			await userEvent.fill(control('name'), 'taken');
+			await userEvent.fill(control('age'), '36');
+			await submit();
+			await expect.element(control('name-error')).toHaveTextContent('Name taken');
+			await userEvent.type(control('name'), 'x');
+			await expect.element(control('name-error')).not.toBeInTheDocument();
+
+			const form = control('form').element() as HTMLFormElement;
+			const external = document.createElement('button');
+			external.setAttribute('formtarget', '_blank');
+			form.append(external);
+			const stopNavigation = (event: Event) => event.preventDefault();
+			document.addEventListener('submit', stopNavigation);
+			try {
+				form.requestSubmit(external);
+				await nextTask();
+				expect(source.pending).toBe(0);
+
+				await userEvent.clear(control('name'));
+				await submit();
+				await expect
+					.element(control('name-error'))
+					.toHaveTextContent('Please fill out this field.');
+				await nextTask();
+				expect(source.pending).toBe(0);
+				expect(control('name-error').element().textContent).toBe('Please fill out this field.');
+				expect(source.requests).toEqual([{ name: 'taken', age: 36 }]);
+			} finally {
+				document.removeEventListener('submit', stopNavigation);
+			}
+		});
 	});
 
 	describe('bound control props', () => {
