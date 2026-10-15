@@ -11,6 +11,7 @@
 	import { BROWSER } from 'esm-env';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../internal/form-context.js';
+	import { chain } from '../internal/mergeProps.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
@@ -139,7 +140,7 @@
 		const stopRegistration = registration(node);
 		// Not `oninput`: Svelte delegates that to the root, after listeners on the form. A form
 		// library that reads the value from the form's `input` event needs it written before.
-		const stopInput = on(node, 'input', handleInput);
+		const stopInput = on(node, 'input', (event) => chain(handleInput, oninput)(event));
 		return () => {
 			stopInput();
 			stopRegistration?.();
@@ -153,7 +154,6 @@
 	});
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		oninput?.(event);
 		const inputValue = event.currentTarget.value;
 		const details = createChangeEventDetails(REASONS.none, event);
 		onValueChange?.(inputValue, details);
