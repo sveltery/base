@@ -1,7 +1,9 @@
 // Button behavior for native and non-native hosts, shared by every part that acts as a button.
 // Derived from Base UI v1.8.0 packages/react/src/internals/use-button/useButton.ts
 // and packages/react/src/utils/useFocusableWhenDisabled.ts
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). Composite `aria-disabled` follows v1.9.0
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). Composite `aria-disabled` and clearing an
+// inner part's native `disabled` follow v1.9.0 useButton.ts and
+// packages/react/src/toolbar/button/ToolbarButton.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { DEV } from 'esm-env';
@@ -60,6 +62,7 @@ function isLink(element: HTMLElement) {
 
 export class ButtonBehavior {
 	readonly #checkKey = createAttachmentKey();
+	readonly #keepFocusableKey = createAttachmentKey();
 
 	constructor(private readonly options: () => ButtonOptions) {}
 
@@ -67,6 +70,17 @@ export class ButtonBehavior {
 		const native = this.options().native;
 		if (native && !isButton(node)) error(NATIVE_MISMATCH);
 		else if (!native && isButton(node)) error(NON_NATIVE_MISMATCH);
+	};
+
+	/**
+	 * A focusable disabled composite button ends without native `disabled`, even when a part it
+	 * renders, such as a Menu.Trigger given Toolbar.Button's forwarded `disabled`, set it.
+	 */
+	#keepFocusable = (node: HTMLElement) => {
+		const { disabled, native, focusableWhenDisabled, composite } = this.options();
+		if (composite && disabled && (focusableWhenDisabled || !native) && isButton(node)) {
+			(node as HTMLButtonElement).disabled = false;
+		}
 	};
 
 	/**
@@ -92,6 +106,7 @@ export class ButtonBehavior {
 				? { disabled: true as const }
 				: {}),
 			...(DEV ? { [this.#checkKey]: this.#checkHost } : {}),
+			[this.#keepFocusableKey]: this.#keepFocusable,
 			...rest,
 			onclick: (event: MouseEvent) => {
 				if (this.options().disabled) {

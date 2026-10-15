@@ -5,7 +5,6 @@ description: A container for grouping a set of buttons and controls.
 
 ```svelte demo
 <script lang="ts">
-	import { Separator } from '@sveltery/base/separator';
 	import { Toolbar } from '@sveltery/base/toolbar';
 
 	const item =
@@ -20,7 +19,7 @@ description: A container for grouping a set of buttons and controls.
 		<Toolbar.Button class={item}>Italic</Toolbar.Button>
 		<Toolbar.Button class={item}>Underline</Toolbar.Button>
 	</Toolbar.Group>
-	<Separator orientation="vertical" class="mx-1 h-5 w-px bg-gray-300 dark:bg-gray-600" />
+	<Toolbar.Separator class="mx-1 h-5 w-px bg-gray-300 dark:bg-gray-600" />
 	<Toolbar.Button class={item}>Copy</Toolbar.Button>
 	<Toolbar.Link href="/" class="{item} text-gray-900! no-underline! dark:text-gray-100!"
 		>Help</Toolbar.Link
@@ -44,6 +43,8 @@ Import the component and assemble its parts:
 		<Toolbar.Button />
 		<Toolbar.Button />
 	</Toolbar.Group>
+	<Toolbar.Separator />
+	<Toolbar.Input />
 </Toolbar.Root>
 ```
 
@@ -133,8 +134,9 @@ Pass a `render` snippet to replace the element of a part. Set `nativeButton={fal
 - `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
 - Handlers use Svelte's lowercase names, such as `onclick` and `onkeydown`. Call `event.preventDefault()` in a handler to skip the part's own handler. A `preventDefault()` call in the root's `onkeydown` skips the arrow key navigation.
 - The arrow keys follow the reading direction from a [Direction Provider](/utils/direction-provider). In `rtl`, the left arrow moves to the next item.
-- This port has no `Toolbar.Input` or `Toolbar.Separator` part. Use `Separator` with a perpendicular `orientation` instead. The toolbar has no exception for text fields, so do not put an input in it.
-- A Toggle, a Toggle Group, or a popup trigger inside a toolbar works as itself but does not join the toolbar's arrow key order. Nothing scrolls the focused item into view, and the parts take no `ref`.
+- The arrow keys in `Toolbar.Input` always move to the next or previous item. Base UI keeps them in the text field until the caret reaches its start or end.
+- `Toolbar.Input` takes a plain `value`, not `bind:value`.
+- A popup trigger placed directly in a toolbar, not rendered through `Toolbar.Button`, works as itself but does not join the toolbar's arrow key order. Nothing scrolls the focused item into view, and the parts take no `ref`.
 
 ## API reference
 
@@ -173,3 +175,21 @@ Pass a `render` snippet to replace the element of a part. Set `nativeButton={fal
 | Attribute          | Description                 |
 | ------------------ | --------------------------- |
 | `data-orientation` | `horizontal` or `vertical`. |
+
+### Input
+
+<ApiPart name="toolbar" part="Input" />
+
+| Attribute          | Description                                                         |
+| ------------------ | ------------------------------------------------------------------- |
+| `data-orientation` | `horizontal` or `vertical`.                                         |
+| `data-disabled`    | Present when the input, its group, or the toolbar is disabled.      |
+| `data-focusable`   | Present when `focusableWhenDisabled` is true, which is the default. |
+
+### Separator
+
+<ApiPart name="toolbar" part="Separator" />
+
+| Attribute          | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| `data-orientation` | `horizontal` or `vertical`, perpendicular to the toolbar's. |
