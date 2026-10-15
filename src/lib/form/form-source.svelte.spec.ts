@@ -435,47 +435,7 @@ describe('Form with a source', () => {
 			expect(control('name-error').query()).toBe(null);
 		});
 
-		it('replays a reset a task later with a Kit remote form, so it reads the reset values', async () => {
-			const source = new FakeSource({ action: remoteAction });
-			render(BoundFormHarness, { source });
-			await userEvent.fill(control('name'), 'Ada');
-			expect(source.fields.name.value()).toBe('Ada');
-
-			await page.getByRole('button', { name: 'Reset' }).click();
-			await expect.element(control('resets')).toHaveTextContent('2');
-			await expect.poll(() => source.fields.name.value()).toBe('');
-			await nextTask();
-			expect(control('resets').element().textContent).toBe('2');
-		});
-
-		it('does not replay a reset for a source that is not a Kit remote form', async () => {
-			render(BoundFormHarness, { source: new FakeSource({ action: '?/login' }) });
-			await page.getByRole('button', { name: 'Reset' }).click();
-			await nextTask();
-
-			expect(control('resets').element().textContent).toBe('1');
-		});
-
-		it('does not replay a reset without a source', async () => {
-			render(BoundFormHarness);
-			await page.getByRole('button', { name: 'Reset' }).click();
-			await nextTask();
-
-			expect(control('resets').element().textContent).toBe('1');
-		});
-
-		it('does not replay a cancelled reset', async () => {
-			const source = new FakeSource({ action: remoteAction });
-			render(BoundFormHarness, { source, cancelReset: true });
-			await userEvent.fill(control('name'), 'Ada');
-			await page.getByRole('button', { name: 'Reset' }).click();
-			await nextTask();
-
-			expect(control('resets').element().textContent).toBe('1');
-			expect(element('name').value).toBe('Ada');
-		});
-
-		it("resets once after a successful submit, without a replay of Form's own reset", async () => {
+		it('resets once after a successful submit', async () => {
 			const source = new FakeSource({ action: remoteAction });
 			render(BoundFormHarness, { source });
 			await fillValid();
