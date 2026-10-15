@@ -3,7 +3,6 @@
 	Derived from Base UI v1.8.0 packages/react/src/tabs/list/TabsList.tsx
 	and the linear composite keyboard path it mounts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Scroll-into-view is not ported.
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -60,7 +59,8 @@
 		...(tabs.orientation === 'vertical' ? { 'aria-orientation': 'vertical' as const } : {}),
 		...getStateAttributesProps(state, tabsStateAttributesMapping),
 		...elementProps,
-		[list.roving.attachmentKey]: attachList
+		[list.roving.attachmentKey]: attachList,
+		...roving.rootProps
 	});
 </script>
 

@@ -430,14 +430,6 @@ Upstream: `MenuFilterRoot` and `MenuFilterSubmenuRoot` are internal components t
 
 Local: they are the classes in `filter-root.svelte.ts` and `filter-submenu-root.svelte.ts`, which `Menu.Root` and `Menu.SubmenuRoot` create when a provider surrounds them. Neither is public, as upstream.
 
-### Return focus after a hover close
-
-Upstream: a hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
-
-Local: the shared `FloatingFocusManager` skips return focus after that close, and after a `focus-out` close that moves focus on itself, as upstream's `preventReturnFocusRef` does. It still calls a return function, as upstream does. `MenuPopup` also passes a `returnFocus` that returns `false` after that close before it calls a `finalFocus` function, so Menu does not call that function. Upstream calls it and ignores the result.
-
-Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`does not return focus to the element focused before a hover open when the pointer leaves`) and `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` (`calls a return focus function on a hover-leave close and keeps focus off the trigger`).
-
 ### Touch close guard
 
 Upstream: the touch `click` that follows a focus open is ignored after it reaches `onOpenChange`.
@@ -510,7 +502,7 @@ Local: the shared `CompositeRoot` focuses the next trigger synchronously. The po
 
 ### Behavior that waits on shared internals
 
-- The shared `CompositeRoot` does not select the text of a native input on focus and has no text-field arrow exceptions. A menubar holds only triggers, so no ported case reaches them.
+- `Menubar.svelte` does not spread `CompositeRoot.rootProps`, an omission in the owner and not a limit of `CompositeRoot`. The menubar therefore does not select the text of a native input on focus and does not scroll a keyboard-highlighted trigger into view. The text-field arrow exceptions apply. A menubar holds only triggers, so no ported case reaches them.
 - `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` keeps a press that started inside a popup until its `pointerup`, for sloppy presses too. Upstream checks that flag only for intentional presses. A touch press inside a submenu followed by a touch press outside, with no `pointerup` between them, closes the submenu but not its parent menu. Real taps always send `pointerup`. The ported touch case taps the submenu trigger with a full sequence.
 
 ### Not covered
@@ -744,14 +736,13 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                              |
 | Field              | refs                                                                                             |
 | Input              | refs                                                                                             |
-| ToggleGroup        | grid composite, scroll-into-view                                                                 |
+| ToggleGroup        | grid composite                                                                                   |
 | Separator          | React render-element cloning, `ref`                                                              |
 | Meter              | React `ref`, numeric production error codes                                                      |
 | Progress           | refs                                                                                             |
 | Form               | `actionsRef`                                                                                     |
-| RadioGroup         | scroll-into-view, text-field arrow exceptions                                                    |
-| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, refs                       |
-| Toolbar            | text-field arrow exceptions, scroll-into-view, overlay triggers                                  |
+| Tabs               | `renderBeforeHydration` script (accepted, ignored), refs                                         |
+| Toolbar            | overlay triggers                                                                                 |
 | NumberField        | refs                                                                                             |
 | ScrollArea         | refs                                                                                             |
 | Slider             | refs, the prehydration `<script>` stays in the DOM after hydration (empty in client-only mounts) |

@@ -60,7 +60,8 @@
 		'aria-orientation': orientation,
 		...getStateAttributesProps(state),
 		...elementProps,
-		onkeydown: handleKeyDown
+		onkeydown: handleKeyDown,
+		...roving.rootProps
 	});
 </script>
 
