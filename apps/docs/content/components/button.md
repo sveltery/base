@@ -99,7 +99,7 @@ Use this for a button that shows a loading state. Focus stays on the button whil
 
 ### Render as another tag
 
-Use the `render` snippet to render another element. Set `nativeButton={false}` so the part adds `role="button"`, `tabindex`, and the keyboard behavior a native button has. Enter and Space then activate the element. Spread `props` onto it.
+Use the `render` snippet to render another element. Set `nativeButton={false}` so the part adds `role="button"`, `tabindex`, and the keyboard behavior a native button has. Enter and Space then activate the element. Spread `props` onto it. Annotate `props`, for example as `HTMLAttributes<HTMLDivElement>`, to type the handlers for that element.
 
 ```svelte demo
 <script lang="ts">

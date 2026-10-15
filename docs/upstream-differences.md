@@ -815,3 +815,11 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`. React's element types have no `
 Local: Svelte's element types accept `null` for every attribute, and each part's `render` snippet receives those types as `props`. Parts that render a host element and declare `disabled`, `id`, `name`, `form`, `required` or `readonly` accept `null` too, and treat it as an absent attribute, as `<button disabled={null}>` does. A part's render snippet can therefore spread `props` onto another part on the same element, such as `Popover.Trigger` onto `Button`. `Select.Root`, `Combobox.Root`, `Autocomplete.Root`, `Tooltip.Root`, `Menu.Root` and `Menu.SubmenuRoot` render no host element and keep their types without `null`.
 
 Test: `type-probes/render/PartAsPart.svelte`, `src/lib/button/Button.svelte.spec.ts` (`renders a popover trigger and opens its popover`, `treats disabled={null} as false in the render state`), `src/lib/field/null-id.svelte.spec.ts`, `type-probes/render/MenuPartAsPart.svelte`, `src/lib/menu/Menu.svelte.spec.ts` (`treats null id and disabled as absent`).
+
+## Button handlers follow the render target
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/button/Button.tsx` and `packages/react/src/internals/types.ts`. `ButtonProps` extends `BaseUIComponentProps<'button', ButtonState>`, so its handlers are typed for `HTMLButtonElement` whatever `render` supplies.
+
+Local: `ButtonProps<Host>` types the handlers for `Host`, which defaults to `HTMLButtonElement`. `Host` comes only from the `props` parameter of the `render` snippet. A snippet that takes `props: HTMLAnchorAttributes` gives the handlers an `HTMLAnchorElement` as `currentTarget`. A handler or a spread on a Button without `render` does not change `Host`. The snippet receives `ButtonHostProps<Host>`, whose handlers are also typed for any element, so a snippet without an annotation still spreads `props` onto a `<span>` or `<div>`. Its handlers stay typed for a `<button>`.
+
+Test: `type-probes/render/ButtonRenderTarget.svelte`, `type-probes/render/ButtonLinkHandlers.svelte`, `type-probes/render/ButtonHandlerWithoutRender.svelte`.

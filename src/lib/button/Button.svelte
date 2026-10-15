@@ -3,8 +3,7 @@
 	Derived from Base UI v1.9.0 packages/react/src/button/Button.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
-<script lang="ts">
-	import type { HTMLButtonAttributes } from 'svelte/elements';
+<script lang="ts" generics="Host extends HTMLElement = HTMLButtonElement">
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import type { ButtonHostProps, ButtonProps, ButtonState } from './types.js';
@@ -16,7 +15,7 @@
 		render,
 		children,
 		...elementProps
-	}: ButtonProps = $props();
+	}: ButtonProps<Host> = $props();
 	const disabled = $derived(disabledProp ?? false);
 
 	const state: ButtonState = $derived({ disabled });
@@ -26,13 +25,13 @@
 		focusableWhenDisabled
 	}));
 
-	const hostProps: HTMLButtonAttributes = $derived(
-		button.props({ ...elementProps, ...getStateAttributesProps(state) })
+	const hostProps = $derived(
+		button.props({ ...elementProps, ...getStateAttributesProps(state) }) as ButtonHostProps<Host>
 	);
 </script>
 
 {#if render}
-	{@render render(hostProps as ButtonHostProps, state, children)}
+	{@render render(hostProps, state, children)}
 {:else}
 	<button {...hostProps}>{@render children?.()}</button>
 {/if}

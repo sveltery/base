@@ -8,8 +8,9 @@
 <script lang="ts" generics="State">
 	import type { Attachment } from 'svelte/attachments';
 	import type { Snippet } from 'svelte';
-	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import Button from '../button/Button.svelte';
+	import type { ButtonHostProps } from '../button/types.js';
 	import type { DialogTriggerHostProps } from './types.js';
 	import type { RenderChildren } from '../internal/render-children.js';
 
@@ -42,7 +43,7 @@
 	} = $props();
 </script>
 
-{#snippet host(props: HTMLAttributes<HTMLElement>, _buttonState: { disabled: boolean })}
+{#snippet host(props: ButtonHostProps<HTMLButtonElement>, _buttonState: { disabled: boolean })}
 	{#if render}
 		{@render render(props, state, children)}
 	{:else if attach}
