@@ -125,6 +125,24 @@ describe.each(MODES)('PreviewCard.Root with $name', ({ mode }) => {
 			expect(onOpenChange.mock.calls[0][1].trigger).toBe(link());
 		});
 
+		it('reports no trigger when Escape closes the card', async () => {
+			const onOpenChange = vi.fn();
+			render(PreviewCardHarness, { mode, onOpenChange });
+			hover(link());
+			await advance(OPEN_DELAY);
+			expect(content()).not.toBeNull();
+
+			document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+			await advance(100);
+			expect(content()).toBeNull();
+			expect(
+				onOpenChange.mock.calls.map(([open, details]) => [open, details.reason, details.trigger])
+			).toEqual([
+				[true, 'trigger-hover', link()],
+				[false, 'escape-key', undefined]
+			]);
+		});
+
 		it('does not close after hovering out of a popup opened externally', async () => {
 			render(PreviewCardHarness, { mode });
 			(page.getByRole('button', { name: 'Show' }).element() as HTMLElement).click();

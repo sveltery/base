@@ -7,7 +7,7 @@
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
 
 import { untrack } from 'svelte';
-import type { BaseUIChangeEventDetails } from '@sveltery/utils';
+import { REASONS, type BaseUIChangeEventDetails } from '@sveltery/utils';
 import { FloatingRootStore } from '@sveltery/floating-ui-svelte';
 import { useOpenChangeComplete } from '../useOpenChangeComplete.svelte.js';
 import { TransitionStatus, type TransitionStatusValue } from '../useTransitionStatus.svelte.js';
@@ -15,6 +15,15 @@ import { attachPreventUnmountOnClose, createPopupOpenState } from './popupStoreU
 
 export type PopupChangeEventDetails<Reason extends string> = BaseUIChangeEventDetails<Reason> & {
 	preventUnmountOnClose: () => void;
+};
+
+/** On which closes without a trigger `details.trigger` reports the active trigger. */
+export type CloseTriggerFill = 'always' | 'closePress' | 'never';
+
+const fillsCloseTrigger: Record<CloseTriggerFill, (reason: string) => boolean> = {
+	always: () => true,
+	closePress: (reason) => reason === REASONS.closePress,
+	never: () => false
 };
 
 export interface PopupStoreOptions<Reason extends string> {
@@ -33,6 +42,8 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 	preventUnmountingOnClose = $state(false);
 	/** Opened by a request that named no trigger, such as `openWithPayload()`. */
 	openedWithoutTrigger = $state(false);
+	/** Dialog and Menu fill every close. Subclasses narrow it. */
+	protected readonly closeTriggerFill: CloseTriggerFill = 'always';
 	private readonly readOpen: PopupStoreOptions<Reason>['readOpen'];
 	private readonly writeOpen: PopupStoreOptions<Reason>['writeOpen'];
 	private readonly readOnOpenChange: PopupStoreOptions<Reason>['onOpenChange'];
@@ -107,12 +118,6 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		return this.open;
 	}
 
-	protected beforeOpenChange(nextOpen: boolean, details: PopupChangeEventDetails<Reason>) {
-		if (!nextOpen && details.trigger == null && this.activeTriggerId != null) {
-			details.trigger = this.activeTriggerElement ?? undefined;
-		}
-	}
-
 	/** Dialog writes the flag immediately. Popover overrides this with `deferred`. */
 	protected preventUnmountTiming(): 'immediate' | 'deferred' {
 		return 'immediate';
@@ -128,7 +133,13 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 			};
 		}
 
-		this.beforeOpenChange(nextOpen, details);
+		if (
+			!nextOpen &&
+			details.trigger == null &&
+			fillsCloseTrigger[this.closeTriggerFill](details.reason)
+		) {
+			details.trigger = this.activeTriggerElement ?? undefined;
+		}
 		const previousReference = this.domReferenceElement;
 		const next = createPopupOpenState(
 			{
