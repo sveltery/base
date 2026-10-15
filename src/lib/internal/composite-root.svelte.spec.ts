@@ -127,6 +127,26 @@ describe('composite root scroll into view', () => {
 		await expect.poll(() => list().scrollLeft).toBe(400);
 	});
 
+	it('mounts selected tabs, radios and toggles where elements have no scrollTo', async () => {
+		const scrollTo = Element.prototype.scrollTo;
+		// @ts-expect-error jsdom has no Element.scrollTo
+		delete Element.prototype.scrollTo;
+		try {
+			render(CompositeScrollHarness, { scenario: 'selected' });
+			await expect
+				.element(page.getByRole('tab', { name: '9' }))
+				.toHaveAttribute('aria-selected', 'true');
+			await expect
+				.element(page.getByRole('radio', { name: '9' }))
+				.toHaveAttribute('aria-checked', 'true');
+			await expect
+				.element(page.getByRole('button', { name: '9' }))
+				.toHaveAttribute('aria-pressed', 'true');
+		} finally {
+			Element.prototype.scrollTo = scrollTo;
+		}
+	});
+
 	it('scrolls the toolbar and not the toggle group inside it', async () => {
 		render(CompositeScrollHarness, { scenario: 'toolbar-toggle-group' });
 		const group = page.getByTestId('group').element();

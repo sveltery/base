@@ -8,7 +8,7 @@
 		listStyle = '',
 		itemStyle = ''
 	}: {
-		scenario: 'tabs' | 'toggle-group' | 'toolbar-toggle-group' | 'radio-input';
+		scenario: 'tabs' | 'toggle-group' | 'toolbar-toggle-group' | 'radio-input' | 'selected';
 		direction?: 'ltr' | 'rtl';
 		value?: number;
 		listStyle?: string;
@@ -49,6 +49,24 @@
 					{/each}
 				</ToggleGroup>
 			</Toolbar.Root>
+		{:else if scenario === 'selected'}
+			<Tabs.Root value={9}>
+				<Tabs.List data-testid="list" style={row}>
+					{#each items as index (index)}
+						<Tabs.Tab value={index} style={item}>{index}</Tabs.Tab>
+					{/each}
+				</Tabs.List>
+			</Tabs.Root>
+			<RadioGroup aria-label="Choice" value="9" style={row}>
+				{#each items as index (index)}
+					<Radio.Root value={String(index)} aria-label={String(index)} style={item} />
+				{/each}
+			</RadioGroup>
+			<ToggleGroup aria-label="Toggles" value={['9']} style={row}>
+				{#each items as index (index)}
+					<Toggle value={String(index)} style={item}>{index}</Toggle>
+				{/each}
+			</ToggleGroup>
 		{:else}
 			<RadioGroup aria-label="Choice">
 				<Radio.Root value="a" aria-label="a" />

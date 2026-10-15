@@ -441,7 +441,7 @@ function scrollIntoViewIfNeeded(
 	rtl: boolean,
 	orientation: CompositeOrientation
 ) {
-	if (!container || !element) return;
+	if (!container || !element || !element.scrollTo) return;
 	const outer = getComputedStyle(container);
 	const inner = getComputedStyle(element);
 	const px = (style: CSSStyleDeclaration, property: string) =>
