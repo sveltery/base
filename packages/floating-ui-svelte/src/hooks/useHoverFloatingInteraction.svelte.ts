@@ -94,7 +94,7 @@ export function useHoverFloatingInteraction(
 			if (!tree || !parentId || getNodeChildren(tree.nodes, parentId).length > 0) return;
 			childClosedTimeout.start(0, () => {
 				tree.events.off('floating.closed', onNodeClosed);
-				store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event as Event));
+				store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event as MouseEvent));
 				tree.events.emit('floating.closed', event);
 			});
 		}
