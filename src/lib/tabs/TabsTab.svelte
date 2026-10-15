@@ -8,6 +8,7 @@
 	import { untrack } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
+	import { chain } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
 	import { useTabsListContext, useTabsRootContext } from './context.svelte.js';
@@ -95,10 +96,9 @@
 	}
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onfocus?.(event);
 		const current = event.currentTarget;
 		if (current instanceof HTMLElement) list.roving.highlight(current);
-		if (event.defaultPrevented || active || disabled) return;
+		if (active || disabled) return;
 		if (list.activateOnFocus && (!pressing || mainButton)) activate(event);
 	}
 
@@ -137,7 +137,7 @@
 			node,
 			register,
 			{
-				onfocus: handleFocus,
+				onfocus: chain(handleFocus, onfocus),
 				onkeydown(event) {
 					// The roving handler skips a prevented keydown, so a disabled tab only blocks activation.
 					if (!disabled) props.onkeydown(event);
