@@ -197,6 +197,9 @@
 
 		if (focusFirst((field) => field.blocksSubmit)) {
 			blockedForms.add(node);
+			// A `sent` submit the source never took will not settle, and this blocked submit's own
+			// pending rise must not settle it. A `taken` submit is in flight and still settles.
+			if (sourceSubmit === 'sent') sourceSubmit = 'idle';
 			event.preventDefault();
 			return;
 		}
