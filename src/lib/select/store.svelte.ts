@@ -8,7 +8,7 @@
 import type { HTMLAttributes } from 'svelte/elements';
 import { createChangeEventDetails, REASONS, type OpenInteractionType } from '@sveltery/utils';
 import { ElementList } from '../internal/element-list.svelte.js';
-import { PopupStore } from '../internal/popups/store.svelte.js';
+import { PopupStore, type CloseTriggerFill } from '../internal/popups/store.svelte.js';
 import { normalizeScrollOffset } from '../internal/scrollEdges.js';
 import { getMaxScrollOffset } from '../internal/scrollEdges.js';
 import type { InlineStyles } from './popup-utils.js';
@@ -77,6 +77,7 @@ export interface SelectStoreOptions {
 }
 
 export class SelectStore extends PopupStore<SelectChangeReason> {
+	protected override readonly closeTriggerFill: CloseTriggerFill = 'never';
 	readonly items = new ElementList<HTMLElement, SelectItemMeta>();
 
 	activeIndex = $state<number | null>(null);

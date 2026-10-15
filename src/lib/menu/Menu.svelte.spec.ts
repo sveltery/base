@@ -14,6 +14,7 @@ import MenuGroupHarness from '../../tests/menu/MenuGroupHarness.svelte';
 import MenuOrphan from '../../tests/menu/MenuOrphan.svelte';
 import { enterWithMouse, mouse } from '../../tests/menu/mouse.js';
 import { items } from '../../tests/menu/types.js';
+import { inOneTypeaheadRun } from '../../tests/menu/typeahead.js';
 
 function menus() {
 	return [...document.querySelectorAll('[role="menu"]')];
@@ -410,10 +411,12 @@ describe('Menu.LinkItem', () => {
 			]
 		});
 		item('Item One').focus();
-		await userEvent.keyboard('Item T');
-		await expect.poll(() => document.activeElement).toBe(item('Item Two'));
-		await userEvent.keyboard('[Space]');
-		await settle();
+		await inOneTypeaheadRun(async () => {
+			await userEvent.keyboard('Item T');
+			await expect.poll(() => document.activeElement).toBe(item('Item Two'));
+			await userEvent.keyboard('[Space]');
+			await settle();
+		});
 		expect(location.hash).toBe('#start');
 		history.replaceState(null, '', location.pathname + location.search);
 	});
@@ -531,10 +534,12 @@ describe('Menu.CheckboxItem', () => {
 			]
 		});
 		checkbox('Item One').focus();
-		await userEvent.keyboard('Item T');
-		await expect.poll(() => document.activeElement).toBe(checkbox('Item Two'));
-		await userEvent.keyboard('[Space]');
-		await userEvent.keyboard('[Space]');
+		await inOneTypeaheadRun(async () => {
+			await userEvent.keyboard('Item T');
+			await expect.poll(() => document.activeElement).toBe(checkbox('Item Two'));
+			await userEvent.keyboard('[Space]');
+			await userEvent.keyboard('[Space]');
+		});
 		expect(onCheckedChange).not.toHaveBeenCalled();
 		expect(checkbox('Item Two').getAttribute('aria-checked')).toBe('false');
 	});
@@ -827,10 +832,12 @@ describe('Menu.RadioGroup and Menu.RadioItem', () => {
 			]
 		});
 		radio('Item One').focus();
-		await userEvent.keyboard('Item T');
-		await expect.poll(() => document.activeElement).toBe(radio('Item Two'));
-		await userEvent.keyboard('[Space]');
-		await userEvent.keyboard('[Space]');
+		await inOneTypeaheadRun(async () => {
+			await userEvent.keyboard('Item T');
+			await expect.poll(() => document.activeElement).toBe(radio('Item Two'));
+			await userEvent.keyboard('[Space]');
+			await userEvent.keyboard('[Space]');
+		});
 		expect(onValueChange).not.toHaveBeenCalled();
 		expect(radio('Item Two').getAttribute('aria-checked')).toBe('false');
 	});
