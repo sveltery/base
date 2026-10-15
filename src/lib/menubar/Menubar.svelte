@@ -104,7 +104,8 @@
 		...getStateAttributesProps(state, stateMapping),
 		...elementProps,
 		onkeydown: handleKeyDown,
-		[contentKey]: bindContent
+		[contentKey]: bindContent,
+		...context.roving.rootProps
 	});
 </script>
 
