@@ -29,23 +29,42 @@ function submits() {
 	return page.getByTestId('submits').element().textContent;
 }
 
+function blocked() {
+	return page.getByTestId('blocked').element().textContent;
+}
+
 describe('submit gate', () => {
-	it('stops a later submit listener while a field is invalid', async () => {
+	it('prevents an invalid submit and still runs a later submit listener', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
 		await page.getByRole('button', { name: 'Submit' }).click();
 		await expect.element(page.getByTestId('control')).toHaveFocus();
-		expect(submits()).toBe('0');
+		expect(submits()).toBe('[true]');
 
 		await page.getByTestId('control').fill('a@b.c');
 		await page.getByRole('button', { name: 'Submit' }).click();
-		await expect.poll(submits).toBe('1');
+		await expect.poll(submits).toBe('[true,false]');
 	});
 
 	it('lets a formnovalidate submitter skip validation', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
 		await page.getByRole('button', { name: 'Skip validation' }).click();
-		await expect.poll(submits).toBe('1');
+		await expect.poll(submits).toBe('[false]');
 		await expect.element(page.getByTestId('control')).not.toHaveAttribute('data-invalid');
+	});
+
+	it('tells a later submit listener whether it blocked this submit', async () => {
+		render(FormEventsHarness, { scenario: 'gate' });
+		const submit = page.getByRole('button', { name: 'Submit' });
+		await submit.click();
+		await expect.poll(blocked).toBe('[true]');
+		await page.getByTestId('control').fill('a@b.c');
+		await submit.click();
+		await expect.poll(blocked).toBe('[true,false]');
+		await page.getByTestId('control').fill('');
+		await submit.click();
+		await expect.poll(blocked).toBe('[true,false,true]');
+		await page.getByRole('button', { name: 'Skip validation' }).click();
+		await expect.poll(blocked).toBe('[true,false,true,false]');
 	});
 
 	it('sets novalidate once mounted', async () => {

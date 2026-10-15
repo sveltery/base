@@ -15,7 +15,7 @@ test('a textarea and a wrapped input submit and reset like the default control',
 	await expect(name).toHaveValue('Ada');
 
 	await page.getByRole('button', { name: 'Sign up' }).click();
-	await expect(error(page, 'email')).toHaveText(/fill out|fill in/i);
+	await expect(error(page, 'email')).toHaveText('Enter a valid email');
 	await expect(email).toBeFocused();
 	await expect(email).toHaveAttribute('aria-invalid', 'true');
 

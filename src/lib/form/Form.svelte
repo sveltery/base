@@ -9,6 +9,17 @@
 
 	/** The callback a mounted Form installed on each source, so an older Form does not undo a newer one's. */
 	const installed = new WeakMap<FormSource, EnhanceCallback>();
+	const blockedForms = new WeakSet<HTMLFormElement>();
+
+	/**
+	 * Whether `<Form>` blocked the latest submit of `form`. Form blocks an invalid submit with
+	 * `preventDefault()` only, so a later `submit` listener, such as SvelteKit's `use:enhance`,
+	 * still runs and can still send the request. Call this in that listener before any `await`,
+	 * since the next submit replaces the answer, and cancel the submit when it returns `true`.
+	 */
+	export function isSubmitBlocked(form: HTMLFormElement): boolean {
+		return blockedForms.has(form);
+	}
 </script>
 
 <script
@@ -71,7 +82,7 @@
 
 	function rememberForm(node: HTMLFormElement) {
 		element = node;
-		const stopGate = on(node, 'submit', gateSubmit, { capture: true });
+		const stopGate = on(node, 'submit', (event) => gateSubmit(node, event), { capture: true });
 		// A reset starts the form over: no external errors, no submit and no source issues yet.
 		const stopReset = onFormReset(node, {
 			settle: () => {
@@ -170,9 +181,10 @@
 		errors = nextErrors;
 	}
 
-	// Capture phase, so an invalid submit stops before any later `submit` listener on the form,
-	// such as the source's own or SvelteKit's `enhance`, which do not check `defaultPrevented`.
-	function gateSubmit(event: SubmitEvent) {
+	// Capture phase, so the gate decides before any `submit` listener on the form runs. As upstream,
+	// a blocked submit is only prevented, so a form library's own listener still sees it.
+	function gateSubmit(node: HTMLFormElement, event: SubmitEvent) {
+		blockedForms.delete(node);
 		// `formnovalidate` on the submitter skips validation, as it does for a native form.
 		if (event.submitter?.hasAttribute('formnovalidate')) return;
 		submitCount += 1;
@@ -184,14 +196,18 @@
 		});
 
 		if (focusFirst((field) => field.blocksSubmit)) {
+			blockedForms.add(node);
+			// A `sent` submit the source never took will not settle, and this blocked submit's own
+			// pending rise must not settle it. A `taken` submit is in flight and still settles.
+			if (sourceSubmit === 'sent') sourceSubmit = 'idle';
 			event.preventDefault();
-			event.stopImmediatePropagation();
 			return;
 		}
 		sourceSubmit = source ? 'sent' : 'idle';
 	}
 
 	function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
+		if (isSubmitBlocked(event.currentTarget)) return;
 		submitted = true;
 		onsubmit?.(event);
 
@@ -213,6 +229,10 @@
 		const current = source;
 		if (!current?.enhance) return;
 		const callback: EnhanceCallback = async (instance) => {
+			// The source's listener runs on a submit the gate blocked too. Nothing reaches the server.
+			// Kit calls this after its async preflight, and the instance does not say which submit it
+			// is for, so a submit made before that preflight ends decides for the earlier one too.
+			if (isSubmitBlocked(instance.element)) return;
 			const tracked: EnhanceInstance = Object.create(instance, {
 				submit: {
 					value: () => {

@@ -7,16 +7,17 @@ const url = '/fixtures/form/remote';
 const submit = (page: Page) => page.getByRole('button', { name: 'Sign up' });
 
 test.describe('remote', () => {
-	test('native constraints block before preflight and the network', async ({ page }) => {
+	test('native constraints block the network, and preflight still reports', async ({ page }) => {
 		const posts = countPosts(page);
 		await open(page, url);
 		await expect(page.locator('form')).toHaveAttribute('novalidate', '');
 		await submit(page).click();
-		await expect(error(page, 'email')).toHaveText(/fill out|fill in/i);
+		// Kit's listener still sees the blocked submit, so its preflight issue outranks the native message.
+		await expect(error(page, 'email')).toHaveText('Enter a valid email');
 		await expect(control(page, 'email')).toBeFocused();
 		await expect(field(page, 'email')).toHaveAttribute('data-invalid', '');
 		await expect(control(page, 'email')).toHaveAttribute('aria-invalid', 'true');
-		// After a submit, each edit revalidates, and a source issue outranks the native message.
+		// After a submit, each edit revalidates.
 		await control(page, 'email').fill('bad');
 		await expect(error(page, 'email')).toHaveText('Enter a valid email');
 		await submit(page).click();

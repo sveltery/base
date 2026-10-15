@@ -47,7 +47,7 @@ With this setup:
 - The issue hides as soon as the user changes the field.
 - With JavaScript off, the browser validates, the form posts, and the page renders the server issues and the submitted values.
 
-A classic [form action](https://svelte.dev/docs/kit/form-actions) connects the way Base UI connects any server: the action returns its errors, the page passes them to `errors` on Form, and `use:enhance` goes on Form through `fromAction`. Name each field with `name` on `Field.Root`. Server errors then show and clear the same way, and the form works with JavaScript off too.
+A classic [form action](https://svelte.dev/docs/kit/form-actions) connects the way Base UI connects any server: the action returns its errors, the page passes them to `errors` on Form, and `use:enhance` goes on Form through `fromAction`. Its submit function calls `cancel()` when `isSubmitBlocked(formElement)` is true, because `use:enhance` posts a submit Form blocked. [Connect a form action](/handbook/forms#connect-a-form-action) shows it. Name each field with `name` on `Field.Root`. Server errors then show and clear the same way, and the form works with JavaScript off too.
 
 [Forms](/handbook/forms#bind-a-sveltekit-remote-form) has the complete examples, with the `.remote.ts` file, the `+page.server.ts` file, and the pages.
 

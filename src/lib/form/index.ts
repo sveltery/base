@@ -1,4 +1,4 @@
-import FormRoot from './Form.svelte';
+import FormRoot, { isSubmitBlocked } from './Form.svelte';
 import FormError from './FormError.svelte';
 
 /** `<Form>`, with `<Form.Error>` for the messages no field shows. */
@@ -7,6 +7,7 @@ export const Form: typeof FormRoot & { readonly Error: typeof FormError } = Obje
 	{ Error: FormError }
 );
 
+export { isSubmitBlocked };
 export type * from './types.js';
 export type {
 	ControlKind,
