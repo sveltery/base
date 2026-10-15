@@ -409,9 +409,16 @@
 	 */
 	function focusStaysInTree(related: EventTarget | null) {
 		if (!(related instanceof Node)) return false;
-		// Shift+Tab from the open trigger lands on its leading focus guard.
-		// That guard is outside the popup, and closing here would return focus to the trigger.
-		if (related instanceof Element && related.hasAttribute('data-base-ui-focus-guard')) return true;
+		// This popup's own focus guards, as upstream `isRelatedFocusGuard`. A guard of another
+		// popup, such as a parent popover's, is outside.
+		const guards = portal?.guards;
+		const ownGuards = [
+			guards?.beforeOutside,
+			guards?.afterOutside,
+			store.triggerBeforeGuard,
+			store.triggerFocusTarget
+		];
+		if (ownGuards.includes(related as HTMLElement)) return true;
 		const popup = store.floatingElement;
 		if (contains(popup, related) || contains(store.portalElement, related)) return true;
 		if ([...store.nestedPortals].some((host) => contains(host, related))) return true;
