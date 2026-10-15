@@ -63,6 +63,8 @@
 	// A submit the gate let through is `sent` until the source's `pending` rises. A source that
 	// leaves the submit to the browser never raises it, so only a `taken` submit settles.
 	let sourceSubmit: 'idle' | 'sent' | 'taken' = 'idle';
+	// Whether the gate blocked the latest submit, for Form's own listener and the source's callback.
+	let blocked = false;
 
 	const formState: FormState = {};
 	const emptyErrors: FormErrors = {};
@@ -170,9 +172,10 @@
 		errors = nextErrors;
 	}
 
-	// Capture phase, so an invalid submit stops before any later `submit` listener on the form,
-	// such as the source's own or SvelteKit's `enhance`, which do not check `defaultPrevented`.
+	// Capture phase, so the gate decides before any `submit` listener on the form runs. As upstream,
+	// a blocked submit is only prevented, so a form library's own listener still sees it.
 	function gateSubmit(event: SubmitEvent) {
+		blocked = false;
 		// `formnovalidate` on the submitter skips validation, as it does for a native form.
 		if (event.submitter?.hasAttribute('formnovalidate')) return;
 		submitCount += 1;
@@ -184,14 +187,15 @@
 		});
 
 		if (focusFirst((field) => field.blocksSubmit)) {
+			blocked = true;
 			event.preventDefault();
-			event.stopImmediatePropagation();
 			return;
 		}
 		sourceSubmit = source ? 'sent' : 'idle';
 	}
 
 	function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
+		if (blocked) return;
 		submitted = true;
 		onsubmit?.(event);
 
@@ -213,6 +217,8 @@
 		const current = source;
 		if (!current?.enhance) return;
 		const callback: EnhanceCallback = async (instance) => {
+			// The source's listener runs on a submit the gate blocked too. Nothing reaches the server.
+			if (blocked) return;
 			const tracked: EnhanceInstance = Object.create(instance, {
 				submit: {
 					value: () => {

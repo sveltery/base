@@ -163,16 +163,16 @@ describe('Form with a source', () => {
 	});
 
 	describe('submit gate', () => {
-		it('stops a submit on a native constraint before the source sees it', async () => {
+		it('keeps a submit blocked on a native constraint from the server while the source sees it', async () => {
 			const source = new FakeSource();
 			render(BoundFormHarness, { source, required: true });
 			await submit();
 
 			await expect.element(control('name-error')).toHaveTextContent('Please fill out this field.');
 			await expect.element(control('name')).toHaveFocus();
-			expect(source.submitted).toBe(false);
 			await nextTask();
 			expect(source.requests).toEqual([]);
+			expect(source.submitted).toBe(true);
 		});
 
 		it('does not move focus later after a submit the source left to the browser', async () => {

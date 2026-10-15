@@ -15,9 +15,11 @@ test('superforms errors reach the Fields, and a valid submit saves the values', 
 	await expect(field(page, 'username')).toHaveAttribute('data-invalid', '');
 	await expect(field(page, 'username')).toHaveAttribute('data-dirty', '');
 
+	// Superforms' enhance still sees the submit Base blocked and validates every field.
 	await page.getByRole('button', { name: 'Submit' }).click();
 	await expect(control(page, 'username')).toBeFocused();
-	await expect(error(page, 'email')).toHaveCount(0);
+	await expect(error(page, 'email')).toHaveText('Invalid email address');
+	await expect(error(page, 'city')).toHaveText('At least 3 characters');
 	expect(await debug(page)).toEqual({ saved: null });
 
 	await control(page, 'username').fill('ali');

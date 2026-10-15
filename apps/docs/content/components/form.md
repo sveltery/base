@@ -240,7 +240,7 @@ A form reset clears `errors`.
 </Form>
 ```
 
-The fields validate before the source sees the submit. An invalid field stops the submit, and no request is sent. Do not combine `form` with `onFormSubmit`. In development, Form warns when you do. [Bind a SvelteKit remote form](/handbook/forms#bind-a-sveltekit-remote-form) shows the server side. For a classic form action, pass its errors to `errors` instead, as [Connect a form action](/handbook/forms#connect-a-form-action) shows.
+The fields validate before the source sees the submit. An invalid field blocks the submit, and no request is sent. The source still runs its own client validation and shows its issues. Do not combine `form` with `onFormSubmit`. In development, Form warns when you do. [Bind a SvelteKit remote form](/handbook/forms#bind-a-sveltekit-remote-form) shows the server side. For a classic form action, pass its errors to `errors` instead, as [Connect a form action](/handbook/forms#connect-a-form-action) shows.
 
 ### Customize a source submit
 
@@ -299,7 +299,7 @@ This form keeps its values after a successful submit. Pass the callback to Form,
 
 ### Native submit
 
-Without `onFormSubmit` or `form`, the form submits natively after validation, and `onsubmit` runs first. Use this for plain `method="post"` forms. An invalid form stops the submit before any later `submit` listener on the form runs. A submit button with `formnovalidate` skips validation, as it does in a native form. For a SvelteKit form action, add `use:enhance` with `fromAction` and pass the action's errors to `errors`. Read [Forms](/handbook/forms) for the full pattern.
+Without `onFormSubmit` or `form`, the form submits natively after validation, and `onsubmit` runs first. Use this for plain `method="post"` forms. An invalid form cancels the submit with `preventDefault()`, and `onsubmit` does not run. A later `submit` listener on the form still runs, as upstream. A submit button with `formnovalidate` skips validation, as it does in a native form. For a SvelteKit form action, add `use:enhance` with `fromAction` and pass the action's errors to `errors`. Read [Forms](/handbook/forms) for the full pattern.
 
 ### Validate by hand
 
@@ -354,7 +354,7 @@ Run your schema in `onFormSubmit` and map its issues to `errors`. This example u
 - Upstream takes an `actionsRef` prop. In Svelte, use `bind:this` on `Form` and call `validate()`.
 - Upstream can pass a React action to `Form`. In Svelte, pass a SvelteKit remote form to `form`, or use a form action with `use:enhance`, and leave `onFormSubmit` unset. `onFormSubmit` always cancels the native submit.
 - `form`, `enhance`, `onFocusInvalid`, and `Form.Error` have no upstream counterpart.
-- The form validates in a capture-phase `submit` listener. An invalid submit calls `preventDefault()` and `stopImmediatePropagation()`, so SvelteKit's `enhance` and other later listeners do not run. Upstream blocks only with `preventDefault()`.
+- The form validates in a capture-phase `submit` listener, where upstream validates in its React `onSubmit`. As upstream, an invalid submit gets only `preventDefault()`, so later `submit` listeners still run.
 - A submitter with `formnovalidate` skips validation. Upstream validates anyway.
 - `novalidate` is on by default and the form sets it after hydration. The server renders no `novalidate`, so a page without JavaScript keeps the browser's validation.
 - A form reset restores each control to its `defaultValue` or `defaultChecked`. Each field clears its dirty, touched, and validity state, and the form clears `errors` and its submit count. Upstream leaves those as they were. A control outside the `<form>` that joins it with the `form` attribute restores too.

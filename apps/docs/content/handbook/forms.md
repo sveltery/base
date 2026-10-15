@@ -737,7 +737,7 @@ On the page, `preflight` runs the same schema in the browser before each submit:
 
 A submit runs these checks in order:
 
-1. The native constraints, such as `required` and `type="email"`. A failed constraint stops the submit and focuses the field.
+1. The native constraints, such as `required` and `type="email"`. A failed constraint blocks the request and focuses the field. The preflight schema still runs, so its issues show too.
 2. The preflight schema. Its issues show in the fields, and Form focuses the first one. No request is sent.
 3. The handler on the server. An issue from `invalid` shows in its field, and Form focuses that field.
 
@@ -920,7 +920,7 @@ A form library can own the values and the validation, while Field shows the stat
 - `dirty` marks the value as changed from its initial value.
 - `touched` marks the field as visited.
 
-Bind the value to the library with `bind:value`, or with a getter and setter pair. Render the library's message in a `Field.Error` with `match={true}`, inside an `{#if}` that checks for an error. `invalid` sets `aria-invalid` on the control and `data-invalid` on every part of the field. It also blocks a Form submit: while a Field is `invalid`, Form stops the submit before the library sees it. A library that sets errors on the server has to clear them when the user edits, as Superforms does.
+Bind the value to the library with `bind:value`, or with a getter and setter pair. Render the library's message in a `Field.Error` with `match={true}`, inside an `{#if}` that checks for an error. `invalid` sets `aria-invalid` on the control and `data-invalid` on every part of the field. It also blocks a Form submit. While a Field is `invalid`, Form cancels the submit with `preventDefault()`. The library's own `submit` listener still runs, so it can validate and show its errors. A library that sets errors on the server has to clear them when the user edits, as Superforms does.
 
 ### sveltekit-superforms
 
