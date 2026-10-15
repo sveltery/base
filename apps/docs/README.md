@@ -8,7 +8,7 @@ pnpm --filter @sveltery/base-docs build   # prerenders every page for Cloudflare
 pnpm --filter @sveltery/base-docs check   # builds, then type-checks the site and every demo
 ```
 
-`build` writes a Cloudflare Workers bundle to `.svelte-kit/cloudflare`. `wrangler.jsonc` describes the worker. The site is not deployed yet.
+`build` writes a Cloudflare Workers bundle to `.svelte-kit/cloudflare`. `wrangler.jsonc` describes the worker, `sveltery-base-docs`. Cloudflare Workers Builds deploys it: it installs at the repository root, runs `pnpm build` in `apps/docs`, then `npx wrangler deploy` on `main` and `npx wrangler preview` on other branches.
 
 ## Add a page
 
