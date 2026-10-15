@@ -268,6 +268,7 @@
 	previousFocusableElement={store.activeTriggerElement instanceof HTMLElement
 		? store.activeTriggerElement
 		: null}
+	externalTree={store.tree}
 >
 	{#if render}
 		{@render render(hostProps, popupState, children)}

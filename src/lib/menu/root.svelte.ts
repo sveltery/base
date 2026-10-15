@@ -172,7 +172,8 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		outsidePress: () =>
 			store.parent.type !== 'context-menu' ||
 			store.openEvent?.type === 'contextmenu' ||
-			allowOutsidePressDismissal
+			allowOutsidePressDismissal,
+		externalTree: store.tree
 	}));
 
 	const direction = useDirection();
@@ -205,7 +206,8 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 			nestedReturnFocus:
 				current.type === 'menu' ? () => current.store.focusOwner ?? null : undefined,
 			focusItemOnHover: store.highlightItemOnHover,
-			resetOnPointerLeave: resetOnPointerLeave()
+			resetOnPointerLeave: resetOnPointerLeave(),
+			externalTree: store.tree ?? undefined
 		};
 	});
 
@@ -227,7 +229,11 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 	}));
 
 	// The positioner publishes the node, so a trigger inside this root reports the node above it.
-	registerFloatingNode(store, tree, () => store.parentNodeId);
+	registerFloatingNode(
+		store,
+		() => store.tree,
+		() => store.parentNodeId
+	);
 
 	// A main-axis key the submenu leaves unhandled moves the parent's highlight on, as upstream's
 	// parent list navigation does for keys from a nested popup (`useListNavigation.ts:644-650`). A

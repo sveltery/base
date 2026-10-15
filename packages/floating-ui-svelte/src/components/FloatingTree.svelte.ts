@@ -43,11 +43,12 @@ export function useFloatingNodeId(store?: FloatingRootStore, externalTree?: Floa
 
 /**
  * Registers a node without publishing it, as upstream `useFloatingNodeId`. `readParentId` reads a
- * parent forwarded from elsewhere; without it, the node's parent is the enclosing node.
+ * parent forwarded from elsewhere; without it, the node's parent is the enclosing node. A `tree`
+ * getter moves the node when the tree it reads changes, as upstream's `externalTree`.
  */
 export function registerFloatingNode(
 	store?: FloatingRootStore,
-	tree: FloatingTreeStore | null = useFloatingTree(),
+	tree: FloatingTreeStore | null | (() => FloatingTreeStore | null) = useFloatingTree(),
 	readParentId?: () => string | null
 ) {
 	const contextParentId = useFloatingParentNodeId();
@@ -61,9 +62,11 @@ export function registerFloatingNode(
 		},
 		context: store
 	};
+	const readTree = typeof tree === 'function' ? tree : () => tree;
 	$effect(() => {
-		tree?.addNode(node);
-		return () => tree?.removeNode(node);
+		const current = readTree();
+		current?.addNode(node);
+		return () => current?.removeNode(node);
 	});
 	return id;
 }
