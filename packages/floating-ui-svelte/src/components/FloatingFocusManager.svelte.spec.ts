@@ -145,9 +145,11 @@ describe('FloatingFocusManager', () => {
 			flushSync(() => component.show('mouse'));
 			await expect.poll(focusedTestId).toBe('inside');
 
-			flushSync(() => component.close('trigger-hover', new MouseEvent('mouseleave')));
+			flushSync(() =>
+				component.close('trigger-hover', new MouseEvent('mouseleave', { detail: 1 }))
+			);
 
-			await expect.poll(() => calls).toEqual(['keyboard']);
+			await expect.poll(() => calls).toEqual(['mouse']);
 			await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 			expect(document.activeElement).toBe(document.body);
 		});

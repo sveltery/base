@@ -244,7 +244,8 @@
 	let closeReason = '';
 	/**
 	 * Upstream `preventReturnFocusRef`: a focus-out close that moves focus itself skips return
-	 * focus so the Tab is not cancelled. A focus-out close from elsewhere still returns it.
+	 * focus so the Tab is not cancelled, and so does a pointer leaving a hover popup. A focus-out
+	 * close from elsewhere still returns it.
 	 */
 	let preventReturn = false;
 	let lastInteraction: OpenInteractionType = '';
@@ -304,11 +305,12 @@
 	}
 
 	/**
-	 * `target` is the one the teardown already resolved. Without it, the target is resolved here,
-	 * before any path decides whether to move focus, so a return function runs on every teardown
-	 * as upstream's.
+	 * `resolved` is the target the teardown already resolved. Without it, the target is resolved
+	 * here, before any path decides whether to move focus, so a return function runs on every
+	 * teardown as upstream's.
 	 */
-	function restoreReturnFocus(leaving: Leaving, target = returnTarget(leaving, returnFocus)) {
+	function restoreReturnFocus(leaving: Leaving, resolved: HTMLElement | null | undefined) {
+		const target = resolved === undefined ? returnTarget(leaving, returnFocus) : resolved;
 		const spec = returnFocus;
 		// Upstream clears the flag after each return, also a prevented or cancelled one.
 		const prevented = preventReturn;
