@@ -28,6 +28,7 @@
 		LabelableId,
 		useLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
+	import { chain } from '../internal/mergeProps.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { boundInputProps, type BoundInputProps } from '../field/bound-control.svelte.js';
 	import { serializeValue } from '../internal/serializeValue.js';
@@ -209,12 +210,11 @@
 	}
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onfocus?.(event);
 		focusOwner.set(true);
 		if (event.currentTarget instanceof HTMLElement) group?.roving?.highlight(event.currentTarget);
 		// Read the group's touched flag live. Arrow keys set it in the capture
 		// phase of this same turn, before a derived value would refresh.
-		if (event.defaultPrevented || disabled || readOnly || !group?.touched) return;
+		if (disabled || readOnly || !group?.touched) return;
 		inputNode?.click();
 		group?.setTouched(false);
 	}
@@ -255,7 +255,7 @@
 			...elementProps,
 			onclick: handleClick,
 			onkeydown: handleKeyDown,
-			onfocus: handleFocus,
+			onfocus: chain(handleFocus, onfocus),
 			onblur: handleBlur,
 			[rootKey]: registerRoot
 		}) as RadioHostProps & Record<symbol, Attachment<HTMLElement>>;
