@@ -398,9 +398,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup` and `Menu.FilterProvider`, `actionsRef`, and the `*DataAttributes` and `*CssVars` namespaces.
+Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup` and `Menu.FilterProvider`, and `actionsRef`.
 
-Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem`, `value` on `Menu.RadioGroup` and `value` on `Menu.FilterProvider` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
+Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem`, `value` on `Menu.RadioGroup` and `value` on `Menu.FilterProvider` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
 
 ### Labels are trimmed
 
@@ -488,9 +488,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `Menubar` and the `MenubarDataAttributes` namespace.
+Upstream: `Menubar`.
 
-Local: `Menubar` takes the same props. The namespace is not exported. The attribute names are the same.
+Local: `Menubar` takes the same props.
 
 ### Detached menus take the menubar's tree for events only
 
@@ -525,9 +525,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `ContextMenu.Root` accepts the deprecated `closeParentOnEsc`, and `ContextMenu.Positioner` the deprecated `positionMethod`. Neither has an effect. The entry also exports the `ContextMenu*DataAttributes` and `ContextMenuPositionerCssVariables` namespaces.
+Upstream: `ContextMenu.Root` accepts the deprecated `closeParentOnEsc`, and `ContextMenu.Positioner` the deprecated `positionMethod`. Neither has an effect.
 
-Local: the deprecated props are not in the types. The namespaces are not exported. The attribute and variable names are those of Menu.
+Local: the deprecated props are not in the types.
 
 ### The right-click mouseup listener is on the window
 
@@ -769,8 +769,8 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | NavigationMenu     | `defaultValue`, `actionsRef`, refs                                                               |
 | Drawer             | ref objects                                                                                      |
 | Menu               | `actionsRef`, refs                                                                               |
-| Menubar            | the `MenubarDataAttributes` namespace, refs                                                      |
-| ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                         |
+| Menubar            | refs                                                                                             |
+| ContextMenu        | `actionsRef`, refs                                                                               |
 | Toast              | refs, `className` and `style` callbacks                                                          |
 | Select             | `inputRef`, `ReactNode` labels and placeholder                                                   |
 | Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder                      |

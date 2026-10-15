@@ -345,6 +345,91 @@ const upstream: Record<string, Record<string, Record<string, string>>> = {
 			orientation: 'data-orientation'
 		}
 	},
+	'context-menu': {
+		ContextMenuArrowDataAttributes: {
+			align: 'data-align',
+			closed: 'data-closed',
+			open: 'data-open',
+			side: 'data-side',
+			uncentered: 'data-uncentered'
+		},
+		ContextMenuBackdropDataAttributes: {
+			closed: 'data-closed',
+			endingStyle: 'data-ending-style',
+			open: 'data-open',
+			startingStyle: 'data-starting-style'
+		},
+		ContextMenuCheckboxItemDataAttributes: {
+			checked: 'data-checked',
+			disabled: 'data-disabled',
+			highlighted: 'data-highlighted',
+			unchecked: 'data-unchecked'
+		},
+		ContextMenuCheckboxItemIndicatorDataAttributes: {
+			checked: 'data-checked',
+			disabled: 'data-disabled',
+			endingStyle: 'data-ending-style',
+			startingStyle: 'data-starting-style',
+			unchecked: 'data-unchecked'
+		},
+		ContextMenuItemDataAttributes: {
+			disabled: 'data-disabled',
+			highlighted: 'data-highlighted'
+		},
+		ContextMenuLinkItemDataAttributes: {
+			highlighted: 'data-highlighted'
+		},
+		ContextMenuPopupDataAttributes: {
+			align: 'data-align',
+			closed: 'data-closed',
+			endingStyle: 'data-ending-style',
+			instant: 'data-instant',
+			open: 'data-open',
+			side: 'data-side',
+			startingStyle: 'data-starting-style'
+		},
+		ContextMenuPositionerCssVariables: {
+			anchorHeight: '--anchor-height',
+			anchorWidth: '--anchor-width',
+			availableHeight: '--available-height',
+			availableWidth: '--available-width',
+			positionerHeight: '--positioner-height',
+			positionerWidth: '--positioner-width',
+			transformOrigin: '--transform-origin'
+		},
+		ContextMenuPositionerDataAttributes: {
+			align: 'data-align',
+			anchorHidden: 'data-anchor-hidden',
+			closed: 'data-closed',
+			open: 'data-open',
+			side: 'data-side'
+		},
+		ContextMenuRadioItemDataAttributes: {
+			checked: 'data-checked',
+			disabled: 'data-disabled',
+			highlighted: 'data-highlighted',
+			unchecked: 'data-unchecked'
+		},
+		ContextMenuRadioItemIndicatorDataAttributes: {
+			checked: 'data-checked',
+			disabled: 'data-disabled',
+			endingStyle: 'data-ending-style',
+			startingStyle: 'data-starting-style',
+			unchecked: 'data-unchecked'
+		},
+		ContextMenuSeparatorDataAttributes: {
+			orientation: 'data-orientation'
+		},
+		ContextMenuSubmenuTriggerDataAttributes: {
+			disabled: 'data-disabled',
+			highlighted: 'data-highlighted',
+			popupOpen: 'data-popup-open'
+		},
+		ContextMenuTriggerDataAttributes: {
+			popupOpen: 'data-popup-open',
+			pressed: 'data-pressed'
+		}
+	},
 	dialog: {
 		DialogBackdropDataAttributes: {
 			closed: 'data-closed',
@@ -507,6 +592,116 @@ const upstream: Record<string, Record<string, Record<string, string>>> = {
 			invalid: 'data-invalid',
 			touched: 'data-touched',
 			valid: 'data-valid'
+		}
+	},
+	menu: {
+		MenuArrowDataAttributes: {
+			align: 'data-align',
+			closed: 'data-closed',
+			open: 'data-open',
+			side: 'data-side',
+			uncentered: 'data-uncentered'
+		},
+		MenuBackdropDataAttributes: {
+			closed: 'data-closed',
+			endingStyle: 'data-ending-style',
+			open: 'data-open',
+			startingStyle: 'data-starting-style'
+		},
+		MenuCheckboxItemDataAttributes: {
+			checked: 'data-checked',
+			disabled: 'data-disabled',
+			highlighted: 'data-highlighted',
+			unchecked: 'data-unchecked'
+		},
+		MenuCheckboxItemIndicatorDataAttributes: {
+			checked: 'data-checked',
+			disabled: 'data-disabled',
+			endingStyle: 'data-ending-style',
+			startingStyle: 'data-starting-style',
+			unchecked: 'data-unchecked'
+		},
+		MenuClearDataAttributes: {
+			disabled: 'data-disabled'
+		},
+		MenuInputDataAttributes: {
+			highlighted: 'data-highlighted'
+		},
+		MenuItemDataAttributes: {
+			disabled: 'data-disabled',
+			highlighted: 'data-highlighted'
+		},
+		MenuLinkItemDataAttributes: {
+			highlighted: 'data-highlighted'
+		},
+		MenuPopupDataAttributes: {
+			align: 'data-align',
+			closed: 'data-closed',
+			endingStyle: 'data-ending-style',
+			instant: 'data-instant',
+			open: 'data-open',
+			side: 'data-side',
+			startingStyle: 'data-starting-style'
+		},
+		MenuPositionerCssVariables: {
+			anchorHeight: '--anchor-height',
+			anchorWidth: '--anchor-width',
+			availableHeight: '--available-height',
+			availableWidth: '--available-width',
+			positionerHeight: '--positioner-height',
+			positionerWidth: '--positioner-width',
+			transformOrigin: '--transform-origin'
+		},
+		MenuPositionerDataAttributes: {
+			align: 'data-align',
+			anchorHidden: 'data-anchor-hidden',
+			closed: 'data-closed',
+			open: 'data-open',
+			side: 'data-side'
+		},
+		MenuRadioItemDataAttributes: {
+			checked: 'data-checked',
+			disabled: 'data-disabled',
+			highlighted: 'data-highlighted',
+			unchecked: 'data-unchecked'
+		},
+		MenuRadioItemIndicatorDataAttributes: {
+			checked: 'data-checked',
+			disabled: 'data-disabled',
+			endingStyle: 'data-ending-style',
+			startingStyle: 'data-starting-style',
+			unchecked: 'data-unchecked'
+		},
+		MenuSeparatorDataAttributes: {
+			orientation: 'data-orientation'
+		},
+		MenuSubmenuTriggerDataAttributes: {
+			disabled: 'data-disabled',
+			highlighted: 'data-highlighted',
+			popupOpen: 'data-popup-open'
+		},
+		MenuTriggerDataAttributes: {
+			disabled: 'data-disabled',
+			popupOpen: 'data-popup-open',
+			pressed: 'data-pressed'
+		},
+		MenuViewportCssVariables: {
+			popupHeight: '--popup-height',
+			popupWidth: '--popup-width'
+		},
+		MenuViewportDataAttributes: {
+			activationDirection: 'data-activation-direction',
+			current: 'data-current',
+			instant: 'data-instant',
+			previous: 'data-previous',
+			transitioning: 'data-transitioning'
+		}
+	},
+	menubar: {
+		MenubarDataAttributes: {
+			hasSubmenuOpen: 'data-has-submenu-open',
+			modal: 'data-modal',
+			orientation: 'data-orientation'
 		}
 	},
 	'navigation-menu': {
