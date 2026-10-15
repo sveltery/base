@@ -134,6 +134,53 @@ describe('FloatingFocusManager', () => {
 			await expect.poll(focusedTestId).toBe('reference');
 		});
 
+		it('calls a return focus function on a hover-leave close and keeps focus off the trigger', async () => {
+			const calls: (OpenInteractionType | null)[] = [];
+			const { component } = render(PortalFocusHarness, {
+				returnFocus: (closeType: OpenInteractionType | null) => {
+					calls.push(closeType);
+					return null;
+				}
+			});
+			flushSync(() => component.show('mouse'));
+			await expect.poll(focusedTestId).toBe('inside');
+
+			flushSync(() =>
+				component.close('trigger-hover', new MouseEvent('mouseleave', { detail: 1 }))
+			);
+
+			await expect.poll(() => calls).toEqual(['mouse']);
+			await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+			expect(document.activeElement).toBe(document.body);
+		});
+
+		it('calls a return focus function when the popup moves to another container', async () => {
+			const first = document.body.appendChild(document.createElement('div'));
+			const second = document.body.appendChild(document.createElement('div'));
+			try {
+				const calls: (OpenInteractionType | null)[] = [];
+				const view = render(PortalFocusHarness, {
+					container: first,
+					returnFocus: (closeType: OpenInteractionType | null) => {
+						calls.push(closeType);
+						return null;
+					}
+				});
+				flushSync(() => view.component.show('keyboard'));
+				await expect.poll(focusedTestId).toBe('inside');
+
+				await view.rerender({ container: second });
+
+				await expect.poll(() => calls).toEqual(['']);
+				await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+				expect(second.contains(document.activeElement)).toBe(true);
+				expect(focusedTestId()).toBe('inside');
+			} finally {
+				first.remove();
+				second.remove();
+			}
+		});
+
 		it('does not return focus after a focus-out close from a focus guard', async () => {
 			const { component } = render(PortalFocusHarness);
 			flushSync(() => component.show('keyboard'));

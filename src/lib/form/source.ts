@@ -25,8 +25,6 @@ export interface FieldHandle {
 	set(value: never): unknown;
 	touched(): boolean;
 	dirty(): boolean;
-	/** Called when the Field's control loses focus. For sources that track touched themselves. */
-	blur?(): void;
 }
 
 /** What `submit()` returns inside an `enhance` callback. Kit's adds `updates(...)`. */
