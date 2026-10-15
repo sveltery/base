@@ -167,13 +167,7 @@
 		value = inputValue;
 	}
 
-	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		onfocus?.(event);
-		focusOwner.set(true);
-	}
-
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		onblur?.(event);
 		field.setTouched(true);
 		focusOwner.set(false);
 
@@ -184,7 +178,6 @@
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		onkeydown?.(event);
 		if (event.currentTarget.tagName !== 'INPUT' || event.key !== 'Enter') return;
 
 		field.setTouched(true);
@@ -255,9 +248,9 @@
 		...(defaultValue != null ? { defaultValue: textValue(defaultValue) } : {}),
 		...(!BROWSER && shownValue !== undefined ? { value: shownValue } : {}),
 		...bound?.props,
-		onfocus: handleFocus,
-		onblur: handleBlur,
-		onkeydown: handleKeyDown,
+		onfocus: chain(() => focusOwner.set(true), onfocus),
+		onblur: chain(handleBlur, onblur),
+		onkeydown: chain(handleKeyDown, onkeydown),
 		[elementKey]: publish,
 		[valueKey]: syncValue
 	});
