@@ -268,7 +268,7 @@ Test: `src/lib/form/form-events.svelte.spec.ts`, `src/lib/form/form-ssr.spec.ts`
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/field/root/FieldRoot.tsx` and the form controls. A Field has no form source. A form library wires each control by hand through `name`, `value` and `onValueChange`. Checkbox and Switch submit `value` or `uncheckedValue`, and a cleared NumberField reports `null`.
 
-Local: inside a Field bound to a form source, Checkbox, Switch, RadioGroup, CheckboxGroup, NumberField, Slider and OTPField read the source themselves, as described in [Composite form controls](porting.md#composite-form-controls). Their native input takes its `name`, its option `value` and any attachment from the field's `as()`, so a remote form decodes typed values (`n:` numbers, `b:` booleans, `[]` arrays). A bound Checkbox or Switch submits `on` or nothing, and its `value` and `uncheckedValue` are ignored, because a SvelteKit boolean field is `on` when checked and absent when not. A control starts from the source's value when the source has one and from `defaultValue` otherwise. A later source change, such as `fields.seats.set(3)`, updates the control without `onValueChange` or `onCheckedChange`. A source value of `undefined` empties a bound NumberField and returns a bound Slider to `defaultValue ?? min`. A bound Slider takes one value, and an array value logs a dev error. A control whose kind differs from the Field.Root `type` logs a dev error.
+Local: inside a Field bound to a form source, Checkbox, Switch, RadioGroup, CheckboxGroup, NumberField, Slider and OTPField read the source themselves, as described in [Composite form controls](porting.md#composite-form-controls). Their native input takes its `name`, its option `value` and any attachment from the field's `as()`, so a remote form decodes typed values (`n:` numbers, `b:` booleans, `[]` arrays). A bound Checkbox or Switch submits `on` when checked and ignores `value`, because a SvelteKit boolean field is `true` only for `on`. As upstream, an `uncheckedValue` is submitted under the bound name while unchecked, and Kit decodes it as `false`. A control starts from the source's value when the source has one and from `defaultValue` otherwise. A later source change, such as `fields.seats.set(3)`, updates the control without `onValueChange` or `onCheckedChange`. A source value of `undefined` empties a bound NumberField and returns a bound Slider to `defaultValue ?? min`. A bound Slider takes one value, and an array value logs a dev error. A control whose kind differs from the Field.Root `type` logs a dev error.
 
 Test: `src/lib/field/bound-control.svelte.spec.ts`.
 
@@ -396,9 +396,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup` and `Menu.FilterProvider`, `actionsRef`, and the `*DataAttributes` and `*CssVars` namespaces.
+Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup` and `Menu.FilterProvider`, and `actionsRef`.
 
-Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem`, `value` on `Menu.RadioGroup` and `value` on `Menu.FilterProvider` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. The namespaces are not exported. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
+Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem`, `value` on `Menu.RadioGroup` and `value` on `Menu.FilterProvider` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
 
 ### Labels are trimmed
 
@@ -456,7 +456,7 @@ Local: the polygon scopes to the parent popup through `getScope`.
 
 ### Not covered
 
-React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter cases that need exit animations add a CSS animation or transition in the spec. The WebKit `aria-selected` cases mock the platform and are not ported. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
+React-only cases: refs and ref callbacks, the non-memoized anchor function, render counts, StrictMode subscriptions, and production and owner-stack warnings. `Menu.Group` rendered as a `Menu.RadioGroup` relies on React element cloning. The context-menu positioner cases are in `src/lib/context-menu/ContextMenu.svelte.spec.ts`. The menubar positioner cases are in `src/lib/menubar/Menubar.svelte.spec.ts`. The filter cases that need exit animations add a CSS animation or transition in the spec. A filtered-out item whose children change while hidden matches the old text here, so those `useMenuFilterItem` cases are not ported. The SSR, React 17 id fallback, server-created render element and hydration cases depend on React rendering. `FilterDropdownRoot` cases belong to a component this port does not include. The shadow-root focus-guard case depends on React portal ownership.
 
 ### Submenu trigger press type
 
@@ -486,9 +486,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `Menubar` and the `MenubarDataAttributes` namespace.
+Upstream: `Menubar`.
 
-Local: `Menubar` takes the same props. The namespace is not exported. The attribute names are the same.
+Local: `Menubar` takes the same props.
 
 ### Detached menus take the menubar's tree for events only
 
@@ -523,9 +523,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `ContextMenu.Root` accepts the deprecated `closeParentOnEsc`, and `ContextMenu.Positioner` the deprecated `positionMethod`. Neither has an effect. The entry also exports the `ContextMenu*DataAttributes` and `ContextMenuPositionerCssVariables` namespaces.
+Upstream: `ContextMenu.Root` accepts the deprecated `closeParentOnEsc`, and `ContextMenu.Positioner` the deprecated `positionMethod`. Neither has an effect.
 
-Local: the deprecated props are not in the types. The namespaces are not exported. The attribute and variable names are those of Menu.
+Local: the deprecated props are not in the types.
 
 ### The right-click mouseup listener is on the window
 
@@ -537,7 +537,7 @@ Local: Svelte delegates the item handlers to the document and can add that liste
 
 Upstream: `ContextMenu.Root` starts a new `FloatingTree`, so a context menu opened from another context menu's item has its own menu events and closes on its own. A press in the inner popup still counts as inside the outer menu: the inner popup is a React child of the outer item, so the press bubbles through the outer floating element's capture handlers, and `useDismiss` reads that as `insideReactTree`.
 
-Local: a portaled popup's events do not bubble through the element that rendered it, so `DismissInteraction` counts a press as inside only when it lands in the menu's own popup or a tree child's popup. Every menu therefore registers its floating node in the enclosing floating tree, so the outer menu counts presses in an inner popup as inside. Menu events (item `close`, `menuopenchange` and `itemhover`) do not travel on the floating tree. Each menu group has its own `EventTarget`, as upstream's `floatingTreeRoot`. A context menu, a menubar or a root menu outside any menu creates one. Its submenus and any root menu inside its popups share it, as upstream's trigger takes the enclosing tree. An item press in a context menu therefore closes only the context menu, and opening or closing it does not reach the outer menu. An enclosing Dialog or Popover also sees the open context menu as a child, so an Escape pressed before the menu takes focus closes only the menu. A hover-opened Popover or PreviewCard likewise treats the pointer moving into its context menu as moving into a child and stays open, then closes with `trigger-hover` once the menu is closed and the pointer leaves. A NavigationMenu shares the same hover hook, but no spec drives it.
+Local: a portaled popup's events do not bubble through the element that rendered it, so `DismissInteraction` counts a press as inside only when it lands in the menu's own popup or a tree child's popup. Every menu therefore registers its floating node in the enclosing floating tree, so the outer menu counts presses in an inner popup as inside. Menu events (item `close`, `menuopenchange` and `itemhover`) do not travel on the floating tree. Each menu group has its own `EventTarget`, which a root menu, a context menu or a menubar creates and its submenus share, as upstream's `floatingTreeRoot`. An inner item press therefore closes only the inner menu, and opening or closing the inner menu does not reach the outer one. This holds for a context menu inside a menu's popup and for a root menu inside a menu's or a context menu's popup. An enclosing Dialog or Popover also sees the open context menu as a child, so an Escape pressed before the menu takes focus closes only the menu. A hover-opened Popover or PreviewCard likewise treats the pointer moving into its context menu as moving into a child and stays open, then closes with `trigger-hover` once the menu is closed and the pointer leaves. A NavigationMenu shares the same hover hook, but no spec drives it.
 
 Test: `src/lib/context-menu/ContextMenu.svelte.spec.ts` (`closes a context menu opened from an item without closing the outer one`, the `inside an open` cases and the `inside a hover-opened` cases), `src/lib/context-menu/ContextMenu.menuGroup.svelte.spec.ts` and the `nested`case in`src/routes/fixtures/context-menu/context-menu.e2e.ts`.
 
@@ -767,8 +767,8 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | NavigationMenu     | `defaultValue`, `actionsRef`, refs                                                               |
 | Drawer             | ref objects                                                                                      |
 | Menu               | `actionsRef`, refs                                                                               |
-| Menubar            | the `MenubarDataAttributes` namespace, refs                                                      |
-| ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                         |
+| Menubar            | refs                                                                                             |
+| ContextMenu        | `actionsRef`, refs                                                                               |
 | Toast              | refs, `className` and `style` callbacks                                                          |
 | Select             | `inputRef`, `ReactNode` labels and placeholder                                                   |
 | Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder                      |

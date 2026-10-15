@@ -206,7 +206,7 @@ When the message is an array of several messages, `Field.Error` renders them as 
 
 ### Bind to a form source
 
-`field` takes a field of a form source, such as `f.fields.email` from a SvelteKit remote form or from `actionForm()`. The field's issues show in `Field.Error`, and its touched and dirty state sets `data-touched` and `data-dirty`. `Field.Control` takes the field's encoded name and its value, so set neither on the control.
+`field` takes a field of a form source, such as `f.fields.email` from a SvelteKit remote form. The field's issues show in `Field.Error`, and its touched and dirty state sets `data-touched` and `data-dirty`. `Field.Control` takes the field's encoded name and its value, so set neither on the control.
 
 `type` is the input type of the control. TypeScript checks it against the field's value. It is optional when a text input fits, as for a string, and required otherwise, as for a number or a boolean:
 
@@ -230,7 +230,7 @@ When the message is an array of several messages, `Field.Error` renders them as 
 
 A composite control, such as Checkbox, Switch, Radio Group, Checkbox Group, Number Field, Slider, or OTP Field, binds through the `Field.Root` around it. Give the root the type that the control submits as, such as `switch` for a Switch and `range` for a Slider. In development, a control that does not match `type` logs an error.
 
-Inside a Form with a `form` source, `<Field.Root name="email">` binds to the source's `email` field. TypeScript does not check that name, and in development Form warns when an issue has no field to show it. For a TanStack Form field, pass `tanstackField(field)` from `@sveltery/base/form/tanstack`. [Forms](/handbook/forms#bind-a-sveltekit-remote-form) has the full examples.
+Inside a Form with a `form` source, `<Field.Root name="email">` binds to the source's `email` field. TypeScript does not check that name, and in development Form warns when an issue has no field to show it. To connect TanStack Form or another library, pass its state to the props below instead. [Forms](/handbook/forms#bind-a-sveltekit-remote-form) has the full examples.
 
 ### Control the field state
 

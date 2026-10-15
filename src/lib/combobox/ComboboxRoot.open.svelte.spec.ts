@@ -154,6 +154,26 @@ describe('Combobox.Root', () => {
 			await pressBody();
 			await expect.poll(() => onOpenChange.mock.lastCall?.[0]).toBe(false);
 		});
+
+		it('reports no trigger when an outside press closes the popup', async () => {
+			const onOpenChange = vi.fn();
+			render(ComboboxHarness, {
+				trigger: true,
+				staticItems: [{ value: 'a' }],
+				root: { onOpenChange }
+			});
+
+			await userEvent.click(page.getByTestId('trigger'));
+			await expect.element(listbox()).toBeVisible();
+			await pressBody();
+			await expect.poll(() => onOpenChange.mock.lastCall?.[0]).toBe(false);
+			expect(
+				onOpenChange.mock.calls.map(([open, details]) => [open, details.reason, details.trigger])
+			).toEqual([
+				[true, 'trigger-press', page.getByTestId('trigger').element()],
+				[false, 'outside-press', undefined]
+			]);
+		});
 	});
 
 	describe('prop: limit', () => {
