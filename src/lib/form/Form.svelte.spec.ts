@@ -1,5 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/form/Form.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// The disabled Fieldset cases follow Base UI v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // Checkbox and Switch cases are in src/lib/field/choice-controls.svelte.spec.ts. Registry cases drive Form's
 // own submit, focus and validate behavior through the field-registration contract.
 // Cases under "native Svelte" have no upstream counterpart.
@@ -7,6 +8,7 @@ import { page } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import FormAttachHarness from '../../tests/FormAttachHarness.svelte';
+import FormFieldsetHarness from '../../tests/FormFieldsetHarness.svelte';
 import FormRegistryHarness from '../../tests/FormRegistryHarness.svelte';
 import Form from './Form.svelte';
 import { comesBeforeInSameTree } from './document-order.js';
@@ -203,6 +205,43 @@ describe('Form', () => {
 			await page.getByRole('button', { name: 'Clear a' }).click();
 			expect(output('errors')).toBe(JSON.stringify({ b: 'also' }));
 			expect(output('live-errors')).toBe(JSON.stringify({ b: 'also' }));
+		});
+	});
+
+	describe('disabled Fieldset', () => {
+		it('excludes disabled fieldset fields from validation and onFormSubmit values', async () => {
+			render(FormFieldsetHarness, { scenario: 'static' });
+			await page.getByRole('button', { name: 'Submit' }).click();
+
+			expect(output('submitted')).toBe('1');
+			expect(output('values')).toBe('{"enabled":"sent"}');
+			await expect.element(page.getByTestId('control')).not.toHaveAttribute('aria-invalid');
+		});
+
+		it('clears invalid UI when a fieldset field becomes disabled', async () => {
+			render(FormFieldsetHarness, { scenario: 'toggle' });
+			const control = page.getByTestId('control');
+			const submit = page.getByRole('button', { name: 'Submit' });
+
+			await submit.click();
+			expect(output('submitted')).toBe('0');
+			await expect.element(control).toHaveAttribute('aria-invalid', 'true');
+			await expect.element(page.getByTestId('error')).toBeInTheDocument();
+
+			await page.getByRole('button', { name: 'Disable' }).click();
+			await expect.element(control).toBeDisabled();
+			await expect.element(control).not.toHaveAttribute('aria-invalid');
+			await expect.element(page.getByTestId('error')).not.toBeInTheDocument();
+
+			await submit.click();
+			expect(output('submitted')).toBe('1');
+			expect(output('values')).toBe('{}');
+
+			await page.getByRole('button', { name: 'Enable' }).click();
+			await submit.click();
+			expect(output('submitted')).toBe('1');
+			await expect.element(control).toHaveAttribute('aria-invalid', 'true');
+			await expect.element(page.getByTestId('error')).toBeInTheDocument();
 		});
 	});
 

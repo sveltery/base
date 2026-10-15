@@ -17,6 +17,7 @@
 	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
+	import { isEligibleInput } from '../field/validity.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
@@ -120,8 +121,19 @@
 		enabled: () => !disabled,
 		id: () => elementProps.id ?? `base-ui-${uid}`,
 		name: () => nameProp ?? undefined,
-		getValue: () => checkedValue ?? null
+		getValue: () => checkedValue ?? null,
+		getFormValue: submittedValue
 	});
+
+	// What native FormData sends: the checked value while its input is enabled and in this form.
+	function submittedValue() {
+		const formElement = formContext.element;
+		if (!formElement) return checkedValue ?? null;
+		for (const input of field.registeredInputs.keys()) {
+			if (input.checked && isEligibleInput(input, formElement)) return checkedValue ?? null;
+		}
+		return null;
+	}
 
 	new FieldValueSync(field, formContext, {
 		value: () => checkedValue,
