@@ -429,8 +429,8 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 
 	/**
 	 * The mounted items by index, `null` where none is mounted. Claimed slots come first, as in
-	 * upstream `CompositeList`. With `items` the list is as long as the filtered items, so a
-	 * virtualized window navigates over the slots it does not render.
+	 * upstream `CompositeList`. A virtualized list with `items` is as long as the filtered items,
+	 * so its window navigates over the slots it does not render.
 	 */
 	readonly slots = $derived.by((): ReadonlyArray<HTMLElement | null> => {
 		const slots: Array<HTMLElement | null> = [];
@@ -445,7 +445,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 			while (slots[next]) next += 1;
 			slots[next] = element;
 		}
-		if (this.hasItems) slots.length = this.flatFilteredValues.length;
+		if (this.root.virtualized && this.hasItems) slots.length = this.flatFilteredValues.length;
 		return Array.from(slots, (element) => element ?? null);
 	});
 

@@ -324,5 +324,35 @@ describe('Combobox.Item', () => {
 			await expect.element(option('orphan')).toBeInTheDocument();
 			await expect.element(option('orphan')).not.toHaveAttribute('id');
 		});
+
+		it('leaves the slots a claimed index reserves to later items in document order', async () => {
+			render(ComboboxVirtualHarness, {
+				root: { items: ['a', 'b'], id: 'cb', open: true },
+				indexed: false,
+				extra: [{ text: 'x', value: 'x', index: 0 }]
+			});
+
+			await expect.element(option('x')).toHaveAttribute('id', 'cb-0');
+			await expect.element(option('a')).toHaveAttribute('id', 'cb-1');
+			await expect.element(option('b')).toHaveAttribute('id', 'cb-2');
+		});
+
+		it('navigates only the rendered items of a list that is not virtualized', async () => {
+			const onItemHighlighted = vi.fn();
+			render(ComboboxVirtualHarness, {
+				root: { items: ['a', 'b', 'c', 'd'], id: 'cb', openOnInputClick: true, onItemHighlighted },
+				indexed: false,
+				windowSize: 2
+			});
+			await userEvent.click(input());
+			await expect.element(listbox()).toBeInTheDocument();
+
+			await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowDown}');
+			await expect.element(input()).not.toHaveAttribute('aria-activedescendant');
+			expect(onItemHighlighted).not.toHaveBeenCalledWith('c', expect.anything());
+
+			await userEvent.keyboard('{ArrowDown}{Enter}');
+			await expect.element(input()).toHaveValue('a');
+		});
 	});
 });
