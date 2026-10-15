@@ -742,7 +742,6 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | ------------------ | ------------------------------------------------------------------------------------------------------ |
 | Accordion          | React.Activity animation resume, refs, roving focus (`orientation`, `loopFocus`)                       |
 | Button             | Composite and Toolbar integration                                                                      |
-| CheckboxGroup      | Disabled or other-form values filtered out of the Field value                                          |
 | Collapsible        | React.Activity animation resume, refs                                                                  |
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                                    |
 | Field              | refs                                                                                                   |

@@ -8,7 +8,7 @@
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { SvelteMap } from 'svelte/reactivity';
+	import { SvelteSet } from 'svelte/reactivity';
 	import { areArraysEqual } from '@sveltery/utils';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
@@ -73,9 +73,11 @@
 
 	// What native FormData sends: checked values of enabled inputs in this form.
 	function submittedValue() {
-		const successful = [...inputs]
-			.filter(([input]) => input.checked && isEligibleInput(input, formContext.element))
-			.map(([, item]) => item);
+		const formElement = formContext.element;
+		if (!formElement) return currentValue();
+		const successful = [...field.registeredInputs]
+			.filter(([input]) => input.checked && isEligibleInput(input, formElement))
+			.map(([, input]) => input.value);
 		return currentValue().filter((item) => successful.includes(item));
 	}
 
@@ -107,9 +109,9 @@
 	});
 
 	let rootNode = $state<HTMLElement | null>(null);
-	const inputs = new SvelteMap<HTMLInputElement, string | undefined>();
+	const inputs = new SvelteSet<HTMLInputElement>();
 	// A child input's `form` attribute decides which form resets the group.
-	restoreOnReset(() => inputs.keys().next().value ?? rootNode, {
+	restoreOnReset(() => inputs.values().next().value ?? rootNode, {
 		restore: () => {
 			const next = defaultValue ? [...defaultValue] : [];
 			if (!areArraysEqual(currentValue(), next)) value = next;
@@ -138,8 +140,8 @@
 		},
 		labelable,
 		inputs,
-		registerInput(input, item) {
-			inputs.set(input, item);
+		registerInput(input) {
+			inputs.add(input);
 			return () => inputs.delete(input);
 		},
 		setValue

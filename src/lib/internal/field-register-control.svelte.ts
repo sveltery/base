@@ -1,7 +1,7 @@
 // Derived from Base UI v1.9.0
 // packages/react/src/internals/field-register-control/useRegisterFieldControl.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// One registration per control. The form reads `getValue` when it submits.
+// One registration per control. The form reads `getFormValue` when it submits, else `getValue`.
 // Value changes do not unregister and register again.
 
 import { untrack } from 'svelte';
