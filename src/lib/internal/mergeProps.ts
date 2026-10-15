@@ -80,7 +80,7 @@ function mergeEventHandlers(our: unknown, their: unknown): unknown {
 			if (own) Object.defineProperty(event, 'preventDefault', own);
 			else delete (event as Partial<Event>).preventDefault;
 		}
-		if (!prevented) our(...args);
+		if (!prevented && !event.defaultPrevented) our(...args);
 		return result;
 	};
 }

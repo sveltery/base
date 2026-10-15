@@ -43,4 +43,15 @@ describe('public merge-props entry', () => {
 		merged.oninput(event);
 		expect([event.defaultPrevented, calls]).toEqual([false, ['right', 'middle']]);
 	});
+
+	it('skips the left handler when the right one sets defaultPrevented without calling preventDefault', () => {
+		const left = vi.fn();
+		const merged = mergeProps(
+			{ onclick: left },
+			{ onclick: (event: Event) => Event.prototype.preventDefault.call(event) }
+		);
+		const event = new Event('click', { cancelable: true });
+		merged.onclick(event);
+		expect([event.defaultPrevented, left.mock.calls.length]).toEqual([true, 0]);
+	});
 });
