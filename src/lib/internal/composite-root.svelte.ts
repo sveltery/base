@@ -1,13 +1,14 @@
-// Keyboard roving for ToggleGroup, Toolbar, RadioGroup, and Tabs, from the linear
-// path of Base UI v1.8.0 packages/react/src/internals/composite/root/useCompositeRoot.ts
+// Keyboard roving for ToggleGroup, Toolbar, RadioGroup, Tabs, NavigationMenu, and Menubar, from
+// the linear path of Base UI v1.8.0 packages/react/src/internals/composite/root/useCompositeRoot.ts
 // and packages/react/src/internals/composite/item/useCompositeItem.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). Render claims follow Base UI v1.9.0
 // packages/react/src/internals/composite/list/useCompositeListItem.ts and CompositeList.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099): each item keeps the index it guessed,
 // and unregistering drops only that item's entry. Skipping metadata `disabled` items on arrows
 // follows `disabledIndices` in v1.9.0 packages/react/src/toolbar/root/ToolbarRoot.tsx.
-// Scroll into view and the text-field arrow rule follow v1.9.0 useCompositeRoot.ts and
-// `scrollIntoViewIfNeeded` and `isNativeInput` in packages/react/src/internals/composite/composite.ts.
+// Scroll into view, select-on-focus (useCompositeRoot.ts:321-327), and the text-field arrow rule
+// follow v1.9.0 useCompositeRoot.ts and `scrollIntoViewIfNeeded` and `isNativeInput` in
+// packages/react/src/internals/composite/composite.ts.
 // MIT, see THIRD_PARTY_NOTICES.md.
 //
 // One list. Constructor getters supply orientation, looping, direction, and

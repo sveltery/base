@@ -1,14 +1,18 @@
 <script lang="ts">
-	import { DirectionProvider, Radio, RadioGroup, Tabs, Toggle, ToggleGroup } from '#lib';
+	import { DirectionProvider, Radio, RadioGroup, Tabs, Toggle, ToggleGroup, Toolbar } from '#lib';
 
 	let {
 		scenario,
 		direction = 'ltr',
-		value = 0
+		value = 0,
+		listStyle = '',
+		itemStyle = ''
 	}: {
-		scenario: 'tabs' | 'toggle-group' | 'radio-input';
+		scenario: 'tabs' | 'toggle-group' | 'toolbar-toggle-group' | 'radio-input';
 		direction?: 'ltr' | 'rtl';
 		value?: number;
+		listStyle?: string;
+		itemStyle?: string;
 	} = $props();
 
 	const items = Array.from({ length: 10 }, (_, index) => index);
@@ -22,9 +26,9 @@
 	<div dir={direction}>
 		{#if scenario === 'tabs'}
 			<Tabs.Root {value}>
-				<Tabs.List data-testid="list" style={row}>
+				<Tabs.List data-testid="list" style={row + listStyle}>
 					{#each items as index (index)}
-						<Tabs.Tab value={index} style={item}>{index}</Tabs.Tab>
+						<Tabs.Tab value={index} style={item + itemStyle}>{index}</Tabs.Tab>
 					{/each}
 				</Tabs.List>
 			</Tabs.Root>
@@ -34,6 +38,17 @@
 					<Toggle value={String(index)} style={item}>{index}</Toggle>
 				{/each}
 			</ToggleGroup>
+		{:else if scenario === 'toolbar-toggle-group'}
+			<Toolbar.Root data-testid="list" style={row}>
+				<ToggleGroup
+					data-testid="group"
+					style="display: flex; flex: none; width: 200px; overflow: auto;"
+				>
+					{#each items as index (index)}
+						<Toggle value={String(index)} style={item}>{index}</Toggle>
+					{/each}
+				</ToggleGroup>
+			</Toolbar.Root>
 		{:else}
 			<RadioGroup aria-label="Choice">
 				<Radio.Root value="a" aria-label="a" />

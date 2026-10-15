@@ -127,6 +127,50 @@ describe('composite root scroll into view', () => {
 		await expect.poll(() => list().scrollLeft).toBe(400);
 	});
 
+	it('scrolls the toolbar and not the toggle group inside it', async () => {
+		render(CompositeScrollHarness, { scenario: 'toolbar-toggle-group' });
+		const group = page.getByTestId('group').element();
+		await userEvent.keyboard('{Tab}');
+		expect(document.activeElement?.textContent).toBe('0');
+
+		expect(await scrollAfter('{ArrowRight}')).toBe(0);
+		expect(await scrollAfter('{ArrowRight}')).toBe(50);
+		expect(await scrollAfter('{ArrowRight}')).toBe(100);
+		expect(group.scrollLeft).toBe(0);
+	});
+
+	it('keeps the scroll padding of the list clear of the highlighted tab', async () => {
+		render(CompositeScrollHarness, { scenario: 'tabs', listStyle: 'scroll-padding: 0 20px;' });
+		await userEvent.keyboard('{Tab}');
+
+		expect(await scrollAfter('{ArrowRight}')).toBe(20);
+		expect(await scrollAfter('{ArrowRight}')).toBe(70);
+		expect(await scrollAfter('{End}')).toBe(400);
+		expect(await scrollAfter('{ArrowLeft}')).toBe(380);
+	});
+
+	it('keeps the scroll margin of the tab clear of the list edge', async () => {
+		render(CompositeScrollHarness, { scenario: 'tabs', itemStyle: 'scroll-margin: 0 10px;' });
+		await userEvent.keyboard('{Tab}');
+
+		expect(await scrollAfter('{ArrowRight}')).toBe(10);
+		expect(await scrollAfter('{ArrowRight}')).toBe(60);
+		expect(await scrollAfter('{End}')).toBe(400);
+		expect(await scrollAfter('{ArrowLeft}')).toBe(390);
+	});
+
+	it('checks the start edge first in a right-to-left list when a tab fills the room inside the padding', async () => {
+		render(CompositeScrollHarness, {
+			scenario: 'tabs',
+			direction: 'rtl',
+			listStyle: 'scroll-padding: 0 40px;'
+		});
+		await userEvent.keyboard('{Tab}');
+		list().scrollLeft = -15;
+
+		expect(await scrollAfter('{ArrowLeft}')).toBe(-40);
+	});
+
 	it('scrolls a vertical list on the block axis only', async () => {
 		render(CompositeScrollHarness, { scenario: 'toggle-group' });
 		await userEvent.keyboard('{Tab}');
