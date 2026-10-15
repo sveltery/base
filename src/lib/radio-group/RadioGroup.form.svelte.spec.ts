@@ -1,7 +1,7 @@
 // Assertions follow the Form cases of Base UI v1.9.0 packages/react/src/radio-group/RadioGroup.test.tsx
 // and `getFormValue` in RadioGroup.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// The two portal cases are not ported: they render through ReactDOM.createPortal.
+// `createPortal` becomes an attachment that moves the radio out of the `<form>`.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
@@ -87,6 +87,21 @@ describe('RadioGroup in a Form', () => {
 		expect(formData('choice')).toEqual([]);
 		await submit();
 		expect(output('values')).toBe('{"choice":null}');
+	});
+
+	it('includes a context-portaled radio without native form association in onFormSubmit', async () => {
+		render(RadioGroupFormHarness, { scenario: 'portal-radio' });
+
+		expect(formData('choice')).toEqual([]);
+		await submit();
+		expect(output('values')).toBe('{"choice":"a"}');
+	});
+
+	it('includes a group fully portaled outside the form element in onFormSubmit', async () => {
+		render(RadioGroupFormHarness, { scenario: 'portal-group' });
+		await submit();
+
+		expect(output('values')).toBe('{"choice":"a"}');
 	});
 
 	it('submits null when the selected radio in a required group is disabled, matching native validity', async () => {
