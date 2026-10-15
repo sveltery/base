@@ -9,45 +9,22 @@ import sveltery from './eslint/plugin.js';
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 
-/**
- * Imports the library must not make. `@sveltery/base/form/kit` may import SvelteKit and
- * `@sveltery/base/form/tanstack` may import TanStack Form, and nothing imports either subpath,
- * so the core never depends on an optional peer.
- * @param {{ kit?: boolean, tanstack?: boolean }} allow
- */
-function restrictedImports({ kit = false, tanstack = false } = {}) {
-	return [
-		{
-			group: ['react', 'react-dom', 'react/*', 'react-dom/*', '@base-ui/*'],
-			message: 'React belongs in src/routes reference fixtures only.'
-		},
-		...(kit
-			? []
-			: [
-					{
-						group: ['$app/*', '@sveltejs/kit', '@sveltejs/kit/*'],
-						message: 'The library must not depend on SvelteKit. Only src/lib/form/kit may.'
-					}
-				]),
-		...(tanstack
-			? []
-			: [
-					{
-						group: ['@tanstack/*'],
-						message: 'Only src/lib/form/tanstack may depend on TanStack Form.'
-					}
-				]),
-		{
-			regex: String.raw`(^|/)form/(kit|tanstack)(/|$)|^\.\.?/(kit|tanstack)(/|$)`,
-			message: 'The integration subpaths are entry points. Nothing in the library imports them.'
-		},
-		{
-			group: ['@sveltery/*/*', '**/packages/**', '**/src/lib/**'],
-			message:
-				'Import a workspace package by its name only. Packages must not import the base library.'
-		}
-	];
-}
+/** Imports the library must not make. */
+const restrictedImports = [
+	{
+		group: ['react', 'react-dom', 'react/*', 'react-dom/*', '@base-ui/*'],
+		message: 'React belongs in src/routes reference fixtures only.'
+	},
+	{
+		group: ['$app/*', '@sveltejs/kit', '@sveltejs/kit/*'],
+		message: 'The library must not depend on SvelteKit.'
+	},
+	{
+		group: ['@sveltery/*/*', '**/packages/**', '**/src/lib/**'],
+		message:
+			'Import a workspace package by its name only. Packages must not import the base library.'
+	}
+];
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
@@ -81,22 +58,9 @@ export default defineConfig(
 	},
 	{
 		// The published packages stay React- and SvelteKit-free; React belongs in reference fixtures.
-		// The integration subpaths are the exception, each for its own dependency only.
 		files: ['src/lib/**', 'packages/*/src/**'],
 		rules: {
-			'no-restricted-imports': ['error', { patterns: restrictedImports() }]
-		}
-	},
-	{
-		files: ['src/lib/form/kit/**'],
-		rules: {
-			'no-restricted-imports': ['error', { patterns: restrictedImports({ kit: true }) }]
-		}
-	},
-	{
-		files: ['src/lib/form/tanstack/**'],
-		rules: {
-			'no-restricted-imports': ['error', { patterns: restrictedImports({ tanstack: true }) }]
+			'no-restricted-imports': ['error', { patterns: restrictedImports }]
 		}
 	},
 	{

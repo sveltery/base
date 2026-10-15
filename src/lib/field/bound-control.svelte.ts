@@ -1,5 +1,5 @@
 // The contract a composite control follows inside a Field bound to a form source
-// (a remote form, `actionForm()`, an adapter). No Base UI equivalent.
+// (a remote form, or another owner that builds the same shapes). No Base UI equivalent.
 // docs/porting.md "Composite form controls" states it for controls that adopt it later.
 // 1. A real native input carries the value. Its `name`, the option `value` of a radio or
 //    checkbox-group item, and any attachment `as()` returns come from the binding, so the
@@ -22,7 +22,7 @@ import type { FieldContext } from './model.svelte.js';
 export interface BoundInputProps {
 	name?: string;
 	value?: string;
-	/** Attachments from `as()`, such as the TanStack adapter's listener for edits. */
+	/** Attachments from `as()`, such as a source's listener for edits. */
 	[attachment: symbol]: Attachment<HTMLInputElement>;
 }
 

@@ -30,7 +30,7 @@ Sort every upstream dependency into one of three categories:
 2. Framework-specific with a public agnostic core, such as `@floating-ui/react-dom`. Use the agnostic core. Put any Svelte wrapper around it in its own monorepo package.
 3. Framework-specific with no agnostic core, such as Base UI's floating-ui-react fork. Write your own Svelte version, in its own monorepo package, not inside `src/lib`. `packages/floating-ui-svelte` is the one for floating-ui.
 
-Add a dependency only when a component uses it. `src/lib` must not import React or SvelteKit. The integration subpaths are the exceptions: `src/lib/form/kit` may import SvelteKit and `src/lib/form/tanstack` may import TanStack Form, and nothing else in `src/lib` imports either subpath. ESLint enforces this.
+Add a dependency only when a component uses it. `src/lib` must not import React or SvelteKit. ESLint enforces this.
 
 ## Forms
 

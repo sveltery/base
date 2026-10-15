@@ -80,7 +80,7 @@ export interface FormProps<
 	S extends FormSource = FormSource
 > extends Omit<HTMLFormAttributes, 'children' | 'onsubmit' | 'novalidate'> {
 	/**
-	 * The external owner of form state, such as a SvelteKit remote form or `actionForm()`.
+	 * The external owner of form state, such as a SvelteKit remote form.
 	 * Its attributes and attachment go on the `<form>`. Fields bind to its `fields`.
 	 */
 	form?: S;
