@@ -129,7 +129,7 @@ describe('composite root scroll into view', () => {
 
 	it('mounts selected tabs, radios and toggles where elements have no scrollTo', async () => {
 		const scrollTo = Element.prototype.scrollTo;
-		// @ts-expect-error jsdom has no Element.scrollTo
+		// @ts-expect-error removes a required method to stand in for jsdom
 		delete Element.prototype.scrollTo;
 		try {
 			render(CompositeScrollHarness, { scenario: 'selected' });
