@@ -31,13 +31,14 @@ describe('bound Checkbox and Switch', () => {
 		['switch', 'alerts']
 	] as const) {
 		describe(scenario, () => {
-			it('submits a boolean under the encoded name, with no unchecked value', async () => {
+			it('submits a boolean under the encoded name, and `uncheckedValue` while unchecked', async () => {
 				const source = new FakeRemoteForm();
 				render(BoundControlHarness, { source, scenario });
 
-				expect(names()).toEqual([`b:${path}/fake`]);
+				// As upstream: the checked input submits `on`, the hidden one `uncheckedValue`.
+				expect(names()).toEqual([`b:${path}/fake`, `b:${path}/fake`]);
 				expect(form().querySelector('input[name]')?.hasAttribute('value')).toBe(false);
-				expect(submitted(source)).toEqual({});
+				expect(submitted(source)).toEqual({ [path]: false });
 
 				await page.getByTestId('control').click();
 				await expect.element(page.getByTestId('control')).toHaveAttribute('aria-checked', 'true');
@@ -46,7 +47,7 @@ describe('bound Checkbox and Switch', () => {
 
 				await page.getByTestId('control').click();
 				expect(source.input[path]).toBe(false);
-				expect(submitted(source)).toEqual({});
+				expect(submitted(source)).toEqual({ [path]: false });
 			});
 
 			it('follows a value set on the source', async () => {
@@ -59,7 +60,7 @@ describe('bound Checkbox and Switch', () => {
 
 				source.field(path).set(false as never);
 				await expect.element(page.getByTestId('control')).toHaveAttribute('aria-checked', 'false');
-				expect(submitted(source)).toEqual({});
+				expect(submitted(source)).toEqual({ [path]: false });
 			});
 
 			it('starts from the source value, and a reset restores the default', async () => {
@@ -71,8 +72,8 @@ describe('bound Checkbox and Switch', () => {
 
 				form().reset();
 				await expect.element(page.getByTestId('control')).toHaveAttribute('aria-checked', 'false');
-				expect(submitted(source)).toEqual({});
-				expect(source.input[path]).toBe(undefined);
+				expect(submitted(source)).toEqual({ [path]: false });
+				expect(source.input[path]).toBe(false);
 			});
 		});
 	}
@@ -654,13 +655,13 @@ describe('inside a real Field.Root bound with `field`', () => {
 	for (const { scenario, initial, edit, after } of [
 		{
 			scenario: 'checkbox',
-			initial: {},
+			initial: { agree: false },
 			edit: () => page.getByTestId('control').click(),
 			after: { agree: true }
 		},
 		{
 			scenario: 'switch',
-			initial: {},
+			initial: { alerts: false },
 			edit: () => page.getByTestId('control').click(),
 			after: { alerts: true }
 		},
