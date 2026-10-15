@@ -4,7 +4,7 @@ description: A guide to building forms with Sveltery Base components.
 order: 4
 ---
 
-The form components build on the browser's [constraint validation API](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#the-constraint-validation-api). [Form](/components/form), [Field](/components/field), and [Fieldset](/components/fieldset) collect values, validate them, show errors, and focus the first invalid control. The controls work with `bind:value` and with native form submission. Form and Field also bind to an owner of form state: a SvelteKit remote form, a SvelteKit form action, or a TanStack Form field.
+The form components build on the browser's [constraint validation API](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#the-constraint-validation-api). [Form](/components/form), [Field](/components/field), and [Fieldset](/components/fieldset) collect values, validate them, show errors, and focus the first invalid control. The controls work with `bind:value` and with native form submission. Form and Field also bind to a SvelteKit remote form, and take their state from a SvelteKit form action or a form library through props.
 
 ```svelte demo
 <script lang="ts">
@@ -583,7 +583,7 @@ After a submit, Form focuses the first invalid field when new errors arrive.
 
 Use `bind:errors`, so that the cleared error also leaves your state. A new object from the parent replaces the current errors. While a field shows a server error, it counts as invalid and blocks the next submit, until the user changes its value.
 
-In SvelteKit, you do not need `errors`. Bind the form to a [remote form](#bind-a-sveltekit-remote-form) or a [form action](#bind-a-form-action), and the issues from the server show in each field.
+A [SvelteKit form action](#connect-a-form-action) returns its errors, and you pass them to `errors`. A [remote form](#bind-a-sveltekit-remote-form) needs no `errors`: bind the form to it, and the issues from the server show in each field.
 
 ## Display errors
 
@@ -762,62 +762,71 @@ So `<Field.Root field={f.fields.age}>` fails the type check, because `age` is a 
 
 Inside a Form with a `form` source, `<Field.Root name="email">` binds to `f.fields.email`. A path such as `items[0].name` works too. TypeScript does not check the name, and `type` accepts every input type. In development, Form warns when an issue has no field to show it while a field resolved its name through the form, because a misspelled `name` submits under the wrong key. Prefer `field`, which TypeScript checks.
 
-## Bind a form action
+## Connect a form action
 
-A classic [form action](https://svelte.dev/docs/kit/form-actions) works the same way. `actionForm` from `@sveltery/base/form/kit` builds a form source from the page's `form` prop. `parseForm` reads the request on the server with the same field encoding as a remote form. The Field markup does not change.
+A classic [form action](https://svelte.dev/docs/kit/form-actions) validates the request on the server and returns its errors. Form shows them through the `errors` prop, as in [Server-side validation](#server-side-validation). Name each field with `name` on `Field.Root`, so the errors and the submitted values use the same keys.
 
-In the action, call `parseForm` with the request and the schema. Return `submission.fail()` to send the issues back. Pass it more issues, built with `submission.issue`, or a string for an issue on the whole form:
+In the action, read the form data and validate it with your schema. Return `fail()` with the first message for each field, keyed by field name, and with the submitted values, so that the page can show them again:
 
 ```ts
 // src/routes/signup/+page.server.ts
-import { parseForm } from '@sveltery/base/form/kit';
+import { fail } from '@sveltejs/kit';
+import * as v from 'valibot';
 import { signupSchema } from './schema.js';
 
 export const actions = {
 	default: async ({ request }) => {
-		const submission = await parseForm(request, signupSchema);
-		if (!submission.ok) return submission.fail();
-		if (await isRegistered(submission.data.email)) {
-			return submission.fail(submission.issue.email('Email already taken'));
+		const data = await request.formData();
+		const values = { email: String(data.get('email') ?? ''), name: String(data.get('name') ?? '') };
+		const result = v.safeParse(signupSchema, values);
+		if (!result.success) {
+			const errors: Record<string, string> = {};
+			for (const issue of result.issues) {
+				const key = v.getDotPath(issue);
+				if (key) errors[key] ??= issue.message;
+			}
+			return fail(400, { values, errors });
 		}
-		if (signupsClosed()) return submission.fail('Signups are closed');
-		return { welcome: submission.data.name };
+		if (await isRegistered(result.output.email)) {
+			return fail(400, { values, errors: { email: 'Email already taken' } });
+		}
+		return { welcome: result.output.name };
 	}
 };
 ```
 
-On the page, pass `form` to `actionForm` as a getter, so that the source follows each new value of the prop:
+On the page, pass `form?.errors` to `errors`, and each submitted value to the control's `defaultValue`. `use:enhance` is an action, so `fromAction` turns it into an attachment on Form:
 
 ```svelte
 <!-- src/routes/signup/+page.svelte -->
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import { fromAction } from 'svelte/attachments';
 	import { Field } from '@sveltery/base/field';
 	import { Form } from '@sveltery/base/form';
-	import { actionForm } from '@sveltery/base/form/kit';
-	import { signupSchema } from './schema.js';
 
 	let { form } = $props();
-	const f = actionForm(signupSchema, () => form);
 </script>
 
-<Form form={f}>
-	<Form.Error />
-	<Field.Root field={f.fields.email} type="email">
+<Form method="POST" errors={form?.errors} {@attach fromAction(enhance)}>
+	<Field.Root name="email">
 		<Field.Label>Email</Field.Label>
-		<Field.Control required />
+		<Field.Control type="email" required defaultValue={form?.values?.email} />
 		<Field.Error />
 	</Field.Root>
-	<!-- The name and age fields, as in the remote form example. -->
-	<button disabled={f.pending > 0}>Sign up</button>
-	{#if f.result}
-		<p>Welcome, {f.result.welcome}</p>
+	<Field.Root name="name">
+		<Field.Label>Name</Field.Label>
+		<Field.Control required defaultValue={form?.values?.name} />
+		<Field.Error />
+	</Field.Root>
+	<button>Sign up</button>
+	{#if form?.welcome}
+		<p>Welcome, {form.welcome}</p>
 	{/if}
 </Form>
 ```
 
-`actionForm` runs `use:enhance` for you, so do not add it. The source has the same `fields`, `pending`, `submitted`, `result`, and `validate()` as a remote form. The schema runs in the browser before each submit, and only a valid submit reaches the server.
-
-For a named action, pass its name to `actionForm`, such as `actionForm(loginSchema, () => form, { action: 'login' })`. The form posts to `?/login` and reads only that action's issues and result, so several forms can share a page. `parseForm` reads the action name from the request URL. Pass `{ action }` to `parseForm` only when you pass it `FormData` instead of the request.
+Form validates each field before `use:enhance` sees the submit, so an invalid field stops the submit and no request is sent. A server error shows in its `Field.Error`, Form focuses the field, and the error clears as soon as the user changes the field. With JavaScript off, the browser validates, the form posts, and the page renders the errors and the submitted values.
 
 ## Customize the submit
 
@@ -890,11 +899,11 @@ Checkbox, Switch, Radio Group, Checkbox Group, Number Field, Slider, and OTP Fie
 
 The control starts from the source's value when the source has one, and from `defaultValue` when it does not. A form reset returns the control to `defaultValue`. When your code calls `set()` on the field, the control shows the new value, with no `onValueChange` call. In development, a control whose kind does not match the `type` on its `Field.Root` logs an error that names both.
 
-A checkbox sends nothing when it is unchecked, so every boolean in the schema must be optional, such as `v.optional(v.boolean(), false)`. `actionForm` and `parseForm` reject a schema with a required boolean at the type level, as SvelteKit does for a remote form.
+A checkbox sends nothing when it is unchecked, so every boolean in the schema must be optional, such as `v.optional(v.boolean(), false)`. SvelteKit rejects a remote form schema with a required boolean at the type level.
 
 ## Work without JavaScript
 
-A form bound to a remote form or a form action works before the page hydrates and with JavaScript off:
+A form bound to a remote form works before the page hydrates and with JavaScript off:
 
 - The server renders no `novalidate`, so the browser checks `required`, `type`, and the other constraints, and an empty required field never reaches the server.
 - The form posts to the server, and the page renders again with the issues in each `Field.Error` and the whole-form issues in `Form.Error`.
@@ -921,7 +930,7 @@ Bind the value to the library with `bind:value`, or with a getter and setter pai
 - `dirty` is true while the field is in `$tainted`.
 - `touched` is left out. Superforms does not track it, so Field marks a field touched on blur.
 
-Superforms' `enhance` is an action, so `fromAction` turns it into an attachment on Form. The enhanced form shows errors on submit, then updates them as the user types. Superforms' validation on blur does not run for `Field.Control`, because Field.Control receives input through a delegated Svelte handler and superforms listens for input on the form. `onUpdate` runs after a valid submit. This demo sets `SPA: true`, so superforms validates in the browser with no server action:
+Superforms' `enhance` is an action, so `fromAction` turns it into an attachment on Form. The enhanced form shows an error when a field loses focus or on submit, then updates it as the user types. `onUpdate` runs after a valid submit. This demo sets `SPA: true`, so superforms validates in the browser with no server action:
 
 ```svelte demo
 <script lang="ts">
@@ -1002,7 +1011,7 @@ To validate on the server too, remove `SPA` and add a form action that calls `su
 
 ### TanStack Form
 
-`tanstackField` from `@sveltery/base/form/tanstack` turns a [TanStack Form](https://tanstack.com/form) field into a field that `Field.Root` binds to. Call it inside the snippet of `form.Field`:
+[TanStack Form](https://tanstack.com/form) owns the values and the validation. Render each field in the snippet of `form.Field`. Bind the control to the field's value with a getter and setter pair, report blur to the field, and pass the field's state to `Field.Root`:
 
 ```svelte
 <script lang="ts">
@@ -1010,15 +1019,14 @@ To validate on the server too, remove `SPA` and add a form action that calls `su
 	import * as v from 'valibot';
 	import { Field } from '@sveltery/base/field';
 	import { Form } from '@sveltery/base/form';
-	import { tanstackField } from '@sveltery/base/form/tanstack';
 
 	const schema = v.object({
 		email: v.pipe(v.string(), v.email('Invalid email address')),
-		seats: v.pipe(v.number(), v.minValue(1, 'At least one seat'))
+		name: v.pipe(v.string(), v.minLength(2, 'At least 2 characters'))
 	});
 
 	const form = createForm(() => ({
-		defaultValues: { email: '', seats: 1 },
+		defaultValues: { email: '', name: '' },
 		validationLogic: revalidateLogic({ mode: 'submit', modeAfterSubmission: 'change' }),
 		validators: { onDynamic: schema },
 		onSubmit: ({ value }) => save(value)
@@ -1033,53 +1041,27 @@ To validate on the server too, remove `SPA` and add a form action that calls `su
 >
 	<form.Field name="email">
 		{#snippet children(field)}
-			<Field.Root field={tanstackField(field)} type="email">
+			<Field.Root
+				name={field.name}
+				invalid={!field.state.meta.isValid}
+				dirty={field.state.meta.isDirty}
+				touched={field.state.meta.isTouched}
+			>
 				<Field.Label>Email</Field.Label>
-				<Field.Control />
-				<Field.Error />
+				<Field.Control
+					type="email"
+					bind:value={() => field.state.value, (value) => field.handleChange(value)}
+					onblur={field.handleBlur}
+				/>
+				{#if !field.state.meta.isValid}
+					<Field.Error match={true}>{field.state.meta.errors[0]?.message}</Field.Error>
+				{/if}
 			</Field.Root>
 		{/snippet}
 	</form.Field>
-	<form.Field name="seats">
-		{#snippet children(field)}
-			<Field.Root field={tanstackField(field)} type="number">
-				<Field.Label>Seats</Field.Label>
-				<Field.Control />
-				<Field.Error />
-			</Field.Root>
-		{/snippet}
-	</form.Field>
+	<!-- The name field, the same way. -->
 	<button>Submit</button>
 </Form>
 ```
 
-TanStack owns the value and the validation. The control reports each edit to the field, and Field reports blur. The field's `meta.errors` show in `Field.Error`, and its touched and dirty state sets `data-touched` and `data-dirty`. A native form reset resets the field to its TanStack default. `type` is checked against the field's value, as it is for a remote form, and the composite controls bind the same way.
-
-Form takes no `form` prop here. Each field binds on its own, and TanStack runs the submit through `form.handleSubmit()`.
-
-#### Field-level validation
-
-Pass `validators` to `form.Field` to check one field on top of the form-level validators. An `onChangeAsync` validator can ask a server, and `onChangeAsyncDebounceMs` waits between requests:
-
-```svelte
-<form.Field
-	name="username"
-	validators={{
-		onChangeAsyncDebounceMs: 300,
-		onChangeAsync: async ({ value }) => {
-			const available = await checkAvailability(value);
-			return available ? undefined : `${value} is not available.`;
-		}
-	}}
->
-	{#snippet children(field)}
-		<Field.Root field={tanstackField(field)}>
-			<Field.Label>Username</Field.Label>
-			<Field.Control />
-			<Field.Error />
-		</Field.Root>
-	{/snippet}
-</form.Field>
-```
-
-The message shows in `Field.Error`, and the control gets `aria-invalid`. While the field has an error, `form.handleSubmit()` does not call `onSubmit`.
+`invalid` sets `aria-invalid` on the control, and Field shows TanStack's message. Form takes no `form` prop here. TanStack runs the submit through `form.handleSubmit()`, and calls `onSubmit` only when every field is valid.

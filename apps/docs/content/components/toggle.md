@@ -125,8 +125,7 @@ A toggle with a `value` can sit inside a [Toggle Group](/components/toggle-group
 - Handlers use lowercase names, such as `onclick`. Call `event.preventDefault()` in `onclick` to skip the toggle's own click handler.
 - Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below, or read the state that a `render` snippet receives as its second argument.
 - `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- Toggle never takes part in a form. It ignores the `type` and `form` props, and it always renders a `<button type="button">`.
-- Toolbar integration and `nativeButton={false}` are not available.
+- Toggle never takes part in a form. It ignores the `type` and `form` props. A native toggle renders `<button type="button">`.
 
 ## API reference
 

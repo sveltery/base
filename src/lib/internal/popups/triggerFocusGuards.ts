@@ -23,7 +23,13 @@ export class TriggerFocusGuards {
 	readonly preFocusGuardProps = {
 		onfocus: (event: FocusEvent) => {
 			this.#closeAndFocus(event, -1, this.store.positionerElement);
-		}
+		},
+		attach: ((node) => {
+			this.store.triggerBeforeGuard = node;
+			return () => {
+				if (this.store.triggerBeforeGuard === node) this.store.triggerBeforeGuard = null;
+			};
+		}) satisfies Attachment<HTMLElement>
 	};
 
 	readonly beforeContentFocusGuardProps = {

@@ -1,7 +1,6 @@
 // The protocol between Base's Form and Field and an external owner of form state.
 // A SvelteKit remote form satisfies `FormSource` and its `fields.x` satisfy `FieldHandle` as they
-// are. `actionForm()` (`@sveltery/base/form/kit`) and `tanstackField()`
-// (`@sveltery/base/form/tanstack`) build the same shapes. Nothing here imports SvelteKit.
+// are. Another owner can build the same shapes. Nothing here imports SvelteKit.
 
 import { tick } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
@@ -26,7 +25,7 @@ export interface FieldHandle {
 	set(value: never): unknown;
 	touched(): boolean;
 	dirty(): boolean;
-	/** Called when the Field's control loses focus. For sources that track touched themselves, such as TanStack. */
+	/** Called when the Field's control loses focus. For sources that track touched themselves. */
 	blur?(): void;
 }
 
@@ -56,7 +55,7 @@ export async function defaultEnhance(instance: EnhanceInstance) {
 
 /**
  * The slice of SvelteKit's `RemoteForm` that Form reads.
- * A remote form satisfies it as is. `actionForm()` and library adapters build one.
+ * A remote form satisfies it as is. Other owners build one.
  * Form spreads it onto the `<form>`, so its enumerable keys must be form attributes and its
  * attachment, as Kit documents for `<form {...remote}>`.
  */

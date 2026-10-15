@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Field, Form, Radio, RadioGroup } from '#lib';
+	import { portalTo } from './portal.js';
 
 	let {
 		scenario
@@ -11,7 +12,9 @@
 			| 'fieldset'
 			| 'other-form'
 			| 'required-disabled'
-			| 'no-form';
+			| 'no-form'
+			| 'portal-radio'
+			| 'portal-group';
 	} = $props();
 
 	const startsDisabled = ['initially-disabled', 'required-disabled', 'no-form'];
@@ -60,6 +63,21 @@
 				<RadioGroup required defaultValue="a">{@render radios()}</RadioGroup>
 				<Field.Error match="valueMissing" data-testid="error">required</Field.Error>
 			</Field.Root>
+		{:else if scenario === 'portal-radio'}
+			<Field.Root name="choice">
+				<RadioGroup defaultValue="a">
+					<div {@attach portalTo('div')}><Radio.Root value="a" /></div>
+				</RadioGroup>
+			</Field.Root>
+		{:else if scenario === 'portal-group'}
+			<div {@attach portalTo('div')}>
+				<Field.Root name="choice">
+					<RadioGroup defaultValue="a">
+						<Radio.Root value="a" />
+						<Radio.Root value="b" />
+					</RadioGroup>
+				</Field.Root>
+			</div>
 		{:else}
 			<Field.Root name="choice">
 				<RadioGroup form={scenario === 'other-form' ? 'external-form' : undefined} defaultValue="a">

@@ -1,17 +1,19 @@
 <!--
 	A two-state button that can be on or off. Renders a `<button>` element.
 	Derived from Base UI v1.8.0 packages/react/src/toggle/Toggle.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). `nativeButton` and the toolbar item
+	metadata follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+	MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import type { CompositeHandlers } from '../internal/composite-root.svelte.js';
 	import { createChangeEventDetails, error, REASONS } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToggleGroupContext } from '../toggle-group/context.svelte.js';
-	import type { ToggleProps, ToggleState } from './types.js';
+	import type { ToggleHostProps, ToggleProps, ToggleState } from './types.js';
 
 	const uid = $props.id();
 	const group = useToggleGroupContext();
@@ -20,6 +22,7 @@
 		pressed = $bindable(),
 		disabled = false,
 		value: valueProp,
+		nativeButton = true,
 		onPressedChange,
 		onclick,
 		onfocus,
@@ -38,11 +41,11 @@
 	const pressedState = $derived(group ? group.values.includes(resolvedValue) : pressed === true);
 	const toggleState: ToggleState = $derived({ pressed: pressedState, disabled: disabledState });
 
-	let node = $state<HTMLButtonElement | null>(null);
+	let node = $state<HTMLElement | null>(null);
 	const claim = group?.roving.claim(untrack(() => disabledState));
 
 	function register(element: HTMLElement) {
-		node = element as HTMLButtonElement;
+		node = element;
 		const remove = group?.roving.register(
 			element,
 			() => ({
@@ -66,7 +69,7 @@
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onclick?.(event);
-		if (event.defaultPrevented || disabledState) return;
+		if (event.defaultPrevented) return;
 
 		const nextPressed = !pressedState;
 		const details = createChangeEventDetails(REASONS.none, event);
@@ -82,10 +85,20 @@
 		pressed = nextPressed;
 	}
 
-	const hostProps: HTMLButtonAttributes & Record<symbol, Attachment<HTMLButtonElement>> =
-		$derived.by(() => {
-			const roving =
-				claim &&
+	const button = new ButtonBehavior(() => ({
+		disabled: disabledState,
+		native: nativeButton,
+		composite: group !== undefined
+	}));
+
+	// An outer composite item, such as a Toolbar.Button that renders this Toggle, passes its
+	// own tabindex and registration in `elementProps`, and those win over the group's.
+	// In a group, the group's focus handler replaces `onfocus` and calls it first.
+	const hostProps: HTMLButtonAttributes = $derived(
+		button.props({
+			onfocus,
+			onkeydown,
+			...(claim &&
 				group?.roving.item(
 					node,
 					register,
@@ -95,30 +108,17 @@
 					},
 					claim,
 					{ disabled: disabledState }
-				);
-			return {
-				type: 'button',
-				...(roving
-					? { tabindex: roving.tabindex, 'aria-disabled': disabledState ? 'true' : 'false' }
-					: {}),
-				...elementProps,
-				...getStateAttributesProps(toggleState),
-				'aria-pressed': pressedState,
-				disabled: disabledState,
-				onclick: handleClick,
-				...(roving && group
-					? {
-							onfocus: roving.onfocus,
-							onkeydown: roving.onkeydown,
-							[group.roving.attachmentKey]: roving[group.roving.attachmentKey]
-						}
-					: {})
-			};
-		});
+				)),
+			...elementProps,
+			...getStateAttributesProps(toggleState),
+			'aria-pressed': pressedState,
+			onclick: handleClick
+		})
+	);
 </script>
 
 {#if render}
-	{@render render(hostProps, toggleState, children)}
+	{@render render(hostProps as ToggleHostProps, toggleState, children)}
 {:else}
 	<button {...hostProps}>{@render children?.()}</button>
 {/if}
