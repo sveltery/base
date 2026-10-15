@@ -1,5 +1,5 @@
 // Writes package.json `exports` from the entry folders in src/lib: every folder with an
-// index.ts, nested ones included (`./form/kit`), except `internal`.
+// index.ts, nested ones included, except `internal`.
 // `--check` fails instead of writing when the map is out of date.
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 

@@ -208,9 +208,8 @@
 	}
 
 	const inputStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
-	// A bound lone checkbox submits `on` or nothing, which the source decodes as a boolean.
 	const hasUncheckedValue = $derived(
-		group === undefined && !field.binding && Boolean(inputName) && uncheckedValue !== undefined
+		group === undefined && Boolean(inputName) && uncheckedValue !== undefined
 	);
 	let uncheckedNode = $state<HTMLInputElement | null>(null);
 	const submittedValue = $derived.by(() => {

@@ -87,7 +87,7 @@
 	const rootId = $derived(nativeButton ? controlId.current : generatedRootId);
 	const disabled = $derived(field.disabled || (disabledProp ?? false));
 	const name = $derived(field.name ?? nameProp ?? undefined);
-	// Inside a bound Field the source encodes the name. The switch then submits `on` or nothing.
+	// Inside a bound Field the source encodes the name.
 	const boundProps = $derived(bound.inputProps());
 	const inputName = $derived(bound.bound ? boundProps.name : name);
 	const submittedValue = $derived(bound.bound ? boundProps : value !== undefined ? { value } : {});
@@ -272,7 +272,7 @@
 	onclick={handleInputClick}
 	onfocus={handleInputFocus}
 />
-{#if name && !bound.bound && uncheckedValue !== undefined}
+{#if inputName && uncheckedValue !== undefined}
 	<!-- Submits `uncheckedValue`. A native reset restores it with the checkbox above, so
 	FormData never holds both values. -->
 	<input
@@ -284,7 +284,7 @@
 		defaultChecked={!defaultChecked}
 		{disabled}
 		{form}
-		{name}
+		name={inputName}
 		value={uncheckedValue}
 		tabindex="-1"
 		aria-hidden="true"
