@@ -8,7 +8,8 @@ export const cases = [
 	'cancel',
 	'bound',
 	'fallback',
-	'loop'
+	'loop',
+	'prehydrate'
 ] as const;
 
 export type TabsCase = (typeof cases)[number];

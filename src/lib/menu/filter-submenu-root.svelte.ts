@@ -102,10 +102,7 @@ export class MenuFilterSubmenu implements MenuSubmenuNavigation {
 		this.#parentReference = null;
 		if (isHTMLElement(trigger) && isKeyboardOpen(details.reason, details.event)) {
 			// A keyboard click reports its click, which is not the key that opened the submenu.
-			this.#enter(
-				trigger,
-				details.reason === REASONS.listNavigation ? (details.event as KeyboardEvent) : undefined
-			);
+			this.#enter(trigger, details.reason === REASONS.listNavigation ? details.event : undefined);
 		}
 	}
 

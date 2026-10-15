@@ -166,7 +166,8 @@ export interface TabsPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 
 export interface TabsIndicatorProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 	/**
-	 * Accepted for API compatibility. The pre-hydration script is not ported.
+	 * Whether to render itself before hydration.
+	 * This minimizes the time that the indicator isn't visible after server-side rendering.
 	 * @default false
 	 */
 	renderBeforeHydration?: boolean;

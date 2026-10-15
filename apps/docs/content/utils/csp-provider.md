@@ -51,7 +51,7 @@ description: Configures how the inline style and script tags that Sveltery Base 
 
 ## Usage
 
-Some components render inline tags. The scroll area renders a `<style>` element that hides the native scrollbars. A slider with `thumbAlignment="edge"` renders a `<script>` that runs before hydration. A strict Content Security Policy (CSP) blocks these tags unless they carry a matching nonce. `CSPProvider` passes one nonce to all of them.
+Some components render inline tags. The scroll area renders a `<style>` element that hides the native scrollbars. A slider with `thumbAlignment="edge"` and a `Tabs.Indicator` with `renderBeforeHydration` each render a `<script>` that runs before hydration. A strict Content Security Policy (CSP) blocks these tags unless they carry a matching nonce. `CSPProvider` passes one nonce to all of them.
 
 To use it with a strict CSP:
 
@@ -154,7 +154,7 @@ Script tags are opt in and this prop does not control them. If a component rende
 - `nonce` and `disableStyleElements` are live props. Descendants read the current values, so a change applies without remounting.
 - Outside a provider, the nonce is `undefined` and `disableStyleElements` is `false`. Inside a provider that omits `disableStyleElements`, the value is `undefined`, which also leaves style elements on.
 - `ScrollArea.Root` renders the inline `<style>` element that hides the native scrollbars.
-- Today the scroll area style element and the slider script read the provider. `Select` is not ported yet, so no select style element exists. `Tabs.Indicator` accepts `renderBeforeHydration` but renders no script.
+- Today the scroll area style element, the slider script and the tabs indicator script read the provider. `Select` is not ported yet, so no select style element exists.
 - There is no public hook to read the CSP settings. Components read them internally.
 
 ## API reference

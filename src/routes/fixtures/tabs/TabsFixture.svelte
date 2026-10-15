@@ -42,7 +42,7 @@
 				{model.labels[index]}
 			</Tabs.Tab>
 		{/each}
-		<Tabs.Indicator data-testid="indicator" />
+		<Tabs.Indicator data-testid="indicator" renderBeforeHydration={scenario === 'prehydrate'} />
 	</Tabs.List>
 	{#each { length: model.count } as _, index (index)}
 		<Tabs.Panel value={index}>{model.labels[index]} panel</Tabs.Panel>

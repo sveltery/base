@@ -62,7 +62,10 @@ export function mountTabsReference(node: HTMLElement, scenario: TabsCase, onRead
 				loopFocus: scenario === 'loop' ? false : undefined
 			},
 			...tabItems,
-			h(Tabs.Indicator, partProps({ 'data-testid': 'indicator' }))
+			h(
+				Tabs.Indicator,
+				partProps({ 'data-testid': 'indicator', renderBeforeHydration: scenario === 'prehydrate' })
+			)
 		);
 
 		const root = h(

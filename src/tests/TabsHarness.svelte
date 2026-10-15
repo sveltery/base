@@ -31,6 +31,7 @@
 			{ value: 1, label: 'Two', panel: 'Panel two' }
 		],
 		showIndicator = false,
+		indicatorBeforeHydration = false,
 		custom = false,
 		attach = false,
 		nested = false,
@@ -51,6 +52,7 @@
 		dir?: 'ltr' | 'rtl';
 		tabs?: HarnessTab[];
 		showIndicator?: boolean;
+		indicatorBeforeHydration?: boolean;
 		custom?: boolean;
 		attach?: boolean;
 		nested?: boolean;
@@ -153,7 +155,7 @@
 			{/if}
 		{/each}
 		{#if showIndicator}
-			<Tabs.Indicator data-testid="indicator" />
+			<Tabs.Indicator data-testid="indicator" renderBeforeHydration={indicatorBeforeHydration} />
 		{/if}
 	</Tabs.List>
 	{#if !omitPanels}
