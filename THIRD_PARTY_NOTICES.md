@@ -434,6 +434,7 @@ Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7
 - The metadata `disabled` keyboard skip in `src/lib/internal/composite-root.svelte.ts` from `disabledIndices` in `packages/react/src/toolbar/root/ToolbarRoot.tsx` and `isListIndexDisabled` in `packages/react/src/floating-ui-react/utils/composite.ts`
 - The forwarded `disabled` in `src/lib/toolbar/ToolbarButton.svelte`, and the inner `disabled` clearing in `src/lib/internal/button.svelte.ts`, from `packages/react/src/toolbar/button/ToolbarButton.tsx` and `packages/react/src/internals/use-button/useButton.ts`
 - `nativeButton` in `src/lib/toggle/Toggle.svelte` from `packages/react/src/toggle/Toggle.tsx`, and the Toolbar path of `src/lib/toggle-group/ToggleGroup.svelte` from `packages/react/src/toggle-group/ToggleGroup.tsx`
+- Scroll into view, text selection on focus and the text-field arrow rule in `src/lib/internal/composite-root.svelte.ts` from `packages/react/src/internals/composite/root/useCompositeRoot.ts` and `scrollIntoViewIfNeeded` and `isNativeInput` in `packages/react/src/internals/composite/composite.ts`, and the Toolbar.Input caret and selection cases in `src/lib/toolbar/ToolbarParts.svelte.spec.ts` from `packages/react/src/toolbar/input/ToolbarInput.test.tsx`
 
 MIT License
 

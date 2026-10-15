@@ -136,7 +136,8 @@
 					: {}),
 				...(hidden ? { hidden: true } : {}),
 				...getStateAttributesProps(partState, stateAttributesMapping),
-				[moveKey]: moveIntoViewport
+				[moveKey]: moveIntoViewport,
+				...composite.rootProps
 			},
 			elementProps
 		)

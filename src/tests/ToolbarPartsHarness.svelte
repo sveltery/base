@@ -5,12 +5,13 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { NumberField, Toolbar } from '#lib';
+	import { DirectionProvider, NumberField, Toolbar } from '#lib';
 	import type { ToolbarOrientation } from '#lib/toolbar/types.js';
 
 	let {
 		scenario,
 		orientation = 'horizontal',
+		direction = 'ltr',
 		separatorOrientation,
 		disabled = false,
 		type,
@@ -20,6 +21,7 @@
 	}: {
 		scenario: 'separator' | 'input' | 'input-after' | 'number';
 		orientation?: ToolbarOrientation;
+		direction?: 'ltr' | 'rtl';
 		separatorOrientation?: ToolbarOrientation;
 		disabled?: boolean;
 		type?: string;
@@ -38,11 +40,13 @@
 		{/if}
 	</Toolbar.Root>
 {:else if scenario === 'input'}
-	<Toolbar.Root {orientation}>
-		<Toolbar.Button data-testid="button1" />
-		<Toolbar.Input data-testid="input" {type} {disabled} {onclick} {onpointerdown} value="abcd" />
-		<Toolbar.Button data-testid="button2" />
-	</Toolbar.Root>
+	<DirectionProvider {direction}>
+		<Toolbar.Root {orientation}>
+			<Toolbar.Button data-testid="button1" />
+			<Toolbar.Input data-testid="input" {type} {disabled} {onclick} {onpointerdown} value="abcd" />
+			<Toolbar.Button data-testid="button2" />
+		</Toolbar.Root>
+	</DirectionProvider>
 {:else if scenario === 'input-after'}
 	<div>
 		<Toolbar.Root>

@@ -1,8 +1,7 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/toolbar/input/ToolbarInput.test.tsx and
 // packages/react/src/toolbar/separator/ToolbarSeparator.test.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// describeConformance and the Toolbar.Input caret and selection cases are not ported:
-// the toolbar composite has no text-field arrow exceptions yet.
+// describeConformance is not ported.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -98,6 +97,90 @@ describe('<Toolbar.Input />', () => {
 
 			expect(seen).toEqual(['pointerdown:false', 'click:false']);
 			await expect.element(input).not.toBeChecked();
+		});
+	});
+
+	describe('keyboard navigation', () => {
+		it.each([
+			['ltr', 'ArrowRight', 'ArrowLeft'],
+			['rtl', 'ArrowLeft', 'ArrowRight']
+		] as const)(
+			'respects caret and selection boundaries in horizontal %s toolbars',
+			async (direction, nextKey, previousKey) => {
+				render(ToolbarPartsHarness, { scenario: 'input', direction });
+				const input = page.getByTestId('input').element() as HTMLInputElement;
+				const before = page.getByTestId('button1');
+				const after = page.getByTestId('button2');
+
+				await userEvent.keyboard('{Tab}');
+				await userEvent.keyboard(`{${nextKey}}`);
+				await expect.element(input).toHaveFocus();
+
+				input.setSelectionRange(1, 3);
+				await userEvent.keyboard(`{${nextKey}}`);
+				await expect.element(input).toHaveFocus();
+
+				input.setSelectionRange(2, 2);
+				await userEvent.keyboard(`{Shift>}{${nextKey}}{/Shift}`);
+				await expect.element(input).toHaveFocus();
+
+				input.setSelectionRange(4, 4);
+				await userEvent.keyboard(`{${nextKey}}`);
+				await expect.element(after).toHaveFocus();
+
+				await userEvent.keyboard(`{${previousKey}}`);
+				await expect.element(input).toHaveFocus();
+				input.setSelectionRange(0, 0);
+				await userEvent.keyboard(`{${previousKey}}`);
+				await expect.element(before).toHaveFocus();
+			}
+		);
+
+		it('moves the caret mid-text and leaves at the edges', async () => {
+			render(ToolbarPartsHarness, { scenario: 'input' });
+			const input = page.getByTestId('input').element() as HTMLInputElement;
+			const caretAfter = async (key: string) => {
+				await userEvent.keyboard(key);
+				return [document.activeElement?.getAttribute('data-testid'), input.selectionStart];
+			};
+
+			input.focus();
+			input.setSelectionRange(2, 2);
+			expect(await caretAfter('{ArrowLeft}')).toEqual(['input', 1]);
+			expect(await caretAfter('{ArrowLeft}')).toEqual(['input', 0]);
+			expect(await caretAfter('{ArrowLeft}')).toEqual(['button1', 0]);
+
+			input.focus();
+			input.setSelectionRange(2, 2);
+			expect(await caretAfter('{ArrowRight}')).toEqual(['input', 3]);
+			expect(await caretAfter('{ArrowRight}')).toEqual(['input', 4]);
+			expect(await caretAfter('{ArrowRight}')).toEqual(['button2', 4]);
+		});
+
+		it.each([
+			['horizontal', 'ArrowRight', 'ArrowLeft'],
+			['vertical', 'ArrowDown', 'ArrowUp']
+		] as const)('orientation: %s', async (orientation, nextKey, previousKey) => {
+			render(ToolbarPartsHarness, { scenario: 'input', orientation });
+			const input = page.getByTestId('input').element() as HTMLInputElement;
+
+			await userEvent.keyboard('{Tab}');
+			await expect.element(page.getByTestId('button1')).toHaveFocus();
+
+			await userEvent.keyboard(`{${nextKey}}`);
+			await expect.element(input).toHaveFocus();
+			expect([input.selectionStart, input.selectionEnd]).toEqual([0, 4]);
+
+			await userEvent.keyboard('{ArrowRight}');
+			await userEvent.keyboard(`{${nextKey}}`);
+			await expect.element(page.getByTestId('button2')).toHaveFocus();
+
+			await userEvent.keyboard(`{${previousKey}}`);
+			await expect.element(input).toHaveFocus();
+
+			await userEvent.keyboard('{ArrowLeft}');
+			await userEvent.keyboard(`{${previousKey}}`);
+			await expect.element(page.getByTestId('button1')).toHaveFocus();
 		});
 	});
 

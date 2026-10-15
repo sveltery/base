@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import CompositeClaimHarness from '../../tests/CompositeClaimHarness.svelte';
 import CompositeRootHarness from '../../tests/CompositeRootHarness.svelte';
+import CompositeScrollHarness from '../../tests/CompositeScrollHarness.svelte';
 
 function stops(role: string) {
 	return [...document.querySelectorAll(`[role="${role}"]`)].filter(
@@ -89,5 +90,72 @@ describe('composite root', () => {
 		expect(JSON.parse(page.getByTestId('flush').element().textContent ?? '[]')).toEqual([
 			{ value: 'a', shiftKey: true }
 		]);
+	});
+});
+
+describe('composite root scroll into view', () => {
+	const list = () => page.getByTestId('list').element() as HTMLElement;
+
+	async function scrollAfter(key: string) {
+		await userEvent.keyboard(key);
+		return list().scrollLeft;
+	}
+
+	it('aligns the edge of a keyboard-highlighted tab with the scrolled list', async () => {
+		render(CompositeScrollHarness, { scenario: 'tabs' });
+		await userEvent.keyboard('{Tab}');
+		expect(document.activeElement?.textContent).toBe('0');
+
+		expect(await scrollAfter('{ArrowRight}')).toBe(0);
+		expect(await scrollAfter('{ArrowRight}')).toBe(50);
+		expect(await scrollAfter('{End}')).toBe(400);
+		expect(await scrollAfter('{ArrowLeft}')).toBe(400);
+		expect(await scrollAfter('{Home}')).toBe(0);
+	});
+
+	it('scrolls toward the inline start in a right-to-left list', async () => {
+		render(CompositeScrollHarness, { scenario: 'tabs', direction: 'rtl' });
+		await userEvent.keyboard('{Tab}');
+
+		expect(await scrollAfter('{ArrowLeft}')).toBe(0);
+		expect(await scrollAfter('{ArrowLeft}')).toBe(-50);
+		expect(await scrollAfter('{End}')).toBe(-400);
+	});
+
+	it('reveals the selected tab when the list mounts', async () => {
+		render(CompositeScrollHarness, { scenario: 'tabs', value: 9 });
+		await expect.poll(() => list().scrollLeft).toBe(400);
+	});
+
+	it('scrolls a vertical list on the block axis only', async () => {
+		render(CompositeScrollHarness, { scenario: 'toggle-group' });
+		await userEvent.keyboard('{Tab}');
+
+		await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+		expect([list().scrollTop, list().scrollLeft]).toEqual([50, 0]);
+		await userEvent.keyboard('{End}');
+		expect(list().scrollTop).toBe(400);
+	});
+});
+
+describe('composite root text fields', () => {
+	it('lets arrows move the caret in a text field inside a radio group until it reaches the edge', async () => {
+		render(CompositeScrollHarness, { scenario: 'radio-input' });
+		const input = page.getByTestId('other').element() as HTMLInputElement;
+
+		input.focus();
+		expect([input.selectionStart, input.selectionEnd]).toEqual([0, 4]);
+
+		input.setSelectionRange(2, 2);
+		await userEvent.keyboard('{ArrowRight}');
+		expect(document.activeElement).toBe(input);
+		expect(input.selectionStart).toBe(3);
+
+		await userEvent.keyboard('{ArrowRight}');
+		expect(document.activeElement).toBe(input);
+		expect(input.selectionStart).toBe(4);
+
+		await userEvent.keyboard('{ArrowRight}');
+		expect(document.activeElement).toBe(page.getByRole('radio', { name: 'b' }).element());
 	});
 });
