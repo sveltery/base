@@ -260,7 +260,7 @@ To render tabs as links, set `nativeButton={false}` and pass a `render` snippet.
 - Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
 - `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`. `children` is undefined when no content is passed, so call `children?.()`.
 - Handlers use Svelte's lowercase names, such as `onclick` and `onkeydown`. Call `event.preventDefault()` in a handler on `Tabs.Tab` to skip the tab's own handler.
-- A tab activates from the keyboard when you release Space or press Enter. A disabled tab ignores Enter and Space, but the arrow keys still move focus through it.
+- A disabled tab ignores Enter and Space, but the arrow keys still move focus through it.
 - The arrow keys follow the reading direction from a [Direction Provider](/utils/direction-provider). In `rtl`, the left arrow moves to the next tab.
 - `Tabs.Indicator` accepts `renderBeforeHydration` and ignores it. It renders no script before hydration, so the indicator appears after the page hydrates. Nothing scrolls the focused tab into view, and the parts take no `ref`.
 

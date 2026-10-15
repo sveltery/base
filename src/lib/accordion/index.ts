@@ -13,3 +13,4 @@ export const Accordion = {
 };
 
 export type * from './types.js';
+export * from './data-attributes.js';

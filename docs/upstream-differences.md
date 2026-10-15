@@ -41,7 +41,7 @@ Test: `src/tests/controllable-root-cases.ts`, `src/lib/tabs/Tabs.svelte.spec.ts`
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`. `useButton` infers composite mode from a `CompositeRootContext`. In development it logs an error once after mount, and again when `nativeButton` changes, if the host tag does not match `nativeButton`. The message ends with React's owner stack. A disabled composite button that renders another button clears that inner button's `disabled` property.
 
-Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, Checkbox, Switch, Radio, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself, and only Toolbar.Button sets it. Tabs.Tab clicks on Space keyup, where upstream infers composite mode inside Tabs.List and clicks on keydown. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack. The inner `disabled` clearing is not ported. No port renders a button inside a composite button yet.
+Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, Checkbox, Switch, Radio, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack. The inner `disabled` clearing is not ported.
 
 Test: `src/lib/internal/button.spec.ts`. `src/lib/button/Button.svelte.spec.ts` (`nativeButton mismatch`).
 
@@ -197,7 +197,7 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`leaves both triggers unassociated
 
 Source: Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`), `packages/react/src/alert-dialog`. Upstream `AlertDialog.Root` calls the Dialog root setup in `alert-dialog` mode: `modal` is always `true`, pointer dismissal is disabled, and the popup role is `alertdialog`. Every other part is the Dialog part. `AlertDialog.Handle` extends `Dialog.Handle` with a type-only brand.
 
-Local: `AlertDialog.Root` calls the same `createDialogRoot` setup as `Dialog.Root` (`src/lib/dialog/root.svelte.ts`) with those three values. It takes `bind:open`, `bind:triggerId`, `onOpenChange`, `onOpenChangeComplete`, `handle`, and the `children` snippet, and has no `modal` or `disablePointerDismissal` prop. `bind:this` gives `close()` and `unmount()` in place of `actionsRef`. The other parts are the Dialog components, and their prop types are exported under `AlertDialog*` names. `AlertDialog.Trigger` renders `Dialog.Trigger` and takes an `AlertDialogHandle`, so a `Dialog.Handle` does not type-check on an alert dialog. Handle warnings name `Dialog.Handle`, as upstream's reused `DialogHandle` does. Upstream v1.9.0 exports `AlertDialogBackdropDataAttributes`, `AlertDialogPopupCssVariables` and the other attribute namespaces. Dialog exports no such namespaces in this port, so Alert Dialog does not either.
+Local: `AlertDialog.Root` calls the same `createDialogRoot` setup as `Dialog.Root` (`src/lib/dialog/root.svelte.ts`) with those three values. It takes `bind:open`, `bind:triggerId`, `onOpenChange`, `onOpenChangeComplete`, `handle`, and the `children` snippet, and has no `modal` or `disablePointerDismissal` prop. `bind:this` gives `close()` and `unmount()` in place of `actionsRef`. The other parts are the Dialog components, and their prop types are exported under `AlertDialog*` names. `AlertDialog.Trigger` renders `Dialog.Trigger` and takes an `AlertDialogHandle`, so a `Dialog.Handle` does not type-check on an alert dialog. Handle warnings name `Dialog.Handle`, as upstream's reused `DialogHandle` does.
 
 Test: `src/lib/alert-dialog/AlertDialog.svelte.spec.ts`, `src/lib/alert-dialog/ssr.spec.ts`, `src/routes/fixtures/alert-dialog/alert-dialog.e2e.ts`.
 
@@ -217,7 +217,6 @@ Local: `Drawer.Root` calls the same `createDialogRoot` setup as `Dialog.Root` wi
 
 - `snapPoint` cannot be told apart as controlled or uncontrolled. A value outside `snapPoints` resolves to the closest snap point, or to closed when it does not parse, which is upstream's controlled behavior. `defaultSnapPoint` stays as a prop, because a drawer returns to it when it closes.
 - `DrawerChangeEventDetails` and `DrawerSnapPointChangeEventDetails` do not narrow `event` by `reason`, the same as Dialog.
-- The `DrawerPopupCssVars`, `DrawerBackdropCssVars`, `DrawerViewportCssVars`, and `*DataAttributes` namespaces are not exported, the same as Dialog and Alert Dialog. The variable and attribute names are the same.
 - Portaled content bubbles through the DOM. A React portal bubbles synthetic events to its React ancestors, so a node portaled out of a drawer still reaches the drawer's touch handlers upstream. Here it does not, and only the document capture listener sees it.
 - Svelte delegates touch and pointer events and walks `composedPath()`. A touch event whose composed path starts at `window` never reaches the viewport, where upstream falls back to the viewport as the target.
 
@@ -284,7 +283,6 @@ Source: `packages/react/src/tooltip` at Base UI v1.9.0, commit `ad7ecda5296b0295
 | `Tooltip.createHandle()`                                 | `Tooltip.createHandle()`, and `createTooltipHandle` as a named export                                    |
 | `children` render function `{ payload }`                 | snippet argument `{ payload }`                                                                           |
 | `useDismiss` `referencePress`                            | the trigger-press close lives in `TooltipRootInteractions.svelte`, because `DismissInteraction` has none |
-| `*DataAttributes` and `*CssVars` enums                   | not exported, as for Popover                                                                             |
 
 The popup has no `role` and the trigger has no `aria-describedby` or `type`, as upstream renders them.
 
@@ -304,9 +302,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `defaultOpen`, `defaultTriggerId`, `actionsRef`, and the `PreviewCardPopupDataAttributes`, `PreviewCardPositionerCssVars` and similar namespaces. `PreviewCard.createHandle` is the only handle factory.
+Upstream: `defaultOpen`, `defaultTriggerId`, and `actionsRef`. `PreviewCard.createHandle` is the only handle factory.
 
-Local: `open` and `triggerId` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The data-attribute and CSS-variable namespaces are not exported. The attribute names come from the shared state mappings. `createHandle` exists as `PreviewCard.createHandle` and `createPreviewCardHandle`. There is no top-level `createHandle`, because Popover already exports that name from the library barrel.
+Local: `open` and `triggerId` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The attribute names come from the shared state mappings. `createHandle` exists as `PreviewCard.createHandle` and `createPreviewCardHandle`. There is no top-level `createHandle`, because Popover already exports that name from the library barrel.
 
 ### Payload and close delay are read from the active trigger
 
@@ -350,9 +348,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `value` and `defaultValue`, `actionsRef`, the `NavigationMenu*DataAttributes` and `NavigationMenu*CssVars` namespaces.
+Upstream: `value` and `defaultValue`, and `actionsRef`.
 
-Local: `value` is `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The namespaces are not exported.
+Local: `value` is `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`.
 
 ### Content moves into the viewport by an attachment
 
@@ -496,7 +494,7 @@ Local: `Menubar` takes the same props. The namespace is not exported. The attrib
 
 Upstream: a trigger lends its floating tree, node id and parent node id to the detached menu it opens. The menu's nodes then live in the menubar's tree.
 
-Local: a menubar trigger that owns a detached menu sets the menu's parent to the menubar, and `MenuStore.tree` follows that parent. `MenuStore.parentNodeId` takes the menubar's node when no menu encloses the root, as upstream's trigger forwards its ids to such a root, so detached roots inside a dialog or popover still act as menubar siblings. A plain `Menu.Root` inside a menubar menu's popup keeps that menu's node, so it opens beside it instead of replacing it as a sibling. A `ContextMenu` inside a menubar menu's popup is the context menu's own root, as upstream (`MenuRoot.tsx:283-300`). The menu emits and hears `menuopenchange`, `itemhover` and `close` on the menubar's event channel, so separate detached menus close each other with `sibling-open` and the menubar keeps `data-has-submenu-open`. Svelte context does not change after init, so the menu's floating nodes stay in the tree its root was created in. The focus manager, dismiss and hover hooks read that tree.
+Local: the trigger that owns a menu sets the menu's parent (the menubar, or none) and its floating parent node, as upstream's trigger data forwarding (`MenuTrigger.tsx:92-105`). A handle trigger opens its handle's menu even inside another menu's popup (`MenuTrigger.tsx:67-68`). `MenuStore.tree` follows the parent. `MenuStore.parentNodeId` takes the trigger's node, except that the root supplies its own when it is a context menu's root, when a menu encloses it, or while no trigger is active (`MenuRoot.tsx:283-300`). A context menu's root also keeps its own parent. The menu's node is registered by its root but published to descendants by its positioner, as upstream's `<FloatingNode>`, so a trigger inside its own root reports the node above it. A handle trigger inside a menubar menu's popup therefore opens its menu as that menu's child, not as a menubar sibling. A plain `Menu.Root` inside a menubar menu's popup keeps that menu's node, and a `ContextMenu` there is the context menu's own root. The menu emits and hears `menuopenchange`, `itemhover` and `close` on the menubar's event channel, so separate detached menus close each other with `sibling-open` and the menubar keeps `data-has-submenu-open`. The menu's floating node stays in the tree its root was created in, because the focus manager, dismiss and hover hooks take their tree from context when they are built, where upstream passes the forwarded tree to them. So a press inside a detached menu opened from a menubar menu's popup reaches that menubar menu's outside-press check, which closes it with `outside-press` where upstream closes it with `item-press`.
 
 ### Menu open events are emitted before the DOM update
 
@@ -692,9 +690,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `value`/`defaultValue`/`onValueChange` hold the input text, with `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, the `Autocomplete.Item` `index` prop, a `ReactNode` or function `Autocomplete.Value` child, the item type taken from the `ItemValue` type argument, and the `*DataAttributes` namespaces of each part.
+Upstream: `value`/`defaultValue`/`onValueChange` hold the input text, with `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, the `Autocomplete.Item` `index` prop, a `ReactNode` or function `Autocomplete.Value` child, and the item type taken from the `ItemValue` type argument.
 
-Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef`, the item `index` prop and the data-attribute namespaces are not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
+Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef` and the item `index` prop are not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
 
 Test: `src/lib/autocomplete/types.test-d.ts`, `src/lib/autocomplete/AutocompleteValue.svelte.spec.ts`.
 
@@ -754,29 +752,29 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | Progress           | refs                                                                                                   |
 | Form               | Fieldset Form-spec cases; `actionsRef`                                                                 |
 | RadioGroup         | scroll-into-view, text-field arrow exceptions                                                          |
-| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, shadow-boundary offsets, refs    |
+| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, refs                             |
 | Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers |
 | NumberField        | refs                                                                                                   |
 | ScrollArea         | refs                                                                                                   |
-| Slider             | refs, keeping the prehydration script body out of client bundles                                       |
+| Slider             | refs, the prehydration `<script>` stays in the DOM after hydration (empty in client-only mounts)       |
 | DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                             |
 | OTPField           | refs, React controlled lock                                                                            |
 | CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                          |
 | Overlay foundation | Internal only. No public component                                                                     |
 | Popover            | `actionsRef`, refs                                                                                     |
 | Dialog             | ref objects                                                                                            |
-| AlertDialog        | ref objects, the `*DataAttributes` and `*CssVariables` namespaces                                      |
+| AlertDialog        | ref objects                                                                                            |
 | Tooltip            | refs                                                                                                   |
-| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, data-attribute and CSS-variable namespaces, refs      |
-| NavigationMenu     | `defaultValue`, `actionsRef`, data-attribute and CSS-variable namespaces, refs                         |
-| Drawer             | ref objects, the `*CssVars` and `*DataAttributes` namespaces                                           |
+| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, refs                                                  |
+| NavigationMenu     | `defaultValue`, `actionsRef`, refs                                                                     |
+| Drawer             | ref objects                                                                                            |
 | Menu               | `actionsRef`, refs                                                                                     |
 | Menubar            | the `MenubarDataAttributes` namespace, refs                                                            |
 | ContextMenu        | `actionsRef`, the `*DataAttributes` and `*CssVariables` namespaces, refs                               |
 | Toast              | refs, `className` and `style` callbacks                                                                |
 | Select             | `inputRef`, `ReactNode` labels and placeholder                                                         |
 | Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder                            |
-| Autocomplete       | `inputRef`, Item `index`, `ReactNode` value children, data-attribute namespaces                        |
+| Autocomplete       | `inputRef`, Item `index`, `ReactNode` value children                                                   |
 
 ## Shared floating internals
 
