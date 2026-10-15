@@ -87,7 +87,6 @@ The separator has `role="separator"`, so screen readers announce it. If a line i
 - Parts take `class` and a `style` string, not functions of state. Style the orientation with `data-[orientation=vertical]`.
 - `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
 - Handlers use Svelte's lowercase names, such as `onclick`.
-- `Toolbar` has no separator part yet, and Menu and Select are not ported. Use `Separator` where you need a divider.
 - The props you pass are spread after the ones the part sets, so a value you give for `role` or `aria-orientation` wins.
 
 ## API reference
