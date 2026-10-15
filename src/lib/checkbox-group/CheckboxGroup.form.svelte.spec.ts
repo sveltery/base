@@ -1,7 +1,7 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/checkbox-group/CheckboxGroup.test.tsx
 // ("Form values") and `getFormValue` in CheckboxGroup.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// The three portal cases are not ported: they render through ReactDOM.createPortal.
+// `createPortal` becomes an attachment that moves the checkbox out of the `<form>`.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
@@ -72,12 +72,55 @@ describe('CheckboxGroup in a Form', () => {
 		expect(output('values')).toBe('{"fruits":["apple"],"other":"value"}');
 	});
 
+	it('includes a context-portaled checkbox without native form association', async () => {
+		render(CheckboxGroupFormHarness, { scenario: 'portal-checkbox' });
+		await submit();
+
+		expect(output('values')).toBe('{"fruits":["apple"]}');
+	});
+
+	it('includes a group fully portaled outside the form element', async () => {
+		render(CheckboxGroupFormHarness, { scenario: 'portal-group' });
+		await submit();
+
+		expect(output('values')).toBe('{"fruits":["apple"]}');
+	});
+
+	it('includes a portaled checkbox explicitly associated with the Form', async () => {
+		render(CheckboxGroupFormHarness, { scenario: 'portal-form-attr' });
+		await submit();
+
+		expect(output('values')).toBe('{"fruits":["apple"]}');
+	});
+
 	it('omits checkboxes disabled by a fieldset', async () => {
 		render(CheckboxGroupFormHarness, { scenario: 'fieldset' });
 		await submit();
 
 		expect(output('other')).toBe('["apple"]');
 		expect(output('values')).toBe('{"fruits":["apple"],"other":"value"}');
+	});
+
+	it('validates and focuses required portaled checkboxes within the form', async () => {
+		render(CheckboxGroupFormHarness, { scenario: 'portal-required' });
+		const portaled = page.getByTestId('portaled');
+		await submit();
+
+		expect(output('submits')).toBe('0');
+		await expect.element(portaled).toHaveFocus();
+
+		(portaled.element() as HTMLElement).click();
+		await expect.element(portaled).toHaveAttribute('aria-checked', 'true');
+		await submit();
+
+		expect(output('submits')).toBe('1');
+	});
+
+	it('ignores a checkbox portaled into another form without a form attribute', async () => {
+		render(CheckboxGroupFormHarness, { scenario: 'portal-other-form' });
+		await submit();
+
+		expect(output('submits')).toBe('1');
 	});
 
 	describe('native Svelte', () => {
