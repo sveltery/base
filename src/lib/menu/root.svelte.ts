@@ -107,9 +107,6 @@ export function createMenuRoot(options: MenuRootOptions): MenuStore {
 		parent,
 		rootId: `base-ui-${options.id}-root`,
 		tree,
-		// As upstream's trigger takes the enclosing `floatingTreeRoot`, a root inside another menu's
-		// popup joins that menu's group.
-		menuEvents: enclosing?.menuEvents,
 		parentNodeId,
 		enclosed: enclosing != null,
 		readDisabled: options.readDisabled,
