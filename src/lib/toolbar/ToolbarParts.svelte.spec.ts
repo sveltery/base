@@ -81,6 +81,24 @@ describe('<Toolbar.Input />', () => {
 			await input.click();
 			await expect.element(input).toBeChecked();
 		});
+
+		it('runs consumer click and pointerdown handlers before preventing them while disabled', async () => {
+			const seen: string[] = [];
+			const record = (event: Event) => seen.push(`${event.type}:${event.defaultPrevented}`);
+			render(ToolbarPartsHarness, {
+				scenario: 'input',
+				type: 'checkbox',
+				disabled: true,
+				onclick: record,
+				onpointerdown: record
+			});
+			const input = page.getByRole('checkbox');
+
+			await input.click({ force: true });
+
+			expect(seen).toEqual(['pointerdown:false', 'click:false']);
+			await expect.element(input).not.toBeChecked();
+		});
 	});
 
 	describe('disabled', () => {

@@ -1,8 +1,9 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/toolbar/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // The Dialog, Popover, Menu, Switch, and Toggle and ToggleGroup blocks of
-// ToolbarButton.test.tsx follow Base UI v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
-// Toolbar.Input is in ToolbarParts.svelte.spec.ts. describeConformance, rendering
+// ToolbarButton.test.tsx, and the disabled Toolbar.Input case of ToolbarRoot.test.tsx, follow
+// Base UI v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// Toolbar.Input's own cases are in ToolbarParts.svelte.spec.ts. describeConformance, rendering
 // AlertDialog or Select, and the Menu cases other than "disabled state" are not ported.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';
@@ -195,6 +196,17 @@ describe('<Toolbar.Root />', () => {
 			await expect.element(two).toHaveFocus();
 			await userEvent.keyboard('{ArrowRight}');
 			await expect.element(button('Three')).toHaveFocus();
+		});
+
+		it('skips a disabled Toolbar.Input with focusableWhenDisabled={false}', async () => {
+			render(ToolbarHarness, { scenario: 'skip-input' });
+
+			await userEvent.keyboard('{Tab}');
+			await expect.element(button('One')).toHaveFocus();
+
+			await userEvent.keyboard('{ArrowRight}');
+			await expect.element(page.getByRole('textbox')).not.toHaveFocus();
+			await expect.element(button('Two')).toHaveFocus();
 		});
 	});
 });
@@ -747,6 +759,39 @@ describe('native Svelte', () => {
 		await userEvent.keyboard('{ArrowLeft}');
 		await expect.element(page.getByTestId('two')).toHaveFocus();
 		await expect.poll(tabindexes).toEqual(['-1', '-1', '0', '-1']);
+	});
+
+	it('skips a disabled non-native Toolbar.Button with focusableWhenDisabled={false}', async () => {
+		render(ToolbarHarness, { scenario: 'skip-span' });
+		await expect.element(button('Span')).toHaveAttribute('aria-disabled', 'true');
+
+		await userEvent.keyboard('{Tab}');
+		await expect.element(button('One')).toHaveFocus();
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.element(button('Two')).toHaveFocus();
+		await userEvent.keyboard('{ArrowLeft}');
+		await expect.element(button('One')).toHaveFocus();
+	});
+
+	it('skips a disabled non-native Toggle in a ToggleGroup', async () => {
+		render(ToolbarRenderHarness, { scenario: 'span-toggle' });
+		await expect.element(page.getByTestId('one')).toHaveAttribute('aria-disabled', 'true');
+
+		await userEvent.keyboard('{Tab}');
+		await expect.element(page.getByTestId('before')).toHaveFocus();
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.element(page.getByTestId('after')).toHaveFocus();
+	});
+
+	it('focusing a Toggle rendered by a Toolbar.Button moves the tab stop onto it', async () => {
+		render(ToolbarRenderHarness, { scenario: 'toggle-after' });
+		const toggle = page.getByTestId('toggle');
+		await expect.element(page.getByTestId('before')).toHaveAttribute('tabindex', '0');
+
+		await toggle.click();
+		await expect.element(toggle).toHaveFocus();
+		await expect.element(toggle).toHaveAttribute('tabindex', '0');
+		await expect.element(page.getByTestId('before')).toHaveAttribute('tabindex', '-1');
 	});
 
 	it('activates a native button once from Space, Enter, and click', async () => {

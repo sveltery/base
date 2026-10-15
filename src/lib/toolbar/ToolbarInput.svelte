@@ -47,13 +47,14 @@
 		...elementProps,
 		...getStateAttributesProps(inputState),
 		'aria-disabled': disabledState || undefined,
+		// The consumer sees the event before the disabled prevent, as in upstream mergeProps.
 		onclick: (event) => {
-			preventWhenDisabled(event);
 			onclick?.(event);
+			preventWhenDisabled(event);
 		},
 		onpointerdown: (event) => {
-			preventWhenDisabled(event);
 			onpointerdown?.(event);
+			preventWhenDisabled(event);
 		},
 		onkeydown: (event) => {
 			// A focusable disabled input lets Tab leave and blocks every other key's default.

@@ -136,7 +136,7 @@ Pass a `render` snippet to replace the element of a part. Set `nativeButton={fal
 - The arrow keys follow the reading direction from a [Direction Provider](/utils/direction-provider). In `rtl`, the left arrow moves to the next item.
 - The arrow keys in `Toolbar.Input` always move to the next or previous item. Base UI keeps them in the text field until the caret reaches its start or end.
 - `Toolbar.Input` takes a plain `value`, not `bind:value`.
-- A popup trigger inside a toolbar works as itself but does not join the toolbar's arrow key order. Nothing scrolls the focused item into view, and the parts take no `ref`.
+- A popup trigger placed directly in a toolbar, not rendered through `Toolbar.Button`, works as itself but does not join the toolbar's arrow key order. Nothing scrolls the focused item into view, and the parts take no `ref`.
 
 ## API reference
 

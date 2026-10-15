@@ -1,7 +1,9 @@
 <!--
 	A two-state button that can be on or off. Renders a `<button>` element.
 	Derived from Base UI v1.8.0 packages/react/src/toggle/Toggle.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). `nativeButton` and the toolbar item
+	metadata follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+	MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -91,8 +93,10 @@
 
 	// An outer composite item, such as a Toolbar.Button that renders this Toggle, passes its
 	// own tabindex and registration in `elementProps`, and those win over the group's.
+	// In a group, the group's focus handler replaces `onfocus` and calls it first.
 	const hostProps: HTMLButtonAttributes = $derived(
 		button.props({
+			onfocus,
 			onkeydown,
 			...(claim &&
 				group?.roving.item(

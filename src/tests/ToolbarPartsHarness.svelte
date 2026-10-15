@@ -14,6 +14,8 @@
 		separatorOrientation,
 		disabled = false,
 		type,
+		onclick,
+		onpointerdown,
 		onValueChange
 	}: {
 		scenario: 'separator' | 'input' | 'input-after' | 'number';
@@ -21,6 +23,8 @@
 		separatorOrientation?: ToolbarOrientation;
 		disabled?: boolean;
 		type?: string;
+		onclick?: (event: MouseEvent) => void;
+		onpointerdown?: (event: PointerEvent) => void;
 		onValueChange?: (value: number | null) => void;
 	} = $props();
 </script>
@@ -36,7 +40,7 @@
 {:else if scenario === 'input'}
 	<Toolbar.Root {orientation}>
 		<Toolbar.Button data-testid="button1" />
-		<Toolbar.Input data-testid="input" {type} {disabled} value="abcd" />
+		<Toolbar.Input data-testid="input" {type} {disabled} {onclick} {onpointerdown} value="abcd" />
 		<Toolbar.Button data-testid="button2" />
 	</Toolbar.Root>
 {:else if scenario === 'input-after'}

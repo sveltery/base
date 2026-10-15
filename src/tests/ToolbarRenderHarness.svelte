@@ -18,7 +18,16 @@
 		onValueChange,
 		onOpenChange
 	}: {
-		scenario: 'button' | 'menu' | 'switch' | 'toggles' | 'direct' | 'group-disabled' | 'mixed';
+		scenario:
+			| 'button'
+			| 'menu'
+			| 'switch'
+			| 'toggles'
+			| 'direct'
+			| 'group-disabled'
+			| 'mixed'
+			| 'toggle-after'
+			| 'span-toggle';
 		disabled?: boolean;
 		multiple?: boolean;
 		twoDisabled?: boolean;
@@ -83,6 +92,21 @@
 			<Toggle value="two" data-testid="two" disabled={twoDisabled} />
 			<Toggle value="three" data-testid="three" />
 		</ToggleGroup>
+	{:else if scenario === 'toggle-after'}
+		<Toolbar.Button data-testid="before" />
+		<Toolbar.Button data-testid="toggle">
+			{#snippet render(props)}
+				<Toggle {...props} />
+			{/snippet}
+		</Toolbar.Button>
+	{:else if scenario === 'span-toggle'}
+		<Toolbar.Button data-testid="before" />
+		<ToggleGroup>
+			<Toggle value="one" data-testid="one" nativeButton={false} disabled>
+				{#snippet render(props)}<span {...props}>One</span>{/snippet}
+			</Toggle>
+		</ToggleGroup>
+		<Toolbar.Button data-testid="after" />
 	{:else if scenario === 'mixed'}
 		<Toolbar.Button data-testid="before" />
 		<ToggleGroup>
