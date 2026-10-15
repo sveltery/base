@@ -2,6 +2,7 @@ import noClonedEvent from './no-cloned-event.js';
 import noDerivedInlineAttachment from './no-derived-inline-attachment.js';
 import noLayoutReadInDerived from './no-layout-read-in-derived.js';
 import noUnscopedTimer from './no-unscoped-timer.js';
+import noUnseenHandlerPrevention from './no-unseen-handler-prevention.js';
 import noPreviousValueEffect from './no-previous-value-effect.js';
 import noProcessEnv from './no-process-env.js';
 import noPropStateSync from './no-prop-state-sync.js';
@@ -20,6 +21,7 @@ const plugin = {
 		'no-derived-inline-attachment': noDerivedInlineAttachment,
 		'no-layout-read-in-derived': noLayoutReadInDerived,
 		'no-unscoped-timer': noUnscopedTimer,
+		'no-unseen-handler-prevention': noUnseenHandlerPrevention,
 		'no-previous-value-effect': noPreviousValueEffect,
 		'no-process-env': noProcessEnv,
 		'no-prop-state-sync': noPropStateSync,
