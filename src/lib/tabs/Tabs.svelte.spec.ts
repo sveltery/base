@@ -6,6 +6,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import TabsHarness from '../../tests/TabsHarness.svelte';
+import PreventedHandlerHarness from '../../tests/PreventedHandlerHarness.svelte';
 import TabsShadowScrollHarness from '../../tests/TabsShadowScrollHarness.svelte';
 import { Tabs } from './index.js';
 
@@ -667,5 +668,23 @@ describe('Tabs', () => {
 			await page.getByRole('button', { name: 'Set zero' }).click();
 			await expect.element(tab('One')).toHaveAttribute('aria-selected', 'true');
 		});
+	});
+});
+
+describe('Tabs.Tab consumer preventDefault', () => {
+	it('skips activating on focus when onfocus calls preventDefault', async () => {
+		render(PreventedHandlerHarness, {
+			part: 'tabs',
+			handlers: { onfocus: (event: Event) => event.preventDefault() }
+		});
+		await userEvent.click(page.getByRole('tab', { name: 'One' }));
+		await userEvent.keyboard('{ArrowRight}');
+		await expect.element(page.getByRole('tab', { name: 'Two' })).toHaveFocus();
+		await expect
+			.element(page.getByRole('tab', { name: 'Two' }))
+			.toHaveAttribute('aria-selected', 'false');
+		await expect
+			.element(page.getByRole('tab', { name: 'One' }))
+			.toHaveAttribute('aria-selected', 'true');
 	});
 });
