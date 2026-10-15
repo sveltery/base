@@ -14,6 +14,7 @@ import MenuProgrammaticHarness from '../../tests/menu/MenuProgrammaticHarness.sv
 import { testMenu } from '../../tests/menu/test-menu.js';
 import { enterWithMouse, mouse, moveMouse, pointer } from '../../tests/menu/mouse.js';
 import { items } from '../../tests/menu/types.js';
+import { inOneTypeaheadRun } from '../../tests/menu/typeahead.js';
 
 function menus() {
 	return [...document.querySelectorAll('[role="menu"]')];
@@ -451,7 +452,7 @@ for (const detached of [false, true]) {
 						})
 					);
 					item('Item One').focus();
-					await press('Item T');
+					await inOneTypeaheadRun(() => press('Item T'));
 					expect(onclick).not.toHaveBeenCalled();
 					await expect.poll(focused).toBe(item('Item Two'));
 				});
@@ -473,12 +474,14 @@ for (const detached of [false, true]) {
 						})
 					);
 					byTestId('submenu-trigger')!.focus();
-					await press('Add to p');
-					await expect.poll(focused).toBe(byTestId('submenu-trigger'));
-					await press('[Space]');
-					expect(byTestId('submenu')).toBeNull();
-					await press('[Space]');
-					expect(byTestId('submenu')).toBeNull();
+					await inOneTypeaheadRun(async () => {
+						await press('Add to p');
+						await expect.poll(focused).toBe(byTestId('submenu-trigger'));
+						await press('[Space]');
+						expect(byTestId('submenu')).toBeNull();
+						await press('[Space]');
+						expect(byTestId('submenu')).toBeNull();
+					});
 				});
 
 				it('opens a focused submenu trigger with Space when not typing', async () => {
@@ -501,7 +504,7 @@ for (const detached of [false, true]) {
 						})
 					);
 					item('Item 1').focus();
-					await press('Item 2');
+					await inOneTypeaheadRun(() => press('Item 2'));
 					expect(focused()).toBe(byTestId('item-2'));
 				});
 
@@ -524,7 +527,7 @@ for (const detached of [false, true]) {
 						})
 					);
 					item('Item 1').focus();
-					await press('Item 2');
+					await inOneTypeaheadRun(() => press('Item 2'));
 					expect(focused()).toBe(byTestId('submenu-trigger'));
 					expect(byTestId('submenu')).toBeNull();
 				});
