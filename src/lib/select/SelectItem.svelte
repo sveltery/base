@@ -108,7 +108,7 @@
 		}
 	});
 
-	function commitSelection(event: Event) {
+	function commitSelection(event: MouseEvent) {
 		// A popup held open by `bind:open` still receives activations on a disabled or
 		// read-only select.
 		const { disabled: rootDisabled, readOnly, multiple, value, isItemEqualToValue } = store.root;

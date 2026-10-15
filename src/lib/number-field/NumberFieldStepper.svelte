@@ -15,11 +15,7 @@
 	import { useNumberFieldContext } from './context.svelte.js';
 	import { isTouchLikePointerType, PressAndHold } from '../internal/usePressAndHold.svelte.js';
 	import { mergeCssStyle } from '../internal/css-style.js';
-	import type {
-		EventWithOptionalKeyState,
-		NumberFieldStepperProps,
-		NumberFieldStepperState
-	} from './types.js';
+	import type { NumberFieldStepperProps, NumberFieldStepperState } from './types.js';
 
 	const SELECT_NONE = '-webkit-user-select: none; user-select: none';
 	const releaseKey = createAttachmentKey();
@@ -64,7 +60,7 @@
 		getDisabled: () => disabled || model.options.getReadOnly(),
 		getElement: () => model.inputElement,
 		tick(triggerEvent) {
-			return model.incrementValue(model.getStepAmount(triggerEvent as EventWithOptionalKeyState), {
+			return model.incrementValue(model.getStepAmount(triggerEvent), {
 				direction: increment ? 1 : -1,
 				event: triggerEvent,
 				reason: pressReason

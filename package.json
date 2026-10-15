@@ -1,12 +1,15 @@
 {
 	"name": "@sveltery/base",
-	"version": "0.0.0",
-	"private": true,
+	"version": "0.1.0",
 	"description": "Experimental, unofficial Svelte 5 port of Base UI components.",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/sveltery/base.git"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
 	},
 	"type": "module",
 	"packageManager": "pnpm@12.6.0",

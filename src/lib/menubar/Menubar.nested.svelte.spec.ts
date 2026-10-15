@@ -25,14 +25,20 @@ async function settle() {
 	}
 }
 
+async function focusInPopup(id: string) {
+	await expect.poll(() => get(id).contains(document.activeElement)).toBe(true);
+	// The trigger's focus-out check runs in a 0ms timeout (upstream useFocus.ts:197). Timers of equal
+	// delay run in order, so this one runs after it, as any person's next action would.
+	await new Promise((resolve) => setTimeout(resolve, 0));
+}
+
 describe('a menu inside a menubar menu', () => {
 	it('opens a context menu and keeps the menubar menu open', async () => {
 		const log: string[] = [];
 		render(MenubarNestedHarness, { log, scenario: 'context-menu' });
 		clickElement(get('file-trigger'));
 		await expect.poll(() => isOpen('file')).toBe(true);
-		// Focus leaves the trigger for the popup before a person can right-click inside it.
-		await expect.poll(() => get('file').contains(document.activeElement)).toBe(true);
+		await focusInPopup('file');
 		contextMenu(get('ctx-trigger'), { clientX: 30, clientY: 30 });
 		await expect.poll(() => isOpen('ctx')).toBe(true);
 		await settle();
@@ -47,6 +53,7 @@ describe('a menu inside a menubar menu', () => {
 		render(MenubarNestedHarness, { log, scenario: 'menu' });
 		clickElement(get('file-trigger'));
 		await expect.poll(() => isOpen('file')).toBe(true);
+		await focusInPopup('file');
 		clickElement(get('inner-trigger'));
 		await expect.poll(() => isOpen('inner')).toBe(true);
 		await settle();

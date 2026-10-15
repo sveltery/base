@@ -15,7 +15,7 @@ import {
 	getTarget,
 	ScopedTimeout
 } from '@sveltery/utils';
-import { getNodeChildren } from '../components/FloatingTreeStore.js';
+import { getNodeChildren, type FloatingTreeStore } from '../components/FloatingTreeStore.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 
@@ -32,6 +32,8 @@ export interface UseDismissProps {
 	outsidePress?: boolean | ((event: MouseEvent | PointerEvent | TouchEvent) => boolean);
 	outsidePressEvent?: OutsidePressEvent;
 	bubbles?: boolean | { escapeKey?: boolean; outsidePress?: boolean };
+	/** The floating tree to use instead of the one from context. */
+	externalTree?: FloatingTreeStore | null;
 }
 
 function bubbleFlag(bubbles: UseDismissProps['bubbles'], key: 'escapeKey' | 'outsidePress') {
@@ -91,7 +93,8 @@ function onPress(node: HTMLElement, listener: (event: Event) => void) {
 }
 
 export class DismissInteraction {
-	readonly #tree = useFloatingTree();
+	readonly #contextTree = useFloatingTree();
+	readonly #tree: FloatingTreeStore | null;
 	readonly #compositionTimeout = new ScopedTimeout();
 	readonly #cancelDismissOnEndTimeout = new ScopedTimeout();
 	#composing = false;
@@ -115,6 +118,7 @@ export class DismissInteraction {
 		private readonly store: FloatingRootStore,
 		private readonly props: () => UseDismissProps = () => ({})
 	) {
+		this.#tree = $derived(props().externalTree ?? this.#contextTree);
 		for (const key of ['escapeKeyBubbles', 'outsidePressBubbles'] as const) {
 			Object.defineProperty(this.store.data, key, {
 				configurable: true,

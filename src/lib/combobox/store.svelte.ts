@@ -539,10 +539,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 			this.#lastHighlight = { value, index };
 		}
 		const callback = untrack(() => this.#options.onItemHighlighted());
-		callback?.(
-			value,
-			createGenericEventDetails(type, event, { index }) as ComboboxHighlightEventDetails
-		);
+		callback?.(value, createGenericEventDetails(type, event, { index }));
 	}
 
 	setInputValue(next: string, details: ComboboxChangeEventDetails) {

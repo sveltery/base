@@ -17,7 +17,7 @@ export function isTouchLikePointerType(pointerType: string) {
 export interface PressAndHoldOptions {
 	getDisabled: () => boolean;
 	getElement: () => HTMLElement | null;
-	tick: (triggerEvent?: Event) => boolean;
+	tick: (triggerEvent?: MouseEvent) => boolean;
 	onStop?: (nativeEvent: PointerEvent) => void;
 }
 
@@ -59,7 +59,7 @@ export class PressAndHold {
 		this.#movesAfterTouch = 0;
 	}
 
-	#startAutoChange(triggerNativeEvent?: Event) {
+	#startAutoChange(triggerNativeEvent?: MouseEvent) {
 		this.#stopAutoChange();
 		const element = this.options.getElement();
 		if (!element) return;

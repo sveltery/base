@@ -70,9 +70,9 @@ root({
 	onItemHighlighted: (_item, details: AutocompleteHighlightEventDetails) => {
 		if (details.reason === 'pointer') {
 			expectTypeOf(details.event).toEqualTypeOf<MouseEvent | PointerEvent>();
+		} else if (details.reason === 'keyboard') {
+			expectTypeOf(details.event).toEqualTypeOf<KeyboardEvent>();
 		} else {
-			// Upstream narrows `keyboard` to `KeyboardEvent`. The shared highlight details type here
-			// gives every other reason an `Event`.
 			expectTypeOf(details.event).toEqualTypeOf<Event>();
 		}
 	}

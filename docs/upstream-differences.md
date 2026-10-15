@@ -216,7 +216,6 @@ Source: Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`), `packages/r
 Local: `Drawer.Root` calls the same `createDialogRoot` setup as `Dialog.Root` with `drawer: true`, so an open drawer counts toward its parent's `nestedOpenDrawerCount` as well as the nested dialog count. `DrawerRootState` (`src/lib/drawer/root.svelte.ts`) holds the swipe and snap point state. The gesture is `src/lib/internal/useSwipeDismiss.svelte.ts`. Toast's swipe handling is a separate port and may later share it. `open`, `triggerId`, and `snapPoint` are `$bindable`. `bind:this` gives `close()` and `unmount()` in place of `actionsRef`.
 
 - `snapPoint` cannot be told apart as controlled or uncontrolled. A value outside `snapPoints` resolves to the closest snap point, or to closed when it does not parse, which is upstream's controlled behavior. `defaultSnapPoint` stays as a prop, because a drawer returns to it when it closes.
-- `DrawerChangeEventDetails` and `DrawerSnapPointChangeEventDetails` do not narrow `event` by `reason`, the same as Dialog.
 - Portaled content bubbles through the DOM. A React portal bubbles synthetic events to its React ancestors, so a node portaled out of a drawer still reaches the drawer's touch handlers upstream. Here it does not, and only the document capture listener sees it.
 - Svelte delegates touch and pointer events and walks `composedPath()`. A touch event whose composed path starts at `window` never reaches the viewport, where upstream falls back to the viewport as the target.
 
@@ -430,14 +429,6 @@ Upstream: `MenuFilterRoot` and `MenuFilterSubmenuRoot` are internal components t
 
 Local: they are the classes in `filter-root.svelte.ts` and `filter-submenu-root.svelte.ts`, which `Menu.Root` and `Menu.SubmenuRoot` create when a provider surrounds them. Neither is public, as upstream.
 
-### Return focus after a hover close
-
-Upstream: a hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
-
-Local: the shared `FloatingFocusManager` skips return focus after that close, and after a `focus-out` close that moves focus on itself, as upstream's `preventReturnFocusRef` does. It still calls a return function, as upstream does. `MenuPopup` also passes a `returnFocus` that returns `false` after that close before it calls a `finalFocus` function, so Menu does not call that function. Upstream calls it and ignores the result.
-
-Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`does not return focus to the element focused before a hover open when the pointer leaves`) and `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` (`calls a return focus function on a hover-leave close and keeps focus off the trigger`).
-
 ### Touch close guard
 
 Upstream: the touch `click` that follows a focus open is ignored after it reaches `onOpenChange`.
@@ -490,11 +481,11 @@ Upstream: `Menubar`.
 
 Local: `Menubar` takes the same props.
 
-### Detached menus take the menubar's tree for events only
+### Detached menus take their trigger's floating tree
 
 Upstream: a trigger lends its floating tree, node id and parent node id to the detached menu it opens. The menu's nodes then live in the menubar's tree.
 
-Local: the trigger that owns a menu sets the menu's parent (the menubar, or none) and its floating parent node, as upstream's trigger data forwarding (`MenuTrigger.tsx:92-105`). A handle trigger opens its handle's menu even inside another menu's popup (`MenuTrigger.tsx:67-68`). `MenuStore.tree` follows the parent. `MenuStore.parentNodeId` takes the trigger's node, except that the root supplies its own when it is a context menu's root, when a menu encloses it, or while no trigger is active (`MenuRoot.tsx:283-300`). A context menu's root also keeps its own parent. The menu's node is registered by its root but published to descendants by its positioner, as upstream's `<FloatingNode>`, so a trigger inside its own root reports the node above it. A handle trigger inside a menubar menu's popup therefore opens its menu as that menu's child, not as a menubar sibling. A plain `Menu.Root` inside a menubar menu's popup keeps that menu's node, and a `ContextMenu` there is the context menu's own root. The menu emits and hears `menuopenchange`, `itemhover` and `close` on the menubar's event channel, so separate detached menus close each other with `sibling-open` and the menubar keeps `data-has-submenu-open`. The menu's floating node stays in the tree its root was created in, because the focus manager, dismiss and hover hooks take their tree from context when they are built, where upstream passes the forwarded tree to them. So a press inside a detached menu opened from a menubar menu's popup reaches that menubar menu's outside-press check, which closes it with `outside-press` where upstream closes it with `item-press`.
+Local: the trigger that owns a menu sets the menu's parent (the menubar, or none) and its floating parent node, as upstream's trigger data forwarding (`MenuTrigger.tsx:92-105`). A handle trigger opens its handle's menu even inside another menu's popup (`MenuTrigger.tsx:67-68`). `MenuStore.tree` follows the parent. `MenuStore.parentNodeId` takes the trigger's node, except that the root supplies its own when it is a context menu's root, when a menu encloses it, or while no trigger is active (`MenuRoot.tsx:283-300`). A context menu's root also keeps its own parent. The menu's node is registered by its root but published to descendants by its positioner, as upstream's `<FloatingNode>`, so a trigger inside its own root reports the node above it. A handle trigger inside a menubar menu's popup therefore opens its menu as that menu's child, not as a menubar sibling. A plain `Menu.Root` inside a menubar menu's popup keeps that menu's node, and a `ContextMenu` there is the context menu's own root. The menu emits and hears `menuopenchange`, `itemhover` and `close` on the menubar's event channel, so separate detached menus close each other with `sibling-open` and the menubar keeps `data-has-submenu-open`. The root registers the menu's floating node in `MenuStore.tree`, and moves it when that tree changes. The menu passes the same tree to its dismiss, list navigation and focus manager as `externalTree`, as upstream does for a nested menu (`MenuRoot.tsx:511,542`, `MenuPopup.tsx:208`). A press inside a detached menu opened from a menubar menu's popup therefore counts as inside that menubar menu, which closes with `item-press`.
 
 ### Menu open events are emitted before the DOM update
 
@@ -717,14 +708,6 @@ Test: `src/lib/autocomplete/ssr.spec.ts`, `src/routes/fixtures/autocomplete/auto
 The Autocomplete port corrected four behaviors of `AriaCombobox` that Combobox shares. With no selection the input text always counts as provided, as upstream Autocomplete always passes `inputValue`, so a popup input does not clear it on mount. The popup listens for `focusin`, because React's `onFocus` bubbles, so focus moving into the list returns to the input. `submitOnItemClick` submits only when the form has `requestSubmit`. An input that owns the form value carries its default for a native reset.
 
 Test: `src/lib/autocomplete/AutocompleteRoot.svelte.spec.ts`, `src/lib/autocomplete/AutocompleteRoot.form.svelte.spec.ts`.
-
-### Event types
-
-Upstream: a `keyboard` highlight reason carries a `KeyboardEvent`.
-
-Local: it carries an `Event`, as the shared `BaseUIHighlightEventDetails` types it.
-
-Test: `src/lib/autocomplete/types.test-d.ts`.
 
 ### Not covered
 

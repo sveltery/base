@@ -19,7 +19,7 @@ for (const folder of Object.values(packages)) {
 	if (!fs.existsSync(source)) throw new Error(`Build packages/${folder} before bundling it.`);
 	fs.cpSync(source, path.join(bundled, folder), {
 		recursive: true,
-		filter: (file) => !/\.spec\.[^/]*$/.test(file)
+		filter: (file) => !/\.spec\.[^/]*$|[/\\]__tests__$/.test(file)
 	});
 }
 
