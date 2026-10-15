@@ -561,7 +561,7 @@ Set `modal` to `false` to leave the rest of the page usable. A non-modal dialog 
 - `actionsRef` is replaced by `bind:this` on `Dialog.Root`, which exposes `close()` and `unmount()`.
 - `initialFocus` and `finalFocus` take an element, a boolean, or a function. They do not take ref objects. A function returns an element, `null`, or a boolean. For `finalFocus`, returning `null` focuses the trigger.
 - Handlers use lowercase names, such as `onclick`. Call `event.preventDefault()` in a handler on `Dialog.Trigger` or `Dialog.Close` to skip its own handling.
-- `Dialog.Portal` renders a `div` that keeps `data-base-ui-portal` even if you pass your own value. The attribute lets the dialog tell the portal host from its content. A `container` of `null` does not mount the dialog until you set an element or shadow root.
+- A `Dialog.Portal` `container` of `null` does not mount the dialog until you set an element or shadow root.
 - For a panel that slides in from an edge and closes with a swipe, use [Drawer](/components/drawer). Refs are not supported.
 
 ## API reference

@@ -930,7 +930,7 @@ Bind the value to the library with `bind:value`, or with a getter and setter pai
 - `dirty` is true while the field is in `$tainted`.
 - `touched` is left out. Superforms does not track it, so Field marks a field touched on blur.
 
-Superforms' `enhance` is an action, so `fromAction` turns it into an attachment on Form. The enhanced form shows errors on submit, then updates them as the user types. Superforms' validation on blur does not run for `Field.Control`, because Field.Control receives input through a delegated Svelte handler and superforms listens for input on the form. `onUpdate` runs after a valid submit. This demo sets `SPA: true`, so superforms validates in the browser with no server action:
+Superforms' `enhance` is an action, so `fromAction` turns it into an attachment on Form. The enhanced form shows an error when a field loses focus or on submit, then updates it as the user types. `onUpdate` runs after a valid submit. This demo sets `SPA: true`, so superforms validates in the browser with no server action:
 
 ```svelte demo
 <script lang="ts">

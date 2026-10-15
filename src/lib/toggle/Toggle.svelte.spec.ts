@@ -8,6 +8,8 @@ import Toggle from './Toggle.svelte';
 import ToggleBindHarness from '../../tests/ToggleBindHarness.svelte';
 import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import ToggleAttachHarness from '../../tests/ToggleAttachHarness.svelte';
+import ToggleSpanHarness from '../../tests/ToggleSpanHarness.svelte';
+import { userEvent } from 'vitest/browser';
 
 describe('Toggle', () => {
 	describe('pressed state', () => {
@@ -78,6 +80,51 @@ describe('Toggle', () => {
 	});
 
 	describe('native Svelte', () => {
+		describe('prop: nativeButton', () => {
+			it('gives a non-button host button semantics and keyboard activation', async () => {
+				const handlePressed = vi.fn();
+				render(ToggleSpanHarness, { onPressedChange: handlePressed });
+				const host = page.getByRole('button', { name: 'Bold' });
+
+				await expect.element(host).toHaveAttribute('role', 'button');
+				await expect.element(host).toHaveAttribute('tabindex', '0');
+				await expect.element(host).not.toHaveAttribute('type');
+				await expect.element(host).toHaveAttribute('aria-pressed', 'false');
+
+				(host.element() as HTMLElement).focus();
+				await userEvent.keyboard('{Enter}');
+				await expect.element(host).toHaveAttribute('aria-pressed', 'true');
+				await userEvent.keyboard(' ');
+				await expect.element(host).toHaveAttribute('aria-pressed', 'false');
+				expect(handlePressed.mock.calls.map(([pressed]) => pressed)).toEqual([true, false]);
+			});
+
+			it('disables a non-button host with aria-disabled and leaves the tab order', async () => {
+				const handlePressed = vi.fn();
+				render(ToggleSpanHarness, { disabled: true, onPressedChange: handlePressed });
+				const host = page.getByRole('button', { name: 'Bold' });
+
+				await expect.element(host).toHaveAttribute('aria-disabled', 'true');
+				await expect.element(host).toHaveAttribute('tabindex', '-1');
+				await expect.element(host).toHaveAttribute('data-disabled');
+
+				(host.element() as HTMLElement).click();
+				(host.element() as HTMLElement).focus();
+				await userEvent.keyboard('{Enter}');
+				expect(handlePressed).not.toHaveBeenCalled();
+				await expect.element(host).toHaveAttribute('aria-pressed', 'false');
+			});
+		});
+
+		it('calls onfocus on a standalone toggle', async () => {
+			const handleFocus = vi.fn();
+			render(Toggle, { onfocus: handleFocus });
+
+			(page.getByRole('button').element() as HTMLElement).focus();
+
+			expect(handleFocus.mock.calls.map(([event]) => event.type)).toEqual(['focus']);
+		});
+
 		it('one-way pressed sets the value, clicks override it until the owner changes it', async () => {
 			render(ToggleBindHarness, { bound: false });
 			const checkbox = page.getByRole('checkbox');

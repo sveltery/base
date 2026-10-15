@@ -45,9 +45,10 @@ export class ToolbarGroupContext {
 	}
 }
 
-export const [useToolbarRootContext, setToolbarRootContext] = defineContext<ToolbarRootContext>(
-	'Base UI: ToolbarRootContext is missing. Toolbar parts must be placed within <Toolbar.Root>.'
-);
+export const [useToolbarRootContext, setToolbarRootContext, findToolbarRootContext] =
+	defineContext<ToolbarRootContext>(
+		'Base UI: ToolbarRootContext is missing. Toolbar parts must be placed within <Toolbar.Root>.'
+	);
 
 export const [useToolbarGroupContext, setToolbarGroupContext] = defineOptionalContext<
 	ToolbarGroupContext | undefined

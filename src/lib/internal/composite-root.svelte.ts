@@ -4,7 +4,9 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). Render claims follow Base UI v1.9.0
 // packages/react/src/internals/composite/list/useCompositeListItem.ts and CompositeList.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099): each item keeps the index it guessed,
-// and unregistering drops only that item's entry. MIT, see THIRD_PARTY_NOTICES.md.
+// and unregistering drops only that item's entry. Skipping metadata `disabled` items on arrows
+// follows `disabledIndices` in v1.9.0 packages/react/src/toolbar/root/ToolbarRoot.tsx.
+// MIT, see THIRD_PARTY_NOTICES.md.
 //
 // One list. Constructor getters supply orientation, looping, direction, and
 // which items are disabled or selected. Items register with an attachment.
@@ -36,8 +38,8 @@ export interface CompositeRootOptions {
 	/** `item` listens on each host. `root` listens on the composite root. */
 	keydown?: 'item' | 'root';
 	/**
-	 * Metadata `disabled` can hold the tab stop. Tabs keeps those items focusable.
-	 * Radio and toggle still refuse a disabled stop.
+	 * Metadata `disabled` items stay reachable: arrows land on them and they can hold the tab
+	 * stop. Tabs keeps those items focusable. Other lists skip them.
 	 */
 	disabledHoldsStop?: boolean;
 }
@@ -140,7 +142,7 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 
 	/** Move the tab stop onto `node`. A later selection change can move it again. */
 	highlight(node: HTMLElement) {
-		if (!this.elements.includes(node) || this.stopBlocked(node)) return;
+		if (!this.elements.includes(node) || this.itemDisabled(node)) return;
 		this.userMoved = true;
 		if (this.stop === node) return;
 		this.stop = node;
@@ -260,7 +262,7 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 
 		if (!this.userMoved) {
 			const selected = elements.find(
-				(element) => this.itemSelected(element) && !this.stopBlocked(element)
+				(element) => this.itemSelected(element) && !this.itemDisabled(element)
 			);
 			if (selected) {
 				this.stop = selected;
@@ -269,21 +271,21 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 			}
 		}
 
-		if (this.stop && elements.includes(this.stop) && !this.stopBlocked(this.stop)) {
+		if (this.stop && elements.includes(this.stop) && !this.itemDisabled(this.stop)) {
 			this.stopIndex = elements.indexOf(this.stop);
 			return;
 		}
 
 		if ((this.options.replacement ?? 'index') === 'index') {
 			const at = elements[this.stopIndex];
-			if (at && !this.stopBlocked(at)) {
+			if (at && !this.itemDisabled(at)) {
 				this.stop = at;
 				this.stopIndex = elements.indexOf(at);
 				return;
 			}
 			// The vacated slot is gone. Radio and Tabs then use the selected item.
 			const selected = elements.find(
-				(element) => this.itemSelected(element) && !this.stopBlocked(element)
+				(element) => this.itemSelected(element) && !this.itemDisabled(element)
 			);
 			if (selected) {
 				this.stop = selected;
@@ -292,7 +294,7 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 			}
 		}
 
-		const fallback = elements.find((element) => !this.stopBlocked(element)) ?? null;
+		const fallback = elements.find((element) => !this.itemDisabled(element)) ?? null;
 		this.stop = fallback;
 		this.stopIndex = fallback ? elements.indexOf(fallback) : 0;
 	}
@@ -347,18 +349,13 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 		return modifierHeld(event);
 	}
 
-	/** Keyboard skip. An `aria-disabled` tab stays reachable; a radio does not. */
-	private itemDisabled(element: HTMLElement) {
-		return this.options.isItemDisabled?.(element) ?? false;
-	}
-
 	/**
-	 * Tab stop. Metadata `disabled` blocks it, except on a list that keeps
-	 * disabled items focusable. Keyboard skip stays on `isItemDisabled`.
+	 * Arrow keys pass over the item and it cannot hold the tab stop. Metadata `disabled` counts,
+	 * except on a list that keeps disabled items focusable. `isItemDisabled` reads the DOM.
 	 */
-	private stopBlocked(element: HTMLElement) {
-		if (this.options.disabledHoldsStop) return this.itemDisabled(element);
-		return Boolean(this.meta(element)?.disabled) || this.itemDisabled(element);
+	private itemDisabled(element: HTMLElement) {
+		if (!this.options.disabledHoldsStop && this.meta(element)?.disabled) return true;
+		return this.options.isItemDisabled?.(element) ?? false;
 	}
 
 	private itemSelected(element: HTMLElement) {

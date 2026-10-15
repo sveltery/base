@@ -1,5 +1,5 @@
 import type { Snippet } from 'svelte';
-import type { HTMLButtonAttributes } from 'svelte/elements';
+import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { RenderChildren } from '../internal/render-children.js';
 
@@ -12,6 +12,13 @@ export interface ToggleState {
 
 export type ToggleChangeEventReason = typeof REASONS.none;
 export type ToggleChangeEventDetails = BaseUIChangeEventDetails<ToggleChangeEventReason>;
+
+/**
+ * Props passed to a `render` snippet. Spread them onto the host element.
+ * Handlers are typed for a generic element so the same object spreads onto a
+ * `<button>` or, with `nativeButton={false}`, a `<span>`.
+ */
+export type ToggleHostProps = HTMLAttributes<HTMLElement>;
 
 export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
 	/**
@@ -28,11 +35,17 @@ export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
 	 * An empty string is treated as omitted and replaced with a generated id.
 	 */
 	value?: string;
+	/**
+	 * Whether the host is a native `<button>`.
+	 * Set `false` when `render` supplies a non-button element.
+	 * @default true
+	 */
+	nativeButton?: boolean;
 	/** Called before the pressed state changes. Call `eventDetails.cancel()` to veto it. */
 	onPressedChange?: (pressed: boolean, eventDetails: ToggleChangeEventDetails) => void;
 	/** Runs before the Toggle's handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLButtonAttributes['onclick'];
 	/** Replace the default `<button>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLButtonAttributes, state: ToggleState, children: RenderChildren]>;
+	render?: Snippet<[props: ToggleHostProps, state: ToggleState, children: RenderChildren]>;
 	children?: Snippet;
 }
