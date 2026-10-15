@@ -750,14 +750,14 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | Progress           | refs                                                                                             |
 | Form               | `actionsRef`                                                                                     |
 | RadioGroup         | scroll-into-view, text-field arrow exceptions                                                    |
-| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, refs                       |
+| Tabs               | scroll-into-view, refs, the prehydration `<script>` stays in the DOM after hydration             |
 | Toolbar            | text-field arrow exceptions, scroll-into-view, overlay triggers                                  |
 | NumberField        | refs                                                                                             |
 | ScrollArea         | refs                                                                                             |
 | Slider             | refs, the prehydration `<script>` stays in the DOM after hydration (empty in client-only mounts) |
 | DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                       |
 | OTPField           | refs, React controlled lock                                                                      |
-| CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                    |
+| CSPProvider        | Select renders no inline style                                                                   |
 | Overlay foundation | Internal only. No public component                                                               |
 | Popover            | `actionsRef`, refs                                                                               |
 | Dialog             | ref objects                                                                                      |

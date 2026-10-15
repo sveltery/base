@@ -434,6 +434,7 @@ Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7
 - The metadata `disabled` keyboard skip in `src/lib/internal/composite-root.svelte.ts` from `disabledIndices` in `packages/react/src/toolbar/root/ToolbarRoot.tsx` and `isListIndexDisabled` in `packages/react/src/floating-ui-react/utils/composite.ts`
 - The forwarded `disabled` in `src/lib/toolbar/ToolbarButton.svelte`, and the inner `disabled` clearing in `src/lib/internal/button.svelte.ts`, from `packages/react/src/toolbar/button/ToolbarButton.tsx` and `packages/react/src/internals/use-button/useButton.ts`
 - `nativeButton` in `src/lib/toggle/Toggle.svelte` from `packages/react/src/toggle/Toggle.tsx`, and the Toolbar path of `src/lib/toggle-group/ToggleGroup.svelte` from `packages/react/src/toggle-group/ToggleGroup.tsx`
+- `src/lib/tabs/prehydration.ts` from `packages/react/src/tabs/indicator/prehydrationScript.min.ts`, and the `renderBeforeHydration` script in `src/lib/tabs/TabsIndicator.svelte` from `packages/react/src/tabs/indicator/TabsIndicator.tsx`. `src/lib/tabs/tabs-ssr.spec.ts` and the script-execution cases in `src/routes/fixtures/tabs/tabs.e2e.ts` from the pre-hydration cases of `packages/react/src/tabs/indicator/TabsIndicator.test.tsx`
 
 MIT License
 
