@@ -430,14 +430,6 @@ Upstream: `MenuFilterRoot` and `MenuFilterSubmenuRoot` are internal components t
 
 Local: they are the classes in `filter-root.svelte.ts` and `filter-submenu-root.svelte.ts`, which `Menu.Root` and `Menu.SubmenuRoot` create when a provider surrounds them. Neither is public, as upstream.
 
-### Return focus after a hover close
-
-Upstream: a hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
-
-Local: the shared `FloatingFocusManager` skips return focus after that close, and after a `focus-out` close that moves focus on itself, as upstream's `preventReturnFocusRef` does. It still calls a return function, as upstream does. `MenuPopup` also passes a `returnFocus` that returns `false` after that close before it calls a `finalFocus` function, so Menu does not call that function. Upstream calls it and ignores the result.
-
-Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`does not return focus to the element focused before a hover open when the pointer leaves`) and `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` (`calls a return focus function on a hover-leave close and keeps focus off the trigger`).
-
 ### Touch close guard
 
 Upstream: the touch `click` that follows a focus open is ignored after it reaches `onOpenChange`.
