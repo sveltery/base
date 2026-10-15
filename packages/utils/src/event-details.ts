@@ -41,9 +41,59 @@ export const REASONS = {
 	windowResize: 'window-resize'
 } as const;
 
-export type BaseUIChangeEventDetails<Reason extends string> = {
+interface ReasonToEventMap {
+	[REASONS.none]: Event;
+
+	[REASONS.triggerPress]: MouseEvent | PointerEvent | TouchEvent | KeyboardEvent;
+	[REASONS.triggerHover]: MouseEvent;
+	[REASONS.triggerFocus]: FocusEvent;
+
+	[REASONS.outsidePress]: MouseEvent | PointerEvent | TouchEvent;
+	[REASONS.itemPress]: MouseEvent | KeyboardEvent | PointerEvent;
+	[REASONS.closePress]: MouseEvent | KeyboardEvent | PointerEvent;
+	[REASONS.linkPress]: MouseEvent | PointerEvent;
+	[REASONS.clearPress]: PointerEvent | MouseEvent | KeyboardEvent;
+	[REASONS.chipRemovePress]: PointerEvent | MouseEvent | KeyboardEvent;
+	[REASONS.trackPress]: PointerEvent | MouseEvent | TouchEvent;
+	[REASONS.incrementPress]: PointerEvent | MouseEvent | TouchEvent;
+	[REASONS.decrementPress]: PointerEvent | MouseEvent | TouchEvent;
+
+	[REASONS.inputChange]: InputEvent | Event;
+	[REASONS.inputClear]: InputEvent | FocusEvent | Event;
+	[REASONS.inputBlur]: FocusEvent;
+	[REASONS.inputPaste]: ClipboardEvent;
+	[REASONS.inputPress]: MouseEvent | PointerEvent | TouchEvent | KeyboardEvent;
+
+	[REASONS.focusOut]: FocusEvent | KeyboardEvent;
+	[REASONS.escapeKey]: KeyboardEvent;
+	[REASONS.closeWatcher]: Event;
+	[REASONS.listNavigation]: KeyboardEvent;
+	[REASONS.keyboard]: KeyboardEvent;
+
+	[REASONS.pointer]: PointerEvent;
+	[REASONS.drag]: PointerEvent | TouchEvent;
+	[REASONS.swipe]: PointerEvent | TouchEvent;
+	[REASONS.wheel]: WheelEvent;
+	[REASONS.scrub]: PointerEvent;
+
+	[REASONS.cancelOpen]: MouseEvent;
+	[REASONS.siblingOpen]: Event;
+	[REASONS.disabled]: Event;
+	[REASONS.missing]: Event;
+	[REASONS.initial]: Event;
+	[REASONS.imperativeAction]: Event;
+
+	[REASONS.windowResize]: UIEvent;
+}
+
+/** Maps a change `reason` string to the corresponding native event type. */
+export type ReasonToEvent<Reason extends string> = Reason extends keyof ReasonToEventMap
+	? ReasonToEventMap[Reason]
+	: Event;
+
+type BaseUIChangeEventDetail<Reason extends string> = {
 	reason: Reason;
-	event: Event;
+	event: ReasonToEvent<Reason>;
 	cancel: () => void;
 	allowPropagation: () => void;
 	readonly isCanceled: boolean;
@@ -51,12 +101,17 @@ export type BaseUIChangeEventDetails<Reason extends string> = {
 	trigger: Element | undefined;
 };
 
+/** One member per reason, so checking `reason` narrows `event`. */
+export type BaseUIChangeEventDetails<Reason extends string> = Reason extends string
+	? BaseUIChangeEventDetail<Reason>
+	: never;
+
 export function createChangeEventDetails<
 	Reason extends string,
 	Extra extends object = Record<string, never>
 >(
 	reason: Reason,
-	event?: Event,
+	event?: ReasonToEvent<Reason>,
 	trigger?: Element,
 	custom?: Extra
 ): BaseUIChangeEventDetails<Reason> & Extra {
@@ -82,15 +137,11 @@ export function createChangeEventDetails<
 	} as BaseUIChangeEventDetails<Reason> & Extra;
 }
 
-/**
- * Details for events that report a reason and the native event, without cancel.
- * Form submit uses this. The full upstream reason-to-event map is not ported;
- * the event is the native event the caller passes.
- */
-export type BaseUIGenericEventDetails<Reason extends string, Extra extends object = object> = {
-	reason: Reason;
-	event: Event;
-} & Extra;
+/** Details for events that report a reason and the native event, without cancel. */
+export type BaseUIGenericEventDetails<
+	Reason extends string,
+	Extra extends object = object
+> = Reason extends string ? { reason: Reason; event: ReasonToEvent<Reason> } & Extra : never;
 
 /** Highlight navigation uses mouse events for hover and pointer events for leaving an item. */
 export type BaseUIHighlightEventDetails<
@@ -102,7 +153,7 @@ export type BaseUIHighlightEventDetails<
 
 export function createGenericEventDetails<Reason extends string, Extra extends object = object>(
 	reason: Reason,
-	event?: Event,
+	event?: ReasonToEvent<Reason>,
 	custom?: Extra
 ): BaseUIGenericEventDetails<Reason, Extra> {
 	return {

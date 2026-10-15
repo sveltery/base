@@ -18,7 +18,7 @@
 		open: boolean;
 		closeOnFocusOut: boolean;
 		domReference: Element | null;
-		close: (event: Event) => void;
+		close: (event: FocusEvent) => void;
 	}
 
 	export interface FloatingPortalContext {

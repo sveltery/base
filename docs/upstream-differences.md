@@ -216,7 +216,6 @@ Source: Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`), `packages/r
 Local: `Drawer.Root` calls the same `createDialogRoot` setup as `Dialog.Root` with `drawer: true`, so an open drawer counts toward its parent's `nestedOpenDrawerCount` as well as the nested dialog count. `DrawerRootState` (`src/lib/drawer/root.svelte.ts`) holds the swipe and snap point state. The gesture is `src/lib/internal/useSwipeDismiss.svelte.ts`. Toast's swipe handling is a separate port and may later share it. `open`, `triggerId`, and `snapPoint` are `$bindable`. `bind:this` gives `close()` and `unmount()` in place of `actionsRef`.
 
 - `snapPoint` cannot be told apart as controlled or uncontrolled. A value outside `snapPoints` resolves to the closest snap point, or to closed when it does not parse, which is upstream's controlled behavior. `defaultSnapPoint` stays as a prop, because a drawer returns to it when it closes.
-- `DrawerChangeEventDetails` and `DrawerSnapPointChangeEventDetails` do not narrow `event` by `reason`, the same as Dialog.
 - Portaled content bubbles through the DOM. A React portal bubbles synthetic events to its React ancestors, so a node portaled out of a drawer still reaches the drawer's touch handlers upstream. Here it does not, and only the document capture listener sees it.
 - Svelte delegates touch and pointer events and walks `composedPath()`. A touch event whose composed path starts at `window` never reaches the viewport, where upstream falls back to the viewport as the target.
 
@@ -709,14 +708,6 @@ Test: `src/lib/autocomplete/ssr.spec.ts`, `src/routes/fixtures/autocomplete/auto
 The Autocomplete port corrected four behaviors of `AriaCombobox` that Combobox shares. With no selection the input text always counts as provided, as upstream Autocomplete always passes `inputValue`, so a popup input does not clear it on mount. The popup listens for `focusin`, because React's `onFocus` bubbles, so focus moving into the list returns to the input. `submitOnItemClick` submits only when the form has `requestSubmit`. An input that owns the form value carries its default for a native reset.
 
 Test: `src/lib/autocomplete/AutocompleteRoot.svelte.spec.ts`, `src/lib/autocomplete/AutocompleteRoot.form.svelte.spec.ts`.
-
-### Event types
-
-Upstream: a `keyboard` highlight reason carries a `KeyboardEvent`.
-
-Local: it carries an `Event`, as the shared `BaseUIHighlightEventDetails` types it.
-
-Test: `src/lib/autocomplete/types.test-d.ts`.
 
 ### Not covered
 

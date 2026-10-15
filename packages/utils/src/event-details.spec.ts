@@ -43,9 +43,9 @@ describe('createGenericEventDetails', () => {
 
 	it('copies extra properties onto the details', () => {
 		const event = new Event('keydown');
-		const details = createGenericEventDetails(REASONS.keyboard, event, { index: 2 });
+		const details = createGenericEventDetails(REASONS.none, event, { index: 2 });
 
-		expect(details).toEqual({ reason: 'keyboard', event, index: 2 });
+		expect(details).toEqual({ reason: 'none', event, index: 2 });
 	});
 });
 

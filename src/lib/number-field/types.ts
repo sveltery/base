@@ -1,6 +1,11 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes, HTMLInputAttributes } from 'svelte/elements';
-import type { BaseUIChangeEventDetails, BaseUIGenericEventDetails, REASONS } from '@sveltery/utils';
+import type {
+	BaseUIChangeEventDetails,
+	BaseUIGenericEventDetails,
+	REASONS,
+	ReasonToEvent
+} from '@sveltery/utils';
 import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
@@ -18,9 +23,10 @@ export type NumberFieldChangeEventReason =
 	| typeof REASONS.scrub
 	| typeof REASONS.none;
 
-export interface NumberFieldChangeEventDetails extends BaseUIChangeEventDetails<NumberFieldChangeEventReason> {
-	direction?: Direction;
-}
+export type NumberFieldChangeEventDetails =
+	BaseUIChangeEventDetails<NumberFieldChangeEventReason> & {
+		direction?: Direction;
+	};
 
 export type NumberFieldCommitEventReason =
 	| typeof REASONS.inputBlur
@@ -202,14 +208,16 @@ export interface EventWithOptionalKeyState {
 	shiftKey?: boolean;
 }
 
+type DirectionalChangeReason =
+	| typeof REASONS.incrementPress
+	| typeof REASONS.decrementPress
+	| typeof REASONS.wheel
+	| typeof REASONS.scrub
+	| typeof REASONS.keyboard;
+
 export interface IncrementValueParameters {
 	direction: Direction;
-	event?: Event;
-	reason:
-		| typeof REASONS.incrementPress
-		| typeof REASONS.decrementPress
-		| typeof REASONS.wheel
-		| typeof REASONS.scrub
-		| typeof REASONS.keyboard;
+	event?: ReasonToEvent<DirectionalChangeReason>;
+	reason: DirectionalChangeReason;
 	currentValue?: number | null;
 }

@@ -166,6 +166,7 @@
 		getDisplacement,
 		SwipeDismiss,
 		type SwipeDirection,
+		type SwipeEvent,
 		type SwipeProgressDetails
 	} from '../internal/useSwipeDismiss.svelte.js';
 	import DialogViewport from '../dialog/DialogViewport.svelte';
@@ -668,7 +669,7 @@
 		}
 	}));
 
-	function restorePendingSnapPoint(event: Event) {
+	function restorePendingSnapPoint(event: SwipeEvent) {
 		const pending = pendingSwipeCloseSnapPoint;
 		if (pending !== undefined) {
 			drawer.setActiveSnapPoint(pending, createChangeEventDetails(REASONS.swipe, event));
