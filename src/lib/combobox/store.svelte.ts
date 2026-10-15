@@ -3,7 +3,8 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // One store serves every selection mode, so Autocomplete reuses it with `selectionMode: 'none'`.
 // Open, mount and transition state stay on the shared PopupStore. Items register in one
-// ElementList; with the `items` prop their values come from the filtered items instead.
+// ElementList, and `slots` keys them by index; with the `items` prop their values come from the
+// filtered items instead.
 
 import { untrack } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
@@ -61,6 +62,8 @@ export type ComboboxAutoHighlight = false | 'input-change' | 'always';
 export interface ComboboxItemMeta {
 	value: unknown;
 	disabled: boolean;
+	/** The slot the item claims. Without one it takes the next free slot in document order. */
+	index: number | undefined;
 }
 
 /** Root props the store reads. Each field is a getter. */
@@ -76,6 +79,8 @@ export interface ComboboxRootReading {
 	required: boolean;
 	grid: boolean;
 	inline: boolean;
+	/** Whether a virtualizer renders a window of the items and owns the list scroll. */
+	virtualized: boolean;
 	openOnInputClick: boolean;
 	autoHighlight: ComboboxAutoHighlight;
 	modal: boolean;
@@ -422,9 +427,35 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 		return this.filteredItems.length === 0;
 	}
 
+	/**
+	 * The mounted items by index, `null` where none is mounted. Claimed slots come first, as in
+	 * upstream `CompositeList`. With `items` the list is as long as the filtered items, so a
+	 * virtualized window navigates over the slots it does not render.
+	 */
+	readonly slots = $derived.by((): ReadonlyArray<HTMLElement | null> => {
+		const slots: Array<HTMLElement | null> = [];
+		const unclaimed: HTMLElement[] = [];
+		for (const element of this.items.elements) {
+			const index = this.items.meta(element)?.index;
+			if (index === undefined) unclaimed.push(element);
+			else if (index >= 0) slots[index] = element;
+		}
+		let next = 0;
+		for (const element of unclaimed) {
+			while (slots[next]) next += 1;
+			slots[next] = element;
+		}
+		if (this.hasItems) slots.length = this.flatFilteredValues.length;
+		return Array.from(slots, (element) => element ?? null);
+	});
+
+	indexOf(element: HTMLElement | null) {
+		return element ? this.slots.indexOf(element) : -1;
+	}
+
 	/** Values of the mounted items, by index. */
 	readonly registeredValues = $derived(
-		this.items.elements.map((element) => this.items.meta(element)?.value)
+		this.slots.map((element) => (element ? this.items.meta(element)?.value : undefined))
 	);
 
 	/** The visible item values by index: the filtered items, else the mounted items. */
@@ -443,7 +474,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 		if (this.hasItems && !this.forceMounted) {
 			return this.flatFilteredValues.map((value) => this.stringifyLabel(value));
 		}
-		return this.items.elements.map((element) => element.textContent);
+		return this.slots.map((element) => element?.textContent ?? null);
 	}
 
 	readonly hasSelectedValue = $derived.by(() => {
@@ -529,7 +560,8 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 				const hasQuery = next.trim() !== '';
 				if (hasQuery) this.queryChangedAfterOpen = true;
 				this.#pendingQueryHighlight = { hasQuery };
-				this.#resetListScroll();
+				// A virtualizer owns the scroll of a virtualized list.
+				if (!this.root.virtualized) this.#resetListScroll();
 				if (
 					hasQuery &&
 					this.root.autoHighlight &&
@@ -721,7 +753,7 @@ export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
 
 	/** Clicks the highlighted item, reporting `event` as the selection's event. */
 	clickHighlightedItem(activeIndex: number, event: KeyboardEvent) {
-		const item = this.items.elements[activeIndex];
+		const item = this.slots[activeIndex];
 		if (!item) return;
 		this.selectionEvent = event;
 		item.click();

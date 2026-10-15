@@ -233,6 +233,22 @@ describe('Combobox.Root', () => {
 			await expect.poll(() => list.scrollTop).toBe(0);
 		});
 
+		it('leaves the scroll position of a virtualized list to its virtualizer', async () => {
+			render(ComboboxScrollHarness, {
+				items: filteringItems,
+				root: { virtualized: true },
+				listStyle: 'max-height: 100px; overflow-y: auto; overflow-anchor: none'
+			});
+			await userEvent.click(input());
+
+			const list = scroller('list');
+			list.scrollTop = 40;
+
+			await userEvent.type(input(), 'b');
+			await expect.element(page.getByRole('option', { name: 'alpha-0' })).not.toBeInTheDocument();
+			expect(list.scrollTop).toBe(40);
+		});
+
 		it('resets manually filtered children without deferring the reset until hover', async () => {
 			render(ComboboxScrollHarness, {
 				staticItems: (query: string) => filteringItems.filter((item) => item.startsWith(query))

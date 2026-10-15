@@ -638,9 +638,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `value`/`defaultValue`/`onValueChange`, `inputValue`/`defaultInputValue`/`onInputValueChange`, `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `virtualized`, the `Combobox.Item` `index` prop, `readOnly`, `autoComplete`, a `Combobox.List` children function, and `ReactNode` labels and placeholder.
+Upstream: `value`/`defaultValue`/`onValueChange`, `inputValue`/`defaultInputValue`/`onInputValueChange`, `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, `autoComplete`, a `Combobox.List` children function, and `ReactNode` labels and placeholder.
 
-Local: `value`, `inputValue` and `open` are `$bindable`. `defaultValue` and `defaultInputValue` stay, because the combobox is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. `inputRef`, `virtualized` and the item `index` prop are not ported. The root takes `readonly` and `autocomplete`, the HTML spellings. `Combobox.List` takes static children, and `Combobox.Collection` renders the filtered items through its `children` snippet. Labels, `placeholder`, and what `itemToStringLabel` returns are strings. A `Combobox.Value` `children` snippet receives the value in place of the children function. `useFilter` is a plain function, called in a `$derived` when its options change. `useFilteredItems` returns `{ current }`. `createItems` derives each item's value and label on first use.
+Local: `value`, `inputValue` and `open` are `$bindable`. `defaultValue` and `defaultInputValue` stay, because the combobox is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. `inputRef` is not ported. The root takes `readonly` and `autocomplete`, the HTML spellings. `Combobox.List` takes static children, and `Combobox.Collection` renders the filtered items through its `children` snippet. Labels, `placeholder`, and what `itemToStringLabel` returns are strings. A `Combobox.Value` `children` snippet receives the value in place of the children function. `useFilter` is a plain function, called in a `$derived` when its options change. `useFilteredItems` returns `{ current }`. `createItems` derives each item's value and label on first use.
 
 ### One core for Combobox and Autocomplete
 
@@ -682,7 +682,7 @@ Test: `src/lib/combobox/ComboboxRoot.form.svelte.spec.ts`, `src/lib/combobox/Com
 
 ### Not covered
 
-`describeConformance` (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions, ref callbacks during commit and hydration, all through Autocomplete), the Strict Mode, `React.memo` and render-count cases, the `virtualized` and item `index` cases, the Label `captureOwnerStack` cases have no Svelte counterpart here. The Autocomplete cases in the Combobox suites run in `src/lib/autocomplete/AutocompleteRoot.svelte.spec.ts`. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Live-region reset delays run on real timers instead of fake ones.
+`describeConformance` (ref forwarding, render-prop cloning), `store.test.tsx` (React store transactions, ref callbacks during commit and hydration, all through Autocomplete), the Strict Mode, `React.memo` and render-count cases, the Label `captureOwnerStack` cases have no Svelte counterpart here. The Autocomplete cases in the Combobox suites run in `src/lib/autocomplete/AutocompleteRoot.svelte.spec.ts`. The positioner conformance cases that assert `transform` are not ported, because the positioner uses `top` and `left`. Live-region reset delays run on real timers instead of fake ones.
 
 ## Autocomplete
 
@@ -690,9 +690,9 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 ### Public surface
 
-Upstream: `value`/`defaultValue`/`onValueChange` hold the input text, with `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, the `Autocomplete.Item` `index` prop, a `ReactNode` or function `Autocomplete.Value` child, and the item type taken from the `ItemValue` type argument.
+Upstream: `value`/`defaultValue`/`onValueChange` hold the input text, with `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, a `ReactNode` or function `Autocomplete.Value` child, and the item type taken from the `ItemValue` type argument.
 
-Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef` and the item `index` prop are not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
+Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef` is not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
 
 Test: `src/lib/autocomplete/types.test-d.ts`, `src/lib/autocomplete/AutocompleteValue.svelte.spec.ts`.
 
@@ -771,8 +771,8 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | ContextMenu        | `actionsRef`, refs                                                                               |
 | Toast              | refs, `className` and `style` callbacks                                                          |
 | Select             | `inputRef`, `ReactNode` labels and placeholder                                                   |
-| Combobox           | `inputRef`, `virtualized`, Item `index`, `ReactNode` labels and placeholder                      |
-| Autocomplete       | `inputRef`, Item `index`, `ReactNode` value children                                             |
+| Combobox           | `inputRef`, `ReactNode` labels and placeholder                                                   |
+| Autocomplete       | `inputRef`, `ReactNode` value children                                                           |
 
 ## Shared floating internals
 

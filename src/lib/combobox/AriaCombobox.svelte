@@ -4,9 +4,8 @@
 	Derived from Base UI v1.9.0 packages/react/src/combobox/root/AriaCombobox.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	Combobox.Root wraps it with `selectionMode` 'single' or 'multiple'. Autocomplete wraps it
-	with 'none'. `actionsRef` is the exported `close` and `unmount`. `inputRef` and
-	`virtualized` are not ported. In `multiple` mode one hidden `<select multiple>` submits
-	the values, as in Select.
+	with 'none'. `actionsRef` is the exported `close` and `unmount`. `inputRef` is not
+	ported. In `multiple` mode one hidden `<select multiple>` submits the values, as in Select.
 -->
 <script lang="ts">
 	import { flushSync, onMount, untrack } from 'svelte';
@@ -78,6 +77,7 @@
 		highlightItemOnHover = true,
 		loopFocus = true,
 		grid = false,
+		virtualized = false,
 		items,
 		filteredItems,
 		filter,
@@ -232,6 +232,9 @@
 			get inline() {
 				return inline;
 			},
+			get virtualized() {
+				return virtualized;
+			},
 			get openOnInputClick() {
 				return openOnInputClick;
 			},
@@ -381,7 +384,7 @@
 	const listNavigation = new ListNavigation(store, () => ({
 		enabled: !disabled,
 		id: controlId.current,
-		items: () => store.items.elements,
+		items: () => store.slots,
 		activeIndex: store.activeIndex,
 		selectedIndex: store.selectedIndex,
 		virtual: true,
@@ -633,7 +636,7 @@
 		let index = serializedMatch();
 		if (index === -1) {
 			// Browsers can fill the rendered text of a primitive value, like `US` for "United States".
-			const labels = store.items.elements.map((element) => element.textContent?.trim());
+			const labels = store.slots.map((element) => element?.textContent?.trim());
 			index = labels.findIndex((label) => label && label.toLowerCase() === lower);
 		}
 		const match = index === -1 ? undefined : values[index];

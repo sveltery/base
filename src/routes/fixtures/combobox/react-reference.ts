@@ -4,7 +4,7 @@ import { createElement as h, Fragment, useEffect, useState, type ReactNode } fro
 import { Combobox } from '@base-ui/react/combobox';
 import { Field } from '@base-ui/react/field';
 import { Form } from '@base-ui/react/form';
-import { fruits, gridRows, type ComboboxCase } from './cases.js';
+import { fruits, gridRows, manyItems, windowSize, type ComboboxCase } from './cases.js';
 
 import { mountApp, passProps } from '../react-fixture.js';
 
@@ -62,6 +62,7 @@ export function mountComboboxReference(
 	function App() {
 		const [submitted, setSubmitted] = useState(0);
 		const [values, setValues] = useState('');
+		const [highlighted, setHighlighted] = useState('');
 		useEffect(onReady, []);
 
 		if (scenario === 'plain') return combobox(scenario, {});
@@ -168,6 +169,44 @@ export function mountComboboxReference(
 				null,
 				combobox(scenario, { name: 'fruit', defaultValue: 'Apple' }),
 				h('button', { type: 'reset' }, 'Reset')
+			);
+		}
+		if (scenario === 'virtualized') {
+			return h(
+				Fragment,
+				null,
+				h(
+					Combobox.Root,
+					passProps({
+						items: manyItems,
+						virtualized: true,
+						onItemHighlighted: (item: string | undefined, { index }: { index: number }) =>
+							setHighlighted(`${item ?? ''}:${index}`)
+					}),
+					h(Combobox.Input, partProps({ 'data-testid': 'input' })),
+					h(
+						Combobox.Portal,
+						null,
+						h(
+							Combobox.Positioner,
+							partProps({ 'data-testid': 'positioner' }),
+							h(
+								Combobox.Popup,
+								partProps({ 'data-testid': 'popup' }),
+								h(
+									Combobox.List,
+									partProps({
+										children: (item: string, index: number) =>
+											index < windowSize
+												? h(Combobox.Item, { key: item, value: item, index }, item)
+												: null
+									})
+								)
+							)
+						)
+					)
+				),
+				h('output', { 'data-testid': 'highlighted' }, highlighted)
 			);
 		}
 		if (scenario === 'disabled')

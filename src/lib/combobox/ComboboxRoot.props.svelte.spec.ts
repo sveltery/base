@@ -1,8 +1,6 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/combobox/root/ComboboxRoot.test.tsx,
 // "keyboard interaction" through "prop: readOnly" (commit
 // ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// Not ported: "Enter selects with manual indices provided to items" (Item `index` is not
-// ported).
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
@@ -10,6 +8,7 @@ import { render } from 'vitest-browser-svelte';
 import { REASONS } from '@sveltery/utils';
 import ComboboxFieldHarness from '../../tests/ComboboxFieldHarness.svelte';
 import ComboboxHarness from '../../tests/ComboboxHarness.svelte';
+import ComboboxVirtualHarness from '../../tests/ComboboxVirtualHarness.svelte';
 import { nextFrame, pressWithTouch, scrollLocked } from '../../tests/select-events.js';
 
 const input = () => page.getByTestId('input');
@@ -64,6 +63,19 @@ describe('Combobox.Root', () => {
 
 			await expect.element(listbox()).not.toBeInTheDocument();
 			await expect.element(input()).toHaveValue('apple');
+		});
+
+		it('Enter selects with manual indices provided to items', async () => {
+			render(ComboboxVirtualHarness, { root: { items: ['apple', 'banana', 'cherry'] } });
+
+			await userEvent.click(input());
+			await expect.element(listbox()).toBeInTheDocument();
+
+			await userEvent.type(input(), 'c');
+			await userEvent.keyboard('{ArrowDown}');
+			await userEvent.keyboard('{Enter}');
+
+			await expect.element(input()).toHaveValue('cherry');
 		});
 
 		it('clicking on "listbox" keeps the focus on the input', async () => {

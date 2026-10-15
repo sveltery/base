@@ -2,14 +2,17 @@
 	An item in the list. Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/item/ComboboxItem.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	`index` is not ported: items register in document order.
 -->
 <script lang="ts">
 	import { flushSync, untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
-	import { compareItemEquality, resolveSelectedIndex } from '../internal/listbox/itemEquality.js';
+	import {
+		compareItemEquality,
+		findItemIndex,
+		resolveSelectedIndex
+	} from '../internal/listbox/itemEquality.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { findComboboxRow, setComboboxItem, useComboboxRoot } from './context.svelte.js';
@@ -17,6 +20,7 @@
 
 	let {
 		value: itemValue = null,
+		index: indexProp,
 		disabled: disabledProp,
 		nativeButton = false,
 		render,
@@ -32,7 +36,14 @@
 
 	const disabled = $derived(store.root.disabled || (disabledProp ?? false));
 	const selectable = $derived(store.selectionMode !== 'none');
-	const index = $derived(store.items.indexOf(element));
+	// A virtualized item without `index` claims its position in the filtered items.
+	const claimedIndex = $derived(
+		indexProp ??
+			(store.root.virtualized
+				? findItemIndex(store.flatFilteredValues, itemValue, store.root.isItemEqualToValue)
+				: undefined)
+	);
+	const index = $derived(claimedIndex ?? store.indexOf(element));
 	const highlighted = $derived(index !== -1 && store.activeIndex === index);
 	const selected = $derived(selectable && store.isSelected(itemValue));
 
@@ -69,7 +80,11 @@
 
 	function bindItem(node: HTMLElement) {
 		element = node;
-		const unregister = store.items.register(node, () => ({ value: itemValue, disabled }));
+		const unregister = store.items.register(node, () => ({
+			value: itemValue,
+			disabled,
+			index: claimedIndex
+		}));
 		return () => {
 			unregister();
 			if (element === node) element = null;

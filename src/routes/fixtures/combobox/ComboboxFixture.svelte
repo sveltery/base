@@ -6,12 +6,13 @@
 	import { Combobox, Field } from '#lib';
 	import FormSubmit from '../FormSubmit.svelte';
 	import { takeForm } from '../form-log.js';
-	import { fruits, gridRows, type ComboboxCase } from './cases.js';
+	import { fruits, gridRows, manyItems, windowSize, type ComboboxCase } from './cases.js';
 
 	let { scenario }: { scenario: ComboboxCase } = $props();
 
 	let submitted = $state(0);
 	let values = $state('');
+	let highlighted = $state('');
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
 		({ submitted, values } = takeForm(formValues, details, submitted));
@@ -107,6 +108,30 @@
 	</form>
 {:else if scenario === 'disabled'}
 	<Combobox.Root items={fruits} defaultValue="Apple" disabled>{@render control()}</Combobox.Root>
+{:else if scenario === 'virtualized'}
+	<Combobox.Root
+		items={manyItems}
+		virtualized
+		onItemHighlighted={(item, { index }) => (highlighted = `${item}:${index}`)}
+	>
+		<Combobox.Input data-testid="input" />
+		<Combobox.Portal>
+			<Combobox.Positioner data-testid="positioner">
+				<Combobox.Popup data-testid="popup">
+					<Combobox.List>
+						<Combobox.Collection>
+							{#snippet children(item: string, index: number)}
+								{#if index < windowSize}
+									<Combobox.Item value={item} {index}>{item}</Combobox.Item>
+								{/if}
+							{/snippet}
+						</Combobox.Collection>
+					</Combobox.List>
+				</Combobox.Popup>
+			</Combobox.Positioner>
+		</Combobox.Portal>
+	</Combobox.Root>
+	<output data-testid="highlighted">{highlighted}</output>
 {:else}
 	<Combobox.Root items={fruits} defaultValue="Apple" readonly>{@render control()}</Combobox.Root>
 {/if}

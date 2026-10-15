@@ -1,8 +1,7 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/combobox/root/ComboboxRoot.test.tsx,
 // "selection behavior > single" (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // MIT, see THIRD_PARTY_NOTICES.md.
-// Not ported: the two `virtualized` cases (the prop is not ported). A value held by the parent
-// without `onValueChange` is a bound value the test writes.
+// A value held by the parent without `onValueChange` is a bound value the test writes.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -10,6 +9,7 @@ import { render } from 'vitest-browser-svelte';
 import { REASONS } from '@sveltery/utils';
 import { renderBound } from '../../tests/bound-render.svelte.js';
 import ComboboxHarness from '../../tests/ComboboxHarness.svelte';
+import ComboboxVirtualHarness from '../../tests/ComboboxVirtualHarness.svelte';
 
 const input = () => page.getByTestId('input');
 const trigger = () => page.getByTestId('trigger');
@@ -200,6 +200,26 @@ describe('Combobox.Root selection: single', () => {
 		await expect
 			.poll(() => scrollIntoView.mock.calls)
 			.toContainEqual([{ block: 'nearest', inline: 'nearest' }]);
+	});
+
+	it('emits the selected item index to onItemHighlighted on mount when inline and virtualized (items prop)', async () => {
+		const onItemHighlighted = vi.fn();
+		const items = Array.from({ length: 50 }, (_, index) => `item-${index}`);
+		render(ComboboxVirtualHarness, {
+			root: {
+				items,
+				inline: true,
+				open: true,
+				virtualized: true,
+				defaultValue: 'item-30',
+				onItemHighlighted
+			},
+			popup: false
+		});
+
+		await expect
+			.poll(() => onItemHighlighted.mock.calls)
+			.toContainEqual(['item-30', expect.objectContaining({ index: 30 })]);
 	});
 
 	it('does not restore the initial highlight after focus leaves an inline input (items prop)', async () => {
@@ -579,6 +599,41 @@ describe('Combobox.Root selection: single', () => {
 		await expect
 			.poll(() => onItemHighlighted.mock.calls)
 			.toContainEqual(['banana', expect.objectContaining({ reason: REASONS.none, index: 1 })]);
+	});
+
+	it('restores the selected item through an externally virtualized list', async () => {
+		const items = Array.from(
+			{ length: 100 },
+			(_, index) => `item-${String(index).padStart(3, '0')}`
+		);
+		const scrollToIndex = vi.fn();
+		render(ComboboxVirtualHarness, {
+			root: {
+				items,
+				defaultValue: 'item-080',
+				virtualized: true,
+				onItemHighlighted: (item: unknown, { index }: { index: number }) => {
+					if (item) scrollToIndex(index);
+				}
+			},
+			trigger: true,
+			windowStart: 80,
+			windowSize: 10,
+			follow: true
+		});
+		await userEvent.click(trigger());
+
+		await userEvent.type(input(), 'item-000');
+		await expect.element(option('item-000')).toBeInTheDocument();
+		scrollToIndex.mockClear();
+
+		await userEvent.clear(input());
+
+		await expect.poll(() => scrollToIndex.mock.calls).toContainEqual([80]);
+		await expect.element(option('item-080')).toHaveAttribute('data-highlighted');
+		await expect
+			.element(input())
+			.toHaveAttribute('aria-activedescendant', option('item-080').element().id);
 	});
 
 	it('consumes a query-clear restore when the selected item is absent', async () => {

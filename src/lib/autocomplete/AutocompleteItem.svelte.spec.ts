@@ -4,6 +4,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import AutocompleteHarness from '../../tests/AutocompleteHarness.svelte';
+import ComboboxVirtualHarness from '../../tests/ComboboxVirtualHarness.svelte';
 
 const input = () => page.getByTestId('input');
 const listbox = () => page.getByRole('listbox');
@@ -58,5 +59,25 @@ describe('Autocomplete.Item', () => {
 		await expect.element(option('banana')).toBeInTheDocument();
 		await expect.element(option('banana')).not.toHaveAttribute('data-selected');
 		await expect.element(option('banana')).not.toHaveAttribute('aria-selected', 'true');
+	});
+
+	describe('prop: index', () => {
+		it('highlights an index past the rendered window of a virtualized list', async () => {
+			const onItemHighlighted = vi.fn();
+			const items = Array.from({ length: 20 }, (_, index) => `item-${index}`);
+			render(ComboboxVirtualHarness, {
+				kind: 'autocomplete',
+				root: { virtualized: true, items, id: 'ac', openOnInputClick: true, onItemHighlighted },
+				windowSize: 5
+			});
+			await userEvent.click(input());
+			await expect.element(option('item-4')).toBeInTheDocument();
+
+			await userEvent.keyboard('{ArrowDown}'.repeat(7));
+
+			expect(onItemHighlighted.mock.lastCall?.[0]).toBe('item-6');
+			expect(onItemHighlighted.mock.lastCall?.[1].index).toBe(6);
+			await expect.element(input()).toHaveAttribute('aria-activedescendant', 'ac-6');
+		});
 	});
 });

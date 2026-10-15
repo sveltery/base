@@ -3,8 +3,7 @@
 // Not ported: `describeConformance` (React ref and render-prop cloning), the Autocomplete row of
 // "validates the value when blurred" (Autocomplete is a separate part), the React StrictMode row
 // of the typeahead case, and "does not select when closed typeahead matches a sparse label
-// without a value" (it writes React-only registry refs). Item `index` is not ported, so the
-// indexed typeahead case renders plain items.
+// without a value" (it writes React-only registry refs).
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -585,21 +584,21 @@ describe('Combobox.Trigger', () => {
 			await expect.element(trigger()).toHaveTextContent('apricot');
 		});
 
-		it('only matches mounted item labels when typing on the focused trigger', async () => {
+		it('only matches mounted indexed item labels when typing on the focused trigger', async () => {
 			const props = renderBound(ComboboxHarness, {
 				inputInside: true,
 				staticItems: [
-					{ value: 'apple', text: 'Apple' },
-					{ value: 'banana', text: 'Banana' },
-					{ value: 'blueberry', text: 'Blueberry' }
+					{ value: 'apple', text: 'Apple', props: { index: 0 } },
+					{ value: 'banana', text: 'Banana', props: { index: 1 } },
+					{ value: 'blueberry', text: 'Blueberry', props: { index: 2 } }
 				]
 			});
 
 			await userEvent.click(trigger());
 			await expect.element(listbox()).toBeInTheDocument();
 			props.staticItems = [
-				{ value: 'apple', text: 'Apple' },
-				{ value: 'blueberry', text: 'Blueberry' }
+				{ value: 'apple', text: 'Apple', props: { index: 0 } },
+				{ value: 'blueberry', text: 'Blueberry', props: { index: 2 } }
 			];
 			await expect.element(option('Banana')).not.toBeInTheDocument();
 			await userEvent.keyboard('{Escape}');
