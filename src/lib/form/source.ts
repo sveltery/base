@@ -5,7 +5,6 @@
 
 import { tick } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
-import { resetForm } from './kit-reset-replay.js';
 
 /** One validation issue. Kit's `RemoteFormIssue` has this shape. */
 export interface FormIssue {
@@ -51,7 +50,7 @@ export type EnhanceCallback<I extends EnhanceInstance = EnhanceInstance> = (
 export async function defaultEnhance(instance: EnhanceInstance) {
 	if (await instance.submit()) {
 		await tick();
-		if (instance.element.isConnected) resetForm(instance.element);
+		if (instance.element.isConnected) instance.element.reset();
 	}
 }
 
