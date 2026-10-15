@@ -40,7 +40,8 @@
 	const button = new ButtonBehavior(() => ({
 		disabled,
 		native: nativeButton,
-		focusableWhenDisabled: true
+		focusableWhenDisabled: true,
+		composite: true
 	}));
 
 	let node: HTMLElement | null = $state(null);
