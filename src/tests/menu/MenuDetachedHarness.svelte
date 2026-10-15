@@ -78,7 +78,14 @@
 
 {#snippet body({ payload }: { payload: number | undefined })}
 	{#if !detached}{@render wrapped(nesting)}{/if}
-	<span data-testid="root-payload">{payload === undefined ? 'No payload' : String(payload)}</span>
+	<!--
+		Hidden so the payload text takes no space. Rendered before the triggers (`rootFirst`), its
+		change from "No payload" to "2" would move a pressed trigger out from under the pointer when a
+		frame paints between press and release, and that release cancels the open, as upstream.
+	-->
+	<span data-testid="root-payload" hidden
+		>{payload === undefined ? 'No payload' : String(payload)}</span
+	>
 	<Menu.Portal>
 		<Menu.Positioner data-testid="positioner" {...positionerProps}>
 			<Menu.Popup data-testid="popup" {...popupProps}>
