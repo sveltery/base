@@ -674,8 +674,6 @@ Pass a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form
 
 Remote functions are experimental in SvelteKit. Turn them on with `experimental: { remoteFunctions: true }` in the `sveltekit()` options in `vite.config.ts`.
 
-Form replays a reset to work around a SvelteKit bug in reset buttons. The workaround goes away once SvelteKit fixes the bug.
-
 Put the schema in its own module, so that the server and the page can both import it. Any [Standard Schema](https://standardschema.dev) library works. These examples use Valibot.
 
 ```ts
