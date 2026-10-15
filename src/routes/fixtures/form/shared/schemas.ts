@@ -15,6 +15,12 @@ export const prefsSchema = v.object({
 	volume: v.pipe(v.number('Pick a volume'), v.maxValue(80, 'Keep the volume at 80 or below'))
 });
 
+/** No default, so an unchecked control that submits nothing leaves its key out. */
+export const consentSchema = v.object({
+	agree: v.optional(v.boolean()),
+	newsletter: v.optional(v.boolean())
+});
+
 /** The signup the fixtures' server rejects with an issue on `email`. */
 export const TAKEN_EMAIL = 'taken@example.com';
 /** The signup the fixtures' server rejects with an issue on the whole form. */
