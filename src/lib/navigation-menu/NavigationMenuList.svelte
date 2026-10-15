@@ -58,7 +58,7 @@
 			root.activeTrigger ? root.dismissFloating : {},
 			root.nested ? {} : { onkeydown: handleKeyDown },
 			getStateAttributesProps(listState),
-			{ [listKey]: bindList },
+			{ [listKey]: bindList, ...composite?.rootProps },
 			elementProps
 		)
 	);

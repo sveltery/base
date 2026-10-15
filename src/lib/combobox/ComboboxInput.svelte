@@ -6,6 +6,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
+	import { on } from 'svelte/events';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { createChangeEventDetails, platform, REASONS } from '@sveltery/utils';
 	import { DEFAULT_FIELD_STATE } from '../field/model.svelte.js';
@@ -17,7 +18,7 @@
 	} from '../internal/field-root-context.js';
 	import { getHighlightReason } from '../internal/getHighlightReason.js';
 	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
-	import { mergeProps } from '../internal/mergeProps.js';
+	import { chain, mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import ComboboxInternalDismissButton from './ComboboxInternalDismissButton.svelte';
@@ -33,6 +34,7 @@
 		id: idProp,
 		'aria-describedby': ariaDescribedBy,
 		render,
+		oninput,
 		...elementProps
 	}: ComboboxInputProps = $props();
 
@@ -78,7 +80,11 @@
 			store.inputElement = node;
 			store.inputInsidePopup = insidePopup;
 		});
+		// Not `oninput`: Svelte delegates that to the root, after a form library's listener on the
+		// form reads the value.
+		const stopInput = on(node, 'input', (event) => chain(handleInput, oninput)(event));
 		return () => {
+			stopInput();
 			if (store.inputElement === node) store.inputElement = null;
 		};
 	}
@@ -311,7 +317,6 @@
 					store.setInputValue(input.value, createChangeEventDetails(REASONS.inputChange, event));
 					syncDomValue(input);
 				},
-				oninput: handleInput,
 				onkeydown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 					handleKeyDown(event);
 					(baseKeyDown as ((event: KeyboardEvent) => void) | undefined)?.(event);
