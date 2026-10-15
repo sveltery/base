@@ -7,6 +7,7 @@
 <script lang="ts">
 	import { DEV } from 'esm-env';
 	import type { HTMLInputAttributes } from 'svelte/elements';
+	import { chain } from '../internal/mergeProps.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -96,16 +97,9 @@
 	}
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		onfocus?.(event);
-		if (event.defaultPrevented || model.disabled) return;
+		if (model.disabled) return;
 		focusOwner.set(true);
 		model.handleInputFocus(index, event);
-	}
-
-	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		onblur?.(event);
-		if (event.defaultPrevented) return;
-		model.handleInputBlur(event);
 	}
 
 	function commitValue(
@@ -177,8 +171,7 @@
 	}
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		oninput?.(event);
-		if (event.defaultPrevented || model.disabled || model.readOnly) return;
+		if (model.disabled || model.readOnly) return;
 		if (composingValue != null) {
 			composingValue = event.currentTarget.value;
 			return;
@@ -304,9 +297,9 @@
 		...(model.invalid && !model.disabled ? { 'aria-invalid': true as const } : {}),
 		...(ariaLabel ? { 'aria-label': ariaLabel } : {}),
 		onmousedown: handleMouseDown,
-		onfocus: handleFocus,
-		onblur: handleBlur,
-		oninput: handleInput,
+		onfocus: chain(handleFocus, onfocus),
+		onblur: chain((event) => model.handleInputBlur(event), onblur),
+		oninput: chain(handleInput, oninput),
 		oncompositionstart: handleCompositionStart,
 		oncompositionend: handleCompositionEnd,
 		onkeydown: handleKeyDown,
