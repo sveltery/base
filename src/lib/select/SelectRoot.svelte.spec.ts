@@ -427,8 +427,8 @@ describe('Select.Root', () => {
 			expect(
 				onOpenChange.mock.calls.map(([open, details]) => [open, details.reason, details.trigger])
 			).toEqual([
-				[true, REASONS.triggerPress, trigger().element()],
-				[false, REASONS.escapeKey, undefined]
+				[true, 'trigger-press', trigger().element()],
+				[false, 'escape-key', undefined]
 			]);
 		});
 	});

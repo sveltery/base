@@ -596,3 +596,26 @@ describe('viewport (Base UI v1.9.0)', () => {
 		expect(previous()!.style.getPropertyValue('--popup-height')).toBe(height);
 	});
 });
+
+describe('close trigger details', () => {
+	it('reports the trigger on a close press and none on Escape', async () => {
+		const onOpenChange = vi.fn();
+		render(PopoverTriggersHarness, { onOpenChange, close: true });
+		const trigger = page.getByRole('button', { name: 'Trigger 1' });
+		await trigger.click();
+		await page.getByRole('button', { name: 'Close' }).click();
+		await expect.poll(() => onOpenChange.mock.calls.length).toBe(2);
+		await trigger.click();
+		await expect.poll(() => onOpenChange.mock.calls.length).toBe(3);
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => onOpenChange.mock.calls.length).toBe(4);
+		expect(
+			onOpenChange.mock.calls.map(([open, details]) => [open, details.reason, details.trigger])
+		).toEqual([
+			[true, 'trigger-press', trigger.element()],
+			[false, 'close-press', trigger.element()],
+			[true, 'trigger-press', trigger.element()],
+			[false, 'escape-key', undefined]
+		]);
+	});
+});

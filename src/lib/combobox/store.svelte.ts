@@ -16,7 +16,7 @@ import {
 } from '@sveltery/utils';
 import { getOverflowAncestors } from '@floating-ui/dom';
 import { ElementList } from '../internal/element-list.svelte.js';
-import { PopupStore } from '../internal/popups/store.svelte.js';
+import { PopupStore, type CloseTriggerFill } from '../internal/popups/store.svelte.js';
 import {
 	compareItemEquality,
 	findItemIndex,
@@ -131,7 +131,7 @@ interface PendingQueryHighlight {
 type PopupSide = 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end';
 
 export class ComboboxStore extends PopupStore<ComboboxChangeReason> {
-	protected override readonly closeTriggerFill = 'never';
+	protected override readonly closeTriggerFill: CloseTriggerFill = 'never';
 	readonly items = new ElementList<HTMLElement, ComboboxItemMeta>();
 
 	activeIndex = $state<number | null>(null);

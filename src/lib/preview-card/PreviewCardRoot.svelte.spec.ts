@@ -138,8 +138,8 @@ describe.each(MODES)('PreviewCard.Root with $name', ({ mode }) => {
 			expect(
 				onOpenChange.mock.calls.map(([open, details]) => [open, details.reason, details.trigger])
 			).toEqual([
-				[true, REASONS.triggerHover, link()],
-				[false, REASONS.escapeKey, undefined]
+				[true, 'trigger-hover', link()],
+				[false, 'escape-key', undefined]
 			]);
 		});
 

@@ -10,7 +10,7 @@ import { untrack } from 'svelte';
 import { SvelteMap } from 'svelte/reactivity';
 import { createChangeEventDetails, REASONS, type BaseUIChangeEventDetails } from '@sveltery/utils';
 import { BoundTriggerId } from './boundTriggerId.svelte.js';
-import { PopupStore, type PopupStoreOptions } from './store.svelte.js';
+import { PopupStore, type CloseTriggerFill, type PopupStoreOptions } from './store.svelte.js';
 
 export interface TriggerOwnedPopupStoreOptions<
 	Reason extends string
@@ -23,7 +23,7 @@ export abstract class TriggerOwnedPopupStore<
 	Reason extends string,
 	Owned extends object
 > extends PopupStore<Reason> {
-	protected override readonly closeTriggerFill = 'never';
+	protected override readonly closeTriggerFill: CloseTriggerFill = 'never';
 	/** Bumps when an open popup changes trigger. The viewport snapshots on this. */
 	triggerSwitch = $state(0);
 	switchedFrom = $state<Element | null>(null);

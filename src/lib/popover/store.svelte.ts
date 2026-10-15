@@ -13,7 +13,7 @@ import type { HTMLAttributes } from 'svelte/elements';
 import { createChangeEventDetails, REASONS, ScopedTimeout } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { BoundTriggerId } from '../internal/popups/boundTriggerId.svelte.js';
-import { PopupStore } from '../internal/popups/store.svelte.js';
+import { PopupStore, type CloseTriggerFill } from '../internal/popups/store.svelte.js';
 import { PATIENT_CLICK_THRESHOLD } from './constants.js';
 import type {
 	PopoverChangeEventDetails,
@@ -44,7 +44,7 @@ export interface PopoverStoreOptions {
 }
 
 export class PopoverStore extends PopupStore<PopoverChangeReason> {
-	protected override readonly closeTriggerFill = 'closePress';
+	protected override readonly closeTriggerFill: CloseTriggerFill = 'closePress';
 	stickIfOpen = $state(true);
 	#instantType = $state<PopoverInstant | undefined>(undefined);
 	openChangeReason = $state<PopoverChangeReason | null>(null);

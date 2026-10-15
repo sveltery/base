@@ -17,7 +17,7 @@ export type PopupChangeEventDetails<Reason extends string> = BaseUIChangeEventDe
 	preventUnmountOnClose: () => void;
 };
 
-/** Which closes that name no trigger report the active trigger in `details.trigger`. */
+/** On which closes without a trigger `details.trigger` reports the active trigger. */
 export type CloseTriggerFill = 'always' | 'closePress' | 'never';
 
 const fillsCloseTrigger: Record<CloseTriggerFill, (reason: string) => boolean> = {
