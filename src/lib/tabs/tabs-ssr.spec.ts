@@ -39,4 +39,12 @@ describe('Tabs.Indicator SSR prehydration script', () => {
 		expect(body).toContain('role="presentation"');
 		expect(body).not.toContain('<script');
 	});
+
+	it('renders neither indicator nor script without a value', () => {
+		const body = render(TabsSsrHarness, { props: { value: null } }).body;
+
+		expect(body).toContain('role="tab"');
+		expect(body).not.toContain('role="presentation"');
+		expect(body).not.toContain('<script');
+	});
 });

@@ -21,6 +21,7 @@ import DisabledNonNativeHarness from '../../tests/DisabledNonNativeHarness.svelt
 import PopoverDisabledHostHarness from '../../tests/PopoverDisabledHostHarness.svelte';
 import NestedPopoverFocusHarness from '../../tests/NestedPopoverFocusHarness.svelte';
 import PopoverCanceledFocusOutHarness from '../../tests/PopoverCanceledFocusOutHarness.svelte';
+import PopoverHoverFinalFocusHarness from '../../tests/PopoverHoverFinalFocusHarness.svelte';
 import { clickElement } from '../../tests/menu/mouse.js';
 import { Popover, PopoverHandle } from './index.js';
 import { PopoverStore } from './store.svelte.js';
@@ -104,6 +105,34 @@ describe('Popover', () => {
 		expect(document.querySelector('[role="dialog"]')).toBeNull();
 		expect(trigger.element().getAttribute('aria-controls')).toBeNull();
 		expect(trigger.element().getAttribute('aria-expanded')).toBe('true');
+	});
+
+	it('does not call finalFocus or move focus when a hover-opened popover closes on leave', async () => {
+		const calls: string[] = [];
+		render(PopoverHoverFinalFocusHarness, {
+			finalFocus: (closeType: string) => {
+				calls.push(closeType);
+				return null;
+			}
+		});
+		const trigger = page.getByRole('button', { name: 'Trigger' });
+		await trigger.hover();
+		await expect.element(page.getByTestId('popup')).toBeVisible();
+
+		await page.getByTestId('outside').hover();
+
+		await expect.poll(() => page.getByTestId('popup').elements().length).toBe(0);
+		await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+		expect(calls).toEqual([]);
+		expect(document.activeElement).toBe(document.body);
+
+		(trigger.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Enter}');
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await userEvent.keyboard('{Escape}');
+
+		await expect.element(trigger).toHaveFocus();
+		expect(calls).toEqual(['keyboard']);
 	});
 
 	it('sets aria-controls when a detached container is attached', async () => {

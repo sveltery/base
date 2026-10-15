@@ -258,7 +258,8 @@
 				onkeydown: handleKeyDown,
 				onkeydowncapture: arrowsTouched,
 				[controlKey]: registration,
-				[rootKey]: rememberRoot
+				[rootKey]: rememberRoot,
+				...roving.rootProps
 			};
 		});
 </script>

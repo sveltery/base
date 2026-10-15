@@ -33,10 +33,11 @@ test('superforms errors reach the Fields, and a valid submit saves the values', 
 
 	await control(page, 'email').fill('ok@example.com');
 	await expect(error(page, 'email')).toHaveCount(0);
+	await control(page, 'city').fill('Oslo');
 	await page.getByRole('button', { name: 'Submit' }).click();
 	await expect
 		.poll(() => debug(page))
-		.toEqual({ saved: { username: 'ali', email: 'ok@example.com' } });
+		.toEqual({ saved: { username: 'ali', email: 'ok@example.com', city: 'Oslo' } });
 	expect(errors).toEqual([]);
 });
 
@@ -48,5 +49,16 @@ test('superforms validates a Field.Control on blur, before any submit', async ({
 	await expect(error(page, 'username')).toHaveText('At least 3 characters');
 	await expect(control(page, 'username')).toHaveAttribute('aria-invalid', 'true');
 	await expect(error(page, 'email')).toHaveCount(0);
+	expect(errors).toEqual([]);
+});
+
+test('superforms validates an Autocomplete input on blur, before any submit', async ({ page }) => {
+	const errors = await open(page, '/fixtures/form/superforms');
+	await control(page, 'city').pressSequentially('Os');
+	await expect(error(page, 'city')).toHaveCount(0);
+	await control(page, 'city').blur();
+	await expect(error(page, 'city')).toHaveText('At least 3 characters');
+	await expect(control(page, 'city')).toHaveAttribute('aria-invalid', 'true');
+	await expect(error(page, 'username')).toHaveCount(0);
 	expect(errors).toEqual([]);
 });

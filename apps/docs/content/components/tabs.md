@@ -263,7 +263,7 @@ To render tabs as links, set `nativeButton={false}` and pass a `render` snippet.
 - A disabled tab ignores Enter and Space, but the arrow keys still move focus through it.
 - The arrow keys follow the reading direction from a [Direction Provider](/utils/direction-provider). In `rtl`, the left arrow moves to the next tab.
 - `renderBeforeHydration` on `Tabs.Indicator` renders a `<script>` after the indicator, with the nonce from a [CSP Provider](/utils/csp-provider). Base UI removes that script once the page hydrates. Here it stays in the DOM, and it is empty when the component mounts only on the client.
-- Nothing scrolls the focused tab into view, and the parts take no `ref`.
+- The parts take no `ref`.
 
 ## API reference
 

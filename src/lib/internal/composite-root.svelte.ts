@@ -1,19 +1,24 @@
-// Keyboard roving for ToggleGroup, Toolbar, RadioGroup, and Tabs, from the linear
-// path of Base UI v1.8.0 packages/react/src/internals/composite/root/useCompositeRoot.ts
+// Keyboard roving for ToggleGroup, Toolbar, RadioGroup, Tabs, NavigationMenu, and Menubar, from
+// the linear path of Base UI v1.8.0 packages/react/src/internals/composite/root/useCompositeRoot.ts
 // and packages/react/src/internals/composite/item/useCompositeItem.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). Render claims follow Base UI v1.9.0
 // packages/react/src/internals/composite/list/useCompositeListItem.ts and CompositeList.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099): each item keeps the index it guessed,
 // and unregistering drops only that item's entry. Skipping metadata `disabled` items on arrows
 // follows `disabledIndices` in v1.9.0 packages/react/src/toolbar/root/ToolbarRoot.tsx.
+// Scroll into view, select-on-focus (useCompositeRoot.ts:321-327), and the text-field arrow rule
+// follow v1.9.0 useCompositeRoot.ts and `scrollIntoViewIfNeeded` and `isNativeInput` in
+// packages/react/src/internals/composite/composite.ts.
 // MIT, see THIRD_PARTY_NOTICES.md.
 //
 // One list. Constructor getters supply orientation, looping, direction, and
 // which items are disabled or selected. Items register with an attachment.
 // The class publishes tabindex. No element renderer.
 
+import { isHTMLElement } from '@floating-ui/utils/dom';
+import { getTarget } from '@sveltery/utils';
 import { untrack } from 'svelte';
-import type { Attachment } from 'svelte/attachments';
+import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
 import { ARROW_KEYS, COMPOSITE_KEYS } from './composite-keys.js';
 import { ElementList } from './element-list.svelte.js';
@@ -88,6 +93,23 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 	private selectedNode: HTMLElement | null = null;
 	private claims: RenderClaim[] = [];
 	private measured: MeasuredItem[] = [];
+	private root: HTMLElement | null = null;
+	private revealed = false;
+
+	/**
+	 * Spread on the composite root. Its element is the container that keeps a keyboard-highlighted
+	 * item in view. Focusing a text field inside it selects the field's text.
+	 */
+	readonly rootProps: Record<symbol, Attachment<HTMLElement>> = {
+		[createAttachmentKey()]: (node) => {
+			this.root = node;
+			node.addEventListener('focusin', selectTextField);
+			return () => {
+				node.removeEventListener('focusin', selectTextField);
+				if (this.root === node) this.root = null;
+			};
+		}
+	};
 
 	constructor(private readonly options: CompositeRootOptions = {}) {
 		super();
@@ -95,6 +117,10 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 			const measured = this.measure();
 			untrack(() => {
 				this.observe(measured);
+				// The first populated list shows its selected item.
+				if (this.revealed || measured.length === 0) return;
+				this.revealed = true;
+				scrollIntoViewIfNeeded(this.root, this.selectedNode, this.rtl, this.orientation);
 			});
 		});
 	}
@@ -202,6 +228,7 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 		const keys = (this.options.keys ?? 'composite') === 'arrows' ? ARROW_KEYS : COMPOSITE_KEYS;
 		if (!keys.has(event.key)) return;
 		if (!(event.currentTarget instanceof HTMLElement)) return;
+		if (textFieldKeepsKey(event, axisKeys(this.orientation === 'vertical', this.rtl))) return;
 
 		this.refreshOrder();
 		const items = this.elements;
@@ -224,7 +251,16 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 		event.preventDefault();
 		if (this.options.stopPropagation ?? true) event.stopPropagation();
 		this.highlight(target);
+		scrollIntoViewIfNeeded(this.root, target, this.rtl, this.orientation);
 		target.focus();
+	}
+
+	private get orientation() {
+		return this.options.orientation?.() ?? 'horizontal';
+	}
+
+	private get rtl() {
+		return this.options.direction?.() === 'rtl';
 	}
 
 	private measure(): MeasuredItem[] {
@@ -300,10 +336,9 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 	}
 
 	private nextEnabled(key: string, originIndex: number, items: HTMLElement[]): HTMLElement | null {
-		const orientation = this.options.orientation?.() ?? 'horizontal';
+		const { orientation, rtl } = this;
 		const loop = orientation === 'both' ? true : (this.options.loopFocus?.() ?? true);
 		const homeEnd = orientation === 'both' ? false : (this.options.homeEnd ?? false);
-		const rtl = this.options.direction?.() === 'rtl';
 
 		if (homeEnd && (key === 'Home' || key === 'End')) {
 			const enabled = items.filter((item) => !this.itemDisabled(item));
@@ -361,4 +396,99 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 	private itemSelected(element: HTMLElement) {
 		return this.options.isItemSelected?.(element) ?? false;
 	}
+}
+
+function isNativeInput(
+	target: EventTarget | null
+): target is HTMLInputElement | HTMLTextAreaElement {
+	if (!isHTMLElement(target)) return false;
+	if (target.tagName === 'TEXTAREA') return true;
+	return target.tagName === 'INPUT' && (target as HTMLInputElement).selectionStart != null;
+}
+
+/** The whole value starts selected, so the first arrow collapses the selection inside the field. */
+function selectTextField(event: FocusEvent) {
+	const field = getTarget(event);
+	if (isNativeInput(field)) field.setSelectionRange(0, field.value.length);
+}
+
+/**
+ * An enabled text field keeps the key for its caret, unless the caret is collapsed at the edge
+ * the key moves toward. Shift and a ranged selection always stay with the field.
+ */
+function textFieldKeepsKey(
+	event: KeyboardEvent,
+	{ forwardKey, backwardKey }: { forwardKey: string; backwardKey: string }
+) {
+	const field = getTarget(event);
+	if (!isNativeInput(field) || field.disabled || field.getAttribute('aria-disabled') === 'true') {
+		return false;
+	}
+	const { selectionStart, selectionEnd, value } = field;
+	if (selectionStart == null || event.shiftKey || selectionStart !== selectionEnd) return true;
+	if (event.key !== backwardKey && selectionStart < value.length) return true;
+	return event.key !== forwardKey && selectionStart > 0;
+}
+
+/**
+ * Scrolls the composite root, not its ancestors, until `element` and its scroll margin clear the
+ * root's scroll padding. Each axis aligns the overflowing edge and checks the inline end first in
+ * LTR and the start first in RTL and on the block axis.
+ */
+function scrollIntoViewIfNeeded(
+	container: HTMLElement | null,
+	element: HTMLElement | null,
+	rtl: boolean,
+	orientation: CompositeOrientation
+) {
+	if (!container || !element) return;
+	const outer = getComputedStyle(container);
+	const inner = getComputedStyle(element);
+	const px = (style: CSSStyleDeclaration, property: string) =>
+		parseFloat(style.getPropertyValue(property)) || 0;
+	let left = container.scrollLeft;
+	let top = container.scrollTop;
+
+	if (orientation !== 'vertical' && container.clientWidth < container.scrollWidth) {
+		const offset = offsetWithin(container, element, 'offsetLeft');
+		const start = offset - px(inner, 'scroll-margin-left') - px(outer, 'scroll-padding-left');
+		const end =
+			offset +
+			element.offsetWidth +
+			px(inner, 'scroll-margin-right') -
+			container.clientWidth +
+			px(outer, 'scroll-padding-right');
+		if (rtl) left = start < left ? start : end > left ? end : left;
+		else left = end > left ? end : start < left ? start : left;
+	}
+
+	if (orientation !== 'horizontal' && container.clientHeight < container.scrollHeight) {
+		const offset = offsetWithin(container, element, 'offsetTop');
+		const start = offset - px(inner, 'scroll-margin-top') - px(outer, 'scroll-padding-top');
+		const end =
+			offset +
+			element.offsetHeight +
+			px(inner, 'scroll-margin-bottom') -
+			container.clientHeight +
+			px(outer, 'scroll-padding-bottom');
+		top = start < top ? start : end > top ? end : top;
+	}
+
+	container.scrollTo({ left, top, behavior: 'auto' });
+}
+
+/** Offset summed up the offsetParent chain until it reaches `ancestor` or runs out. */
+function offsetWithin(
+	ancestor: HTMLElement,
+	element: HTMLElement,
+	side: 'offsetLeft' | 'offsetTop'
+) {
+	let result = 0;
+	let node = element;
+	while (node.offsetParent) {
+		result += node[side];
+		if (node.offsetParent === ancestor) break;
+		node = node.offsetParent as HTMLElement;
+	}
+	return result;
 }

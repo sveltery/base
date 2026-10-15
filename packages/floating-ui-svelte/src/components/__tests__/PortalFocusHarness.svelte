@@ -11,7 +11,8 @@
 		wrapped = false,
 		returnUnlessOutsidePress = false,
 		keepMounted = false,
-		container
+		container,
+		returnFocus: returnFocusProp
 	}: {
 		modal?: boolean;
 		portalOwnerRole?: AriaRole;
@@ -21,6 +22,8 @@
 		/** The popup stays mounted after a close until `unmount`, as during an exit animation. */
 		keepMounted?: boolean;
 		container?: HTMLElement;
+		/** Replaces the harness's own return focus value. */
+		returnFocus?: (closeType: OpenInteractionType | null) => HTMLElement | null;
 	} = $props();
 
 	export const store = new TestStore();
@@ -38,7 +41,8 @@
 	let returnTo = $state<true | HTMLElement>(true);
 	// A consumer that decides from the close reason, as Menu does after an outside press.
 	const returnFocus = $derived(
-		returnUnlessOutsidePress ? store.lastReason !== REASONS.outsidePress : returnTo
+		returnFocusProp ??
+			(returnUnlessOutsidePress ? store.lastReason !== REASONS.outsidePress : returnTo)
 	);
 
 	/** Closes the popup. `target` replaces the return focus target in the same update. */

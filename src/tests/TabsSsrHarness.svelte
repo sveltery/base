@@ -4,16 +4,18 @@
 	let {
 		nonce,
 		provider = true,
-		renderBeforeHydration = true
+		renderBeforeHydration = true,
+		value = 'one'
 	}: {
 		nonce?: string;
 		provider?: boolean;
 		renderBeforeHydration?: boolean;
+		value?: string | null;
 	} = $props();
 </script>
 
 {#snippet root()}
-	<Tabs.Root value="one">
+	<Tabs.Root {value}>
 		<Tabs.List>
 			<Tabs.Tab value="one">One</Tabs.Tab>
 			<Tabs.Indicator {renderBeforeHydration} />
