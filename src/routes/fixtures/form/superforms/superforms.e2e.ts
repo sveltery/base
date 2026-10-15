@@ -34,3 +34,14 @@ test('superforms errors reach the Fields, and a valid submit saves the values', 
 		.toEqual({ saved: { username: 'ali', email: 'ok@example.com' } });
 	expect(errors).toEqual([]);
 });
+
+test('superforms validates a Field.Control on blur, before any submit', async ({ page }) => {
+	const errors = await open(page, '/fixtures/form/superforms');
+	await control(page, 'username').pressSequentially('al');
+	await expect(error(page, 'username')).toHaveCount(0);
+	await control(page, 'username').blur();
+	await expect(error(page, 'username')).toHaveText('At least 3 characters');
+	await expect(control(page, 'username')).toHaveAttribute('aria-invalid', 'true');
+	await expect(error(page, 'email')).toHaveCount(0);
+	expect(errors).toEqual([]);
+});
