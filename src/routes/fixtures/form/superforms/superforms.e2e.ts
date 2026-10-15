@@ -16,6 +16,7 @@ test('superforms errors reach the Fields, and a valid submit saves the values', 
 	await expect(field(page, 'username')).toHaveAttribute('data-dirty', '');
 
 	await page.getByRole('button', { name: 'Submit' }).click();
+	await expect(control(page, 'username')).toBeFocused();
 	await expect(error(page, 'email')).toHaveCount(0);
 	expect(await debug(page)).toEqual({ saved: null });
 
