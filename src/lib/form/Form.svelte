@@ -24,7 +24,6 @@
 	import { setFormContext, type FormContextValue } from '../internal/form-context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
 	import { IssueSession } from './issues.svelte.js';
-	import { isRemoteForm, replayResets } from './kit-reset-replay.js';
 	import {
 		allIssues,
 		defaultEnhance,
@@ -73,7 +72,6 @@
 	function rememberForm(node: HTMLFormElement) {
 		element = node;
 		const stopGate = on(node, 'submit', gateSubmit, { capture: true });
-		const stopReplay = replayResets(node, () => isRemoteForm(source));
 		// A reset starts the form over: no external errors, no submit and no source issues yet.
 		const stopReset = onFormReset(node, {
 			settle: () => {
@@ -86,7 +84,6 @@
 		});
 		return () => {
 			stopGate();
-			stopReplay();
 			stopReset();
 			if (element === node) element = null;
 		};

@@ -62,8 +62,7 @@
 			<a href="/fixtures/form/tanstack">TanStack Form</a>,
 			<a href="/fixtures/form/superforms">sveltekit-superforms</a>,
 			<a href="/fixtures/form/composite">composite controls</a>,
-			<a href="/fixtures/form/render">render snippet</a>,
-			<a href="/fixtures/form/kit-reset">Kit reset bug</a>
+			<a href="/fixtures/form/render">render snippet</a>
 		</li>
 		<li>
 			<a href="/fixtures/toggle-group">ToggleGroup</a> (add <code>&amp;reference</code> for React Base

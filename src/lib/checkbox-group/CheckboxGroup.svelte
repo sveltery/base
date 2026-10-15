@@ -12,6 +12,7 @@
 	import { areArraysEqual } from '@sveltery/utils';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
+	import { isEligibleInput } from '../field/validity.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
@@ -70,6 +71,16 @@
 		return Array.isArray(value) ? value : EMPTY;
 	}
 
+	// What native FormData sends: checked values of enabled inputs in this form.
+	function submittedValue() {
+		const formElement = formContext.element;
+		if (!formElement) return currentValue();
+		const successful = [...field.registeredInputs]
+			.filter(([input]) => input.checked && isEligibleInput(input, formElement))
+			.map(([, registration]) => registration.value);
+		return currentValue().filter((item) => successful.includes(item));
+	}
+
 	function setValue(next: string[], details: CheckboxGroupChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
@@ -86,7 +97,8 @@
 		enabled: () => Boolean(field.name) && !disabled,
 		id: () => elementProps.id ?? `base-ui-${uid}`,
 		name: () => field.name,
-		getValue: () => currentValue()
+		getValue: () => currentValue(),
+		getFormValue: submittedValue
 	});
 
 	new FieldValueSync(field, formContext, {

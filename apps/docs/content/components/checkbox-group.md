@@ -405,7 +405,7 @@ Checkboxes in a group submit as separate entries. Set the same `name` on each ch
 - Handlers use lowercase names, such as `onclick`.
 - Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
 - `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- Inside a `Field.Root`, the group registers as the field's control. It reports its whole `value` to `onFormSubmit` and `validate`. Upstream drops values whose checkbox is disabled or belongs to another form. The port does not filter them yet.
+- Inside a `Field.Root`, the group registers as the field's control.
 - The group claims the field's label, so `Field.Label` does not set `for` on a checkbox inside the group.
 
 ## API reference
