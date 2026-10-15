@@ -4,12 +4,13 @@
 	import { defaults, superForm } from 'sveltekit-superforms';
 	import { valibot } from 'sveltekit-superforms/adapters';
 	import * as v from 'valibot';
-	import { Field, Form } from '#lib';
+	import { Autocomplete, Field, Form } from '#lib';
 	import FixturePage from '../shared/FixturePage.svelte';
 
 	const schema = v.object({
 		username: v.pipe(v.string(), v.minLength(3, 'At least 3 characters')),
-		email: v.pipe(v.string(), v.email('Invalid email address'))
+		email: v.pipe(v.string(), v.email('Invalid email address')),
+		city: v.pipe(v.string(), v.minLength(3, 'At least 3 characters'))
 	});
 	const adapter = valibot(schema);
 	let saved = $state<unknown>(null);
@@ -41,6 +42,15 @@
 			<Field.Control type="email" bind:value={$form.email} />
 			{#if $errors.email}
 				<Field.Error match={true} data-testid="error">{$errors.email[0]}</Field.Error>
+			{/if}
+		</Field.Root>
+		<Field.Root name="city" invalid={!!$errors.city} dirty={!!$tainted?.city} data-field="city">
+			<Field.Label>City</Field.Label>
+			<Autocomplete.Root items={['Oslo', 'Paris']} bind:value={$form.city}>
+				<Autocomplete.Input />
+			</Autocomplete.Root>
+			{#if $errors.city}
+				<Field.Error match={true} data-testid="error">{$errors.city[0]}</Field.Error>
 			{/if}
 		</Field.Root>
 		<button>Submit</button>

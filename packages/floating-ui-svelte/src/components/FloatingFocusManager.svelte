@@ -252,7 +252,8 @@
 	let closeReason = '';
 	/**
 	 * Upstream `preventReturnFocusRef`: a focus-out close that moves focus itself skips return
-	 * focus so the Tab is not cancelled. A focus-out close from elsewhere still returns it.
+	 * focus so the Tab is not cancelled, and so does a pointer leaving a hover popup. A focus-out
+	 * close from elsewhere still returns it.
 	 */
 	let preventReturn = false;
 	let lastInteraction: OpenInteractionType = '';
@@ -311,15 +312,18 @@
 		focusInside: boolean;
 	}
 
-	/** `resolved` is the target the teardown already resolved, or `undefined` to resolve it now. */
-	function restoreReturnFocus(leaving: Leaving, resolved?: HTMLElement | null) {
+	/**
+	 * `resolved` is the target the teardown already resolved. Without it, the target is resolved
+	 * here, before any path decides whether to move focus, so a return function runs on every
+	 * teardown as upstream's.
+	 */
+	function restoreReturnFocus(leaving: Leaving, resolved: HTMLElement | null | undefined) {
+		const target = resolved === undefined ? returnTarget(leaving, returnFocus) : resolved;
 		const spec = returnFocus;
 		// Upstream clears the flag after each return, also a prevented or cancelled one.
 		const prevented = preventReturn;
 		preventReturn = false;
-		// A prevented return still resolves its target, so a return function runs as upstream's.
 		const apply = () => {
-			const target = resolved === undefined ? returnTarget(leaving, spec) : resolved;
 			if (prevented || !target?.isConnected) return null;
 			target.focus({ preventScroll: true });
 			return target;
@@ -470,11 +474,12 @@
 		if (!payload || payload.open || !payload.nativeEvent) return;
 		closeType = eventInteraction(payload.nativeEvent, lastInteraction);
 		closeReason = payload.reason;
-		// Upstream `onOpenChangeLocal`: a focus guard moves focus on from a focus-out close, and
-		// an outside press returns focus.
+		// Upstream `onOpenChangeLocal`: a focus guard moves focus on from a focus-out close, a
+		// pointer that leaves a hover popup takes no focus back, and an outside press returns focus.
 		if (
-			payload.reason === REASONS.focusOut &&
-			payload.triggerElement?.hasAttribute('data-base-ui-focus-guard')
+			(payload.reason === REASONS.focusOut &&
+				payload.triggerElement?.hasAttribute('data-base-ui-focus-guard')) ||
+			(payload.reason === REASONS.triggerHover && payload.nativeEvent.type === 'mouseleave')
 		) {
 			preventReturn = true;
 		} else if (payload.reason === REASONS.outsidePress) {

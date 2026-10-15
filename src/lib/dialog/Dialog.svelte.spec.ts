@@ -102,7 +102,7 @@ describe('Dialog', () => {
 		await dialogs(0);
 		expect(onOpenChange).toHaveBeenLastCalledWith(
 			false,
-			expect.objectContaining({ reason: REASONS.escapeKey })
+			expect.objectContaining({ reason: REASONS.escapeKey, trigger: button('Open').element() })
 		);
 	});
 
