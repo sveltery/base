@@ -10,6 +10,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
 	import { REASONS, FocusGuard, contains, ownerDocument } from '@sveltery/utils';
+	import { useFloatingParentNodeId } from '@sveltery/floating-ui-svelte';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { mergePropsN } from '../internal/mergeProps.js';
 	import { pressableTriggerOpenStateMapping } from '../internal/popupStateMapping.js';
@@ -20,7 +21,7 @@
 	import type { MenuHandle } from './handle.svelte.js';
 	import MenuTriggerInteractions from './MenuTriggerInteractions.svelte';
 	import { findMenubarParent } from './parent.svelte.js';
-	import { MenuStore } from './store.svelte.js';
+	import { MenuStore, type MenuTriggerData } from './store.svelte.js';
 	import type { TriggerArmed } from './trigger-armed.js';
 	import type { MenuTriggerProps, MenuTriggerState } from './types.js';
 
@@ -46,6 +47,11 @@
 	}
 
 	const menubar = findMenubarParent();
+	const triggerData: MenuTriggerData = {
+		parent: menubar ? { type: 'menubar', context: menubar } : { type: undefined },
+		parentNodeId: useFloatingParentNodeId(),
+		keyboardEventRelay: menubar?.relayKeyboardEvent
+	};
 	const uid = $props.id();
 	const triggerId = $derived(id ?? `base-ui-${uid}`);
 	const bindKey = createAttachmentKey();
@@ -55,7 +61,7 @@
 	const mouseUpTimeout = new ScopedTimeout();
 	let stopDocumentMouseUp: (() => void) | null = null;
 
-	const live = $derived(root ?? (handle as MenuHandle | undefined)?.attached ?? null);
+	const live = $derived((handle as MenuHandle | undefined)?.attached ?? root ?? null);
 
 	function owned() {
 		return { payload, closeDelay };
@@ -111,15 +117,14 @@
 	}));
 	const menubarItem = menubar?.createItem(() => disabled);
 
-	// Upstream trigger data forwarding: a trigger in a menubar takes over the menu's parent while
-	// it owns the menu. A detached menu then forwards keys to the menubar and emits its open
-	// changes on the menubar's event channel.
+	// Upstream trigger data forwarding: the trigger that owns the menu gives it the trigger's parent
+	// and floating parent node. A detached menu in a menubar then forwards keys to the menubar and
+	// emits its open changes on the menubar's event channel.
 	$effect(() => {
 		const current = live;
-		if (!menubar || !current || !mountedByThis) return;
+		if (!current || !mountedByThis) return;
 		untrack(() => {
-			current.parent = { type: 'menubar', context: menubar };
-			current.ownKeyboardEventRelay = menubar.relayKeyboardEvent;
+			current.triggerData = triggerData;
 		});
 	});
 

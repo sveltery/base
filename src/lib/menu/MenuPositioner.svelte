@@ -9,6 +9,7 @@
 	import { on } from 'svelte/events';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { REASONS, ScopedTimeout, createChangeEventDetails } from '@sveltery/utils';
+	import { provideFloatingNodeId } from '@sveltery/floating-ui-svelte';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import InternalBackdrop from '../internal/InternalBackdrop.svelte';
@@ -50,6 +51,8 @@
 
 	const { store } = useMenuRoot();
 	useMenuPortal();
+	// As upstream's FloatingNode, the menu's node is the parent of what renders inside the positioner.
+	provideFloatingNodeId(store.nodeId);
 	const contextMenu = findContextMenuParent();
 	const attachKey = createAttachmentKey();
 
