@@ -1,4 +1,4 @@
-// A bound Field reports blur to its handle, for sources that track touched themselves (TanStack).
+// A bound Field reports blur to its handle, for sources that track touched themselves.
 // No Base UI equivalent.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';

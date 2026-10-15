@@ -36,7 +36,7 @@ export interface AttachmentReport {
 export interface FakeRemoteFormOptions {
 	/**
 	 * `as()` also returns an attachment that records each `input` event on its element in
-	 * `reports`, the way the TanStack adapter reports edits.
+	 * `reports`, the way a source that listens for edits would.
 	 */
 	attachment?: boolean;
 }
