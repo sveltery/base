@@ -1,0 +1,62 @@
+name: Release
+
+# Pushing a v* tag publishes @sveltery/base to npm through trusted publishing
+# (OIDC), so the job needs no NPM_TOKEN. The package's first version must be
+# published by hand before npm accepts this workflow as its trusted publisher.
+on:
+  push:
+    tags: ['v*']
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish
+    # Chromium's sandbox needs unprivileged user namespaces, which 24.04 runners restrict.
+    runs-on: ubuntu-22.04
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          browser: true
+
+      - name: Check the tag matches the version
+        id: version
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          if [[ "$GITHUB_REF_NAME" != "v$version" ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package.json version $version."
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Skip a version already on npm
+        id: published
+        run: |
+          if npm view "@sveltery/base@${{ steps.version.outputs.version }}" version >/dev/null 2>&1; then
+            echo "::notice::@sveltery/base@${{ steps.version.outputs.version }} is already on npm."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.published.outputs.skip != 'true'
+        run: pnpm verify
+
+      - if: steps.published.outputs.skip != 'true'
+        name: Pack
+        run: pnpm pack --pack-destination "$RUNNER_TEMP/pack"
+
+      - if: steps.published.outputs.skip != 'true'
+        name: Publish
+        # Trusted publishing needs npm 11.5.1 or later.
+        run: |
+          npm install --global npm@11.6.2
+          npm publish "$RUNNER_TEMP"/pack/*.tgz --access public --provenance
