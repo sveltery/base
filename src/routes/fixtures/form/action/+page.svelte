@@ -2,14 +2,20 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { fromAction } from 'svelte/attachments';
-	import { Field, Form } from '#lib';
+	import { Field, Form, isSubmitBlocked } from '#lib';
 	import FixturePage from '../shared/FixturePage.svelte';
 
 	let { form } = $props();
 </script>
 
 <FixturePage debug={{ welcome: form?.welcome ?? null }}>
-	<Form method="POST" errors={form?.errors} {@attach fromAction(enhance)}>
+	<Form
+		method="POST"
+		errors={form?.errors}
+		{@attach fromAction(enhance, () => ({ formElement, cancel }) => {
+			if (isSubmitBlocked(formElement)) cancel();
+		})}
+	>
 		<Field.Root name="email" data-field="email">
 			<Field.Label>Email</Field.Label>
 			<Field.Control type="email" required defaultValue={form?.values?.email} />

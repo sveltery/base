@@ -3,7 +3,7 @@
 	import { fromAction } from 'svelte/attachments';
 	import { superForm } from 'sveltekit-superforms';
 	import { valibot } from 'sveltekit-superforms/adapters';
-	import { Field, Form } from '#lib';
+	import { Field, Form, isSubmitBlocked } from '#lib';
 	import FixturePage from '../../shared/FixturePage.svelte';
 	import { schema } from './schema.js';
 
@@ -12,6 +12,9 @@
 	// svelte-ignore state_referenced_locally
 	const { form, errors, enhance } = superForm(data.form, {
 		validators: valibot(schema),
+		onSubmit: ({ formElement, cancel }) => {
+			if (isSubmitBlocked(formElement)) cancel();
+		},
 		onUpdate: ({ form }) => {
 			if (form.valid) saved = form.data;
 		}

@@ -795,7 +795,7 @@ export const actions = {
 };
 ```
 
-On the page, pass `form?.errors` to `errors`, and each submitted value to the control's `defaultValue`. `use:enhance` is an action, so `fromAction` turns it into an attachment on Form:
+On the page, pass `form?.errors` to `errors`, and each submitted value to the control's `defaultValue`. `use:enhance` is an action, so `fromAction` turns it into an attachment on Form. Its submit function cancels a submit that Form blocked:
 
 ```svelte
 <!-- src/routes/signup/+page.svelte -->
@@ -803,12 +803,18 @@ On the page, pass `form?.errors` to `errors`, and each submitted value to the co
 	import { enhance } from '$app/forms';
 	import { fromAction } from 'svelte/attachments';
 	import { Field } from '@sveltery/base/field';
-	import { Form } from '@sveltery/base/form';
+	import { Form, isSubmitBlocked } from '@sveltery/base/form';
 
 	let { form } = $props();
 </script>
 
-<Form method="POST" errors={form?.errors} {@attach fromAction(enhance)}>
+<Form
+	method="POST"
+	errors={form?.errors}
+	{@attach fromAction(enhance, () => ({ formElement, cancel }) => {
+		if (isSubmitBlocked(formElement)) cancel();
+	})}
+>
 	<Field.Root name="email">
 		<Field.Label>Email</Field.Label>
 		<Field.Control type="email" required defaultValue={form?.values?.email} />
@@ -826,7 +832,7 @@ On the page, pass `form?.errors` to `errors`, and each submitted value to the co
 </Form>
 ```
 
-Form validates each field before `use:enhance` sees the submit, so an invalid field stops the submit and no request is sent. A server error shows in its `Field.Error`, Form focuses the field, and the error clears as soon as the user changes the field. With JavaScript off, the browser validates, the form posts, and the page renders the errors and the submitted values.
+Form validates each field before `use:enhance` sees the submit. When a field is invalid, Form calls `preventDefault()` and focuses the field. `use:enhance` does not check `defaultPrevented`, so without `cancel()` it posts the invalid values. `isSubmitBlocked(formElement)` returns `true` when Form blocked the current submit. Call it before any `await` in the submit function, because the next submit replaces the answer. A server error shows in its `Field.Error`, Form focuses the field, and the error clears as soon as the user changes the field. With JavaScript off, the browser validates, the form posts, and the page renders the errors and the submitted values.
 
 ## Customize the submit
 
@@ -920,7 +926,7 @@ A form library can own the values and the validation, while Field shows the stat
 - `dirty` marks the value as changed from its initial value.
 - `touched` marks the field as visited.
 
-Bind the value to the library with `bind:value`, or with a getter and setter pair. Render the library's message in a `Field.Error` with `match={true}`, inside an `{#if}` that checks for an error. `invalid` sets `aria-invalid` on the control and `data-invalid` on every part of the field. It also blocks a Form submit. While a Field is `invalid`, Form cancels the submit with `preventDefault()`. The library's own `submit` listener still runs, so it can validate and show its errors. A library that sets errors on the server has to clear them when the user edits, as Superforms does.
+Bind the value to the library with `bind:value`, or with a getter and setter pair. Render the library's message in a `Field.Error` with `match={true}`, inside an `{#if}` that checks for an error. `invalid` sets `aria-invalid` on the control and `data-invalid` on every part of the field. It also blocks a Form submit. While a Field is `invalid`, Form cancels the submit with `preventDefault()`. The library's own `submit` listener still runs, so it can validate and show its errors. If that listener sends a request, cancel it when `isSubmitBlocked(form)` returns `true`, as in [Connect a form action](#connect-a-form-action). A library that sets errors on the server has to clear them when the user edits, as Superforms does when it has `validators`.
 
 ### sveltekit-superforms
 
@@ -1007,7 +1013,20 @@ Superforms' `enhance` is an action, so `fromAction` turns it into an attachment 
 </Form>
 ```
 
-To validate on the server too, remove `SPA` and add a form action that calls `superValidate`, as the Superforms docs describe. The props on `Field.Root` stay the same.
+To validate on the server too, remove `SPA` and add a form action that calls `superValidate`, as the Superforms docs describe. The props on `Field.Root` stay the same. Without `SPA`, Superforms skips its own validation on submit because Form sets `novalidate`, and it posts a submit that Form blocked. Cancel that submit in `onSubmit`:
+
+```ts
+import { isSubmitBlocked } from '@sveltery/base/form';
+
+const { form, errors, tainted, enhance } = superForm(data.form, {
+	validators: adapter,
+	onSubmit: ({ formElement, cancel }) => {
+		if (isSubmitBlocked(formElement)) cancel();
+	}
+});
+```
+
+Keep `validators`, so Superforms validates on blur and clears a message as the user edits. Without them, a message from the server stays in `$errors`, and `invalid` blocks every later submit.
 
 ### TanStack Form
 
