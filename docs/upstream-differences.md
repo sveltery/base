@@ -418,7 +418,7 @@ Local: Svelte children are a snippet with no readable text. An item's text is it
 
 Upstream: keys and focus in a portaled submenu bubble through React's tree to the parent popup's handlers.
 
-Local: nothing re-runs the parent popup's handlers. A key that a submenu does not handle goes straight to the menubar's `relayKeyboardEvent`, so ArrowRight on a plain item moves to the next menubar menu. A plain submenu that closes on its parent's main-axis key moves the parent's highlight on from its trigger. The parent's other main-axis key, such as ArrowRight on a plain item of a vertical submenu in a horizontal menu, does nothing. Upstream moves the parent's highlight to the next item. A filterable popup learns that focus moved into one of its submenus from a `focusin` listener on the document, matched by the menu's root id.
+Local: nothing re-runs the parent popup's handlers. A key that a submenu does not handle goes straight to the menubar's `relayKeyboardEvent`, so ArrowRight on a plain item moves to the next menubar menu. A plain submenu passes a main-axis key it leaves unhandled to its parent's highlight by an explicit call. The parent moves on from its trigger when the key closed the submenu, and otherwise from its current item, as upstream's parent list navigation does. A filterable popup learns that focus moved into one of its submenus from a `focusin` listener on the document, matched by the menu's root id.
 
 ### Opting out of the menu's key handling
 
