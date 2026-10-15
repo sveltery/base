@@ -6,6 +6,7 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { renderBound } from '../../tests/bound-render.svelte.js';
 import FieldControlDefaultHarness from '../../tests/FieldControlDefaultHarness.svelte';
 import FieldHarness from '../../tests/FieldHarness.svelte';
 import FieldLowHarness from '../../tests/FieldLowHarness.svelte';
@@ -463,6 +464,31 @@ describe('Field', () => {
 			} finally {
 				errorSpy.mockRestore();
 			}
+		});
+	});
+
+	describe('prop: oninput', () => {
+		it('runs before the control writes the typed value', async () => {
+			const seen: unknown[] = [];
+			const props = renderBound(Field.Control, {
+				value: 'a',
+				'data-testid': 'control',
+				oninput: () => seen.push(props.value)
+			});
+			await userEvent.type(page.getByTestId('control'), 'b');
+			expect([seen, props.value]).toEqual([['a'], 'ab']);
+		});
+
+		it('skips the value change when it calls preventDefault on a typed input', async () => {
+			const onValueChange = vi.fn();
+			const props = renderBound(Field.Control, {
+				value: 'a',
+				'data-testid': 'control',
+				onValueChange,
+				oninput: (event: Event) => event.preventDefault()
+			});
+			await userEvent.type(page.getByTestId('control'), 'b');
+			expect([props.value, onValueChange.mock.calls.length]).toEqual(['a', 0]);
 		});
 	});
 

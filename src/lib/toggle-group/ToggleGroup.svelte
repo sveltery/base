@@ -70,7 +70,9 @@
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
 		...getStateAttributesProps(state),
 		role: 'group',
-		...elementProps
+		...elementProps,
+		// Inside a Toolbar the toolbar root is the scroll container.
+		...(toolbar ? {} : roving.rootProps)
 	});
 </script>
 

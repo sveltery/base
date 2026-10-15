@@ -6,7 +6,7 @@ Intentional differences from Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/merge-props/mergeProps.ts`. `@base-ui/react` and `@base-ui/react/merge-props` export `mergeProps`, `mergePropsN`, `makeEventPreventable`, and `mergeClassNames`. The rightmost bag wins plain props. Its event handler runs first. `event.preventBaseUIHandler()` skips the handlers to its left. `preventDefault()` does not. `className` is concatenated with the rightmost class first. `style` is a React style object, and the rightmost property wins. A function argument receives the props merged so far and replaces them. Handlers that function returns are not wrapped. `ref` is not merged.
 
-Local: `src/lib/internal/mergeProps.ts`. `@sveltery/base` and `@sveltery/base/merge-props` export `mergeProps`, `mergePropsN`, and the `PropsGetter` type of a function bag. `makeEventPreventable` is not needed, because `preventDefault()` is the skip signal. `mergeClassNames` is not exported, because `class` values merge as arrays. The same order. `event.preventDefault()` is the skip signal: when a handler leaves `defaultPrevented` set, the handlers to its left do not run. There is no `preventBaseUIHandler`. Parts that call the consumer handler themselves use the same signal, so every part skips on `preventDefault()`. The check reads the event's shape (`type` and `preventDefault`), so an event from an iframe skips too. The prop is `class`, a Svelte class value (string, object, or array), merged as an array with the rightmost bag first. `style` is a CSS string, and the rightmost declaration wins for the same property. A style object is ignored. Handler names are Svelte's lowercase names, such as `onclick`. `onClick` is a plain prop. Attachment symbols are all kept, in bag order. There is no ref. `chain` and `mergeClass` are the same helper. Call sites pass the consumer bag last.
+Local: `src/lib/internal/mergeProps.ts`. `@sveltery/base` and `@sveltery/base/merge-props` export `mergeProps`, `mergePropsN`, and the `PropsGetter` type of a function bag. `makeEventPreventable` is not needed, because `preventDefault()` is the skip signal. `mergeClassNames` is not exported, because `class` values merge as arrays. The same order. `event.preventDefault()` is the skip signal: when a handler calls it, the handlers to its left do not run. This holds for an event that is not cancelable, such as a typed `input`, where `defaultPrevented` stays false. There is no `preventBaseUIHandler`. Parts that call the consumer handler themselves use the same signal, so every part skips on `preventDefault()`. The check reads the event's shape (`type` and `preventDefault`), so an event from an iframe skips too. The prop is `class`, a Svelte class value (string, object, or array), merged as an array with the rightmost bag first. `style` is a CSS string, and the rightmost declaration wins for the same property. A style object is ignored. Handler names are Svelte's lowercase names, such as `onclick`. `onClick` is a plain prop. Attachment symbols are all kept, in bag order. There is no ref. `chain` and `mergeClass` are the same helper. Call sites pass the consumer bag last.
 
 Test: `src/lib/internal/mergeProps.spec.ts`. `src/lib/merge-props/merge-props.spec.ts`. `src/lib/popover/Popover.svelte.spec.ts` (`skips the toggle when an iframe event calls preventDefault`).
 
@@ -434,9 +434,9 @@ Local: they are the classes in `filter-root.svelte.ts` and `filter-submenu-root.
 
 Upstream: a hover menu that closes because the pointer left (`trigger-hover` from `mouseleave`) returns focus nowhere.
 
-Local: the shared `FloatingFocusManager` skips return focus only for a `focus-out` close that moves focus on itself, as upstream's `preventReturnFocusRef` does. `MenuPopup` passes a `returnFocus` that skips it after a `trigger-hover` close from `mouseleave`, so focus is on the body once the popup unmounts.
+Local: the shared `FloatingFocusManager` skips return focus after that close, and after a `focus-out` close that moves focus on itself, as upstream's `preventReturnFocusRef` does. It still calls a return function, as upstream does. `MenuPopup` also passes a `returnFocus` that returns `false` after that close before it calls a `finalFocus` function, so Menu does not call that function. Upstream calls it and ignores the result.
 
-Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`does not return focus to the element focused before a hover open when the pointer leaves`).
+Test: `src/lib/menu/MenuRoot.svelte.spec.ts` (`does not return focus to the element focused before a hover open when the pointer leaves`) and `packages/floating-ui-svelte/src/components/FloatingFocusManager.svelte.spec.ts` (`calls a return focus function on a hover-leave close and keeps focus off the trigger`).
 
 ### Touch close guard
 
@@ -510,7 +510,7 @@ Local: the shared `CompositeRoot` focuses the next trigger synchronously. The po
 
 ### Behavior that waits on shared internals
 
-- The shared `CompositeRoot` does not select the text of a native input on focus and has no text-field arrow exceptions. A menubar holds only triggers, so no ported case reaches them.
+- `Menubar.svelte` does not spread `CompositeRoot.rootProps`, an omission in the owner and not a limit of `CompositeRoot`. The menubar therefore does not select the text of a native input on focus and does not scroll a keyboard-highlighted trigger into view. The text-field arrow exceptions apply. A menubar holds only triggers, so no ported case reaches them.
 - `packages/floating-ui-svelte/src/hooks/useDismiss.svelte.ts` keeps a press that started inside a popup until its `pointerup`, for sloppy presses too. Upstream checks that flag only for intentional presses. A touch press inside a submenu followed by a touch press outside, with no `pointerup` between them, closes the submenu but not its parent menu. Real taps always send `pointerup`. The ported touch case taps the submenu trigger with a full sequence.
 
 ### Not covered
@@ -744,14 +744,13 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                              |
 | Field              | refs                                                                                             |
 | Input              | refs                                                                                             |
-| ToggleGroup        | grid composite, scroll-into-view                                                                 |
+| ToggleGroup        | grid composite                                                                                   |
 | Separator          | React render-element cloning, `ref`                                                              |
 | Meter              | React `ref`, numeric production error codes                                                      |
 | Progress           | refs                                                                                             |
 | Form               | `actionsRef`                                                                                     |
-| RadioGroup         | scroll-into-view, text-field arrow exceptions                                                    |
-| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, refs                       |
-| Toolbar            | text-field arrow exceptions, scroll-into-view, overlay triggers                                  |
+| Tabs               | `renderBeforeHydration` script (accepted, ignored), refs                                         |
+| Toolbar            | overlay triggers                                                                                 |
 | NumberField        | refs                                                                                             |
 | ScrollArea         | refs                                                                                             |
 | Slider             | refs, the prehydration `<script>` stays in the DOM after hydration (empty in client-only mounts) |
