@@ -152,7 +152,8 @@ export class MenuFilterSubmenu implements MenuSubmenuNavigation {
 	}
 
 	#moveInParent(from: HTMLElement, event: KeyboardEvent) {
-		const item = moveHighlightFrom(this.#parentStore, from, event, {
+		const parentStore = this.#parentStore;
+		const item = moveHighlightFrom(parentStore, parentStore.items.indexOf(from), event, {
 			orientation: this.parent.orientation,
 			rtl: this.rtl(),
 			loopFocus: this.parent.loopFocus,

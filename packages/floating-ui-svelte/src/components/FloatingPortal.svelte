@@ -71,8 +71,8 @@
 	// A nested portal mounts inside the parent portal host, as a sibling of that host's popup.
 	// Upstream `createPortal` inserts the div before refs run (`ref: [consumer ref, setPortalNodeRef]`
 	// in `useFloatingPortalNode`), so a consumer ref sees the container. The move is that portal,
-	// not the ref. `MOUNT` is spread before `rest` so a consumer `{@attach}` sees the same parent.
-	// `data-base-ui-portal` is set after that spread, so a consumer value cannot replace the marker.
+	// not the ref. `MOUNT` and the `data-base-ui-portal` marker come before `rest`, so a consumer
+	// `{@attach}` sees the same parent and a consumer marker value wins, as upstream merges it.
 	// Upstream `useRenderElement` applies `render` and `className` to this div. The snippet receives
 	// the same host props, including the move attachment. `class` is the native class name.
 	// Explicit `container={null}` waits. `undefined` still uses the parent portal or `document.body`.
@@ -253,8 +253,8 @@
 		return {
 			[MOUNT]: mount,
 			id: uniqueId,
-			...rest,
-			'data-base-ui-portal': ''
+			'data-base-ui-portal': '',
+			...rest
 		} as PortalHostProps;
 	}
 </script>
@@ -280,7 +280,7 @@
 	{#if render}
 		{@render render(hostProps(), portalState, content)}
 	{:else}
-		<div {...{ [MOUNT]: mount }} id={uniqueId} {...rest} data-base-ui-portal="">
+		<div {...{ [MOUNT]: mount }} id={uniqueId} data-base-ui-portal="" {...rest}>
 			{@render content()}
 		</div>
 	{/if}

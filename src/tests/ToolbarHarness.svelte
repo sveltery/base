@@ -9,6 +9,8 @@
 		| 'skip-one'
 		| 'skip-first'
 		| 'flag-only'
+		| 'skip-input'
+		| 'skip-span'
 		| 'blocked'
 		| 'hover'
 		| 'custom'
@@ -119,6 +121,20 @@
 				<Toolbar.Button>One</Toolbar.Button>
 				<Toolbar.Button focusableWhenDisabled={false}>Two</Toolbar.Button>
 				<Toolbar.Button>Three</Toolbar.Button>
+			</Toolbar.Root>
+		{:else if scenario === 'skip-input'}
+			<Toolbar.Root aria-label="Tools">
+				<Toolbar.Button>One</Toolbar.Button>
+				<Toolbar.Input value="" disabled focusableWhenDisabled={false} />
+				<Toolbar.Button>Two</Toolbar.Button>
+			</Toolbar.Root>
+		{:else if scenario === 'skip-span'}
+			<Toolbar.Root aria-label="Tools">
+				<Toolbar.Button>One</Toolbar.Button>
+				<Toolbar.Button nativeButton={false} disabled focusableWhenDisabled={false}>
+					{#snippet render(props)}<span {...props}>Span</span>{/snippet}
+				</Toolbar.Button>
+				<Toolbar.Button>Two</Toolbar.Button>
 			</Toolbar.Root>
 		{:else if scenario === 'blocked' || scenario === 'hover'}
 			<Toolbar.Root aria-label="Tools">

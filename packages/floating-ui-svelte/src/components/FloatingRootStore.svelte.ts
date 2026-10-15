@@ -47,6 +47,8 @@ export class FloatingRootStore {
 	 * Tab leaving a non-modal popup lands here, then on the next control.
 	 */
 	triggerFocusTarget = $state<HTMLElement | null>(null);
+	/** Focus guard rendered before the active trigger. Shift+Tab from the trigger lands here. */
+	triggerBeforeGuard: HTMLElement | null = null;
 	nodeId: string | null = null;
 	readonly events: FloatingEvents = createEventEmitter();
 	readonly data: {
