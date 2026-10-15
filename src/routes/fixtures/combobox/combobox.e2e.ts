@@ -120,6 +120,33 @@ for (const reference of [false, true]) {
 			await expect(trigger).toBeFocused();
 		});
 
+		test('highlights an index past the rendered window of a virtualized list', async ({ page }) => {
+			await open(page, 'virtualized', reference);
+			const input = page.getByTestId('input');
+			await input.click();
+			await expect(page.getByRole('option')).toHaveCount(5);
+
+			for (let step = 0; step < 7; step += 1) await page.keyboard.press('ArrowDown');
+
+			await expect(page.getByTestId('highlighted')).toHaveText('Item 6:6');
+			await expect(input).toHaveAttribute('aria-activedescendant', /-6$/);
+			await expect(page.locator('[role="option"][data-highlighted]')).toHaveCount(0);
+
+			await input.pressSequentially('1');
+			await expect(page.getByRole('option')).toHaveText([
+				'Item 1',
+				'Item 10',
+				'Item 11',
+				'Item 12',
+				'Item 13'
+			]);
+			await page.keyboard.press('ArrowDown');
+			await page.keyboard.press('ArrowDown');
+			await expect(page.getByTestId('highlighted')).toHaveText('Item 10:1');
+			await page.keyboard.press('Enter');
+			await expect(input).toHaveValue('Item 10');
+		});
+
 		test('moves through a grid in two dimensions', async ({ page }) => {
 			await open(page, 'grid', reference);
 			const input = page.getByTestId('input');

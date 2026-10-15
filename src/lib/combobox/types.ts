@@ -193,6 +193,13 @@ export interface ComboboxSharedRootProps<Value = unknown, Item = Value> {
 	 */
 	inline?: boolean;
 	/**
+	 * Whether an external virtualizer renders a window of the items. Give each rendered item its
+	 * `index`, or a `value` from `items` to look its index up. Typing leaves the list scroll to
+	 * the virtualizer.
+	 * @default false
+	 */
+	virtualized?: boolean;
+	/**
 	 * Whether the popup is modal while open: page scroll is locked and outside pointer
 	 * interaction is blocked.
 	 * @default false
@@ -570,6 +577,11 @@ export interface ComboboxItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * @default null
 	 */
 	value?: unknown;
+	/**
+	 * The item's position in the list. Without it the item takes its position from the document
+	 * order, or from `items` when the root is `virtualized`.
+	 */
+	index?: number;
 	/**
 	 * Whether the item ignores user interaction.
 	 * @default false

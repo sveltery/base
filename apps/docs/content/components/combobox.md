@@ -343,6 +343,25 @@ Group items as `{ value, items }` entries and render each group with `Combobox.G
 </Combobox.List>
 ```
 
+### Virtualized lists
+
+For a long list, render only the items in view with a virtualizer and set `virtualized` on the root. Give each rendered item its position in the filtered items as `index`. The arrow keys then move through every position, also past the rendered window, and `onItemHighlighted` reports the highlighted item and its `index`, so you can scroll it into view. Typing does not reset the list scroll, because the virtualizer owns it. Without `index`, a virtualized item finds its position by looking up its `value` in the filtered `items`.
+
+```svelte
+<Combobox.Root {items} virtualized onItemHighlighted={(item, { index }) => scrollToIndex(index)}>
+	<!-- … -->
+	<Combobox.List>
+		{#each visibleRange as index (index)}
+			<Combobox.Item value={filtered.current[index]} {index}>
+				{filtered.current[index]}
+			</Combobox.Item>
+		{/each}
+	</Combobox.List>
+</Combobox.Root>
+```
+
+`filtered` is `Combobox.useFilteredItems()`, called in a part inside the root. `index` also works without `virtualized`, to number items whose document order differs from the list order.
+
 ## Differences from Base UI
 
 - `value`, `inputValue` and `open` are bindable props. Use `bind:value`, `bind:inputValue` and `bind:open` instead of a value and its change callback together. `defaultValue` and `defaultInputValue` stay, because the combobox is a form control. There is no `defaultOpen`: pass `open` without `bind:` to set the initial state.
@@ -351,7 +370,7 @@ Group items as `{ value, items }` entries and render each group with `Combobox.G
 - `useFilter` is a plain function. Call it in a `$derived` when its options change. `useFilteredItems` returns `{ current }`.
 - Labels in `items`, the `placeholder`, and the text `itemToStringLabel` returns are strings. Format richer content with the `Combobox.Value` `children` snippet.
 - `actionsRef` is not available. Use `bind:this` on `Combobox.Root`, which exposes `close()` and `unmount()`.
-- `inputRef`, `virtualized` and the `Combobox.Item` `index` prop are not available. A `multiple` combobox submits through one hidden `<select multiple>` instead of one hidden input per value. `FormData` holds the same entries.
+- `inputRef` is not available. A `multiple` combobox submits through one hidden `<select multiple>` instead of one hidden input per value. `FormData` holds the same entries.
 - A native form reset restores `defaultValue` and the input text, as the other form controls do. React Base UI keeps its state.
 - `readonly` and `autocomplete` use the HTML spelling, so the root takes `readonly`, not `readOnly`. Handlers use lowercase names such as `onclick`. Call `event.preventDefault()` in a part's handler to skip the part's own handling.
 - Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.

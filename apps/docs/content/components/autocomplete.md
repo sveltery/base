@@ -278,6 +278,10 @@ Put `Autocomplete.Input` inside `Autocomplete.Popup` and open it with `Autocompl
 </Autocomplete.Root>
 ```
 
+### Virtualized lists
+
+Set `virtualized` on the root and give each rendered `Autocomplete.Item` its position in the filtered items as `index`, as in [Combobox](/components/combobox#virtualized-lists). The arrow keys move through every position, also past the rendered window, and `onItemHighlighted` reports the `index` to scroll to.
+
 ## Differences from Base UI
 
 - `value` and `open` are bindable props. Use `bind:value` and `bind:open` instead of a value and its change callback together. `defaultValue` stays, because the autocomplete is a form control. There is no `defaultOpen`: pass `open` without `bind:` to set the initial state.
@@ -287,7 +291,7 @@ Put `Autocomplete.Input` inside `Autocomplete.Popup` and open it with `Autocompl
 - The root infers the item type from `items`, so it takes no type argument.
 - `useFilter` is a plain function. Call it in a `$derived` when its options change. `useFilteredItems` returns `{ current }`.
 - `actionsRef` is not available. Use `bind:this` on `Autocomplete.Root`, which exposes `close()` and `unmount()`.
-- `inputRef` and the `Autocomplete.Item` `index` prop are not available.
+- `inputRef` is not available.
 - A native form reset restores `defaultValue`, as the other form controls do. React Base UI keeps its state.
 - `readonly` uses the HTML spelling, so the root takes `readonly`, not `readOnly`. Handlers use lowercase names such as `onclick`. Call `event.preventDefault()` in a part's handler to skip the part's own handling.
 - Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.

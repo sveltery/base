@@ -8,11 +8,16 @@ export const cases = [
 	'form',
 	'reset',
 	'disabled',
-	'readonly'
+	'readonly',
+	'virtualized'
 ] as const;
 export type ComboboxCase = (typeof cases)[number];
 
 export const fruits = ['Apple', 'Banana', 'Cherry'];
+
+/** A long list of which the `virtualized` case renders the first `windowSize` matches. */
+export const manyItems = Array.from({ length: 20 }, (_, index) => `Item ${index}`);
+export const windowSize = 5;
 
 export const gridRows = [
 	['Red', 'Green', 'Blue'],

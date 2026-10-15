@@ -1,14 +1,14 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/combobox/items/createItems.test.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // The rendering cases. The lazy normalization cases without a render live in collection.spec.ts,
-// and the server-rendered label case in ssr.spec.ts. Not ported: the two `virtualized` cases,
-// since `virtualized` is not ported.
+// and the server-rendered label case in ssr.spec.ts.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { Combobox } from '#lib';
 import { renderBound } from '../../tests/bound-render.svelte.js';
 import ComboboxItemsHarness from '../../tests/ComboboxItemsHarness.svelte';
+import ComboboxVirtualHarness from '../../tests/ComboboxVirtualHarness.svelte';
 
 interface User {
 	id: number;
@@ -970,6 +970,49 @@ describe('Combobox.createItems', () => {
 			await userEvent.keyboard('{Enter}');
 
 			expect(onValueChange.mock.lastCall?.[0]).toBe(1);
+		});
+
+		it('resolves virtualized collection items to their derived value', async () => {
+			const onValueChange = vi.fn();
+			render(ComboboxVirtualHarness, {
+				root: { items: userItems, virtualized: true, open: true, onValueChange },
+				popup: false,
+				indexed: false,
+				itemValue: getUserId as (item: never) => unknown,
+				itemText: getUserName as (item: never) => string
+			});
+
+			await userEvent.click(option('Bob'));
+
+			expect(onValueChange.mock.lastCall?.[0]).toBe(2);
+		});
+
+		it('resolves externally virtualized item indexes and callbacks in the derived value domain', async () => {
+			const onValueChange = vi.fn();
+			const onItemHighlighted = vi.fn();
+			render(ComboboxVirtualHarness, {
+				root: {
+					items: userItems,
+					virtualized: true,
+					open: true,
+					onValueChange,
+					onItemHighlighted
+				},
+				popup: false,
+				indexed: false,
+				windowSize: 1,
+				itemValue: getUserId as (item: never) => unknown,
+				itemText: getUserName as (item: never) => string
+			});
+
+			await userEvent.type(input(), 'bo');
+			await userEvent.keyboard('{ArrowDown}');
+
+			expect(onItemHighlighted.mock.lastCall?.[0]).toBe(2);
+
+			await userEvent.keyboard('{Enter}');
+
+			expect(onValueChange.mock.lastCall?.[0]).toBe(2);
 		});
 
 		it('uses explicit item values in the derived value domain', async () => {
