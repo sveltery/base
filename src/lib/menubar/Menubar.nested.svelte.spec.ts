@@ -47,6 +47,7 @@ describe('a menu inside a menubar menu', () => {
 		render(MenubarNestedHarness, { log, scenario: 'menu' });
 		clickElement(get('file-trigger'));
 		await expect.poll(() => isOpen('file')).toBe(true);
+		await expect.poll(() => get('file').contains(document.activeElement)).toBe(true);
 		clickElement(get('inner-trigger'));
 		await expect.poll(() => isOpen('inner')).toBe(true);
 		await settle();

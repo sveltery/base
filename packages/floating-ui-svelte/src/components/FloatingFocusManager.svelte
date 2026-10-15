@@ -69,7 +69,11 @@
 		useFloatingPortal
 	} from './FloatingPortal.svelte';
 	import { useFloatingTree } from './FloatingTree.svelte.js';
-	import { getNodeAncestors, getNodeChildren } from './FloatingTreeStore.js';
+	import {
+		getNodeAncestors,
+		getNodeChildren,
+		type FloatingTreeStore
+	} from './FloatingTreeStore.js';
 
 	let {
 		store,
@@ -82,7 +86,8 @@
 		closeOnFocusOut = true,
 		restoreFocus = false,
 		previousFocusableElement = null,
-		getInsideElements
+		getInsideElements,
+		externalTree
 	}: {
 		store: FloatingRootStore;
 		children?: Snippet;
@@ -114,6 +119,8 @@
 		previousFocusableElement?: HTMLElement | null;
 		/** Elements outside the popup that count as inside for focus out, return focus, `aria-hidden`. */
 		getInsideElements?: () => Array<Element | null | undefined>;
+		/** The floating tree to use instead of the one from context. */
+		externalTree?: FloatingTreeStore | null;
 	} = $props();
 
 	function insideElements() {
@@ -132,7 +139,8 @@
 	const trapped = $derived(modal && !untrappedCombobox);
 	const guarded = $derived(!disabled && store.isOpen());
 
-	const tree = useFloatingTree();
+	const contextTree = useFloatingTree();
+	const tree = $derived(externalTree ?? contextTree);
 	const portaled = hasFloatingPortal();
 	const portal = useFloatingPortal();
 	setFloatingPopupScope(untrack(() => store));

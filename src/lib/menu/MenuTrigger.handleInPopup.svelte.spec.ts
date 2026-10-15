@@ -67,9 +67,7 @@ describe('a handle trigger inside another menu', () => {
 		await expect.poll(() => isOpen('more')).toBe(false);
 		expect({ file: isOpen('file'), close: log.slice(3) }).toEqual({
 			file: false,
-			// Upstream closes the menubar menu with `item-press`. Here the press reaches its outside-press
-			// check, as that menu's dismiss reads the floating tree it was created in.
-			close: ['file:close:outside-press', 'more:close:item-press']
+			close: ['file:close:item-press', 'more:close:item-press']
 		});
 	});
 });
