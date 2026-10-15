@@ -10,6 +10,7 @@
 		change,
 		dialog = false,
 		direction = 'forward',
+		onFinalFocus,
 		open = $bindable(false)
 	}: {
 		tabindex?: number;
@@ -21,6 +22,8 @@
 		dialog?: boolean;
 		/** Which side of the popover the changing controls or the dialog's button sit on. */
 		direction?: 'forward' | 'backward';
+		/** Called with the close type each time the `finalFocus` function runs. */
+		onFinalFocus?: (closeType: string | null) => void;
 		open?: boolean;
 	} = $props();
 
@@ -63,7 +66,10 @@
 					finalFocus={finalFocus === 'element'
 						? finalFocusElement
 						: finalFocus === 'function'
-							? () => true
+							? (closeType) => {
+									onFinalFocus?.(closeType);
+									return true;
+								}
 							: undefined}
 				>
 					<button type="button" data-testid="inside">Inside</button>

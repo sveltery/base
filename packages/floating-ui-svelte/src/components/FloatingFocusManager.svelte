@@ -309,12 +309,10 @@
 		// Upstream clears the flag after each return, also a prevented or cancelled one.
 		const prevented = preventReturn;
 		preventReturn = false;
-		// The return function is not called when the return is prevented. React calls it and
-		// ignores the result.
+		// A prevented return still resolves its target, so a return function runs as upstream's.
 		const apply = () => {
-			if (spec === false || prevented) return null;
 			const target = resolved === undefined ? returnTarget(leaving, spec) : resolved;
-			if (!target?.isConnected) return null;
+			if (prevented || !target?.isConnected) return null;
 			target.focus({ preventScroll: true });
 			return target;
 		};
@@ -411,9 +409,16 @@
 	 */
 	function focusStaysInTree(related: EventTarget | null) {
 		if (!(related instanceof Node)) return false;
-		// Shift+Tab from the open trigger lands on its leading focus guard.
-		// That guard is outside the popup, and closing here would return focus to the trigger.
-		if (related instanceof Element && related.hasAttribute('data-base-ui-focus-guard')) return true;
+		// This popup's own focus guards, as upstream `isRelatedFocusGuard`. A guard of another
+		// popup, such as a parent popover's, is outside.
+		const guards = portal?.guards;
+		const ownGuards = [
+			guards?.beforeOutside,
+			guards?.afterOutside,
+			store.triggerBeforeGuard,
+			store.triggerFocusTarget
+		];
+		if (ownGuards.includes(related as HTMLElement)) return true;
 		const popup = store.floatingElement;
 		if (contains(popup, related) || contains(store.portalElement, related)) return true;
 		if ([...store.nestedPortals].some((host) => contains(host, related))) return true;
@@ -732,10 +737,7 @@
 			// does. A return function then reads the state from before the unmount, such as Menu's
 			// trigger, which the unmount clears. One that closes in this update reads
 			// `returnFocus` once the update has finished.
-			const resolved =
-				!store.isOpen() && !preventReturn && returnFocus !== false
-					? returnTarget(leaving, returnFocus)
-					: undefined;
+			const resolved = store.isOpen() ? undefined : returnTarget(leaving, returnFocus);
 			queueMicrotask(() => restoreReturnFocus(leaving, resolved));
 		};
 	});

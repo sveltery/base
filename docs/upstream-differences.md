@@ -47,13 +47,11 @@ Test: `src/lib/internal/button.spec.ts`. `src/lib/button/Button.svelte.spec.ts` 
 
 ## Portal
 
-### The portal marker stays on the host
+### Host attributes and attachments
 
 Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/floating-ui-react/components/FloatingPortal.tsx`. `useRenderElement` merges `[{ id, 'data-base-ui-portal': '' }, elementProps]`. Later props overwrite, so a consumer `data-base-ui-portal` replaces the marker. `mergeProps` assigns a later `data-base-ui-portal={undefined}` over that `''`, and React omits the attribute, so the marker is removed. `className` and `style` are merged after that list. `createPortal` inserts the div into its container before refs run. The ref list is the consumer ref, then the internal node ref, so the consumer ref sees the node already in that container.
 
-Local: `Dialog.Portal` and `Popover.Portal` spread consumer host attributes onto the portal `div`, then set `data-base-ui-portal=""`. A consumer value does not replace the marker. Upstream lets a consumer `data-base-ui-portal={undefined}` remove the marker. The port always keeps it. `class`, other attributes, and a consumer `{@attach}` still reach that div. The mount attachment runs before that `{@attach}`, so the consumer sees the node in its container. There is no ref object. A `store` key in the consumer props does not replace the dialog or popover store.
-
-Rationale: outside press and the internal backdrop treat that attribute as the portal host.
+Local: `Dialog.Portal` and `Popover.Portal` set `data-base-ui-portal=""`, then spread consumer host attributes onto the portal `div`, so a consumer value replaces the marker, as upstream. `class`, other attributes, and a consumer `{@attach}` reach that div. The mount attachment runs before that `{@attach}`, so the consumer sees the node in its container. There is no ref object. A `store` key in the consumer props does not replace the dialog or popover store.
 
 Test: `src/lib/dialog/Dialog.svelte.spec.ts` and `src/lib/popover/Popover.svelte.spec.ts` (`forwards host attributes and attachments onto the portal element`, `ignores a stray store prop on the portal`).
 
@@ -142,7 +140,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui
 
 Shift+Tab from the popup's first control focuses the trigger and leaves the popup open, for the default `document.body` container and an inline container, including when `open` is set from another button. Tab from that open trigger focuses the first control again. That matches upstream.
 
-Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the trigger that opened the popup still closes onto the control before the trigger. A popup opened through `open` claims its only trigger, as upstream `useImplicitActiveTrigger` does, so Shift+Tab from that trigger closes a popover and leaves a dialog open, as React does. A focus-out close does not return focus, including when `finalFocus` is `null`, an element, or a function. The function is not called. React calls that function and ignores the result. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once. The port's focus manager does not merge its leading guard with `beforeContentFocusGuardRef`, and it counts every Base UI focus guard as inside, because PopoverPopup does not pass `getInsideElements`.
+Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the trigger that opened the popup still closes onto the control before the trigger. A popup opened through `open` claims its only trigger, as upstream `useImplicitActiveTrigger` does, so Shift+Tab from that trigger closes a popover and leaves a dialog open, as React does. A focus-out close does not return focus, including when `finalFocus` is `null`, an element, or a function. The function is still called, and its result is ignored, as React does. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once. The port's focus manager does not merge its leading guard with `beforeContentFocusGuardRef`. PopoverPopup does not pass `getInsideElements`. The trigger registers its leading guard on the store, and the focus manager counts it as inside with the trigger's trailing guard and the portal's outside guards. A guard of another popup is outside, so tabbing out of a popover closes a combobox open inside it.
 
 Test: `src/lib/popover/PopoverFocusGuards.svelte.spec.ts`.
 
@@ -180,7 +178,7 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`nested dialog count (Base UI v1.9
 | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                            |
 | `actionsRef`                                                         | `bind:this` on `Dialog.Root` (`close` and `unmount`)                                                |
-| `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                        |
+| `initialFocus` / `finalFocus` ref objects                            | element or function, called on open and close                                                       |
 | `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                                      |
 | React `useButton`                                                    | existing `Button`                                                                                   |
 | `useDismiss` outside press, including separate mouse and touch modes | the same modes on `DismissInteraction`. A press is inside the floating element, not the portal host |
@@ -624,11 +622,11 @@ Local: list navigation queues its request after the focus manager's. The request
 
 Test: `src/lib/select/SelectRoot.popups.svelte.spec.ts` (`keeps focus outside when the popup closes before its open focus lands`). Upstream's `validates when the popup is blurred` fires a synthetic blur after a trigger blur whose queued focus-out check clears `insideReactTree`, so its popup closes. A real focus move without a press keeps a portaled popup open in upstream, so `src/lib/select/SelectRoot.field.svelte.spec.ts` blurs the popup with Tab.
 
-### Open method and alignment
+### Open method
 
-Upstream: the positioner keeps `alignItemWithTrigger` in state and resets it to the prop only while unmounted.
+Upstream: `SelectRoot` falls back to the previous render's open method once the open method resets (`usePreviousValue`).
 
-Local: the interaction that opened the popup is kept until the popup unmounts, so a touch-opened popup keeps regular anchoring while it animates out. A fallback to regular anchoring lasts until the popup mounts or unmounts again, and a change of the `alignItemWithTrigger` prop applies at once.
+Local: the interaction that opened the popup is kept until the popup unmounts, so a touch-opened popup keeps regular anchoring while it animates out.
 
 ### Not covered
 
@@ -761,7 +759,7 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | OTPField           | refs, React controlled lock                                                                      |
 | CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                    |
 | Overlay foundation | Internal only. No public component                                                               |
-| Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                         |
+| Popover            | `actionsRef`, refs                                                                               |
 | Dialog             | ref objects                                                                                      |
 | AlertDialog        | ref objects                                                                                      |
 | Tooltip            | refs                                                                                             |
@@ -806,7 +804,7 @@ Test: `src/tests/list-navigation/useListNavigation.svelte.spec.ts` (`drops a que
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx`. `getInsideElements` lists elements outside the popup that count as inside it. A typeable `role="combobox"` reference with `initialFocus={false}` leaves focus untrapped: a modal popup renders no focus guards, does not stop Tab, closes on focus out, and keeps the reference exposed while it hides outside content. Each popup takes its tabbables from the floating focus element, so the guards of a manager inside a positioner are not among them. The typeable combobox reference of the nearest ancestor floating node also stays exposed. Upstream Combobox and Dialog register no floating node, so this applies to a Popover or Menu whose trigger is a typeable combobox.
 
-Local: `FloatingFocusManager` takes `getInsideElements` for focus out, return focus and `aria-hidden`, and has the untrapped combobox mode and the tabbables of upstream. A press on an inside element is still tracked as an outside press, because focus out already counts that element as inside. The ancestor lookup is not ported: a floating node registers in a `$effect`, which runs after the nested focus manager's, so the popup's own node is not in the tree yet. Registering earlier would copy React's layout-effect order. A modal popup nested in a Popover whose trigger is a typeable combobox therefore hides that input. A Dialog or modal Popover opened from a Combobox popup hides the input, as upstream does. `PopoverPopup` does not pass `getInsideElements` and still counts every Base UI focus guard as inside, as described under Popover.
+Local: `FloatingFocusManager` takes `getInsideElements` for focus out, return focus and `aria-hidden`, and has the untrapped combobox mode and the tabbables of upstream. A press on an inside element is still tracked as an outside press, because focus out already counts that element as inside. The ancestor lookup is not ported: a floating node registers in a `$effect`, which runs after the nested focus manager's, so the popup's own node is not in the tree yet. Registering earlier would copy React's layout-effect order. A modal popup nested in a Popover whose trigger is a typeable combobox therefore hides that input. A Dialog or modal Popover opened from a Combobox popup hides the input, as upstream does. `PopoverPopup` does not pass `getInsideElements`. Its trigger registers its leading focus guard on the store instead, and only the popup's own guards and its trigger's guards count as inside, as described under Popover.
 
 Test: `packages/floating-ui-svelte/src/components/FloatingFocusManager.focusModes.svelte.spec.ts`.
 
