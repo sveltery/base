@@ -1,14 +1,27 @@
 import { text, type MdNode } from './headings.ts';
 import { inlineMarkdown, plainText } from './reference.ts';
 
-/** The headings below a page's title, nested by depth and keyed by slug. */
-export type Sections = Record<string, { title: string; children: Sections }>;
+/**
+ * The headings below a page's title, nested by depth and keyed by slug. `titleMarkdown` keeps a
+ * heading's inline code, such as `` `add` method``, for the section index outline.
+ */
+export type Sections = Record<
+	string,
+	{ title: string; titleMarkdown?: string; children: Sections }
+>;
 
 const SUBTITLE = /^<Subtitle>([\s\S]*)<\/Subtitle>$/;
 const META = /^<Meta\s+name="([^"]+)"\s+content="([^"]*)"\s*\/>$/;
 
-// Upstream's slugs for the sections tree, which differ from heading ids.
-const slugify = (value: string) =>
+const markdownText = (node: MdNode): string =>
+	node.type === 'inlineCode'
+		? `\`${text(node)}\``
+		: node.children
+			? node.children.map(markdownText).join('')
+			: text(node);
+
+/** Upstream's `titleToSlug`, for section keys and index anchors. It differs from heading ids. */
+export const slugify = (value: string) =>
 	value
 		.toLowerCase()
 		.replace(/[^a-z0-9]+/g, '-')
@@ -46,7 +59,10 @@ export function metadata() {
 			}
 			if (node.type !== 'heading' || !node.depth || node.depth < 2) continue;
 			while (stack.at(-1)!.depth >= node.depth) stack.pop();
-			const heading = { title: text(node), children: {} };
+			const title = text(node);
+			const titleMarkdown = markdownText(node);
+			const heading =
+				titleMarkdown === title ? { title, children: {} } : { title, titleMarkdown, children: {} };
 			stack.at(-1)!.children[slugify(heading.title)] = heading;
 			stack.push({ depth: node.depth, children: heading.children });
 		}

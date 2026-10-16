@@ -44,6 +44,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
+      # Fails when a section index page is stale. It runs first, because a build rewrites them.
+      - run: pnpm docs:validate
       # Builds the site, then type-checks it and every demo.
       - run: pnpm --filter @sveltery/base-docs check
 

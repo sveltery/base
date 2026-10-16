@@ -70,7 +70,7 @@ A page has no frontmatter. It starts the way a Base UI page does, and the build 
 - `<Meta name="description" content="..." />` is the meta description. It renders nothing. Without it, the description is the subtitle. The build fails when it is longer than 170 characters.
 - The `##` and deeper headings are the page's sections.
 
-A page's position in the sidebar comes from `ORDER` in `src/lib/docs/content.server.ts`. Pages it doesn't list sort by title after the listed ones.
+A page's position in the sidebar comes from its section index, `src/routes/(docs)/<section>/+page.md`. See [Sections](#sections).
 
 ## Demos
 
@@ -115,4 +115,10 @@ These need no import:
 
 ## Sections
 
-A page's sidebar section is its folder under `src/routes/(docs)`: `overview`, `handbook`, `components`, or `utils`. To add a section, add its folder to `SECTIONS` in `src/lib/docs/content.server.ts`.
+A page's sidebar section is its folder under `src/routes/(docs)`: `overview`, `handbook`, `components`, or `utils`. Each section has an index page, `<section>/+page.md`, in Base UI's format, with three zones:
+
+1. The list at the top. Its order is the sidebar order. You can edit the order, the titles and the `[Tag]`s, but not the links in parentheses. A `[New]` or `[Preview]` tag shows as a sidebar badge, and `- [llms.txt](/llms.txt) [External]` is a plain link.
+2. The generated zone, after the "DO NOT EDIT AFTER THIS LINE" marker. It holds each page's title, subtitle and outline.
+3. The tail, after the last marker, which you can edit.
+
+A build or the dev server regenerates the index when a page changes, and a new page joins the end of the list with a `[New]` tag. Commit the result. `pnpm docs:validate` regenerates every index, and in CI it fails when one is out of date. `virtual:sitemap` serves the indexes to the sidebar, the mobile nav, search and `/llms.txt`. To add a section, add its folder with an index page and add it to `sitemap({ sections })` in `vite.config.ts`.
