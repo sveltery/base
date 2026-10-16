@@ -1,19 +1,18 @@
-import type { Component } from 'svelte';
 import type { TocItem } from '../../../markdown/headings.ts';
+import type { Sections } from '../../../markdown/metadata.ts';
 
-export type { TocItem };
+export type { Sections, TocItem };
 
-/** Frontmatter every page in `content` declares, plus the `toc` the markdown pipeline adds. */
-export type Frontmatter = {
+/** What the markdown pipeline exports as a page's `metadata`. */
+export type PageMetadata = {
 	title: string;
+	/** Plain text from `<Meta name="description">`, for the meta tag. */
 	description: string;
-	/** A shorter title for the side nav, such as "About" for "About Sveltery Base". */
-	navTitle?: string;
-	order?: number;
+	/** The `<Subtitle>` as markdown. */
+	subtitle: string;
+	sections: Sections;
 	toc: TocItem[];
 };
-
-export type DocModule = { default: Component; metadata: Frontmatter };
 
 export type DocPage = { href: string; title: string; description: string };
 

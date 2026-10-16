@@ -31,7 +31,7 @@
 	let trigger = $state<HTMLElement>();
 	let linkCopied = $state(false);
 
-	const sourceUrl = $derived(`${REPOSITORY}/blob/main/apps/docs/content/${page}`);
+	const sourceUrl = $derived(`${REPOSITORY}/blob/main/apps/docs/src/routes/(docs)/${page}`);
 
 	function toggle() {
 		if (!expanded || !trigger) {

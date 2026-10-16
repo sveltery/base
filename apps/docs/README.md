@@ -12,20 +12,23 @@ pnpm --filter @sveltery/base-docs check   # builds, then type-checks the site an
 
 ## Add a page
 
-A page is one markdown file. Its path is its URL: `content/components/tooltip.md` is `/components/tooltip`. The sidebar, the previous and next links, and the table of contents pick it up. You do not edit a nav file.
+A page is a route folder with one markdown file, as in Base UI's `docs/src/app/(docs)/react/<section>/<slug>/page.mdx`. Its path is its URL: `src/routes/(docs)/components/tooltip/+page.md` is `/components/tooltip`. The sidebar and the table of contents pick it up.
 
 To document a new component:
 
-1. Create `content/components/<folder>.md`, where `<folder>` is the component's folder in `src/lib`.
-2. Write the frontmatter, a hero demo, the anatomy, examples, and the differences from Base UI.
+1. Create `src/routes/(docs)/components/<folder>/+page.md`, where `<folder>` is the component's folder in `src/lib`.
+2. Write the title, subtitle and description, a hero demo, the anatomy, examples, and the differences from Base UI.
 3. Add an `<ApiPart>` for each part under `## API reference`.
 4. Run `pnpm --filter @sveltery/base-docs check`. It fails if a demo does not compile or type-check, if a component page has no `<ApiPart>`, or if a folder the page documents has a part without one.
 
 ````md
----
-title: Collapsible
-description: A collapsible panel controlled by a button.
----
+# Collapsible
+
+<Subtitle>
+  A collapsible panel controlled by a button.
+</Subtitle>
+
+<Meta name="description" content="A collapsible panel controlled by a button." />
 
 ```svelte demo
 <script lang="ts">
@@ -58,15 +61,16 @@ Bind `open` with `bind:open`. There is no `defaultOpen` prop.
 <ApiPart name="collapsible" part="Root" />
 ````
 
-## Frontmatter
+## Title and description
 
-| Field         | Required | Meaning                                                                                     |
-| ------------- | -------- | ------------------------------------------------------------------------------------------- |
-| `title`       | yes      | The page heading and the sidebar label                                                      |
-| `description` | yes      | The lead paragraph and the meta description                                                 |
-| `order`       | no       | The position in the sidebar section. Pages without it sort by title after the ordered pages |
+A page has no frontmatter. It starts the way a Base UI page does, and the build reads its metadata from the markdown, as Base UI's `transformMarkdownMetadata` does:
 
-The build fails when a page has no `title` or `description`.
+- The first `#` heading is the page title. The `<title>` adds ` · Sveltery Base`.
+- `<Subtitle>` is the lead paragraph under the title. It can use inline code and links.
+- `<Meta name="description" content="..." />` is the meta description. It renders nothing. Without it, the description is the subtitle. The build fails when it is longer than 170 characters.
+- The `##` and deeper headings are the page's sections.
+
+A page's position in the sidebar comes from `ORDER` in `src/lib/docs/content.server.ts`. Pages it doesn't list sort by title after the listed ones.
 
 ## Demos
 
@@ -107,8 +111,8 @@ These need no import:
 | Component                      | Use                                     |
 | ------------------------------ | --------------------------------------- |
 | `<ApiPart name="..." part="">` | The generated props and state of a part |
-| `<Callout title="...">`        | A highlighted note                      |
+| `<Subtitle>`                   | The lead paragraph under the title      |
 
 ## Sections
 
-A page's sidebar section is its folder: `overview`, `handbook`, `components`, or `utils`. To add a section, add its folder to `SECTIONS` in `src/lib/docs/content.server.ts`.
+A page's sidebar section is its folder under `src/routes/(docs)`: `overview`, `handbook`, `components`, or `utils`. To add a section, add its folder to `SECTIONS` in `src/lib/docs/content.server.ts`.

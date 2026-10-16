@@ -1,6 +1,6 @@
 export type TocItem = { title: string; url: string; depth: number };
 
-type MdNode = {
+export type MdNode = {
 	type: string;
 	depth?: number;
 	value?: string;
@@ -17,7 +17,7 @@ const decode = (value: string) =>
 		.replace(/&#123;/g, '{')
 		.replace(/&#125;/g, '}')
 		.replace(/&amp;/g, '&');
-const text = (node: MdNode): string =>
+export const text = (node: MdNode): string =>
 	node.value !== undefined ? decode(node.value) : (node.children ?? []).map(text).join('');
 const hasLink = (node: MdNode): boolean =>
 	node.type === 'link' || (node.children ?? []).some(hasLink);
@@ -83,7 +83,11 @@ const HTML_TAG = /^<\/?[a-z][a-z0-9-]*\s*\/?>$/;
 export function elements() {
 	const visit = (node: MdNode) => {
 		const name =
-			node.type === 'list' && (node as { ordered?: boolean }).ordered ? 'MdOl' : CLASSES[node.type];
+			node.type === 'list' && (node as { ordered?: boolean }).ordered
+				? 'MdOl'
+				: node.type === 'heading' && node.depth === 1
+					? 'MdH1'
+					: CLASSES[node.type];
 		const existing = node.data?.hProperties as Record<string, unknown> | undefined;
 		if (name && !existing?.class)
 			node.data = { ...node.data, hProperties: { ...existing, class: name } };

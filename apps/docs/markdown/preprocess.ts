@@ -8,6 +8,7 @@ import { referencePart } from './reference.ts';
 
 /** Components every page can use without importing them. */
 const GLOBAL_COMPONENTS = [
+	'Subtitle',
 	'CodeBlock',
 	'Demo',
 	'ApiPart',
@@ -134,11 +135,11 @@ function referenceSections(code: string): string {
  * and fills `<ApiPart name="collapsible" part="Root" />` with the part's props and state.
  */
 export function docsComponents({
-	pages,
+	routes,
 	demos,
 	lib
 }: {
-	pages: string;
+	routes: string;
 	demos: string;
 	lib: string;
 }): PreprocessorGroup {
@@ -152,8 +153,8 @@ export function docsComponents({
 			const documented = new Set<string>();
 
 			// Each demo is written to `<section>-<page>-<n>.svelte`, so an error names its page.
-			const source = relative(pages, filename).replaceAll(sep, '/');
-			const page = source.replace(/\.md$/, '').replaceAll('/', '-');
+			const source = relative(routes, filename).replaceAll(sep, '/');
+			const page = source.replace(/\/\+page\.md$/, '').replaceAll('/', '-');
 			let demoCount = 0;
 			let code = content.replace(/<Demo source="([A-Za-z0-9+/=]*)"/g, (_tag, encoded) => {
 				const raw = Buffer.from(encoded, 'base64').toString('utf8');

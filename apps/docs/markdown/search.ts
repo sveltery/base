@@ -1,9 +1,10 @@
-import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
 import { compile } from 'mdsvex';
 import type { Plugin } from 'vite';
 import { apiReference } from './api.ts';
 import { headings } from './headings.ts';
+import { metadata } from './metadata.ts';
+import { pageFiles } from './pages.ts';
 import { shortName } from './preprocess.ts';
 import { plainText } from './reference.ts';
 
@@ -47,29 +48,17 @@ const text = (node: MdNode): string =>
 	node.value !== undefined ? decode(node.value) : (node.children ?? []).map(text).join('');
 const capitalize = (value: string) => value[0].toUpperCase() + value.slice(1);
 
-/** Serves every page, heading and API part under `content` as `virtual:search-documents`. */
-export function searchDocuments({ pages, lib }: { pages: string; lib: string }): Plugin {
+/** Serves every docs page, heading and API part as `virtual:search-documents`. */
+export function searchDocuments({ routes, lib }: { routes: string; lib: string }): Plugin {
 	return {
 		name: 'search-documents',
 		resolveId: (id) => (id === ID ? RESOLVED : undefined),
 		async load(id) {
 			if (id !== RESOLVED) return;
 			const documents: SearchDocument[] = [];
-			for (const folder of readdirSync(pages)) {
-				for (const name of readdirSync(join(pages, folder)).filter((file) =>
-					file.endsWith('.md')
-				)) {
-					const file = join(pages, folder, name);
-					this.addWatchFile(file);
-					documents.push(
-						...(await pageDocuments(
-							readFileSync(file, 'utf8'),
-							folder,
-							name.replace(/\.md$/, ''),
-							lib
-						))
-					);
-				}
+			for (const { section, slug, path } of pageFiles(routes)) {
+				this.addWatchFile(path);
+				documents.push(...(await pageDocuments(readFileSync(path, 'utf8'), section, slug, lib)));
 			}
 			return `export const documents = ${JSON.stringify(documents)};`;
 		}
@@ -102,7 +91,7 @@ async function pageDocuments(
 	};
 	const compiled = await compile(source, {
 		smartypants: false,
-		remarkPlugins: [headings, collect],
+		remarkPlugins: [metadata, headings, collect],
 		highlight: { highlighter: async () => '' }
 	});
 	const { title, description } = compiled?.data?.fm as { title: string; description: string };
