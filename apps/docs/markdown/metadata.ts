@@ -1,5 +1,5 @@
 import { text, type MdNode } from './headings.ts';
-import { inlineMarkdown } from './reference.ts';
+import { inlineMarkdown, plainText } from './reference.ts';
 
 /** The headings below a page's title, nested by depth and keyed by slug. */
 export type Sections = Record<string, { title: string; children: Sections }>;
@@ -15,11 +15,10 @@ const slugify = (value: string) =>
 		.replace(/^-|-$/g, '');
 
 /**
- * Base UI's `transformMarkdownMetadata`. The first h1 is the page's `title`, `<Meta
- * name="description">` its `description`, falling back to the subtitle, and the h2 and deeper
- * headings its `sections`. A page has no frontmatter. `<Meta>` renders nothing, and as in upstream's
- * MDX components, a description over 170 characters fails the build. The subtitle's inline markdown
- * becomes HTML, as MDX parses it in upstream's `<Subtitle>`.
+ * Base UI's `transformMarkdownMetadata`. The first h1 is the `title`, `<Meta name="description">`
+ * the `description`, falling back to the subtitle, and the h2 and deeper headings the `sections`.
+ * `<Meta>` renders nothing, and as in upstream's MDX components, a description over 170 characters
+ * fails the build. The subtitle's inline markdown becomes HTML, as MDX parses it in upstream.
  */
 export function metadata() {
 	return (tree: MdNode, file: { filename?: string; data: { fm?: Record<string, unknown> } }) => {
@@ -58,7 +57,7 @@ export function metadata() {
 		file.data.fm = {
 			...file.data.fm,
 			title,
-			description: description ?? subtitle ?? '',
+			description: description ?? plainText(subtitle ?? ''),
 			subtitle: subtitle ?? '',
 			sections
 		};

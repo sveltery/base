@@ -43,7 +43,7 @@
 	</ul>
 	{#each pages as page (page.href)}
 		<h2 class="MdH2" id={page.id}><a class="HeadingLink" href="#{page.id}">{page.title}</a></h2>
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -- the page's own front matter, escaped by inlineMarkdown. -->
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -- the page's own subtitle, escaped by inlineMarkdown. -->
 		<p class="MdP">{@html inlineMarkdown(page.description)}</p>
 		{#if page.outline.length}
 			<details>

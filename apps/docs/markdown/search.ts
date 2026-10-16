@@ -2,11 +2,10 @@ import { readFileSync } from 'node:fs';
 import { compile } from 'mdsvex';
 import type { Plugin } from 'vite';
 import { apiReference } from './api.ts';
-import { headings } from './headings.ts';
+import { headings, text } from './headings.ts';
 import { metadata } from './metadata.ts';
 import { pageFiles } from './pages.ts';
 import { shortName } from './preprocess.ts';
-import { plainText } from './reference.ts';
 
 /** One search result. The fields match the index schema of upstream's `useSearch`. */
 export type SearchDocument = {
@@ -40,12 +39,6 @@ type ApiTag = { name: string; part: string; id: string };
 const ID = 'virtual:search-documents';
 const RESOLVED = `\0${ID}`;
 
-// mdsvex escapes code before remark plugins run.
-const decode = (value: string) =>
-	value.replace(/&(lt|gt|#123|#125|amp);/g, (_, entity: string) => DECODED[entity]);
-const DECODED: Record<string, string> = { lt: '<', gt: '>', '#123': '{', '#125': '}', amp: '&' };
-const text = (node: MdNode): string =>
-	node.value !== undefined ? decode(node.value) : (node.children ?? []).map(text).join('');
 const capitalize = (value: string) => value[0].toUpperCase() + value.slice(1);
 
 /** Serves every docs page, heading and API part as `virtual:search-documents`. */
@@ -98,7 +91,7 @@ async function pageDocuments(
 
 	const sectionTitle = capitalize(folder);
 	const url = `/${folder}/${slug}`;
-	const base = { description: plainText(description), sectionTitle };
+	const base = { description, sectionTitle };
 	const documents: SearchDocument[] = [
 		{ ...base, type: 'page', group: `${sectionTitle} Pages`, page: title, title, slug, url }
 	];
