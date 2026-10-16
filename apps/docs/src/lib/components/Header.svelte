@@ -96,7 +96,7 @@
 		user-select: none;
 		outline: 0;
 
-		& kbd {
+		& :global(kbd) {
 			font: inherit;
 		}
 

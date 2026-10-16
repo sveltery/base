@@ -14,6 +14,7 @@ const BOOST = {
 	description: 1.5,
 	part: 1.5,
 	export: 1.3,
+	types: 2,
 	sectionTitle: 50,
 	section: 3,
 	subsection: 2.5,
@@ -30,6 +31,7 @@ const SCHEMA = {
 	part: 'string',
 	export: 'string',
 	props: 'string',
+	types: 'string',
 	section: 'string',
 	subsection: 'string'
 } as const;
@@ -67,7 +69,16 @@ async function build(): Promise<Index> {
 			tokenizer: {
 				stemming: true,
 				language: 'english',
-				stemmerSkipProperties: ['type', 'group', 'slug', 'sectionTitle', 'page', 'part', 'export', 'props'],
+				stemmerSkipProperties: [
+					'type',
+					'group',
+					'slug',
+					'sectionTitle',
+					'page',
+					'part',
+					'export',
+					'props'
+				],
 				stopWords: stopwords.filter((word) => !KEPT_STOPWORDS.has(word))
 			}
 		},
@@ -146,12 +157,10 @@ export class DocsSearch {
 	async activate() {
 		if (this.ready) return;
 		const loaded = await loadSearchIndex();
-		const pages = new Map(
-			loaded.documents.filter((doc) => doc.type === 'page').map((doc) => [doc.url, doc])
-		);
+		const pages = loaded.documents.filter((doc) => doc.type === 'page');
 		this.defaults = this.#nav().map((section) => ({
 			group: `${section.title} Pages`,
-			items: section.pages.flatMap((page) => pages.get(page.href) ?? [])
+			items: section.pages.flatMap((page) => pages.find((doc) => doc.url === page.href) ?? [])
 		}));
 		this.ready = true;
 		if (this.hasQuery) await this.search(this.value);
@@ -177,13 +186,9 @@ export class DocsSearch {
 		else this.#timeout = setTimeout(() => (this.results = groups), 400);
 	}
 
-	/** Clears the query, and the results after `delay` so a closing popup keeps its content. */
-	reset(delay = 0) {
-		this.value = '';
-		this.pending = false;
-		this.#latest++;
-		clearTimeout(this.#timeout);
-		this.#timeout = setTimeout(() => (this.results = this.defaults), delay);
+	/** Clears the query and shows every page again. */
+	reset() {
+		void this.search('');
 	}
 }
 

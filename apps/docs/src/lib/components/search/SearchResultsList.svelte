@@ -12,6 +12,7 @@
 </script>
 
 <script lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { Autocomplete } from '@sveltery/base/autocomplete';
 	import { groupLabel, type SearchDocument, type SearchGroup } from './search.svelte.ts';
 
@@ -47,11 +48,10 @@
 					<Autocomplete.Item value={result} class={classes.item}>
 						{#snippet render(props, _state, children)}
 							<a
-								{...props}
+								{...props as unknown as HTMLAttributes<HTMLAnchorElement>}
 								href={result.url}
 								tabindex={-1}
-								onclick={(event) => {
-									props.onclick?.(event as never);
+								onclickcapture={(event) => {
 									if (isUnmodifiedLeftClick(event)) onNavigate();
 								}}
 							>

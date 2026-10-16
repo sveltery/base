@@ -15,23 +15,18 @@
 
 	let highlighted: SearchDocument | undefined;
 
-	function close() {
-		open = false;
-	}
+	const close = () => (open = false);
 </script>
 
 <Dialog.Root
-	bind:open={
-		() => open,
-		(next) => {
-			open = next;
-			if (next) search.activate();
-			// The dialog stays mounted, so clear the query once it is hidden.
-			else search.reset(200);
-		}
-	}
+	bind:open
+	onOpenChangeComplete={(isOpen) => {
+		if (isOpen) void search.activate().catch(() => {});
+		// The dialog stays mounted, so clear the query once it is hidden.
+		else search.reset();
+	}}
 >
-	<Dialog.Trigger class={triggerClass} onpointerdown={() => search.activate()}>
+	<Dialog.Trigger class={triggerClass} onpointerdown={() => void search.activate().catch(() => {})}>
 		Search
 		<span class="SearchTriggerShortcut"
 			>({#if isMac}<kbd>⌘</kbd>{:else}<kbd>Ctrl+</kbd>{/if}<kbd>k</kbd>)</span
@@ -77,7 +72,9 @@
 							<ScrollArea.Viewport class="SearchScrollAreaViewport">
 								<ScrollArea.Content style="min-width: 100%">
 									{#if search.empty}
-										<Autocomplete.Status class="SearchEmptyState">No results found.</Autocomplete.Status>
+										<Autocomplete.Status class="SearchEmptyState"
+											>No results found.</Autocomplete.Status
+										>
 									{:else if search.results.length && !search.pending}
 										<SearchResultsList
 											results={search.results}

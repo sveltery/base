@@ -18,6 +18,7 @@ export type SearchDocument = {
 	part?: string;
 	export?: string;
 	props?: string;
+	types?: string;
 	section?: string;
 	subsection?: string;
 	url: string;
@@ -54,7 +55,9 @@ export function searchDocuments({ pages, lib }: { pages: string; lib: string }):
 			if (id !== RESOLVED) return;
 			const documents: SearchDocument[] = [];
 			for (const folder of readdirSync(pages)) {
-				for (const name of readdirSync(join(pages, folder)).filter((file) => file.endsWith('.md'))) {
+				for (const name of readdirSync(join(pages, folder)).filter((file) =>
+					file.endsWith('.md')
+				)) {
 					const file = join(pages, folder, name);
 					this.addWatchFile(file);
 					documents.push(
@@ -111,9 +114,11 @@ async function pageDocuments(
 	];
 
 	const references = new Map<string, ReturnType<typeof apiReference>>();
+	const types: string[] = [];
 	for (const tag of tags) {
 		if (!references.has(tag.name)) references.set(tag.name, apiReference(lib, tag.name));
 		const part = references.get(tag.name)!.find((entry) => shortName(entry.name) === tag.part);
+		if (part) types.push(`${part.name}.Props`, `${part.name}.State`);
 		const props = part?.props.map((prop) => prop.name).join(' ') ?? '';
 		const partUrl = `${url}#${tag.id}`;
 		documents.push(
@@ -141,6 +146,8 @@ async function pageDocuments(
 					}
 		);
 	}
+
+	if (types.length) documents[0].types = types.join(' ');
 
 	// Each heading's breadcrumb starts at its h2.
 	const trail: Heading[] = [];
