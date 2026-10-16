@@ -95,7 +95,7 @@ description: A common form component for choosing a predefined value in a dropdo
 - **Prefer Combobox for large lists**: Select is not filterable, aside from basic keyboard typeahead functionality to find items by focusing and highlighting them. Prefer [Combobox](/components/combobox) instead of Select when the number of items is sufficiently large to warrant filtering.
 - **Special positioning behavior**: The select popup by default overlaps its trigger so the selected item's text is aligned with the trigger's value text. This behavior [can be disabled or customized](/components/select#positioning).
 - **Form controls must have an accessible name**: Prefer `<Select.Label>`, or provide an `aria-label` on `<Select.Trigger>` when no visible label is rendered. See [Labeling a select](#labeling-a-select) and the [forms guide](/handbook/forms).
-- **Closing animations**: The popup stays rendered until its closing animation finishes. See [JavaScript animations](/handbook/animation#javascript-animations) for animating it with Svelte transitions and [Manual unmounting](/handbook/animation#manual-unmounting) for manual control.
+- **Closing animations**: The popup stays rendered until its closing animation finishes. See [JavaScript animations](/handbook/animation#javascript-animations) for animating it with Svelte transitions and for manual control.
 
 ## Anatomy
 

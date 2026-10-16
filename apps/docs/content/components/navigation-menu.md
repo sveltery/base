@@ -34,12 +34,12 @@ description: A collection of links and menus for website navigation.
 			description: 'Learn how we build accessible components.'
 		},
 		{
-			href: 'https://github.com/sveltery/base/releases',
+			href: '/overview/releases',
 			title: 'Releases',
 			description: 'See what’s new in the latest Sveltery Base versions.'
 		},
 		{
-			href: 'https://github.com/sveltery/base',
+			href: '/overview/about',
 			title: 'About',
 			description: 'Learn more about Sveltery Base and its goals.'
 		}
@@ -226,7 +226,7 @@ Import the component and assemble its parts:
 			description: 'Learn how we build accessible components.'
 		},
 		{
-			href: 'https://github.com/sveltery/base/releases',
+			href: '/overview/releases',
 			title: 'Releases',
 			description: 'See what’s new in the latest Sveltery Base versions.'
 		}
@@ -439,14 +439,14 @@ For second-level navigation that should stay in the same panel, omit the nested 
 				'Use the docs to align on quality bars, upgrades, and extension points while still leaving teams space to customize.',
 			links: [
 				{
-					href: 'https://github.com/sveltery/base/releases',
+					href: '/overview/releases',
 					title: 'Releases',
 					description: 'Track version changes and migration notes before upgrades surprise teams.'
 				},
 				{
-					href: '/handbook/sveltekit',
-					title: 'SvelteKit',
-					description: 'See how the primitives work with SvelteKit forms and server rendering.'
+					href: '/handbook/typescript',
+					title: 'TypeScript',
+					description: 'See how the primitives type custom wrappers and shared abstractions.'
 				},
 				{
 					href: '/handbook/forms',
@@ -643,10 +643,7 @@ For second-level navigation that should stay in the same panel, omit the nested 
 		</NavigationMenu.Item>
 
 		<NavigationMenu.Item>
-			<NavigationMenu.Link
-				class={triggerClassName}
-				href="https://github.com/sveltery/base/releases"
-			>
+			<NavigationMenu.Link class={triggerClassName} href="/overview/releases">
 				Releases
 			</NavigationMenu.Link>
 		</NavigationMenu.Item>
@@ -733,7 +730,7 @@ Native scrollbars are visible while transitioning content, so we recommend using
 ## Closing animations
 
 The popup stays rendered until its closing animation finishes.
-See [JavaScript animations](/handbook/animation#javascript-animations) and [Manual unmounting](/handbook/animation#manual-unmounting) for animating it in JavaScript and for manual control.
+See [JavaScript animations](/handbook/animation#javascript-animations) for animating it with Svelte transitions and for manual control.
 For Navigation Menu, call `eventDetails.preventUnmountOnClose()` in `onValueChange` when the value becomes `null`, and call `close()` on the root (bound with `bind:this`) instead of setting `value` to `null` directly.
 
 ## API reference
