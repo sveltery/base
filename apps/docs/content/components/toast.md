@@ -95,8 +95,6 @@ Import the component and assemble its parts:
 </Toast.Provider>
 ```
 
-<span id="render-the-toasts"></span>
-
 ## General usage
 
 - `<Toast.Provider>` can be wrapped around your entire app, ensuring all toasts are rendered in the same viewport.
