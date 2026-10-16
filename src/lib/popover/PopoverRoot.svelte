@@ -1,5 +1,6 @@
 <!--
-	Groups all parts of the popover. Does not render its own HTML element.
+	Groups all parts of the popover.
+	Doesn't render its own HTML element.
 	Derived from Base UI v1.8.0 packages/react/src/popover/root/PopoverRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	`close` and `unmount` are exports. Bind the root with `bind:this`.

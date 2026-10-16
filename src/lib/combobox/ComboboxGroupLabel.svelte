@@ -1,5 +1,6 @@
 <!--
-	The label of a group. Renders a `<div>` element.
+	An accessible label that is automatically associated with its parent group.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/group-label/ComboboxGroupLabel.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

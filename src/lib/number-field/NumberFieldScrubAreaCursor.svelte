@@ -1,6 +1,9 @@
 <!--
 	A custom element to display instead of the native cursor while using the scrub area.
-	Renders a `<span>` element, moved to `document.body` while scrubbing.
+	Renders a `<span>` element.
+
+	This component uses the [Pointer Lock API](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API), which may prompt the browser to display a related notification. It is disabled
+	in Safari to avoid a layout shift that this notification causes there.
 	Derived from Base UI v1.9.0 packages/react/src/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The portal is an attachment, not a floating-ui overlay. It is omitted on WebKit.

@@ -1,5 +1,6 @@
 <!--
-	The text label of a select item. Renders a `<div>` element.
+	A text label of the select item.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/select/item-text/SelectItemText.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The popup lines this text up with the trigger's value when `alignItemWithTrigger` is on.

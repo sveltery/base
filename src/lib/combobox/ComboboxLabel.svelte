@@ -1,6 +1,6 @@
 <!--
-	An accessible label for the trigger. Renders a `<div>` element.
-	When the input is the form control, label it with a native `<label>` or `Field.Label`.
+	An accessible label that is automatically associated with the combobox trigger.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/label/ComboboxLabel.tsx
 	and packages/react/src/internals/labelable-provider/useLabel.ts
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.

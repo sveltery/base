@@ -37,9 +37,13 @@ export interface AlertDialogRootProps<Payload = unknown> extends Omit<
 	DialogRootProps<Payload>,
 	'modal' | 'disablePointerDismissal' | 'handle' | 'onOpenChange'
 > {
-	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the alert dialog is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: AlertDialogChangeEventDetails) => void;
-	/** Connects detached triggers. Create one with `AlertDialog.createHandle()`. */
+	/**
+	 * A handle to associate the alert dialog with a trigger.
+	 * If specified, allows external triggers to control the alert dialog's open state.
+	 * Can be created with the AlertDialog.createHandle() method.
+	 */
 	handle?: AlertDialogHandle<Payload>;
 }
 
@@ -47,7 +51,10 @@ export interface AlertDialogTriggerProps<Payload = unknown> extends Omit<
 	DialogTriggerProps<Payload>,
 	'handle'
 > {
-	/** Associates this trigger with an alert dialog that is not its parent. */
+	/**
+	 * A handle to associate the trigger with an alert dialog.
+	 * Can be created with the AlertDialog.createHandle() method.
+	 */
 	handle?: AlertDialogHandle<Payload>;
 }
 

@@ -8,16 +8,11 @@ import type { HTMLAttributes } from 'svelte/elements';
 
 export interface PortalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Keep the portal mounted while the popup is closed.
+	 * Whether to keep the portal mounted in the DOM while the popup is hidden.
 	 * @default false
 	 */
 	keepMounted?: boolean;
-	/**
-	 * Element the portal is appended to.
-	 * `undefined` uses the parent portal or `document.body`.
-	 * `null` waits and does not mount until an element or shadow root is set.
-	 * There is no ref object.
-	 */
+	/** A parent element to render the portal element into. */
 	container?: HTMLElement | ShadowRoot | null;
 	children?: Snippet;
 }

@@ -41,13 +41,15 @@ export type CheckboxHostProps = HTMLAttributes<HTMLElement>;
 export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
 	/**
 	 * Whether the checkbox is currently ticked.
-	 * Use `bind:checked` to share it with the parent.
-	 * Inside a group, the group value wins.
+	 *
+	 * To render an uncontrolled checkbox, use the `defaultChecked` prop instead.
 	 * @default false
 	 */
 	checked?: boolean;
 	/**
-	 * The state an empty `checked` starts from, as on an HTML checkbox.
+	 * Whether the checkbox is initially ticked.
+	 *
+	 * To render a controlled checkbox, use `bind:checked` instead.
 	 * @default false
 	 */
 	defaultChecked?: boolean;
@@ -64,33 +66,34 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	 */
 	required?: boolean | null;
 	/**
-	 * Whether the checkbox is in a mixed state: neither ticked nor unticked.
+	 * Whether the checkbox is in a mixed state: neither ticked, nor unticked.
 	 * @default false
 	 */
 	indeterminate?: boolean;
 	/**
-	 * Whether this checkbox controls every value in a parent `CheckboxGroup`.
-	 * It sets `data-parent` and is left out of form submission.
+	 * Whether the checkbox controls a group of child checkboxes.
+	 *
+	 * Must be used in a [Checkbox Group](https://base.sveltery.dev/components/checkbox-group).
 	 * @default false
 	 */
 	parent?: boolean;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `true` and render a `<button>`. The `id` is then applied to that button
-	 * instead of the hidden input.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `true` if the rendered element is a native button.
 	 * @default false
 	 */
 	nativeButton?: boolean;
 	/** Identifies the field when a form is submitted. */
 	name?: string | null;
 	/**
-	 * The value submitted with the form when the checkbox is ticked.
-	 * By default, the checkbox submits `"on"`, matching a native checkbox.
+	 * The checkbox's value. Identifies it within a [Checkbox Group](https://base.sveltery.dev/components/checkbox-group), falling back to `name` when omitted.
+	 * When submitting a form, a checked box submits `value`; with no `value`, it submits the native "on".
 	 */
 	value?: string;
 	/**
-	 * The value submitted with the form when the checkbox is unticked.
-	 * By default, an unticked checkbox does not submit a value.
+	 * The value submitted with the form when the checkbox is unchecked.
+	 * By default, unchecked checkboxes do not submit any value, matching native checkbox behavior.
 	 */
 	uncheckedValue?: string;
 	/**
@@ -98,27 +101,34 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	 * Useful when the checkbox is rendered outside the form.
 	 */
 	form?: string | null;
-	/**
-	 * The id of the hidden input.
-	 * When `nativeButton` is true, the id is applied to the root element instead.
-	 */
+	/** The id of the input element. */
 	id?: string | null;
-	/** Called before the checked state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the checkbox is ticked or unticked. */
 	onCheckedChange?: (checked: boolean, eventDetails: CheckboxRootChangeEventDetails) => void;
 	/** Runs before the checkbox's click handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLAttributes<HTMLElement>['onclick'];
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: CheckboxHostProps, state: CheckboxRootState, children: RenderChildren]>;
 	children?: Snippet;
 }
 
 export interface CheckboxIndicatorProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 	/**
-	 * Whether to keep the indicator in the DOM when the checkbox is unticked and not mixed.
+	 * Whether to keep the element in the DOM when the checkbox is not checked.
 	 * @default false
 	 */
 	keepMounted?: boolean;
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[
 			props: HTMLAttributes<HTMLSpanElement>,

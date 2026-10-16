@@ -1,5 +1,6 @@
 <!--
-	The label of the selected value, or of each selected value. Renders no element.
+	The current value of the combobox.
+	Doesn't render its own HTML element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/value/ComboboxValue.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	A `children` snippet receives the value in place of the children function.

@@ -22,30 +22,40 @@ export type ToggleGroupChangeEventDetails = BaseUIChangeEventDetails<ToggleGroup
 
 export interface ToggleGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Values of the pressed toggles.
-	 * Use `bind:value` to share the array with the parent.
-	 * A value passed without `bind:` holds until the parent changes it.
+	 * The pressed state of the toggle group represented by an array of the values of all pressed toggle buttons.
+	 *
+	 * To render an uncontrolled toggle group, pass `value` without `bind:`.
 	 * @default []
 	 */
 	value?: readonly string[];
-	/** Whether the group should ignore user interaction. @default false */
+	/**
+	 * Whether the toggle group should ignore user interaction.
+	 * @default false
+	 */
 	disabled?: boolean | null;
 	/** @default 'horizontal' */
 	orientation?: ToggleGroupOrientation;
 	/**
-	 * Whether arrow keys wrap from the last item to the first.
+	 * Whether to loop keyboard focus back to the first item
+	 * when the end of the list is reached while using the arrow keys.
 	 * @default true
 	 */
 	loopFocus?: boolean;
 	/**
-	 * When false, pressing one toggle releases the others.
-	 * When true, each toggle changes on its own.
+	 * When `false` only one item in the group can be pressed. If any item in
+	 * the group becomes pressed, the others will become unpressed.
+	 * When `true` multiple items can be pressed.
 	 * @default false
 	 */
 	multiple?: boolean;
-	/** Called before the pressed values change. Call `eventDetails.cancel()` to veto it. */
+	/** Callback fired when the pressed states of the toggle group changes. */
 	onValueChange?: (value: string[], eventDetails: ToggleGroupChangeEventDetails) => void;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: ToggleGroupState, children: RenderChildren]
 	>;

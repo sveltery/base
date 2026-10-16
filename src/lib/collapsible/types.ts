@@ -32,17 +32,25 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 
 export interface CollapsibleRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Whether the panel is open.
-	 * Use `bind:open` to share it with the parent.
-	 * A value passed without `bind:` holds until the parent changes it.
+	 * Whether the collapsible panel is currently open.
+	 *
+	 * To render an uncontrolled collapsible, pass `open` without `bind:`.
 	 * @default false
 	 */
 	open?: boolean;
-	/** Whether the collapsible should ignore user interaction. @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 * @default false
+	 */
 	disabled?: boolean | null;
-	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the panel is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: CollapsibleRootChangeEventDetails) => void;
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, CollapsibleRootState>;
 	children?: Snippet;
 }
@@ -64,8 +72,9 @@ export interface CollapsibleTriggerProps extends Omit<
 	 */
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
@@ -75,7 +84,12 @@ export interface CollapsibleTriggerProps extends Omit<
 	onpointerdown?: HTMLAttributes<HTMLElement>['onpointerdown'];
 	onkeydown?: HTMLAttributes<HTMLElement>['onkeydown'];
 	onkeyup?: HTMLAttributes<HTMLElement>['onkeyup'];
-	/** Replace the default `<button>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: CollapsibleTriggerHostProps, state: CollapsibleTriggerState, children: RenderChildren]
 	>;
@@ -84,18 +98,25 @@ export interface CollapsibleTriggerProps extends Omit<
 
 export interface CollapsiblePanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Allows the browser's page search to find and expand the panel.
-	 * Overrides `keepMounted` and uses `hidden="until-found"`.
+	 * Allows the browser's built-in page search to find and expand the panel contents.
+	 *
+	 * Overrides the `keepMounted` prop and uses `hidden="until-found"`
+	 * to hide the element without removing it from the DOM.
 	 * @default false
 	 */
 	hiddenUntilFound?: boolean;
 	/**
-	 * Whether to keep the panel in the DOM while it is closed.
-	 * Ignored when `hiddenUntilFound` is set.
+	 * Whether to keep the element in the DOM while the panel is hidden.
+	 * This prop is ignored when `hiddenUntilFound` is used.
 	 * @default false
 	 */
 	keepMounted?: boolean;
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, CollapsiblePanelState>;
 	children?: Snippet;
 }

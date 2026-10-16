@@ -1,6 +1,6 @@
 <!--
-	A background layer placed before Drawer.Indent. Renders a `<div>` element.
-	`data-active` is present while any drawer inside the nearest Drawer.Provider is open.
+	An element placed before `<Drawer.Indent>` to render a background layer that can be styled based on whether any drawer is open.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/drawer/indent-background/DrawerIndentBackground.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

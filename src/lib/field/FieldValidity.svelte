@@ -1,5 +1,6 @@
 <!--
-	Renders a custom message from the field's validity.
+	Used to display a custom message based on the field's validity.
+	Requires `children` to be a function that accepts field validity state as an argument.
 	Derived from Base UI v1.8.0 packages/react/src/field/validity/FieldValidity.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->

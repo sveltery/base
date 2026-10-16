@@ -94,13 +94,23 @@ export interface ScrollAreaRootProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * @default 0
 	 */
 	overflowEdgeThreshold?: OverflowEdgeThreshold;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<ScrollAreaRootState>;
 	children?: Snippet;
 }
 
 export interface ScrollAreaViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<ScrollAreaViewportState>;
 	children?: Snippet;
 }
@@ -113,25 +123,45 @@ export interface ScrollAreaScrollbarProps extends Omit<HTMLAttributes<HTMLDivEle
 	 * @default false
 	 */
 	keepMounted?: boolean;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<ScrollAreaScrollbarState>;
 	children?: Snippet;
 }
 
 export interface ScrollAreaThumbProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<ScrollAreaThumbState>;
 	children?: Snippet;
 }
 
 export interface ScrollAreaContentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<ScrollAreaContentState>;
 	children?: Snippet;
 }
 
 export interface ScrollAreaCornerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<ScrollAreaCornerState>;
 	children?: Snippet;
 }

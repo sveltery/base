@@ -1,6 +1,6 @@
 <!--
 	Indicates whether the checkbox is ticked.
-	Renders a `<span>` while ticked, mixed, or kept mounted.
+	Renders a `<span>` element.
 	Derived from Base UI v1.8.0 packages/react/src/checkbox/indicator/CheckboxIndicator.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->

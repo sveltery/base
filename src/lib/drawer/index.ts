@@ -23,8 +23,20 @@ export const Drawer = {
 	Popup: DrawerPopup,
 	Backdrop: DrawerBackdrop,
 	Viewport: DrawerViewport,
+	/**
+	 * A heading that labels the drawer.
+	 * Renders an `<h2>` element.
+	 */
 	Title: DialogTitle,
+	/**
+	 * A paragraph with additional information about the drawer.
+	 * Renders a `<p>` element.
+	 */
 	Description: DialogDescription,
+	/**
+	 * A button that closes the drawer.
+	 * Renders a `<button>` element.
+	 */
 	Close: DialogClose,
 	SwipeArea: DrawerSwipeArea,
 	Content: DrawerContent,

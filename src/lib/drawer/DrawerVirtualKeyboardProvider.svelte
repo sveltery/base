@@ -1,7 +1,5 @@
 <!--
-	Keyboard-aware focus and scroll handling for bottom-sheet drawers with form fields.
-	Doesn't render its own HTML element. It needs a Drawer.Viewport, which receives the
-	`--drawer-keyboard-inset` variable.
+	Provides keyboard-aware focus and scroll handling for bottom-sheet drawers with form fields.
 	Derived from Base UI v1.9.0
 	packages/react/src/drawer/virtual-keyboard-provider/DrawerVirtualKeyboardProvider.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.

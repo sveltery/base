@@ -1,5 +1,6 @@
 <!--
-	Displays an element positioned against the navigation menu anchor. Renders a `<div>` element.
+	Displays an element pointing toward the navigation menu's current anchor.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/navigation-menu/arrow/NavigationMenuArrow.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

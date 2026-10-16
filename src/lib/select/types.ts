@@ -42,89 +42,95 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 >;
 
 export interface SelectRootProps<Value = unknown, Multiple extends boolean | undefined = false> {
-	/**
-	 * The selected value. Use `bind:value` to share it with the parent.
-	 * Without a binding it starts from `defaultValue`.
-	 */
+	/** The value of the select. */
 	value?: SelectValueOf<Value, Multiple>;
 	/**
-	 * The value the select starts with and the value a form reset restores.
+	 * The uncontrolled value of the select when it's initially rendered.
+	 *
+	 * To render a controlled select, use `bind:value` instead.
 	 * @default null, or [] when `multiple`
 	 */
 	defaultValue?: SelectValueOf<Value, Multiple>;
-	/** Called before the value changes. Call `eventDetails.cancel()` to keep the current value. */
+	/** Event handler called when the value of the select changes. */
 	onValueChange?: (
 		value: SelectValueOf<Value, Multiple>,
 		eventDetails: SelectChangeEventDetails
 	) => void;
 	/**
-	 * Whether the popup is open. Use `bind:open` to share it with the parent.
+	 * Whether the select popup is currently open.
 	 * @default false
 	 */
 	open?: boolean;
-	/** Called before the popup opens or closes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the select popup is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: SelectOpenChangeEventDetails) => void;
-	/** Called after the open or close animations finish. */
+	/**
+	 * Event handler called after any animations complete when the select popup is opened or closed.
+	 */
 	onOpenChangeComplete?: (open: boolean) => void;
 	/** Identifies the field when a form is submitted. */
 	name?: string;
-	/** Id of the form the hidden inputs belong to, for a select rendered outside it. */
+	/**
+	 * Identifies the form that owns the hidden input.
+	 * Useful when the select is rendered outside the form.
+	 */
 	form?: string;
-	/** A hint for browser autofill, on the hidden input. */
+	/** Provides a hint to the browser for autofill. */
 	autocomplete?: FullAutoFill | null;
-	/** The id of the select. The trigger takes it. */
+	/** The id of the Select. */
 	id?: string;
 	/**
-	 * Whether a value must be chosen before the form submits.
+	 * Whether the user must choose a value before submitting a form.
 	 * @default false
 	 */
 	required?: boolean;
 	/**
-	 * Whether the user can browse the options but not choose a different one.
+	 * Whether the user should be unable to choose a different option from the select popup.
 	 * @default false
 	 */
 	readonly?: boolean;
 	/**
-	 * Whether the select ignores user interaction.
+	 * Whether the component should ignore user interaction.
 	 * @default false
 	 */
 	disabled?: boolean;
 	/**
-	 * Whether several items can be selected.
+	 * Whether multiple items can be selected.
 	 * @default false
 	 */
 	multiple?: Multiple;
 	/**
-	 * Whether moving the pointer over items highlights them.
-	 * Set `false` to tell CSS `:hover` apart from the `data-highlighted` state.
+	 * Whether moving the pointer over items should highlight them.
+	 * Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.
 	 * @default true
 	 */
 	highlightItemOnHover?: boolean;
 	/**
-	 * Whether the select is modal while open: page scroll is locked and outside pointer
-	 * interaction is blocked. On touch devices the page stays scrollable unless the popup spans
-	 * nearly the full viewport width.
+	 * Determines if the select enters a modal state when open.
+	 * - `true`: user interaction is limited to the select: document page scroll is locked and pointer interactions on outside elements are disabled.
+	 * - `false`: user interaction with the rest of the document is allowed.
+	 *
+	 * On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.
 	 * @default true
 	 */
 	modal?: boolean;
 	/**
-	 * The items of the popup, so `Select.Value` shows the selected item's label instead of its
-	 * value: a record of labels by value, an array of `{ value, label }`, or groups of them.
+	 * Data structure of the items rendered in the select popup.
+	 * When specified, `<Select.Value>` renders the label of the selected item instead of the raw value.
 	 */
 	items?: ItemsInput;
 	/**
-	 * Converts an object value to the label `Select.Value` shows.
-	 * A `{ value, label }` object uses its `label` without it.
+	 * When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for display in the trigger.
+	 * If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.
 	 */
 	itemToStringLabel?: (itemValue: Value) => string;
 	/**
-	 * Converts an object value to the string a form submits.
-	 * A `{ value, label }` object uses its `value` without it.
+	 * When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for form submission.
+	 * If the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop.
 	 */
 	itemToStringValue?: (itemValue: Value) => string;
 	/**
-	 * Whether an item value matches the selected value. Use it for object values that are not
-	 * the same reference.
+	 * Custom comparison logic used to determine if a select item value matches the current selected value. Useful when item values are objects without matching referentially.
+	 * Defaults to `Object.is` comparison.
 	 * @default Object.is
 	 */
 	isItemEqualToValue?: (itemValue: Value, value: Value) => boolean;
@@ -132,6 +138,12 @@ export interface SelectRootProps<Value = unknown, Multiple extends boolean | und
 }
 
 export interface SelectLabelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, FieldRootState>;
 	children?: Snippet;
 }
@@ -153,16 +165,23 @@ export interface SelectTriggerProps extends Omit<
 	HTMLButtonAttributes,
 	'children' | 'disabled' | 'id'
 > {
-	/** Whether the trigger ignores user interaction. */
+	/** Whether the component should ignore user interaction. */
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
 	/** The trigger's id. Defaults to the root's id. */
 	id?: string | null;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLButtonAttributes, state: SelectTriggerState, children: RenderChildren]
 	>;
@@ -178,12 +197,18 @@ export interface SelectValueState {
 
 export interface SelectValueProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 	/**
-	 * Shown while nothing is selected. `children`, or a `null` item's label in `items`,
-	 * replaces it.
+	 * The placeholder value to display when no value is selected.
+	 * This is overridden by `children` if specified, or by a null item's label in `items`.
 	 */
 	placeholder?: string;
 	/** Formats the selected value. Treat the value as read-only. */
 	children?: Snippet<[value: unknown]>;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLSpanElement>, state: SelectValueState, children: RenderChildren]
 	>;
@@ -195,6 +220,12 @@ export interface SelectIconState {
 }
 
 export interface SelectIconProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLSpanElement, SelectIconState>;
 	children?: Snippet;
 }
@@ -202,7 +233,12 @@ export interface SelectIconProps extends Omit<HTMLAttributes<HTMLSpanElement>, '
 export type SelectPortalState = Record<string, never>;
 
 export interface SelectPortalProps extends Omit<PortalProps, 'keepMounted'> {
-	/** Replace the portal element. Host props include the move attachment. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[
 			props: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>>,
@@ -219,6 +255,12 @@ export interface SelectBackdropState {
 }
 
 export interface SelectBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectBackdropState>;
 	children?: Snippet;
 }
@@ -236,69 +278,116 @@ export interface SelectPositionerState {
 
 export interface SelectPositionerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Whether the positioner overlaps the trigger so the selected item's text lines up with the
-	 * trigger's value. Mouse and keyboard only. It turns itself off when there is not enough space.
+	 * Whether the positioner overlaps the trigger so the selected item's text is aligned with the trigger's value text. This only applies to mouse input and is automatically disabled if there is not enough space.
 	 * @default true
 	 */
 	alignItemWithTrigger?: boolean;
-	/** An element to position the popup against. Defaults to the trigger. */
+	/**
+	 * An element to position the popup against.
+	 * By default, the popup will be positioned against the trigger.
+	 */
 	anchor?: AnchorPositioningParameters['anchor'];
 	/**
-	 * Which CSS `position` the positioner uses.
+	 * Determines which CSS `position` property to use.
 	 * @default 'absolute'
 	 */
 	positionMethod?: AnchorPositioningParameters['positionMethod'];
 	/**
-	 * Which side of the anchor to place the popup on. It can flip to avoid collisions.
+	 * Which side of the anchor element to align the popup against.
+	 * May automatically change to avoid collisions.
 	 * @default 'bottom'
 	 */
 	side?: Side;
 	/**
-	 * How to align the popup on its side.
+	 * How to align the popup relative to the specified side.
 	 * @default 'center'
 	 */
 	align?: Align;
 	/**
-	 * Distance between the anchor and the popup in pixels, or a function of the anchor and
-	 * positioner sizes, side and alignment.
+	 * Distance between the anchor and the popup in pixels.
+	 * Also accepts a function that returns the distance to read the dimensions of the anchor
+	 * and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
 	 * @default 0
 	 */
 	sideOffset?: AnchorPositioningParameters['sideOffset'];
 	/**
-	 * Offset along the alignment axis in pixels, or a function like `sideOffset`.
+	 * Additional offset along the alignment axis in pixels.
+	 * Also accepts a function that returns the offset to read the dimensions of the anchor
+	 * and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
 	 * @default 0
 	 */
 	alignOffset?: AnchorPositioningParameters['alignOffset'];
 	/**
-	 * The area the popup is confined to.
+	 * An element or a rectangle that delimits the area that the popup is confined to.
 	 * @default 'clipping-ancestors'
 	 */
 	collisionBoundary?: AnchorPositioningParameters['collisionBoundary'];
 	/**
-	 * Space to keep from the edge of the collision boundary.
+	 * Additional space to maintain from the edge of the collision boundary.
 	 * @default 5
 	 */
 	collisionPadding?: AnchorPositioningParameters['collisionPadding'];
 	/**
-	 * Minimum distance between the arrow and the edges of the popup.
+	 * Minimum distance to maintain between the arrow and the edges of the popup.
+	 *
+	 * Use it to prevent the arrow element from hanging out of the rounded corners of a popup.
 	 * @default 5
 	 */
 	arrowPadding?: number;
 	/**
-	 * Whether the popup stays in the viewport after the anchor scrolls out of view.
+	 * Whether to maintain the popup in the viewport after
+	 * the anchor element was scrolled out of view.
 	 * @default false
 	 */
 	sticky?: boolean;
-	/**
-	 * Whether the popup stops following layout shifts of its anchor.
-	 * Defaults to `true` while the popup overlaps the trigger.
-	 */
+	/** Whether to disable the popup from tracking any layout shift of its positioning anchor. */
 	disableAnchorTracking?: boolean;
 	/**
-	 * How the popup avoids collisions. Dropdowns flip on the side axis and shift on the
-	 * alignment axis.
+	 * Determines how to handle collisions when positioning the popup.
+	 *
+	 * `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`):
+	 * - `'flip'`: keep the requested side when it fits; otherwise try the opposite side
+	 *   (`top` and `bottom`, or `left` and `right`).
+	 * - `'shift'`: never change side; keep the requested side and move the popup within
+	 *   the clipping boundary so it stays visible.
+	 * - `'none'`: do not correct side-axis overflow.
+	 *
+	 * `align` controls overflow on the alignment axis (`start`/`center`/`end`):
+	 * - `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.
+	 * - `'shift'`: keep side and requested alignment, then nudge the popup along the
+	 *   alignment axis to fit.
+	 * - `'none'`: do not correct alignment-axis overflow.
+	 *
+	 * `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the
+	 * preferred axis cannot fit:
+	 * - `'start'`: allow perpendicular fallback and try the logical start side first
+	 *   (`top` before `bottom`, or `left` before `right` in LTR).
+	 * - `'end'`: allow perpendicular fallback and try the logical end side first
+	 *   (`bottom` before `top`, or `right` before `left` in LTR).
+	 * - `'none'`: do not fallback to the perpendicular axis.
+	 *
+	 * When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`.
+	 * If `align` is omitted, it defaults to `'flip'`.
 	 */
 	collisionAvoidance?: AnchorPositioningParameters['collisionAvoidance'];
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectPositionerState>;
 	children?: Snippet;
 }
@@ -318,10 +407,21 @@ export interface SelectPopupState {
 
 export interface SelectPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * The element to focus when the popup closes. `false` does not move focus, `true` uses the
-	 * default (the trigger), and a function receives the close interaction type.
+	 * Determines the element to focus when the select popup is closed.
+	 *
+	 * - `false`: Do not move focus.
+	 * - `true`: Move focus based on the default behavior (trigger or previously focused element).
+	 * - `HTMLElement`: Move focus to that element.
+	 * - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).
+	 *   Return an element to focus, `true` to use the default behavior, or `false`/`undefined` to do nothing.
 	 */
 	finalFocus?: SelectFocusTarget;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectPopupState>;
 	children?: Snippet;
 }
@@ -329,6 +429,12 @@ export interface SelectPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 export type SelectListState = Record<string, never>;
 
 export interface SelectListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectListState>;
 	children?: Snippet;
 }
@@ -344,24 +450,34 @@ export interface SelectItemState {
 
 export interface SelectItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
 	/**
-	 * The value this item selects.
+	 * A unique value that identifies this select item.
 	 * @default null
 	 */
 	value?: unknown;
 	/**
-	 * The text typeahead matches. Defaults to the item text.
+	 * Specifies the text label to use when the item is matched during keyboard text navigation.
+	 *
+	 * Defaults to the item text content if not provided.
 	 */
 	label?: string;
 	/**
-	 * Whether the item ignores user interaction.
+	 * Whether the component should ignore user interaction.
 	 * @default false
 	 */
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `true` if the rendered element is a native button.
 	 * @default false
 	 */
 	nativeButton?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectItemState>;
 	children?: Snippet;
 }
@@ -377,10 +493,16 @@ export interface SelectItemIndicatorProps extends Omit<
 	'children'
 > {
 	/**
-	 * Whether the indicator stays in the DOM while the item is not selected.
+	 * Whether to keep the HTML element in the DOM when the item is not selected.
 	 * @default false
 	 */
 	keepMounted?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLSpanElement, SelectItemIndicatorState>;
 	children?: Snippet;
 }
@@ -388,6 +510,12 @@ export interface SelectItemIndicatorProps extends Omit<
 export type SelectItemTextState = Record<string, never>;
 
 export interface SelectItemTextProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectItemTextState>;
 	children?: Snippet;
 }
@@ -404,6 +532,12 @@ export interface SelectArrowState {
 }
 
 export interface SelectArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectArrowState>;
 	children?: Snippet;
 }
@@ -420,10 +554,16 @@ export interface SelectScrollArrowState {
 
 export interface SelectScrollArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Whether the arrow stays in the DOM while the list cannot scroll that way.
+	 * Whether to keep the HTML element in the DOM while the select popup is not scrollable.
 	 * @default false
 	 */
 	keepMounted?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectScrollArrowState>;
 	children?: Snippet;
 }
@@ -431,6 +571,12 @@ export interface SelectScrollArrowProps extends Omit<HTMLAttributes<HTMLDivEleme
 export type SelectGroupState = Record<string, never>;
 
 export interface SelectGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectGroupState>;
 	children?: Snippet;
 }
@@ -438,6 +584,12 @@ export interface SelectGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 export type SelectGroupLabelState = Record<string, never>;
 
 export interface SelectGroupLabelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, SelectGroupLabelState>;
 	children?: Snippet;
 }

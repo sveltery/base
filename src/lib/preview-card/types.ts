@@ -39,22 +39,27 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 
 export interface PreviewCardRootProps<Payload = unknown> {
 	/**
-	 * Whether the preview card is open.
-	 * Use `bind:open` to share it with the parent.
-	 * A value passed without `bind:` holds until the parent changes it.
+	 * Whether the preview card is currently open.
 	 * @default false
 	 */
 	open?: boolean;
-	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the preview card is opened or closed. */
 	onOpenChange?: (open: boolean, details: PreviewCardChangeEventDetails) => void;
-	/** Called after the open or close transition finishes. */
+	/**
+	 * Event handler called after any animations complete when the preview card is opened or closed.
+	 */
 	onOpenChangeComplete?: (open: boolean) => void;
 	/**
-	 * Id of the trigger that owns the preview card. A string wins over the trigger that opened it.
-	 * An id written by a trigger press resets to `null` once the popup unmounts.
+	 * ID of the trigger that the preview card is associated with.
+	 * This is useful in conjunction with `bind:open` to create a controlled preview card.
+	 * There's no need to specify this prop when the preview card is uncontrolled (that is, when `open` is not bound).
 	 */
 	triggerId?: string | null;
-	/** Associates detached triggers and imperative `open` and `close`. */
+	/**
+	 * A handle to associate the preview card with a trigger.
+	 * If specified, allows external triggers to control the card's open state.
+	 * Can be created with the PreviewCard.createHandle() method.
+	 */
 	handle?: PreviewCardHandle<Payload>;
 	children?: Snippet<[{ payload: Payload | undefined }]>;
 }
@@ -68,19 +73,27 @@ export interface PreviewCardTriggerProps<Payload = unknown> extends Omit<
 	HTMLAnchorAttributes,
 	'children' | 'id'
 > {
+	/** A handle to associate the trigger with a preview card. */
 	handle?: PreviewCardHandle<Payload>;
+	/** A payload to pass to the preview card when it is opened. */
 	payload?: Payload;
 	id?: string | null;
 	/**
-	 * How long to wait before the preview card opens, in milliseconds.
+	 * How long to wait before the preview card opens. Specified in milliseconds.
 	 * @default 600
 	 */
 	delay?: number;
 	/**
-	 * How long to wait before closing the preview card, in milliseconds.
+	 * How long to wait before closing the preview card. Specified in milliseconds.
 	 * @default 300
 	 */
 	closeDelay?: number;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAnchorAttributes, state: PreviewCardTriggerState, children: RenderChildren]
 	>;
@@ -91,8 +104,10 @@ export type PreviewCardPortalState = Record<string, never>;
 
 export interface PreviewCardPortalProps extends PortalProps {
 	/**
-	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
-	 * Host props include the move attachment.
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
 	 */
 	render?: Snippet<
 		[
@@ -146,7 +161,6 @@ export interface PreviewCardPositionerProps extends Omit<
 	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
 	 * - `data.side`: which side of the anchor element the positioner is aligned against.
 	 * - `data.align`: how the positioner is aligned relative to the specified side.
-	 *
 	 * @example
 	 * ```svelte
 	 * <PreviewCard.Positioner
@@ -154,7 +168,6 @@ export interface PreviewCardPositionerProps extends Omit<
 	 *     side === 'top' || side === 'bottom' ? anchor.height : anchor.width}
 	 * />
 	 * ```
-	 *
 	 * @default 0
 	 */
 	sideOffset?: AnchorPositioningParameters['sideOffset'];
@@ -168,7 +181,6 @@ export interface PreviewCardPositionerProps extends Omit<
 	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
 	 * - `data.side`: which side of the anchor element the positioner is aligned against.
 	 * - `data.align`: how the positioner is aligned relative to the specified side.
-	 *
 	 * @example
 	 * ```svelte
 	 * <PreviewCard.Positioner
@@ -176,7 +188,6 @@ export interface PreviewCardPositionerProps extends Omit<
 	 *     side === 'top' || side === 'bottom' ? anchor.width : anchor.height}
 	 * />
 	 * ```
-	 *
 	 * @default 0
 	 */
 	alignOffset?: AnchorPositioningParameters['alignOffset'];
@@ -234,7 +245,6 @@ export interface PreviewCardPositionerProps extends Omit<
 	 *
 	 * When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`.
 	 * If `align` is omitted, it defaults to `'flip'`.
-	 *
 	 * @example
 	 * ```svelte
 	 * <PreviewCard.Positioner
@@ -243,6 +253,12 @@ export interface PreviewCardPositionerProps extends Omit<
 	 * ```
 	 */
 	collisionAvoidance?: AnchorPositioningParameters['collisionAvoidance'];
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PreviewCardPositionerState>;
 	children?: Snippet;
 }
@@ -256,6 +272,12 @@ export interface PreviewCardPopupState {
 }
 
 export interface PreviewCardPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PreviewCardPopupState>;
 	children?: Snippet;
 }
@@ -268,6 +290,12 @@ export interface PreviewCardArrowState {
 }
 
 export interface PreviewCardArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PreviewCardArrowState>;
 	children?: Snippet;
 }
@@ -278,6 +306,12 @@ export interface PreviewCardBackdropState {
 }
 
 export interface PreviewCardBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PreviewCardBackdropState>;
 	children?: Snippet;
 }
@@ -294,6 +328,12 @@ export interface PreviewCardViewportState {
 }
 
 export interface PreviewCardViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PreviewCardViewportState>;
 	children?: Snippet;
 }

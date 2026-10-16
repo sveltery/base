@@ -29,12 +29,15 @@ export type SwitchHostProps = HTMLAttributes<HTMLElement>;
 export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
 	/**
 	 * Whether the switch is currently active.
-	 * Use `bind:checked` to share it with the parent.
+	 *
+	 * To render an uncontrolled switch, use the `defaultChecked` prop instead.
 	 * @default false
 	 */
 	checked?: boolean;
 	/**
-	 * The state an empty `checked` starts from, as on an HTML checkbox.
+	 * Whether the switch is initially active.
+	 *
+	 * To render a controlled switch, use `bind:checked` instead.
 	 * @default false
 	 */
 	defaultChecked?: boolean;
@@ -51,9 +54,9 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	 */
 	required?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `true` and render a `<button>`. The `id` is then applied to that button
-	 * instead of the hidden input.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `true` if the rendered element is a native button.
 	 * @default false
 	 */
 	nativeButton?: boolean;
@@ -61,12 +64,12 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	name?: string | null;
 	/**
 	 * The value submitted with the form when the switch is on.
-	 * By default, the switch submits `"on"`, matching a native checkbox.
+	 * By default, switch submits the "on" value, matching native checkbox behavior.
 	 */
 	value?: string;
 	/**
 	 * The value submitted with the form when the switch is off.
-	 * By default, an unchecked switch does not submit a value.
+	 * By default, unchecked switches do not submit any value, matching native checkbox behavior.
 	 */
 	uncheckedValue?: string;
 	/**
@@ -75,21 +78,32 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	 */
 	form?: string | null;
 	/**
-	 * The id of the hidden input.
-	 * When `nativeButton` is true, the id is applied to the root element instead.
+	 * The id of the hidden input element.
+	 *
+	 * When `nativeButton` is `true`, the id is applied to the root element.
 	 */
 	id?: string | null;
-	/** Called before the checked state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the switch is activated or deactivated. */
 	onCheckedChange?: (checked: boolean, eventDetails: SwitchRootChangeEventDetails) => void;
 	/** Runs before the switch's click handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLAttributes<HTMLElement>['onclick'];
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: SwitchHostProps, state: SwitchRootState, children: RenderChildren]>;
 	children?: Snippet;
 }
 
 export interface SwitchThumbProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLSpanElement>, state: SwitchThumbState, children: RenderChildren]
 	>;

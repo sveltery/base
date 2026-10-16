@@ -1,5 +1,6 @@
 <!--
-	Positions the popup against the input, input group or trigger. Renders a `<div>` element.
+	Positions the popup against the trigger.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/positioner/ComboboxPositioner.tsx
 	and packages/react/src/utils/usePositioner.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.

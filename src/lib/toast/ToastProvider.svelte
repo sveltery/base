@@ -1,5 +1,5 @@
 <!--
-	Provides a context for creating and managing toasts. Renders no element.
+	Provides a context for creating and managing toasts.
 	Derived from Base UI v1.9.0 packages/react/src/toast/provider/ToastProvider.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The store reads `timeout` and `limit` through a getter, so a changed prop is current

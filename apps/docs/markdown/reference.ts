@@ -25,19 +25,26 @@ export type ReferencePart = {
 const escape = (value: string) =>
 	value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** Doc comments use paragraphs, code spans and links, and nothing else. */
+/** Doc comments use paragraphs, `- ` lists, code spans and links, and nothing else. */
 export function inlineMarkdown(value: string): string {
 	return escape(value)
 		.replace(/`([^`]+)`/g, '<code class="Code MdCode" data-inline>$1</code>')
 		.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a class="Link" href="$2">$1</a>');
 }
 
-const paragraphs = (value: string) =>
-	value
-		.split('\n\n')
-		.filter(Boolean)
-		.map((paragraph) => `<p class="MdP">${inlineMarkdown(paragraph)}</p>`)
-		.join('');
+function block(paragraph: string): string {
+	const lines = paragraph.split('\n');
+	const text = lines.filter((line) => !line.startsWith('- ')).join(' ');
+	const items = lines
+		.filter((line) => line.startsWith('- '))
+		.map((line) => `<li class="MdListItem">${inlineMarkdown(line.slice(2))}</li>`);
+	return (
+		(text ? `<p class="MdP">${inlineMarkdown(text)}</p>` : '') +
+		(items.length ? `<ul class="MdUl">${items.join('')}</ul>` : '')
+	);
+}
+
+const paragraphs = (value: string) => value.split('\n\n').filter(Boolean).map(block).join('');
 
 /** Splits a type at its top-level `|`. */
 function unionMembers(type: string): string[] {

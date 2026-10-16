@@ -18,7 +18,7 @@ export interface DirectionReading {
 
 export interface DirectionProviderProps {
 	/**
-	 * The reading direction of the text.
+	 * The reading direction of the text
 	 * @default 'ltr'
 	 */
 	direction?: TextDirection;

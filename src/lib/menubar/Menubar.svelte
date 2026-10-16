@@ -1,5 +1,5 @@
 <!--
-	The container for menus. Renders a `<div>` element.
+	The container for menus.
 	Derived from Base UI v1.9.0 packages/react/src/menubar/Menubar.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The menubar starts its own floating tree, even inside another popup, and its node is the

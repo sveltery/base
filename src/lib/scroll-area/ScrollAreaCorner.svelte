@@ -1,5 +1,6 @@
 <!--
-	The rectangle where the horizontal and vertical scrollbars meet. Renders a `<div>` element.
+	A small rectangular area that appears at the intersection of horizontal and vertical scrollbars.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/scroll-area/corner/ScrollAreaCorner.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

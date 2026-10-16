@@ -85,24 +85,38 @@ export interface ToastPositioningOptions {
 	 */
 	side?: Side;
 	/**
-	 * How to align the toast relative to the specified side.
+	 * How to align the popup relative to the specified side.
 	 * @default 'center'
 	 */
 	align?: Align;
 	/**
-	 * Distance between the anchor and the toast in pixels, or a function of the anchor and
-	 * positioner dimensions, side, and alignment.
+	 * Distance between the anchor and the popup in pixels.
+	 * Also accepts a function that returns the distance to read the dimensions of the anchor
+	 * and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
 	 * @default 0
 	 */
 	sideOffset?: AnchorPositioningParameters['sideOffset'];
 	/**
-	 * Additional offset along the alignment axis in pixels, or a function of the anchor and
-	 * positioner dimensions, side, and alignment.
+	 * Additional offset along the alignment axis in pixels.
+	 * Also accepts a function that returns the offset to read the dimensions of the anchor
+	 * and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
 	 * @default 0
 	 */
 	alignOffset?: AnchorPositioningParameters['alignOffset'];
 	/**
-	 * An element or a rectangle that delimits the area that the toast is confined to.
+	 * An element or a rectangle that delimits the area that the popup is confined to.
 	 * @default 'clipping-ancestors'
 	 */
 	collisionBoundary?: AnchorPositioningParameters['collisionBoundary'];
@@ -112,22 +126,49 @@ export interface ToastPositioningOptions {
 	 */
 	collisionPadding?: AnchorPositioningParameters['collisionPadding'];
 	/**
-	 * Minimum distance to maintain between the arrow and the edges of the toast.
+	 * Minimum distance to maintain between the arrow and the edges of the popup.
+	 *
+	 * Use it to prevent the arrow element from hanging out of the rounded corners of a popup.
 	 * @default 5
 	 */
 	arrowPadding?: number;
 	/**
-	 * Whether to maintain the toast in the viewport after the anchor element was scrolled out of view.
+	 * Whether to maintain the popup in the viewport after
+	 * the anchor element was scrolled out of view.
 	 * @default false
 	 */
 	sticky?: boolean;
 	/**
-	 * Whether to disable the toast from tracking any layout shift of its positioning anchor.
+	 * Whether to disable the popup from tracking any layout shift of its positioning anchor.
 	 * @default false
 	 */
 	disableAnchorTracking?: boolean;
 	/**
-	 * Determines how to handle collisions when positioning the toast.
+	 * Determines how to handle collisions when positioning the popup.
+	 *
+	 * `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`):
+	 * - `'flip'`: keep the requested side when it fits; otherwise try the opposite side
+	 *   (`top` and `bottom`, or `left` and `right`).
+	 * - `'shift'`: never change side; keep the requested side and move the popup within
+	 *   the clipping boundary so it stays visible.
+	 * - `'none'`: do not correct side-axis overflow.
+	 *
+	 * `align` controls overflow on the alignment axis (`start`/`center`/`end`):
+	 * - `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.
+	 * - `'shift'`: keep side and requested alignment, then nudge the popup along the
+	 *   alignment axis to fit.
+	 * - `'none'`: do not correct alignment-axis overflow.
+	 *
+	 * `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the
+	 * preferred axis cannot fit:
+	 * - `'start'`: allow perpendicular fallback and try the logical start side first
+	 *   (`top` before `bottom`, or `left` before `right` in LTR).
+	 * - `'end'`: allow perpendicular fallback and try the logical end side first
+	 *   (`bottom` before `top`, or `right` before `left` in LTR).
+	 * - `'none'`: do not fallback to the perpendicular axis.
+	 *
+	 * When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`.
+	 * If `align` is omitted, it defaults to `'flip'`.
 	 * @default { fallbackAxisSide: 'end' }
 	 */
 	collisionAvoidance?: AnchorPositioningParameters['collisionAvoidance'];
@@ -227,7 +268,7 @@ export interface ToastProviderProps {
 	 * @default 3
 	 */
 	limit?: number;
-	/** A global manager for toasts to use outside of a component. */
+	/** A global manager for toasts to use outside of a Svelte component. */
 	toastManager?: ToastManager;
 }
 
@@ -237,6 +278,12 @@ export interface ToastViewportState {
 }
 
 export interface ToastViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLAttributes<HTMLDivElement>, ToastViewportState>;
 	children?: Snippet;
 }
@@ -264,6 +311,12 @@ export interface ToastRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 * @default ['down', 'right']
 	 */
 	swipeDirection?: ToastSwipeDirection | ToastSwipeDirection[];
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLAttributes<HTMLDivElement>, ToastRootState>;
 	children?: Snippet;
 }
@@ -276,6 +329,12 @@ export interface ToastContentState {
 }
 
 export interface ToastContentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLAttributes<HTMLDivElement>, ToastContentState>;
 	children?: Snippet;
 }
@@ -286,6 +345,12 @@ export interface ToastTitleState {
 }
 
 export interface ToastTitleProps extends Omit<HTMLAttributes<HTMLHeadingElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLAttributes<HTMLHeadingElement>, ToastTitleState>;
 	/** Content. Falls back to the toast's `title`. */
 	children?: Snippet;
@@ -300,6 +365,12 @@ export interface ToastDescriptionProps extends Omit<
 	HTMLAttributes<HTMLParagraphElement>,
 	'children'
 > {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLAttributes<HTMLParagraphElement>, ToastDescriptionState>;
 	/** Content. Falls back to the toast's `description`. */
 	children?: Snippet;
@@ -313,11 +384,18 @@ export interface ToastActionState {
 export interface ToastActionProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLButtonAttributes, ToastActionState>;
 	/** Content. The toast's `actionProps.children` wins over it. */
 	children?: Snippet;
@@ -331,11 +409,18 @@ export interface ToastCloseState {
 export interface ToastCloseProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLButtonAttributes, ToastCloseState>;
 	children?: Snippet;
 }
@@ -344,8 +429,10 @@ export type ToastPortalState = Record<string, never>;
 
 export interface ToastPortalProps extends Omit<PortalProps, 'keepMounted'> {
 	/**
-	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
-	 * Host props include the move attachment.
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
 	 */
 	render?: Snippet<
 		[
@@ -369,8 +456,14 @@ export interface ToastPositionerProps
 	extends ToastPositioningOptions, Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** The toast object associated with the positioner. */
 	toast: ToastObject;
-	/** An element to position the toast against. Defaults to the toast's `positionerProps.anchor`. */
+	/** An element to position the toast against. */
 	anchor?: Element | null;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLAttributes<HTMLDivElement>, ToastPositionerState>;
 	children?: Snippet;
 }
@@ -385,6 +478,12 @@ export interface ToastArrowState {
 }
 
 export interface ToastArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLAttributes<HTMLDivElement>, ToastArrowState>;
 	children?: Snippet;
 }

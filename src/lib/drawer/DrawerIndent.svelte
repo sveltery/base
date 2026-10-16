@@ -1,7 +1,7 @@
 <!--
-	A wrapper for the app's main UI. Renders a `<div>` element.
-	`data-active` is present while any drawer inside the nearest Drawer.Provider is open. The
-	frontmost drawer's swipe progress and height reach it as CSS variables.
+	A wrapper element intended to contain your app's main UI.
+	Applies `data-active` when any drawer within the nearest `<Drawer.Provider>` is open.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/drawer/indent/DrawerIndent.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

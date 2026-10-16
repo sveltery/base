@@ -69,45 +69,65 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 
 export interface TabsRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * The selected tab value.
-	 * Use `bind:value` to share it with the parent. A value passed without `bind:`
-	 * holds until the parent changes it. The root moves it to the first enabled
-	 * tab when the selected tab is disabled or removed. A value passed at mount is
-	 * held while its tab is disabled or not yet rendered. `null` selects nothing.
+	 * The value of the currently active `Tab`.
+	 * When the value is `null`, no Tab will be active.
+	 *
+	 * To render uncontrolled tabs, pass `value` without `bind:`.
 	 * @default 0
 	 */
 	value?: TabsValue | null;
 	/**
-	 * Layout direction. Arrow keys follow it.
+	 * The component orientation (layout flow direction).
 	 * @default 'horizontal'
 	 */
 	orientation?: TabsOrientation;
 	/**
-	 * Called when the selected value changes.
-	 * `reason` is `none` for a click or keyboard activation, `initial` for the
-	 * first selection once the tabs mount, `disabled` when the
-	 * selected tab becomes disabled, and `missing` when it is removed.
-	 * `cancel()` stops a `none` change. It does not stop automatic changes.
+	 * Callback invoked when new value is being set.
+	 *
+	 * The event `reason` is `'none'` for user-initiated changes, such as a click
+	 * or keyboard navigation; `'initial'` for the first automatic selection or
+	 * fallback in uncontrolled roots when `value` is omitted or
+	 * `undefined`, including when the implicit initial value is disabled or
+	 * missing; `'disabled'` for automatic fallback when the selected tab becomes
+	 * disabled in uncontrolled roots; or `'missing'` for automatic fallback when
+	 * the selected tab is removed, or when an explicit initial `value` never
+	 * matches a mounted tab in uncontrolled roots.
+	 *
+	 * For automatic changes, the selected value can be `null` when no enabled Tab
+	 * is available as a fallback.
+	 *
+	 * Automatic changes cannot be canceled; calling `eventDetails.cancel()` for
+	 * `'initial'`, `'disabled'`, or `'missing'` has no effect.
 	 */
 	onValueChange?: (value: TabsValue | null, eventDetails: TabsRootChangeEventDetails) => void;
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, TabsRootState>;
 	children?: Snippet;
 }
 
 export interface TabsListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * When true, arrow keys select the tab they move to.
-	 * When false, Enter or Space selects the focused tab.
+	 * Whether to automatically change the active tab on arrow key focus. Otherwise, tabs will be activated using Enter or Space key press.
 	 * @default false
 	 */
 	activateOnFocus?: boolean;
 	/**
-	 * Whether arrow keys wrap from the last tab to the first.
+	 * Whether to loop keyboard focus back to the first item
+	 * when the end of the list is reached while using the arrow keys.
 	 * @default true
 	 */
 	loopFocus?: boolean;
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, TabsListState>;
 	children?: Snippet;
 }
@@ -125,18 +145,23 @@ export interface TabsTabProps extends Omit<
 	| 'onkeydown'
 	| 'onkeyup'
 > {
-	/** Identifies this tab in the root `value`. */
+	/** The value of the Tab. */
 	value: TabsValue;
 	/**
-	 * Whether this tab ignores activation.
-	 * A disabled tab stays focusable. Arrow keys can land on it.
-	 * When `value` is omitted, a disabled tab is not the initial selection.
+	 * Whether the Tab is disabled.
+	 *
+	 * If a first Tab on a `<Tabs.List>` is disabled, it won't initially be selected.
+	 * Instead, the next enabled Tab will be selected.
+	 * However, it does not work like this during server-side rendering, as it is not known
+	 * during pre-rendering which Tabs are disabled.
+	 * To work around it, ensure that `value` on `<Tabs.Root>` is set to an enabled Tab's value.
 	 * @default false
 	 */
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
@@ -146,32 +171,49 @@ export interface TabsTabProps extends Omit<
 	onpointerdown?: HTMLAttributes<HTMLElement>['onpointerdown'];
 	onkeydown?: HTMLAttributes<HTMLElement>['onkeydown'];
 	onkeyup?: HTMLAttributes<HTMLElement>['onkeyup'];
-	/** Replace the default `<button>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: TabsTabHostProps, state: TabsTabState, children: RenderChildren]>;
 	children?: Snippet;
 }
 
 export interface TabsPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** Shown when the tab with the same value is selected. */
+	/**
+	 * The value of the TabPanel. It will be shown when the Tab with the corresponding value is active.
+	 */
 	value: TabsValue;
 	/**
-	 * Whether to keep the panel in the DOM while it is hidden.
+	 * Whether to keep the HTML element in the DOM while the panel is hidden.
 	 * @default false
 	 */
 	keepMounted?: boolean;
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, TabsPanelState>;
 	children?: Snippet;
 }
 
 export interface TabsIndicatorProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 	/**
-	 * Whether to render itself before hydration.
+	 * Whether to render itself before Svelte hydrates.
 	 * This minimizes the time that the indicator isn't visible after server-side rendering.
 	 * @default false
 	 */
 	renderBeforeHydration?: boolean;
-	/** Replace the default `<span>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLSpanElement, TabsIndicatorState>;
 	children?: Snippet;
 }

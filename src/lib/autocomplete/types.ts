@@ -80,43 +80,79 @@ export interface AutocompleteRootProps<ItemValue = unknown> extends Omit<
 	| 'items'
 	| 'filteredItems'
 	| 'openOnInputClick'
+	| 'form'
+	| 'filter'
+	| 'inline'
+	| 'submitOnItemClick'
 > {
 	/**
-	 * The text in the input, which is the value the form submits. Use `bind:value` to share it
-	 * with the parent. Without a binding it starts from `defaultValue`.
+	 * Identifies the form that owns the internal input.
+	 * Useful when the autocomplete is rendered outside the form.
 	 */
+	form?: string;
+	/** AutocompleteFilter function used to match items against the input query. */
+	filter?:
+		| ((item: ItemValue, query: string, itemToString?: (item: ItemValue) => string) => boolean)
+		| null;
+	/**
+	 * Whether the list is rendered inline without using the component's own popup.
+	 *
+	 * Specify `open` unconditionally in conjunction with this prop so the list is considered
+	 * visible: `<Autocomplete.Root inline open>`
+	 * @default false
+	 */
+	inline?: boolean;
+	/**
+	 * Whether clicking an item should submit the autocomplete's owning form.
+	 * By default, clicking an item via a pointer or Enter key does not submit the owning form.
+	 * Useful when the autocomplete is used as a single-field form search input.
+	 * @default false
+	 */
+	submitOnItemClick?: boolean;
+	/** The input value of the autocomplete. */
 	value?: string | null;
-	/** The text the input starts with and the text a form reset restores. */
+	/**
+	 * The uncontrolled input value of the autocomplete when it's initially rendered.
+	 *
+	 * To render a controlled autocomplete, use `bind:value` instead.
+	 */
 	defaultValue?: string;
-	/** Called before the input text changes. Call `eventDetails.cancel()` to keep the text. */
+	/** Event handler called when the input value of the autocomplete changes. */
 	onValueChange?: (value: string, eventDetails: AutocompleteChangeEventDetails) => void;
 	/** The items of the list: flat, or groups with an `items` array. */
 	items?: readonly ItemValue[] | readonly Group<ItemValue>[];
 	/**
-	 * Items filtered by the consumer. The list shows them instead of filtering `items` itself.
-	 * Keep the flat or grouped shape of `items`.
+	 * Filtered items to display in the list.
+	 * When provided, the list uses these items instead of filtering the `items` prop internally.
+	 * When `items` is also provided, this array must preserve its flat or grouped structure.
+	 * Nullish entries are not supported, as in `items`.
+	 * Use when you want to control filtering logic externally with the `useFilter()` hook.
 	 */
 	filteredItems?: readonly ItemValue[] | readonly Group<ItemValue>[];
 	/**
-	 * How the list filters and whether the input completes inline with the highlighted item.
+	 * Controls how the autocomplete behaves with respect to list filtering and inline autocompletion.
+	 * - `list` (default): items are dynamically filtered based on the input value. The input value does not change based on the active item.
+	 * - `both`: items are dynamically filtered based on the input value, which will temporarily change based on the active item (inline autocompletion).
+	 * - `inline`: items are static (not filtered), and the input value will temporarily change based on the active item (inline autocompletion).
+	 * - `none`: items are static (not filtered), and the input value will not change based on the active item.
 	 * @default 'list'
 	 */
 	mode?: AutocompleteMode;
 	/**
-	 * Whether the first matching item is highlighted automatically. `true` highlights it once the
-	 * user types and keeps it while the query changes. `'always'` highlights it as soon as the
-	 * list opens.
+	 * Whether the first matching item is highlighted automatically.
+	 * - `true`: highlight after the user types and keep the highlight while the query changes.
+	 * - `'always'`: always highlight the first item.
 	 * @default false
 	 */
 	autoHighlight?: boolean | 'always';
 	/**
-	 * Whether the popup opens when the input is pressed.
+	 * Whether the popup opens when clicking the input.
 	 * @default false
 	 */
 	openOnInputClick?: boolean;
 	/**
-	 * Converts an object item value to the text shown in the input and submitted with the form.
-	 * A `{ value, label }` object uses its `label` without it.
+	 * When the item values are objects (`<Autocomplete.Item value={object}>`), this function converts the object value to a string representation for both display in the input and form submission.
+	 * If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.
 	 */
 	itemToStringValue?: (itemValue: ItemValue) => string;
 }
@@ -136,7 +172,11 @@ export type AutocompleteRootItemsProps<Items extends readonly unknown[]> = Omit<
 	AutocompleteRootProps<AutocompleteItemOf<Items>>,
 	'items'
 > & {
-	/** The items of the list: flat, or groups with an `items` array. */
+	/**
+	 * The items to be displayed in the list.
+	 * Can be either a flat array of items or an array of groups with items.
+	 * Nullish entries are not supported: remove them from the data before passing it.
+	 */
 	items?: Items;
 };
 
@@ -148,6 +188,12 @@ export interface AutocompleteValueProps {
 export type AutocompleteTriggerState = Omit<ComboboxTriggerState, 'placeholder'>;
 
 export interface AutocompleteTriggerProps extends Omit<ComboboxTriggerProps, 'render'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLButtonAttributes, state: AutocompleteTriggerState, children: RenderChildren]
 	>;
@@ -156,6 +202,12 @@ export interface AutocompleteTriggerProps extends Omit<ComboboxTriggerProps, 're
 export type AutocompleteInputGroupState = Omit<ComboboxInputGroupState, 'placeholder'>;
 
 export interface AutocompleteInputGroupProps extends Omit<ComboboxInputGroupProps, 'render'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[
 			props: HTMLAttributes<HTMLDivElement>,
@@ -173,6 +225,12 @@ export interface AutocompleteItemState {
 }
 
 export interface AutocompleteItemProps extends Omit<ComboboxItemProps, 'render'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: AutocompleteItemState, children: RenderChildren]
 	>;

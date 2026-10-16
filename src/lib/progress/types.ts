@@ -17,11 +17,12 @@ type DivAttrs = Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 type SpanAttrs = Omit<HTMLAttributes<HTMLSpanElement>, 'children'>;
 
 export interface ProgressRootProps extends DivAttrs {
-	/**
-	 * The current value. The component is indeterminate when value is `null`
-	 * or any non-finite number.
-	 */
+	/** The current value. The component is indeterminate when value is `null`. */
 	value: number | null;
+	/**
+	 * A string value that provides a user-friendly name for `aria-valuenow`, the current value of the progress bar.
+	 */
+	'aria-valuetext'?: string;
 	/**
 	 * The maximum value.
 	 * @default 100
@@ -44,7 +45,12 @@ export interface ProgressRootProps extends DivAttrs {
 	 * text alternative for the current value of the progress bar.
 	 */
 	getAriaValueText?: (formattedValue: string, value: number | null) => string;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: ProgressState, children: RenderChildren]
 	>;
@@ -52,7 +58,12 @@ export interface ProgressRootProps extends DivAttrs {
 }
 
 export interface ProgressTrackProps extends DivAttrs {
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: ProgressState, children: RenderChildren]
 	>;
@@ -60,7 +71,12 @@ export interface ProgressTrackProps extends DivAttrs {
 }
 
 export interface ProgressIndicatorProps extends DivAttrs {
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: ProgressState, children: RenderChildren]
 	>;
@@ -68,7 +84,12 @@ export interface ProgressIndicatorProps extends DivAttrs {
 }
 
 export interface ProgressLabelProps extends SpanAttrs {
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLSpanElement>, state: ProgressState, children: RenderChildren]
 	>;
@@ -76,7 +97,12 @@ export interface ProgressLabelProps extends SpanAttrs {
 }
 
 export interface ProgressValueProps extends SpanAttrs {
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLSpanElement>, state: ProgressState, children: RenderChildren]
 	>;

@@ -1,6 +1,7 @@
 <!--
 	A portal element that moves the popup to a different part of the DOM.
-	Renders through the shared FloatingPortal, which appends to `<body>` by default.
+	By default, the portal element is appended to `<body>`.
+	Renders a `<div>` element.
 	Derived from Base UI v1.8.0 packages/react/src/dialog/portal/DialogPortal.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	The internal backdrop is inert while the dialog is closed and still mounted.

@@ -45,14 +45,17 @@ export function apiReference(lib: string, folder: string): ApiPart[] {
 		return new Map(checker.getExportsOfModule(moduleSymbol).map((symbol) => [symbol.name, symbol]));
 	};
 
-	return partFiles(source, dirname(index)).map(({ name, file }) => {
+	return partFiles(source, dirname(index)).map(({ name, file, doc, propsType }) => {
 		const component = readFileSync(file, 'utf8');
-		const { propsName, defaults } = propsDeclaration(component, file);
-		const types = exportedTypes(file);
+		const declaration = propsDeclaration(component, file);
+		const { defaults } = declaration;
+		const propsName = propsType ?? declaration.propsName;
+		// A cast's props type is exported beside the namespace, not beside the shared file.
+		const types = exportedTypes(propsType ? index : file);
 		const propsSymbol = types.get(propsName);
 		if (!propsSymbol) throw new Error(`${file}: ${propsName} is not exported beside it`);
 		const stateSymbol = types.get(propsName.replace(/Props$/, 'State'));
-		const header = headerComment(component);
+		const header = doc ?? headerComment(component);
 		const files = new Set([file]);
 		const table = (symbol: ts.Symbol, propDefaults: Defaults) =>
 			members(checker, symbol, propDefaults, publicTypes, files);
@@ -101,13 +104,22 @@ function typeScriptFiles(dir: string): string[] {
 	});
 }
 
+type PartFile = {
+	name: string;
+	file: string;
+	/** The member's doc comment, for a part that shares its file with another component's part. */
+	doc?: string;
+	/** The props type in a member's `as Component<Props>` cast. */
+	propsType?: string;
+};
+
 /**
  * The parts an entry exports. A namespace object such as `export const Collapsible = { Root, ... }`
  * wins over named exports, so `Checkbox.Root` is listed once even when `CheckboxRoot` is also exported.
  */
-function partFiles(source: ts.SourceFile, dir: string): Array<{ name: string; file: string }> {
+function partFiles(source: ts.SourceFile, dir: string): PartFile[] {
 	const imports = new Map<string, string>();
-	const namespaces: Array<{ name: string; file: string }> = [];
+	const namespaces: PartFile[] = [];
 	const named: Array<{ name: string; file: string }> = [];
 	const svelteFile = (specifier: string) =>
 		specifier.endsWith('.svelte') ? resolve(dir, specifier) : undefined;
@@ -154,6 +166,22 @@ function partFiles(source: ts.SourceFile, dir: string): Array<{ name: string; fi
 					const key =
 						property.name && ts.isIdentifier(property.name) ? property.name.text : undefined;
 					// A generic part is written `Root: DialogRoot as typeof DialogRoot`.
+					const cast =
+						ts.isPropertyAssignment(property) && ts.isAsExpression(property.initializer)
+							? property.initializer.type
+							: undefined;
+					const propsType =
+						cast &&
+						ts.isTypeReferenceNode(cast) &&
+						cast.typeName.getText(source) === 'Component' &&
+						cast.typeArguments?.[0]
+							? cast.typeArguments[0].getText(source)
+							: undefined;
+					const comment = ts
+						.getJSDocCommentsAndTags(property)
+						.filter(ts.isJSDoc)
+						.map((doc) => ts.getTextOfJSDocComment(doc.comment) ?? '')
+						.join('\n\n');
 					const initializer = ts.isPropertyAssignment(property)
 						? ts.isAsExpression(property.initializer)
 							? property.initializer.expression
@@ -165,7 +193,14 @@ function partFiles(source: ts.SourceFile, dir: string): Array<{ name: string; fi
 							? initializer.text
 							: undefined;
 					const file = value && imports.get(value);
-					if (key && file) namespaces.push({ name: `${declaration.name.text}.${key}`, file });
+					if (key && file) {
+						namespaces.push({
+							name: `${declaration.name.text}.${key}`,
+							file,
+							doc: comment ? paragraphs(comment) : undefined,
+							propsType
+						});
+					}
 				}
 			}
 		}
@@ -222,12 +257,7 @@ function members(
 				default:
 					(tagDefault?.text ? ts.displayPartsToString(tagDefault.text) : inlineDefault) ??
 					code?.value,
-				description: docs
-					.replace(/\s*@default\s+\S+\s*/, ' ')
-					.split(/\n\s*\n/)
-					.map((paragraph) => paragraph.replace(/\s+/g, ' ').trim())
-					.filter(Boolean)
-					.join('\n\n'),
+				description: paragraphs(docs.replace(/\s*@default\s+\S+\s*/, ' ')),
 				bindable: code?.bindable ?? false,
 				required: !(property.flags & ts.SymbolFlags.Optional)
 			};
@@ -322,13 +352,23 @@ function readableType(
 	return text;
 }
 
+/** Lines joined into paragraphs, which are separated by a blank line. A `- ` list item keeps its own line. */
+const paragraphs = (text: string) =>
+	text
+		.split(/\n\s*\n/)
+		.map((paragraph) =>
+			paragraph
+				.split(/\n(?=\s*- )/)
+				.map((line) => line.replace(/\s+/g, ' ').trim())
+				.join('\n')
+		)
+		.filter(Boolean)
+		.join('\n\n');
+
 /** The first comment of a component file, without its attribution lines. */
 function headerComment(component: string): string {
 	const comment = component.match(/^\s*<!--([\s\S]*?)-->/)?.[1] ?? '';
-	return comment
-		.split(/\bDerived from\b/)[0]
-		.replace(/\s+/g, ' ')
-		.trim();
+	return paragraphs(comment.split(/\bDerived from\b/)[0]);
 }
 
 /**
