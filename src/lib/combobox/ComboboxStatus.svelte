@@ -1,6 +1,10 @@
 <!--
-	Announces status messages, such as a loading state, politely to screen readers.
-	Keep it mounted and change its children, so screen readers announce the change.
+	Displays a status message whose content changes are announced politely to screen readers.
+	Useful for conveying the status of an asynchronously loaded list.
+	This component's root element must remain mounted in the DOM to announce
+	changes consistently across screen readers. Avoid hiding or removing the
+	component itself with `display: none`, `hidden`, `aria-hidden`, or conditional
+	rendering. Prefer updating or conditionally rendering its children instead.
 	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/status/ComboboxStatus.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.

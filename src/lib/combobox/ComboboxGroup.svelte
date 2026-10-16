@@ -1,5 +1,6 @@
 <!--
-	Groups related items with their label. Renders a `<div>` element.
+	Groups related items with the corresponding label.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/group/ComboboxGroup.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

@@ -12,7 +12,12 @@ export interface AvatarRootState {
 }
 
 export interface AvatarRootProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLSpanElement>, state: AvatarRootState, children: RenderChildren]
 	>;
@@ -25,18 +30,20 @@ export interface AvatarImageState extends AvatarRootState {
 }
 
 export interface AvatarImageProps extends Omit<HTMLImgAttributes, 'children'> {
-	/**
-	 * Called when the loading status changes. `idle` is not emitted.
-	 * Removing the image sets the root back to `idle` without this callback.
-	 */
+	/** Callback fired when the loading status changes. */
 	onLoadingStatusChange?: (status: ImageLoadingStatus) => void;
 	/**
-	 * Keep the `<img>` mounted and read its status from the element.
-	 * When false, a detached image probes the source and the `<img>` renders only after it loads.
+	 * Whether the image element stays mounted and loads in place instead of being preloaded.
+	 * Supports `loading="lazy"` and optimized image components such as `next/image`.
 	 * @default false
 	 */
 	keepMounted?: boolean;
-	/** Replace the default `<img>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: HTMLImgAttributes, state: AvatarImageState, children: RenderChildren]>;
 	children?: Snippet;
 }
@@ -45,12 +52,16 @@ export type AvatarFallbackState = AvatarRootState;
 
 export interface AvatarFallbackProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 	/**
-	 * How long to wait before showing the fallback, in milliseconds.
-	 * Once the fallback has been shown, a later delay does not hide it again.
+	 * How long to wait before showing the fallback. Specified in milliseconds.
 	 * @default 0
 	 */
 	delay?: number;
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLSpanElement>, state: AvatarFallbackState, children: RenderChildren]
 	>;

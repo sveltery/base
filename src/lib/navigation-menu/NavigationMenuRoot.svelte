@@ -1,5 +1,6 @@
 <!--
-	Groups all parts of the navigation menu. Renders a `<nav>` element, or a `<div>` when nested.
+	Groups all parts of the navigation menu.
+	Renders a `<nav>` element at the root, or `<div>` element when nested.
 	Derived from Base UI v1.9.0 packages/react/src/navigation-menu/root/NavigationMenuRoot.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	`close` and `unmount` are exports. Bind the root with `bind:this`.

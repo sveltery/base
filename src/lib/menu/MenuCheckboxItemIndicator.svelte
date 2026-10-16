@@ -11,9 +11,14 @@
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { useMenuCheckboxItem } from './context.svelte.js';
 	import { itemMapping } from './item-mapping.js';
-	import type { MenuItemIndicatorProps, MenuItemIndicatorState } from './types.js';
+	import type { MenuCheckboxItemIndicatorProps, MenuItemIndicatorState } from './types.js';
 
-	let { keepMounted = false, render, children, ...elementProps }: MenuItemIndicatorProps = $props();
+	let {
+		keepMounted = false,
+		render,
+		children,
+		...elementProps
+	}: MenuCheckboxItemIndicatorProps = $props();
 
 	const item = useMenuCheckboxItem();
 	const bindKey = createAttachmentKey();

@@ -65,7 +65,12 @@ export interface ContextMenuTriggerState {
 }
 
 export interface ContextMenuTriggerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[
 			props: HTMLAttributes<HTMLDivElement>,
@@ -84,29 +89,62 @@ export type ContextMenuPositionerState = MenuPositionerState;
  */
 export interface ContextMenuPositionerProps extends Omit<
 	MenuPositionerProps,
-	'positionMethod' | 'side' | 'align' | 'sideOffset' | 'alignOffset' | 'arrowPadding'
+	'positionMethod' | 'anchor' | 'side' | 'align' | 'sideOffset' | 'alignOffset' | 'arrowPadding'
 > {
 	/**
-	 * Which side of the anchor to place the popup on. May change to avoid collisions.
+	 * An element to position the popup against.
+	 * By default, root context menus are positioned at the pointer, and submenus are positioned
+	 * against their trigger.
+	 */
+	anchor?: MenuPositionerProps['anchor'];
+	/**
+	 * Which side of the anchor element to align the popup against.
+	 * May automatically change to avoid collisions.
+	 *
 	 * Submenus default to `'inline-end'`.
 	 * @default 'bottom'
 	 */
 	side?: MenuPositionerProps['side'];
-	/** How to align the popup against the side. @default 'start' */
+	/**
+	 * How to align the popup relative to the specified side.
+	 * @default 'start'
+	 */
 	align?: MenuPositionerProps['align'];
 	/**
-	 * Distance between the anchor and the popup in pixels, or a function of the layout.
-	 * Defaults to `-5` for root context menus when `side` is not set and `align` is not
-	 * `'center'`, and to `0` otherwise.
+	 * Distance between the anchor and the popup in pixels.
+	 * Also accepts a function that returns the distance to read the dimensions of the anchor
+	 * and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
+	 *
+	 * Defaults to `-5` for root context menus when `side` is not specified and `align` is not
+	 * `'center'`. Otherwise, it defaults to `0`.
 	 */
 	sideOffset?: MenuPositionerProps['sideOffset'];
 	/**
-	 * Offset along the alignment axis in pixels, or a function of the layout.
-	 * Defaults to `2` for root context menus when `side` is not set and `align` is not
-	 * `'center'`, and to `0` otherwise.
+	 * Additional offset along the alignment axis in pixels.
+	 * Also accepts a function that returns the offset to read the dimensions of the anchor
+	 * and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
+	 *
+	 * Defaults to `2` for root context menus when `side` is not specified and `align` is not
+	 * `'center'`. Otherwise, it defaults to `0`.
 	 */
 	alignOffset?: MenuPositionerProps['alignOffset'];
-	/** Minimum distance between the arrow and the popup edges. Root context menus always use `0`. Submenus default to `5`. */
+	/**
+	 * Minimum distance to maintain between the arrow and the edges of the popup.
+	 *
+	 * Root context menus always use `0`. Submenus default to `5`.
+	 */
 	arrowPadding?: MenuPositionerProps['arrowPadding'];
 }
 

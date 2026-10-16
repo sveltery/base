@@ -21,18 +21,22 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	'children'
 > {
 	/**
-	 * The selected radio's value.
-	 * Use `bind:value` to share it with the parent.
-	 * Hold the value with `eventDetails.cancel()` to keep a click from sticking.
-	 * Object values are compared with `===`. Store them with `$state.raw`.
+	 * The controlled value of the radio item that should be currently selected.
+	 *
+	 * To render an uncontrolled radio group, use the `defaultValue` prop instead.
 	 */
 	value?: Value;
 	/**
-	 * The value an empty `value` starts from.
+	 * The uncontrolled value of the radio button that should be initially selected.
+	 *
+	 * To render a controlled radio group, use `bind:value` instead.
 	 * @default undefined
 	 */
 	defaultValue?: Value;
-	/** Whether the group should ignore user interaction. @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 * @default false
+	 */
 	disabled?: boolean | null;
 	/**
 	 * Whether the user should be unable to select a different radio button in the group.
@@ -51,9 +55,14 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	 * Useful when the radio group is rendered outside the form.
 	 */
 	form?: string | null;
-	/** Called before the value changes. Call `eventDetails.cancel()` to veto it. */
+	/** Callback fired when the value changes. */
 	onValueChange?: (value: Value, eventDetails: RadioGroupChangeEventDetails) => void;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: RadioGroupState, children: RenderChildren]
 	>;

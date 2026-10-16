@@ -1,6 +1,6 @@
 <!--
-	Groups all parts of the combobox. Renders no element of its own, only the hidden inputs a
-	form submits and validates.
+	Groups all parts of the combobox.
+	Doesn't render its own HTML element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/root/ComboboxRoot.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	`actionsRef` is the exported `close` and `unmount`. Bind the root with `bind:this`.

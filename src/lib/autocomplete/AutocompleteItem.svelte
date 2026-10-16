@@ -1,5 +1,6 @@
 <!--
-	An item in the list. Pressing it fills the input with its text. Renders a `<div>` element.
+	An individual item in the list.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/autocomplete/item/AutocompleteItem.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

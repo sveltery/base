@@ -1,5 +1,6 @@
 <!--
-	A container for the content of an item. It moves into the viewport while the item is active.
+	A container for the content of the navigation menu item that is moved into the popup
+	when the item is active.
 	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/navigation-menu/content/NavigationMenuContent.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.

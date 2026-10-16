@@ -67,39 +67,72 @@ export type DrawerDivProps = HTMLAttributes<HTMLDivElement> &
 
 export interface DrawerRootProps<Payload = unknown> extends Omit<
 	DialogRootProps<Payload>,
-	'handle' | 'onOpenChange'
+	| 'open'
+	| 'modal'
+	| 'onOpenChangeComplete'
+	| 'disablePointerDismissal'
+	| 'triggerId'
+	| 'handle'
+	| 'onOpenChange'
 > {
-	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
+	/**
+	 * Whether the drawer is currently open.
+	 * @default false
+	 */
+	open?: boolean;
+	/**
+	 * Determines if the drawer enters a modal state when open.
+	 * - `true`: user interaction is limited to just the drawer: focus is trapped, document page scroll is locked, and pointer interactions on outside elements are disabled.
+	 * - `false`: user interaction with the rest of the document is allowed.
+	 * - `'trap-focus'`: focus is trapped inside the drawer, but document page scroll is not locked and pointer interactions outside of it remain enabled.
+	 * @default true
+	 */
+	modal?: boolean | 'trap-focus';
+	/** Event handler called after any animations complete when the drawer is opened or closed. */
+	onOpenChangeComplete?: (open: boolean) => void;
+	/**
+	 * Whether to prevent the drawer from closing on outside presses.
+	 * For non-modal drawers, this also prevents the drawer from closing when focus moves outside of it.
+	 * @default false
+	 */
+	disablePointerDismissal?: boolean;
+	/**
+	 * ID of the trigger that the drawer is associated with.
+	 * This is useful in conjunction with `bind:open` to create a controlled drawer.
+	 * There's no need to specify this prop when the drawer is uncontrolled (that is, when `open` is not bound).
+	 * @default null
+	 */
+	triggerId?: string | null;
+	/** Event handler called when the drawer is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: DrawerChangeEventDetails) => void;
-	/** Connects detached triggers. Create one with `Drawer.createHandle()`. */
+	/**
+	 * A handle to associate the drawer with a trigger.
+	 * If specified, allows detached triggers to control the drawer's open state.
+	 * Can be created with the Drawer.createHandle() method.
+	 */
 	handle?: DrawerHandle<Payload>;
 	/**
-	 * The direction a swipe dismisses the drawer in.
+	 * The swipe direction used to dismiss the drawer.
 	 * @default 'down'
 	 */
 	swipeDirection?: DrawerSwipeDirection;
 	/**
-	 * Snap points that size the drawer. Numbers from 0 to 1 are fractions of the viewport height.
-	 * Larger numbers are pixels. Strings take `px` or `rem` units, such as `'148px'` or `'30rem'`.
+	 * Snap points used to position the drawer.
+	 * Use numbers between 0 and 1 to represent fractions of the viewport height,
+	 * numbers greater than 1 as pixel values, or strings in `px`/`rem` units
+	 * (for example, `'148px'` or `'30rem'`).
 	 */
 	snapPoints?: DrawerSnapPoint[];
 	/**
-	 * Let the drag distance pick the next snap point, without skipping on velocity.
+	 * Disables velocity-based snap skipping so drag distance determines the next snap point.
 	 * @default false
 	 */
 	snapToSequentialPoints?: boolean;
-	/**
-	 * The active snap point.
-	 * Use `bind:snapPoint` to share it with the parent.
-	 * A value outside `snapPoints` resolves to the closest snap point.
-	 */
+	/** The currently active snap point. Use `bind:snapPoint` to control the snap point. */
 	snapPoint?: DrawerSnapPoint | null;
-	/**
-	 * The snap point the drawer starts at when `snapPoint` is unset and returns to when it closes.
-	 * Defaults to the first of `snapPoints`.
-	 */
+	/** The initial snap point value when `snapPoint` is not bound. */
 	defaultSnapPoint?: DrawerSnapPoint | null;
-	/** Called before the snap point changes. Call `eventDetails.cancel()` to veto it. */
+	/** Callback fired when the snap point changes. */
 	onSnapPointChange?: (
 		snapPoint: DrawerSnapPoint | null,
 		eventDetails: DrawerSnapPointChangeEventDetails
@@ -108,9 +141,19 @@ export interface DrawerRootProps<Payload = unknown> extends Omit<
 
 export interface DrawerTriggerProps<Payload = unknown> extends Omit<
 	DialogTriggerProps<Payload>,
-	'handle'
+	'handle' | 'payload' | 'id'
 > {
-	/** Associates this trigger with a drawer that is not its parent. */
+	/** A payload to pass to the drawer when it is opened. */
+	payload?: Payload;
+	/**
+	 * ID of the trigger. In addition to being forwarded to the rendered element,
+	 * it is also used to specify the active trigger for drawers in controlled mode (with the Drawer.Root `triggerId` prop).
+	 */
+	id?: string | null;
+	/**
+	 * A handle to associate the trigger with a drawer.
+	 * Can be created with the Drawer.createHandle() method.
+	 */
 	handle?: DrawerHandle<Payload>;
 }
 
@@ -145,15 +188,31 @@ export interface DrawerPopupState {
 
 export interface DrawerPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Element to focus when the drawer opens. Defaults to the popup itself.
-	 * Pass an element or a function. There is no ref object.
+	 * Determines the element to focus when the drawer is opened.
+	 *
+	 * - `false`: Do not move focus.
+	 * - `true`: Move focus based on the default behavior (first tabbable element or popup).
+	 * - `HTMLElement`: Move focus to that element.
+	 * - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).
+	 *   Return an element to focus, `true` to use the default behavior, or `false`/`undefined` to do nothing.
 	 */
 	initialFocus?: DialogFocusTarget;
 	/**
-	 * Element to focus when the drawer closes.
-	 * Pass an element or a function. There is no ref object.
+	 * Determines the element to focus when the drawer is closed.
+	 *
+	 * - `false`: Do not move focus.
+	 * - `true`: Move focus based on the default behavior (trigger or previously focused element).
+	 * - `HTMLElement`: Move focus to that element.
+	 * - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).
+	 *   Return an element to focus, `true` to use the default behavior, or `false`/`undefined` to do nothing.
 	 */
 	finalFocus?: DialogFocusTarget;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DrawerPopupState>;
 	children?: Snippet;
 }
@@ -165,10 +224,16 @@ export interface DrawerBackdropState {
 
 export interface DrawerBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Render the backdrop even when this drawer is nested.
+	 * Whether the backdrop is forced to render even when nested.
 	 * @default false
 	 */
 	forceRender?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DrawerBackdropState>;
 	children?: Snippet;
 }
@@ -185,6 +250,12 @@ export interface DrawerViewportState {
 }
 
 export interface DrawerViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DrawerViewportState>;
 	children?: Snippet;
 }
@@ -202,12 +273,21 @@ export interface DrawerSwipeAreaState {
 
 export interface DrawerSwipeAreaProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Ignore swipes.
+	 * Whether the swipe area is disabled.
 	 * @default false
 	 */
 	disabled?: boolean | null;
-	/** The direction a swipe opens the drawer in. Defaults to the opposite of the root's `swipeDirection`. */
+	/**
+	 * The swipe direction that opens the drawer.
+	 * Defaults to the opposite of `Drawer.Root` `swipeDirection`.
+	 */
 	swipeDirection?: DrawerSwipeDirection;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DrawerSwipeAreaState>;
 	children?: Snippet;
 }
@@ -215,6 +295,12 @@ export interface DrawerSwipeAreaProps extends Omit<HTMLAttributes<HTMLDivElement
 export type DrawerContentState = Record<string, never>;
 
 export interface DrawerContentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DrawerContentState>;
 	children?: Snippet;
 }
@@ -225,6 +311,12 @@ export interface DrawerIndentState {
 }
 
 export interface DrawerIndentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DrawerIndentState>;
 	children?: Snippet;
 }
@@ -235,6 +327,12 @@ export interface DrawerIndentBackgroundProps extends Omit<
 	HTMLAttributes<HTMLDivElement>,
 	'children'
 > {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DrawerIndentBackgroundState>;
 	children?: Snippet;
 }

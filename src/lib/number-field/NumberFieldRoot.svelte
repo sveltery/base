@@ -1,6 +1,6 @@
 <!--
 	Groups all parts of the number field and manages its state.
-	Renders a `<div>` element and a visually hidden number input for form submission.
+	Renders a `<div>` element.
 	Derived from Base UI v1.8.0 packages/react/src/number-field/root/NumberFieldRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	The hidden input is not a ref. Field validates it, and registers the visible input inside NumberField.Input.

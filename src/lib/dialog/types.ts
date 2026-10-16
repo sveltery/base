@@ -81,36 +81,41 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 
 export interface DialogRootProps<Payload = unknown> {
 	/**
-	 * Whether the dialog is open.
-	 * Use `bind:open` to share it with the parent.
-	 * A value passed without `bind:` holds until the parent changes it.
+	 * Whether the dialog is currently open.
 	 * @default false
 	 */
 	open?: boolean;
 	/**
-	 * `true` traps focus, locks page scroll, and blocks outside pointer interaction.
-	 * `false` leaves the rest of the page usable.
-	 * `'trap-focus'` traps focus without locking scroll or outside pointers.
+	 * Determines if the dialog enters a modal state when open.
+	 * - `true`: user interaction is limited to just the dialog: focus is trapped, document page scroll is locked, and pointer interactions on outside elements are disabled.
+	 * - `false`: user interaction with the rest of the document is allowed.
+	 * - `'trap-focus'`: focus is trapped inside the dialog, but document page scroll is not locked and pointer interactions outside of it remain enabled.
+	 *
+	 * When `modal` is `true` or `'trap-focus'`, render `<Dialog.Close>` inside `<Dialog.Popup>` so
+	 * touch screen readers can escape the popup.
 	 * @default true
 	 */
 	modal?: boolean | 'trap-focus';
-	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the dialog is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: DialogChangeEventDetails) => void;
-	/** Called after the open or close animation finishes. */
+	/** Event handler called after any animations complete when the dialog is opened or closed. */
 	onOpenChangeComplete?: (open: boolean) => void;
 	/**
-	 * Do not close on outside presses.
-	 * Non-modal dialogs also stay open when focus moves outside.
+	 * Whether to prevent the dialog from closing on outside presses.
+	 * For non-modal dialogs, this also prevents the dialog from closing when focus moves outside of it.
 	 * @default false
 	 */
 	disablePointerDismissal?: boolean;
-	/** Connects detached triggers. Create one with `Dialog.createHandle()`. */
+	/**
+	 * A handle to associate the dialog with a trigger.
+	 * If specified, allows external triggers to control the dialog's open state.
+	 * Can be created with the Dialog.createHandle() method.
+	 */
 	handle?: DialogHandle<Payload>;
 	/**
-	 * Id of the trigger that owns the dialog.
-	 * Use `bind:triggerId` to share it with the parent.
-	 * Pass it with an initial `open` to name the trigger the dialog starts from.
-	 * An id written by a trigger press resets to `null` once the popup unmounts.
+	 * ID of the trigger that the dialog is associated with.
+	 * This is useful in conjunction with `bind:open` to create a controlled dialog.
+	 * There's no need to specify this prop when the dialog is uncontrolled (that is, when `open` is not bound).
 	 * @default null
 	 */
 	triggerId?: string | null;
@@ -120,17 +125,35 @@ export interface DialogRootProps<Payload = unknown> {
 export type DialogTriggerHostProps = HTMLAttributes<HTMLElement>;
 
 type DialogControlProps = Omit<HTMLButtonAttributes, 'children'> & {
-	/** `false` renders through `render` instead of a native button. @default true */
+	/**
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
+	 * @default true
+	 */
 	nativeButton?: boolean;
 	children?: Snippet;
 };
 
 export interface DialogTriggerProps<Payload = unknown> extends DialogControlProps {
-	/** Associates this trigger with a dialog that is not its parent. */
+	/**
+	 * A handle to associate the trigger with a dialog.
+	 * Can be created with the Dialog.createHandle() method.
+	 */
 	handle?: DialogHandle<Payload>;
-	/** Passed to the dialog when this trigger opens it. */
+	/** A payload to pass to the dialog when it is opened. */
 	payload?: Payload;
+	/**
+	 * ID of the trigger. In addition to being forwarded to the rendered element,
+	 * it is also used to specify the active trigger for the dialog in controlled mode (with the Dialog.Root `triggerId` prop).
+	 */
 	id?: string | null;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: DialogTriggerHostProps, state: DialogTriggerState, children: RenderChildren]
 	>;
@@ -138,44 +161,82 @@ export interface DialogTriggerProps<Payload = unknown> extends DialogControlProp
 
 export interface DialogPortalProps extends PortalProps {
 	/**
-	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
 	 */
 	render?: PartRender<HTMLDivElement, DialogPortalState>;
 }
 
 export interface DialogPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Element to focus when the dialog opens.
-	 * Touch opens focus the popup itself unless this says otherwise.
-	 * Pass an element or a function. There is no ref object.
+	 * Determines the element to focus when the dialog is opened.
+	 * By default, focus moves to the first tabbable element inside the popup, except when the dialog
+	 * is opened by touch — then the popup itself is focused to avoid opening the virtual keyboard.
+	 *
+	 * - `false`: Do not move focus.
+	 * - `true`: Move focus based on the default behavior (first tabbable element or popup).
+	 * - `HTMLElement`: Move focus to that element.
+	 * - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).
+	 *   Return an element to focus, `true` to use the default behavior, `null` to fall back to the default behavior, or `false`/`undefined` to do nothing.
 	 */
 	initialFocus?: DialogFocusTarget;
 	/**
-	 * Element to focus when the dialog closes.
-	 * Pass an element or a function. There is no ref object.
+	 * Determines the element to focus when the dialog is closed.
+	 *
+	 * - `false`: Do not move focus.
+	 * - `true`: Move focus based on the default behavior (trigger or previously focused element).
+	 * - `HTMLElement`: Move focus to that element.
+	 * - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).
+	 *   Return an element to focus, `true` to use the default behavior, `null` to fall back to the default behavior, or `false`/`undefined` to do nothing.
 	 */
 	finalFocus?: DialogFocusTarget;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DialogPopupState>;
 	children?: Snippet;
 }
 
 export interface DialogBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Render the backdrop even when this dialog is nested.
+	 * Whether the backdrop is forced to render even when nested.
 	 * @default false
 	 */
 	forceRender?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DialogBackdropState>;
 	children?: Snippet;
 }
 
 export interface DialogCloseProps extends DialogControlProps {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: DialogTriggerHostProps, state: DialogCloseState, children: RenderChildren]
 	>;
 }
 
 export interface DialogTitleProps extends Omit<HTMLAttributes<HTMLHeadingElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLHeadingElement, DialogTitleState>;
 	children?: Snippet;
 }
@@ -184,11 +245,23 @@ export interface DialogDescriptionProps extends Omit<
 	HTMLAttributes<HTMLParagraphElement>,
 	'children'
 > {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLParagraphElement, DialogDescriptionState>;
 	children?: Snippet;
 }
 
 export interface DialogViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, DialogViewportState>;
 	children?: Snippet;
 }

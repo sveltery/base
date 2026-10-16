@@ -62,7 +62,11 @@ type RenderSnippet<Element extends HTMLElement> = Snippet<
 >;
 
 export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** The value an empty `value` starts from. */
+	/**
+	 * The uncontrolled value of the slider when it's initially rendered.
+	 *
+	 * To render a controlled slider, use `bind:value` instead.
+	 */
 	defaultValue?: SliderValue;
 	/** Whether the slider should ignore user interaction. @default false */
 	disabled?: boolean | null;
@@ -81,13 +85,17 @@ export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	minStepsBetweenValues?: number;
 	/** Identifies the field when a form is submitted. */
 	name?: string | null;
-	/** Identifies the form that owns the slider inputs. */
+	/**
+	 * Identifies the form that owns the slider inputs.
+	 * Useful when the slider is rendered outside the form.
+	 */
 	form?: string | null;
 	/** The component orientation. @default 'horizontal' */
 	orientation?: SliderOrientation;
 	/**
-	 * The granularity with which the slider can step through values.
+	 * The granularity with which the slider can step through values. (A "discrete" slider.)
 	 * The `min` prop serves as the origin for the valid values.
+	 * We recommend (max - min) to be evenly divisible by the step.
 	 * @default 1
 	 */
 	step?: number;
@@ -98,43 +106,106 @@ export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	 */
 	largeStep?: number;
 	/**
-	 * How the thumb(s) are aligned relative to `Slider.Control` when the value is at `min` or `max`.
-	 * `edge-client-only` matches `edge` after the client measures the thumb.
+	 * How the thumb(s) are aligned relative to `Slider.Control` when the value is at `min` or `max`:
+	 * - `center`: The center of the thumb is aligned with the control edge
+	 * - `edge`: The thumb is inset within the control such that its edge is aligned with the control edge
+	 * - `edge-client-only`: Same as `edge` but renders after Svelte hydration on the client, reducing bundle size in return
 	 * @default 'center'
 	 */
 	thumbAlignment?: SliderThumbAlignment;
 	/**
-	 * How thumbs behave when they collide during pointer interactions.
+	 * Controls how thumbs behave when they collide during pointer interactions.
+	 *
+	 * - `'push'` (default): Thumbs push each other without restoring their previous positions when dragged back.
+	 * - `'swap'`: Thumbs swap places when dragged past each other.
+	 * - `'none'`: Thumbs cannot move past each other; excess movement is ignored.
 	 * @default 'push'
 	 */
 	thumbCollisionBehavior?: SliderThumbCollisionBehavior;
 	/**
-	 * The value of the slider. For range sliders, provide an array with one value per thumb.
-	 * `bind:value` shares it with the parent.
+	 * The value of the slider.
+	 * For range sliders, provide an array with one value per thumb.
 	 */
 	value?: SliderValue;
+	/**
+	 * Callback function that is fired when the slider's value changed.
+	 * Receives the new value as the first argument; the originating event is
+	 * available as `eventDetails.event`. The value is also reflected on
+	 * `eventDetails.event.target.value` for form integration.
+	 *
+	 * The `eventDetails.reason` indicates what triggered the change:
+	 *
+	 * - `'input-change'` when the hidden range input emits a change event (for example, via form integration)
+	 * - `'track-press'` when the control track is pressed
+	 * - `'drag'` while dragging a thumb
+	 * - `'keyboard'` for keyboard input
+	 * - `'none'` when the change is triggered without a specific interaction
+	 */
 	onValueChange?: (value: SliderValue, eventDetails: SliderChangeEventDetails) => void;
+	/**
+	 * Callback function that is fired when a value change is committed.
+	 * Does not fire if the value did not change, or if the change was canceled.
+	 * **Warning**: This is a generic event, not a change event.
+	 *
+	 * The `eventDetails.reason` indicates what triggered the commit:
+	 *
+	 * - `'drag'` while dragging a thumb
+	 * - `'track-press'` when the control track is pressed
+	 * - `'keyboard'` for keyboard input
+	 * - `'input-change'` when the hidden range input emits a change event (for example, via form integration)
+	 * - `'none'` when the commit occurs without a specific interaction
+	 */
 	onValueCommitted?: (value: SliderValue, eventDetails: SliderCommitEventDetails) => void;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: RenderSnippet<HTMLDivElement>;
 	children?: Snippet;
 }
 
 export interface SliderControlProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: RenderSnippet<HTMLDivElement>;
 	children?: Snippet;
 }
 
 export interface SliderTrackProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: RenderSnippet<HTMLDivElement>;
 	children?: Snippet;
 }
 
 export interface SliderIndicatorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: RenderSnippet<HTMLDivElement>;
 	children?: Snippet;
 }
 
 export interface SliderLabelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: RenderSnippet<HTMLDivElement>;
 	children?: Snippet;
 }
@@ -145,23 +216,39 @@ export interface SliderThumbProps extends Omit<
 > {
 	/** Whether the thumb should ignore user interaction. @default false */
 	disabled?: boolean | null;
-	/** Forwarded to the nested input's `aria-valuetext`. Ignored when `getAriaValueText` is set. */
+	/**
+	 * A string value forwarded to the [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuetext) attribute of the `input`.
+	 * Ignored when `getAriaValueText` is provided.
+	 */
 	'aria-valuetext'?: string | undefined;
-	/** Returns the `aria-label` of the nested input. */
+	/**
+	 * A function which returns a string value for the [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label) attribute of the `input`.
+	 */
 	getAriaLabel?: ((index: number) => string) | null;
-	/** Returns the `aria-valuetext` of the nested input. */
+	/**
+	 * A function which returns a string value for the [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuetext) attribute of the `input`.
+	 * This is important for screen reader users.
+	 */
 	getAriaValueText?: ((formattedValue: string, value: number, index: number) => string) | null;
 	/**
-	 * The index of the thumb in `value` or `defaultValue`.
-	 * Required for server-rendered range sliders.
+	 * The index of the thumb which corresponds to the index of its value in the
+	 * `value` or `defaultValue` array.
+	 * This prop is required to support server-side rendering for range sliders
+	 * with multiple thumbs.
 	 */
 	index?: number;
-	/** Blur handler forwarded to the nested input. */
+	/** A blur handler forwarded to the `input`. */
 	onblur?: (event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) => void;
-	/** Focus handler forwarded to the nested input. */
+	/** A focus handler forwarded to the `input`. */
 	onfocus?: (event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) => void;
-	/** Keydown handler forwarded to the nested input. */
+	/** A keydown handler forwarded to the `input`. */
 	onkeydown?: (event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) => void;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: RenderSnippet<HTMLDivElement>;
 	children?: Snippet;
 }
@@ -174,5 +261,11 @@ export interface SliderValueProps extends Omit<HTMLAttributes<HTMLOutputElement>
 	 * Omit it to show the formatted values joined with an en dash.
 	 */
 	children?: Snippet<[formattedValues: readonly string[], values: readonly number[]]>;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: RenderSnippet<HTMLOutputElement>;
 }

@@ -1,6 +1,6 @@
 <!--
-	Groups all parts of the autocomplete. Renders no element of its own, only the hidden input a
-	form validates.
+	Groups all parts of the autocomplete.
+	Doesn't render its own HTML element.
 	Derived from Base UI v1.9.0 packages/react/src/autocomplete/root/AutocompleteRoot.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	`actionsRef` is the exported `close` and `unmount`. Bind the root with `bind:this`.

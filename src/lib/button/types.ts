@@ -20,20 +20,25 @@ export interface ButtonProps extends Omit<HTMLButtonAttributes, 'children' | 'di
 	/** Whether the button should ignore user interaction. @default false */
 	disabled?: boolean | null;
 	/**
-	 * Whether a disabled button stays in the tab order.
-	 * Native buttons then use `aria-disabled` instead of the `disabled` attribute.
+	 * Whether the button should be focusable when disabled.
 	 * @default false
 	 */
 	focusableWhenDisabled?: boolean;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
 	/** Runs for a click the button does not ignore. */
 	onclick?: HTMLButtonAttributes['onclick'];
-	/** Replace the default `<button>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: ButtonHostProps, state: ButtonState, children: RenderChildren]>;
 	children?: Snippet;
 }

@@ -1,5 +1,6 @@
 <!--
-	A visual indicator aligned to the active tab. Renders a `<span>` element.
+	A visual indicator that can be styled to match the position of the currently active tab.
+	Renders a `<span>` element.
 	Derived from Base UI v1.9.0 packages/react/src/tabs/indicator/TabsIndicator.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The pre-hydration script stays in the DOM after hydration and is empty in client-only mounts.

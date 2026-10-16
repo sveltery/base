@@ -75,66 +75,79 @@ export interface MenuActions {
 
 export interface MenuRootProps<Payload = unknown> {
 	/**
-	 * Whether the menu is open.
-	 * Use `bind:open` to share it with the parent.
-	 * A value passed without `bind:` holds until the parent changes it.
+	 * Whether the menu is currently open.
 	 * @default false
 	 */
 	open?: boolean;
-	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the menu is opened or closed. */
 	onOpenChange?: (open: boolean, details: MenuChangeEventDetails) => void;
-	/** Called after the open or close animation finishes. */
+	/** Event handler called after any animations complete when the menu is opened or closed. */
 	onOpenChangeComplete?: (open: boolean) => void;
 	/**
-	 * Called when an item is highlighted or unhighlighted.
-	 * Receives the highlighted item element, or `undefined` when no item is highlighted,
-	 * and details with the reason, the event, and the item's text label.
-	 * The reason is `'keyboard'`, `'pointer'`, or `'none'` for anything else, such as the
-	 * list changing or the popup opening or closing.
+	 * Callback fired when an item is highlighted or unhighlighted.
+	 * Receives the highlighted item element (or `undefined` if no item is highlighted) and details
+	 * containing the reason for the change, the event, and the item's text label.
+	 * The `reason` can be:
+	 * - `'keyboard'`: the highlight changed due to keyboard navigation.
+	 * - `'pointer'`: the highlight changed due to pointer hovering. The event may be a `MouseEvent`
+	 *   rather than a `PointerEvent`.
+	 * - `'none'`: the highlight changed for another reason, such as automatic highlighting while
+	 *   filtering, the item list changing, or the popup opening or closing.
 	 */
 	onItemHighlighted?: (
 		highlightedItem: HTMLElement | undefined,
 		details: MenuHighlightEventDetails
 	) => void;
 	/**
-	 * Whether to loop keyboard focus back to the first item at the end of the list.
+	 * Whether to loop keyboard focus back to the first item
+	 * when the end of the list is reached while using the arrow keys.
 	 * @default true
 	 */
 	loopFocus?: boolean;
 	/**
-	 * Whether moving the pointer over items highlights them.
-	 * Turn it off to tell CSS `:hover` apart from `[data-highlighted]`.
+	 * Whether moving the pointer over items should highlight them.
+	 * Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.
 	 * @default true
 	 */
 	highlightItemOnHover?: boolean;
 	/**
-	 * Whether the menu limits interaction to itself while open: page scroll is locked and
-	 * outside pointer interaction is blocked. Nested menus ignore it, and menus opened by hover
-	 * are never modal.
+	 * Determines if the menu enters a modal state when open.
+	 * - `true`: user interaction is limited to the menu: document page scroll is locked and pointer interactions on outside elements are disabled.
+	 * - `false`: user interaction with the rest of the document is allowed.
+	 *
+	 * On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.
+	 *
+	 * Nested menus ignore this prop, and menus opened by hover are never modal.
 	 * @default true
 	 */
 	modal?: boolean;
 	/**
-	 * The visual orientation of the menu. Controls whether the up/down or left/right arrow keys move
-	 * the highlight.
+	 * The visual orientation of the menu.
+	 * Controls whether roving focus uses up/down or left/right arrow keys.
 	 * @default 'vertical'
 	 */
 	orientation?: MenuOrientation;
 	/**
-	 * Whether the menu ignores user interaction.
+	 * Whether the component should ignore user interaction.
 	 * @default false
 	 */
 	disabled?: boolean;
 	/**
-	 * In a submenu, whether Escape closes the whole menu or only the submenu.
+	 * When in a submenu, determines whether pressing the Escape key
+	 * closes the entire menu, or only the current child menu.
 	 * @default false
 	 */
 	closeParentOnEsc?: boolean;
 	/**
-	 * Id of the trigger that owns the menu. A string wins over the trigger that opened it.
+	 * ID of the trigger that the menu is associated with.
+	 * This is useful in conjunction with `bind:open` to create a controlled menu.
+	 * There's no need to specify this prop when the menu is uncontrolled (that is, when `open` is not bound).
 	 */
 	triggerId?: string | null;
-	/** Associates detached triggers and imperative `open` and `close`. */
+	/**
+	 * A handle to associate the menu with a trigger.
+	 * If specified, allows external triggers to control the menu's open state.
+	 */
 	handle?: MenuHandle<Payload>;
 	children?: Snippet<[{ payload: Payload | undefined }]>;
 }
@@ -149,24 +162,46 @@ export interface MenuTriggerProps<Payload = unknown> extends Omit<
 	HTMLButtonAttributes,
 	'children' | 'disabled' | 'id'
 > {
-	/** @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 *  @default false
+	 */
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
+	/** A handle to associate the trigger with a menu. */
 	handle?: MenuHandle<Payload>;
-	/** A payload passed to the menu while this trigger owns it. */
+	/** A payload to pass to the menu when it is opened. */
 	payload?: Payload;
 	id?: string | null;
-	/** Whether the menu also opens when the trigger is hovered. */
+	/** Whether the menu should also open when the trigger is hovered. */
 	openOnHover?: boolean;
-	/** Hover open delay in milliseconds. Requires `openOnHover`. @default 100 */
+	/**
+	 * How long to wait before the menu may be opened on hover. Specified in milliseconds.
+	 *
+	 * Requires the `openOnHover` prop.
+	 * @default 100
+	 */
 	delay?: number;
-	/** Hover close delay in milliseconds. Requires `openOnHover`. @default 0 */
+	/**
+	 * How long to wait before closing the menu that was opened on hover.
+	 * Specified in milliseconds.
+	 *
+	 * Requires the `openOnHover` prop.
+	 * @default 0
+	 */
 	closeDelay?: number;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLButtonAttributes, state: MenuTriggerState, children: RenderChildren]
 	>;
@@ -177,8 +212,10 @@ export type MenuPortalState = Record<string, never>;
 
 export interface MenuPortalProps extends PortalProps {
 	/**
-	 * Replace the portal element. The snippet receives host props, an empty state, and the children.
-	 * Host props include the move attachment.
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
 	 */
 	render?: Snippet<
 		[
@@ -200,40 +237,119 @@ export interface MenuPositionerState {
 }
 
 export interface MenuPositionerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** An element to position the popup against. Defaults to the trigger. */
+	/**
+	 * An element to position the popup against.
+	 * By default, the popup will be positioned against the trigger.
+	 */
 	anchor?: AnchorPositioningParameters['anchor'];
-	/** @default 'absolute' */
+	/**
+	 * Determines which CSS `position` property to use.
+	 *  @default 'absolute'
+	 */
 	positionMethod?: AnchorPositioningParameters['positionMethod'];
 	/**
-	 * Which side of the anchor to place the popup on. May change to avoid collisions.
+	 * Which side of the anchor element to align the popup against.
+	 * May automatically change to avoid collisions.
+	 *
 	 * Submenus and vertical menubars default to `'inline-end'`.
 	 * @default 'bottom'
 	 */
 	side?: Side;
 	/**
-	 * How to align the popup against the side. Submenus and menubars default to `'start'`.
+	 * How to align the popup relative to the specified side.
+	 *
+	 * Submenus and menubars default to `'start'`.
 	 * @default 'center'
 	 */
 	align?: Align;
-	/** Distance between the anchor and the popup in pixels, or a function of the layout. @default 0 */
+	/**
+	 * Distance between the anchor and the popup in pixels.
+	 * Also accepts a function that returns the distance to read the dimensions of the anchor
+	 * and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
+	 * @default 0
+	 */
 	sideOffset?: AnchorPositioningParameters['sideOffset'];
-	/** Offset along the alignment axis in pixels, or a function of the layout. @default 0 */
+	/**
+	 * Additional offset along the alignment axis in pixels.
+	 * Also accepts a function that returns the offset to read the dimensions of the anchor
+	 * and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
+	 * @default 0
+	 */
 	alignOffset?: AnchorPositioningParameters['alignOffset'];
-	/** @default 'clipping-ancestors' */
+	/**
+	 * An element or a rectangle that delimits the area that the popup is confined to.
+	 *  @default 'clipping-ancestors'
+	 */
 	collisionBoundary?: AnchorPositioningParameters['collisionBoundary'];
-	/** @default 5 */
+	/**
+	 * Additional space to maintain from the edge of the collision boundary.
+	 *  @default 5
+	 */
 	collisionPadding?: AnchorPositioningParameters['collisionPadding'];
-	/** Minimum distance between the arrow and the popup edges. @default 5 */
+	/**
+	 * Minimum distance to maintain between the arrow and the edges of the popup.
+	 *
+	 * Use it to prevent the arrow element from hanging out of the rounded corners of a popup.
+	 * @default 5
+	 */
 	arrowPadding?: number;
-	/** Whether the popup stays in the viewport after the anchor scrolls out of view. @default false */
+	/**
+	 * Whether to maintain the popup in the viewport after
+	 * the anchor element was scrolled out of view.
+	 * @default false
+	 */
 	sticky?: boolean;
-	/** Whether to stop tracking layout shifts of the anchor. @default false */
+	/**
+	 * Whether to disable the popup from tracking any layout shift of its positioning anchor.
+	 * @default false
+	 */
 	disableAnchorTracking?: boolean;
 	/**
-	 * How to handle collisions. Root menus default to `{ fallbackAxisSide: 'none' }`
-	 * and submenus to `{ fallbackAxisSide: 'end' }`.
+	 * Determines how to handle collisions when positioning the popup.
+	 *
+	 * `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`):
+	 * - `'flip'`: keep the requested side when it fits; otherwise try the opposite side
+	 *   (`top` and `bottom`, or `left` and `right`).
+	 * - `'shift'`: never change side; keep the requested side and move the popup within
+	 *   the clipping boundary so it stays visible.
+	 * - `'none'`: do not correct side-axis overflow.
+	 *
+	 * `align` controls overflow on the alignment axis (`start`/`center`/`end`):
+	 * - `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.
+	 * - `'shift'`: keep side and requested alignment, then nudge the popup along the
+	 *   alignment axis to fit.
+	 * - `'none'`: do not correct alignment-axis overflow.
+	 *
+	 * `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the
+	 * preferred axis cannot fit:
+	 * - `'start'`: allow perpendicular fallback and try the logical start side first
+	 *   (`top` before `bottom`, or `left` before `right` in LTR).
+	 * - `'end'`: allow perpendicular fallback and try the logical end side first
+	 *   (`bottom` before `top`, or `right` before `left` in LTR).
+	 * - `'none'`: do not fallback to the perpendicular axis.
+	 *
+	 * When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`.
+	 * If `align` is omitted, it defaults to `'flip'`.
 	 */
 	collisionAvoidance?: AnchorPositioningParameters['collisionAvoidance'];
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuPositionerState>;
 	children?: Snippet;
 }
@@ -250,11 +366,21 @@ export interface MenuPopupState {
 
 export interface MenuPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Element to focus when the menu closes.
-	 * `false` leaves focus. `true` uses the default (the trigger).
-	 * A function receives the close interaction and returns an element, `true`, or `false`.
+	 * Determines the element to focus when the menu is closed.
+	 *
+	 * - `false`: Do not move focus.
+	 * - `true`: Move focus based on the default behavior (trigger or previously focused element).
+	 * - `HTMLElement`: Move focus to that element.
+	 * - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).
+	 *   Return an element to focus, `true` to use the default behavior, or `false`/`undefined` to do nothing.
 	 */
 	finalFocus?: FocusTarget;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuPopupState>;
 	children?: Snippet;
 }
@@ -267,6 +393,12 @@ export interface MenuArrowState {
 }
 
 export interface MenuArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuArrowState>;
 	children?: Snippet;
 }
@@ -277,6 +409,12 @@ export interface MenuBackdropState {
 }
 
 export interface MenuBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuBackdropState>;
 	children?: Snippet;
 }
@@ -289,12 +427,21 @@ export interface MenuViewportState {
 }
 
 export interface MenuViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuViewportState>;
 	children?: Snippet;
 }
 
 interface ItemCommonProps {
-	/** Text used by keyboard typeahead. Defaults to the item's text content. */
+	/**
+	 * Overrides the text used for keyboard text navigation and filtering.
+	 * Falls back to the rendered text when not provided.
+	 */
 	label?: string;
 	id?: string | null;
 }
@@ -306,15 +453,29 @@ export interface MenuItemState {
 
 export interface MenuItemProps
 	extends ItemCommonProps, Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
-	/** @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 *  @default false
+	 */
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`. Set `true` when `render` supplies a button.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `true` if the rendered element is a native button.
 	 * @default false
 	 */
 	nativeButton?: boolean;
-	/** Whether clicking the item closes the menu. @default true */
+	/**
+	 * Whether to close the menu when the item is clicked.
+	 * @default true
+	 */
 	closeOnClick?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuItemState>;
 	children?: Snippet;
 }
@@ -325,8 +486,17 @@ export interface MenuLinkItemState {
 
 export interface MenuLinkItemProps
 	extends ItemCommonProps, Omit<HTMLAnchorAttributes, 'children' | 'id'> {
-	/** Whether clicking the link closes the menu. @default false */
+	/**
+	 * Whether to close the menu when the item is clicked.
+	 * @default false
+	 */
 	closeOnClick?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAnchorAttributes, state: MenuLinkItemState, children: RenderChildren]
 	>;
@@ -342,19 +512,37 @@ export interface MenuCheckboxItemState {
 export interface MenuCheckboxItemProps
 	extends ItemCommonProps, Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
 	/**
-	 * Whether the item is ticked.
-	 * Use `bind:checked` to share it with the parent.
+	 * Whether the checkbox item is currently ticked.
+	 *
+	 * To render an uncontrolled checkbox item, pass `checked` without `bind:`.
 	 * @default false
 	 */
 	checked?: boolean;
-	/** Called before the checked state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the checkbox item is ticked or unticked. */
 	onCheckedChange?: (checked: boolean, details: MenuChangeEventDetails) => void;
-	/** @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 *  @default false
+	 */
 	disabled?: boolean | null;
-	/** @default false */
+	/**
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `true` if the rendered element is a native button.
+	 *  @default false
+	 */
 	nativeButton?: boolean;
-	/** Whether clicking the item closes the menu. @default false */
+	/**
+	 * Whether to close the menu when the item is clicked.
+	 * @default false
+	 */
 	closeOnClick?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuCheckboxItemState>;
 	children?: Snippet;
 }
@@ -370,18 +558,36 @@ export type MenuCheckboxItemIndicatorState = MenuItemIndicatorState;
 export type MenuRadioItemIndicatorState = MenuItemIndicatorState;
 
 export interface MenuItemIndicatorProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
-	/** Whether to keep the element in the DOM while the item is not checked. @default false */
+	/**
+	 * Whether to keep the HTML element in the DOM when the checkbox item is not checked.
+	 * @default false
+	 */
 	keepMounted?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLSpanElement, MenuItemIndicatorState>;
 	children?: Snippet;
 }
 
 export type MenuCheckboxItemIndicatorProps = MenuItemIndicatorProps;
-export type MenuRadioItemIndicatorProps = MenuItemIndicatorProps;
+export interface MenuRadioItemIndicatorProps extends Omit<MenuItemIndicatorProps, 'keepMounted'> {
+	/** Whether to keep the HTML element in the DOM when the radio item is inactive. */
+	keepMounted?: boolean;
+}
 
 export type MenuGroupState = Record<string, never>;
 
 export interface MenuGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuGroupState>;
 	children?: Snippet;
 }
@@ -389,6 +595,12 @@ export interface MenuGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 export type MenuGroupLabelState = Record<string, never>;
 
 export interface MenuGroupLabelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuGroupLabelState>;
 	children?: Snippet;
 }
@@ -399,14 +611,24 @@ export interface MenuRadioGroupState {
 
 export interface MenuRadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * The value of the selected radio item.
-	 * Use `bind:value` to share it with the parent.
+	 * The value of the radio item that should be currently selected.
+	 *
+	 * To render an uncontrolled radio group, pass `value` without `bind:`.
 	 */
 	value?: unknown;
-	/** Called before the value changes. Call `eventDetails.cancel()` to veto it. */
+	/** Function called when the selected value changes. */
 	onValueChange?: (value: unknown, details: MenuChangeEventDetails) => void;
-	/** @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 *  @default false
+	 */
 	disabled?: boolean | null;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuRadioGroupState>;
 	children?: Snippet;
 }
@@ -419,14 +641,34 @@ export interface MenuRadioItemState {
 
 export interface MenuRadioItemProps
 	extends ItemCommonProps, Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
-	/** The value the radio group takes when this item is selected. */
+	/**
+	 * Value of the radio item.
+	 * This is the value that will be set in the Menu.RadioGroup when the item is selected.
+	 */
 	value: unknown;
-	/** @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 *  @default false
+	 */
 	disabled?: boolean | null;
-	/** @default false */
+	/**
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `true` if the rendered element is a native button.
+	 *  @default false
+	 */
 	nativeButton?: boolean;
-	/** Whether clicking the item closes the menu. @default false */
+	/**
+	 * Whether to close the menu when the item is clicked.
+	 * @default false
+	 */
 	closeOnClick?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuRadioItemState>;
 	children?: Snippet;
 }
@@ -447,16 +689,44 @@ export interface MenuSubmenuTriggerState {
 
 export interface MenuSubmenuTriggerProps
 	extends ItemCommonProps, Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
-	/** @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 *  @default false
+	 */
 	disabled?: boolean | null;
-	/** @default false */
+	/**
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `true` if the rendered element is a native button.
+	 *  @default false
+	 */
 	nativeButton?: boolean;
-	/** Whether the submenu opens when the trigger is hovered. @default true */
+	/**
+	 * Whether the menu should also open when the trigger is hovered.
+	 * @default true
+	 */
 	openOnHover?: boolean;
-	/** Hover open delay in milliseconds. @default 100 */
+	/**
+	 * How long to wait before the menu may be opened on hover. Specified in milliseconds.
+	 *
+	 * Requires the `openOnHover` prop.
+	 * @default 100
+	 */
 	delay?: number;
-	/** Hover close delay in milliseconds. @default 0 */
+	/**
+	 * How long to wait before closing the menu that was opened on hover.
+	 * Specified in milliseconds.
+	 *
+	 * Requires the `openOnHover` prop.
+	 * @default 0
+	 */
 	closeDelay?: number;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuSubmenuTriggerState>;
 	children?: Snippet;
 }
@@ -464,28 +734,34 @@ export interface MenuSubmenuTriggerProps
 export interface MenuFilterProviderProps {
 	/**
 	 * The filter query.
-	 * Use `bind:value` to share it with the parent.
-	 * A value passed without `bind:` is the initial query. Closing the popup clears the query.
+	 * When the popup closes, `onValueChange` is called with an empty query.
+	 *
+	 * To render an uncontrolled filter, pass `value` without `bind:`.
 	 * @default ''
 	 */
 	value?: string;
-	/** Called before the query changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the filter query changes. */
 	onValueChange?: (value: string, details: MenuFilterChangeEventDetails) => void;
 	/**
-	 * Matches items against the query. Receives each item's `label` (or its rendered text) and the
-	 * trimmed query, and keeps the item when it returns `true`.
-	 * By default, items match when they contain the query, ignoring case, accents and punctuation.
-	 * Pass `null` when rendering filtered items yourself.
+	 * MenuFilter function used to match items against the query. Receives each item's `label` (or its rendered text) and the trimmed query, and keeps the item when it returns `true`. By default, items match when they contain the query, ignoring case, accents, and punctuation. Pass `null` when rendering filtered items yourself.
 	 */
 	filter?: MenuFilterFunction | null;
 	/**
-	 * Whether filtering highlights the first matching item.
-	 * `true` highlights it while the query is not empty, and `'always'` also when it is empty.
-	 * With either value the arrow keys wrap within the list instead of returning to the input.
+	 * Whether filtering highlights the first matching item automatically.
+	 * - `true`: highlight it while the query is not empty.
+	 * - `'always'`: highlight it even when the query is empty.
+	 *
+	 * Opening the menu from the keyboard highlights the first item either way, and the arrow keys
+	 * can move the highlight to another item. With either value, the arrow keys wrap within the
+	 * list rather than returning to the input, and with `'always'` a pointer highlight stays when
+	 * the pointer leaves.
 	 * @default false
 	 */
 	autoHighlight?: boolean | 'always';
-	/** The locale the default `filter` compares with. Defaults to the runtime locale. */
+	/**
+	 * The locale the default `filter` uses for string comparison.
+	 * Defaults to the user's runtime locale.
+	 */
 	locale?: Intl.LocalesArgument;
 	children?: Snippet;
 }
@@ -505,6 +781,12 @@ export interface MenuInputProps extends Omit<
 	id?: string | null;
 	/** @default false */
 	disabled?: boolean | null;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: HTMLInputAttributes, state: MenuInputState, children: RenderChildren]>;
 }
 
@@ -513,14 +795,24 @@ export interface MenuClearState {
 }
 
 export interface MenuClearProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
-	/** @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 *  @default false
+	 */
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: HTMLButtonAttributes, state: MenuClearState, children: RenderChildren]>;
 	children?: Snippet;
 }
@@ -528,6 +820,12 @@ export interface MenuClearProps extends Omit<HTMLButtonAttributes, 'children' | 
 export type MenuEmptyState = Record<string, never>;
 
 export interface MenuEmptyProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuEmptyState>;
 	children?: Snippet;
 }
@@ -535,6 +833,12 @@ export interface MenuEmptyProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 export type MenuListState = Record<string, never>;
 
 export interface MenuListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MenuListState>;
 	children?: Snippet;
 }

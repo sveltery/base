@@ -1,5 +1,6 @@
 <!--
-	Scrolls the select list down while the pointer rests on it. Renders a `<div>` element.
+	An element that scrolls the select popup down when hovered. Does not render when using touch input.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/select/scroll-down-arrow/SelectScrollDownArrow.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

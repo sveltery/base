@@ -29,7 +29,12 @@ export interface MenubarProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chil
 	 * @default true
 	 */
 	loopFocus?: boolean;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: MenubarState, children: RenderChildren]
 	>;

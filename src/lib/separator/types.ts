@@ -10,7 +10,12 @@ export interface SeparatorState {
 export interface SeparatorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** The orientation of the separator. @default 'horizontal' */
 	orientation?: SeparatorState['orientation'];
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: SeparatorState, children: RenderChildren]
 	>;

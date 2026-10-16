@@ -1,6 +1,6 @@
 <!--
 	A component that creates a context menu activated by right clicking or long pressing.
-	Does not render its own HTML element.
+	Doesn't render its own HTML element.
 	Derived from Base UI v1.9.0 packages/react/src/context-menu/root/ContextMenuRoot.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	`close` and `unmount` are exports. Bind the root with `bind:this`.

@@ -15,26 +15,33 @@ export type CheckboxGroupChangeEventDetails =
 
 export interface CheckboxGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Values of the checkboxes in the group that are ticked.
-	 * Use `bind:value` to share the array with the parent.
-	 * `undefined` is an empty selection. Hold the array with `eventDetails.cancel()`.
+	 * Names of the checkboxes in the group that should be ticked.
+	 *
+	 * To render an uncontrolled checkbox group, use the `defaultValue` prop instead.
 	 */
 	value?: string[];
 	/**
-	 * The values an empty `value` starts from.
+	 * Names of the checkboxes in the group that should be initially ticked.
+	 *
+	 * To render a controlled checkbox group, use `bind:value` instead.
 	 * @default []
 	 */
 	defaultValue?: string[];
-	/**
-	 * Values of every checkbox the parent checkbox controls.
-	 * Set this to render a parent checkbox with `Checkbox.Root parent`.
-	 */
+	/** Names of all checkboxes in the group. Use this when creating a parent checkbox. */
 	allValues?: string[];
 	/** Whether the component should ignore user interaction. @default false */
 	disabled?: boolean | null;
-	/** Called before the value changes. Call `eventDetails.cancel()` to veto it. */
+	/**
+	 * Event handler called when a checkbox in the group is ticked or unticked.
+	 * Provides the new value as an argument.
+	 */
 	onValueChange?: (value: string[], eventDetails: CheckboxGroupChangeEventDetails) => void;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLDivElement>, state: CheckboxGroupState, children: RenderChildren]
 	>;

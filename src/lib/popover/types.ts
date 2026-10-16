@@ -49,27 +49,41 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 
 export interface PopoverRootProps<Payload = unknown> {
 	/**
-	 * Whether the popover is open.
-	 * Use `bind:open` to share it with the parent.
-	 * A value passed without `bind:` holds until the parent changes it.
+	 * Whether the popover is currently open.
 	 * @default false
 	 */
 	open?: boolean;
-	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Event handler called when the popover is opened or closed. */
 	onOpenChange?: (open: boolean, details: PopoverChangeEventDetails) => void;
-	/** Called after the open or close transition finishes. */
+	/** Event handler called after any animations complete when the popover is opened or closed. */
 	onOpenChangeComplete?: (open: boolean) => void;
 	/**
-	 * `true` limits interaction to the popover. `'trap-focus'` traps focus without a backdrop.
+	 * Determines if the popover enters a modal state when open.
+	 * - `true`: user interaction is limited to the popover: document page scroll is locked, and pointer interactions on outside elements are disabled.
+	 * - `false`: user interaction with the rest of the document is allowed.
+	 * - `'trap-focus'`: focus is trapped inside the popover, but document page scroll is not locked and pointer interactions outside of it remain enabled.
+	 *
+	 * On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.
+	 *
+	 * When `modal` is `true`, focus trapping is enabled only if `<Popover.Close>` is rendered
+	 * inside `<Popover.Popup>`. It can be visually hidden with your own CSS if needed, such as
+	 * Tailwind's `sr-only` utility.
+	 *
+	 * When `modal` is `'trap-focus'`, render `<Popover.Close>` inside `<Popover.Popup>` so touch
+	 * screen readers can escape the popup.
 	 * @default false
 	 */
 	modal?: PopoverModal;
 	/**
-	 * Id of the trigger that owns the popover. A string wins over the trigger that opened it.
-	 * An id written by a trigger press resets to `null` once the popup unmounts.
+	 * ID of the trigger that the popover is associated with.
+	 * This is useful in conjunction with `bind:open` to create a controlled popover.
+	 * There's no need to specify this prop when the popover is uncontrolled (that is, when `open` is not bound).
 	 */
 	triggerId?: string | null;
-	/** Associates detached triggers and imperative `open`, `close`, and `unmount`. */
+	/**
+	 * A handle to associate the popover with a trigger.
+	 * If specified, allows external triggers to control the popover's open state.
+	 */
 	handle?: PopoverHandle<Payload>;
 	children?: Snippet<[{ payload: Payload | undefined }]>;
 }
@@ -88,20 +102,46 @@ export interface PopoverTriggerProps<Payload = unknown> extends Omit<
 > {
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
+	/** A handle to associate the trigger with a popover. */
 	handle?: PopoverHandle<Payload>;
+	/** A payload to pass to the popover when it is opened. */
 	payload?: Payload;
+	/**
+	 * ID of the trigger. In addition to being forwarded to the rendered element, it is also used to specify the active trigger for the popover in controlled mode (with the Popover.Root `triggerId` prop).
+	 */
 	id?: string | null;
-	/** Opens the popover when the pointer rests on the trigger. @default false */
+	/**
+	 * Whether the popover should also open when the trigger is hovered.
+	 * @default false
+	 */
 	openOnHover?: boolean;
-	/** Hover open delay in milliseconds. @default 300 */
+	/**
+	 * How long to wait before the popover may be opened on hover. Specified in milliseconds.
+	 *
+	 * Requires the `openOnHover` prop.
+	 * @default 300
+	 */
 	delay?: number;
-	/** Hover close delay in milliseconds. @default 0 */
+	/**
+	 * How long to wait before closing the popover that was opened on hover.
+	 * Specified in milliseconds.
+	 *
+	 * Requires the `openOnHover` prop.
+	 * @default 0
+	 */
 	closeDelay?: number;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: PopoverTriggerHostProps, state: PopoverTriggerState, children: RenderChildren]
 	>;
@@ -112,8 +152,10 @@ export type PopoverPortalState = Record<string, never>;
 
 export interface PopoverPortalProps extends PortalProps {
 	/**
-	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
-	 * Host props include the move attachment.
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
 	 */
 	render?: Snippet<
 		[
@@ -164,7 +206,6 @@ export interface PopoverPositionerProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
 	 * - `data.side`: which side of the anchor element the positioner is aligned against.
 	 * - `data.align`: how the positioner is aligned relative to the specified side.
-	 *
 	 * @example
 	 * ```svelte
 	 * <Popover.Positioner
@@ -172,7 +213,6 @@ export interface PopoverPositionerProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 *     side === 'top' || side === 'bottom' ? anchor.height : anchor.width}
 	 * />
 	 * ```
-	 *
 	 * @default 0
 	 */
 	sideOffset?: AnchorPositioningParameters['sideOffset'];
@@ -186,7 +226,6 @@ export interface PopoverPositionerProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
 	 * - `data.side`: which side of the anchor element the positioner is aligned against.
 	 * - `data.align`: how the positioner is aligned relative to the specified side.
-	 *
 	 * @example
 	 * ```svelte
 	 * <Popover.Positioner
@@ -194,7 +233,6 @@ export interface PopoverPositionerProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 *     side === 'top' || side === 'bottom' ? anchor.width : anchor.height}
 	 * />
 	 * ```
-	 *
 	 * @default 0
 	 */
 	alignOffset?: AnchorPositioningParameters['alignOffset'];
@@ -252,7 +290,6 @@ export interface PopoverPositionerProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 *
 	 * When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`.
 	 * If `align` is omitted, it defaults to `'flip'`.
-	 *
 	 * @example
 	 * ```svelte
 	 * <Popover.Positioner
@@ -261,6 +298,12 @@ export interface PopoverPositionerProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 * ```
 	 */
 	collisionAvoidance?: AnchorPositioningParameters['collisionAvoidance'];
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PopoverPositionerState>;
 	children?: Snippet;
 }
@@ -282,17 +325,33 @@ export interface PopoverPopupState {
 
 export interface PopoverPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Element to focus when the popover opens.
-	 * A function receives the open method. `true` and `null` use the default.
-	 * Touch focuses the popup itself so the virtual keyboard stays closed.
+	 * Determines the element to focus when the popover is opened.
+	 * By default, focus moves to the first tabbable element inside the popup, except when the popover
+	 * is opened by touch — then the popup itself is focused to avoid opening the virtual keyboard.
+	 *
+	 * - `false`: Do not move focus.
+	 * - `true`: Move focus based on the default behavior (first tabbable element or popup).
+	 * - `HTMLElement`: Move focus to that element.
+	 * - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).
+	 *   Return an element to focus, `true` to use the default behavior, `null` to fall back to the default behavior, or `false`/`undefined` to do nothing.
 	 */
 	initialFocus?: FocusTarget;
 	/**
-	 * Element to focus when the popover closes.
-	 * A function receives the close interaction.
-	 * `null` falls back to the trigger. `true` returns focus there when it is still inside.
+	 * Determines the element to focus when the popover is closed.
+	 *
+	 * - `false`: Do not move focus.
+	 * - `true`: Move focus based on the default behavior (trigger or previously focused element).
+	 * - `HTMLElement`: Move focus to that element.
+	 * - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`).
+	 *   Return an element to focus, `true` to use the default behavior, `null` to fall back to the default behavior, or `false`/`undefined` to do nothing.
 	 */
 	finalFocus?: FocusTarget;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PopoverPopupState>;
 	children?: Snippet;
 }
@@ -305,6 +364,12 @@ export interface PopoverArrowState {
 }
 
 export interface PopoverArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PopoverArrowState>;
 	children?: Snippet;
 }
@@ -315,6 +380,12 @@ export interface PopoverBackdropState {
 }
 
 export interface PopoverBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PopoverBackdropState>;
 	children?: Snippet;
 }
@@ -322,6 +393,12 @@ export interface PopoverBackdropProps extends Omit<HTMLAttributes<HTMLDivElement
 export type PopoverTitleState = Record<string, never>;
 
 export interface PopoverTitleProps extends Omit<HTMLAttributes<HTMLHeadingElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLHeadingElement>, state: PopoverTitleState, children: RenderChildren]
 	>;
@@ -332,6 +409,12 @@ export interface PopoverDescriptionProps extends Omit<
 	HTMLAttributes<HTMLParagraphElement>,
 	'children'
 > {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[
 			props: HTMLAttributes<HTMLParagraphElement>,
@@ -348,7 +431,18 @@ export type PopoverCloseState = Record<string, never>;
 
 export interface PopoverCloseProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
 	disabled?: boolean | null;
+	/**
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
+	 */
 	nativeButton?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLButtonAttributes, state: PopoverCloseState, children: RenderChildren]
 	>;
@@ -367,6 +461,12 @@ export interface PopoverViewportState {
 }
 
 export interface PopoverViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, PopoverViewportState>;
 	children?: Snippet;
 }
