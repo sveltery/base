@@ -1,35 +1,33 @@
 ---
 title: Styling
-description: Learn how to style Sveltery Base components with Tailwind CSS, plain CSS, or any other way of writing CSS.
+description: A guide to styling Sveltery Base components with your preferred styling engine.
 order: 1
 ---
 
-Sveltery Base components render no styles and ship no CSS. You keep full control of the styling layer. Each part renders one HTML element, and you style that element through the hooks on this page.
+Sveltery Base components are unstyled, don't bundle CSS, and are compatible with Tailwind, CSS Modules, CSS-in-JS, or any other styling solution you prefer.
+You retain total control of your styling layer.
 
 ## Style hooks
 
 ### CSS classes
 
-Each part that renders an HTML element takes a `class` prop:
+Components that render an HTML element accept a `class` prop to style the element with CSS classes.
 
-```svelte
+```svelte title="switch.svelte"
 <Switch.Thumb class="SwitchThumb" />
 ```
 
-`class` takes any Svelte class value: a string, an array, or an object. Svelte joins the truthy entries into one class list:
+The prop also accepts any Svelte class value, such as an array or an object. Base UI's `className` can also be a function of the component's state. Sveltery Base's `class` cannot, so style each state through its [data attribute](#data-attributes).
 
-```svelte
+```svelte title="switch.svelte"
 <Switch.Thumb class={['SwitchThumb', compact && 'SwitchThumb-compact']} />
-<Switch.Thumb class={{ SwitchThumb: true, 'SwitchThumb-compact': compact }} />
 ```
-
-Base UI also accepts a function of the part's state for `className`. In Sveltery Base, `class` does not take a function. Style a state through its data attribute, or read the state in a [`render` snippet](#state-in-a-render-snippet).
 
 ### Data attributes
 
-Parts set data attributes for their states. For example, [Switch](/components/switch) sets `data-checked` or `data-unchecked` on the root and the thumb:
+Components provide data attributes designed for styling their states. For example, [Switch](/components/switch) can be styled using its `[data-checked]` and `[data-unchecked]` attributes, among others.
 
-```css
+```css title="switch.css"
 .SwitchThumb[data-checked] {
 	background-color: green;
 }
@@ -37,106 +35,153 @@ Parts set data attributes for their states. For example, [Switch](/components/sw
 
 ### CSS variables
 
-Some parts set CSS variables with values measured at runtime, such as sizes and positions. For example, `Popover.Positioner` sets `--available-height` and `--anchor-width`, and `Collapsible.Panel` sets `--collapsible-panel-height`:
+Components expose CSS variables to aid in styling, often containing dynamic numeric values to be used in sizing or transform calculations. For example, [Popover](/components/popover) exposes CSS variables on its `Popup` component like `--available-height` and `--anchor-width`.
 
-```css
+```css title="popover.css"
 .Popup {
 	max-height: var(--available-height);
 }
 ```
 
-Each component page lists the data attributes and CSS variables of every part.
+Check out each component's API reference for a complete list of available data attributes and CSS variables.
 
 ### Style prop
 
-Each part that renders an HTML element takes a `style` string:
+Components that render an HTML element accept a `style` prop to style the element with a CSS string.
 
-```svelte
+```svelte title="switch.svelte"
 <Switch.Thumb style="height: 100px" />
 ```
 
-Some parts set inline styles of their own, such as the position of `Popover.Positioner`. Your `style` is merged with them, and your declaration wins when both set the same property. `style` does not take an object or a function of state.
-
-Svelte's `style:` directive works on elements, not on components. To use it, render your own element with a [`render` snippet](/handbook/composition).
+Base UI's `style` can also be a function of the component's state. Sveltery Base's `style` cannot. To style an element from the component's state, render the element yourself with a [render snippet](/handbook/composition#render-function), which receives the state.
 
 ## Tailwind CSS
 
-Put Tailwind CSS classes on each part with `class`. Use data attribute variants, such as `data-[checked]:`, to style a state. Use `group-data-[...]:` to style a child element from its parent's state.
+Apply Tailwind CSS classes to each part via the `class` prop.
 
-```svelte demo
+```svelte title="menu.svelte"
 <script lang="ts">
-	import { Switch } from '@sveltery/base/switch';
+	import { Menu } from '@sveltery/base/menu';
 </script>
 
-<Switch.Root
-	aria-label="Notifications"
-	class="relative flex h-6 w-10 rounded-full bg-gray-200 p-px transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 dark:bg-gray-700 dark:data-[checked]:bg-gray-100"
->
-	<Switch.Thumb
-		class="aspect-square h-full rounded-full bg-white shadow transition-transform duration-150 data-[checked]:translate-x-4 dark:bg-gray-900"
-	/>
-</Switch.Root>
+<Menu.Root>
+	<Menu.Trigger
+		class="flex h-8 items-center justify-center rounded-md border border-neutral-950 bg-white px-3 text-sm text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 data-pressed:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 dark:data-pressed:bg-neutral-800 dark:focus-visible:outline-white"
+	>
+		Song
+	</Menu.Trigger>
+	<Menu.Portal>
+		<Menu.Positioner class="outline-hidden" sideOffset={8}>
+			<Menu.Popup
+				class="origin-(--transform-origin) border border-neutral-950 bg-white py-1 text-neutral-950 outline-hidden transition data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white"
+			>
+				<Menu.Item
+					class="flex cursor-default py-2 pr-8 pl-4 text-sm leading-4 outline-hidden select-none data-highlighted:bg-neutral-950 data-highlighted:text-white dark:data-highlighted:bg-white dark:data-highlighted:text-neutral-950"
+				>
+					Add to Library
+				</Menu.Item>
+				<Menu.Item
+					class="flex cursor-default py-2 pr-8 pl-4 text-sm leading-4 outline-hidden select-none data-highlighted:bg-neutral-950 data-highlighted:text-white dark:data-highlighted:bg-white dark:data-highlighted:text-neutral-950"
+				>
+					Add to Playlist
+				</Menu.Item>
+			</Menu.Popup>
+		</Menu.Positioner>
+	</Menu.Portal>
+</Menu.Root>
 ```
 
-Tailwind CSS reads class names from your source files, so write each class name in full. A class name built from a variable at runtime is not generated.
+## CSS Modules
 
-## Plain CSS
+Apply custom CSS classes to each part via the `class` prop.
+Then style those classes in a CSS Modules file. Vite supports CSS Modules in Svelte components.
 
-Put class names on the parts, then style them in a global stylesheet. To keep the styles in your component, use a `<style>` block with `:global`.
+```svelte title="menu.svelte"
+<script lang="ts">
+	import { Menu } from '@sveltery/base/menu';
+	import styles from './menu.module.css';
+</script>
 
-Svelte scopes the styles in a `<style>` block to the elements in that component's markup. A part's element is rendered inside the library component, so a plain `.SwitchThumb` selector in your component does not match it. Svelte also warns that the selector is unused. Wrap the selector in `:global(...)`:
+<Menu.Root>
+	<Menu.Trigger class={styles.Button}>Song</Menu.Trigger>
+	<Menu.Portal>
+		<Menu.Positioner class={styles.Positioner} sideOffset={8}>
+			<Menu.Popup class={styles.Popup}>
+				<Menu.Item class={styles.Item}>Add to Library</Menu.Item>
+				<Menu.Item class={styles.Item}>Add to Playlist</Menu.Item>
+			</Menu.Popup>
+		</Menu.Positioner>
+	</Menu.Portal>
+</Menu.Root>
+```
+
+## Svelte style blocks
+
+Svelte scopes the rules in a component's `<style>` block to the elements in that component's markup. A part renders its element inside the library's component, so a scoped selector such as `.Item` does not reach it, and Svelte warns that the selector is unused. Wrap the selector in `:global(...)`:
 
 ```svelte
 <script lang="ts">
-	import { Switch } from '@sveltery/base/switch';
+	import { Menu } from '@sveltery/base/menu';
 </script>
 
-<div class="settings">
-	<Switch.Root class="Switch">
-		<Switch.Thumb class="SwitchThumb" />
-	</Switch.Root>
-</div>
+<Menu.Root>
+	<Menu.Trigger class="Button">Song</Menu.Trigger>
+	<Menu.Portal>
+		<Menu.Positioner class="Positioner" sideOffset={8}>
+			<Menu.Popup class="Popup">
+				<Menu.Item class="Item">Add to Library</Menu.Item>
+				<Menu.Item class="Item">Add to Playlist</Menu.Item>
+			</Menu.Popup>
+		</Menu.Positioner>
+	</Menu.Portal>
+</Menu.Root>
 
 <style>
-	.settings :global(.Switch) {
-		display: flex;
-		width: 2.5rem;
-		height: 1.5rem;
-		border-radius: 999px;
-		background-color: #e5e7eb;
-	}
-
-	.settings :global(.Switch[data-checked]) {
-		background-color: #111827;
+	:global(.Item[data-highlighted]) {
+		outline: 1px solid currentColor;
 	}
 </style>
 ```
 
-The `.settings` ancestor keeps these rules from applying elsewhere in the app. That works for parts that render in place. A portaled part, such as `Popover.Popup` or `Dialog.Popup`, renders in `<body>`, outside your component's elements. Select it with a class of its own, such as `:global(.Popup)`.
+Elements that you write in a [render snippet](/handbook/composition) belong to your component's markup, so scoped rules apply to them without `:global`.
 
-Elements you write in a `render` snippet belong to your component's markup. Scoped styles apply to them without `:global`.
+## CSS-in-JS
 
-## State in a render snippet
+Svelte has no `styled()` wrapper for components. Generate a class for each part with a framework-agnostic CSS-in-JS library, such as [Emotion](https://emotion.sh/docs/@emotion/css)'s `@emotion/css`, then apply it via the `class` prop.
 
-A `render` snippet receives the part's state as its second argument. Use it to render different content for each state:
-
-```svelte demo
+```svelte title="menu.svelte"
 <script lang="ts">
-	import { Switch } from '@sveltery/base/switch';
+	import { Menu, MenuItemDataAttributes, MenuPositionerCssVariables } from '@sveltery/base/menu';
+	import { css } from '@emotion/css';
+
+	const trigger = css`
+		/* Button styles */
+	`;
+
+	const positioner = css`
+		/* Positioner styles */
+	`;
+
+	const popup = css`
+		max-height: var(${MenuPositionerCssVariables.availableHeight});
+	`;
+
+	const item = css`
+		&[${MenuItemDataAttributes.highlighted}] {
+			outline: 1px solid currentColor;
+		}
+	`;
 </script>
 
-<Switch.Root
-	aria-label="Dark mode"
-	class="relative flex h-6 w-10 rounded-full bg-gray-200 p-px transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 dark:bg-gray-700 dark:data-[checked]:bg-gray-100"
->
-	<Switch.Thumb
-		class="flex aspect-square h-full items-center justify-center rounded-full bg-white text-xs shadow transition-transform duration-150 data-[checked]:translate-x-4 dark:bg-gray-900"
-	>
-		{#snippet render(props, state)}
-			<span {...props}>{state.checked ? '☾' : '☀'}</span>
-		{/snippet}
-	</Switch.Thumb>
-</Switch.Root>
+<Menu.Root>
+	<Menu.Trigger class={trigger}>Song</Menu.Trigger>
+	<Menu.Portal>
+		<Menu.Positioner class={positioner}>
+			<Menu.Popup class={popup}>
+				<Menu.Item class={item}>Add to Library</Menu.Item>
+				<Menu.Item class={item}>Add to Playlist</Menu.Item>
+			</Menu.Popup>
+		</Menu.Positioner>
+	</Menu.Portal>
+</Menu.Root>
 ```
-
-The `class` you pass to the part arrives in `props`, so spreading `props` applies it to your element. The state is the same object that the part's data attributes come from. Each component page lists the state of every part in its API reference. [Composition](/handbook/composition) explains the rest of the snippet signature.

@@ -1,10 +1,10 @@
 ---
 title: Forms
 description: A guide to building forms with Sveltery Base components.
-order: 4
+order: 5
 ---
 
-The form components build on the browser's [constraint validation API](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#the-constraint-validation-api). [Form](/components/form), [Field](/components/field), and [Fieldset](/components/fieldset) collect values, validate them, show errors, and focus the first invalid control. The controls work with `bind:value` and with native form submission. Form and Field also bind to a SvelteKit remote form, and take their state from a SvelteKit form action or a form library through props.
+Sveltery Base form control components extend the native [constraint validation API](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#the-constraint-validation-api) so you can build forms for collecting user input or providing control over an interface. They also integrate seamlessly with third-party libraries like [Superforms](#superforms) and [TanStack Form](#tanstack-form).
 
 ```svelte demo
 <script lang="ts">
@@ -308,178 +308,264 @@ The form components build on the browser's [constraint validation API](https://h
 </Toast.Provider>
 ```
 
-The demo shows the submitted values in a toast. It renders the toasts with the `ToastList` component from [Render the toasts](/components/toast#render-the-toasts).
-
 ## Naming form controls
 
-Each control needs an accessible name, so that assistive technology can announce it. Use the label that fits the control.
+Form controls must have an accessible name in order to be recognized by assistive technologies. Use the label strategy below for each control type.
 
 ### Input controls
 
-Use `Field.Label` or a native `<label>` for these controls:
+Use `<Field.Label>` or a native `<label>` to label the following controls:
 
-- [Input](/components/input) and `Field.Control`
-- [Number Field](/components/number-field)
-- [OTP Field](/components/otp-field)
-- [Autocomplete](/components/autocomplete)
-- [Combobox](/components/combobox), when its input is outside the popup
-- [Checkbox](/components/checkbox)
-- [Radio Group](/components/radio-group)
-- [Switch](/components/switch)
+- `Input`
+- `NumberField`
+- `OTPField`
+- `Autocomplete`
+- `Combobox` (input outside popup)
+- `Checkbox`
+- `Radio`
+- `Switch`
 
-A Checkbox, Radio, or Switch inside a `Field.Label` takes its name from the label text:
+You can implicitly label `<Checkbox>`, `<Radio>` and `<Switch>` components by enclosing them with `<Field.Label>`:
 
-```svelte
+```svelte title="Implicitly labeling a switch"
+<script lang="ts">
+	import { Field } from '@sveltery/base/field';
+	import { Switch } from '@sveltery/base/switch';
+</script>
+
 <Field.Root>
 	<Field.Label>
-		<Checkbox.Root />
-		Accept the terms
+		<Switch.Root />
+		Developer mode
 	</Field.Label>
+	<Field.Description>Enables extra tools for web developers</Field.Description>
 </Field.Root>
 ```
 
 ### Trigger-based controls
 
-These controls have their own label part:
-
-- A [Combobox](/components/combobox) whose input is inside the popup takes its name from `Combobox.Label`.
-- A [Select](/components/select) takes its name from `Select.Label`.
-- A [Slider](/components/slider) takes its name from `Slider.Label`. For a slider with more than one thumb, also give each `Slider.Thumb` an `aria-label` to tell the thumbs apart.
-
-```svelte
-<Field.Root name="timezone">
-	<Select.Root>
-		<Select.Label>Time zone</Select.Label>
-		<Select.Trigger />
-	</Select.Root>
-	<Field.Description>Used for notifications and reminders.</Field.Description>
-</Field.Root>
-```
+- `Combobox` (input inside popup): use `<Combobox.Label>`.
+- `Select`: use `<Select.Label>`.
+- `Slider`: use `<Slider.Label>`. For multi-thumb sliders, also add an `aria-label` on each `<Slider.Thumb>` to distinguish the thumbs.
 
 ### Fallback
 
-If you render no visible label, set `aria-label` on the control itself.
+If no visible label is rendered, provide `aria-label` on the actual form control.
 
-### Describe the control
+### Describing the control
 
-`Field.Description` describes the control. The control's `aria-describedby` points at it, and at `Field.Error` while an error shows.
+`<Field.Description>` automatically assigns an accessible description:
 
-```svelte
-<Field.Root>
-	<Field.Label>Password</Field.Label>
-	<Field.Control type="password" />
-	<Field.Description>Use at least 8 characters.</Field.Description>
-</Field.Root>
+```svelte title="Labeling select and slider"
+<script lang="ts">
+	import { Form } from '@sveltery/base/form';
+	import { Field } from '@sveltery/base/field';
+	import { Select } from '@sveltery/base/select';
+	import { Slider } from '@sveltery/base/slider';
+</script>
+
+<Form>
+	<Field.Root>
+		<Select.Root>
+			<Select.Label>Time zone</Select.Label>
+			<Select.Trigger />
+		</Select.Root>
+		<Field.Description>Used for notifications and reminders</Field.Description>
+	</Field.Root>
+
+	<Field.Root>
+		<Slider.Root defaultValue={50}>
+			<Slider.Label>Zoom level</Slider.Label>
+			<Field.Description>Adjust the size of the user interface</Field.Description>
+			<Slider.Control>
+				<Slider.Track>
+					<Slider.Thumb />
+				</Slider.Track>
+			</Slider.Control>
+		</Slider.Root>
+	</Field.Root>
+</Form>
 ```
 
-### Label a group of controls
+### Labeling control groups
 
-When one label applies to several controls, use a Fieldset. Put the group label in `Fieldset.Legend`. For a checkbox group or a radio group, wrap each option in a `Field.Item` so that each control has its own label and description:
+Compose `<Fieldset>` when a single label applies to multiple controls, such as a range slider with multiple thumbs or a section that combines several inputs. For checkbox and radio groups, keep the group label in `<Fieldset.Legend>` and wrap each option with `<Field.Item>`:
 
-```svelte demo
+```svelte title="Composing range slider and radio group with fieldset"
 <script lang="ts">
+	import { Form } from '@sveltery/base/form';
 	import { Field } from '@sveltery/base/field';
 	import { Fieldset } from '@sveltery/base/fieldset';
 	import { Radio } from '@sveltery/base/radio';
 	import { RadioGroup } from '@sveltery/base/radio-group';
-
-	let storage = $state('ssd');
+	import { Slider } from '@sveltery/base/slider';
 </script>
 
-<Field.Root name="storage">
-	<Fieldset.Root class="text-sm text-gray-900 dark:text-gray-100">
-		<Fieldset.Legend class="mb-2 font-medium">Storage type</Fieldset.Legend>
-		<RadioGroup bind:value={storage} class="flex flex-col gap-2">
-			{#each [{ value: 'ssd', label: 'SSD' }, { value: 'hdd', label: 'HDD' }] as option (option.value)}
-				<Field.Item>
-					<Field.Label class="flex items-center gap-2">
-						<Radio.Root
-							value={option.value}
-							class="flex size-5 items-center justify-center rounded-full border border-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:border-gray-900 data-[checked]:bg-gray-900 dark:border-gray-600 dark:data-[checked]:border-gray-100 dark:data-[checked]:bg-gray-100"
-						>
-							<Radio.Indicator class="size-2 rounded-full bg-white dark:bg-gray-900" />
-						</Radio.Root>
-						{option.label}
-					</Field.Label>
-				</Field.Item>
-			{/each}
-		</RadioGroup>
+<Form>
+	<Field.Root>
+		<!-- @highlight-start -->
+		<Fieldset.Root>
+			<Fieldset.Legend>Price range</Fieldset.Legend>
+			<!-- @highlight-end -->
+			<Slider.Root defaultValue={[20, 80]}>
+				<Slider.Control>
+					<Slider.Track>
+						<Slider.Thumb index={0} aria-label="Minimum price" />
+						<Slider.Thumb index={1} aria-label="Maximum price" />
+					</Slider.Track>
+				</Slider.Control>
+			</Slider.Root>
+			<!-- @highlight -->
+		</Fieldset.Root>
+	</Field.Root>
+
+	<Field.Root>
+		<!-- @highlight-start -->
+		<Fieldset.Root>
+			<Fieldset.Legend>Storage type</Fieldset.Legend>
+			<!-- @highlight-end -->
+			<RadioGroup>
+				<Radio.Root value="ssd" />
+				<Radio.Root value="hdd" />
+			</RadioGroup>
+			<!-- @highlight -->
+		</Fieldset.Root>
+	</Field.Root>
+</Form>
+```
+
+`<Field.Item>` should enclose each checkbox or radio option so every control has its own label and description:
+
+```svelte title="Explicitly labeling checkboxes in a checkbox group"
+<script lang="ts">
+	import { Field } from '@sveltery/base/field';
+	import { Fieldset } from '@sveltery/base/fieldset';
+	import { Checkbox } from '@sveltery/base/checkbox';
+	import { CheckboxGroup } from '@sveltery/base/checkbox-group';
+</script>
+
+<Field.Root>
+	<Fieldset.Root>
+		<Fieldset.Legend>Backup schedule</Fieldset.Legend>
+		<CheckboxGroup>
+			<!-- @highlight -->
+			<Field.Item>
+				<Checkbox.Root value="daily" />
+				<Field.Label>Daily</Field.Label>
+				<Field.Description>Daily at 00:00</Field.Description>
+				<!-- @highlight-start -->
+			</Field.Item>
+			<Field.Item>
+				<!-- @highlight-end -->
+				<Checkbox.Root value="monthly" />
+				<Field.Label>Monthly</Field.Label>
+				<Field.Description>On the 5th of every month at 23:59</Field.Description>
+				<!-- @highlight -->
+			</Field.Item>
+		</CheckboxGroup>
 	</Fieldset.Root>
 </Field.Root>
 ```
 
-A Radio Group inside a Fieldset takes its name from the legend.
+## Building form fields
 
-## Build form fields
+Pass the `name` prop to `<Field.Root>` to include the wrapped control's value when a parent form is submitted:
 
-Give `Field.Root` a `name`. The control in the field submits its value under that name, and Form reports it under that name. The `name` on `Field.Root` takes precedence over a `name` on the control.
-
-```svelte
-<Field.Root name="email">
-	<Field.Label>Email</Field.Label>
-	<Field.Control type="email" />
-</Field.Root>
-```
-
-When a form source owns the state, pass the source's field to `field` instead of a `name`. [Bind a SvelteKit remote form](#bind-a-sveltekit-remote-form) shows how.
-
-### Bind values
-
-Each control takes `bind:value` (or `bind:checked`) to share its value with your component. Without `bind:`, the control keeps its own state.
-
-```svelte
+```svelte title="Assigning field name to combobox"
 <script lang="ts">
-	let email = $state('');
+	import { Form } from '@sveltery/base/form';
+	import { Field } from '@sveltery/base/field';
+	import { Combobox } from '@sveltery/base/combobox';
 </script>
 
-<Field.Root name="email">
-	<Field.Label>Email</Field.Label>
-	<Field.Control type="email" bind:value={email} />
-</Field.Root>
+<Form>
+	<!-- @highlight-start -->
+	<!-- @highlight-text "name" -->
+	<Field.Root name="country">
+		<!-- @highlight-end -->
+		<Field.Label>Country of residence</Field.Label>
+		<Combobox.Root />
+	</Field.Root>
+</Form>
 ```
 
-Form controls also take `defaultValue` or `defaultChecked`, as HTML inputs do. It is the value an empty binding starts from, and the value a form reset restores. Other components, such as Tabs and Toggle, take an initial value through the bound prop instead.
+## Submitting data
 
-A field bound to a form source takes its value from the source, so it needs no `bind:value`. Read the value with the source field's `value()` method and change it with `set()`.
+You can take over form submission using the native `onsubmit`, or custom `onFormSubmit` props:
 
-## Submit data
+```svelte title="Native submission using onsubmit"
+<script lang="ts">
+	import { Form } from '@sveltery/base/form';
+</script>
 
-Form renders a native `<form>`, so a plain `action` and `method` submit the way HTML does. To handle the submit in your code, use `onsubmit` or `onFormSubmit`:
-
-- `onsubmit` is the native submit event handler. It runs only when no field blocks the submit. Call `event.preventDefault()` to stop the browser from navigating.
-- `onFormSubmit` receives the value of each named field as an object, with the event details as the second argument. Form calls `preventDefault()` on the native event for you.
-- `form` takes a form source, such as a SvelteKit remote form. The source sends the submit. Do not combine it with `onFormSubmit`. In development, Form warns when you do.
-
-```svelte
 <Form
-	onFormSubmit={(values) => {
-		console.log(values); // { email: 'alice@example.com' }
+	// @highlight-start
+	onsubmit={async (event) => {
+		// Prevent the browser's default full-page refresh
+		event.preventDefault();
+		// Create a FormData object
+		const formData = new FormData(event.currentTarget);
+		// Send the FormData instance in a fetch request
+		// @highlight-end
+		await fetch('https://api.example.com', {
+			method: 'POST',
+			body: formData
+		});
 	}}
->
-	<Field.Root name="email">
-		<Field.Label>Email</Field.Label>
-		<Field.Control type="email" />
-	</Field.Root>
-	<button>Submit</button>
-</Form>
+/>
+```
+
+When using `onFormSubmit`, you receive form values as a JavaScript object, with `eventDetails` provided as a second argument. Additionally, `preventDefault()` is automatically called on the native submit event:
+
+```svelte title="Submission using onFormSubmit"
+<script lang="ts">
+	import { Form } from '@sveltery/base/form';
+</script>
+
+<Form
+	// @highlight-start
+	onFormSubmit={async (formValues) => {
+		const payload = {
+			product_id: formValues.id,
+			order_quantity: formValues.quantity
+		};
+		await fetch('https://api.example.com', {
+			// @highlight-end
+			method: 'POST',
+			body: JSON.stringify(payload)
+		});
+	}}
+/>
 ```
 
 ## Constraint validation
 
-The controls support the native validation attributes, with their HTML names:
+Sveltery Base form components support native HTML validation attributes for many validation rules:
 
-- `required` marks a field that needs a value.
-- `pattern` is a regular expression that the value must match.
-- `minlength` and `maxlength` limit the length of a text value.
-- `min`, `max`, and `step` limit a numeric value.
+- `required` specifies a required field.
+- `minlength` and `maxlength` specify a valid length for text fields.
+- `pattern` specifies a regular expression that the field value must match.
+- `step` specifies an increment that numeric field values must be an integral multiple of.
 
-Form turns off the browser's own validation bubbles once the page is hydrated, and shows the messages in `Field.Error` instead. Before hydration, or with JavaScript off, the browser validates as usual. A submit button with `formnovalidate` skips validation, as it does in HTML.
+```svelte title="Defining constraint validation on a text field"
+<script lang="ts">
+	import { Field } from '@sveltery/base/field';
+</script>
 
-Controls such as Checkbox, Switch, Radio Group, Slider, and Number Field submit through a hidden native input. Give the field a `name`, or a `field` from a form source, so that the input takes part in submission and validation.
+<Field.Root name="website">
+	<Field.Control type="url" required pattern="https?://.*" />
+	<Field.Error />
+</Field.Root>
+```
 
-The browser's validation bubble points at that hidden input. It shows before hydration, or with JavaScript off. The hidden input is positioned absolutely, so wrap the control in a relatively positioned container. The bubble then points at the control:
+Sveltery Base form components use a hidden input to participate in native form submission and validation. To anchor the hidden input near a control so the native validation bubble points to the correct area, ensure the component has been given a `name`, and wrap controls in a relatively positioned container for best results.
 
-```svelte
+```svelte title="Positioning hidden inputs"
+<script lang="ts">
+	import { Field } from '@sveltery/base/field';
+	import { Select } from '@sveltery/base/select';
+</script>
+
 <Field.Root name="apple">
 	<Select.Root>
 		<Select.Label>Apple</Select.Label>
@@ -492,451 +578,149 @@ The browser's validation bubble points at that hidden input. It shows before hyd
 
 ## Custom validation
 
-Pass a function to `validate` on `Field.Root`. It runs after the native constraints pass. In `onChange` mode it also runs while a constraint fails, and its message takes precedence. It receives the value and the values of the other named fields, and returns an error message, an array of messages, or `null` when the value is valid. It can be asynchronous.
+You can add custom validation logic by passing a synchronous or asynchronous validation function to the `validate` prop, which runs after native validations have passed.
 
-`validationMode` on `Form` or `Field.Root` sets when the field validates:
+Use the `validationMode` prop to configure when validation is performed:
 
-- `onSubmit` (the default) validates every field when the form submits. After the first submit, each field validates again each time its value changes.
-- `onBlur` validates the field when it loses focus.
-- `onChange` validates the field each time its value changes.
+- `onSubmit` (default) validates all fields when the containing `<Form>` is submitted, afterwards invalid fields revalidate when their value changes.
+- `onBlur` validates the field when focus moves away.
+- `onChange` validates the field when the value changes, for example, after each keypress in a text field or when a checkbox is checked or unchecked.
 
-`validationDebounceTime` waits the given number of milliseconds between `validate` calls in `onChange` mode. Use it for an asynchronous check, such as a request to your server.
+`validationDebounceTime` can be used to debounce the function in use cases such as asynchronous requests or text fields that validate `onChange`.
 
-```svelte demo
+```svelte title="Text input using custom asynchronous validation"
 <script lang="ts">
 	import { Field } from '@sveltery/base/field';
-
-	const taken = ['admin', 'root', 'alice'];
-
-	async function checkUsername(value: unknown) {
-		await new Promise((resolve) => setTimeout(resolve, 300));
-		return taken.includes(String(value)) ? 'That username is taken.' : null;
-	}
 </script>
 
 <Field.Root
+	name="username"
+	// @highlight-start
 	validationMode="onChange"
 	validationDebounceTime={300}
-	validate={checkUsername}
-	class="flex w-72 flex-col gap-1 text-gray-900 dark:text-gray-100"
+	validate={async (value) => {
+		// @highlight-end
+		if (value === 'admin') {
+			/* return an error message when invalid */
+			return 'Reserved for system use.';
+		}
+
+		const result = await fetch(/* check the availability of a username from an external API */);
+
+		if (!result) {
+			return `${value} is unavailable.`;
+		}
+
+		/* return `null` when valid */
+		return null;
+	}}
 >
-	<Field.Label class="text-sm font-medium">Username</Field.Label>
-	<Field.Control
-		required
-		placeholder="Try alice"
-		class="h-9 rounded-md border border-gray-200 px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 data-[valid]:border-green-700 dark:border-gray-700 dark:bg-gray-900"
-	/>
-	<Field.Error class="text-sm text-red-700 dark:text-red-400" />
+	<Field.Control required minlength={3} />
+	<Field.Error />
 </Field.Root>
 ```
-
-An asynchronous `validate` does not block a submit. Form submits with the result it already has.
-
-To validate from your own code, read the Form or the Field with `bind:this` and call its `validate()` method. Form's `validate()` validates every field, or the field with the name you pass.
 
 ## Server-side validation
 
-Pass errors from your server to the `errors` prop of Form. It is an object keyed by field name, with one message or an array of messages for each field. A field shows its server error in `Field.Error`, and the error clears as soon as the field's value changes.
+You can pass errors returned by (post-submission) server-side validation to the `errors` prop, which will be merged into the client-side field state for display.
 
-After a submit, Form focuses the first invalid field when new errors arrive.
+This should be an object with field names as keys, and an error string or array of strings as the value. Once a field's value changes, any corresponding error in `errors` will be cleared from the field state.
 
-```svelte demo
+```svelte title="Displaying errors returned by server-side validation"
 <script lang="ts">
-	import { Field } from '@sveltery/base/field';
 	import { Form, type FormErrors } from '@sveltery/base/form';
-
-	let errors = $state<FormErrors>({});
-	let pending = $state(false);
-
-	async function submitToServer(values: Record<string, unknown>) {
-		pending = true;
-		await new Promise((resolve) => setTimeout(resolve, 500));
-		pending = false;
-		const url = String(values.url);
-		errors = url.startsWith('https://') ? {} : { url: 'The server only accepts https:// URLs.' };
-	}
-</script>
-
-<Form
-	bind:errors
-	onFormSubmit={submitToServer}
-	class="flex w-72 flex-col gap-4 text-gray-900 dark:text-gray-100"
->
-	<Field.Root name="url" class="flex flex-col gap-1">
-		<Field.Label class="text-sm font-medium">Homepage</Field.Label>
-		<Field.Control
-			type="url"
-			required
-			defaultValue="http://example.com"
-			class="h-9 rounded-md border border-gray-200 px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900"
-		/>
-		<Field.Error class="text-sm text-red-700 dark:text-red-400" />
-	</Field.Root>
-	<button
-		disabled={pending}
-		class="h-9 rounded-md bg-gray-900 px-3.5 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 disabled:opacity-60 dark:bg-gray-100 dark:text-gray-900"
-	>
-		{pending ? 'Saving' : 'Save'}
-	</button>
-</Form>
-```
-
-Use `bind:errors`, so that the cleared error also leaves your state. A new object from the parent replaces the current errors. While a field shows a server error, it counts as invalid and blocks the next submit, until the user changes its value.
-
-A [SvelteKit form action](#connect-a-form-action) returns its errors, and you pass them to `errors`. A [remote form](#bind-a-sveltekit-remote-form) needs no `errors`: bind the form to it, and the issues from the server show in each field.
-
-## Display errors
-
-`Field.Error` without children shows the field's current message. That is the browser's message for a failed constraint, the result of `validate`, the form source's issue, or the server error. Several messages render as a list.
-
-To write your own message for one constraint, set `match` to the name of a `ValidityState` flag. That `Field.Error` shows only while that flag is set. Use this to translate messages:
-
-```svelte
-<Field.Root name="website">
-	<Field.Label>Website</Field.Label>
-	<Field.Control type="url" required />
-	<Field.Error match="valueMissing">Enter a website.</Field.Error>
-	<Field.Error match="typeMismatch">Enter a full URL, such as https://example.com.</Field.Error>
-</Field.Root>
-```
-
-`match={true}` always shows the error. Use it when your own code decides whether to render it.
-
-`Field.Validity` gives a snippet the full validity state of the field, such as each flag and every message:
-
-```svelte
-<Field.Validity>
-	{#snippet children(validity)}
-		{#if validity.validity.typeMismatch}
-			<p>{validity.value} is not an email address.</p>
-		{/if}
-	{/snippet}
-</Field.Validity>
-```
-
-### Show errors for the whole form
-
-`Form.Error` shows the messages that no field shows:
-
-- Issues on the whole form, such as `invalid('Signups are closed.')` in a remote form.
-- Issues on a path that no mounted `Field.Root` binds.
-- Entries in `errors` whose key no `Field.Root` has as its `name`.
-
-It renders a `<div>` with `role="alert"`. When a submit fails with only messages for the whole form, Form has no field to focus, so the alert role makes a screen reader announce the message. `Form.Error` renders nothing while there is no message.
-
-```svelte demo
-<script lang="ts">
 	import { Field } from '@sveltery/base/field';
-	import { Form, type FormErrors } from '@sveltery/base/form';
 
-	let errors = $state<FormErrors>({});
-</script>
-
-<Form
-	bind:errors
-	onFormSubmit={() => (errors = { form: 'Signups are closed today. Try again tomorrow.' })}
-	class="flex w-72 flex-col gap-4 text-gray-900 dark:text-gray-100"
->
-	<Form.Error
-		class="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-300"
-	/>
-	<Field.Root name="email" class="flex flex-col gap-1">
-		<Field.Label class="text-sm font-medium">Email</Field.Label>
-		<Field.Control
-			type="email"
-			required
-			defaultValue="alice@example.com"
-			class="h-9 rounded-md border border-gray-200 px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900"
-		/>
-		<Field.Error class="text-sm text-red-700 dark:text-red-400" />
-	</Field.Root>
-	<button
-		class="h-9 rounded-md bg-gray-900 px-3.5 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 dark:bg-gray-100 dark:text-gray-900"
-	>
-		Sign up
-	</button>
-</Form>
-```
-
-## Reset
-
-A `<button type="reset">` in the form resets it, as in HTML. Each control returns to its `defaultValue` or `defaultChecked`, and a bound value follows. Each field clears its dirty, touched, and validity state, and Form clears its `errors`. With a form source, the reset also hides the source's issues.
-
-## Bind a SvelteKit remote form
-
-Pass a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form) to the `form` prop of Form. Pass each of its fields to the `field` prop of a `Field.Root`. The remote form then owns the values and the issues. Field shows them, and Form sends the submit through the remote form.
-
-Remote functions are experimental in SvelteKit. Turn them on with `experimental: { remoteFunctions: true }` in the `sveltekit()` options in `vite.config.ts`.
-
-Put the schema in its own module, so that the server and the page can both import it. Any [Standard Schema](https://standardschema.dev) library works. These examples use Valibot.
-
-```ts
-// src/routes/signup/schema.ts
-import * as v from 'valibot';
-
-export const signupSchema = v.object({
-	email: v.pipe(v.string(), v.email('Enter a valid email')),
-	name: v.pipe(v.string(), v.minLength(2, 'Use at least 2 characters')),
-	age: v.pipe(v.number('Enter your age'), v.minValue(18, 'You must be 18 or older'))
-});
-```
-
-Create the remote form with `form(schema, handler)`. Call `invalid` with an issue on a field, or with a message for the whole form:
-
-```ts
-// src/routes/signup/signup.remote.ts
-import { form } from '$app/server';
-import { invalid } from '@sveltejs/kit';
-import { signupSchema } from './schema.js';
-
-export const signup = form(signupSchema, async (data, issue) => {
-	if (await isRegistered(data.email)) invalid(issue.email('Email already taken'));
-	if (signupsClosed()) invalid('Signups are closed');
-	return { welcome: data.name };
-});
-```
-
-On the page, `preflight` runs the same schema in the browser before each submit:
-
-```svelte
-<!-- src/routes/signup/+page.svelte -->
-<script lang="ts">
-	import { Field } from '@sveltery/base/field';
-	import { Form } from '@sveltery/base/form';
-	import { signupSchema } from './schema.js';
-	import { signup } from './signup.remote.js';
-
-	const f = signup.preflight(signupSchema);
-</script>
-
-<Form form={f}>
-	<Form.Error />
-	<Field.Root field={f.fields.email} type="email">
-		<Field.Label>Email</Field.Label>
-		<Field.Control required />
-		<Field.Error />
-	</Field.Root>
-	<Field.Root field={f.fields.name}>
-		<Field.Label>Name</Field.Label>
-		<Field.Control />
-		<Field.Error />
-	</Field.Root>
-	<Field.Root field={f.fields.age} type="number">
-		<Field.Label>Age</Field.Label>
-		<Field.Control />
-		<Field.Error />
-	</Field.Root>
-	<button disabled={f.pending > 0}>Sign up</button>
-	{#if f.result}
-		<p>Welcome, {f.result.welcome}</p>
-	{/if}
-</Form>
-```
-
-`Field.Control` takes its name and value from the field. The name carries SvelteKit's encoding, such as `n:age` for a number, so do not set `name` or `value` on the control. The field's issues show in `Field.Error`, and the field's `touched` and `dirty` state sets `data-touched` and `data-dirty`.
-
-A submit runs these checks in order:
-
-1. The native constraints, such as `required` and `type="email"`. A failed constraint blocks the request and focuses the field. The preflight schema still runs, so its issues show too.
-2. The preflight schema. Its issues show in the fields, and Form focuses the first one. No request is sent.
-3. The handler on the server. An issue from `invalid` shows in its field, and Form focuses that field.
-
-When the handler returns, `f.result` holds its return value and the form resets. To keep the values or do something else after the submit, pass [`enhance`](#customize-the-submit).
-
-A server issue does not block the next submit, because only the server can clear it. It hides as soon as the user changes the field. After the first submit, each change validates the field again against the schema, with no request. Set `validationMode="onBlur"` or `validationMode="onChange"` on Form to show schema issues before the first submit.
-
-### Type the control
-
-The `type` on `Field.Root` is the input type of its control. TypeScript checks it against the type of the field's value:
-
-| Value      | Allowed `type`                                                                                           | Required               |
-| ---------- | -------------------------------------------------------------------------------------------------------- | ---------------------- |
-| `string`   | `text`, `email`, `password`, `url`, `tel`, `search`, the date and time types, `color`, `radio`, `select` | no, defaults to `text` |
-| `number`   | `number`, `range`                                                                                        | yes                    |
-| `boolean`  | `checkbox`, `switch`                                                                                     | yes                    |
-| `string[]` | `checkbox`, `select multiple`                                                                            | yes                    |
-
-So `<Field.Root field={f.fields.age}>` fails the type check, because `age` is a number. `<Field.Root field={f.fields.age} type="email">` fails too.
-
-### Bind a field by name
-
-Inside a Form with a `form` source, `<Field.Root name="email">` binds to `f.fields.email`. A path such as `items[0].name` works too. TypeScript does not check the name, and `type` accepts every input type. In development, Form warns when an issue has no field to show it while a field resolved its name through the form, because a misspelled `name` submits under the wrong key. Prefer `field`, which TypeScript checks.
-
-## Connect a form action
-
-A classic [form action](https://svelte.dev/docs/kit/form-actions) validates the request on the server and returns its errors. Form shows them through the `errors` prop, as in [Server-side validation](#server-side-validation). Name each field with `name` on `Field.Root`, so the errors and the submitted values use the same keys.
-
-In the action, read the form data and validate it with your schema. Return `fail()` with the first message for each field, keyed by field name, and with the submitted values, so that the page can show them again:
-
-```ts
-// src/routes/signup/+page.server.ts
-import { fail } from '@sveltejs/kit';
-import * as v from 'valibot';
-import { signupSchema } from './schema.js';
-
-export const actions = {
-	default: async ({ request }) => {
-		const data = await request.formData();
-		const values = { email: String(data.get('email') ?? ''), name: String(data.get('name') ?? '') };
-		const result = v.safeParse(signupSchema, values);
-		if (!result.success) {
-			const errors: Record<string, string> = {};
-			for (const issue of result.issues) {
-				const key = v.getDotPath(issue);
-				if (key) errors[key] ??= issue.message;
+	async function submitToServer(/* payload */) {
+		return {
+			// @highlight-text "errors"
+			errors: {
+				promoCode: 'This promo code has expired'
 			}
-			return fail(400, { values, errors });
-		}
-		if (await isRegistered(result.output.email)) {
-			return fail(400, { values, errors: { email: 'Email already taken' } });
-		}
-		return { welcome: result.output.name };
+		};
 	}
-};
+
+	// @highlight-text "errors"
+	let errors = $state<FormErrors>({});
+</script>
+
+<Form
+	// @highlight-text "errors"
+	bind:errors
+	onsubmit={async (event) => {
+		event.preventDefault();
+		const response = await submitToServer(/* data */);
+		// @highlight-text "errors"
+		errors = response.errors;
+	}}
+>
+	<Field.Root name="promoCode" />
+</Form>
 ```
 
-On the page, pass `form?.errors` to `errors`, and each submitted value to the control's `defaultValue`. `use:enhance` is an action, so `fromAction` turns it into an attachment on Form. Its submit function cancels a submit that Form blocked:
+<span id="bind-a-sveltekit-remote-form"></span><span id="connect-a-form-action"></span>
 
-```svelte
-<!-- src/routes/signup/+page.svelte -->
+When using [SvelteKit form actions](https://svelte.dev/docs/kit/form-actions) you can return server-side errors from `fail()` and pass the page's `form?.errors` to the `errors` prop. A complete example is available [here](/handbook/sveltekit#connect-a-form-action). A SvelteKit [remote form](/handbook/sveltekit#bind-a-sveltekit-remote-form) goes to the `form` prop of `<Form>` instead, and needs no `errors`.
+
+```svelte title="Returning errors from a form action"
+<!-- src/routes/login/+page.svelte -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { fromAction } from 'svelte/attachments';
-	import { Field } from '@sveltery/base/field';
 	import { Form, isSubmitBlocked } from '@sveltery/base/form';
+	import { Field } from '@sveltery/base/field';
 
+	// @highlight-text "form"
 	let { form } = $props();
 </script>
 
 <Form
 	method="POST"
+	// @highlight-text "form" "errors"
 	errors={form?.errors}
 	{@attach fromAction(enhance, () => ({ formElement, cancel }) => {
 		if (isSubmitBlocked(formElement)) cancel();
 	})}
 >
-	<Field.Root name="email">
-		<Field.Label>Email</Field.Label>
-		<Field.Control type="email" required defaultValue={form?.values?.email} />
+	<Field.Root name="password">
+		<Field.Control />
 		<Field.Error />
-	</Field.Root>
-	<Field.Root name="name">
-		<Field.Label>Name</Field.Label>
-		<Field.Control required defaultValue={form?.values?.name} />
-		<Field.Error />
-	</Field.Root>
-	<button>Sign up</button>
-	{#if form?.welcome}
-		<p>Welcome, {form.welcome}</p>
-	{/if}
-</Form>
-```
-
-Form validates each field before `use:enhance` sees the submit. When a field is invalid, Form calls `preventDefault()` and focuses the field. `use:enhance` does not check `defaultPrevented`, so without `cancel()` it posts the invalid values. `isSubmitBlocked(formElement)` returns `true` when Form blocked the current submit. Call it before any `await` in the submit function, because the next submit replaces the answer. A server error shows in its `Field.Error`, Form focuses the field, and the error clears as soon as the user changes the field. With JavaScript off, the browser validates, the form posts, and the page renders the errors and the submitted values.
-
-## Customize the submit
-
-Without `enhance`, a source submit sends the request and resets the form when it succeeds. Pass a callback to `enhance` on Form to replace that step. It runs once the submit passes the native constraints and the preflight schema. Nothing is sent until it calls `submit()`, which resolves to `true` when the submit succeeds:
-
-```svelte
-<Form
-	form={f}
-	enhance={async ({ submit }) => {
-		if (await submit()) toast('Welcome aboard');
-	}}
->
-	…
-</Form>
-```
-
-This callback keeps the values after a successful submit. To reset the form yourself, call `reset()` on the instance's `element`. The instance is the source's own, so with a remote form it has SvelteKit's `submit().updates(...)`.
-
-Pass the callback to Form, not to the source's `enhance()` method. Form installs its own callback on the source, so that it can tell issues from the server apart from issues from the schema, and it calls yours from there.
-
-## Bind composite controls
-
-Checkbox, Switch, Radio Group, Checkbox Group, Number Field, Slider, and OTP Field bind through the `Field.Root` around them. Each one renders a native input with the source's name and value, so the source reads it like a plain input. Give `Field.Root` the `type` that the control submits as:
-
-| Control        | `type`     | Value                               |
-| -------------- | ---------- | ----------------------------------- |
-| Checkbox       | `checkbox` | `boolean`                           |
-| Switch         | `switch`   | `boolean`                           |
-| Radio Group    | `radio`    | `string`                            |
-| Checkbox Group | `checkbox` | `string[]`                          |
-| Number Field   | `number`   | `number`                            |
-| Slider         | `range`    | `number`, with one thumb            |
-| OTP Field      | `text`     | `string`, so `type` can be left out |
-
-```svelte
-<Form form={f}>
-	<Field.Root field={f.fields.plan} type="radio">
-		<Fieldset.Root>
-			<Fieldset.Legend>Plan</Fieldset.Legend>
-			<RadioGroup defaultValue="free">
-				<Radio.Root value="free">Free</Radio.Root>
-				<Radio.Root value="pro">Pro</Radio.Root>
-			</RadioGroup>
-		</Fieldset.Root>
-		<Field.Error />
-	</Field.Root>
-
-	<Field.Root field={f.fields.seats} type="number">
-		<Field.Label>Seats</Field.Label>
-		<NumberField.Root defaultValue={1} min={0}>
-			<NumberField.Group>
-				<NumberField.Decrement />
-				<NumberField.Input />
-				<NumberField.Increment />
-			</NumberField.Group>
-		</NumberField.Root>
-		<Field.Error />
-	</Field.Root>
-
-	<Field.Root field={f.fields.agree} type="checkbox">
-		<Field.Label><Checkbox.Root /> I accept the terms</Field.Label>
-		<Field.Error />
-	</Field.Root>
-
-	<Field.Root field={f.fields.newsletter} type="switch">
-		<Field.Label><Switch.Root /> Send me the newsletter</Field.Label>
 	</Field.Root>
 </Form>
 ```
 
-The control starts from the source's value when the source has one, and from `defaultValue` when it does not. A form reset returns the control to `defaultValue`. When your code calls `set()` on the field, the control shows the new value, with no `onValueChange` call. In development, a control whose kind does not match the `type` on its `Field.Root` logs an error that names both.
+```ts
+// src/routes/login/+page.server.ts
+import { fail } from '@sveltejs/kit';
 
-A checkbox sends nothing when it is unchecked, so every boolean in the schema must be optional, such as `v.optional(v.boolean(), false)`. SvelteKit rejects a remote form schema with a required boolean at the type level.
+export const actions = {
+	default: async ({ request }) => {
+		const result = authenticateUser(await request.formData());
 
-## Work without JavaScript
+		if (!result.success) {
+			return fail(400, {
+				// @highlight-text "errors"
+				errors: {
+					password: 'Invalid username or password'
+				}
+			});
+		}
+		/* redirect on the server on success */
+	}
+};
+```
 
-A form bound to a remote form works before the page hydrates and with JavaScript off:
+## Displaying errors
 
-- The server renders no `novalidate`, so the browser checks `required`, `type`, and the other constraints, and an empty required field never reaches the server.
-- The form posts to the server, and the page renders again with the issues in each `Field.Error` and the whole-form issues in `Form.Error`.
-- Each field shows the value the user submitted.
-- After a success, `f.result` holds the return value.
+Use `<Field.Error>` without `children` to automatically display the field's native error message when invalid. The `match` prop can be used to customize the message based on the validity state, and manage internationalization from your application logic:
 
-Once the page hydrates, Form sets `novalidate` and shows every message in `Field.Error`.
+```svelte title="Customizing error message for a required field"
+<Field.Error match="valueMissing">You must create a username</Field.Error>
+```
 
-## Form libraries
+## Superforms
 
-A form library can own the values and the validation, while Field shows the state. Pass the library's state to `Field.Root` through these props, which take precedence over the state Field tracks itself:
-
-- `invalid` marks the field invalid.
-- `dirty` marks the value as changed from its initial value.
-- `touched` marks the field as visited.
-
-Bind the value to the library with `bind:value`, or with a getter and setter pair. Render the library's message in a `Field.Error` with `match={true}`, inside an `{#if}` that checks for an error. `invalid` sets `aria-invalid` on the control and `data-invalid` on every part of the field. It also blocks a Form submit. While a Field is `invalid`, Form cancels the submit with `preventDefault()`. The library's own `submit` listener still runs, so it can validate and show its errors. If that listener sends a request, cancel it when `isSubmitBlocked(form)` returns `true`, as in [Connect a form action](#connect-a-form-action). A library that sets errors on the server has to clear them when the user edits, as Superforms does when it has `validators`.
-
-### sveltekit-superforms
-
-[Superforms](https://superforms.rocks) owns the values, the validation, and the errors. `$form` holds the values, `$errors` holds the messages, and `$tainted` marks the fields the user changed. Bind each control to `$form`, then pass the library's state to `Field.Root`:
-
-- `invalid` is true while the field has a message in `$errors`.
-- `dirty` is true while the field is in `$tainted`.
-- `touched` is left out. Superforms does not track it, so Field marks a field touched on blur.
-
-Superforms' `enhance` is an action, so `fromAction` turns it into an attachment on Form. The enhanced form shows an error when a field loses focus or on submit, then updates it as the user types. `onUpdate` runs after a valid submit. This demo sets `SPA: true`, so superforms validates in the browser with no server action:
+[Superforms](https://superforms.rocks) is a popular SvelteKit library that you can integrate with Sveltery Base to externally manage form and field state for your existing components.
 
 ```svelte demo
 <script lang="ts">
@@ -944,76 +728,504 @@ Superforms' `enhance` is an action, so `fromAction` turns it into an attachment 
 	import { defaults, superForm } from 'sveltekit-superforms';
 	import { valibot } from 'sveltekit-superforms/adapters';
 	import * as v from 'valibot';
+	import { Autocomplete } from '@sveltery/base/autocomplete';
+	import { Checkbox } from '@sveltery/base/checkbox';
+	import { CheckboxGroup } from '@sveltery/base/checkbox-group';
+	import { Combobox } from '@sveltery/base/combobox';
 	import { Field } from '@sveltery/base/field';
+	import { Fieldset } from '@sveltery/base/fieldset';
 	import { Form } from '@sveltery/base/form';
+	import { NumberField } from '@sveltery/base/number-field';
+	import { Radio } from '@sveltery/base/radio';
+	import { RadioGroup } from '@sveltery/base/radio-group';
+	import { Select } from '@sveltery/base/select';
+	import { Slider } from '@sveltery/base/slider';
+	import { Switch } from '@sveltery/base/switch';
+	import { Toast } from '@sveltery/base/toast';
+	import ToastList from '#lib/components/ToastList.svelte';
 
+	interface Image {
+		name: string;
+		url: string;
+	}
+
+	const regions = ['us', 'eu', 'ap'].flatMap((area) =>
+		['central', 'east', 'west'].flatMap((zone) =>
+			['1', '2', '3'].map((n) => `${area}-${zone}-${n}`)
+		)
+	);
+	const images: Image[] = [
+		'nginx:1.29-alpine',
+		'node:22-slim',
+		'postgres:18',
+		'redis:8.2.2-alpine'
+	].map((name) => ({ name, url: `docker.io/library/${name}` }));
+	const serverTypes = [
+		{ label: 'Select server type', value: null },
+		...['t1', 't2', 'm1', 'm2'].flatMap((family) =>
+			['small', 'medium', 'large'].map((size) => ({
+				label: `${family}.${size}`,
+				value: `${family}.${size}`
+			}))
+		)
+	];
+
+	const required = 'This field is required.';
 	const schema = v.object({
-		username: v.pipe(v.string(), v.minLength(3, 'At least 3 characters')),
-		email: v.pipe(v.string(), v.email('Invalid email address'))
+		serverName: v.pipe(v.string(), v.nonEmpty(required), v.minLength(3, 'At least 3 characters.')),
+		region: v.pipe(
+			v.nullable(v.string()),
+			v.check((value) => value !== null, required)
+		),
+		containerImage: v.pipe(v.string(), v.nonEmpty(required)),
+		serverType: v.pipe(
+			v.nullable(v.string()),
+			v.check((value) => value !== null, required)
+		),
+		numOfInstances: v.pipe(
+			v.nullable(v.number()),
+			v.check((value) => value !== null, required)
+		),
+		scalingThreshold: v.array(v.number()),
+		storageType: v.picklist(['ssd', 'hdd']),
+		restartOnFailure: v.boolean(),
+		allowedNetworkProtocols: v.array(v.string())
 	});
 	const adapter = valibot(schema);
-	let saved = $state('');
 
-	const { form, errors, tainted, enhance } = superForm(defaults(adapter), {
+	const toastManager = Toast.createToastManager();
+
+	const { form, errors, tainted, isTainted, enhance } = superForm(
+		defaults(
+			{
+				serverName: '',
+				region: null,
+				containerImage: '',
+				serverType: null,
+				numOfInstances: null,
+				scalingThreshold: [0.2, 0.8],
+				storageType: 'ssd',
+				restartOnFailure: true,
+				allowedNetworkProtocols: []
+			},
+			adapter
+		),
+		{
+			SPA: true,
+			validators: adapter,
+			onUpdate: ({ form }) => {
+				if (!form.valid) return;
+				toastManager.add({ title: 'Form submitted', description: JSON.stringify(form.data) });
+			}
+		}
+	);
+
+	const label = 'text-sm font-medium';
+	const input =
+		'h-9 w-full rounded-md border border-gray-200 bg-white px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900';
+	const description = 'text-sm text-gray-600 dark:text-gray-400';
+	const error = 'text-sm text-red-700 dark:text-red-400';
+	const popup =
+		'max-h-[min(var(--available-height),20rem)] origin-[var(--transform-origin)] overflow-y-auto rounded-md bg-gray-50 py-1 text-gray-900 shadow-lg outline outline-gray-200 dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700';
+	const item =
+		'grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none data-[highlighted]:bg-gray-900 data-[highlighted]:text-gray-50 dark:data-[highlighted]:bg-gray-100 dark:data-[highlighted]:text-gray-900';
+	const iconButton =
+		'flex size-8 items-center justify-center rounded text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800';
+	const stepper =
+		'flex size-9 items-center justify-center border border-gray-200 bg-gray-50 select-none hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700';
+	const choice =
+		'flex size-5 shrink-0 items-center justify-center border border-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:border-gray-900 data-[checked]:bg-gray-900 dark:border-gray-600 dark:data-[checked]:border-gray-100 dark:data-[checked]:bg-gray-100';
+</script>
+
+<Toast.Provider {toastManager}>
+	<Form
+		aria-label="Launch new cloud server"
+		class="flex w-80 flex-col gap-5 text-gray-900 dark:text-gray-100"
+		{@attach fromAction(enhance)}
+	>
+		<Field.Root
+			name="serverName"
+			invalid={!!$errors.serverName}
+			dirty={isTainted($tainted?.serverName)}
+			class="flex flex-col gap-1"
+		>
+			<Field.Label class={label}>Server name</Field.Label>
+			<Field.Control bind:value={$form.serverName} placeholder="e.g. api-server-01" class={input} />
+			<Field.Description class={description}>Must be 3 or more characters long</Field.Description>
+			<Field.Error match={!!$errors.serverName} class={error}>{$errors.serverName?.[0]}</Field.Error
+			>
+		</Field.Root>
+
+		<Field.Root
+			name="region"
+			invalid={!!$errors.region}
+			dirty={isTainted($tainted?.region)}
+			class="flex flex-col gap-1"
+		>
+			<Combobox.Root items={regions} bind:value={$form.region}>
+				<Field.Label class={label}>Region</Field.Label>
+				<Combobox.InputGroup
+					class="relative flex h-9 items-center rounded-md border border-gray-200 bg-white pr-1 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-blue-800 dark:border-gray-700 dark:bg-gray-900"
+				>
+					<Combobox.Input
+						placeholder="e.g. eu-central-1"
+						class="h-full min-w-0 flex-1 bg-transparent pl-3 text-sm outline-none"
+					/>
+					<Combobox.Clear aria-label="Clear selection" class={iconButton}>×</Combobox.Clear>
+					<Combobox.Trigger aria-label="Open popup" class={iconButton}>▾</Combobox.Trigger>
+				</Combobox.InputGroup>
+				<Combobox.Portal>
+					<Combobox.Positioner class="z-10 outline-none" sideOffset={4}>
+						<Combobox.Popup class="{popup} w-[var(--anchor-width)]">
+							<Combobox.Empty
+								class="px-4 py-2 text-sm text-gray-600 empty:hidden dark:text-gray-400"
+							>
+								No matches
+							</Combobox.Empty>
+							<Combobox.List>
+								<Combobox.Collection>
+									{#snippet children(region: string)}
+										<Combobox.Item value={region} class={item}>
+											<Combobox.ItemIndicator class="col-start-1">✓</Combobox.ItemIndicator>
+											<span class="col-start-2">{region}</span>
+										</Combobox.Item>
+									{/snippet}
+								</Combobox.Collection>
+							</Combobox.List>
+						</Combobox.Popup>
+					</Combobox.Positioner>
+				</Combobox.Portal>
+			</Combobox.Root>
+			<Field.Error match={!!$errors.region} class={error}>{$errors.region?.[0]}</Field.Error>
+		</Field.Root>
+
+		<Field.Root
+			name="containerImage"
+			invalid={!!$errors.containerImage}
+			dirty={isTainted($tainted?.containerImage)}
+			class="flex flex-col gap-1"
+		>
+			<Autocomplete.Root
+				items={images}
+				mode="both"
+				itemToStringValue={(image: Image) => image.url}
+				bind:value={$form.containerImage}
+			>
+				<Field.Label class={label}>Container image</Field.Label>
+				<div class="relative">
+					<Autocomplete.Input placeholder="e.g. docker.io/library/node:latest" class={input} />
+				</div>
+				<Field.Description class={description}>
+					Enter a registry URL with optional tags
+				</Field.Description>
+				<Autocomplete.Portal>
+					<Autocomplete.Positioner class="z-10 outline-none" sideOffset={4}>
+						<Autocomplete.Popup class="{popup} w-[var(--anchor-width)]">
+							<Autocomplete.List>
+								<Autocomplete.Collection>
+									{#snippet children(image: Image)}
+										<Autocomplete.Item
+											value={image}
+											class="flex cursor-default flex-col gap-0.5 px-4 py-2 text-sm outline-none select-none data-[highlighted]:bg-gray-900 data-[highlighted]:text-gray-50 dark:data-[highlighted]:bg-gray-100 dark:data-[highlighted]:text-gray-900"
+										>
+											<span>{image.name}</span>
+											<span class="font-mono text-xs opacity-80">{image.url}</span>
+										</Autocomplete.Item>
+									{/snippet}
+								</Autocomplete.Collection>
+							</Autocomplete.List>
+						</Autocomplete.Popup>
+					</Autocomplete.Positioner>
+				</Autocomplete.Portal>
+			</Autocomplete.Root>
+			<Field.Error match={!!$errors.containerImage} class={error}>
+				{$errors.containerImage?.[0]}
+			</Field.Error>
+		</Field.Root>
+
+		<Field.Root
+			name="serverType"
+			invalid={!!$errors.serverType}
+			dirty={isTainted($tainted?.serverType)}
+			class="flex flex-col gap-1"
+		>
+			<Select.Root items={serverTypes} bind:value={$form.serverType}>
+				<Select.Label class={label}>Server type</Select.Label>
+				<div class="relative w-48">
+					<Select.Trigger
+						class="flex h-9 w-full items-center justify-between gap-3 rounded-md border border-gray-200 bg-white pr-3 pl-3 text-sm select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+					>
+						<Select.Value />
+						<Select.Icon class="flex text-gray-600 dark:text-gray-400">▾</Select.Icon>
+					</Select.Trigger>
+				</div>
+				<Select.Portal>
+					<Select.Positioner class="z-10 outline-none select-none" sideOffset={8}>
+						<Select.Popup class={popup}>
+							{#each serverTypes as type (type.value)}
+								<Select.Item value={type.value} class="{item} min-w-[var(--anchor-width)]">
+									<Select.ItemIndicator class="col-start-1">✓</Select.ItemIndicator>
+									<Select.ItemText class="col-start-2">{type.label}</Select.ItemText>
+								</Select.Item>
+							{/each}
+						</Select.Popup>
+					</Select.Positioner>
+				</Select.Portal>
+			</Select.Root>
+			<Field.Error match={!!$errors.serverType} class={error}>{$errors.serverType?.[0]}</Field.Error
+			>
+		</Field.Root>
+
+		<Field.Root
+			name="numOfInstances"
+			invalid={!!$errors.numOfInstances}
+			dirty={isTainted($tainted?.numOfInstances)}
+			class="flex flex-col gap-1"
+		>
+			<NumberField.Root
+				bind:value={$form.numOfInstances}
+				min={1}
+				max={64}
+				class="flex flex-col items-start gap-1"
+			>
+				<Field.Label class={label}>Number of instances</Field.Label>
+				<NumberField.Group class="flex">
+					<NumberField.Decrement class="{stepper} rounded-l-md" aria-label="Decrease"
+						>−</NumberField.Decrement
+					>
+					<NumberField.Input
+						class="h-9 w-20 border-y border-gray-200 bg-white text-center text-sm tabular-nums focus:z-1 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 dark:border-gray-700 dark:bg-gray-900"
+					/>
+					<NumberField.Increment class="{stepper} rounded-r-md" aria-label="Increase"
+						>+</NumberField.Increment
+					>
+				</NumberField.Group>
+			</NumberField.Root>
+			<Field.Error match={!!$errors.numOfInstances} class={error}>
+				{$errors.numOfInstances?.[0]}
+			</Field.Error>
+		</Field.Root>
+
+		<Field.Root name="scalingThreshold" dirty={isTainted($tainted?.scalingThreshold)}>
+			<Fieldset.Root>
+				<Slider.Root
+					bind:value={$form.scalingThreshold}
+					thumbAlignment="edge"
+					min={0}
+					max={1}
+					step={0.01}
+					format={{ style: 'percent', minimumFractionDigits: 0, maximumFractionDigits: 0 }}
+					class="grid grid-cols-2 gap-y-2"
+				>
+					<Fieldset.Legend class={label}>Scaling threshold</Fieldset.Legend>
+					<Slider.Value class="text-end text-sm" />
+					<Slider.Control class="col-span-2 flex touch-none items-center py-2 select-none">
+						<Slider.Track class="h-1 w-full rounded-sm bg-gray-200 dark:bg-gray-700">
+							<Slider.Indicator class="rounded-sm bg-gray-700 dark:bg-gray-300" />
+							{#each ['Minimum threshold', 'Maximum threshold'] as thumbLabel, index (thumbLabel)}
+								<Slider.Thumb
+									{index}
+									aria-label={thumbLabel}
+									class="size-4 rounded-full bg-white outline-1 outline-gray-300 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-blue-800 dark:bg-gray-900 dark:outline-gray-600"
+								/>
+							{/each}
+						</Slider.Track>
+					</Slider.Control>
+				</Slider.Root>
+			</Fieldset.Root>
+		</Field.Root>
+
+		<Field.Root name="storageType" dirty={isTainted($tainted?.storageType)}>
+			<Fieldset.Root>
+				<Fieldset.Legend class="mb-2 {label}">Storage type</Fieldset.Legend>
+				<RadioGroup bind:value={$form.storageType} class="flex gap-4">
+					{#each ['ssd', 'hdd'] as value (value)}
+						<Field.Item>
+							<Field.Label class="flex items-center gap-2 text-sm uppercase">
+								<Radio.Root {value} class="{choice} rounded-full">
+									<Radio.Indicator class="size-2 rounded-full bg-white dark:bg-gray-900" />
+								</Radio.Root>
+								{value}
+							</Field.Label>
+						</Field.Item>
+					{/each}
+				</RadioGroup>
+			</Fieldset.Root>
+		</Field.Root>
+
+		<Field.Root name="restartOnFailure" dirty={isTainted($tainted?.restartOnFailure)}>
+			<Field.Label class="flex items-center gap-3 text-sm">
+				Restart on failure
+				<Switch.Root
+					bind:checked={$form.restartOnFailure}
+					class="relative flex h-6 w-10 shrink-0 rounded-full bg-gray-300 p-0.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 dark:bg-gray-600 dark:data-[checked]:bg-gray-100"
+				>
+					<Switch.Thumb
+						class="aspect-square h-full rounded-full bg-white shadow-sm transition-transform duration-150 data-[checked]:translate-x-4 dark:bg-gray-100 dark:data-[checked]:bg-gray-900"
+					/>
+				</Switch.Root>
+			</Field.Label>
+		</Field.Root>
+
+		<Field.Root name="allowedNetworkProtocols" dirty={isTainted($tainted?.allowedNetworkProtocols)}>
+			<Fieldset.Root>
+				<Fieldset.Legend class="mb-2 {label}">Allowed network protocols</Fieldset.Legend>
+				<CheckboxGroup bind:value={$form.allowedNetworkProtocols} class="flex gap-4">
+					{#each ['http', 'https', 'ssh'] as value (value)}
+						<Field.Item>
+							<Field.Label class="flex items-center gap-2 text-sm uppercase">
+								<Checkbox.Root {value} class="{choice} rounded-sm">
+									<Checkbox.Indicator class="text-xs text-white dark:text-gray-900"
+										>✓</Checkbox.Indicator
+									>
+								</Checkbox.Root>
+								{value}
+							</Field.Label>
+						</Field.Item>
+					{/each}
+				</CheckboxGroup>
+			</Fieldset.Root>
+		</Field.Root>
+
+		<button
+			class="h-9 rounded-md bg-gray-900 px-3.5 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 dark:bg-gray-100 dark:text-gray-900"
+		>
+			Launch server
+		</button>
+	</Form>
+	<Toast.Portal>
+		<Toast.Viewport
+			class="fixed top-auto right-4 bottom-4 z-50 mx-auto w-[calc(100vw-2rem)] sm:right-8 sm:bottom-8 sm:w-[22.5rem]"
+		>
+			<ToastList />
+		</Toast.Viewport>
+	</Toast.Portal>
+</Toast.Provider>
+```
+
+### Initialize the form
+
+Initialize the form with the `superForm` function, assigning the initial value of each field by their name in the data you pass to `defaults`:
+
+```ts title="Initialize a form instance"
+import { defaults, superForm } from 'sveltekit-superforms';
+import { valibot } from 'sveltekit-superforms/adapters';
+import * as v from 'valibot';
+
+const schema = v.object({
+	username: v.string(),
+	email: v.string()
+});
+
+const { form, errors, tainted, isTainted, enhance } = superForm(
+	defaults({ username: '', email: '' }, valibot(schema)),
+	{ SPA: true }
+);
+```
+
+`SPA: true` validates and submits in the browser. To validate on the server instead, pass the data that `superValidate` returns from your load function in place of `defaults`, as the Superforms docs describe.
+
+### Integrate components
+
+Bind each control to the `$form` store, and forward the field's state from `$errors` and `$tainted` to `<Field.Root>`:
+
+```svelte title="Integrating Superforms with Sveltery Base field"
+<script lang="ts">
+	import { superForm } from 'sveltekit-superforms';
+	import { Field } from '@sveltery/base/field';
+
+	// @highlight-text "form" "errors" "tainted" "isTainted"
+	const { form, errors, tainted, isTainted } = superForm(/* ... */);
+</script>
+
+<!-- @highlight-text "invalid" "dirty" -->
+<Field.Root name="username" invalid={!!$errors.username} dirty={isTainted($tainted?.username)}>
+	<Field.Label>Username</Field.Label>
+	<Field.Description>
+		May appear where you contribute or are mentioned. You can remove it at any time.
+	</Field.Description>
+	<!-- @highlight-text "bind:value" -->
+	<Field.Control placeholder="e.g. alice132" bind:value={$form.username} />
+	<!-- @highlight-text "$errors" -->
+	<Field.Error match={!!$errors.username}>
+		<!-- @highlight-text "$errors" -->
+		{$errors.username?.[0]}
+	</Field.Error>
+</Field.Root>
+```
+
+Superforms does not track whether a field was touched, so leave `touched` out, and `<Field.Root>` marks the field touched on blur. There is no ref to forward. `invalid` sets `aria-invalid` on the control and `data-invalid` on every part of the field.
+
+### Field validation
+
+Specify the validation rules in the schema, pass the schema's adapter to `validators`, and use the `match` prop to delegate control of the error rendering:
+
+```svelte title="Defining validation rules and displaying errors"
+<script lang="ts">
+	import { defaults, superForm } from 'sveltekit-superforms';
+	import { valibot } from 'sveltekit-superforms/adapters';
+	import * as v from 'valibot';
+	import { Field } from '@sveltery/base/field';
+
+	const schema = v.object({
+		// @highlight-start
+		username: v.pipe(
+			v.string(),
+			v.nonEmpty('This is a required field'),
+			v.minLength(2, 'Too short'),
+			v.check((value) => isAllowed(value), 'Invalid')
+		)
+		// @highlight-end
+	});
+	const adapter = valibot(schema);
+
+	const { form, errors, tainted, isTainted } = superForm(defaults(adapter), {
+		SPA: true,
+		validators: adapter
+	});
+</script>
+
+<Field.Root name="username" invalid={!!$errors.username} dirty={isTainted($tainted?.username)}>
+	<Field.Label>Username</Field.Label>
+	<Field.Description>
+		May appear where you contribute or are mentioned. You can remove it at any time.
+	</Field.Description>
+	<Field.Control placeholder="e.g. alice132" bind:value={$form.username} />
+	<!-- @highlight-start -->
+	<Field.Error match={!!$errors.username}>
+		{$errors.username?.[0]}
+	</Field.Error>
+	<!-- @highlight-end -->
+</Field.Root>
+```
+
+Keep `validators` when you also validate on the server. Superforms then clears a message as the user edits. Without them, a message from the server stays in `$errors`, and `invalid` blocks every later submit.
+
+### Submitting data
+
+Attach the `enhance` action to `<Form>` with `fromAction`, and handle the validated values in the `onUpdate` callback:
+
+```svelte title="Form submission handler"
+<script lang="ts">
+	import { fromAction } from 'svelte/attachments';
+	import { defaults, superForm } from 'sveltekit-superforms';
+	import { Form } from '@sveltery/base/form';
+
+	const { enhance } = superForm(defaults(adapter), {
 		SPA: true,
 		validators: adapter,
-		onUpdate: ({ form }) => {
-			if (form.valid) saved = form.data.username;
+		onUpdate: async ({ form }) => {
+			if (!form.valid) return;
+			// transform the object and/or submit it to a server
+			await fetch(/* ... */);
 		}
 	});
 </script>
 
-<Form
-	{@attach fromAction(enhance)}
-	class="flex w-72 flex-col gap-4 text-gray-900 dark:text-gray-100"
->
-	<Field.Root
-		name="username"
-		invalid={!!$errors.username}
-		dirty={!!$tainted?.username}
-		class="flex flex-col gap-1"
-	>
-		<Field.Label class="text-sm font-medium">Username</Field.Label>
-		<Field.Control
-			bind:value={$form.username}
-			class="h-9 rounded-md border border-gray-200 px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900"
-		/>
-		{#if $errors.username}
-			<Field.Error match={true} class="text-sm text-red-700 dark:text-red-400">
-				{$errors.username[0]}
-			</Field.Error>
-		{/if}
-	</Field.Root>
-	<Field.Root
-		name="email"
-		invalid={!!$errors.email}
-		dirty={!!$tainted?.email}
-		class="flex flex-col gap-1"
-	>
-		<Field.Label class="text-sm font-medium">Email</Field.Label>
-		<Field.Control
-			type="email"
-			bind:value={$form.email}
-			class="h-9 rounded-md border border-gray-200 px-3 text-sm focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-700 dark:border-gray-700 dark:bg-gray-900"
-		/>
-		{#if $errors.email}
-			<Field.Error match={true} class="text-sm text-red-700 dark:text-red-400">
-				{$errors.email[0]}
-			</Field.Error>
-		{/if}
-	</Field.Root>
-	<button
-		class="h-9 rounded-md bg-gray-900 px-3.5 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 dark:bg-gray-100 dark:text-gray-900"
-	>
-		Subscribe
-	</button>
-	{#if saved}
-		<p role="status" class="text-sm">Subscribed as {saved}.</p>
-	{/if}
-</Form>
+<Form {@attach fromAction(enhance)} />
 ```
 
-To validate on the server too, remove `SPA` and add a form action that calls `superValidate`, as the Superforms docs describe. The props on `Field.Root` stay the same. Without `SPA`, Superforms skips its own validation on submit because Form sets `novalidate`, and it posts a submit that Form blocked. Cancel that submit in `onSubmit`:
+Without `SPA`, Superforms posts the form to your form action. It skips its own validation on submit, because `<Form>` sets `novalidate`, and it posts a submit that `<Form>` blocked. Cancel that submit in `onSubmit`:
 
 ```ts
 import { isSubmitBlocked } from '@sveltery/base/form';
@@ -1026,61 +1238,200 @@ const { form, errors, tainted, enhance } = superForm(data.form, {
 });
 ```
 
-Keep `validators`, so Superforms validates on blur and clears a message as the user edits. Without them, a message from the server stays in `$errors`, and `invalid` blocks every later submit.
+## TanStack Form
 
-### TanStack Form
+[TanStack Form](https://tanstack.com/form/latest/docs/overview) is a form library with a function-based API for orchestrating validations that can also be integrated with Sveltery Base.
 
-[TanStack Form](https://tanstack.com/form) owns the values and the validation. Render each field in the snippet of `form.Field`. Bind the control to the field's value with a getter and setter pair, report blur to the field, and pass the field's state to `Field.Root`:
+### Initialize the form
 
-```svelte
+Create a form instance with the `createForm` function, assigning the initial value of each field by their name in the `defaultValues` option:
+
+```ts title="Initialize a form instance"
+import { createForm } from '@tanstack/svelte-form';
+
+interface FormValues {
+	username: string;
+	email: string;
+}
+
+const defaultValues: FormValues = {
+	username: '',
+	email: ''
+};
+
+// @highlight-start
+/* createForm returns a form instance */
+const form = createForm(() => ({
+	// @highlight-end
+	defaultValues
+}));
+```
+
+### Integrate components
+
+Use the `<form.Field>` component from the form instance to integrate with Sveltery Base components using the `children` snippet, forwarding the various `field` properties to the appropriate part:
+
+```svelte title="Integrating TanStack Form with Sveltery Base components"
 <script lang="ts">
-	import { createForm, revalidateLogic } from '@tanstack/svelte-form';
-	import * as v from 'valibot';
+	import { createForm } from '@tanstack/svelte-form';
 	import { Field } from '@sveltery/base/field';
-	import { Form } from '@sveltery/base/form';
 
-	const schema = v.object({
-		email: v.pipe(v.string(), v.email('Invalid email address')),
-		name: v.pipe(v.string(), v.minLength(2, 'At least 2 characters'))
-	});
-
-	const form = createForm(() => ({
-		defaultValues: { email: '', name: '' },
-		validationLogic: revalidateLogic({ mode: 'submit', modeAfterSubmission: 'change' }),
-		validators: { onDynamic: schema },
-		onSubmit: ({ value }) => save(value)
-	}));
+	const form = createForm(/* defaultValues, other options */);
 </script>
 
-<Form
-	onsubmit={(event) => {
-		event.preventDefault();
-		form.handleSubmit();
-	}}
->
-	<form.Field name="email">
+<form>
+	<!-- @highlight-start -->
+	<form.Field name="username">
 		{#snippet children(field)}
+			<!-- @highlight-end -->
 			<Field.Root
+				// @highlight-start
+				// @highlight-text "field.name"
 				name={field.name}
+				// @highlight-text "isValid"
 				invalid={!field.state.meta.isValid}
+				// @highlight-text "isDirty"
 				dirty={field.state.meta.isDirty}
+				// @highlight-text "isTouched"
 				touched={field.state.meta.isTouched}
+				// @highlight-end
 			>
-				<Field.Label>Email</Field.Label>
+				<Field.Label>Username</Field.Label>
 				<Field.Control
-					type="email"
+					// @highlight-start
+					// @highlight-text "field.state.value" "field.handleChange"
 					bind:value={() => field.state.value, (value) => field.handleChange(value)}
+					// @highlight-text "field.handleBlur"
 					onblur={field.handleBlur}
+					// @highlight-end
+					placeholder="e.g. bob276"
 				/>
-				{#if !field.state.meta.isValid}
-					<Field.Error match={true}>{field.state.meta.errors[0]?.message}</Field.Error>
-				{/if}
+
+				<!-- @highlight-start -->
+				<!-- @highlight-text "isValid" -->
+				<Field.Error match={!field.state.meta.isValid}>
+					<!-- @highlight-end -->
+					{field.state.meta.errors.join(',')}
+				</Field.Error>
 			</Field.Root>
 		{/snippet}
 	</form.Field>
-	<!-- The name field, the same way. -->
-	<button>Submit</button>
-</Form>
+</form>
 ```
 
-`invalid` sets `aria-invalid` on the control, and Field shows TanStack's message. Form takes no `form` prop here. TanStack runs the submit through `form.handleSubmit()`, and calls `onSubmit` only when every field is valid.
+The Sveltery Base `<Form>` component is not needed when using TanStack Form.
+
+### Form validation
+
+To configure a native `<form>`-like validation strategy:
+
+1. Use the additional `revalidateLogic` function and pass it to `createForm`.
+2. Pass a validation function to the `validators.onDynamic` option of `createForm` that returns an error object with keys corresponding to the field `name`s.
+
+This validates all fields when the first submission is attempted, and revalidates any invalid fields when their values change again.
+
+```ts title="Form-level validators"
+// @highlight-text "revalidateLogic"
+import { createForm, revalidateLogic } from '@tanstack/svelte-form';
+
+const form = createForm(() => ({
+	defaultValues: {
+		username: '',
+		email: ''
+	},
+	// @highlight-start
+	// @highlight-text "revalidateLogic"
+	validationLogic: revalidateLogic({
+		// @highlight-end
+		mode: 'submit',
+		modeAfterSubmission: 'change'
+	}),
+	validators: {
+		// @highlight-start
+		// @highlight-text "onDynamic"
+		onDynamic: ({ value: formValues }) => {
+			// @highlight-end
+			const errors: Record<string, string> = {};
+
+			if (!formValues.username) {
+				errors.username = 'Username is required.';
+			} else if (formValues.username.length < 3) {
+				errors.username = 'At least 3 characters.';
+			}
+
+			if (!formValues.email) {
+				errors.email = 'Email is required.';
+			} else if (!isValidEmail(formValues.email)) {
+				errors.email = 'Invalid email address.';
+			}
+
+			return { form: errors, fields: errors };
+		}
+	}
+}));
+```
+
+### Field validation
+
+You can pass additional validator functions to individual `<form.Field>` components to add validations on top of the form-level validators:
+
+```svelte title="Field-level validators"
+<script lang="ts">
+	import { createForm } from '@tanstack/svelte-form';
+	import { Field } from '@sveltery/base/field';
+
+	const form = createForm();
+</script>
+
+<form.Field
+	name="username"
+	// @highlight-start
+	validators={{
+		onChangeAsync: async ({ value: username }) => {
+			const result = await fetch(/* check the availability of a username from an external API */);
+
+			return result.success ? undefined : `${username} is not available.`;
+		}
+	}}
+	// @highlight-end
+>
+	{#snippet children(field)}
+		<Field.Root name={field.name} /* forward the field props */ />
+	{/snippet}
+</form.Field>
+```
+
+### Submitting data
+
+To submit the form:
+
+1. Pass a submit handler function to the `onSubmit` option of `createForm`.
+2. Call `form.handleSubmit()` from an event handler such as form `onsubmit` or `onclick` on a button.
+
+```svelte title="Form submission handler"
+<script lang="ts">
+	import { createForm } from '@tanstack/svelte-form';
+
+	const form = createForm(() => ({
+		// @highlight-start
+		onSubmit: async ({ value: formValues }) => {
+			await fetch(/* POST the `formValues` to an external API */);
+		}
+		// @highlight-end
+	}));
+</script>
+
+<form
+	onsubmit={(event) => {
+		event.preventDefault();
+		// @highlight-start
+		// @highlight-text "form.handleSubmit()"
+		form.handleSubmit();
+		// @highlight-end
+	}}
+>
+	<!-- form fields -->
+	<!-- @highlight -->
+	<button type="submit">Submit</button>
+</form>
+```

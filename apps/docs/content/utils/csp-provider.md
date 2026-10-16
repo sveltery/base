@@ -1,81 +1,14 @@
 ---
 title: CSP Provider
-description: Configures how the inline style and script tags that Sveltery Base components render handle a Content Security Policy.
+description: Configures CSP-related behavior for inline tags rendered by Sveltery Base components.
+order: 1
 ---
-
-```svelte demo
-<script lang="ts">
-	import { CSPProvider } from '@sveltery/base/csp-provider';
-	import { ScrollArea } from '@sveltery/base/scroll-area';
-
-	let disableStyleElements = $state(false);
-	let container = $state<HTMLElement | null>(null);
-	let styleCount = $state(0);
-
-	$effect(() => {
-		const element = container;
-		if (!element) return;
-		const update = () => (styleCount = element.querySelectorAll('style').length);
-		update();
-		const observer = new MutationObserver(update);
-		observer.observe(element, { childList: true, subtree: true });
-		return () => observer.disconnect();
-	});
-</script>
-
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<label class="flex items-center gap-2">
-		<input type="checkbox" bind:checked={disableStyleElements} />
-		Set <code>disableStyleElements</code>
-	</label>
-	<div bind:this={container} class="w-64">
-		<CSPProvider nonce="demo-nonce" {disableStyleElements}>
-			<ScrollArea.Root
-				class="h-20 rounded-md outline outline-1 -outline-offset-1 outline-gray-200 dark:outline-gray-700"
-			>
-				<ScrollArea.Viewport class="h-full rounded-md">
-					<ScrollArea.Content class="p-3">
-						<p>Line one</p>
-						<p>Line two</p>
-						<p>Line three</p>
-						<p>Line four</p>
-						<p>Line five</p>
-					</ScrollArea.Content>
-				</ScrollArea.Viewport>
-			</ScrollArea.Root>
-		</CSPProvider>
-	</div>
-	<p>Inline <code>&lt;style&gt;</code> elements rendered: {styleCount}</p>
-</div>
-```
-
-## Usage
-
-Some components render inline tags. The scroll area renders a `<style>` element that hides the native scrollbars. A slider with `thumbAlignment="edge"` and a `Tabs.Indicator` with `renderBeforeHydration` each render a `<script>` that runs before hydration. A strict Content Security Policy (CSP) blocks these tags unless they carry a matching nonce. `CSPProvider` passes one nonce to all of them.
-
-To use it with a strict CSP:
-
-1. Generate a random nonce for each request on your server.
-2. Add that nonce to your CSP header for `style-src-elem` and `script-src`.
-3. Pass the same nonce to `CSPProvider` when rendering.
-
-```svelte
-<script lang="ts">
-	import { CSPProvider } from '@sveltery/base/csp-provider';
-
-	let { nonce, children } = $props();
-</script>
-
-<CSPProvider {nonce}>
-	{@render children?.()}
-</CSPProvider>
-```
 
 ## Anatomy
 
-Import the component and wrap your app or a section of it:
+Import the component and wrap it around your app:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { CSPProvider } from '@sveltery/base/csp-provider';
 </script>
@@ -85,13 +18,21 @@ Import the component and wrap your app or a section of it:
 </CSPProvider>
 ```
 
-## Examples
+Some Sveltery Base components render inline `<style>` or `<script>` tags for functionality such as removing scrollbars or pre-hydration behavior. Under a strict Content Security Policy (CSP), these tags may be blocked unless they include a matching [nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce) attribute.
 
-### Supply a nonce for a strict CSP
+`CSPProvider` allows configuring this behavior globally for all Sveltery Base components within its tree.
 
-Generate the nonce for each request and put it in both the header and the provider. In SvelteKit, create the nonce in `hooks.server.ts`, send it to the layout, and pass it to the provider.
+## Supplying a nonce
 
-```ts
+If you enforce a CSP that blocks inline tags by default, configure your server to:
+
+1. Generate a random nonce per request
+2. Include it in your CSP header (via `style-src-elem`/`script-src`)
+3. Pass the same nonce into `CSPProvider` during rendering
+
+In SvelteKit, generate the nonce and set the header in `hooks.server.ts`:
+
+```ts title="Example"
 // src/hooks.server.ts
 import type { Handle } from '@sveltejs/kit';
 
@@ -100,24 +41,25 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.nonce = nonce;
 
 	const response = await resolve(event);
-	response.headers.set(
-		'content-security-policy',
-		[
-			`default-src 'self'`,
-			`script-src 'self' 'nonce-${nonce}'`,
-			`style-src-elem 'self' 'nonce-${nonce}'`
-		].join('; ')
-	);
+	// Example CSP header
+	const csp = [
+		`default-src 'self'`,
+		`script-src 'self' 'nonce-${nonce}'`,
+		`style-src-elem 'self' 'nonce-${nonce}'`
+	].join('; ');
+	response.headers.set('content-security-policy', csp);
 	return response;
 };
 ```
+
+Then return the nonce from a layout `load` function and pass it to the provider:
 
 ```ts
 // src/routes/+layout.server.ts
 export const load = ({ locals }) => ({ nonce: locals.nonce });
 ```
 
-```svelte
+```svelte title="Providing the nonce"
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
 	import { CSPProvider } from '@sveltery/base/csp-provider';
@@ -130,37 +72,55 @@ export const load = ({ locals }) => ({ nonce: locals.nonce });
 </CSPProvider>
 ```
 
-### Disable inline style elements
+This will ensure that all inline `<style>` and `<script>` tags rendered by Sveltery Base components include the correct nonce attribute, allowing them to function under your CSP.
 
-If you serve all styles from external stylesheets, you can skip the nonce. Set `disableStyleElements` so components do not render inline `<style>` elements. Today the scroll area is the component that renders one. You must then supply the styles that the element carried through your own CSS.
+## Disable inline style elements
 
-```svelte
+You can avoid supplying a `nonce` if you disable inline `<style>` elements entirely and rely on external stylesheets only. The relevant components are `<ScrollArea.Root>` and `<Select.Popup>`. They inject a style tag that disables native scrollbars on `<ScrollArea.Viewport>`, and on `<Select.Popup>` or `<Select.List>` when `alignItemWithTrigger` is enabled.
+
+```html
+<style>
+	.base-ui-disable-scrollbar {
+		scrollbar-width: none;
+	}
+	.base-ui-disable-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+</style>
+```
+
+Specify `disableStyleElements` to remove these tags:
+
+```svelte title="Disabling style elements"
 <CSPProvider disableStyleElements>
-	<!-- Your app or a group of components -->
+	<!-- ... -->
 </CSPProvider>
 ```
 
-Script tags are opt in and this prop does not control them. If a component renders an inline script, you need a `nonce`.
+`<script>` tags across all components are opt-in, so they are not affected by this prop and don't have their own disable flag. A `nonce` is required if any component uses inline scripts.
 
-### Inline style attributes
+## Inline style attributes
 
-`CSPProvider` does not cover inline `style` attributes on elements. A CSP controls them with `style-src-attr`, or with `style-src` if you use it for both elements and attributes. You have two options:
+`CSPProvider` covers inline `<style>` and `<script>` tags rendered as elements, but it does not cover inline style attributes (for example, `<div style="...">`). The `style-src-attr` directive in CSP governs inline style attributes encountered when parsing HTML from server-rendered components (it does not affect client-side JavaScript that sets styles).
 
-1. Allow inline style attributes in your CSP. This carries less risk than allowing inline style elements, but some high-security environments do not accept it.
-2. Render the affected components only on the client, so the initial HTML has no inline styles.
+In CSP, `style-src` applies to both `<style>` elements and `style=""` attributes. If you only want to control `<style>` elements, use `style-src-elem` instead.
 
-## Differences from Base UI
+If your CSP blocks inline style _attributes_ in addition to _elements_, you have a few options:
 
-- `nonce` and `disableStyleElements` are live props. Descendants read the current values, so a change applies without remounting.
-- Outside a provider, the nonce is `undefined` and `disableStyleElements` is `false`. Inside a provider that omits `disableStyleElements`, the value is `undefined`, which also leaves style elements on.
-- `ScrollArea.Root` renders the inline `<style>` element that hides the native scrollbars.
-- Today the scroll area style element, the slider script and the tabs indicator script read the provider. `Select` is not ported yet, so no select style element exists.
-- There is no public hook to read the CSP settings. Components read them internally.
+1. Relax your CSP by adding `'unsafe-inline'` to the `style-src-attr` directive (or using only `style-src-elem` instead of `style-src`). Style attributes specifically pose a less severe security risk than style elements, but this approach may not be acceptable in high-security environments.
+2. Render the affected components only on the client, so that no inline styles are present in the initial HTML.
+3. Manually unset inline styles and specify them in your CSS instead. A part's `style` prop is merged into its own inline styles, so it cannot remove them. Use the part's `render` snippet and drop `style` from the props it receives. Note that you'll need to ensure you vet upgrades for any new inline styles added by Sveltery Base components.
+
+```svelte
+<ScrollArea.Viewport class="viewport">
+	{#snippet render(props, state, children)}
+		<div {...props} style={undefined}>{@render children?.()}</div>
+	{/snippet}
+</ScrollArea.Viewport>
+```
 
 ## API reference
 
 ### CSPProvider
 
 <ApiPart name="csp-provider" part="CSPProvider" />
-
-The provider renders no element, so it has no data attributes or CSS variables.
