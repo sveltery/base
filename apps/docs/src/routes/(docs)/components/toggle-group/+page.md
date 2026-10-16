@@ -108,10 +108,8 @@ Add the `multiple` prop to allow pressing more than one toggle at a time.
 
 ## API reference
 
-<ApiPart name="toggle-group" part="ToggleGroup" />
+<script>
+	import { TypesToggleGroup } from './types';
+</script>
 
-| Attribute          | Description                                                                                        |
-| ------------------ | -------------------------------------------------------------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the toggle group.                                                     |
-| `data-disabled`    | Present when the toggle group is disabled.                                                         |
-| `data-multiple`    | Present when the toggle group allows multiple buttons to be in the pressed state at the same time. |
+<TypesToggleGroup />

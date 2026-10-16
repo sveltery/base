@@ -117,43 +117,14 @@ Use [Field](/components/field) to handle label associations and form integration
 
 ## API reference
 
+<script>
+	import { TypesCheckbox } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="checkbox" part="Root" />
-
-| Attribute            | Description                                                                    |
-| -------------------- | ------------------------------------------------------------------------------ |
-| `data-checked`       | Present when the checkbox is checked.                                          |
-| `data-unchecked`     | Present when the checkbox is not checked.                                      |
-| `data-disabled`      | Present when the checkbox is disabled.                                         |
-| `data-readonly`      | Present when the checkbox is readonly.                                         |
-| `data-required`      | Present when the checkbox is required.                                         |
-| `data-valid`         | Present when the checkbox is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`       | Present when the checkbox is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`         | Present when the checkbox's value has changed (when wrapped in Field.Root).    |
-| `data-touched`       | Present when the checkbox has been touched (when wrapped in Field.Root).       |
-| `data-filled`        | Present when the checkbox is checked (when wrapped in Field.Root).             |
-| `data-focused`       | Present when the checkbox is focused (when wrapped in Field.Root).             |
-| `data-indeterminate` | Present when the checkbox is in an indeterminate state.                        |
-| `data-parent`        | Present when the checkbox is a parent checkbox.                                |
+<TypesCheckbox.Root />
 
 ### Indicator
 
-<ApiPart name="checkbox" part="Indicator" />
-
-| Attribute             | Description                                                                    |
-| --------------------- | ------------------------------------------------------------------------------ |
-| `data-checked`        | Present when the checkbox is checked.                                          |
-| `data-unchecked`      | Present when the checkbox is not checked.                                      |
-| `data-disabled`       | Present when the checkbox is disabled.                                         |
-| `data-readonly`       | Present when the checkbox is readonly.                                         |
-| `data-required`       | Present when the checkbox is required.                                         |
-| `data-valid`          | Present when the checkbox is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`        | Present when the checkbox is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`          | Present when the checkbox's value has changed (when wrapped in Field.Root).    |
-| `data-touched`        | Present when the checkbox has been touched (when wrapped in Field.Root).       |
-| `data-filled`         | Present when the checkbox is checked (when wrapped in Field.Root).             |
-| `data-focused`        | Present when the checkbox is focused (when wrapped in Field.Root).             |
-| `data-indeterminate`  | Present when the checkbox is in an indeterminate state.                        |
-| `data-starting-style` | Present when the checkbox indicator begins animating in.                       |
-| `data-ending-style`   | Present when the checkbox indicator is animating out.                          |
+<TypesCheckbox.Indicator />

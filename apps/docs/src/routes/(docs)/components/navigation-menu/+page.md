@@ -738,125 +738,58 @@ For Navigation Menu, call `eventDetails.preventUnmountOnClose()` in `onValueChan
 
 ## API reference
 
+<script>
+	import { TypesNavigationMenu } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="navigation-menu" part="Root" />
+<TypesNavigationMenu.Root />
 
 ### List
 
-<ApiPart name="navigation-menu" part="List" />
+<TypesNavigationMenu.List />
 
 ### Item
 
-<ApiPart name="navigation-menu" part="Item" />
+<TypesNavigationMenu.Item />
 
 ### Trigger
 
-<ApiPart name="navigation-menu" part="Trigger" />
-
-| Attribute         | Description                                             |
-| ----------------- | ------------------------------------------------------- |
-| `data-popup-open` | Present when the corresponding navigation menu is open. |
-| `data-pressed`    | Present when the trigger is pressed.                    |
-| `data-disabled`   | Present when the trigger is disabled.                   |
+<TypesNavigationMenu.Trigger />
 
 ### Icon
 
-<ApiPart name="navigation-menu" part="Icon" />
-
-| Attribute         | Description                                                      |
-| ----------------- | ---------------------------------------------------------------- |
-| `data-popup-open` | Present when the navigation menu is open and the item is active. |
+<TypesNavigationMenu.Icon />
 
 ### Content
 
-<ApiPart name="navigation-menu" part="Content" />
-
-| Attribute                   | Description                                         |
-| --------------------------- | --------------------------------------------------- |
-| `data-open`                 | Present when the popup is open.                     |
-| `data-closed`               | Present when the popup is closed.                   |
-| `data-activation-direction` | Which direction another trigger was activated from. |
-| `data-starting-style`       | Present when the content begins animating in.       |
-| `data-ending-style`         | Present when the content is animating out.          |
+<TypesNavigationMenu.Content />
 
 ### Link
 
-<ApiPart name="navigation-menu" part="Link" />
-
-| Attribute     | Description                                         |
-| ------------- | --------------------------------------------------- |
-| `data-active` | Present when the link is the currently active page. |
+<TypesNavigationMenu.Link />
 
 ### Backdrop
 
-<ApiPart name="navigation-menu" part="Backdrop" />
-
-| Attribute             | Description                                 |
-| --------------------- | ------------------------------------------- |
-| `data-open`           | Present when the popup is open.             |
-| `data-closed`         | Present when the popup is closed.           |
-| `data-starting-style` | Present when the popup begins animating in. |
-| `data-ending-style`   | Present when the popup is animating out.    |
+<TypesNavigationMenu.Backdrop />
 
 ### Portal
 
-<ApiPart name="navigation-menu" part="Portal" />
+<TypesNavigationMenu.Portal />
 
 ### Positioner
 
-<ApiPart name="navigation-menu" part="Positioner" />
-
-| Attribute            | Description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
-| `data-open`          | Present when the popup is open.                                       |
-| `data-closed`        | Present when the popup is closed.                                     |
-| `data-anchor-hidden` | Present when the anchor is hidden.                                    |
-| `data-align`         | Indicates how the popup is aligned relative to the specified side.    |
-| `data-instant`       | Present if animations should be instant.                              |
-| `data-side`          | Indicates which side the popup is positioned relative to the trigger. |
-
-| CSS Variable          | Description                                                                            |
-| --------------------- | -------------------------------------------------------------------------------------- |
-| `--anchor-height`     | The anchor's height.                                                                   |
-| `--anchor-width`      | The anchor's width.                                                                    |
-| `--available-height`  | The available height between the trigger and the edge of the viewport.                 |
-| `--available-width`   | The available width between the trigger and the edge of the viewport.                  |
-| `--positioner-height` | The fixed height of the positioner element.                                            |
-| `--positioner-width`  | The fixed width of the positioner element.                                             |
-| `--transform-origin`  | The coordinates that this element is anchored to. Used for animations and transitions. |
+<TypesNavigationMenu.Positioner />
 
 ### Popup
 
-<ApiPart name="navigation-menu" part="Popup" />
-
-| Attribute             | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| `data-open`           | Present when the popup is open.                                       |
-| `data-closed`         | Present when the popup is closed.                                     |
-| `data-anchor-hidden`  | Present when the anchor is hidden.                                    |
-| `data-align`          | Indicates how the popup is aligned relative to the specified side.    |
-| `data-side`           | Indicates which side the popup is positioned relative to the trigger. |
-| `data-starting-style` | Present when the popup begins animating in.                           |
-| `data-ending-style`   | Present when the popup is animating out.                              |
-
-| CSS Variable     | Description                            |
-| ---------------- | -------------------------------------- |
-| `--popup-height` | The fixed height of the popup element. |
-| `--popup-width`  | The fixed width of the popup element.  |
+<TypesNavigationMenu.Popup />
 
 ### Viewport
 
-<ApiPart name="navigation-menu" part="Viewport" />
+<TypesNavigationMenu.Viewport />
 
 ### Arrow
 
-<ApiPart name="navigation-menu" part="Arrow" />
-
-| Attribute         | Description                                                           |
-| ----------------- | --------------------------------------------------------------------- |
-| `data-open`       | Present when the popup is open.                                       |
-| `data-closed`     | Present when the popup is closed.                                     |
-| `data-uncentered` | Present when the popup arrow is uncentered.                           |
-| `data-align`      | Indicates how the popup is aligned relative to specified side.        |
-| `data-side`       | Indicates which side the popup is positioned relative to the trigger. |
+<TypesNavigationMenu.Arrow />

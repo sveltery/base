@@ -483,79 +483,45 @@ Instead, the `onOpenChange` callback receives an additional argument, `eventDeta
 
 ## API reference
 
+<script>
+	import { TypesAlertDialog } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="alert-dialog" part="Root" />
+<TypesAlertDialog.Root />
 
 ### Trigger
 
-<ApiPart name="alert-dialog" part="Trigger" />
-
-| Attribute         | Description                                          |
-| ----------------- | ---------------------------------------------------- |
-| `data-popup-open` | Present when the corresponding alert dialog is open. |
-| `data-disabled`   | Present when the trigger is disabled.                |
+<TypesAlertDialog.Trigger />
 
 ### Portal
 
-<ApiPart name="alert-dialog" part="Portal" />
+<TypesAlertDialog.Portal />
 
 ### Backdrop
 
-<ApiPart name="alert-dialog" part="Backdrop" />
-
-| Attribute             | Description                                  |
-| --------------------- | -------------------------------------------- |
-| `data-open`           | Present when the dialog is open.             |
-| `data-closed`         | Present when the dialog is closed.           |
-| `data-starting-style` | Present when the dialog begins animating in. |
-| `data-ending-style`   | Present when the dialog is animating out.    |
+<TypesAlertDialog.Backdrop />
 
 ### Viewport
 
-<ApiPart name="alert-dialog" part="Viewport" />
-
-| Attribute                 | Description                                                      |
-| ------------------------- | ---------------------------------------------------------------- |
-| `data-open`               | Present when the dialog is open.                                 |
-| `data-closed`             | Present when the dialog is closed.                               |
-| `data-nested`             | Present when the dialog is nested within another dialog.         |
-| `data-nested-dialog-open` | Present when the dialog has other open dialogs nested within it. |
-| `data-starting-style`     | Present when the dialog begins animating in.                     |
-| `data-ending-style`       | Present when the dialog is animating out.                        |
+<TypesAlertDialog.Viewport />
 
 ### Popup
 
-<ApiPart name="alert-dialog" part="Popup" />
-
-| Attribute                 | Description                                                      |
-| ------------------------- | ---------------------------------------------------------------- |
-| `data-open`               | Present when the dialog is open.                                 |
-| `data-closed`             | Present when the dialog is closed.                               |
-| `data-nested`             | Present when the dialog is nested within another dialog.         |
-| `data-nested-dialog-open` | Present when the dialog has other open dialogs nested within it. |
-| `data-starting-style`     | Present when the dialog begins animating in.                     |
-| `data-ending-style`       | Present when the dialog is animating out.                        |
-
-| CSS variable       | Description                                   |
-| ------------------ | --------------------------------------------- |
-| `--nested-dialogs` | Indicates how many dialogs are nested within. |
+<TypesAlertDialog.Popup />
 
 ### Title
 
-<ApiPart name="alert-dialog" part="Title" />
+<TypesAlertDialog.Title />
 
 ### Description
 
-<ApiPart name="alert-dialog" part="Description" />
+<TypesAlertDialog.Description />
 
 ### Close
 
-<ApiPart name="alert-dialog" part="Close" />
-
-| Attribute       | Description                          |
-| --------------- | ------------------------------------ |
-| `data-disabled` | Present when the button is disabled. |
+<TypesAlertDialog.Close />
 
 ## createHandle
 

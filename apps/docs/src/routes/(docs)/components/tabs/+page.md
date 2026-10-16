@@ -129,62 +129,26 @@ Use the `render` snippet and set `nativeButton={false}` on `<Tabs.Tab>` to rende
 
 ## API reference
 
+<script>
+	import { TypesTabs } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="tabs" part="Root" />
-
-| Attribute                   | Description                                                                   |
-| --------------------------- | ----------------------------------------------------------------------------- |
-| `data-orientation`          | Indicates the orientation of the tabs.                                        |
-| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
+<TypesTabs.Root />
 
 ### List
 
-<ApiPart name="tabs" part="List" />
-
-| Attribute                   | Description                                                                   |
-| --------------------------- | ----------------------------------------------------------------------------- |
-| `data-orientation`          | Indicates the orientation of the tabs.                                        |
-| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
+<TypesTabs.List />
 
 ### Tab
 
-<ApiPart name="tabs" part="Tab" />
-
-| Attribute                   | Description                                                                   |
-| --------------------------- | ----------------------------------------------------------------------------- |
-| `data-orientation`          | Indicates the orientation of the tabs.                                        |
-| `data-disabled`             | Present when the tab is disabled.                                             |
-| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
-| `data-active`               | Present when the tab is active.                                               |
+<TypesTabs.Tab />
 
 ### Indicator
 
-<ApiPart name="tabs" part="Indicator" />
-
-| Attribute                   | Description                                                                   |
-| --------------------------- | ----------------------------------------------------------------------------- |
-| `data-orientation`          | Indicates the orientation of the tabs.                                        |
-| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
-
-| CSS Variable          | Description                                                                                 |
-| --------------------- | ------------------------------------------------------------------------------------------- |
-| `--active-tab-bottom` | Indicates the distance on the bottom side from the parent's container if the tab is active. |
-| `--active-tab-height` | Indicates the height of the tab if it is active.                                            |
-| `--active-tab-left`   | Indicates the distance on the left side from the parent's container if the tab is active.   |
-| `--active-tab-right`  | Indicates the distance on the right side from the parent's container if the tab is active.  |
-| `--active-tab-top`    | Indicates the distance on the top side from the parent's container if the tab is active.    |
-| `--active-tab-width`  | Indicates the width of the tab if it is active.                                             |
+<TypesTabs.Indicator />
 
 ### Panel
 
-<ApiPart name="tabs" part="Panel" />
-
-| Attribute                   | Description                                                                   |
-| --------------------------- | ----------------------------------------------------------------------------- |
-| `data-orientation`          | Indicates the orientation of the tabs.                                        |
-| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
-| `data-hidden`               | Present when the panel is hidden.                                             |
-| `data-index`                | Indicates the index of the tab panel.                                         |
-| `data-starting-style`       | Present when the panel begins animating in.                                   |
-| `data-ending-style`         | Present when the panel is animating out.                                      |
+<TypesTabs.Panel />

@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { compile } from 'mdsvex';
 import type { Plugin } from 'vite';
-import { apiReference } from './api.ts';
+import type { ApiPart } from './api.ts';
 import { headings, text } from './headings.ts';
 import { metadata } from './metadata.ts';
 import { pageFiles } from './pages.ts';
-import { shortName } from './preprocess.ts';
+import { pageStub, shortName } from './types.ts';
 
 /** One search result. The fields match the index schema of upstream's `useSearch`. */
 export type SearchDocument = {
@@ -34,7 +34,7 @@ type MdNode = {
 };
 
 type Heading = { title: string; id: string; depth: number };
-type ApiTag = { name: string; part: string; id: string };
+type ApiTag = { part: ApiPart; id: string };
 
 const ID = 'virtual:search-documents';
 const RESOLVED = `\0${ID}`;
@@ -51,7 +51,7 @@ export function searchDocuments({ routes, lib }: { routes: string; lib: string }
 			const documents: SearchDocument[] = [];
 			for (const { section, slug, path } of pageFiles(routes)) {
 				this.addWatchFile(path);
-				documents.push(...(await pageDocuments(readFileSync(path, 'utf8'), section, slug, lib)));
+				documents.push(...(await pageDocuments(path, section, slug, lib)));
 			}
 			return `export const documents = ${JSON.stringify(documents)};`;
 		}
@@ -60,11 +60,13 @@ export function searchDocuments({ routes, lib }: { routes: string; lib: string }
 
 /** Flattens one page the way upstream's `defaultFlattenPage` does, with `excludeSections`. */
 async function pageDocuments(
-	source: string,
+	file: string,
 	folder: string,
 	slug: string,
 	lib: string
 ): Promise<SearchDocument[]> {
+	const source = readFileSync(file, 'utf8');
+	const stub = pageStub(file, lib);
 	const found: Heading[] = [];
 	const tags: ApiTag[] = [];
 	const collect = () => (tree: MdNode) => {
@@ -75,10 +77,9 @@ async function pageDocuments(
 				found.push({ title: text(node), id, depth: node.depth });
 			}
 			if (node.type !== 'html' || !node.value) continue;
-			for (const [, attrs] of node.value.matchAll(/<ApiPart\b([^>]*?)\s*\/>/g)) {
-				const name = /\bname="([^"]+)"/.exec(attrs)?.[1];
-				const part = /\bpart="([^"]+)"/.exec(attrs)?.[1];
-				if (name && part) tags.push({ name, part, id });
+			for (const [, tag] of node.value.matchAll(/<(Types[\w.]+)\s*\/>/g)) {
+				const part = stub?.tags.get(tag);
+				if (part) tags.push({ part, id });
 			}
 		}
 	};
@@ -96,24 +97,22 @@ async function pageDocuments(
 		{ ...base, type: 'page', group: `${sectionTitle} Pages`, page: title, title, slug, url }
 	];
 
-	const references = new Map<string, ReturnType<typeof apiReference>>();
 	const types: string[] = [];
-	for (const tag of tags) {
-		if (!references.has(tag.name)) references.set(tag.name, apiReference(lib, tag.name));
-		const part = references.get(tag.name)!.find((entry) => shortName(entry.name) === tag.part);
-		if (part) types.push(`${part.name}.Props`, `${part.name}.State`);
-		const props = part?.props.map((prop) => prop.name).join(' ') ?? '';
-		const partUrl = `${url}#${tag.id}`;
+	for (const { part, id } of tags) {
+		const short = shortName(part.name);
+		types.push(`${part.name}.Props`, `${part.name}.State`);
+		const props = part.props.map((prop) => prop.name).join(' ');
+		const partUrl = `${url}#${id}`;
 		documents.push(
-			part?.name.includes('.')
+			part.name.includes('.')
 				? {
 						...base,
 						type: 'part',
 						group: 'API Reference',
-						part: tag.part,
-						export: `${slug}.${tag.part}`,
-						slug: tag.part.toLowerCase(),
-						title: `${title} ‣ ${tag.part}`,
+						part: short,
+						export: `${slug}.${short}`,
+						slug: short.toLowerCase(),
+						title: `${title} ‣ ${short}`,
 						props,
 						url: partUrl
 					}
@@ -121,9 +120,9 @@ async function pageDocuments(
 						...base,
 						type: 'export',
 						group: 'API Reference',
-						export: tag.part.toLowerCase() === slug ? 'api-reference' : tag.part.toLowerCase(),
+						export: short.toLowerCase() === slug ? 'api-reference' : short.toLowerCase(),
 						slug,
-						title: tag.part,
+						title: short,
 						props,
 						url: partUrl
 					}

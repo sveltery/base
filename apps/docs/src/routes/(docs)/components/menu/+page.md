@@ -1461,226 +1461,111 @@ Use the same `Menu.createHandle()` handle for the root and its detached trigger:
 
 ## API reference
 
+<script>
+	import { TypesMenu } from './types';
+</script>
+
 ### FilterProvider
 
-<ApiPart name="menu" part="FilterProvider" />
+<TypesMenu.FilterProvider />
 
 ### Root
 
-<ApiPart name="menu" part="Root" />
+<TypesMenu.Root />
 
 ### Trigger
 
-<ApiPart name="menu" part="Trigger" />
-
-| Attribute         | Description                                  |
-| ----------------- | -------------------------------------------- |
-| `data-popup-open` | Present when the corresponding menu is open. |
-| `data-pressed`    | Present when the trigger is pressed.         |
-| `data-disabled`   | Present when the trigger is disabled.        |
+<TypesMenu.Trigger />
 
 ### Portal
 
-<ApiPart name="menu" part="Portal" />
+<TypesMenu.Portal />
 
 ### Backdrop
 
-<ApiPart name="menu" part="Backdrop" />
-
-| Attribute             | Description                                |
-| --------------------- | ------------------------------------------ |
-| `data-open`           | Present when the menu is open.             |
-| `data-closed`         | Present when the menu is closed.           |
-| `data-starting-style` | Present when the menu begins animating in. |
-| `data-ending-style`   | Present when the menu is animating out.    |
+<TypesMenu.Backdrop />
 
 ### Positioner
 
-<ApiPart name="menu" part="Positioner" />
-
-| Attribute            | Description                                                          |
-| -------------------- | -------------------------------------------------------------------- |
-| `data-open`          | Present when the menu popup is open.                                 |
-| `data-closed`        | Present when the menu popup is closed.                               |
-| `data-anchor-hidden` | Present when the anchor is hidden.                                   |
-| `data-align`         | Indicates how the popup is aligned relative to the specified side.   |
-| `data-side`          | Indicates which side the popup is positioned relative to the anchor. |
-
-| CSS Variable          | Description                                                                                                                |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--anchor-height`     | The anchor's height.                                                                                                       |
-| `--anchor-width`      | The anchor's width.                                                                                                        |
-| `--available-height`  | The available height between the anchor and the edge of the viewport.                                                      |
-| `--available-width`   | The available width between the anchor and the edge of the viewport.                                                       |
-| `--positioner-height` | The height of the menu's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
-| `--positioner-width`  | The width of the menu's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
-| `--transform-origin`  | The coordinates that this element is anchored to. Used for animations and transitions.                                     |
+<TypesMenu.Positioner />
 
 ### Popup
 
-<ApiPart name="menu" part="Popup" />
-
-| Attribute             | Description                                                          |
-| --------------------- | -------------------------------------------------------------------- |
-| `data-open`           | Present when the menu is open.                                       |
-| `data-closed`         | Present when the menu is closed.                                     |
-| `data-align`          | Indicates how the popup is aligned relative to specified side.       |
-| `data-instant`        | Present if animations should be instant.                             |
-| `data-side`           | Indicates which side the popup is positioned relative to the anchor. |
-| `data-starting-style` | Present when the menu begins animating in.                           |
-| `data-ending-style`   | Present when the menu is animating out.                              |
+<TypesMenu.Popup />
 
 ### Viewport
 
-<ApiPart name="menu" part="Viewport" />
+<TypesMenu.Viewport />
 
 The `Viewport` is optional. Reach for it only when a single popup is opened by multiple triggers, its content differs per trigger, and the switch between them is animated. When used, set `width: var(--positioner-width)` and `height: var(--positioner-height)` on the `Positioner` so its box is frozen to the measured size during the transition; otherwise content-driven resizing can make the popup thrash or flip to another side.
 
-| Attribute                   | Description                                                                                                                                                                                                                |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data-activation-direction` | Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. |
-| `data-current`              | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                         |
-| `data-instant`              | Present if animations should be instant.                                                                                                                                                                                   |
-| `data-previous`             | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                |
-| `data-transitioning`        | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                        |
-
-| CSS Variable     | Description                                                                                                                                                                                                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--popup-height` | The height of the parent popup. This variable is placed on the 'previous' container and stores the height of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content. |
-| `--popup-width`  | The width of the parent popup. This variable is placed on the 'previous' container and stores the width of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content.   |
-
 ### Arrow
 
-<ApiPart name="menu" part="Arrow" />
-
-| Attribute         | Description                                                          |
-| ----------------- | -------------------------------------------------------------------- |
-| `data-open`       | Present when the menu popup is open.                                 |
-| `data-closed`     | Present when the menu popup is closed.                               |
-| `data-uncentered` | Present when the menu arrow is uncentered.                           |
-| `data-align`      | Indicates how the popup is aligned relative to specified side.       |
-| `data-side`       | Indicates which side the popup is positioned relative to the anchor. |
+<TypesMenu.Arrow />
 
 ### Input
 
-<ApiPart name="menu" part="Input" />
-
-| Attribute          | Description                                                                                        |
-| ------------------ | -------------------------------------------------------------------------------------------------- |
-| `data-highlighted` | Present while the input shows its focus ring. Cleared when keyboard navigation highlights an item. |
+<TypesMenu.Input />
 
 ### Clear
 
-<ApiPart name="menu" part="Clear" />
-
-| Attribute       | Description                          |
-| --------------- | ------------------------------------ |
-| `data-disabled` | Present when the button is disabled. |
+<TypesMenu.Clear />
 
 ### Empty
 
-<ApiPart name="menu" part="Empty" />
+<TypesMenu.Empty />
 
 ### List
 
-<ApiPart name="menu" part="List" />
+<TypesMenu.List />
 
 ### Item
 
-<ApiPart name="menu" part="Item" />
-
-| Attribute          | Description                                |
-| ------------------ | ------------------------------------------ |
-| `data-highlighted` | Present when the menu item is highlighted. |
-| `data-disabled`    | Present when the menu item is disabled.    |
+<TypesMenu.Item />
 
 ### LinkItem
 
-<ApiPart name="menu" part="LinkItem" />
-
-| Attribute          | Description                           |
-| ------------------ | ------------------------------------- |
-| `data-highlighted` | Present when the link is highlighted. |
+<TypesMenu.LinkItem />
 
 ### SubmenuRoot
 
-<ApiPart name="menu" part="SubmenuRoot" />
+<TypesMenu.SubmenuRoot />
 
 ### SubmenuTrigger
 
-<ApiPart name="menu" part="SubmenuTrigger" />
-
-| Attribute          | Description                                      |
-| ------------------ | ------------------------------------------------ |
-| `data-popup-open`  | Present when the corresponding submenu is open.  |
-| `data-highlighted` | Present when the submenu trigger is highlighted. |
-| `data-disabled`    | Present when the submenu trigger is disabled.    |
+<TypesMenu.SubmenuTrigger />
 
 ### Group
 
-<ApiPart name="menu" part="Group" />
+<TypesMenu.Group />
 
 ### GroupLabel
 
-<ApiPart name="menu" part="GroupLabel" />
+<TypesMenu.GroupLabel />
 
 ### RadioGroup
 
-<ApiPart name="menu" part="RadioGroup" />
+<TypesMenu.RadioGroup />
 
 ### RadioItem
 
-<ApiPart name="menu" part="RadioItem" />
-
-| Attribute          | Description                                       |
-| ------------------ | ------------------------------------------------- |
-| `data-checked`     | Present when the menu radio item is selected.     |
-| `data-unchecked`   | Present when the menu radio item is not selected. |
-| `data-highlighted` | Present when the menu radio item is highlighted.  |
-| `data-disabled`    | Present when the menu radio item is disabled.     |
+<TypesMenu.RadioItem />
 
 ### RadioItemIndicator
 
-<ApiPart name="menu" part="RadioItemIndicator" />
-
-| Attribute             | Description                                           |
-| --------------------- | ----------------------------------------------------- |
-| `data-checked`        | Present when the menu radio item is selected.         |
-| `data-unchecked`      | Present when the menu radio item is not selected.     |
-| `data-disabled`       | Present when the menu radio item is disabled.         |
-| `data-starting-style` | Present when the radio indicator begins animating in. |
-| `data-ending-style`   | Present when the radio indicator is animating out.    |
+<TypesMenu.RadioItemIndicator />
 
 ### CheckboxItem
 
-<ApiPart name="menu" part="CheckboxItem" />
-
-| Attribute          | Description                                         |
-| ------------------ | --------------------------------------------------- |
-| `data-checked`     | Present when the menu checkbox item is checked.     |
-| `data-unchecked`   | Present when the menu checkbox item is not checked. |
-| `data-highlighted` | Present when the menu checkbox item is highlighted. |
-| `data-disabled`    | Present when the menu checkbox item is disabled.    |
+<TypesMenu.CheckboxItem />
 
 ### CheckboxItemIndicator
 
-<ApiPart name="menu" part="CheckboxItemIndicator" />
-
-| Attribute             | Description                                         |
-| --------------------- | --------------------------------------------------- |
-| `data-checked`        | Present when the menu checkbox item is checked.     |
-| `data-unchecked`      | Present when the menu checkbox item is not checked. |
-| `data-disabled`       | Present when the menu checkbox item is disabled.    |
-| `data-starting-style` | Present when the indicator begins animating in.     |
-| `data-ending-style`   | Present when the indicator is animating out.        |
+<TypesMenu.CheckboxItemIndicator />
 
 ### Separator
 
-<ApiPart name="menu" part="Separator" />
-
-| Attribute          | Description                                 |
-| ------------------ | ------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the separator. |
+<TypesMenu.Separator />
 
 ## useFilter
 

@@ -79,7 +79,7 @@ export const MenuPopupDataAttributes = {
 	instant: 'data-instant'
 } as const;
 
-export * as MenuPositionerCssVariables from '../internal/CommonPositionerCssVars.js';
+export * as MenuPositionerCssVariables from './MenuPositionerCssVars.js';
 
 export const MenuPositionerDataAttributes = {
 	/** Present when the menu popup is open. */

@@ -24,7 +24,7 @@ export const NavigationMenuTriggerDataAttributes = {
 	disabled: 'data-disabled'
 } as const;
 
-export * as NavigationMenuPositionerCssVariables from '../internal/CommonPositionerCssVars.js';
+export * as NavigationMenuPositionerCssVariables from './NavigationMenuPositionerCssVars.js';
 
 export const NavigationMenuPositionerDataAttributes = {
 	/** Present when the popup is open. */

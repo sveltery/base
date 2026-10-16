@@ -258,11 +258,15 @@ When parsing the schema using `schema.safeParse()`, the `z.flattenError(result.e
 
 ## API reference
 
-<ApiPart name="form" part="Form" />
+<script>
+	import { TypesForm } from './types';
+</script>
+
+<TypesForm.Form />
 
 ### Error
 
-<ApiPart name="form" part="Error" />
+<TypesForm.Error />
 
 | Attribute             | Description                                 |
 | --------------------- | ------------------------------------------- |

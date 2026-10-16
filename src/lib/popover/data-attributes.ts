@@ -13,7 +13,7 @@ export const PopoverTriggerDataAttributes = {
 	disabled: attributes.disabledAttribute
 } as const;
 
-export * as PopoverPositionerCssVariables from '../internal/CommonPositionerCssVars.js';
+export * as PopoverPositionerCssVariables from './PopoverPositionerCssVars.js';
 
 export const PopoverPositionerDataAttributes = {
 	/** Present when the popup is open. */

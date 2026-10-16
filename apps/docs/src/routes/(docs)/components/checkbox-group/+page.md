@@ -614,8 +614,8 @@ The group controls the parent checkbox's [indeterminate](/components/checkbox#Ch
 
 ## API reference
 
-<ApiPart name="checkbox-group" part="CheckboxGroup" />
+<script>
+	import { TypesCheckboxGroup } from './types';
+</script>
 
-| Attribute       | Description                                  |
-| --------------- | -------------------------------------------- |
-| `data-disabled` | Present when the checkbox group is disabled. |
+<TypesCheckboxGroup />

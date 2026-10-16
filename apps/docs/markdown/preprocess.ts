@@ -1,17 +1,15 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, sep } from 'node:path';
 import type { PreprocessorGroup } from 'svelte/compiler';
-import { apiReference, type ApiPart } from './api.ts';
 import { highlight } from './highlight.ts';
 import { MEMBER_LABELS, memberTable } from './members.ts';
-import { referencePart } from './reference.ts';
+import { pageStub } from './types.ts';
 
 /** Components every page can use without importing them. */
 const GLOBAL_COMPONENTS = [
 	'Subtitle',
 	'CodeBlock',
 	'Demo',
-	'ApiPart',
 	'ReferenceTable',
 	'MemberTable',
 	'ReleaseTimeline',
@@ -20,9 +18,6 @@ const GLOBAL_COMPONENTS = [
 
 /** Serializes a value into a JS expression that is safe inside Svelte markup. */
 const literal = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c');
-
-const attribute = (attrs: string, name: string) =>
-	attrs.match(new RegExp(`(?:^|\\s)${name}="([^"]+)"`))?.[1];
 
 async function replaceAsync(
 	input: string,
@@ -132,7 +127,7 @@ function referenceSections(code: string): string {
 
 /**
  * Runs after mdsvex on `.md` pages. It imports the demos and the docs components a page uses,
- * and fills `<ApiPart name="collapsible" part="Root" />` with the part's props and state.
+ * and checks that the page renders a reference table for each part its `types.ts` documents.
  */
 export function docsComponents({
 	routes,
@@ -148,9 +143,6 @@ export function docsComponents({
 		async markup({ content, filename }) {
 			if (!filename?.endsWith('.md')) return;
 			const imports: string[] = [];
-			const dependencies = new Set<string>();
-			const references = new Map<string, ApiPart[]>();
-			const documented = new Set<string>();
 
 			// Each demo is written to `<section>-<page>-<n>.svelte`, so an error names its page.
 			const source = relative(routes, filename).replaceAll(sep, '/');
@@ -169,45 +161,16 @@ export function docsComponents({
 
 			// A commented-out tag is not documentation.
 			code = code.replace(/<!--[\s\S]*?-->/g, '');
-			// Base UI describes a part in its section only when the page documents several types.
-			const multiple =
-				(code.match(/<ApiPart\b/g) ?? []).length > 1 || code.search(SECTION_LABEL) !== -1;
-			code = await replaceAsync(code, /<ApiPart\b([^>]*?)\s*\/>/g, async (_tag, attrs) => {
-				const name = attribute(attrs, 'name');
-				const partName = attribute(attrs, 'part');
-				if (!name || !partName) throw new Error(`${filename}: <ApiPart> needs name and part`);
-				if (!references.has(name)) references.set(name, apiReference(lib, name));
-				const parts = references.get(name)!;
-				const part = parts.find((candidate) => shortName(candidate.name) === partName);
-				if (!part) {
-					throw new Error(
-						`${filename}: "${name}" has no part "${partName}". Parts: ${parts.map((p) => shortName(p.name)).join(', ')}`
-					);
-				}
-				documented.add(part.name);
-				for (const file of part.files) dependencies.add(file);
-				const reference = await referencePart(part);
-				if (!multiple) reference.description = '';
-				return `<ApiPart part={${literal(reference)}} />`;
-			});
-
-			if (/<ApiPart\b(?! part=\{)/.test(code)) {
-				throw new Error(
-					`${filename}: write <ApiPart name="..." part="..." /> as a self-closing tag`
-				);
-			}
-			if (page.startsWith('components-') && !references.size) {
-				throw new Error(`${filename}: a component page needs an <ApiPart> for each part`);
-			}
 			// A page that documents a component documents every part of it.
-			for (const [name, parts] of references) {
-				const missing = parts.filter((part) => !documented.has(part.name));
-				if (missing.length) {
-					throw new Error(
-						`${filename}: add <ApiPart name="${name}" part="..." /> for ${missing.map((part) => shortName(part.name)).join(', ')}`
-					);
-				}
+			const stub = pageStub(filename, lib);
+			if (page.startsWith('components-') && !stub) {
+				throw new Error(`${filename}: a component page needs a types.ts beside it`);
 			}
+			const missing = [...(stub?.tags.keys() ?? [])].filter(
+				(tag) => !new RegExp(`<${tag.replace('.', '\\.')}\\s*/>`).test(code)
+			);
+			if (missing.length)
+				throw new Error(`${filename}: add ${missing.map((tag) => `<${tag} />`).join(', ')}`);
 
 			code = (await tables(referenceSections(code))).replace(/<kbd>/g, '<kbd class="Kbd">');
 
@@ -222,10 +185,7 @@ export function docsComponents({
 			const result = instance
 				? `${code.slice(0, instance.index + instance[0].length)}\n${imports.join('\n')}\n${code.slice(instance.index + instance[0].length)}`
 				: `<script>\n${imports.join('\n')}\n</script>\n${code}`;
-			return { code: result, dependencies: [...dependencies] };
+			return { code: result };
 		}
 	};
 }
-
-/** `Collapsible.Root` is `Root`. A part without a namespace, such as `Button`, keeps its name. */
-export const shortName = (name: string) => name.split('.').pop()!;

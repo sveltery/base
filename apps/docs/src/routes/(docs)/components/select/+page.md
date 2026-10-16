@@ -645,173 +645,82 @@ const groups: ProduceGroupItem[] = [
 
 ## API reference
 
+<script>
+	import { TypesSelect } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="select" part="Root" />
+<TypesSelect.Root />
 
 ### Label
 
-<ApiPart name="select" part="Label" />
+<TypesSelect.Label />
 
 ### Trigger
 
-<ApiPart name="select" part="Trigger" />
-
-| Attribute          | Description                                                                        |
-| ------------------ | ---------------------------------------------------------------------------------- |
-| `data-popup-open`  | Present when the corresponding select is open.                                     |
-| `data-popup-side`  | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| `data-pressed`     | Present when the trigger is pressed.                                               |
-| `data-disabled`    | Present when the select is disabled.                                               |
-| `data-readonly`    | Present when the select is readonly.                                               |
-| `data-required`    | Present when the select is required.                                               |
-| `data-valid`       | Present when the select is in a valid state (when wrapped in Field.Root).          |
-| `data-invalid`     | Present when the select is in an invalid state (when wrapped in Field.Root).       |
-| `data-dirty`       | Present when the select's value has changed (when wrapped in Field.Root).          |
-| `data-touched`     | Present when the select has been touched (when wrapped in Field.Root).             |
-| `data-filled`      | Present when the select has a value (when wrapped in Field.Root).                  |
-| `data-focused`     | Present when the select trigger is focused (when wrapped in Field.Root).           |
-| `data-placeholder` | Present when the select doesn't have a value.                                      |
+<TypesSelect.Trigger />
 
 ### Value
 
-<ApiPart name="select" part="Value" />
-
-| Attribute          | Description                                   |
-| ------------------ | --------------------------------------------- |
-| `data-placeholder` | Present when the select doesn't have a value. |
+<TypesSelect.Value />
 
 ### Icon
 
-<ApiPart name="select" part="Icon" />
-
-| Attribute         | Description                                   |
-| ----------------- | --------------------------------------------- |
-| `data-popup-open` | Present when the corresponding popup is open. |
+<TypesSelect.Icon />
 
 ### Backdrop
 
-<ApiPart name="select" part="Backdrop" />
-
-| Attribute             | Description                                  |
-| --------------------- | -------------------------------------------- |
-| `data-open`           | Present when the select is open.             |
-| `data-closed`         | Present when the select is closed.           |
-| `data-starting-style` | Present when the select begins animating in. |
-| `data-ending-style`   | Present when the select is animating out.    |
+<TypesSelect.Backdrop />
 
 ### Portal
 
-<ApiPart name="select" part="Portal" />
+<TypesSelect.Portal />
 
 ### Positioner
 
-<ApiPart name="select" part="Positioner" />
-
-| Attribute            | Description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
-| `data-open`          | Present when the select popup is open.                                |
-| `data-closed`        | Present when the select popup is closed.                              |
-| `data-anchor-hidden` | Present when the anchor is hidden.                                    |
-| `data-align`         | Indicates how the popup is aligned relative to specified side.        |
-| `data-side`          | Indicates which side the popup is positioned relative to the trigger. |
-
-| CSS Variable         | Description                                                                            |
-| -------------------- | -------------------------------------------------------------------------------------- |
-| `--anchor-height`    | The anchor's height.                                                                   |
-| `--anchor-width`     | The anchor's width.                                                                    |
-| `--available-height` | The available height between the trigger and the edge of the viewport.                 |
-| `--available-width`  | The available width between the trigger and the edge of the viewport.                  |
-| `--transform-origin` | The coordinates that this element is anchored to. Used for animations and transitions. |
+<TypesSelect.Positioner />
 
 ### Popup
 
-<ApiPart name="select" part="Popup" />
-
-| Attribute             | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| `data-open`           | Present when the select is open.                                      |
-| `data-closed`         | Present when the select is closed.                                    |
-| `data-align`          | Indicates how the popup is aligned relative to specified side.        |
-| `data-side`           | Indicates which side the popup is positioned relative to the trigger. |
-| `data-starting-style` | Present when the select begins animating in.                          |
-| `data-ending-style`   | Present when the select is animating out.                             |
+<TypesSelect.Popup />
 
 ### List
 
-<ApiPart name="select" part="List" />
+<TypesSelect.List />
 
 ### Arrow
 
-<ApiPart name="select" part="Arrow" />
-
-| Attribute         | Description                                                           |
-| ----------------- | --------------------------------------------------------------------- |
-| `data-open`       | Present when the select popup is open.                                |
-| `data-closed`     | Present when the select popup is closed.                              |
-| `data-uncentered` | Present when the select arrow is uncentered.                          |
-| `data-align`      | Indicates how the popup is aligned relative to specified side.        |
-| `data-side`       | Indicates which side the popup is positioned relative to the trigger. |
+<TypesSelect.Arrow />
 
 ### Item
 
-<ApiPart name="select" part="Item" />
-
-| Attribute          | Description                                  |
-| ------------------ | -------------------------------------------- |
-| `data-selected`    | Present when the select item is selected.    |
-| `data-highlighted` | Present when the select item is highlighted. |
-| `data-disabled`    | Present when the select item is disabled.    |
+<TypesSelect.Item />
 
 ### ItemText
 
-<ApiPart name="select" part="ItemText" />
+<TypesSelect.ItemText />
 
 ### ItemIndicator
 
-<ApiPart name="select" part="ItemIndicator" />
-
-| Attribute             | Description                                     |
-| --------------------- | ----------------------------------------------- |
-| `data-starting-style` | Present when the indicator begins animating in. |
-| `data-ending-style`   | Present when the indicator is animating out.    |
+<TypesSelect.ItemIndicator />
 
 ### Group
 
-<ApiPart name="select" part="Group" />
+<TypesSelect.Group />
 
 ### GroupLabel
 
-<ApiPart name="select" part="GroupLabel" />
+<TypesSelect.GroupLabel />
 
 ### ScrollUpArrow
 
-<ApiPart name="select" part="ScrollUpArrow" />
-
-| Attribute             | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| `data-direction`      | Indicates the direction of the scroll arrow.                          |
-| `data-side`           | Indicates which side the popup is positioned relative to the trigger. |
-| `data-visible`        | Present when the scroll arrow is visible.                             |
-| `data-starting-style` | Present when the scroll arrow begins animating in.                    |
-| `data-ending-style`   | Present when the scroll arrow is animating out.                       |
+<TypesSelect.ScrollUpArrow />
 
 ### ScrollDownArrow
 
-<ApiPart name="select" part="ScrollDownArrow" />
-
-| Attribute             | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| `data-direction`      | Indicates the direction of the scroll arrow.                          |
-| `data-side`           | Indicates which side the popup is positioned relative to the trigger. |
-| `data-visible`        | Present when the scroll arrow is visible.                             |
-| `data-starting-style` | Present when the scroll arrow begins animating in.                    |
-| `data-ending-style`   | Present when the scroll arrow is animating out.                       |
+<TypesSelect.ScrollDownArrow />
 
 ### Separator
 
-<ApiPart name="select" part="Separator" />
-
-| Attribute          | Description                                 |
-| ------------------ | ------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the separator. |
+<TypesSelect.Separator />

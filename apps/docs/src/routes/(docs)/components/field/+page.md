@@ -49,92 +49,34 @@ Import the component and assemble its parts:
 
 ## API reference
 
+<script>
+	import { TypesField } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="field" part="Root" />
-
-| Attribute       | Description                                 |
-| --------------- | ------------------------------------------- |
-| `data-disabled` | Present when the field is disabled.         |
-| `data-valid`    | Present when the field is valid.            |
-| `data-invalid`  | Present when the field is invalid.          |
-| `data-dirty`    | Present when the field's value has changed. |
-| `data-touched`  | Present when the field has been touched.    |
-| `data-filled`   | Present when the field is filled.           |
-| `data-focused`  | Present when the field control is focused.  |
+<TypesField.Root />
 
 ### Label
 
-<ApiPart name="field" part="Label" />
-
-| Attribute       | Description                                    |
-| --------------- | ---------------------------------------------- |
-| `data-disabled` | Present when the field is disabled.            |
-| `data-valid`    | Present when the field is in a valid state.    |
-| `data-invalid`  | Present when the field is in an invalid state. |
-| `data-dirty`    | Present when the field's value has changed.    |
-| `data-touched`  | Present when the field has been touched.       |
-| `data-filled`   | Present when the field is filled.              |
-| `data-focused`  | Present when the field control is focused.     |
+<TypesField.Label />
 
 ### Control
 
-<ApiPart name="field" part="Control" />
-
-| Attribute       | Description                                    |
-| --------------- | ---------------------------------------------- |
-| `data-disabled` | Present when the field is disabled.            |
-| `data-valid`    | Present when the field is in a valid state.    |
-| `data-invalid`  | Present when the field is in an invalid state. |
-| `data-dirty`    | Present when the field's value has changed.    |
-| `data-touched`  | Present when the field has been touched.       |
-| `data-filled`   | Present when the field is filled.              |
-| `data-focused`  | Present when the field control is focused.     |
+<TypesField.Control />
 
 ### Description
 
-<ApiPart name="field" part="Description" />
-
-| Attribute       | Description                                    |
-| --------------- | ---------------------------------------------- |
-| `data-disabled` | Present when the field is disabled.            |
-| `data-valid`    | Present when the field is in a valid state.    |
-| `data-invalid`  | Present when the field is in an invalid state. |
-| `data-dirty`    | Present when the field's value has changed.    |
-| `data-touched`  | Present when the field has been touched.       |
-| `data-filled`   | Present when the field is filled.              |
-| `data-focused`  | Present when the field control is focused.     |
+<TypesField.Description />
 
 ### Item
 
-<ApiPart name="field" part="Item" />
-
-| Attribute       | Description                                    |
-| --------------- | ---------------------------------------------- |
-| `data-disabled` | Present when the field is disabled.            |
-| `data-valid`    | Present when the field is in a valid state.    |
-| `data-invalid`  | Present when the field is in an invalid state. |
-| `data-dirty`    | Present when the field's value has changed.    |
-| `data-touched`  | Present when the field has been touched.       |
-| `data-filled`   | Present when the field is filled.              |
-| `data-focused`  | Present when the field control is focused.     |
+<TypesField.Item />
 
 ### Error
 
-<ApiPart name="field" part="Error" />
-
-| Attribute             | Description                                         |
-| --------------------- | --------------------------------------------------- |
-| `data-disabled`       | Present when the field is disabled.                 |
-| `data-valid`          | Present when the field is in a valid state.         |
-| `data-invalid`        | Present when the field is in an invalid state.      |
-| `data-dirty`          | Present when the field's value has changed.         |
-| `data-touched`        | Present when the field has been touched.            |
-| `data-filled`         | Present when the field is filled.                   |
-| `data-focused`        | Present when the field control is focused.          |
-| `data-starting-style` | Present when the error message begins animating in. |
-| `data-ending-style`   | Present when the error message is animating out.    |
+<TypesField.Error />
 
 ### Validity
 
-<ApiPart name="field" part="Validity" />
+<TypesField.Validity />

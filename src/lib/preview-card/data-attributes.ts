@@ -7,7 +7,7 @@ export const PreviewCardTriggerDataAttributes = {
 	popupOpen: 'data-popup-open'
 } as const;
 
-export * as PreviewCardPositionerCssVariables from '../internal/CommonPositionerCssVars.js';
+export * as PreviewCardPositionerCssVariables from './PreviewCardPositionerCssVars.js';
 
 export const PreviewCardPositionerDataAttributes = {
 	/** Present when the preview card is open. */

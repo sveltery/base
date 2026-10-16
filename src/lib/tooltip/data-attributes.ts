@@ -9,7 +9,7 @@ export const TooltipTriggerDataAttributes = {
 	triggerDisabled: 'data-trigger-disabled'
 } as const;
 
-export * as TooltipPositionerCssVariables from '../internal/CommonPositionerCssVars.js';
+export * as TooltipPositionerCssVariables from './TooltipPositionerCssVars.js';
 
 export const TooltipPositionerDataAttributes = {
 	/** Present when the tooltip is open. */

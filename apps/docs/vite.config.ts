@@ -9,6 +9,7 @@ import { metadata } from './markdown/metadata.ts';
 import { docsMarkdown } from './markdown/llms.ts';
 import { docsComponents, highlightCode } from './markdown/preprocess.ts';
 import { searchDocuments } from './markdown/search.ts';
+import { docsTypes } from './markdown/types.ts';
 
 const path = (relative: string) => fileURLToPath(new URL(relative, import.meta.url));
 
@@ -30,6 +31,7 @@ export default defineConfig({
 		tailwindcss(),
 		docsMarkdown({ routes, lib }),
 		searchDocuments({ routes, lib }),
+		docsTypes({ routes, lib }),
 		sveltekit({
 			adapter: adapter(),
 			extensions: ['.svelte', '.md'],

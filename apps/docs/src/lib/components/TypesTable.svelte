@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { ReferencePart, ReferenceRow } from '../../../markdown/reference.ts';
+	import ReferenceTable from './ReferenceTable.svelte';
 
-	let { part }: { part: ReferencePart } = $props();
+	/** A part's reference, as Base UI's `ReferenceTable` renders it. `multiple` shows its description. */
+	let { part, multiple }: { part: ReferencePart; multiple: boolean } = $props();
 
 	// Base UI's anchors: `Checkbox.Root`'s `indeterminate` prop is `#CheckboxRoot-indeterminate`.
 	const anchor = (row: ReferenceRow) => `${part.name.replace('.', '')}-${row.name}`;
@@ -169,8 +171,10 @@
 {/snippet}
 
 <div bind:this={root} class="MdReferencePart">
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -- reference.ts escapes the doc comment first. -->
-	{@html part.description}
+	{#if multiple}
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -- reference.ts escapes the doc comment first. -->
+		{@html part.description}
+	{/if}
 	{#if part.props.length}
 		{@render accordion(part.props, 'Prop', false)}
 	{:else if part.empty}
@@ -178,5 +182,11 @@
 	{/if}
 	{#if part.state.length}
 		{@render accordion(part.state, 'State', true)}
+	{/if}
+	{#if part.dataAttributes.length}
+		<ReferenceTable label="Attribute" rows={part.dataAttributes} />
+	{/if}
+	{#if part.cssVariables.length}
+		<ReferenceTable label="CSS Variable" rows={part.cssVariables} />
 	{/if}
 </div>

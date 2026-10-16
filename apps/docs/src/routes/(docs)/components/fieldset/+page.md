@@ -53,14 +53,14 @@ Import the component and assemble its parts:
 
 ## API reference
 
+<script>
+	import { TypesFieldset } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="fieldset" part="Root" />
+<TypesFieldset.Root />
 
 ### Legend
 
-<ApiPart name="fieldset" part="Legend" />
-
-| Attribute       | Description                            |
-| --------------- | -------------------------------------- |
-| `data-disabled` | Present when the fieldset is disabled. |
+<TypesFieldset.Legend />

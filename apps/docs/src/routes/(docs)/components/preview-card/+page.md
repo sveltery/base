@@ -504,98 +504,43 @@ You can use these attributes to style the enter and exit animations.
 
 ## API reference
 
+<script>
+	import { TypesPreviewCard } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="preview-card" part="Root" />
+<TypesPreviewCard.Root />
 
 ### Trigger
 
-<ApiPart name="preview-card" part="Trigger" />
-
-| Attribute         | Description                                          |
-| ----------------- | ---------------------------------------------------- |
-| `data-popup-open` | Present when the corresponding preview card is open. |
+<TypesPreviewCard.Trigger />
 
 ### Portal
 
-<ApiPart name="preview-card" part="Portal" />
+<TypesPreviewCard.Portal />
 
 ### Backdrop
 
-<ApiPart name="preview-card" part="Backdrop" />
-
-| Attribute             | Description                                        |
-| --------------------- | -------------------------------------------------- |
-| `data-open`           | Present when the preview card is open.             |
-| `data-closed`         | Present when the preview card is closed.           |
-| `data-starting-style` | Present when the preview card begins animating in. |
-| `data-ending-style`   | Present when the preview card is animating out.    |
+<TypesPreviewCard.Backdrop />
 
 ### Positioner
 
-<ApiPart name="preview-card" part="Positioner" />
-
-| Attribute            | Description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
-| `data-open`          | Present when the preview card is open.                                |
-| `data-closed`        | Present when the preview card is closed.                              |
-| `data-anchor-hidden` | Present when the anchor is hidden.                                    |
-| `data-align`         | Indicates how the popup is aligned relative to specified side.        |
-| `data-side`          | Indicates which side the popup is positioned relative to the trigger. |
-
-| CSS Variable          | Description                                                                                                                        |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `--anchor-height`     | The anchor's height.                                                                                                               |
-| `--anchor-width`      | The anchor's width.                                                                                                                |
-| `--available-height`  | The available height between the trigger and the edge of the viewport.                                                             |
-| `--available-width`   | The available width between the trigger and the edge of the viewport.                                                              |
-| `--positioner-height` | The height of the preview card's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
-| `--positioner-width`  | The width of the preview card's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
-| `--transform-origin`  | The coordinates that this element is anchored to. Used for animations and transitions.                                             |
+<TypesPreviewCard.Positioner />
 
 ### Popup
 
-<ApiPart name="preview-card" part="Popup" />
-
-| Attribute             | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| `data-open`           | Present when the preview card is open.                                |
-| `data-closed`         | Present when the preview card is closed.                              |
-| `data-align`          | Indicates how the popup is aligned relative to specified side.        |
-| `data-side`           | Indicates which side the popup is positioned relative to the trigger. |
-| `data-starting-style` | Present when the preview card begins animating in.                    |
-| `data-ending-style`   | Present when the preview card is animating out.                       |
+<TypesPreviewCard.Popup />
 
 ### Viewport
 
-<ApiPart name="preview-card" part="Viewport" />
+<TypesPreviewCard.Viewport />
 
 The `Viewport` is optional — reach for it only when a single popup is opened by multiple triggers, its content differs per trigger, and the switch between them is animated. When used, set `width: var(--positioner-width)` and `height: var(--positioner-height)` on the `Positioner` so its box is frozen to the measured size during the transition; otherwise content-driven resizing can make the popup thrash or flip to another side.
 
-| Attribute                   | Description                                                                                                                                                                                                                |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data-activation-direction` | Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. |
-| `data-current`              | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                         |
-| `data-instant`              | Present if animations should be instant.                                                                                                                                                                                   |
-| `data-previous`             | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                |
-| `data-transitioning`        | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                        |
-
-| CSS Variable     | Description                                                                                                                                                                                                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--popup-height` | The height of the parent popup. This variable is placed on the 'previous' container and stores the height of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content. |
-| `--popup-width`  | The width of the parent popup. This variable is placed on the 'previous' container and stores the width of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content.   |
-
 ### Arrow
 
-<ApiPart name="preview-card" part="Arrow" />
-
-| Attribute         | Description                                                           |
-| ----------------- | --------------------------------------------------------------------- |
-| `data-open`       | Present when the preview card is open.                                |
-| `data-closed`     | Present when the preview card is closed.                              |
-| `data-uncentered` | Present when the preview card arrow is uncentered.                    |
-| `data-align`      | Indicates how the popup is aligned relative to specified side.        |
-| `data-side`       | Indicates which side the popup is positioned relative to the trigger. |
+<TypesPreviewCard.Arrow />
 
 ## createHandle
 

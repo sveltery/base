@@ -75,39 +75,18 @@ See the [Accordion example](/components/accordion#hidden-until-found) for an int
 
 ## API reference
 
+<script>
+	import { TypesCollapsible } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="collapsible" part="Root" />
-
-| Attribute             | Description                                       |
-| --------------------- | ------------------------------------------------- |
-| `data-open`           | Present when the collapsible is open.             |
-| `data-closed`         | Present when the collapsible is closed.           |
-| `data-disabled`       | Present when the collapsible is disabled.         |
-| `data-starting-style` | Present when the collapsible begins animating in. |
-| `data-ending-style`   | Present when the collapsible is animating out.    |
+<TypesCollapsible.Root />
 
 ### Trigger
 
-<ApiPart name="collapsible" part="Trigger" />
-
-| Attribute         | Description                                 |
-| ----------------- | ------------------------------------------- |
-| `data-panel-open` | Present when the collapsible panel is open. |
-| `data-disabled`   | Present when the collapsible is disabled.   |
+<TypesCollapsible.Trigger />
 
 ### Panel
 
-<ApiPart name="collapsible" part="Panel" />
-
-| Attribute             | Description                                   |
-| --------------------- | --------------------------------------------- |
-| `data-open`           | Present when the collapsible panel is open.   |
-| `data-closed`         | Present when the collapsible panel is closed. |
-| `data-starting-style` | Present when the panel begins animating in.   |
-| `data-ending-style`   | Present when the panel is animating out.      |
-
-| CSS variable                 | Description                     |
-| ---------------------------- | ------------------------------- |
-| `--collapsible-panel-height` | The collapsible panel's height. |
-| `--collapsible-panel-width`  | The collapsible panel's width.  |
+<TypesCollapsible.Panel />

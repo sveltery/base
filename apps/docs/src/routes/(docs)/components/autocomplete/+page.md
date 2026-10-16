@@ -1672,196 +1672,93 @@ Memoizing each item is a React technique for datasets up to roughly 1,000 items,
 
 ## API reference
 
+<script>
+	import { TypesAutocomplete } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="autocomplete" part="Root" />
+<TypesAutocomplete.Root />
 
 ### Value
 
-<ApiPart name="autocomplete" part="Value" />
+<TypesAutocomplete.Value />
 
 ### Input
 
-<ApiPart name="autocomplete" part="Input" />
-
-| Attribute         | Description                                                                        |
-| ----------------- | ---------------------------------------------------------------------------------- |
-| `data-popup-open` | Present when the corresponding popup is open.                                      |
-| `data-popup-side` | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| `data-list-empty` | Present when the corresponding items list is empty.                                |
-| `data-pressed`    | Present when the input is pressed.                                                 |
-| `data-disabled`   | Present when the component is disabled.                                            |
-| `data-readonly`   | Present when the component is readonly.                                            |
-| `data-required`   | Present when the component is required.                                            |
-| `data-valid`      | Present when the component is in a valid state (when wrapped in Field.Root).       |
-| `data-invalid`    | Present when the component is in an invalid state (when wrapped in Field.Root).    |
-| `data-dirty`      | Present when the component's value has changed (when wrapped in Field.Root).       |
-| `data-touched`    | Present when the component has been touched (when wrapped in Field.Root).          |
-| `data-filled`     | Present when the component has a value (when wrapped in Field.Root).               |
-| `data-focused`    | Present when the input is focused (when wrapped in Field.Root).                    |
+<TypesAutocomplete.Input />
 
 ### InputGroup
 
-<ApiPart name="autocomplete" part="InputGroup" />
-
-| Attribute         | Description                                                                        |
-| ----------------- | ---------------------------------------------------------------------------------- |
-| `data-popup-open` | Present when the corresponding popup is open.                                      |
-| `data-popup-side` | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| `data-list-empty` | Present when the corresponding items list is empty.                                |
-| `data-pressed`    | Present when the input group is pressed.                                           |
-| `data-disabled`   | Present when the component is disabled.                                            |
-| `data-readonly`   | Present when the component is readonly.                                            |
-| `data-valid`      | Present when the component is in a valid state (when wrapped in Field.Root).       |
-| `data-invalid`    | Present when the component is in an invalid state (when wrapped in Field.Root).    |
-| `data-dirty`      | Present when the component's value has changed (when wrapped in Field.Root).       |
-| `data-touched`    | Present when the component has been touched (when wrapped in Field.Root).          |
-| `data-filled`     | Present when the component has a value (when wrapped in Field.Root).               |
-| `data-focused`    | Present when the component is focused (when wrapped in Field.Root).                |
+<TypesAutocomplete.InputGroup />
 
 ### Trigger
 
-<ApiPart name="autocomplete" part="Trigger" />
-
-| Attribute         | Description                                                                        |
-| ----------------- | ---------------------------------------------------------------------------------- |
-| `data-popup-open` | Present when the corresponding popup is open.                                      |
-| `data-popup-side` | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| `data-list-empty` | Present when the corresponding items list is empty.                                |
-| `data-pressed`    | Present when the trigger is pressed.                                               |
-| `data-disabled`   | Present when the component is disabled.                                            |
-| `data-readonly`   | Present when the component is readonly.                                            |
-| `data-required`   | Present when the component is required.                                            |
-| `data-valid`      | Present when the component is in a valid state (when wrapped in Field.Root).       |
-| `data-invalid`    | Present when the component is in an invalid state (when wrapped in Field.Root).    |
-| `data-dirty`      | Present when the component's value has changed (when wrapped in Field.Root).       |
-| `data-touched`    | Present when the component has been touched (when wrapped in Field.Root).          |
-| `data-filled`     | Present when the component has a value (when wrapped in Field.Root).               |
-| `data-focused`    | Present when the trigger is focused (when wrapped in Field.Root).                  |
+<TypesAutocomplete.Trigger />
 
 ### Icon
 
-<ApiPart name="autocomplete" part="Icon" />
+<TypesAutocomplete.Icon />
 
 ### Clear
 
-<ApiPart name="autocomplete" part="Clear" />
-
-| Attribute             | Description                                   |
-| --------------------- | --------------------------------------------- |
-| `data-popup-open`     | Present when the corresponding popup is open. |
-| `data-disabled`       | Present when the button is disabled.          |
-| `data-visible`        | Present when the clear button is visible.     |
-| `data-starting-style` | Present when the button begins animating in.  |
-| `data-ending-style`   | Present when the button is animating out.     |
+<TypesAutocomplete.Clear />
 
 ### List
 
-<ApiPart name="autocomplete" part="List" />
+<TypesAutocomplete.List />
 
 ### Portal
 
-<ApiPart name="autocomplete" part="Portal" />
+<TypesAutocomplete.Portal />
 
 ### Backdrop
 
-<ApiPart name="autocomplete" part="Backdrop" />
-
-| Attribute             | Description                                 |
-| --------------------- | ------------------------------------------- |
-| `data-open`           | Present when the popup is open.             |
-| `data-closed`         | Present when the popup is closed.           |
-| `data-starting-style` | Present when the popup begins animating in. |
-| `data-ending-style`   | Present when the popup is animating out.    |
+<TypesAutocomplete.Backdrop />
 
 ### Positioner
 
-<ApiPart name="autocomplete" part="Positioner" />
-
-| Attribute            | Description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
-| `data-open`          | Present when the popup is open.                                       |
-| `data-closed`        | Present when the popup is closed.                                     |
-| `data-anchor-hidden` | Present when the anchor is hidden.                                    |
-| `data-align`         | Indicates how the popup is aligned relative to specified side.        |
-| `data-empty`         | Present when the items list is empty.                                 |
-| `data-side`          | Indicates which side the popup is positioned relative to the trigger. |
-
-| CSS variable         | Description                                                                            |
-| -------------------- | -------------------------------------------------------------------------------------- |
-| `--anchor-height`    | The anchor's height.                                                                   |
-| `--anchor-width`     | The anchor's width.                                                                    |
-| `--available-height` | The available height between the trigger and the edge of the viewport.                 |
-| `--available-width`  | The available width between the trigger and the edge of the viewport.                  |
-| `--transform-origin` | The coordinates that this element is anchored to. Used for animations and transitions. |
+<TypesAutocomplete.Positioner />
 
 ### Popup
 
-<ApiPart name="autocomplete" part="Popup" />
-
-| Attribute             | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| `data-open`           | Present when the popup is open.                                       |
-| `data-closed`         | Present when the popup is closed.                                     |
-| `data-anchor-hidden`  | Present when the anchor is hidden.                                    |
-| `data-align`          | Indicates how the popup is aligned relative to specified side.        |
-| `data-empty`          | Present when the items list is empty.                                 |
-| `data-side`           | Indicates which side the popup is positioned relative to the trigger. |
-| `data-starting-style` | Present when the popup begins animating in.                           |
-| `data-ending-style`   | Present when the popup is animating out.                              |
+<TypesAutocomplete.Popup />
 
 ### Arrow
 
-<ApiPart name="autocomplete" part="Arrow" />
-
-| Attribute         | Description                                                           |
-| ----------------- | --------------------------------------------------------------------- |
-| `data-open`       | Present when the popup is open.                                       |
-| `data-closed`     | Present when the popup is closed.                                     |
-| `data-uncentered` | Present when the arrow is uncentered.                                 |
-| `data-align`      | Indicates how the popup is aligned relative to specified side.        |
-| `data-side`       | Indicates which side the popup is positioned relative to the trigger. |
+<TypesAutocomplete.Arrow />
 
 ### Status
 
-<ApiPart name="autocomplete" part="Status" />
+<TypesAutocomplete.Status />
 
 ### Empty
 
-<ApiPart name="autocomplete" part="Empty" />
+<TypesAutocomplete.Empty />
 
 ### Collection
 
-<ApiPart name="autocomplete" part="Collection" />
+<TypesAutocomplete.Collection />
 
 ### Row
 
-<ApiPart name="autocomplete" part="Row" />
+<TypesAutocomplete.Row />
 
 ### Item
 
-<ApiPart name="autocomplete" part="Item" />
-
-| Attribute          | Description                           |
-| ------------------ | ------------------------------------- |
-| `data-highlighted` | Present when the item is highlighted. |
-| `data-disabled`    | Present when the item is disabled.    |
+<TypesAutocomplete.Item />
 
 ### Group
 
-<ApiPart name="autocomplete" part="Group" />
+<TypesAutocomplete.Group />
 
 ### GroupLabel
 
-<ApiPart name="autocomplete" part="GroupLabel" />
+<TypesAutocomplete.GroupLabel />
 
 ### Separator
 
-<ApiPart name="autocomplete" part="Separator" />
-
-| Attribute          | Description                                 |
-| ------------------ | ------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the separator. |
+<TypesAutocomplete.Separator />
 
 ## useFilter
 

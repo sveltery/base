@@ -371,44 +371,18 @@ Use `mask` when the code should be obscured while it is being typed.
 
 ## API reference
 
+<script>
+	import { TypesOTPField } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="otp-field" part="Root" />
-
-| Attribute       | Description                                                                     |
-| --------------- | ------------------------------------------------------------------------------- |
-| `data-disabled` | Present when the OTP field is disabled.                                         |
-| `data-readonly` | Present when the OTP field is readonly.                                         |
-| `data-required` | Present when the OTP field is required.                                         |
-| `data-valid`    | Present when the OTP field is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`  | Present when the OTP field is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`    | Present when the OTP field's value has changed (when wrapped in Field.Root).    |
-| `data-touched`  | Present when the OTP field has been touched (when wrapped in Field.Root).       |
-| `data-complete` | Present when all slots are filled.                                              |
-| `data-filled`   | Present when the OTP field contains at least one character.                     |
-| `data-focused`  | Present when one of the OTP field inputs is focused.                            |
+<TypesOTPField.Root />
 
 ### Input
 
-<ApiPart name="otp-field" part="Input" />
-
-| Attribute       | Description                                                                     |
-| --------------- | ------------------------------------------------------------------------------- |
-| `data-disabled` | Present when the OTP field is disabled.                                         |
-| `data-readonly` | Present when the OTP field is readonly.                                         |
-| `data-required` | Present when the OTP field is required.                                         |
-| `data-valid`    | Present when the OTP field is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`  | Present when the OTP field is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`    | Present when the OTP field's value has changed (when wrapped in Field.Root).    |
-| `data-touched`  | Present when the OTP field has been touched (when wrapped in Field.Root).       |
-| `data-complete` | Present when all slots are filled.                                              |
-| `data-filled`   | Present when the input contains a character.                                    |
-| `data-focused`  | Present when any OTP field input is focused.                                    |
+<TypesOTPField.Input />
 
 ### Separator
 
-<ApiPart name="otp-field" part="Separator" />
-
-| Attribute          | Description                                 |
-| ------------------ | ------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the separator. |
+<TypesOTPField.Separator />

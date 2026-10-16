@@ -53,9 +53,8 @@ Import the component and use it as a single part:
 
 ## API reference
 
-<ApiPart name="toggle" part="Toggle" />
+<script>
+	import { TypesToggle } from './types';
+</script>
 
-| Attribute       | Description                                 |
-| --------------- | ------------------------------------------- |
-| `data-pressed`  | Present when the toggle button is pressed.  |
-| `data-disabled` | Present when the toggle button is disabled. |
+<TypesToggle />

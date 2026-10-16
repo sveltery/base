@@ -41,8 +41,8 @@ Import the component and use it as a single part:
 
 ## API reference
 
-<ApiPart name="separator" part="Separator" />
+<script>
+	import { TypesSeparator } from './types';
+</script>
 
-| Attribute          | Description                                 |
-| ------------------ | ------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the separator. |
+<TypesSeparator />

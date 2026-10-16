@@ -2,6 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { parse } from 'svelte/compiler';
 import ts from 'typescript';
+import { ordering, sortByOrder } from './type-order.ts';
 
 /** One row of a props or state table. */
 export type ApiProp = {
@@ -13,6 +14,14 @@ export type ApiProp = {
 	required: boolean;
 };
 
+/** One data attribute or CSS variable, such as `data-open`. */
+export type ApiConstant = {
+	name: string;
+	/** The value's type from a `@type` tag, such as `number` for `data-index`. */
+	type?: string;
+	description: string;
+};
+
 /** One exported part, such as `Collapsible.Trigger`. */
 export type ApiPart = {
 	/** The name a consumer writes, such as `Collapsible.Trigger` or `Button`. */
@@ -22,6 +31,8 @@ export type ApiPart = {
 	description: string;
 	props: ApiProp[];
 	state: ApiProp[];
+	dataAttributes: ApiConstant[];
+	cssVariables: ApiConstant[];
 	/** Source files the reference was read from, for dev-server reloads. */
 	files: string[];
 };
@@ -45,7 +56,9 @@ export function apiReference(lib: string, folder: string): ApiPart[] {
 		return new Map(checker.getExportsOfModule(moduleSymbol).map((symbol) => [symbol.name, symbol]));
 	};
 
-	return partFiles(source, dirname(index)).map(({ name, file, doc, propsType }) => {
+	const parts = partFiles(source, dirname(index));
+	const groups = constantGroups(checker, exportedTypes(index), parts);
+	return parts.map(({ name, file, doc, propsType }) => {
 		const component = readFileSync(file, 'utf8');
 		const declaration = propsDeclaration(component, file);
 		const { defaults } = declaration;
@@ -64,36 +77,56 @@ export function apiReference(lib: string, folder: string): ApiPart[] {
 			element: header.match(/Renders an? `(<[a-z0-9-]+>)`/)?.[1],
 			description: header,
 			// A plain `children` snippet is implied. One with arguments or a doc comment is listed.
-			props: table(propsSymbol, defaults).filter(
-				(prop) => prop.name !== 'children' || prop.description || prop.type !== 'Snippet'
+			props: sortByOrder(
+				table(propsSymbol, defaults).filter(
+					(prop) => prop.name !== 'children' || prop.description || prop.type !== 'Snippet'
+				),
+				ordering.props,
+				(prop) => prop.name
 			),
 			state: stateSymbol ? table(stateSymbol, new Map()) : [],
-			files: [...files]
+			dataAttributes: groups.get(`${flat(name)}DataAttributes`) ?? [],
+			cssVariables: groups.get(`${flat(name)}CssVariables`) ?? [],
+			files: [...files, ...groups.files]
 		};
 	});
 }
 
-let cached: { key: string; program: ts.Program } | undefined;
+let parsed: { key: string; host: ts.CompilerHost; entries: string[] } | undefined;
 
-/** One program over every library entry. It is rebuilt when a `.ts` file in the library changes. */
+const OPTIONS: ts.CompilerOptions = {
+	target: ts.ScriptTarget.ESNext,
+	module: ts.ModuleKind.ESNext,
+	moduleResolution: ts.ModuleResolutionKind.Bundler,
+	strict: true,
+	skipLibCheck: true,
+	noEmit: true,
+	types: []
+};
+
+/**
+ * A program over every library entry, with a checker of its own. TypeScript orders union members
+ * and mapped keys by when the checker first created each type, so a shared checker would let the
+ * pages read before this one change its tables. Parsed files are shared, and reparsed when a `.ts`
+ * file in the library changes.
+ */
 function createProgram(lib: string): ts.Program {
 	const files = typeScriptFiles(lib);
 	const key = files.map((file) => `${file}:${statSync(file).mtimeMs}`).join('\n');
-	if (cached?.key === key) return cached.program;
-	const entries = readdirSync(lib)
-		.map((folder) => join(lib, folder, 'index.ts'))
-		.filter((file) => files.includes(file));
-	const program = ts.createProgram(entries, {
-		target: ts.ScriptTarget.ESNext,
-		module: ts.ModuleKind.ESNext,
-		moduleResolution: ts.ModuleResolutionKind.Bundler,
-		strict: true,
-		skipLibCheck: true,
-		noEmit: true,
-		types: []
-	});
-	cached = { key, program };
-	return program;
+	if (parsed?.key !== key) {
+		const host = ts.createCompilerHost(OPTIONS);
+		const sources = new Map<string, ts.SourceFile | undefined>();
+		const getSourceFile = host.getSourceFile;
+		host.getSourceFile = (fileName, ...rest) => {
+			if (!sources.has(fileName)) sources.set(fileName, getSourceFile(fileName, ...rest));
+			return sources.get(fileName);
+		};
+		const entries = readdirSync(lib)
+			.map((folder) => join(lib, folder, 'index.ts'))
+			.filter((file) => files.includes(file));
+		parsed = { key, host, entries };
+	}
+	return ts.createProgram(parsed.entries, OPTIONS, parsed.host);
 }
 
 function typeScriptFiles(dir: string): string[] {
@@ -262,13 +295,78 @@ function members(
 				required: !(property.flags & ts.SymbolFlags.Optional)
 			};
 		})
-		.filter((prop) => prop.description || !/^on[a-z]/.test(prop.name))
-		.sort((a, b) => order(a) - order(b));
+		.filter((prop) => prop.description || !/^on[a-z]/.test(prop.name));
 }
 
-/** Upstream lists the main props first and `render` last. */
-const order = (prop: ApiProp) =>
-	prop.name === 'render' ? 2 : prop.name === 'class' || prop.name === 'style' ? 1 : 0;
+/** `Accordion.Root` is `AccordionRoot`, the prefix of its `AccordionRootDataAttributes`. */
+const flat = (name: string) => name.replaceAll('.', '');
+
+const GROUP_KINDS = {
+	DataAttributes: ordering.dataAttributes,
+	CssVariables: ordering.cssVariables
+};
+
+/** The members of `const Name = { open: 'data-open' } as const`, in declaration order. */
+function objectConstants(checker: ts.TypeChecker, symbol: ts.Symbol, name: string): ApiConstant[] {
+	const declaration = symbol.valueDeclaration;
+	let object =
+		declaration && ts.isVariableDeclaration(declaration) ? declaration.initializer : undefined;
+	while (object && ts.isAsExpression(object)) object = object.expression;
+	if (!object || !ts.isObjectLiteralExpression(object)) {
+		throw new Error(`${name} is not an object of constants`);
+	}
+	return object.properties.map((property) =>
+		constant(checker, checker.getSymbolAtLocation(property.name!)!, name)
+	);
+}
+
+/** One constant: its string value, its doc comment, and the type its `@type` tag names. */
+function constant(checker: ts.TypeChecker, member: ts.Symbol, group: string): ApiConstant {
+	const value = checker.getTypeOfSymbol(member);
+	if (!value.isStringLiteral()) throw new Error(`${group}.${member.name} is not a string`);
+	const typeTag = member.getJsDocTags(checker).find((tag) => tag.name === 'type');
+	return {
+		name: value.value,
+		type: typeTag?.text ? ts.displayPartsToString(typeTag.text) : undefined,
+		description: paragraphs(ts.displayPartsToString(member.getDocumentationComment(checker)))
+	};
+}
+
+/**
+ * The entry's data-attribute and CSS-variable objects, keyed by export name. Base UI matches each
+ * to a part by name: `AccordionPanelCssVariables` holds the variables of `Accordion.Panel`.
+ */
+function constantGroups(
+	checker: ts.TypeChecker,
+	exports: Map<string, ts.Symbol>,
+	parts: PartFile[]
+): Map<string, ApiConstant[]> & { files: string[] } {
+	const partNames = new Set(parts.map((part) => flat(part.name)));
+	const groups = Object.assign(new Map<string, ApiConstant[]>(), { files: [] as string[] });
+	for (const [name, exported] of exports) {
+		const kind = (Object.keys(GROUP_KINDS) as Array<keyof typeof GROUP_KINDS>).find(
+			(suffix) => name.endsWith(suffix) && name.length > suffix.length
+		);
+		if (!kind) continue;
+		if (!partNames.has(name.slice(0, -kind.length))) {
+			throw new Error(`${name} names no part. Parts: ${[...partNames].join(', ')}`);
+		}
+		const symbol =
+			exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported;
+		const constants =
+			symbol.flags & ts.SymbolFlags.ValueModule
+				? checker.getExportsOfModule(symbol).map((member) => constant(checker, member, name))
+				: objectConstants(checker, symbol, name);
+		groups.files.push(symbol.declarations![0].getSourceFile().fileName);
+		// Base UI sorts a group by value, then applies its order.
+		const byValue = constants.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+		groups.set(
+			name,
+			sortByOrder(byValue, GROUP_KINDS[kind], (constant) => constant.name)
+		);
+	}
+	return groups;
+}
 
 type Defaults = Map<string, { value?: string; bindable: boolean }>;
 

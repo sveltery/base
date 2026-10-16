@@ -2394,102 +2394,49 @@ Svelte updates only what changed, so items need no memoizing: `<Combobox.Collect
 
 ## API reference
 
+<script>
+	import { TypesCombobox } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="combobox" part="Root" />
+<TypesCombobox.Root />
 
 ### Label
 
-<ApiPart name="combobox" part="Label" />
+<TypesCombobox.Label />
 
 ### Value
 
-<ApiPart name="combobox" part="Value" />
+<TypesCombobox.Value />
 
 ### Icon
 
-<ApiPart name="combobox" part="Icon" />
+<TypesCombobox.Icon />
 
 ### Input
 
-<ApiPart name="combobox" part="Input" />
-
-| Attribute         | Description                                                                |
-| ----------------- | -------------------------------------------------------------------------- |
-| `data-popup-open` | Present when the popup is open.                                            |
-| `data-pressed`    | Present while the popup is open.                                           |
-| `data-disabled`   | Present when the combobox is disabled.                                     |
-| `data-readonly`   | Present when the combobox is read-only.                                    |
-| `data-required`   | Present when the combobox is required.                                     |
-| `data-popup-side` | The side of the anchor the popup is on, while the popup is mounted.        |
-| `data-list-empty` | Present when the filtered list has no items.                               |
-| `data-valid`      | Present when the combobox is valid. Needs a `Field.Root` ancestor.         |
-| `data-invalid`    | Present when the combobox is invalid. Needs a `Field.Root` ancestor.       |
-| `data-dirty`      | Present when the value has changed. Needs a `Field.Root` ancestor.         |
-| `data-touched`    | Present when the combobox has been touched. Needs a `Field.Root` ancestor. |
-| `data-filled`     | Present when the combobox has a value. Needs a `Field.Root` ancestor.      |
-| `data-focused`    | Present when the input is focused. Needs a `Field.Root` ancestor.          |
+<TypesCombobox.Input />
 
 ### InputGroup
 
-<ApiPart name="combobox" part="InputGroup" />
-
-| Attribute          | Description                                                                |
-| ------------------ | -------------------------------------------------------------------------- |
-| `data-popup-open`  | Present when the popup is open.                                            |
-| `data-pressed`     | Present while the popup is open.                                           |
-| `data-disabled`    | Present when the combobox is disabled.                                     |
-| `data-readonly`    | Present when the combobox is read-only.                                    |
-| `data-popup-side`  | The side of the anchor the popup is on, while the popup is mounted.        |
-| `data-list-empty`  | Present when the filtered list has no items.                               |
-| `data-placeholder` | Present when nothing is selected.                                          |
-| `data-valid`       | Present when the combobox is valid. Needs a `Field.Root` ancestor.         |
-| `data-invalid`     | Present when the combobox is invalid. Needs a `Field.Root` ancestor.       |
-| `data-dirty`       | Present when the value has changed. Needs a `Field.Root` ancestor.         |
-| `data-touched`     | Present when the combobox has been touched. Needs a `Field.Root` ancestor. |
-| `data-filled`      | Present when the combobox has a value. Needs a `Field.Root` ancestor.      |
-| `data-focused`     | Present when the combobox is focused. Needs a `Field.Root` ancestor.       |
+<TypesCombobox.InputGroup />
 
 ### Clear
 
-<ApiPart name="combobox" part="Clear" />
-
-| Attribute             | Description                               |
-| --------------------- | ----------------------------------------- |
-| `data-popup-open`     | Present when the popup is open.           |
-| `data-disabled`       | Present when the button is disabled.      |
-| `data-visible`        | Present when there is something to clear. |
-| `data-starting-style` | Present when the button is animating in.  |
-| `data-ending-style`   | Present when the button is animating out. |
+<TypesCombobox.Clear />
 
 ### Trigger
 
-<ApiPart name="combobox" part="Trigger" />
-
-| Attribute          | Description                                                                |
-| ------------------ | -------------------------------------------------------------------------- |
-| `data-popup-open`  | Present when the popup is open.                                            |
-| `data-pressed`     | Present while the popup is open.                                           |
-| `data-disabled`    | Present when the combobox is disabled.                                     |
-| `data-readonly`    | Present when the combobox is read-only.                                    |
-| `data-required`    | Present when the combobox is required.                                     |
-| `data-popup-side`  | The side of the anchor the popup is on, while the popup is mounted.        |
-| `data-list-empty`  | Present when the filtered list has no items.                               |
-| `data-placeholder` | Present when nothing is selected.                                          |
-| `data-valid`       | Present when the combobox is valid. Needs a `Field.Root` ancestor.         |
-| `data-invalid`     | Present when the combobox is invalid. Needs a `Field.Root` ancestor.       |
-| `data-dirty`       | Present when the value has changed. Needs a `Field.Root` ancestor.         |
-| `data-touched`     | Present when the combobox has been touched. Needs a `Field.Root` ancestor. |
-| `data-filled`      | Present when the combobox has a value. Needs a `Field.Root` ancestor.      |
-| `data-focused`     | Present when the trigger is focused. Needs a `Field.Root` ancestor.        |
+<TypesCombobox.Trigger />
 
 ### Chips
 
-<ApiPart name="combobox" part="Chips" />
+<TypesCombobox.Chips />
 
 ### Chip
 
-<ApiPart name="combobox" part="Chip" />
+<TypesCombobox.Chip />
 
 | Attribute       | Description                            |
 | --------------- | -------------------------------------- |
@@ -2497,7 +2444,7 @@ Svelte updates only what changed, so items need no memoizing: `<Combobox.Collect
 
 ### ChipRemove
 
-<ApiPart name="combobox" part="ChipRemove" />
+<TypesCombobox.ChipRemove />
 
 | Attribute       | Description                          |
 | --------------- | ------------------------------------ |
@@ -2505,7 +2452,7 @@ Svelte updates only what changed, so items need no memoizing: `<Combobox.Collect
 
 ### List
 
-<ApiPart name="combobox" part="List" />
+<TypesCombobox.List />
 
 | Attribute    | Description                                  |
 | ------------ | -------------------------------------------- |
@@ -2513,118 +2460,59 @@ Svelte updates only what changed, so items need no memoizing: `<Combobox.Collect
 
 ### Portal
 
-<ApiPart name="combobox" part="Portal" />
+<TypesCombobox.Portal />
 
 ### Backdrop
 
-<ApiPart name="combobox" part="Backdrop" />
-
-| Attribute             | Description                              |
-| --------------------- | ---------------------------------------- |
-| `data-open`           | Present when the popup is open.          |
-| `data-closed`         | Present when the popup is closed.        |
-| `data-starting-style` | Present when the popup is animating in.  |
-| `data-ending-style`   | Present when the popup is animating out. |
+<TypesCombobox.Backdrop />
 
 ### Positioner
 
-<ApiPart name="combobox" part="Positioner" />
-
-| Attribute            | Description                                  |
-| -------------------- | -------------------------------------------- |
-| `data-open`          | Present when the popup is open.              |
-| `data-closed`        | Present when the popup is closed.            |
-| `data-anchor-hidden` | Present when the anchor is hidden.           |
-| `data-side`          | The side of the anchor the popup is on.      |
-| `data-align`         | How the popup lines up with the anchor.      |
-| `data-empty`         | Present when the filtered list has no items. |
-
-| CSS variable         | Description                                                 |
-| -------------------- | ----------------------------------------------------------- |
-| `--anchor-width`     | The width of the anchor.                                    |
-| `--anchor-height`    | The height of the anchor.                                   |
-| `--available-width`  | The width between the anchor and the edge of the viewport.  |
-| `--available-height` | The height between the anchor and the edge of the viewport. |
-| `--transform-origin` | The point the popup grows from, for scale animations.       |
+<TypesCombobox.Positioner />
 
 ### Popup
 
-<ApiPart name="combobox" part="Popup" />
-
-| Attribute             | Description                                  |
-| --------------------- | -------------------------------------------- |
-| `data-open`           | Present when the popup is open.              |
-| `data-closed`         | Present when the popup is closed.            |
-| `data-side`           | The side of the anchor the popup is on.      |
-| `data-align`          | How the popup lines up with the anchor.      |
-| `data-anchor-hidden`  | Present when the anchor is hidden.           |
-| `data-empty`          | Present when the filtered list has no items. |
-| `data-starting-style` | Present when the popup is animating in.      |
-| `data-ending-style`   | Present when the popup is animating out.     |
+<TypesCombobox.Popup />
 
 ### Arrow
 
-<ApiPart name="combobox" part="Arrow" />
-
-| Attribute         | Description                                                      |
-| ----------------- | ---------------------------------------------------------------- |
-| `data-open`       | Present when the popup is open.                                  |
-| `data-closed`     | Present when the popup is closed.                                |
-| `data-side`       | The side of the anchor the popup is on.                          |
-| `data-align`      | How the popup lines up with the anchor.                          |
-| `data-uncentered` | Present when the arrow cannot point at the center of the anchor. |
+<TypesCombobox.Arrow />
 
 ### Status
 
-<ApiPart name="combobox" part="Status" />
+<TypesCombobox.Status />
 
 ### Empty
 
-<ApiPart name="combobox" part="Empty" />
+<TypesCombobox.Empty />
 
 ### Collection
 
-<ApiPart name="combobox" part="Collection" />
+<TypesCombobox.Collection />
 
 ### Row
 
-<ApiPart name="combobox" part="Row" />
+<TypesCombobox.Row />
 
 ### Item
 
-<ApiPart name="combobox" part="Item" />
-
-| Attribute          | Description                           |
-| ------------------ | ------------------------------------- |
-| `data-selected`    | Present when the item is selected.    |
-| `data-highlighted` | Present when the item is highlighted. |
-| `data-disabled`    | Present when the item is disabled.    |
+<TypesCombobox.Item />
 
 ### ItemIndicator
 
-<ApiPart name="combobox" part="ItemIndicator" />
-
-| Attribute             | Description                                  |
-| --------------------- | -------------------------------------------- |
-| `data-selected`       | Present when the item is selected.           |
-| `data-starting-style` | Present when the indicator is animating in.  |
-| `data-ending-style`   | Present when the indicator is animating out. |
+<TypesCombobox.ItemIndicator />
 
 ### Group
 
-<ApiPart name="combobox" part="Group" />
+<TypesCombobox.Group />
 
 ### GroupLabel
 
-<ApiPart name="combobox" part="GroupLabel" />
+<TypesCombobox.GroupLabel />
 
 ### Separator
 
-<ApiPart name="combobox" part="Separator" />
-
-| Attribute          | Description                                                             |
-| ------------------ | ----------------------------------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the separator: `horizontal` or `vertical`. |
+<TypesCombobox.Separator />
 
 ## useFilter
 
