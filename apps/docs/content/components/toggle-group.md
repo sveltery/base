@@ -8,212 +8,107 @@ description: Provides a shared state to a series of toggle buttons.
 	import { Toggle } from '@sveltery/base/toggle';
 	import { ToggleGroup } from '@sveltery/base/toggle-group';
 
-	const alignments = [
-		{ value: 'left', label: 'Align left', path: 'M3 6h18M3 12h12M3 18h16' },
-		{ value: 'center', label: 'Align center', path: 'M3 6h18M6 12h12M4 18h16' },
-		{ value: 'right', label: 'Align right', path: 'M3 6h18M9 12h12M5 18h16' }
-	];
+	const toggle =
+		'flex size-8 items-center justify-center border-none rounded-none bg-transparent text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:not-data-pressed:bg-neutral-200 dark:active:not-data-disabled:not-data-pressed:bg-neutral-700 data-pressed:bg-neutral-950 data-pressed:text-white dark:data-pressed:bg-white dark:data-pressed:text-neutral-950 data-pressed:hover:not-data-disabled:bg-neutral-950 data-pressed:hover:not-data-disabled:text-white dark:data-pressed:hover:not-data-disabled:bg-white dark:data-pressed:hover:not-data-disabled:text-neutral-950 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+
+	let value = $state(['left']);
 </script>
 
 <ToggleGroup
+	bind:value
 	aria-label="Text alignment"
-	value={['left']}
-	class="flex gap-px rounded-md border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-900"
+	class="flex gap-px p-px border border-neutral-950 dark:border-white"
 >
-	{#each alignments as alignment (alignment.value)}
-		<Toggle
-			value={alignment.value}
-			aria-label={alignment.label}
-			class="flex size-8 items-center justify-center rounded-sm text-gray-600 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 data-[pressed]:bg-gray-200 data-[pressed]:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:active:bg-gray-700 dark:data-[pressed]:bg-gray-700 dark:data-[pressed]:text-gray-100"
+	<Toggle aria-label="Align left" value="left" class={toggle}>
+		<svg
+			width="16"
+			height="16"
+			fill="none"
+			viewBox="0 0 16 16"
+			stroke="currentColor"
+			style="display: block"
 		>
-			<svg
-				viewBox="0 0 24 24"
-				class="size-4"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				aria-hidden="true"
-			>
-				<path d={alignment.path} />
-			</svg>
-		</Toggle>
-	{/each}
+			<path stroke-linecap="square" stroke-linejoin="round" d="M2.5 4.5h11m-11 7h9M2.5 8h5" />
+		</svg>
+	</Toggle>
+	<Toggle aria-label="Align center" value="center" class={toggle}>
+		<svg width="16" height="16" viewBox="0 0 16 16" stroke="currentColor" style="display: block">
+			<path stroke-linecap="square" stroke-linejoin="round" d="M2.5 4.5h11m-10 7h9M5.5 8h5" />
+		</svg>
+	</Toggle>
+	<Toggle aria-label="Align right" value="right" class={toggle}>
+		<svg width="16" height="16" viewBox="0 0 16 16" stroke="currentColor" style="display: block">
+			<path stroke-linecap="square" stroke-linejoin="round" d="M2.5 4.5h11m-9 7h9M8.5 8h5" />
+		</svg>
+	</Toggle>
 </ToggleGroup>
 ```
 
 ## Anatomy
 
-Import the group and `Toggle`, then place toggles inside the group:
+Import the component and use it as a single part:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
-	import { Toggle } from '@sveltery/base/toggle';
 	import { ToggleGroup } from '@sveltery/base/toggle-group';
 </script>
 
-<ToggleGroup>
-	<Toggle value="left" />
-</ToggleGroup>
+<ToggleGroup />
 ```
 
 ## Examples
 
-### Value
-
-Each toggle takes a `value`. The group's `value` is the array of values that are pressed. Bind `value` to read and change the array. Without `bind:`, the group manages its own state, and an array you pass sets the initial state.
-
-By default, one toggle can be pressed at a time. Pressing another toggle releases the first, and pressing the pressed toggle releases it.
-
-```svelte demo
-<script lang="ts">
-	import { Toggle } from '@sveltery/base/toggle';
-	import { ToggleGroup } from '@sveltery/base/toggle-group';
-
-	const views = ['day', 'week', 'month'];
-	let value = $state<string[]>(['week']);
-</script>
-
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<ToggleGroup
-		bind:value
-		aria-label="Calendar view"
-		class="flex gap-px rounded-md border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-900"
-	>
-		{#each views as view (view)}
-			<Toggle
-				value={view}
-				class="rounded-sm px-3 py-1 font-medium text-gray-600 capitalize select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[pressed]:bg-gray-200 data-[pressed]:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:data-[pressed]:bg-gray-700 dark:data-[pressed]:text-gray-100"
-			>
-				{view}
-			</Toggle>
-		{/each}
-	</ToggleGroup>
-	<button
-		type="button"
-		class="rounded-sm bg-gray-100 px-2 py-1 font-medium hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-		onclick={() => (value = ['month'])}
-	>
-		Show month
-	</button>
-	<p>Pressed: {value.length ? value.join(', ') : 'none'}</p>
-</div>
-```
-
-To veto a change, call `eventDetails.cancel()` in `onValueChange` or in a toggle's `onPressedChange`. Neither the toggle nor the group then changes.
-
 ### Multiple
 
-Set `multiple` to let users press more than one toggle at once.
+Add the `multiple` prop to allow pressing more than one toggle at a time.
 
 ```svelte demo
 <script lang="ts">
 	import { Toggle } from '@sveltery/base/toggle';
 	import { ToggleGroup } from '@sveltery/base/toggle-group';
+
+	const toggle =
+		'flex size-8 items-center justify-center border-none rounded-none bg-transparent text-neutral-950 dark:text-white select-none hover:bg-neutral-100 dark:hover:bg-neutral-800 data-pressed:bg-neutral-950 data-pressed:text-white dark:data-pressed:bg-white dark:data-pressed:text-neutral-950 data-pressed:hover:bg-neutral-950 data-pressed:hover:text-white dark:data-pressed:hover:bg-white dark:data-pressed:hover:text-neutral-950 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+
+	let value = $state(['bold', 'italic']);
 </script>
 
 <ToggleGroup
 	multiple
-	value={['bold', 'italic']}
-	aria-label="Text formatting"
-	class="flex gap-px rounded-md border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-900"
+	bind:value
+	aria-label="Text formatting options"
+	class="flex gap-px p-px border border-neutral-950 dark:border-white"
 >
-	<Toggle
-		value="bold"
-		aria-label="Bold"
-		class="flex size-8 items-center justify-center rounded-sm font-bold text-gray-600 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[pressed]:bg-gray-200 data-[pressed]:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:data-[pressed]:bg-gray-700 dark:data-[pressed]:text-gray-100"
-	>
-		B
+	<Toggle aria-label="Bold" value="bold" class={toggle}>
+		<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block">
+			<path
+				d="M3.73353 2.13333C3.4386 2.13333 3.2002 2.37226 3.2002 2.66666C3.2002 2.96106 3.4386 3.2 3.73353 3.2H4.26686V12.8H3.73353C3.4386 12.8 3.2002 13.0389 3.2002 13.3333C3.2002 13.6277 3.4386 13.8667 3.73353 13.8667H9.86686C11.7783 13.8667 13.3335 12.3115 13.3335 10.4C13.3335 8.9968 12.4945 7.78881 11.2929 7.24375C11.8897 6.70615 12.2669 5.93066 12.2669 5.06666C12.2669 3.44906 10.9506 2.13333 9.33353 2.13333H3.73353ZM6.93353 3.2H8.26686C9.29619 3.2 10.1335 4.03733 10.1335 5.06666C10.1335 6.096 9.29619 6.93333 8.26686 6.93333H6.93353V3.2ZM6.93353 8H7.73353H8.26686C9.59006 8 10.6669 9.0768 10.6669 10.4C10.6669 11.7232 9.59006 12.8 8.26686 12.8H6.93353V8Z"
+			/>
+		</svg>
 	</Toggle>
-	<Toggle
-		value="italic"
-		aria-label="Italic"
-		class="flex size-8 items-center justify-center rounded-sm text-gray-600 italic select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[pressed]:bg-gray-200 data-[pressed]:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:data-[pressed]:bg-gray-700 dark:data-[pressed]:text-gray-100"
-	>
-		I
+	<Toggle aria-label="Italic" value="italic" class={toggle}>
+		<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block">
+			<path
+				d="M8.52599 2.12186C8.48583 2.12267 8.44578 2.1265 8.4062 2.13332H6.93328C6.86261 2.13232 6.79244 2.14538 6.72686 2.17173C6.66127 2.19808 6.60158 2.23721 6.55125 2.28683C6.50092 2.33646 6.46096 2.39559 6.43368 2.46079C6.4064 2.526 6.39235 2.59597 6.39235 2.66665C6.39235 2.73733 6.4064 2.80731 6.43368 2.87251C6.46096 2.93772 6.50092 2.99685 6.55125 3.04647C6.60158 3.0961 6.66127 3.13522 6.72686 3.16157C6.79244 3.18793 6.86261 3.20099 6.93328 3.19999H7.70099L6.69057 12.8H5.86661C5.79594 12.799 5.72577 12.812 5.66019 12.8384C5.59461 12.8648 5.53492 12.9039 5.48459 12.9535C5.43425 13.0031 5.39429 13.0623 5.36701 13.1275C5.33973 13.1927 5.32568 13.2626 5.32568 13.3333C5.32568 13.404 5.33973 13.474 5.36701 13.5392C5.39429 13.6044 5.43425 13.6635 5.48459 13.7131C5.53492 13.7628 5.59461 13.8019 5.66019 13.8282C5.72577 13.8546 5.79594 13.8677 5.86661 13.8667H9.06661C9.13729 13.8677 9.20745 13.8546 9.27304 13.8282C9.33862 13.8019 9.39831 13.7628 9.44864 13.7131C9.49897 13.6635 9.53894 13.6044 9.56622 13.5392C9.5935 13.474 9.60754 13.404 9.60754 13.3333C9.60754 13.2626 9.5935 13.1927 9.56622 13.1275C9.53894 13.0623 9.49897 13.0031 9.44864 12.9535C9.39831 12.9039 9.33862 12.8648 9.27304 12.8384C9.20745 12.812 9.13729 12.799 9.06661 12.8H8.2989L9.30932 3.19999H10.1333C10.204 3.20099 10.2741 3.18793 10.3397 3.16157C10.4053 3.13522 10.465 3.0961 10.5153 3.04647C10.5656 2.99685 10.6056 2.93772 10.6329 2.87251C10.6602 2.80731 10.6742 2.73733 10.6742 2.66665C10.6742 2.59597 10.6602 2.526 10.6329 2.46079C10.6056 2.39559 10.5656 2.33646 10.5153 2.28683C10.465 2.23721 10.4053 2.19808 10.3397 2.17173C10.2741 2.14538 10.204 2.13232 10.1333 2.13332H8.66349C8.61807 2.12555 8.57207 2.12171 8.52599 2.12186Z"
+			/>
+		</svg>
 	</Toggle>
-	<Toggle
-		value="underline"
-		aria-label="Underline"
-		class="flex size-8 items-center justify-center rounded-sm text-gray-600 underline select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[pressed]:bg-gray-200 data-[pressed]:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:data-[pressed]:bg-gray-700 dark:data-[pressed]:text-gray-100"
-	>
-		U
+	<Toggle aria-label="Underline" value="underline" class={toggle}>
+		<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block">
+			<path
+				d="M3.73331 2.13332C3.66264 2.13232 3.59247 2.14538 3.52689 2.17173C3.46131 2.19809 3.40161 2.23721 3.35128 2.28684C3.30095 2.33646 3.26099 2.39559 3.23371 2.4608C3.20643 2.526 3.19238 2.59598 3.19238 2.66666C3.19238 2.73734 3.20643 2.80731 3.23371 2.87252C3.26099 2.93772 3.30095 2.99685 3.35128 3.04648C3.40161 3.0961 3.46131 3.13523 3.52689 3.16158C3.59247 3.18793 3.66264 3.20099 3.73331 3.19999V7.99999C3.73331 10.224 5.55144 12.2667 7.99998 12.2667C10.4485 12.2667 12.2666 10.224 12.2666 7.99999V3.19999C12.3373 3.20099 12.4075 3.18793 12.4731 3.16158C12.5386 3.13523 12.5983 3.0961 12.6487 3.04648C12.699 2.99685 12.739 2.93772 12.7662 2.87252C12.7935 2.80731 12.8076 2.73734 12.8076 2.66666C12.8076 2.59598 12.7935 2.526 12.7662 2.4608C12.739 2.39559 12.699 2.33646 12.6487 2.28684C12.5983 2.23721 12.5386 2.19809 12.4731 2.17173C12.4075 2.14538 12.3373 2.13232 12.2666 2.13332H10.1333C10.0626 2.13232 9.99247 2.14538 9.92689 2.17173C9.8613 2.19809 9.80161 2.23721 9.75128 2.28684C9.70095 2.33646 9.66099 2.39559 9.63371 2.4608C9.60643 2.526 9.59238 2.59598 9.59238 2.66666C9.59238 2.73734 9.60643 2.80731 9.63371 2.87252C9.66099 2.93772 9.70095 2.99685 9.75128 3.04648C9.80161 3.0961 9.8613 3.13523 9.92689 3.16158C9.99247 3.18793 10.0626 3.20099 10.1333 3.19999V8.97187C10.1333 10.0855 9.32179 11.0818 8.21352 11.1896C6.94152 11.3138 5.86665 10.3136 5.86665 9.06666V3.19999C5.93732 3.20099 6.00748 3.18793 6.07307 3.16158C6.13865 3.13523 6.19834 3.0961 6.24867 3.04648C6.299 2.99685 6.33897 2.93772 6.36625 2.87252C6.39353 2.80731 6.40757 2.73734 6.40757 2.66666C6.40757 2.59598 6.39353 2.526 6.36625 2.4608C6.33897 2.39559 6.299 2.33646 6.24867 2.28684C6.19834 2.23721 6.13865 2.19809 6.07307 2.17173C6.00748 2.14538 5.93732 2.13232 5.86665 2.13332H3.73331ZM3.73331 13.3333C3.66264 13.3323 3.59247 13.3454 3.52689 13.3717C3.46131 13.3981 3.40161 13.4372 3.35128 13.4868C3.30095 13.5365 3.26099 13.5956 3.23371 13.6608C3.20643 13.726 3.19238 13.796 3.19238 13.8667C3.19238 13.9373 3.20643 14.0073 3.23371 14.0725C3.26099 14.1377 3.30095 14.1969 3.35128 14.2465C3.40161 14.2961 3.46131 14.3352 3.52689 14.3616C3.59247 14.3879 3.66264 14.401 3.73331 14.4H12.2666C12.3373 14.401 12.4075 14.3879 12.4731 14.3616C12.5386 14.3352 12.5983 14.2961 12.6487 14.2465C12.699 14.1969 12.739 14.1377 12.7662 14.0725C12.7935 14.0073 12.8076 13.9373 12.8076 13.8667C12.8076 13.796 12.7935 13.726 12.7662 13.6608C12.739 13.5956 12.699 13.5365 12.6487 13.4868C12.5983 13.4372 12.5386 13.3981 12.4731 13.3717C12.4075 13.3454 12.3373 13.3323 12.2666 13.3333H3.73331Z"
+			/>
+		</svg>
 	</Toggle>
 </ToggleGroup>
 ```
-
-### Orientation
-
-Set `orientation` to `vertical` so the Up and Down arrow keys move focus between toggles. The default is `horizontal`, where the Left and Right arrow keys move focus. The group sets `data-orientation`, so you can lay it out to match.
-
-```svelte demo
-<script lang="ts">
-	import { Toggle } from '@sveltery/base/toggle';
-	import { ToggleGroup } from '@sveltery/base/toggle-group';
-</script>
-
-<ToggleGroup
-	orientation="vertical"
-	aria-label="Sort order"
-	value={['name']}
-	class="flex w-32 flex-col gap-px rounded-md border border-gray-200 bg-gray-50 p-0.5 text-sm dark:border-gray-700 dark:bg-gray-900"
->
-	{#each ['name', 'date', 'size'] as key (key)}
-		<Toggle
-			value={key}
-			class="rounded-sm px-3 py-1 text-left font-medium text-gray-600 capitalize select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[pressed]:bg-gray-200 data-[pressed]:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:data-[pressed]:bg-gray-700 dark:data-[pressed]:text-gray-100"
-		>
-			{key}
-		</Toggle>
-	{/each}
-</ToggleGroup>
-```
-
-### Keyboard
-
-The group is one tab stop. Tab moves focus to the first toggle, or to the toggle that last had focus. The arrow keys move focus between toggles. Home and End move focus to the first and last toggle. By default, focus wraps from the last toggle to the first. Set `loopFocus={false}` to stop at the ends. Moving focus does not press a toggle. Press Space or Enter to press the focused toggle.
-
-### Disabled
-
-Set `disabled` on the group to disable every toggle, or on a single `Toggle` to disable that toggle. The arrow keys skip a disabled toggle.
-
-```svelte demo
-<script lang="ts">
-	import { Toggle } from '@sveltery/base/toggle';
-	import { ToggleGroup } from '@sveltery/base/toggle-group';
-
-	const toggleClass =
-		'rounded-sm px-3 py-1 text-sm font-medium text-gray-600 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[disabled]:opacity-50 data-[pressed]:bg-gray-200 data-[pressed]:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:data-[pressed]:bg-gray-700 dark:data-[pressed]:text-gray-100';
-</script>
-
-<ToggleGroup
-	aria-label="Plan"
-	value={['pro']}
-	class="flex gap-px rounded-md border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-900"
->
-	<Toggle value="free" class={toggleClass}>Free</Toggle>
-	<Toggle value="pro" class={toggleClass}>Pro</Toggle>
-	<Toggle value="team" disabled class={toggleClass}>Team</Toggle>
-</ToggleGroup>
-```
-
-## Differences from Base UI
-
-- `value` is one bindable prop. Use `bind:value` instead of `value` and `onValueChange` together. There is no `defaultValue` prop: pass `value` without `bind:` to set the initial state. A value you pass holds until the parent changes it, and a press updates the group's own state.
-- `onValueChange` runs before the value changes. Call `eventDetails.cancel()` to keep the group as it is. A toggle's `onPressedChange` runs first, and canceling there stops the group change too.
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
-- `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- Every `Toggle` in the group needs its own `value`. A toggle without one gets a generated id, and the toggle logs an error when the group has a `value`.
-- Inside a `Toolbar`, the group joins the toolbar's arrow key order. Grid composite keyboard navigation and scroll-into-view are not available.
 
 ## API reference
 
-### ToggleGroup
-
 <ApiPart name="toggle-group" part="ToggleGroup" />
 
-| Attribute          | Description                                                        |
-| ------------------ | ------------------------------------------------------------------ |
-| `data-orientation` | The group's orientation, `horizontal` or `vertical`.               |
-| `data-disabled`    | Present when the group is disabled.                                |
-| `data-multiple`    | Present when more than one toggle can be pressed at the same time. |
+| Attribute          | Description                                                                                        |
+| ------------------ | -------------------------------------------------------------------------------------------------- |
+| `data-orientation` | Indicates the orientation of the toggle group.                                                     |
+| `data-disabled`    | Present when the toggle group is disabled.                                                         |
+| `data-multiple`    | Present when the toggle group allows multiple buttons to be in the pressed state at the same time. |

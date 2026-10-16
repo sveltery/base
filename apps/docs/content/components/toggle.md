@@ -10,33 +10,37 @@ description: A two-state button that can be on or off.
 
 <Toggle
 	aria-label="Favorite"
-	class="flex size-8 items-center justify-center rounded-sm text-gray-600 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 data-[pressed]:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:active:bg-gray-700 dark:data-[pressed]:text-gray-100"
+	class="flex size-8 items-center justify-center border-none rounded-none bg-transparent text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-pressed:text-neutral-950 dark:data-pressed:text-white focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
 >
 	{#snippet render(props, state)}
-		<button {...props}>
-			<svg
-				viewBox="0 0 24 24"
-				class="size-5"
-				fill={state.pressed ? 'currentColor' : 'none'}
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linejoin="round"
-				aria-hidden="true"
-			>
-				<path
-					d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-				/>
-			</svg>
-		</button>
+		{#if state.pressed}
+			<button type="button" {...props}>
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block">
+					<path
+						d="M7.99961 13.8667C7.88761 13.8667 7.77561 13.8315 7.68121 13.7611C7.43321 13.5766 1.59961 9.1963 1.59961 5.8667C1.59961 3.80856 3.27481 2.13336 5.33294 2.13336C6.59054 2.13336 7.49934 2.81176 7.99961 3.3131C8.49988 2.81176 9.40868 2.13336 10.6663 2.13336C12.7244 2.13336 14.3996 3.80803 14.3996 5.8667C14.3996 9.1963 8.56601 13.5766 8.31801 13.7616C8.22361 13.8315 8.11161 13.8667 7.99961 13.8667Z"
+					/>
+				</svg>
+			</button>
+		{:else}
+			<button type="button" {...props}>
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block">
+					<path
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+						d="m7.99961 4.8232-.75505-.75666c-.40333-.40419-1.0559-.86651-1.91162-.86651-1.46903 0-2.66666 1.19764-2.66666 2.66667 0 .5412.24648 1.2356.75339 2.04713.49581.79376 1.17682 1.59861 1.89311 2.33647 1.06989 1.1022 2.1604 1.9962 2.68705 2.4102.52751-.4149 1.61735-1.3085 2.68657-2.4101.7163-.73792 1.3973-1.54278 1.8932-2.33656.5069-.81154.7533-1.50594.7533-2.04714 0-1.46947-1.1975-2.66667-2.6666-2.66667-.85574 0-1.50831.46232-1.91164.86651zm-.01387-1.52394c-.5031-.49988-1.40673-1.1659-2.6528-1.1659-2.05813 0-3.73333 1.6752-3.73333 3.73334 0 3.3296 5.8336 7.7099 6.0816 7.8944a.532.532 0 0 0 .3184.1056c.112 0 .224-.0352.3184-.1051.248-.185 6.08159-4.5653 6.08159-7.8949 0-2.05867-1.6752-3.73334-3.7333-3.73334-1.24617 0-2.14985.66611-2.65293 1.166q-.0069.00686-.0137.01367c.00002-.00003-.00002.00002 0 0-.00459-.0046-.00927-.00914-.01393-.01377"
+					/>
+				</svg>
+			</button>
+		{/if}
 	{/snippet}
 </Toggle>
 ```
 
 ## Anatomy
 
-Toggle is a single part. Import it and use it as a component:
+Import the component and use it as a single part:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Toggle } from '@sveltery/base/toggle';
 </script>
@@ -44,96 +48,11 @@ Toggle is a single part. Import it and use it as a component:
 <Toggle />
 ```
 
-## Examples
-
-### Pressed state
-
-Bind `pressed` to read and change whether the toggle is pressed. Without `bind:`, the toggle manages its own state, and a value you pass sets the initial state.
-
-```svelte demo
-<script lang="ts">
-	import { Toggle } from '@sveltery/base/toggle';
-
-	let pressed = $state(false);
-</script>
-
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<Toggle
-		bind:pressed
-		class="rounded-sm border border-gray-200 px-3 py-1 font-medium select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[pressed]:bg-gray-900 data-[pressed]:text-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 dark:data-[pressed]:bg-gray-100 dark:data-[pressed]:text-gray-900"
-	>
-		Bold
-	</Toggle>
-	<label class="flex items-center gap-2">
-		<input type="checkbox" bind:checked={pressed} />
-		Pressed from outside
-	</label>
-</div>
-```
-
-### Disabled
-
-Set `disabled` to ignore user interaction. The toggle renders a disabled `<button>` and sets `data-disabled`.
-
-```svelte demo
-<script lang="ts">
-	import { Toggle } from '@sveltery/base/toggle';
-</script>
-
-<Toggle
-	disabled
-	pressed
-	class="rounded-sm border border-gray-200 px-3 py-1 text-sm font-medium text-gray-900 select-none data-[disabled]:opacity-50 data-[pressed]:bg-gray-200 dark:border-gray-700 dark:text-gray-100 dark:data-[pressed]:bg-gray-700"
->
-	Italic
-</Toggle>
-```
-
-### Cancel a change
-
-`onPressedChange` runs before the state changes. Call `eventDetails.cancel()` to keep the toggle as it is. This toggle accepts a press but refuses to be released.
-
-```svelte demo
-<script lang="ts">
-	import { Toggle } from '@sveltery/base/toggle';
-
-	let pressed = $state(false);
-</script>
-
-<div class="flex flex-col items-start gap-2 text-sm text-gray-900 dark:text-gray-100">
-	<Toggle
-		bind:pressed
-		onPressedChange={(next, eventDetails) => {
-			if (!next) eventDetails.cancel();
-		}}
-		class="rounded-sm border border-gray-200 px-3 py-1 font-medium select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[pressed]:bg-gray-900 data-[pressed]:text-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 dark:data-[pressed]:bg-gray-100 dark:data-[pressed]:text-gray-900"
-	>
-		Pin
-	</Toggle>
-	<p>The toggle is {pressed ? 'pressed' : 'not pressed'}.</p>
-</div>
-```
-
-### Inside a toggle group
-
-A toggle with a `value` can sit inside a [Toggle Group](/components/toggle-group). The group then decides whether the toggle is pressed.
-
-## Differences from Base UI
-
-- `pressed` is one bindable prop. Use `bind:pressed` instead of `pressed` and `onPressedChange` together. There is no `defaultPressed` prop: pass `pressed` without `bind:` to set the initial state.
-- `onPressedChange` runs before the state changes. Call `eventDetails.cancel()` to keep the toggle as it is.
-- Handlers use lowercase names, such as `onclick`. Call `event.preventDefault()` in `onclick` to skip the toggle's own click handler.
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below, or read the state that a `render` snippet receives as its second argument.
-- `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- Toggle never takes part in a form. It ignores the `type` and `form` props. A native toggle renders `<button type="button">`.
-
 ## API reference
-
-### Toggle
 
 <ApiPart name="toggle" part="Toggle" />
 
-| Attribute       | Description                          |
-| --------------- | ------------------------------------ |
-| `data-pressed`  | Present when the toggle is pressed.  |
-| `data-disabled` | Present when the toggle is disabled. |
+| Attribute       | Description                                 |
+| --------------- | ------------------------------------------- |
+| `data-pressed`  | Present when the toggle button is pressed.  |
+| `data-disabled` | Present when the toggle button is disabled. |
