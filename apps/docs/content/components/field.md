@@ -29,7 +29,7 @@ description: A component that provides labeling and validation for form controls
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Field } from '@sveltery/base/field';
 </script>

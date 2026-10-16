@@ -74,7 +74,7 @@ description: A native form element with consolidated error handling.
 
 Form is composed together with [Field](/components/field). Import the components and place them together:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Field } from '@sveltery/base/field';
 	import { Form } from '@sveltery/base/form';
@@ -168,7 +168,7 @@ Forms can be submitted with a [SvelteKit form action](https://svelte.dev/docs/ki
 
 You can use `onFormSubmit` instead of the native `onsubmit` to access form values as a JavaScript object. This is useful when you need to transform the values before submission, or integrate with 3rd party APIs.
 
-```svelte
+```svelte title="Submission using onFormSubmit"
 <Form
 	onFormSubmit={async (formValues: { id: string; quantity: number }) => {
 		const payload = {
@@ -189,31 +189,26 @@ When used, `preventDefault` is called on the native submit event.
 
 ### Using with Zod
 
-When parsing the schema using `schema.safeParse()`, the `z.flattenError(result.error).fieldErrors` data can be used to map the errors to each field's `name`. The demo below uses Valibot, where `v.flatten(result.issues).nested` gives the same shape.
+When parsing the schema using `schema.safeParse()`, the `z.flattenError(result.error).fieldErrors` data can be used to map the errors to each field's `name`.
 
 ```svelte demo
 <script lang="ts">
-	import * as v from 'valibot';
+	import { z } from 'zod';
 	import { Button } from '@sveltery/base/button';
 	import { Field } from '@sveltery/base/field';
 	import { Form, type FormErrors } from '@sveltery/base/form';
 
-	const schema = v.object({
-		name: v.pipe(v.string(), v.minLength(1, 'Name is required')),
-		age: v.pipe(
-			v.string(),
-			v.transform(Number),
-			v.number('Age must be a number'),
-			v.gtValue(0, 'Age must be a positive number')
-		)
+	const schema = z.object({
+		name: z.string().min(1, 'Name is required'),
+		age: z.coerce.number('Age must be a number').positive('Age must be a positive number')
 	});
 
 	async function submitForm(formValues: Record<string, unknown>) {
-		const result = v.safeParse(schema, formValues);
+		const result = schema.safeParse(formValues);
 
 		if (!result.success) {
 			return {
-				errors: (v.flatten(result.issues).nested ?? {}) as FormErrors
+				errors: z.flattenError(result.error).fieldErrors as FormErrors
 			};
 		}
 
