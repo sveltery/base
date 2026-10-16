@@ -29,7 +29,7 @@ export const slugify = (value: string): string =>
 		.replace(/[^a-z0-9\s-]/g, '')
 		.replace(/\s+/g, '-');
 
-/** Gives h2 to h4 an id and a self link, and exposes h2 and h3 as `metadata.toc`. */
+/** Gives h2 to h4 an id, h2 and h3 a self link, and exposes h2 and h3 as `metadata.toc`. */
 export function headings() {
 	return (tree: MdNode, file: { data: { fm?: Record<string, unknown> } }) => {
 		const toc: TocItem[] = [];
@@ -41,12 +41,49 @@ export function headings() {
 			let id = base;
 			for (let count = 1; used.has(id); count++) id = `${base}-${count}`;
 			used.add(id);
-			node.data = { ...node.data, hProperties: { id } };
+			node.data = { ...node.data, hProperties: { id, class: `MdH${node.depth}` } };
 			// A link cannot contain a link, so a heading that already has one keeps its id without the self link.
-			if (!hasLink(node))
-				node.children = [{ type: 'link', url: `#${id}`, children: node.children ?? [] }];
+			if (node.depth <= 3 && !hasLink(node))
+				node.children = [
+					{
+						type: 'link',
+						url: `#${id}`,
+						data: { hProperties: { class: 'HeadingLink' } },
+						children: node.children ?? []
+					}
+				];
 			if (node.depth <= 3) toc.push({ title, url: `#${id}`, depth: node.depth });
 		}
 		file.data.fm = { ...file.data.fm, toc };
 	};
+}
+
+const CLASSES: Record<string, string> = {
+	paragraph: 'MdP',
+	list: 'MdUl',
+	listItem: 'MdListItem',
+	emphasis: 'MdEm',
+	link: 'Link'
+};
+
+// An HTML tag in a code span, such as `<button>`, is shown as a tag rather than as code.
+const HTML_TAG = /^<\/?[a-z][a-z0-9-]*\s*\/?>$/;
+
+/** Gives prose elements the classes Base UI's MDX components give them. */
+export function elements() {
+	const visit = (node: MdNode) => {
+		const name =
+			node.type === 'list' && (node as { ordered?: boolean }).ordered ? 'MdOl' : CLASSES[node.type];
+		const existing = node.data?.hProperties as Record<string, unknown> | undefined;
+		if (name && !existing?.class) node.data = { ...node.data, hProperties: { ...existing, class: name } };
+		if (node.type === 'inlineCode') {
+			const tag = HTML_TAG.test(decode(node.value ?? ''));
+			node.data = {
+				...node.data,
+				hProperties: { class: tag ? 'Code MdCode MdTag' : 'Code MdCode', 'data-inline': '' }
+			};
+		}
+		node.children?.forEach(visit);
+	};
+	return (tree: MdNode) => visit(tree);
 }

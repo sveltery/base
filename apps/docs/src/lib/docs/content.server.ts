@@ -26,7 +26,7 @@ const entries: Entry[] = Object.entries(metadata).map(([file, fm]) => {
 		throw new Error(`${file}: frontmatter needs a title and a description`);
 	return {
 		href: `/${section}/${slug}`,
-		title: fm.title,
+		title: fm.navTitle ?? fm.title,
 		description: fm.description,
 		section,
 		order: fm.order ?? Infinity
