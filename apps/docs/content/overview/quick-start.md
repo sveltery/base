@@ -8,9 +8,7 @@ order: 1
 
 Install Sveltery Base using a package manager.
 
-```bash title="Terminal"
-npm i @sveltery/base
-```
+<InstallationBlock package="@sveltery/base" />
 
 All components are included in a single package. Each component has its own entry point, such as `@sveltery/base/popover`, so your app bundle will contain only the components that you actually use.
 
@@ -154,6 +152,12 @@ The same popover with plain CSS. The popup is portaled to `<body>`, outside your
 [Sveltery UI](https://ui.sveltery.dev) is a great place to start if you need pre-styled components with higher-level abstractions. It uses Sveltery Base as its unstyled foundation.
 
 Take a look at the [Community](/overview/community) page to see more of the Sveltery Base ecosystem.
+
+## Working with LLMs
+
+For those of you working with LLMs, each docs page has a "View as Markdown" link at the top, which can be shared with AI chat assistants to help them understand Sveltery Base concepts and component APIs.
+
+Additionally, there is an ["llms.txt"](/llms.txt) link in the "Handbook" section of the navigation sidebar, which you can feed to AI chat assistants to help them navigate the docs.
 
 ## Next steps
 
