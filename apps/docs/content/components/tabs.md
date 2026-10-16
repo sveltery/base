@@ -1,46 +1,39 @@
 ---
 title: Tabs
-description: A component for switching between related panels on the same page.
+description: A component for toggling between related panels on the same page.
 ---
 
 ```svelte demo
 <script lang="ts">
 	import { Tabs } from '@sveltery/base/tabs';
 
-	const tab =
-		'z-10 flex h-8 items-center justify-center px-3 text-sm font-medium text-gray-600 outline-0 select-none hover:text-gray-900 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[active]:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 dark:data-[active]:text-gray-100';
+	const tabClassName =
+		'flex h-[calc(2rem+1px)] items-center justify-center bg-transparent px-2 py-0 font-inherit text-sm font-normal leading-5 break-keep whitespace-nowrap text-neutral-600 outline-none select-none hover:text-neutral-950 focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-active:text-neutral-950 dark:text-neutral-300 dark:hover:text-white dark:data-active:text-white';
+
+	const panelClassName =
+		'col-start-1 row-start-1 flex w-full items-center justify-center bg-white p-4 text-center text-sm text-neutral-950 outline-none focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:bg-neutral-950 dark:text-white [[hidden]]:hidden';
 </script>
 
-<Tabs.Root
-	value="overview"
-	class="w-80 rounded-md border border-gray-200 text-gray-900 dark:border-gray-700 dark:text-gray-100"
->
-	<Tabs.List class="relative z-0 flex gap-1 border-b border-gray-200 px-1 dark:border-gray-700">
-		<Tabs.Tab value="overview" class={tab}>Overview</Tabs.Tab>
-		<Tabs.Tab value="projects" class={tab}>Projects</Tabs.Tab>
-		<Tabs.Tab value="account" class={tab}>Account</Tabs.Tab>
+<Tabs.Root class="w-full max-w-xs" value="overview">
+	<Tabs.List class="relative z-1 -mb-px flex gap-1">
+		<Tabs.Tab class={tabClassName} value="overview">Overview</Tabs.Tab>
+		<Tabs.Tab class={tabClassName} value="projects">Projects</Tabs.Tab>
+		<Tabs.Tab class={tabClassName} value="account">Account</Tabs.Tab>
 		<Tabs.Indicator
-			class="absolute top-1/2 left-0 z-0 h-6 w-[var(--active-tab-width)] -translate-y-1/2 translate-x-[var(--active-tab-left)] rounded-sm bg-gray-100 transition-all duration-200 ease-in-out dark:bg-gray-800"
+			class="absolute top-0 left-0 -z-1 h-full w-(--active-tab-width) translate-x-(--active-tab-left) border-x border-t border-neutral-950 bg-white transition-[translate,width] duration-150 ease-in-out dark:border-white dark:bg-neutral-950"
 		/>
 	</Tabs.List>
-	<Tabs.Panel
-		value="overview"
-		class="flex h-24 items-center justify-center text-sm outline-0 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800"
-	>
-		Overview panel
-	</Tabs.Panel>
-	<Tabs.Panel
-		value="projects"
-		class="flex h-24 items-center justify-center text-sm outline-0 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800"
-	>
-		Projects panel
-	</Tabs.Panel>
-	<Tabs.Panel
-		value="account"
-		class="flex h-24 items-center justify-center text-sm outline-0 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800"
-	>
-		Account panel
-	</Tabs.Panel>
+	<div class="grid w-full min-h-32 grid-cols-1 border border-neutral-950 dark:border-white">
+		<Tabs.Panel class={panelClassName} value="overview">
+			<p>Workspace stats and activity.</p>
+		</Tabs.Panel>
+		<Tabs.Panel class={panelClassName} value="projects">
+			<p>Milestones and deadlines.</p>
+		</Tabs.Panel>
+		<Tabs.Panel class={panelClassName} value="account">
+			<p>Profile and preferences.</p>
+		</Tabs.Panel>
+	</div>
 </Tabs.Root>
 ```
 
@@ -48,7 +41,7 @@ description: A component for switching between related panels on the same page.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Tabs } from '@sveltery/base/tabs';
 </script>
@@ -64,206 +57,72 @@ Import the component and assemble its parts:
 
 ## Examples
 
-### Selected tab
-
-Each `Tabs.Tab` and its `Tabs.Panel` share a `value`. Bind `value` to read and change the selected tab. A value can be any type. The default is `0`. When no tab has the selected value, the root selects the first enabled tab. Set `value` to `null` to select no tab.
-
-```svelte demo
-<script lang="ts">
-	import { Tabs } from '@sveltery/base/tabs';
-
-	let value = $state('projects');
-
-	const tab =
-		'flex h-8 items-center justify-center px-3 text-sm font-medium text-gray-600 outline-0 select-none hover:text-gray-900 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[active]:text-gray-900 data-[active]:shadow-[inset_0_-2px] data-[active]:shadow-gray-900 dark:text-gray-400 dark:hover:text-gray-100 dark:data-[active]:text-gray-100 dark:data-[active]:shadow-gray-100';
-</script>
-
-<div class="flex w-80 flex-col gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<Tabs.Root bind:value>
-		<Tabs.List class="flex gap-1 border-b border-gray-200 dark:border-gray-700">
-			<Tabs.Tab value="overview" class={tab}>Overview</Tabs.Tab>
-			<Tabs.Tab value="projects" class={tab}>Projects</Tabs.Tab>
-			<Tabs.Tab value="account" class={tab}>Account</Tabs.Tab>
-		</Tabs.List>
-		<Tabs.Panel value="overview" class="py-3">Overview panel</Tabs.Panel>
-		<Tabs.Panel value="projects" class="py-3">Projects panel</Tabs.Panel>
-		<Tabs.Panel value="account" class="py-3">Account panel</Tabs.Panel>
-	</Tabs.Root>
-	<button
-		type="button"
-		class="self-start rounded-sm bg-gray-100 px-2 py-1 font-medium hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-		onclick={() => (value = 'account')}
-	>
-		Select Account (value: {value})
-	</button>
-</div>
-```
-
-### Vertical tabs
-
-Set `orientation="vertical"` on the root. The up and down arrow keys move between tabs, and the list sets `aria-orientation`. Every part gets `data-orientation="vertical"`.
-
-```svelte demo
-<script lang="ts">
-	import { Tabs } from '@sveltery/base/tabs';
-
-	const tab =
-		'flex h-8 items-center px-3 text-sm font-medium text-gray-600 outline-0 select-none hover:text-gray-900 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[active]:text-gray-900 data-[active]:shadow-[inset_-2px_0] data-[active]:shadow-gray-900 dark:text-gray-400 dark:hover:text-gray-100 dark:data-[active]:text-gray-100 dark:data-[active]:shadow-gray-100';
-</script>
-
-<Tabs.Root
-	value="general"
-	orientation="vertical"
-	class="flex w-80 text-gray-900 dark:text-gray-100"
->
-	<Tabs.List class="flex flex-col border-r border-gray-200 dark:border-gray-700">
-		<Tabs.Tab value="general" class={tab}>General</Tabs.Tab>
-		<Tabs.Tab value="security" class={tab}>Security</Tabs.Tab>
-		<Tabs.Tab value="billing" class={tab}>Billing</Tabs.Tab>
-	</Tabs.List>
-	<Tabs.Panel value="general" class="flex-1 px-4 py-2 text-sm">General settings</Tabs.Panel>
-	<Tabs.Panel value="security" class="flex-1 px-4 py-2 text-sm">Security settings</Tabs.Panel>
-	<Tabs.Panel value="billing" class="flex-1 px-4 py-2 text-sm">Billing settings</Tabs.Panel>
-</Tabs.Root>
-```
-
-### Activate on focus
-
-By default, the arrow keys move focus and Enter or Space selects the focused tab. Set `activateOnFocus` on the list to select a tab as soon as it receives focus. Set `loopFocus={false}` to stop the arrow keys from wrapping at the ends.
-
-```svelte
-<Tabs.List activateOnFocus loopFocus={false}>…</Tabs.List>
-```
-
-### Disabled tab
-
-A disabled tab cannot be selected, but it stays in the arrow key order so keyboard users can find it. The tab gets `data-disabled` and `aria-disabled`.
-
-```svelte demo
-<script lang="ts">
-	import { Tabs } from '@sveltery/base/tabs';
-
-	const tab =
-		'flex h-8 items-center px-3 text-sm font-medium text-gray-600 outline-0 select-none hover:text-gray-900 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[active]:text-gray-900 data-[active]:shadow-[inset_0_-2px] data-[active]:shadow-gray-900 data-[disabled]:cursor-not-allowed data-[disabled]:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:data-[active]:text-gray-100 dark:data-[active]:shadow-gray-100 dark:data-[disabled]:text-gray-600';
-</script>
-
-<Tabs.Root value="overview" class="w-80 text-gray-900 dark:text-gray-100">
-	<Tabs.List class="flex gap-1 border-b border-gray-200 dark:border-gray-700">
-		<Tabs.Tab value="overview" class={tab}>Overview</Tabs.Tab>
-		<Tabs.Tab value="reports" disabled class={tab}>Reports</Tabs.Tab>
-		<Tabs.Tab value="account" class={tab}>Account</Tabs.Tab>
-	</Tabs.List>
-	<Tabs.Panel value="overview" class="py-3 text-sm">Overview panel</Tabs.Panel>
-	<Tabs.Panel value="reports" class="py-3 text-sm">Reports panel</Tabs.Panel>
-	<Tabs.Panel value="account" class="py-3 text-sm">Account panel</Tabs.Panel>
-</Tabs.Root>
-```
-
 ### Animated panels
 
-A panel stays mounted while it plays its exit transition. During the transition it has `data-starting-style` or `data-ending-style`. Every part has `data-activation-direction`, which tells you whether the new tab is to the `left` or `right` (or `up` or `down` for vertical tabs) of the previous one. Use it to slide panels in from the matching side.
+Animate panels as they activate using the `data-starting-style` and `data-ending-style` attributes.
+The `data-activation-direction` attribute indicates which direction the newly active tab is relative to the previously active one, letting panels slide in from the correct side.
 
 ```svelte demo
 <script lang="ts">
 	import { Tabs } from '@sveltery/base/tabs';
 
-	const tab =
-		'z-10 flex h-8 items-center justify-center px-3 text-sm font-medium text-gray-600 outline-0 select-none hover:text-gray-900 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[active]:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 dark:data-[active]:text-gray-100';
+	const tabClassName =
+		'flex h-[calc(2rem+1px)] items-center justify-center bg-transparent px-2 py-0 font-inherit text-sm font-normal leading-5 break-keep whitespace-nowrap text-neutral-600 outline-none select-none hover:text-neutral-950 focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-active:text-neutral-950 dark:text-neutral-300 dark:hover:text-white dark:data-active:text-white';
 
-	const panel =
-		'flex h-24 w-full items-center justify-center text-sm transition-[transform,opacity] duration-300 ease-out data-[ending-style]:absolute data-[ending-style]:inset-0 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[starting-style]:data-[activation-direction=left]:-translate-x-1/2 data-[starting-style]:data-[activation-direction=right]:translate-x-1/2 data-[ending-style]:data-[activation-direction=left]:translate-x-1/2 data-[ending-style]:data-[activation-direction=right]:-translate-x-1/2';
+	const panelClassName =
+		'col-start-1 row-start-1 flex w-full items-center justify-center p-4 text-center text-sm text-neutral-950 outline-none focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white [transition:opacity_175ms_ease,translate_350ms_cubic-bezier(0.22,1,0.36,1)] data-starting-style:opacity-0 data-ending-style:opacity-0 motion-safe:data-starting-style:data-[activation-direction=left]:translate-x-[-50%] motion-safe:data-starting-style:data-[activation-direction=right]:translate-x-[50%] motion-safe:data-ending-style:data-[activation-direction=left]:translate-x-[50%] motion-safe:data-ending-style:data-[activation-direction=right]:translate-x-[-50%]';
 </script>
 
-<Tabs.Root
-	value="overview"
-	class="w-80 rounded-md border border-gray-200 text-gray-900 dark:border-gray-700 dark:text-gray-100"
->
-	<Tabs.List class="relative z-0 flex gap-1 border-b border-gray-200 px-1 dark:border-gray-700">
-		<Tabs.Tab value="overview" class={tab}>Overview</Tabs.Tab>
-		<Tabs.Tab value="projects" class={tab}>Projects</Tabs.Tab>
-		<Tabs.Tab value="account" class={tab}>Account</Tabs.Tab>
+<Tabs.Root class="w-full max-w-xs" value="overview">
+	<Tabs.List class="relative z-1 -mb-px flex gap-1">
+		<Tabs.Tab class={tabClassName} value="overview">Overview</Tabs.Tab>
+		<Tabs.Tab class={tabClassName} value="projects">Projects</Tabs.Tab>
+		<Tabs.Tab class={tabClassName} value="account">Account</Tabs.Tab>
 		<Tabs.Indicator
-			class="absolute top-1/2 left-0 z-0 h-6 w-[var(--active-tab-width)] -translate-y-1/2 translate-x-[var(--active-tab-left)] rounded-sm bg-gray-100 transition-all duration-200 ease-in-out dark:bg-gray-800"
+			class="absolute top-0 left-0 -z-1 h-full w-(--active-tab-width) translate-x-(--active-tab-left) border-x border-t border-neutral-950 bg-white transition-[translate,width] duration-150 ease-in-out dark:border-white dark:bg-neutral-950"
 		/>
 	</Tabs.List>
-	<div class="relative overflow-hidden">
-		<Tabs.Panel value="overview" class={panel}>Overview panel</Tabs.Panel>
-		<Tabs.Panel value="projects" class={panel}>Projects panel</Tabs.Panel>
-		<Tabs.Panel value="account" class={panel}>Account panel</Tabs.Panel>
+	<div
+		class="relative grid min-h-32 w-full grid-cols-1 overflow-hidden border border-neutral-950 bg-white dark:border-white dark:bg-neutral-950"
+	>
+		<Tabs.Panel class={panelClassName} value="overview">
+			<p>Workspace stats and activity.</p>
+		</Tabs.Panel>
+		<Tabs.Panel class={panelClassName} value="projects">
+			<p>Milestones and deadlines.</p>
+		</Tabs.Panel>
+		<Tabs.Panel class={panelClassName} value="account">
+			<p>Profile and preferences.</p>
+		</Tabs.Panel>
 	</div>
-</Tabs.Root>
-```
-
-### Keep panels mounted
-
-A hidden panel is removed from the DOM after its exit transition. Set `keepMounted` on a panel to keep it in the DOM while hidden. A hidden panel has the `hidden` attribute, `data-hidden`, and `inert`. The panel below keeps the text you type when you switch tabs.
-
-```svelte demo
-<script lang="ts">
-	import { Tabs } from '@sveltery/base/tabs';
-
-	const tab =
-		'flex h-8 items-center px-3 text-sm font-medium text-gray-600 outline-0 select-none hover:text-gray-900 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[active]:text-gray-900 data-[active]:shadow-[inset_0_-2px] data-[active]:shadow-gray-900 dark:text-gray-400 dark:hover:text-gray-100 dark:data-[active]:text-gray-100 dark:data-[active]:shadow-gray-100';
-</script>
-
-<Tabs.Root value="notes" class="w-80 text-gray-900 dark:text-gray-100">
-	<Tabs.List class="flex gap-1 border-b border-gray-200 dark:border-gray-700">
-		<Tabs.Tab value="notes" class={tab}>Notes</Tabs.Tab>
-		<Tabs.Tab value="draft" class={tab}>Draft</Tabs.Tab>
-	</Tabs.List>
-	<Tabs.Panel value="notes" keepMounted class="py-3 text-sm">
-		<textarea
-			class="w-full rounded-sm border border-gray-200 p-2 dark:border-gray-700"
-			rows="2"
-			placeholder="Type here. The text survives a tab change."></textarea>
-	</Tabs.Panel>
-	<Tabs.Panel value="draft" keepMounted class="py-3 text-sm">Draft panel</Tabs.Panel>
 </Tabs.Root>
 ```
 
 ### Links
 
-To render tabs as links, set `nativeButton={false}` and pass a `render` snippet. Spread `props` onto the anchor and render `children` inside it.
+Use the `render` snippet and set `nativeButton={false}` on `<Tabs.Tab>` to render tabs as anchor elements.
 
-```svelte demo
+```svelte title="Tabs as links"
 <script lang="ts">
 	import { Tabs } from '@sveltery/base/tabs';
-
-	const tab =
-		'flex h-8 items-center px-3 text-sm font-medium text-gray-600! no-underline! outline-0 select-none hover:text-gray-900! focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[active]:text-gray-900! data-[active]:shadow-[inset_0_-2px] data-[active]:shadow-gray-900 dark:text-gray-400! dark:hover:text-gray-100! dark:data-[active]:text-gray-100! dark:data-[active]:shadow-gray-100';
 </script>
 
-<Tabs.Root value="overview" class="w-80 text-gray-900 dark:text-gray-100">
-	<Tabs.List class="flex gap-1 border-b border-gray-200 dark:border-gray-700">
-		{#each ['overview', 'projects', 'account'] as name (name)}
-			<Tabs.Tab value={name} nativeButton={false} class={tab}>
-				{#snippet render(props, state, children)}
-					<a {...props} href="/components/tabs" onclick={(event) => event.preventDefault()}>
-						{@render children?.()}
-					</a>
-				{/snippet}
-				{name[0].toUpperCase() + name.slice(1)}
-			</Tabs.Tab>
-		{/each}
+<Tabs.Root>
+	<Tabs.List>
+		<!-- @highlight-start -->
+		<!-- @highlight-text "nativeButton={false}" -->
+		<Tabs.Tab nativeButton={false} value="overview">
+			<!-- @highlight-text "render" -->
+			{#snippet render(props, state, children)}
+				<a href="/overview" {...props}>{@render children?.()}</a>
+			{/snippet}
+			Overview
+		</Tabs.Tab>
+		<!-- @highlight-end -->
 	</Tabs.List>
-	<Tabs.Panel value="overview" class="py-3 text-sm">Overview panel</Tabs.Panel>
-	<Tabs.Panel value="projects" class="py-3 text-sm">Projects panel</Tabs.Panel>
-	<Tabs.Panel value="account" class="py-3 text-sm">Account panel</Tabs.Panel>
+	<!-- ... -->
 </Tabs.Root>
 ```
-
-## Differences from Base UI
-
-- `value` is one bindable prop. Use `bind:value` instead of `value` and `onValueChange` together. There is no `defaultValue` prop: pass `value` without `bind:` to set the initial tab, and the tabs keep their own state after that.
-- `onValueChange` runs before the value changes. Call `eventDetails.cancel()` to keep the current tab. `cancel()` stops a change with the reason `none`, which is a click or keyboard activation. It does not stop the automatic changes with the reasons `disabled` and `missing`. `eventDetails.activationDirection` tells you where the next tab sits relative to the current one.
-- The root moves the selection to the first enabled tab when the selected tab becomes disabled or is removed, whether or not you pass `value`. Base UI keeps a controlled value. A value you pass at mount stays selected while its tab is disabled or not yet rendered, until it has named an enabled tab once. Base UI holds only a disabled `defaultValue` tab.
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
-- `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`. `children` is undefined when no content is passed, so call `children?.()`.
-- Handlers use Svelte's lowercase names, such as `onclick` and `onkeydown`. Call `event.preventDefault()` in a handler on `Tabs.Tab` to skip the tab's own handler.
-- A disabled tab ignores Enter and Space, but the arrow keys still move focus through it.
-- The arrow keys follow the reading direction from a [Direction Provider](/utils/direction-provider). In `rtl`, the left arrow moves to the next tab.
-- `renderBeforeHydration` on `Tabs.Indicator` renders a `<script>` after the indicator, with the nonce from a [CSP Provider](/utils/csp-provider). Base UI removes that script once the page hydrates. Here it stays in the DOM, and it is empty when the component mounts only on the client.
-- The parts take no `ref`.
 
 ## API reference
 
@@ -271,58 +130,58 @@ To render tabs as links, set `nativeButton={false}` and pass a `render` snippet.
 
 <ApiPart name="tabs" part="Root" />
 
-| Attribute                   | Description                                                                    |
-| --------------------------- | ------------------------------------------------------------------------------ |
-| `data-orientation`          | `horizontal` or `vertical`.                                                    |
-| `data-activation-direction` | `left`, `right`, `up`, `down`, or `none`, relative to the previous active tab. |
+| Attribute                   | Description                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------- |
+| `data-orientation`          | Indicates the orientation of the tabs.                                        |
+| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
 
 ### List
 
 <ApiPart name="tabs" part="List" />
 
-| Attribute                   | Description                                                                    |
-| --------------------------- | ------------------------------------------------------------------------------ |
-| `data-orientation`          | `horizontal` or `vertical`.                                                    |
-| `data-activation-direction` | `left`, `right`, `up`, `down`, or `none`, relative to the previous active tab. |
+| Attribute                   | Description                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------- |
+| `data-orientation`          | Indicates the orientation of the tabs.                                        |
+| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
 
 ### Tab
 
 <ApiPart name="tabs" part="Tab" />
 
-| Attribute                   | Description                                                                    |
-| --------------------------- | ------------------------------------------------------------------------------ |
-| `data-orientation`          | `horizontal` or `vertical`.                                                    |
-| `data-activation-direction` | `left`, `right`, `up`, `down`, or `none`, relative to the previous active tab. |
-| `data-active`               | Present when the tab is selected.                                              |
-| `data-disabled`             | Present when the tab is disabled.                                              |
-
-### Panel
-
-<ApiPart name="tabs" part="Panel" />
-
-| Attribute                   | Description                                                                    |
-| --------------------------- | ------------------------------------------------------------------------------ |
-| `data-orientation`          | `horizontal` or `vertical`.                                                    |
-| `data-activation-direction` | `left`, `right`, `up`, `down`, or `none`, relative to the previous active tab. |
-| `data-hidden`               | Present when the panel is hidden.                                              |
-| `data-index`                | The panel's position among the mounted panels in the root.                     |
-| `data-starting-style`       | Present when the panel is animating in.                                        |
-| `data-ending-style`         | Present when the panel is animating out.                                       |
+| Attribute                   | Description                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------- |
+| `data-orientation`          | Indicates the orientation of the tabs.                                        |
+| `data-disabled`             | Present when the tab is disabled.                                             |
+| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
+| `data-active`               | Present when the tab is active.                                               |
 
 ### Indicator
 
 <ApiPart name="tabs" part="Indicator" />
 
-| Attribute                   | Description                                                                    |
-| --------------------------- | ------------------------------------------------------------------------------ |
-| `data-orientation`          | `horizontal` or `vertical`.                                                    |
-| `data-activation-direction` | `left`, `right`, `up`, `down`, or `none`, relative to the previous active tab. |
+| Attribute                   | Description                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------- |
+| `data-orientation`          | Indicates the orientation of the tabs.                                        |
+| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
 
-| CSS variable          | Description                                             |
-| --------------------- | ------------------------------------------------------- |
-| `--active-tab-left`   | Distance from the left of the list to the active tab.   |
-| `--active-tab-right`  | Distance from the right of the list to the active tab.  |
-| `--active-tab-top`    | Distance from the top of the list to the active tab.    |
-| `--active-tab-bottom` | Distance from the bottom of the list to the active tab. |
-| `--active-tab-width`  | The active tab's width.                                 |
-| `--active-tab-height` | The active tab's height.                                |
+| CSS Variable          | Description                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------------- |
+| `--active-tab-bottom` | Indicates the distance on the bottom side from the parent's container if the tab is active. |
+| `--active-tab-height` | Indicates the height of the tab if it is active.                                            |
+| `--active-tab-left`   | Indicates the distance on the left side from the parent's container if the tab is active.   |
+| `--active-tab-right`  | Indicates the distance on the right side from the parent's container if the tab is active.  |
+| `--active-tab-top`    | Indicates the distance on the top side from the parent's container if the tab is active.    |
+| `--active-tab-width`  | Indicates the width of the tab if it is active.                                             |
+
+### Panel
+
+<ApiPart name="tabs" part="Panel" />
+
+| Attribute                   | Description                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------- |
+| `data-orientation`          | Indicates the orientation of the tabs.                                        |
+| `data-activation-direction` | Indicates the direction of the activation (based on the previous active tab). |
+| `data-hidden`               | Present when the panel is hidden.                                             |
+| `data-index`                | Indicates the index of the tab panel.                                         |
+| `data-starting-style`       | Present when the panel begins animating in.                                   |
+| `data-ending-style`         | Present when the panel is animating out.                                      |

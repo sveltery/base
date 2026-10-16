@@ -14,6 +14,9 @@
 		"@sveltery/base": "workspace:*"
 	},
 	"devDependencies": {
+		"@orama/orama": "^3.1.18",
+		"@orama/plugin-qps": "^3.1.18",
+		"@orama/stopwords": "^3.1.18",
 		"@sveltejs/adapter-cloudflare": "^8.0.0",
 		"@sveltejs/kit": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",

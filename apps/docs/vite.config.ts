@@ -4,8 +4,10 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { mdsvex } from 'mdsvex';
 import { defineConfig } from 'vite';
-import { headings } from './markdown/headings.ts';
+import { elements, headings } from './markdown/headings.ts';
+import { docsMarkdown } from './markdown/llms.ts';
 import { docsComponents, highlightCode } from './markdown/preprocess.ts';
+import { searchDocuments } from './markdown/search.ts';
 
 const path = (relative: string) => fileURLToPath(new URL(relative, import.meta.url));
 
@@ -23,6 +25,8 @@ export default defineConfig({
 	resolve: { alias: [{ find: /^@sveltery\/base(?=\/|$)/, replacement: lib }] },
 	plugins: [
 		tailwindcss(),
+		docsMarkdown({ pages: path('./content'), lib }),
+		searchDocuments({ pages: path('./content'), lib }),
 		sveltekit({
 			adapter: adapter(),
 			extensions: ['.svelte', '.md'],
@@ -35,7 +39,7 @@ export default defineConfig({
 				mdsvex({
 					extensions: ['.md'],
 					smartypants: false,
-					remarkPlugins: [headings],
+					remarkPlugins: [headings, elements],
 					highlight: { highlighter: highlightCode }
 				}),
 				docsComponents({ pages: path('./content'), demos, lib })

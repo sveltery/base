@@ -1,6 +1,6 @@
 ---
 title: Preview Card
-description: A popup that previews the content behind a link when the link is hovered or focused.
+description: A link that shows a destination preview without interrupting keyboard or screen reader navigation.
 ---
 
 ```svelte demo
@@ -8,47 +8,55 @@ description: A popup that previews the content behind a link when the link is ho
 	import { PreviewCard } from '@sveltery/base/preview-card';
 </script>
 
-<p class="max-w-sm text-base text-gray-900 dark:text-gray-100">
-	Good
-	<PreviewCard.Root>
+<PreviewCard.Root>
+	<p class="text-base text-neutral-950 text-balance dark:text-white">
+		The principles of good
 		<PreviewCard.Trigger
+			class="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
 			href="https://en.wikipedia.org/wiki/Typography"
-			class="text-blue-800 underline decoration-blue-800/60 underline-offset-2 outline-none focus-visible:outline-2 focus-visible:outline-blue-800 dark:text-blue-400 dark:decoration-blue-400/60"
 		>
 			typography
 		</PreviewCard.Trigger>
-		<PreviewCard.Portal>
-			<PreviewCard.Positioner sideOffset={8}>
-				<PreviewCard.Popup
-					class="w-64 origin-[var(--transform-origin)] rounded-lg bg-gray-50 p-4 text-sm text-gray-900 shadow-lg outline outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700"
-				>
-					<PreviewCard.Arrow
-						class="flex data-[side=bottom]:-top-2 data-[side=left]:-right-3.5 data-[side=left]:rotate-90 data-[side=right]:-left-3.5 data-[side=right]:-rotate-90 data-[side=top]:-bottom-2 data-[side=top]:rotate-180"
-					>
-						<svg width="20" height="10" viewBox="0 0 20 10" fill="none" aria-hidden="true">
-							<path
-								d="M0 10L10 1L20 10"
-								class="fill-gray-50 stroke-gray-200 dark:fill-gray-900 dark:stroke-gray-700"
-							/>
-						</svg>
-					</PreviewCard.Arrow>
-					<p class="font-medium">Typography</p>
-					<p class="mt-1 text-gray-600 dark:text-gray-400">
-						Typography is the art of arranging type to make written language legible and appealing.
+		remain in the digital age.
+	</p>
+
+	<PreviewCard.Portal>
+		<PreviewCard.Positioner sideOffset={8}>
+			<PreviewCard.Popup
+				class="relative h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,opacity] duration-100 ease-out data-ending-style:[transform:scale(0.98)] data-ending-style:opacity-0 data-starting-style:[transform:scale(0.98)] data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+			>
+				<PreviewCard.Arrow
+					class="relative block h-1.5 w-3 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:absolute before:bottom-0 before:left-1/2 before:h-[calc(6px*sqrt(2))] before:w-[calc(6px*sqrt(2))] before:border before:border-neutral-950 before:bg-white before:content-[''] before:[transform:translate(-50%,50%)_rotate(45deg)] dark:before:border-white dark:before:bg-neutral-950"
+				/>
+				<div class="flex w-min flex-col gap-2 p-2">
+					<img
+						width="224"
+						height="150"
+						class="block max-w-none"
+						src="https://images.unsplash.com/photo-1619615391095-dfa29e1672ef?q=80&w=448&h=300"
+						alt="Station Hofplein signage in Rotterdam, Netherlands"
+					/>
+					<p class="text-sm">
+						<strong>Typography</strong> is the art and science of arranging type to make written language
+						clear, visually appealing, and effective in communication.
 					</p>
-				</PreviewCard.Popup>
-			</PreviewCard.Positioner>
-		</PreviewCard.Portal>
-	</PreviewCard.Root>
-	design makes the page easier to read.
-</p>
+				</div>
+			</PreviewCard.Popup>
+		</PreviewCard.Positioner>
+	</PreviewCard.Portal>
+</PreviewCard.Root>
 ```
+
+## Usage guidelines
+
+- **Protect screen reader users' current context**: Exposing each preview to screen readers would force users through its contents before they could continue through the page, repeatedly disrupting their current context. Keep the link as the only accessible interface and include all previewed information at its destination.
+- **Keep popup content supplementary**: Avoid placing unique or essential information in the popup unless it is also available on the linked page. For the reason above, preview card content is not touch, keyboard or screen reader navigable. It acts as a visual [progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) for sighted mouse and keyboard users only.
 
 ## Anatomy
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { PreviewCard } from '@sveltery/base/preview-card';
 </script>
@@ -67,146 +75,77 @@ Import the component and assemble its parts:
 </PreviewCard.Root>
 ```
 
-`PreviewCard.Backdrop`, `PreviewCard.Arrow`, and `PreviewCard.Viewport` are optional. `PreviewCard.Positioner` and `PreviewCard.Popup` are required. `PreviewCard.Trigger` renders an `<a>` element.
-
 ## Examples
-
-### Open state
-
-Bind `open` to read and change whether the card is open. Without `bind:`, the card manages its own state, and a value you pass sets the initial state. The `onOpenChange` callback runs before every change and tells you why it happened.
-
-```svelte demo
-<script lang="ts">
-	import { PreviewCard } from '@sveltery/base/preview-card';
-
-	let open = $state(false);
-	let reason = $state('none yet');
-</script>
-
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<label class="flex items-center gap-2">
-		<input type="checkbox" bind:checked={open} />
-		Open from outside
-	</label>
-	<p>Last change reason: {reason}</p>
-	<PreviewCard.Root
-		bind:open
-		onOpenChange={(_open, eventDetails) => (reason = eventDetails.reason)}
-	>
-		<PreviewCard.Trigger
-			href="https://en.wikipedia.org/wiki/Typography"
-			class="text-blue-800 underline decoration-blue-800/60 underline-offset-2 outline-none focus-visible:outline-2 focus-visible:outline-blue-800 dark:text-blue-400 dark:decoration-blue-400/60"
-		>
-			Hover or focus this link
-		</PreviewCard.Trigger>
-		<PreviewCard.Portal>
-			<PreviewCard.Positioner sideOffset={8}>
-				<PreviewCard.Popup
-					class="origin-[var(--transform-origin)] rounded-lg bg-gray-50 px-4 py-3 text-gray-900 shadow-lg outline outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700"
-				>
-					Press Escape to close.
-				</PreviewCard.Popup>
-			</PreviewCard.Positioner>
-		</PreviewCard.Portal>
-	</PreviewCard.Root>
-</div>
-```
-
-The `reason` in the event details is one of `trigger-hover`, `trigger-focus`, `trigger-press`, `outside-press`, `escape-key`, `imperative-action`, or `none`.
-
-### Delay and close delay
-
-Set `delay` on a trigger for the wait before the card opens on hover. Set `closeDelay` for the wait before it closes. Both are in milliseconds. `delay` defaults to 600 and `closeDelay` defaults to 300. A longer `closeDelay` gives the pointer time to cross the gap between the link and the card.
-
-```svelte demo
-<script lang="ts">
-	import { PreviewCard } from '@sveltery/base/preview-card';
-
-	const link =
-		'text-blue-800 underline decoration-blue-800/60 underline-offset-2 outline-none focus-visible:outline-2 focus-visible:outline-blue-800 dark:text-blue-400 dark:decoration-blue-400/60';
-	const popup =
-		'origin-[var(--transform-origin)] rounded-lg bg-gray-50 px-4 py-3 text-sm text-gray-900 shadow-lg outline outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700';
-</script>
-
-<div class="flex items-center gap-6 text-sm">
-	<PreviewCard.Root>
-		<PreviewCard.Trigger href="https://en.wikipedia.org/wiki/Typography" delay={100} class={link}>
-			Quick open
-		</PreviewCard.Trigger>
-		<PreviewCard.Portal>
-			<PreviewCard.Positioner sideOffset={8}>
-				<PreviewCard.Popup class={popup}>Opens after 100 ms.</PreviewCard.Popup>
-			</PreviewCard.Positioner>
-		</PreviewCard.Portal>
-	</PreviewCard.Root>
-
-	<PreviewCard.Root>
-		<PreviewCard.Trigger
-			href="https://en.wikipedia.org/wiki/Typography"
-			closeDelay={1000}
-			class={link}
-		>
-			Slow close
-		</PreviewCard.Trigger>
-		<PreviewCard.Portal>
-			<PreviewCard.Positioner sideOffset={8}>
-				<PreviewCard.Popup class={popup}>Closes 1 s after the pointer leaves.</PreviewCard.Popup>
-			</PreviewCard.Positioner>
-		</PreviewCard.Portal>
-	</PreviewCard.Root>
-</div>
-```
 
 ### Detached triggers
 
-A trigger does not have to sit inside `PreviewCard.Root`. Create a handle with `PreviewCard.createHandle()` and pass it to the root and to each trigger as `handle`. The trigger can then live anywhere on the page.
+A preview card can be controlled by a trigger located either inside or outside the `<PreviewCard.Root>` component.
+For simple, one-off interactions, place the `<PreviewCard.Trigger>` inside `<PreviewCard.Root>`, as shown in the example at the top of this page.
 
-Give each trigger a `payload` and read it from `handle.payload`. Type the payload with `PreviewCard.createHandle<T>()`. One card serves every trigger, moves to the trigger that opened it, and shows that trigger's payload.
+However, if defining the preview card's content next to its trigger is not practical, you can use a detached trigger.
+This involves placing the `<PreviewCard.Trigger>` outside of `<PreviewCard.Root>` and linking them with a `handle` created by the `PreviewCard.createHandle()` function.
+
+The imperative methods on the handle, such as `open()` and `close()`, require a `<PreviewCard.Root>` using the same handle to be mounted.
+Calls made while no root is attached to the handle — before one mounts, or after it unmounts — are ignored. Each time a root mounts, it starts from fresh state: a call made while no root was attached is not replayed, and no open state carries over from a previous mount.
+
+```svelte title="Detached triggers"
+<script lang="ts">
+	import { PreviewCard } from '@sveltery/base/preview-card';
+
+	const demoPreviewCard = PreviewCard.createHandle();
+</script>
+
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoPreviewCard}" -->
+<PreviewCard.Trigger handle={demoPreviewCard} href="#">Link</PreviewCard.Trigger>
+
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoPreviewCard}" -->
+<PreviewCard.Root handle={demoPreviewCard}>...</PreviewCard.Root>
+```
 
 ```svelte demo
 <script lang="ts">
 	import { PreviewCard } from '@sveltery/base/preview-card';
 
-	const handle = PreviewCard.createHandle<{ title: string; body: string }>();
-
-	const link =
-		'text-blue-800 underline decoration-blue-800/60 underline-offset-2 outline-none focus-visible:outline-2 focus-visible:outline-blue-800 dark:text-blue-400 dark:decoration-blue-400/60';
+	const demoPreviewCard = PreviewCard.createHandle();
 </script>
 
-<div class="flex items-center gap-6 text-sm">
-	<PreviewCard.Trigger
-		{handle}
-		href="https://en.wikipedia.org/wiki/Typography"
-		payload={{ title: 'Typography', body: 'The art of arranging type so that text reads well.' }}
-		class={link}
-	>
-		Typography
-	</PreviewCard.Trigger>
-	<PreviewCard.Trigger
-		{handle}
-		href="https://en.wikipedia.org/wiki/Typeface"
-		payload={{ title: 'Typeface', body: 'A design of lettering that can come in several fonts.' }}
-		class={link}
-	>
-		Typeface
-	</PreviewCard.Trigger>
-	<PreviewCard.Trigger
-		{handle}
-		href="https://en.wikipedia.org/wiki/Kerning"
-		payload={{ title: 'Kerning', body: 'The adjustment of space between pairs of letters.' }}
-		class={link}
-	>
-		Kerning
-	</PreviewCard.Trigger>
+<div>
+	<p class="text-base text-neutral-950 text-balance dark:text-white">
+		The principles of good
+		<PreviewCard.Trigger
+			class="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
+			handle={demoPreviewCard}
+			href="https://en.wikipedia.org/wiki/Typography"
+		>
+			typography
+		</PreviewCard.Trigger>
+		remain in the digital age.
+	</p>
 
-	<PreviewCard.Root {handle}>
+	<PreviewCard.Root handle={demoPreviewCard}>
 		<PreviewCard.Portal>
 			<PreviewCard.Positioner sideOffset={8}>
 				<PreviewCard.Popup
-					class="w-64 origin-[var(--transform-origin)] rounded-lg bg-gray-50 p-4 text-gray-900 shadow-lg outline outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700"
+					class="relative h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,opacity] duration-100 ease-out data-ending-style:[transform:scale(0.98)] data-ending-style:opacity-0 data-starting-style:[transform:scale(0.98)] data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
 				>
-					<p class="font-medium">{handle.payload?.title}</p>
-					<p class="mt-1 text-gray-600 dark:text-gray-400">{handle.payload?.body}</p>
+					<PreviewCard.Arrow
+						class="relative block h-1.5 w-3 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:absolute before:bottom-0 before:left-1/2 before:h-[calc(6px*sqrt(2))] before:w-[calc(6px*sqrt(2))] before:border before:border-neutral-950 before:bg-white before:content-[''] before:[transform:translate(-50%,50%)_rotate(45deg)] dark:before:border-white dark:before:bg-neutral-950"
+					/>
+					<div class="flex w-min flex-col gap-2 p-2">
+						<img
+							width="224"
+							height="150"
+							class="block max-w-none"
+							src="https://images.unsplash.com/photo-1619615391095-dfa29e1672ef?q=80&w=448&h=300"
+							alt="Station Hofplein signage in Rotterdam, Netherlands"
+						/>
+						<p class="text-sm">
+							<strong>Typography</strong> is the art and science of arranging type to make written language
+							clear, visually appealing, and effective in communication.
+						</p>
+					</div>
 				</PreviewCard.Popup>
 			</PreviewCard.Positioner>
 		</PreviewCard.Portal>
@@ -214,20 +153,351 @@ Give each trigger a `payload` and read it from `handle.payload`. Type the payloa
 </div>
 ```
 
-A handle also controls the card from code. Call `handle.open(triggerId)`, `handle.close()`, or `handle.unmount()`. Read `handle.isOpen` and `handle.payload` to inspect it. `handle.open(triggerId)` throws when no trigger with that id is registered, because the card needs a trigger to anchor to.
+### Multiple triggers
 
-You can also put several triggers inside one `PreviewCard.Root` without a handle. Each trigger still takes its own `payload`, and the snippet you pass as the children of `PreviewCard.Root` receives it as `{ payload }`.
+A single preview card can be opened by multiple trigger elements.
+You can achieve this by using the same `handle` for several detached triggers, or by placing multiple `<PreviewCard.Trigger>` components inside a single `<PreviewCard.Root>`.
 
-## Differences from Base UI
+```svelte title="Multiple triggers within the Root part"
+<PreviewCard.Root>
+	<PreviewCard.Trigger href="#">Trigger 1</PreviewCard.Trigger>
+	<PreviewCard.Trigger href="#">Trigger 2</PreviewCard.Trigger>
+	...
+</PreviewCard.Root>
+```
 
-- `open` and `triggerId` are bindable props. Use `bind:open` and `bind:triggerId` instead of `open`, `defaultOpen`, `triggerId`, and `defaultTriggerId`. There are no `defaultOpen` or `defaultTriggerId` props. The first value you pass is the default.
-- `actionsRef` is not available. Use `bind:this` on `PreviewCard.Root`, which exposes `close()` and `unmount()`.
-- Create a handle with `PreviewCard.createHandle()` or `createPreviewCardHandle`. There is no top-level `createHandle` export, because Popover already exports that name from the library barrel.
-- Each trigger supplies its `payload` and `closeDelay`, and the card reads them from the active trigger. A change to the payload of the active trigger shows at once. If the active trigger unmounts while the card stays open, for example after you cancel a close, the card keeps the values the trigger had when it unmounted.
-- A bound `triggerId` whose element registers late moves the anchor to that element. A card opened without a trigger press uses its only trigger as the anchor.
-- When the active trigger unregisters, the card closes with the reason `none`. The close runs in a microtask, so a replacement trigger registered in the same tick keeps the card open. A canceled close leaves the old element as the anchor.
-- The positioner places the popup with `top` and `left`. Base UI v1.9.0 uses `transform` when no `PreviewCard.Viewport` is mounted.
-- The previous pane in `PreviewCard.Viewport` does not carry `--popup-width` and `--popup-height`.
+```svelte title="Multiple detached triggers"
+<script lang="ts">
+	import { PreviewCard } from '@sveltery/base/preview-card';
+
+	const demoPreviewCard = PreviewCard.createHandle();
+</script>
+
+<PreviewCard.Trigger handle={demoPreviewCard} href="#">Trigger 1</PreviewCard.Trigger>
+
+<PreviewCard.Trigger handle={demoPreviewCard} href="#">Trigger 2</PreviewCard.Trigger>
+
+<PreviewCard.Root handle={demoPreviewCard}>...</PreviewCard.Root>
+```
+
+The preview card can render different content depending on which trigger opened it.
+This is achieved by passing a `payload` to the `<PreviewCard.Trigger>` and using the `children` snippet of `<PreviewCard.Root>`, which receives the `payload`.
+
+The payload can be strongly typed by providing a type argument to the `createHandle()` function:
+
+```svelte title="Detached triggers with payload"
+<script lang="ts">
+	import { PreviewCard } from '@sveltery/base/preview-card';
+
+	// @highlight
+	const demoPreviewCard = PreviewCard.createHandle<{ title: string }>();
+</script>
+
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
+<PreviewCard.Trigger handle={demoPreviewCard} payload={{ title: 'Trigger 1' }} href="#">
+	Trigger 1
+</PreviewCard.Trigger>
+
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
+<PreviewCard.Trigger handle={demoPreviewCard} payload={{ title: 'Trigger 2' }} href="#">
+	Trigger 2
+</PreviewCard.Trigger>
+
+<PreviewCard.Root handle={demoPreviewCard}>
+	{#snippet children({ payload })}
+		<!-- @highlight-text "payload" -->
+		<PreviewCard.Portal>
+			<PreviewCard.Positioner sideOffset={8}>
+				<PreviewCard.Popup>
+					{#if payload !== undefined}
+						<!-- @highlight-text "payload" -->
+						<span>Preview card opened by {payload.title}</span>
+						<!-- @highlight-text "payload" -->
+					{/if}
+				</PreviewCard.Popup>
+			</PreviewCard.Positioner>
+		</PreviewCard.Portal>
+	{/snippet}
+</PreviewCard.Root>
+```
+
+### Controlled mode with multiple triggers
+
+You can control the preview card's open state externally by binding the `open` prop on `<PreviewCard.Root>`.
+This allows you to manage the preview card's visibility based on your application's state.
+When using multiple triggers, you have to manage which trigger is active by binding the `triggerId` prop on `<PreviewCard.Root>` and setting the `id` prop on each `<PreviewCard.Trigger>`.
+
+Note that there is no separate `onTriggerIdChange` prop. `bind:triggerId` follows the trigger that opens or closes the preview card.
+The `onOpenChange` callback also receives an additional argument, `eventDetails`, which contains the trigger element that initiated the state change.
+
+```svelte demo
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import { PreviewCard } from '@sveltery/base/preview-card';
+
+	const demoPreviewCard = PreviewCard.createHandle<Snippet>();
+
+	let open = $state(false);
+	let triggerId = $state<string | null>(null);
+
+	const linkClass =
+		'text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white';
+</script>
+
+{#snippet typography()}
+	<div class="flex w-min flex-col gap-2 p-2">
+		<img
+			width="224"
+			height="150"
+			class="block max-w-none"
+			src="https://images.unsplash.com/photo-1619615391095-dfa29e1672ef?q=80&w=448&h=300"
+			alt="Station Hofplein signage in Rotterdam, Netherlands"
+		/>
+		<p class="text-sm">
+			<strong>Typography</strong> is the art and science of arranging type.
+		</p>
+	</div>
+{/snippet}
+
+{#snippet design()}
+	<div class="flex w-min flex-col gap-2 p-2">
+		<img
+			width="241"
+			height="240"
+			class="block max-w-none"
+			src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Braun_ABW30_%28schwarz%29.jpg/250px-Braun_ABW30_%28schwarz%29.jpg"
+			alt="Braun ABW30"
+		/>
+		<p class="text-sm">
+			A <strong>design</strong> is the concept or proposal for an object, process, or system.
+		</p>
+	</div>
+{/snippet}
+
+{#snippet art()}
+	<div class="flex w-min flex-col gap-2 p-2">
+		<img
+			width="206"
+			height="240"
+			class="block max-w-none"
+			src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/MonaLisa_sfumato.jpeg/250px-MonaLisa_sfumato.jpeg"
+			alt="Mona Lisa"
+		/>
+		<p class="text-sm">
+			<strong>Art</strong> is a diverse range of cultural activity centered around works utilizing creative
+			or imaginative talents, which are expected to evoke a worthwhile experience, generally through an
+			expression of emotional power, conceptual ideas, technical proficiency, or beauty.
+		</p>
+	</div>
+{/snippet}
+
+<div>
+	<div class="flex flex-wrap items-baseline justify-center gap-2">
+		<p class="text-base text-neutral-950 text-balance dark:text-white">
+			Discover
+			<PreviewCard.Trigger
+				class={linkClass}
+				handle={demoPreviewCard}
+				href="https://en.wikipedia.org/wiki/Typography"
+				id="trigger-1"
+				payload={typography}
+			>
+				typography
+			</PreviewCard.Trigger>,
+			<PreviewCard.Trigger
+				class={linkClass}
+				handle={demoPreviewCard}
+				href="https://en.wikipedia.org/wiki/Industrial_design"
+				id="trigger-2"
+				payload={design}
+			>
+				design
+			</PreviewCard.Trigger>, or
+			<PreviewCard.Trigger
+				class={linkClass}
+				handle={demoPreviewCard}
+				href="https://en.wikipedia.org/wiki/Art"
+				id="trigger-3"
+				payload={art}
+			>
+				art
+			</PreviewCard.Trigger>.
+		</p>
+		<button
+			type="button"
+			class="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+			onclick={() => {
+				triggerId = 'trigger-2';
+				open = true;
+			}}
+		>
+			Open programmatically
+		</button>
+	</div>
+
+	<PreviewCard.Root handle={demoPreviewCard} bind:open bind:triggerId>
+		{#snippet children({ payload })}
+			<PreviewCard.Portal>
+				<PreviewCard.Positioner
+					sideOffset={8}
+					class="h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)]"
+				>
+					<PreviewCard.Popup
+						class="relative h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,opacity] duration-100 ease-out data-ending-style:[transform:scale(0.98)] data-ending-style:opacity-0 data-starting-style:[transform:scale(0.98)] data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+					>
+						<PreviewCard.Arrow
+							class="relative block h-1.5 w-3 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:absolute before:bottom-0 before:left-1/2 before:h-[calc(6px*sqrt(2))] before:w-[calc(6px*sqrt(2))] before:border before:border-neutral-950 before:bg-white before:content-[''] before:[transform:translate(-50%,50%)_rotate(45deg)] dark:before:border-white dark:before:bg-neutral-950"
+						/>
+						{@render (payload as Snippet | undefined)?.()}
+					</PreviewCard.Popup>
+				</PreviewCard.Positioner>
+			</PreviewCard.Portal>
+		{/snippet}
+	</PreviewCard.Root>
+</div>
+```
+
+### Animating the Preview Card
+
+You can animate a preview card as it moves between different trigger elements.
+This includes animating its position, size, and content.
+
+#### Position and Size
+
+To animate the preview card's position, apply CSS transitions to the `left`, `right`, `top`, and `bottom` properties of the **Positioner** part.
+To animate its size, transition the `width` and `height` of the **Popup** part.
+
+#### Content
+
+The preview card also supports content transitions.
+This is useful when different triggers display different content within the same preview card.
+
+To enable content animations, wrap the content in the `<PreviewCard.Viewport>` part.
+This part provides features to create direction-aware animations.
+It renders a `div` with a `data-activation-direction` attribute that indicates the new trigger's position relative to the previous one. The value is a space-separated set of up to two tokens (one per axis) — `left` or `right` for the horizontal axis and `up` or `down` for the vertical axis (for example, `right down`). Match a single token with the `~=` attribute selector, such as `[data-activation-direction~='right']`.
+
+Inside the `<PreviewCard.Viewport>`, the content is further wrapped in `div`s with data attributes to help with styling:
+
+- `data-current`: The currently visible content when no transitions are present or the incoming content.
+- `data-previous`: The outgoing content during a transition.
+
+You can use these attributes to style the enter and exit animations.
+
+```svelte demo
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import { PreviewCard } from '@sveltery/base/preview-card';
+
+	const demoPreviewCard = PreviewCard.createHandle<Snippet>();
+
+	const linkClass =
+		'text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white';
+</script>
+
+{#snippet typography()}
+	<div class="flex w-min flex-col gap-2 p-2">
+		<img
+			width="224"
+			height="150"
+			class="block max-w-none"
+			src="https://images.unsplash.com/photo-1619615391095-dfa29e1672ef?q=80&w=448&h=300"
+			alt="Station Hofplein signage in Rotterdam, Netherlands"
+		/>
+		<p class="text-sm">
+			<strong>Typography</strong> is the art and science of arranging type.
+		</p>
+	</div>
+{/snippet}
+
+{#snippet design()}
+	<div class="flex w-min flex-col gap-2 p-2">
+		<img
+			width="250"
+			height="249"
+			class="block max-w-none"
+			src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Braun_ABW30_%28schwarz%29.jpg/250px-Braun_ABW30_%28schwarz%29.jpg"
+			alt="Braun ABW30"
+		/>
+		<p class="text-sm">
+			A <strong>design</strong> is the concept or proposal for an object, process, or system.
+		</p>
+	</div>
+{/snippet}
+
+{#snippet art()}
+	<div class="flex w-min flex-col gap-2 p-2">
+		<img
+			width="250"
+			height="290"
+			class="block max-w-none"
+			src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/MonaLisa_sfumato.jpeg/250px-MonaLisa_sfumato.jpeg"
+			alt="Mona Lisa"
+		/>
+		<p class="text-sm">
+			<strong>Art</strong> is a diverse range of cultural activity centered around works utilizing creative
+			or imaginative talents, which are expected to evoke a worthwhile experience, generally through an
+			expression of emotional power, conceptual ideas, technical proficiency, or beauty.
+		</p>
+	</div>
+{/snippet}
+
+<div>
+	<p class="text-base text-neutral-950 text-balance dark:text-white">
+		Discover
+		<PreviewCard.Trigger
+			class={linkClass}
+			handle={demoPreviewCard}
+			href="https://en.wikipedia.org/wiki/Typography"
+			payload={typography}
+		>
+			typography
+		</PreviewCard.Trigger>,
+		<PreviewCard.Trigger
+			class={linkClass}
+			handle={demoPreviewCard}
+			href="https://en.wikipedia.org/wiki/Design"
+			payload={design}
+		>
+			design
+		</PreviewCard.Trigger>, or
+		<PreviewCard.Trigger
+			class={linkClass}
+			handle={demoPreviewCard}
+			href="https://en.wikipedia.org/wiki/Art"
+			payload={art}
+		>
+			art
+		</PreviewCard.Trigger>.
+	</p>
+
+	<PreviewCard.Root handle={demoPreviewCard}>
+		{#snippet children({ payload })}
+			<PreviewCard.Portal>
+				<PreviewCard.Positioner
+					sideOffset={8}
+					class="h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)] transition-[top,left,right,bottom,transform] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]"
+				>
+					<PreviewCard.Popup
+						class="relative h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[width,height,opacity,transform] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-ending-style:[transform:scale(0.98)] data-ending-style:opacity-0 data-starting-style:[transform:scale(0.98)] data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+					>
+						<PreviewCard.Arrow
+							class="relative block h-1.5 w-3 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:absolute before:bottom-0 before:left-1/2 before:h-[calc(6px*sqrt(2))] before:w-[calc(6px*sqrt(2))] before:border before:border-neutral-950 before:bg-white before:content-[''] before:[transform:translate(-50%,50%)_rotate(45deg)] dark:before:border-white dark:before:bg-neutral-950"
+						/>
+
+						<PreviewCard.Viewport
+							class="relative overflow-clip w-full h-full [&_[data-previous]]:w-[var(--popup-width)] [&_[data-previous]]:translate-x-0 [&_[data-previous]]:opacity-100 [&_[data-previous]]:transition-[translate,opacity] [&_[data-previous]]:duration-[350ms,175ms] [&_[data-previous]]:ease-[cubic-bezier(0.22,1,0.36,1)] [&_[data-current]]:w-[var(--popup-width)] [&_[data-current]]:translate-x-0 [&_[data-current]]:opacity-100 [&_[data-current]]:transition-[translate,opacity] [&_[data-current]]:duration-[350ms,175ms] [&_[data-current]]:ease-[cubic-bezier(0.22,1,0.36,1)] data-[activation-direction~='left']:[&_[data-current][data-starting-style]]:-translate-x-[30%] data-[activation-direction~='left']:[&_[data-current][data-starting-style]]:opacity-0 data-[activation-direction~='right']:[&_[data-current][data-starting-style]]:translate-x-[30%] data-[activation-direction~='right']:[&_[data-current][data-starting-style]]:opacity-0 data-[activation-direction~='left']:[&_[data-previous][data-ending-style]]:translate-x-[30%] data-[activation-direction~='left']:[&_[data-previous][data-ending-style]]:opacity-0 data-[activation-direction~='right']:[&_[data-previous][data-ending-style]]:-translate-x-[30%] data-[activation-direction~='right']:[&_[data-previous][data-ending-style]]:opacity-0"
+						>
+							{@render (payload as Snippet | undefined)?.()}
+						</PreviewCard.Viewport>
+					</PreviewCard.Popup>
+				</PreviewCard.Positioner>
+			</PreviewCard.Portal>
+		{/snippet}
+	</PreviewCard.Root>
+</div>
+```
 
 ## API reference
 
@@ -235,15 +505,13 @@ You can also put several triggers inside one `PreviewCard.Root` without a handle
 
 <ApiPart name="preview-card" part="Root" />
 
-`PreviewCard.Root` renders no element, so it has no data attributes.
-
 ### Trigger
 
 <ApiPart name="preview-card" part="Trigger" />
 
-| Attribute         | Description                                               |
-| ----------------- | --------------------------------------------------------- |
-| `data-popup-open` | Present when the card is open and this trigger opened it. |
+| Attribute         | Description                                          |
+| ----------------- | ---------------------------------------------------- |
+| `data-popup-open` | Present when the corresponding preview card is open. |
 
 ### Portal
 
@@ -253,77 +521,116 @@ You can also put several triggers inside one `PreviewCard.Root` without a handle
 
 <ApiPart name="preview-card" part="Backdrop" />
 
-| Attribute             | Description                             |
-| --------------------- | --------------------------------------- |
-| `data-open`           | Present when the card is open.          |
-| `data-closed`         | Present when the card is closed.        |
-| `data-starting-style` | Present when the card is animating in.  |
-| `data-ending-style`   | Present when the card is animating out. |
+| Attribute             | Description                                        |
+| --------------------- | -------------------------------------------------- |
+| `data-open`           | Present when the preview card is open.             |
+| `data-closed`         | Present when the preview card is closed.           |
+| `data-starting-style` | Present when the preview card begins animating in. |
+| `data-ending-style`   | Present when the preview card is animating out.    |
 
 ### Positioner
 
 <ApiPart name="preview-card" part="Positioner" />
 
-Without props, the positioner places the popup below the trigger and centers it. `side` defaults to `bottom`, `align` to `center`, `sideOffset` and `alignOffset` to `0`, `collisionPadding` to `5`, and `arrowPadding` to `5`. `anchor` defaults to the trigger that opened the card. `positionMethod` defaults to `absolute`, and `collisionBoundary` defaults to the clipping ancestors of the popup. `sticky` and `disableAnchorTracking` default to `false`. By default, the popup moves to the opposite side when it does not fit on the chosen side.
+| Attribute            | Description                                                           |
+| -------------------- | --------------------------------------------------------------------- |
+| `data-open`          | Present when the preview card is open.                                |
+| `data-closed`        | Present when the preview card is closed.                              |
+| `data-anchor-hidden` | Present when the anchor is hidden.                                    |
+| `data-align`         | Indicates how the popup is aligned relative to specified side.        |
+| `data-side`          | Indicates which side the popup is positioned relative to the trigger. |
 
-| Attribute            | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
-| `data-open`          | Present when the card is open.                                                      |
-| `data-closed`        | Present when the card is closed.                                                    |
-| `data-anchor-hidden` | Present when the trigger is hidden or clipped, so the card has nothing to point at. |
-| `data-side`          | The side of the trigger the card is on after collisions.                            |
-| `data-align`         | How the card lines up with the trigger after collisions.                            |
-| `data-instant`       | `dismiss` or `focus` when the card skips its transition.                            |
-
-| CSS variable          | Description                                                                 |
-| --------------------- | --------------------------------------------------------------------------- |
-| `--anchor-width`      | The width of the trigger.                                                   |
-| `--anchor-height`     | The height of the trigger.                                                  |
-| `--available-width`   | The width between the trigger and the edge of the boundary.                 |
-| `--available-height`  | The height between the trigger and the edge of the boundary.                |
-| `--positioner-width`  | The width of the positioner.                                                |
-| `--positioner-height` | The height of the positioner.                                               |
-| `--transform-origin`  | The point on the card that the trigger is closest to, for scale animations. |
+| CSS Variable          | Description                                                                                                                        |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `--anchor-height`     | The anchor's height.                                                                                                               |
+| `--anchor-width`      | The anchor's width.                                                                                                                |
+| `--available-height`  | The available height between the trigger and the edge of the viewport.                                                             |
+| `--available-width`   | The available width between the trigger and the edge of the viewport.                                                              |
+| `--positioner-height` | The height of the preview card's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
+| `--positioner-width`  | The width of the preview card's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
+| `--transform-origin`  | The coordinates that this element is anchored to. Used for animations and transitions.                                             |
 
 ### Popup
 
 <ApiPart name="preview-card" part="Popup" />
 
-| Attribute             | Description                                              |
-| --------------------- | -------------------------------------------------------- |
-| `data-open`           | Present when the card is open.                           |
-| `data-closed`         | Present when the card is closed.                         |
-| `data-side`           | The side of the trigger the card is on after collisions. |
-| `data-align`          | How the card lines up with the trigger after collisions. |
-| `data-instant`        | `dismiss` or `focus` when the card skips its transition. |
-| `data-starting-style` | Present when the card is animating in.                   |
-| `data-ending-style`   | Present when the card is animating out.                  |
-
-| CSS variable     | Description                                                                   |
-| ---------------- | ----------------------------------------------------------------------------- |
-| `--popup-width`  | The width of the popup, while `PreviewCard.Viewport` animates a size change.  |
-| `--popup-height` | The height of the popup, while `PreviewCard.Viewport` animates a size change. |
-
-### Arrow
-
-<ApiPart name="preview-card" part="Arrow" />
-
-| Attribute         | Description                                                       |
-| ----------------- | ----------------------------------------------------------------- |
-| `data-open`       | Present when the card is open.                                    |
-| `data-closed`     | Present when the card is closed.                                  |
-| `data-side`       | The side of the trigger the card is on after collisions.          |
-| `data-align`      | How the card lines up with the trigger after collisions.          |
-| `data-uncentered` | Present when the arrow cannot point at the center of the trigger. |
+| Attribute             | Description                                                           |
+| --------------------- | --------------------------------------------------------------------- |
+| `data-open`           | Present when the preview card is open.                                |
+| `data-closed`         | Present when the preview card is closed.                              |
+| `data-align`          | Indicates how the popup is aligned relative to specified side.        |
+| `data-side`           | Indicates which side the popup is positioned relative to the trigger. |
+| `data-starting-style` | Present when the preview card begins animating in.                    |
+| `data-ending-style`   | Present when the preview card is animating out.                       |
 
 ### Viewport
 
 <ApiPart name="preview-card" part="Viewport" />
 
-Use `PreviewCard.Viewport` when one card has several triggers and you want to animate the content change. While the viewport animates, it renders the content of the previous trigger in an element with `data-previous` and the new content in an element with `data-current`.
+The `Viewport` is optional — reach for it only when a single popup is opened by multiple triggers, its content differs per trigger, and the switch between them is animated. When used, set `width: var(--positioner-width)` and `height: var(--positioner-height)` on the `Positioner` so its box is frozen to the measured size during the transition; otherwise content-driven resizing can make the popup thrash or flip to another side.
 
-| Attribute                   | Description                                                                              |
-| --------------------------- | ---------------------------------------------------------------------------------------- |
-| `data-activation-direction` | Where the new trigger sits relative to the previous one, such as `left` or `right down`. |
-| `data-transitioning`        | Present while the previous content is on screen.                                         |
-| `data-instant`              | `dismiss` or `focus` when the card skips its transition.                                 |
+| Attribute                   | Description                                                                                                                                                                                                                |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data-activation-direction` | Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. |
+| `data-current`              | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                         |
+| `data-instant`              | Present if animations should be instant.                                                                                                                                                                                   |
+| `data-previous`             | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                |
+| `data-transitioning`        | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                        |
+
+| CSS Variable     | Description                                                                                                                                                                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--popup-height` | The height of the parent popup. This variable is placed on the 'previous' container and stores the height of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content. |
+| `--popup-width`  | The width of the parent popup. This variable is placed on the 'previous' container and stores the width of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content.   |
+
+### Arrow
+
+<ApiPart name="preview-card" part="Arrow" />
+
+| Attribute         | Description                                                           |
+| ----------------- | --------------------------------------------------------------------- |
+| `data-open`       | Present when the preview card is open.                                |
+| `data-closed`     | Present when the preview card is closed.                              |
+| `data-uncentered` | Present when the preview card arrow is uncentered.                    |
+| `data-align`      | Indicates how the popup is aligned relative to specified side.        |
+| `data-side`       | Indicates which side the popup is positioned relative to the trigger. |
+
+## createHandle
+
+Creates a new handle to connect a `PreviewCard.Root` with detached `PreviewCard.Trigger` components.
+
+```ts
+function createHandle<Payload = unknown>(): PreviewCardHandle<Payload>;
+```
+
+### Handle
+
+Controls a PreviewCard imperatively and associates detached `PreviewCard.Trigger` components with a `PreviewCard.Root`. Create one with `PreviewCard.createHandle()` and pass it to the `handle` prop of the root and of any triggers rendered outside of it.
+
+The imperative methods take effect only while a root using this handle is mounted; calls made before a root attaches (or after it unmounts) are ignored.
+
+| Property  | Type                   | Modifiers | Description                                                                                          |
+| --------- | ---------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
+| `isOpen`  | `boolean`              | readonly  | Whether the preview card is currently open. Returns `false` while no root is attached to the handle. |
+| `payload` | `Payload \| undefined` | readonly  | The payload of the trigger that opened the preview card.                                             |
+
+```ts
+function open(triggerId: string | null): void;
+```
+
+Opens the preview card and associates it with the trigger with the given id. It throws when no trigger with that id is registered, because the preview card needs a trigger to anchor to.
+
+This method should only be called in an event handler or an effect (not during rendering).
+
+```ts
+function close(): void;
+```
+
+Closes the preview card.
+
+This method should only be called in an event handler or an effect (not during rendering).
+
+```ts
+function unmount(): void;
+```
+
+Ends the closing phase of the preview card immediately.

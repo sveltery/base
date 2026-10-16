@@ -10,6 +10,7 @@ export type ApiProp = {
 	default?: string;
 	description: string;
 	bindable: boolean;
+	required: boolean;
 };
 
 /** One exported part, such as `Collapsible.Trigger`. */
@@ -223,9 +224,12 @@ function members(
 					code?.value,
 				description: docs
 					.replace(/\s*@default\s+\S+\s*/, ' ')
-					.replace(/\s+/g, ' ')
-					.trim(),
-				bindable: code?.bindable ?? false
+					.split(/\n\s*\n/)
+					.map((paragraph) => paragraph.replace(/\s+/g, ' ').trim())
+					.filter(Boolean)
+					.join('\n\n'),
+				bindable: code?.bindable ?? false,
+				required: !(property.flags & ts.SymbolFlags.Optional)
 			};
 		})
 		.filter((prop) => prop.description || !/^on[a-z]/.test(prop.name))

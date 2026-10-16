@@ -445,6 +445,8 @@ The docs shell in `apps/docs` derives from the Base UI docs (`docs/src`) at comm
 - `apps/docs/src/lib/css/tokens.css` and `fonts.css` from `docs/src/css/index.css` and `docs/src/css/fonts/index.css`
 - `apps/docs/src/routes/+layout.svelte` from `docs/src/app/(docs)/layout.tsx` and `layout.css`
 - `apps/docs/src/lib/components/{Header,Sidebar,MobileNav,Toc,SkipNav,LogoLink,Icons}.svelte` from `docs/src/components/{Header,SideNav,MobileNav*,SearchControls,QuickNav,SkipNav}` and `docs/src/icons`
+- `apps/docs/src/lib/docs/css/*.css` from `docs/src/css/{mdx-components,syntax}.css` and the CSS of `docs/src/components/{Code,HeadingLink,Link,Kbd,GhostButton,Table,TableCode,Accordion,DescriptionList,ScrollArea,Menu,CodeBlock,Demo,Subtitle,InstallationBlock,ReferenceTable}`
+- `apps/docs/src/lib/components/{CodeBlock,CopyButton,Demo,ApiPart,ReferenceTable,Subtitle,InstallationBlock,DocIcons}.svelte` from those components and `docs/src/icons`
 
 Fonts in `apps/docs/static/fonts` are under the SIL Open Font License 1.1. The license texts sit beside them:
 
