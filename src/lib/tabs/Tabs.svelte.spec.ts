@@ -70,6 +70,15 @@ describe('Tabs', () => {
 			await expect.poll(() => page.getByTestId('panel-1').elements().length).toBe(0);
 		});
 
+		it('marks only the active tab as the active composite item', async () => {
+			render(TabsHarness, { passValue: true, value: 0 });
+			await expect.element(tab('One')).toHaveAttribute('data-composite-item-active', '');
+			await expect.element(tab('Two')).not.toHaveAttribute('data-composite-item-active');
+			await tab('Two').click();
+			await expect.element(tab('Two')).toHaveAttribute('data-composite-item-active', '');
+			await expect.element(tab('One')).not.toHaveAttribute('data-composite-item-active');
+		});
+
 		it('does not set aria-orientation by default and sets it when vertical', async () => {
 			render(TabsHarness, { passValue: true, value: 0 });
 			const list = page.getByRole('tablist', { name: 'Sections' });

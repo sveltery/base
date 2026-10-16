@@ -153,6 +153,18 @@ describe('RadioGroup', () => {
 			expect(calls()).toEqual([]);
 		});
 
+		it('keeps the first radio as the tab stop when every radio is disabled', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'disabled' });
+			await expect.element(radio('A')).toHaveAttribute('tabindex', '0');
+			await expect.element(radio('B')).toHaveAttribute('tabindex', '-1');
+		});
+
+		it('keeps the checked radio as the tab stop when every radio is disabled', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'disabled-checked' });
+			await expect.element(radio('B')).toHaveAttribute('tabindex', '0');
+			await expect.element(radio('A')).toHaveAttribute('tabindex', '-1');
+		});
+
 		it('omits aria-disabled when the group is enabled', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'plain' });
 			await expect.element(group()).not.toHaveAttribute('aria-disabled');

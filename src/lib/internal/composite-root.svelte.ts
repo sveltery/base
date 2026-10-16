@@ -9,6 +9,8 @@
 // Scroll into view, select-on-focus (useCompositeRoot.ts:321-327), and the text-field arrow rule
 // follow v1.9.0 useCompositeRoot.ts and `scrollIntoViewIfNeeded` and `isNativeInput` in
 // packages/react/src/internals/composite/composite.ts.
+// The tab stop of an all-disabled list follows `onMapChange` and `getFallbackIndex` in v1.9.0
+// useCompositeRoot.ts.
 // MIT, see THIRD_PARTY_NOTICES.md.
 //
 // One list. Constructor getters supply orientation, looping, direction, and
@@ -23,6 +25,8 @@ import type { HTMLAttributes } from 'svelte/elements';
 import { ARROW_KEYS, COMPOSITE_KEYS } from './composite-keys.js';
 import { ElementList } from './element-list.svelte.js';
 import { axisKeys, modifierHeld } from './roving-keys.js';
+
+export const ACTIVE_COMPOSITE_ITEM = 'data-composite-item-active';
 
 export type CompositeOrientation = 'horizontal' | 'vertical' | 'both';
 
@@ -330,9 +334,15 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 			}
 		}
 
-		const fallback = elements.find((element) => !this.itemDisabled(element)) ?? null;
+		// With every item disabled the list keeps a tab stop: the active item, else the current
+		// stop, else the first item. Base UI's highlighted index never leaves the list either.
+		const fallback =
+			elements.find((element) => !this.itemDisabled(element)) ??
+			elements.find((element) => element.hasAttribute(ACTIVE_COMPOSITE_ITEM)) ??
+			(this.stop && elements.includes(this.stop) ? this.stop : undefined) ??
+			elements[0];
 		this.stop = fallback;
-		this.stopIndex = fallback ? elements.indexOf(fallback) : 0;
+		this.stopIndex = elements.indexOf(fallback);
 	}
 
 	private nextEnabled(key: string, originIndex: number, items: HTMLElement[]): HTMLElement | null {

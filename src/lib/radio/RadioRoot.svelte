@@ -11,6 +11,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
+	import { ACTIVE_COMPOSITE_ITEM } from '../internal/composite-root.svelte.js';
 	import { dispatchClick } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import {
@@ -249,7 +250,7 @@
 			id: rootId,
 			role: 'radio',
 			'aria-checked': checked,
-			...(checked ? { 'data-composite-item-active': '' } : {}),
+			...(checked ? { [ACTIVE_COMPOSITE_ITEM]: '' } : {}),
 			...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 			...(describedBy ? { 'aria-describedby': describedBy } : {}),
 			...(invalid ? { 'aria-invalid': true as const } : {}),
