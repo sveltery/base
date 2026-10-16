@@ -126,9 +126,10 @@
 					removeOTPCharacter(model.value, index),
 					createChangeEventDetails(REASONS.inputClear, event)
 				);
-			} else if (slotValue !== '') {
+			} else {
+				// The slot value did not change, so Svelte will not rewrite the rejected text.
 				event.currentTarget.value = slotValue;
-				event.currentTarget.select();
+				if (slotValue !== '') event.currentTarget.select();
 			}
 			return;
 		}

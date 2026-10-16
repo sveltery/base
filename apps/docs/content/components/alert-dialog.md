@@ -7,10 +7,12 @@ description: A dialog that requires a user response to proceed.
 <script lang="ts">
 	import { AlertDialog } from '@sveltery/base/alert-dialog';
 
-	const buttonClasses =
-		'flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
+	const baseButtonClasses =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
 
-	const dangerButtonClasses = `${buttonClasses} text-red-700 dark:text-red-400`;
+	const buttonClasses = `${baseButtonClasses} text-neutral-950 dark:text-white`;
+
+	const dangerButtonClasses = `${baseButtonClasses} text-red-700 dark:text-red-400`;
 </script>
 
 <AlertDialog.Root>
@@ -41,7 +43,7 @@ description: A dialog that requires a user response to proceed.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { AlertDialog } from '@sveltery/base/alert-dialog';
 </script>
@@ -74,8 +76,12 @@ In order to open a dialog using a menu, control the dialog state and open it imp
 
 	let dialogOpen = $state(false);
 
-	const buttonClass =
-		'flex h-8 items-center justify-center gap-1.5 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-pressed:bg-neutral-100 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-pressed:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+	const baseButtonClass =
+		'flex h-8 items-center justify-center gap-1.5 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-pressed:bg-neutral-100 dark:border-white dark:bg-neutral-950 dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-pressed:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+
+	const buttonClass = `${baseButtonClass} text-neutral-950 dark:text-white`;
+
+	const dangerButtonClass = `${baseButtonClass} text-red-700 dark:text-red-400`;
 
 	const itemClass =
 		"flex cursor-default py-2 pr-8 pl-4 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 data-highlighted:before:content-[''] dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white";
@@ -120,9 +126,7 @@ In order to open a dialog using a menu, control the dialog state and open it imp
 			</div>
 			<div class="flex justify-end gap-3">
 				<AlertDialog.Close class={buttonClass}>Cancel</AlertDialog.Close>
-				<AlertDialog.Close class="{buttonClass} text-red-700 dark:text-red-400"
-					>Delete</AlertDialog.Close
-				>
+				<AlertDialog.Close class={dangerButtonClass}>Delete</AlertDialog.Close>
 			</div>
 		</AlertDialog.Popup>
 	</AlertDialog.Portal>
@@ -248,15 +252,19 @@ This involves placing the `<AlertDialog.Trigger>` outside of `<AlertDialog.Root>
 The imperative methods on the handle, such as `open()` and `openWithPayload()`, require an `<AlertDialog.Root>` using the same handle to be mounted.
 Calls made while no root is attached to the handle — before one mounts, or after it unmounts — are ignored. Each time a root mounts, it starts from fresh state: a call made while no root was attached is not replayed, and no open state carries over from a previous mount.
 
-```svelte
+```svelte title="Detached triggers"
 <script lang="ts">
 	import { AlertDialog } from '@sveltery/base/alert-dialog';
 
 	const demoAlertDialog = AlertDialog.createHandle();
 </script>
 
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoAlertDialog}" -->
 <AlertDialog.Trigger handle={demoAlertDialog}>Open</AlertDialog.Trigger>
 
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoAlertDialog}" -->
 <AlertDialog.Root handle={demoAlertDialog}>...</AlertDialog.Root>
 ```
 
@@ -266,10 +274,12 @@ Calls made while no root is attached to the handle — before one mounts, or aft
 
 	const demoAlertDialog = AlertDialog.createHandle();
 
-	const buttonClasses =
-		'flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
+	const baseButtonClasses =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
 
-	const dangerButtonClasses = `${buttonClasses} text-red-700 dark:text-red-400`;
+	const buttonClasses = `${baseButtonClasses} text-neutral-950 dark:text-white`;
+
+	const dangerButtonClasses = `${baseButtonClasses} text-red-700 dark:text-red-400`;
 </script>
 
 <AlertDialog.Trigger class={dangerButtonClasses} handle={demoAlertDialog}>
@@ -304,7 +314,7 @@ Calls made while no root is attached to the handle — before one mounts, or aft
 A single alert dialog can be opened by multiple trigger elements.
 You can achieve this by using the same `handle` for several detached triggers, or by placing multiple `<AlertDialog.Trigger>` components inside a single `<AlertDialog.Root>`.
 
-```svelte
+```svelte title="Multiple triggers within the Root part"
 <AlertDialog.Root>
 	<AlertDialog.Trigger>Trigger 1</AlertDialog.Trigger>
 	<AlertDialog.Trigger>Trigger 2</AlertDialog.Trigger>
@@ -312,7 +322,7 @@ You can achieve this by using the same `handle` for several detached triggers, o
 </AlertDialog.Root>
 ```
 
-```svelte
+```svelte title="Multiple detached triggers"
 <script lang="ts">
 	import { AlertDialog } from '@sveltery/base/alert-dialog';
 
@@ -329,28 +339,36 @@ This is achieved by passing a `payload` to the `<AlertDialog.Trigger>` and readi
 
 The payload can be strongly typed by providing a type argument to the `createHandle()` function:
 
-```svelte
+```svelte title="Detached triggers with payload"
 <script lang="ts">
 	import { AlertDialog } from '@sveltery/base/alert-dialog';
 
+	// @highlight
 	const demoAlertDialog = AlertDialog.createHandle<{ message: string }>();
 </script>
 
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
 <AlertDialog.Trigger handle={demoAlertDialog} payload={{ message: 'Trigger 1' }}>
 	Trigger 1
 </AlertDialog.Trigger>
 
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
 <AlertDialog.Trigger handle={demoAlertDialog} payload={{ message: 'Trigger 2' }}>
 	Trigger 2
 </AlertDialog.Trigger>
 
 <AlertDialog.Root handle={demoAlertDialog}>
+	<!-- @highlight-text "payload" -->
 	{#snippet children({ payload })}
 		<AlertDialog.Portal>
 			<AlertDialog.Popup>
 				<AlertDialog.Title>Alert dialog</AlertDialog.Title>
+				<!-- @highlight-text "payload" -->
 				{#if payload !== undefined}
 					<AlertDialog.Description>
+						<!-- @highlight-text "payload" -->
 						Confirming {payload.message}
 					</AlertDialog.Description>
 				{/if}
@@ -377,10 +395,12 @@ Instead, the `onOpenChange` callback receives an additional argument, `eventDeta
 
 	const demoAlertDialog = AlertDialog.createHandle<AlertPayload>();
 
-	const buttonClasses =
-		'flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
+	const baseButtonClasses =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
 
-	const dangerButtonClasses = `${buttonClasses} text-red-700 dark:text-red-400`;
+	const buttonClasses = `${baseButtonClasses} text-neutral-950 dark:text-white`;
+
+	const dangerButtonClasses = `${baseButtonClasses} text-red-700 dark:text-red-400`;
 
 	let open = $state(false);
 	let triggerId = $state<string | null>(null);
@@ -536,19 +556,32 @@ Instead, the `onOpenChange` callback receives an additional argument, `eventDeta
 
 ## createHandle
 
-Creates a new handle to connect an `AlertDialog.Root` with detached `AlertDialog.Trigger` components. Pass a type argument to type the payload, as in `AlertDialog.createHandle<{ message: string }>()`. It returns an `AlertDialog.Handle<Payload>`. The library also exports it by name as `createAlertDialogHandle`.
+Creates a new handle to connect an `AlertDialog.Root` with detached `AlertDialog.Trigger` components.
+
+**Return value**
+
+`AlertDialog.Handle<Payload>`
+
+<!-- @exclude-table-of-contents -->
 
 ### Handle
 
-Controls an alert dialog imperatively and associates detached `AlertDialog.Trigger` components with an `AlertDialog.Root`. Create one with `AlertDialog.createHandle()` and pass it to the `handle` prop of the root and of any triggers rendered outside of it.
+Controls An Alert Dialog imperatively and associates detached `AlertDialog.Trigger` components with an `AlertDialog.Root`. Create one with `AlertDialog.createHandle()` and pass it to the `handle` prop of the root and of any triggers rendered outside of it.
 
 The imperative methods take effect only while a root using this handle is mounted; calls made before a root attaches (or after it unmounts) are ignored.
 
-| Member                     | Description                                                                                                                       |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `isOpen`                   | Whether the alert dialog is currently open. Read-only. `false` while no root is attached to the handle.                           |
-| `payload`                  | The payload of the trigger that opened the alert dialog, or `undefined`. Read-only.                                               |
-| `open(triggerId)`          | Opens the alert dialog, optionally associating it with a trigger. Call it in an event handler or an effect, not during rendering. |
-| `openWithPayload(payload)` | Opens the alert dialog with the given payload, without associating it with any trigger.                                           |
-| `close()`                  | Closes the alert dialog.                                                                                                          |
-| `unmount()`                | Removes the popup at once, without waiting for the exit animation.                                                                |
+**Properties**
+
+| Property  | Type                   | Modifiers | Description                                                                                          |
+| --------- | ---------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
+| `isOpen`  | `boolean`              | readonly  | Whether the alert dialog is currently open. Returns `false` while no root is attached to the handle. |
+| `payload` | `Payload \| undefined` | readonly  | The payload of the trigger that opened the alert dialog, or the one passed to `openWithPayload()`.   |
+
+**Methods**
+
+| Method            | Parameters                  | Returns | Description                                                                                                                                                                        |
+| ----------------- | --------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `open`            | `triggerId: string \| null` | `void`  | Opens the alert dialog, optionally associating it with a trigger. This method should only be called in an event handler or an effect (not during rendering).                       |
+| `openWithPayload` | `payload: Payload`          | `void`  | Opens the alert dialog with the given payload, without associating it with any trigger. This method should only be called in an event handler or an effect (not during rendering). |
+| `close`           |                             | `void`  | Closes the alert dialog. This method should only be called in an event handler or an effect (not during rendering).                                                                |
+| `unmount`         |                             | `void`  | Removes the popup at once, without waiting for the exit animation.                                                                                                                 |

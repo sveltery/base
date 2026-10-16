@@ -24,7 +24,7 @@ description: A button component that can be rendered as another tag or focusable
 
 Import the component:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Button } from '@sveltery/base/button';
 </script>
@@ -38,11 +38,12 @@ Import the component:
 
 The button can remain keyboard accessible while being rendered as another tag, such as a `<div>`, by specifying `nativeButton={false}`. In Svelte, `render` is a snippet. Spread `props` onto the element and render `children` inside it.
 
-```svelte
+```svelte title="Custom tag button"
 <script lang="ts">
 	import { Button } from '@sveltery/base/button';
 </script>
 
+<!-- @highlight-text "nativeButton={false}" -->
 <Button nativeButton={false}>
 	{#snippet render(props, state, children)}
 		<div {...props}>{@render children?.()}</div>

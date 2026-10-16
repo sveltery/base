@@ -86,7 +86,7 @@ description: A set of collapsible panels with headings.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Accordion } from '@sveltery/base/accordion';
 </script>

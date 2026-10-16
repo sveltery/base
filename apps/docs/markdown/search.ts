@@ -5,6 +5,7 @@ import type { Plugin } from 'vite';
 import { apiReference } from './api.ts';
 import { headings } from './headings.ts';
 import { shortName } from './preprocess.ts';
+import { plainText } from './reference.ts';
 
 /** One search result. The fields match the index schema of upstream's `useSearch`. */
 export type SearchDocument = {
@@ -108,7 +109,7 @@ async function pageDocuments(
 
 	const sectionTitle = capitalize(folder);
 	const url = `/${folder}/${slug}`;
-	const base = { description, sectionTitle };
+	const base = { description: plainText(description), sectionTitle };
 	const documents: SearchDocument[] = [
 		{ ...base, type: 'page', group: `${sectionTitle} Pages`, page: title, title, slug, url }
 	];

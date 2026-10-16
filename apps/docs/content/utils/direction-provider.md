@@ -65,20 +65,10 @@ Call it while the component initializes. It returns an object instead of a strin
 <div dir={reading.direction}>...</div>
 ```
 
-**useDirection return value:**
+**Return value**
 
-```ts
-type ReturnValue = DirectionReading;
+`DirectionReading`
 
-interface DirectionReading {
-	readonly direction: TextDirection;
-}
-```
-
-Outside a provider, `direction` is `'ltr'`.
-
-### TextDirection
-
-```ts
-type TextDirection = 'ltr' | 'rtl';
-```
+| Property    | Type            | Modifiers | Description                                                    |
+| ----------- | --------------- | --------- | -------------------------------------------------------------- |
+| `direction` | `TextDirection` | readonly  | The current text direction. Outside a provider, it is `'ltr'`. |

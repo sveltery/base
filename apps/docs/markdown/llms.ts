@@ -4,6 +4,7 @@ import type { Plugin } from 'vite';
 import { apiReference, type ApiProp } from './api.ts';
 import { readMarkers } from './highlight.ts';
 import { fenceMeta, shortName } from './preprocess.ts';
+import { releases } from '../src/lib/docs/releases.ts';
 
 /** A page as `/llms.txt` and its `.md` twin show it. */
 export type MarkdownPage = { title: string; description: string; markdown: string };
@@ -70,6 +71,18 @@ export function pageMarkdown(source: string, lib: string): MarkdownPage {
 		if (part) {
 			const found = apiReference(lib, part[1]).find((p) => shortName(p.name) === part[2]);
 			if (found) out.push(found.description, '', propsTable(found.name, found.props));
+			continue;
+		}
+		if (/^<ReleaseTimeline\s*\/>\s*$/.test(line)) {
+			for (const release of releases)
+				out.push(
+					`## ${release.version}`,
+					'',
+					release.date,
+					'',
+					...release.highlights.map((h) => `- ${h}`),
+					''
+				);
 			continue;
 		}
 		const install = /^<InstallationBlock\b.*package="([^"]+)".*\/>\s*$/.exec(line);

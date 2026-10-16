@@ -41,7 +41,7 @@ description: A collapsible panel controlled by a button.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Collapsible } from '@sveltery/base/collapsible';
 </script>
@@ -60,9 +60,10 @@ The `hiddenUntilFound` prop hides the closed panel with [`hidden="until-found"`]
 
 Older browsers that don't support `hidden="until-found"` keep the panel hidden until its trigger opens it, and find-in-page skips over the contents.
 
-```svelte
+```svelte title="Searchable hidden panel"
 <Collapsible.Root>
 	<Collapsible.Trigger>Shipping details</Collapsible.Trigger>
+	<!-- @highlight-text "hiddenUntilFound" -->
 	<Collapsible.Panel hiddenUntilFound>Standard shipping takes 3–5 business days.</Collapsible.Panel>
 </Collapsible.Root>
 ```

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { slugify } from '../../../../markdown/headings.ts';
+	import { inlineMarkdown } from '../../../../markdown/reference.ts';
 	import Toc from '#lib/components/Toc.svelte';
 	import '#lib/docs/css/index.css';
 
@@ -36,10 +37,14 @@
 				<a class="Link" href={page.href}>Contents</a>)
 			</li>
 		{/each}
+		{#if data.section.id === 'handbook'}
+			<li class="MdListItem"><a class="Link" href="/llms.txt">llms.txt</a> [External]</li>
+		{/if}
 	</ul>
 	{#each pages as page (page.href)}
 		<h2 class="MdH2" id={page.id}><a class="HeadingLink" href="#{page.id}">{page.title}</a></h2>
-		<p class="MdP">{page.description}</p>
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -- the page's own front matter, escaped by inlineMarkdown. -->
+		<p class="MdP">{@html inlineMarkdown(page.description)}</p>
 		{#if page.outline.length}
 			<details>
 				<summary>Outline</summary>

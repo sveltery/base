@@ -1,6 +1,6 @@
 ---
 title: Input
-description: A native input element that automatically works with Field.
+description: A native input element that automatically works with [Field](/components/field).
 ---
 
 ```svelte demo

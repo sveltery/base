@@ -38,7 +38,7 @@ description: An easily stylable checkbox component.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Checkbox } from '@sveltery/base/checkbox';
 </script>
@@ -54,10 +54,12 @@ Import the component and assemble its parts:
 
 An enclosing `<label>` is the simplest labeling pattern:
 
-```svelte
+```svelte title="Wrapping a label around a checkbox"
+<!-- @highlight -->
 <label>
 	<Checkbox.Root />
 	Accept terms and conditions
+	<!-- @highlight -->
 </label>
 ```
 
@@ -65,10 +67,12 @@ An enclosing `<label>` is the simplest labeling pattern:
 
 By default, `<Checkbox.Root>` renders a `<span>` element to support enclosing labels. Prefer rendering the checkbox as a native button when using sibling labels (`for`/`id`). Set `nativeButton` and render a `<button>` with the `render` snippet.
 
-```svelte
+```svelte title="Sibling label pattern with a native button"
 <div>
 	<label for="notifications-checkbox">Enable notifications</label>
+	<!-- @highlight-text "nativeButton" -->
 	<Checkbox.Root id="notifications-checkbox" nativeButton>
+		<!-- @highlight-text "render" -->
 		{#snippet render(props, _state, children)}
 			<button type="button" {...props}>{@render children?.()}</button>
 		{/snippet}
@@ -79,14 +83,16 @@ By default, `<Checkbox.Root>` renders a `<span>` element to support enclosing la
 
 Native buttons with wrapping labels are supported by using the `render` snippet to avoid invalid HTML, so the hidden input is placed outside the label:
 
-```svelte
+```svelte title="Render callback"
 <Checkbox.Root nativeButton>
+	<!-- @highlight-start -->
 	{#snippet render(props, _state, children)}
 		<label>
 			<button type="button" {...props}>{@render children?.()}</button>
 			Enable notifications
 		</label>
 	{/snippet}
+	<!-- @highlight-end -->
 </Checkbox.Root>
 ```
 
@@ -94,8 +100,9 @@ Native buttons with wrapping labels are supported by using the `render` snippet 
 
 Use [Field](/components/field) to handle label associations and form integration:
 
-```svelte
+```svelte title="Using Checkbox in a form"
 <Form>
+	<!-- @highlight -->
 	<Field.Root name="stayLoggedIn">
 		<Field.Label>
 			<Checkbox.Root />

@@ -977,6 +977,10 @@ const toastManager = Toast.getToastManager();
 
 Read `toasts` from the returned object each time you need the list. Destructuring it copies the array once and stops it updating.
 
+**Return value**
+
+`GetToastManagerReturnValue`
+
 | Property  | Type                                                                                      | Description                                                                  |
 | --------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `toasts`  | `ToastObject[]`                                                                           | The array of toasts. A read-only getter.                                     |

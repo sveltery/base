@@ -94,7 +94,7 @@ description: Provides shared state to a series of checkboxes.
 
 Checkbox Group is composed together with [Checkbox](/components/checkbox). Import the components and place them together:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Checkbox } from '@sveltery/base/checkbox';
 	import { CheckboxGroup } from '@sveltery/base/checkbox-group';
@@ -111,17 +111,19 @@ Checkbox Group is composed together with [Checkbox](/components/checkbox). Impor
 
 Label the group with `aria-labelledby` and a sibling label element:
 
-```svelte
+```svelte title="Using aria-labelledby to label a checkbox group"
 <div id="protocols-label">Allowed network protocols</div>
 <CheckboxGroup aria-labelledby="protocols-label">...</CheckboxGroup>
 ```
 
 An enclosing `<label>` is the simplest labeling pattern for each checkbox:
 
-```svelte
+```svelte title="Using an enclosing label to label a checkbox"
+<!-- @highlight -->
 <label>
 	<Checkbox.Root value="http" />
 	HTTP
+	<!-- @highlight -->
 </label>
 ```
 
@@ -129,12 +131,14 @@ An enclosing `<label>` is the simplest labeling pattern for each checkbox:
 
 By default, `<Checkbox.Root>` renders a `<span>` element to support enclosing labels. Prefer rendering each checkbox as a native button when using sibling labels (`for`/`id`). Set `nativeButton` and render a `<button>` with the `render` snippet.
 
-```svelte
+```svelte title="Sibling label pattern with a native button"
 <div id="protocols-label">Allowed network protocols</div>
 <CheckboxGroup aria-labelledby="protocols-label">
 	<div>
 		<label for="protocol-http">HTTP</label>
+		<!-- @highlight-text "nativeButton" -->
 		<Checkbox.Root id="protocol-http" value="http" nativeButton>
+			<!-- @highlight-text "render" -->
 			{#snippet render(props, _state, children)}
 				<button type="button" {...props}>{@render children?.()}</button>
 			{/snippet}
@@ -146,16 +150,18 @@ By default, `<Checkbox.Root>` renders a `<span>` element to support enclosing la
 
 Native buttons with wrapping labels are supported by using the `render` snippet to avoid invalid HTML, so the hidden input is placed outside the label:
 
-```svelte
+```svelte title="Render callback"
 <div id="protocols-label">Allowed network protocols</div>
 <CheckboxGroup aria-labelledby="protocols-label">
 	<Checkbox.Root value="http" nativeButton>
+		<!-- @highlight-start -->
 		{#snippet render(props, _state, children)}
 			<label>
 				<button type="button" {...props}>{@render children?.()}</button>
 				HTTP
 			</label>
 		{/snippet}
+		<!-- @highlight-end -->
 	</Checkbox.Root>
 </CheckboxGroup>
 ```
@@ -164,8 +170,9 @@ Native buttons with wrapping labels are supported by using the `render` snippet 
 
 Use [Field](/components/field) and [Fieldset](/components/fieldset) for group labeling and form integration:
 
-```svelte
+```svelte title="Using Checkbox Group in a form"
 <Form>
+	<!-- @highlight -->
 	<Field.Root name="allowedNetworkProtocols">
 		<Fieldset.Root>
 			{#snippet render(props, _state, children)}
@@ -203,7 +210,7 @@ A checkbox that controls other checkboxes within a `<CheckboxGroup>` can be crea
 2. Pass an array of all the child checkbox values to the `allValues` prop on the `<CheckboxGroup>` component
 3. Add the `parent` boolean prop to the parent `<Checkbox.Root>`
 
-The group controls the parent checkbox's [indeterminate](/components/checkbox#root) state when some, but not all, child checkboxes are checked.
+The group controls the parent checkbox's [indeterminate](/components/checkbox#CheckboxRoot-indeterminate) state when some, but not all, child checkboxes are checked.
 
 ```svelte demo
 <script lang="ts">
@@ -603,8 +610,6 @@ The group controls the parent checkbox's [indeterminate](/components/checkbox#ro
 ```
 
 ## API reference
-
-### CheckboxGroup
 
 <ApiPart name="checkbox-group" part="CheckboxGroup" />
 

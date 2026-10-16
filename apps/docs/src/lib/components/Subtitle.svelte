@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { inlineMarkdown } from '../../../markdown/reference.ts';
 	import { sourceUrl } from '#lib/docs/links.ts';
 	import { markdownIcon } from './DocIcons.svelte';
 	import { githubIcon } from './Icons.svelte';
@@ -12,7 +13,8 @@
 </svelte:head>
 
 <div class="Subtitle">
-	<p>{text}</p>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -- the page's own front matter, escaped by inlineMarkdown. -->
+	<p>{@html inlineMarkdown(text)}</p>
 	<div class="SubtitleLinks">
 		<a
 			href="{href}.md"

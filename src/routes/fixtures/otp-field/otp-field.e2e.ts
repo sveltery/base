@@ -26,6 +26,17 @@ for (const reference of [false, true]) {
 			expect(errors).toEqual([]);
 		});
 
+		test('keeps an empty slot empty when letters are typed', async ({ page }) => {
+			const { errors } = await open(page, 'plain', reference);
+			const first = slots(page).nth(0);
+			await first.focus();
+			await first.press('a');
+			await first.press('s');
+			await expect(first).toHaveValue('');
+			await expect(first).toBeFocused();
+			expect(errors).toEqual([]);
+		});
+
 		test('associates the label with the first slot', async ({ page }) => {
 			const { errors } = await open(page, 'labelled', reference);
 			const label = page.getByTestId('label');

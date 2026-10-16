@@ -38,7 +38,7 @@ description: A native fieldset element with an easily stylable legend.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Fieldset } from '@sveltery/base/fieldset';
 </script>

@@ -119,7 +119,7 @@ Then style those classes in a CSS Modules file. Vite supports CSS Modules in Sve
 
 Svelte scopes the rules in a component's `<style>` block to the elements in that component's markup. A part renders its element inside the library's component, so a scoped selector such as `.Item` does not reach it, and Svelte warns that the selector is unused. Wrap the selector in `:global(...)`:
 
-```svelte
+```svelte title="index.svelte"
 <script lang="ts">
 	import { Menu } from '@sveltery/base/menu';
 </script>
