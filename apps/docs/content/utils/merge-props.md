@@ -1,191 +1,163 @@
 ---
 title: mergeProps
-description: Merges multiple sets of props into one, with special handling for class, style, and event handlers.
+description: A utility to merge multiple sets of Svelte props.
+order: 3
 ---
 
-```svelte demo
-<script lang="ts">
-	import { mergeProps } from '@sveltery/base/merge-props';
+`mergeProps` helps you combine multiple prop objects (for example, internal props + user props) into a single set of props you can spread onto an element.
+It behaves like `Object.assign` (rightmost wins) with a few special cases, so common Svelte patterns work as expected.
 
-	let log = $state<string[]>([]);
+## How merging works
 
-	const internal = {
-		class: 'rounded-sm bg-gray-100 text-sm font-medium dark:bg-gray-800',
-		style: 'padding-inline: 12px; padding-block: 6px',
-		onclick: () => log.push('internal')
-	};
+- For most keys (everything except `class`, `style`, event handlers, and attachments), the value from the rightmost object wins:
 
-	const custom = {
-		class: 'hover:bg-gray-200 dark:hover:bg-gray-700',
-		style: 'padding-inline: 24px',
-		onclick: () => log.push('custom')
-	};
+  ```ts
+  // returns { id: 'b', dir: 'ltr' }
+  mergeProps({ id: 'a', dir: 'ltr' }, { id: 'b' });
+  ```
 
-	const merged = mergeProps(internal, custom);
-</script>
+- There is no `ref` to merge. Attachments take its place, and every attachment is kept. They run from left to right:
 
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<button type="button" {...merged}>Click me</button>
-	<dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
-		<dt class="font-medium">class</dt>
-		<dd><code>{JSON.stringify(merged.class)}</code></dd>
-		<dt class="font-medium">style</dt>
-		<dd><code>{merged.style}</code></dd>
-		<dt class="font-medium">Handlers run</dt>
-		<dd><code>{JSON.stringify(log)}</code></dd>
-	</dl>
-</div>
-```
+  ```ts
+  import { createAttachmentKey } from 'svelte/attachments';
 
-## Usage
+  // both a and b run
+  mergeProps({ [createAttachmentKey()]: a }, { [createAttachmentKey()]: b });
+  ```
 
-`mergeProps` combines several bags of props into one that you can spread onto an element. It works like `Object.assign`, where the rightmost bag wins, with special rules for `class`, `style`, event handlers, and attachments.
+- `class` values are combined right-to-left (rightmost first) into an array, which Svelte renders as one class list:
 
-```svelte
-<script lang="ts">
-	import { mergeProps } from '@sveltery/base/merge-props';
+  ```ts
+  // class is ['b', 'a'], rendered as 'b a'
+  mergeProps({ class: 'a' }, { class: 'b' });
+  ```
 
-	let { children, ...rest } = $props();
+- `style` strings are joined, so declarations from the rightmost style overwrite earlier ones for the same property. Style objects are ignored.
+- Event handlers are merged and executed right-to-left (rightmost first). Handlers use Svelte's lowercase names, such as `onclick`. A camelCase prop such as `onValueChange` is a plain prop, so the rightmost one wins.
 
-	const props = $derived(mergeProps({ class: 'button', onclick: logClick }, rest));
-</script>
+  ```ts
+  // b runs before a
+  mergeProps({ onclick: a }, { onclick: b });
+  ```
 
-<button {...merged}>{@render children?.()}</button>
-```
+  - For DOM events, calling `event.preventDefault()` in a handler prevents the handlers to its left, including Sveltery Base's internal logic, from running.
+    It also cancels the browser's default action for the event, as `preventDefault()` always does.
+  - For handlers whose first argument is not a DOM event (callbacks with primitive or object values), this mechanism isn't available and all handlers always execute.
 
-The merge rules are:
+### Preventing Sveltery Base's default behavior
 
-- **Plain props.** The rightmost bag wins.
-- **`class`.** Values stay Svelte class values and merge into an array, with the rightmost bag first. Svelte renders the array as one class list.
-- **`style`.** Strings join with `;`, so a later declaration of the same property wins. A style object is ignored.
-- **Event handlers.** Handlers have Svelte's lowercase names, such as `onclick`. The rightmost handler runs first, then the handlers to its left. A handler that calls `event.preventDefault()` skips the handlers to its left.
-- **Attachments.** Every attachment from every bag is kept, and they run in bag order.
-- **Empty bags.** `null` and `undefined` bags are skipped.
-
-## Examples
-
-### Skip the handlers to the left
-
-`mergeProps` runs the rightmost handler first. Call `event.preventDefault()` in that handler to stop the internal handlers to its left. The check also works for events that come from an iframe.
+When using the `render` snippet, props are not merged automatically.
+You can use `mergeProps` to combine Sveltery Base's props with your own, and call `event.preventDefault()` to stop Sveltery Base's internal logic from running:
 
 ```svelte demo
 <script lang="ts">
 	import { mergeProps } from '@sveltery/base/merge-props';
+	import { Toggle, type ToggleHostProps } from '@sveltery/base/toggle';
 
-	let log = $state<string[]>([]);
-	let skip = $state(true);
+	let locked = $state(true);
+	let pressed = $state(true);
 
-	const merged = $derived(
-		mergeProps(
-			{ onclick: () => log.push('internal') },
-			{
-				onclick: (event: MouseEvent) => {
-					log.push('custom');
-					if (skip) event.preventDefault();
+	const getToggleProps = (props: ToggleHostProps) =>
+		mergeProps(props, {
+			onclick(event: MouseEvent) {
+				if (locked) {
+					event.preventDefault();
 				}
 			}
-		)
-	);
+		});
 </script>
 
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<label class="flex items-center gap-2">
-		<input type="checkbox" bind:checked={skip} />
-		Call <code>event.preventDefault()</code> in the custom handler
-	</label>
+<div class="flex items-center gap-4">
+	<div class="flex items-center gap-2">
+		<Toggle
+			aria-label="Favorite"
+			bind:pressed
+			class="m-0 box-border flex size-8 items-center justify-center rounded-none border-0 bg-transparent p-0 text-neutral-950 select-none hover:not-data-[disabled]:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 active:not-data-[disabled]:bg-neutral-200 dark:text-white dark:hover:not-data-[disabled]:bg-neutral-800 dark:focus-visible:outline-white dark:active:not-data-[disabled]:bg-neutral-700"
+		>
+			{#snippet render(props, state)}
+				<button type="button" {...getToggleProps(props)}>
+					{#if state.pressed}
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 16 16"
+							fill="currentColor"
+							class="block"
+							aria-hidden="true"
+						>
+							<path
+								d="M7.99961 13.8667C7.88761 13.8667 7.77561 13.8315 7.68121 13.7611C7.43321 13.5766 1.59961 9.1963 1.59961 5.8667C1.59961 3.80856 3.27481 2.13336 5.33294 2.13336C6.59054 2.13336 7.49934 2.81176 7.99961 3.3131C8.49988 2.81176 9.40868 2.13336 10.6663 2.13336C12.7244 2.13336 14.3996 3.80803 14.3996 5.8667C14.3996 9.1963 8.56601 13.5766 8.31801 13.7616C8.22361 13.8315 8.11161 13.8667 7.99961 13.8667Z"
+							/>
+						</svg>
+					{:else}
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 16 16"
+							fill="currentColor"
+							class="block"
+							aria-hidden="true"
+						>
+							<path
+								fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="m7.99961 4.8232-.75505-.75666c-.40333-.40419-1.0559-.86651-1.91162-.86651-1.46903 0-2.66666 1.19764-2.66666 2.66667 0 .5412.24648 1.2356.75339 2.04713.49581.79376 1.17682 1.59861 1.89311 2.33647 1.06989 1.1022 2.1604 1.9962 2.68705 2.4102.52751-.4149 1.61735-1.3085 2.68657-2.4101.7163-.73792 1.3973-1.54278 1.8932-2.33656.5069-.81154.7533-1.50594.7533-2.04714 0-1.46947-1.1975-2.66667-2.6666-2.66667-.85574 0-1.50831.46232-1.91164.86651zm-.01387-1.52394c-.5031-.49988-1.40673-1.1659-2.6528-1.1659-2.05813 0-3.73333 1.6752-3.73333 3.73334 0 3.3296 5.8336 7.7099 6.0816 7.8944a.532.532 0 0 0 .3184.1056c.112 0 .224-.0352.3184-.1051.248-.185 6.08159-4.5653 6.08159-7.8949 0-2.05867-1.6752-3.73334-3.7333-3.73334-1.24617 0-2.14985.66611-2.65293 1.166q-.0069.00686-.0137.01367c.00002-.00003-.00002.00002 0 0-.00459-.0046-.00927-.00914-.01393-.01377"
+							/>
+						</svg>
+					{/if}
+				</button>
+			{/snippet}
+		</Toggle>
+		<span class="text-sm text-neutral-950 dark:text-white">
+			Favorite {locked ? '(locked)' : '(unlocked)'}
+		</span>
+	</div>
 	<button
 		type="button"
-		class="rounded-sm bg-gray-100 px-3 py-1.5 font-medium hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-		{...merged}
+		class="m-0 box-border flex h-8 items-center justify-center rounded-none border border-neutral-950 bg-white px-3 font-[inherit] text-sm leading-none font-normal whitespace-nowrap text-neutral-950 select-none hover:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:focus-visible:outline-white dark:active:bg-neutral-700"
+		onclick={() => (locked = !locked)}
 	>
-		Click me
+		{locked ? 'Unlock' : 'Lock'}
 	</button>
-	<p>Handlers run: <code>{JSON.stringify(log)}</code></p>
 </div>
 ```
 
-Parts of `@sveltery/base` use the same signal for the handlers you pass to them. A `preventDefault()` call in your `onclick` on a `Collapsible.Trigger` skips the trigger's own toggle.
+## Passing a function instead of an object
 
-### Function bags
+Each argument can be a props object or a function that receives the merged props up to that point (left to right) and returns a props object.
+This is useful when you need to compute the next props from whatever has already been merged.
 
-A bag can be a function. It receives the props merged so far and returns the props that replace them. Handlers that the function returns are not wrapped, so call the previous handlers yourself if you want to keep them.
+Note that the function's return value completely replaces the accumulated props up to that point.
+If you want to chain event handlers from the previous props, you must call them manually:
 
-```ts
+```ts title="Manually chaining handlers in a function"
 const merged = mergeProps(
-	{ class: 'base', onclick: () => console.log('internal') },
-	(previous) => ({
-		...previous,
+	{
 		onclick(event: MouseEvent) {
-			console.log('before');
-			previous.onclick?.(event);
+			// Handler from previous props
+		}
+	},
+	(props) => ({
+		onclick(event: MouseEvent) {
+			// Manually call the previous handler
+			(props.onclick as ((event: MouseEvent) => void) | undefined)?.(event);
+			// Your logic here
 		}
 	})
 );
 ```
 
-### Merge many bags
-
-`mergeProps` takes up to six bags. Use `mergePropsN` for a list of any length.
-
-```ts
-import { mergePropsN } from '@sveltery/base/merge-props';
-
-const merged = mergePropsN([base, theme, size, variant, state, rest, extra]);
-```
-
-## Custom parts and useRender
-
-Base UI's `useRender` hook has no counterpart in Sveltery Base. A custom part is a Svelte component that merges its own props into the props it receives, spreads the result onto its element, and takes a `render` snippet. The snippet receives `(props, state, children)`, the same arguments as the `render` snippet of a library part.
-
-```svelte
-<!-- MyButton.svelte -->
-<script lang="ts">
-	import type { Snippet } from 'svelte';
-	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import { mergeProps } from '@sveltery/base/merge-props';
-
-	interface Props extends Omit<HTMLButtonAttributes, 'children'> {
-		render?: Snippet<
-			[props: Record<string, unknown>, state: object, children: Snippet | undefined]
-		>;
-		children?: Snippet;
-	}
-
-	let { render, children, ...rest }: Props = $props();
-
-	const merged = $derived(mergeProps({ type: 'button' as const, 'data-my-button': '' }, rest));
-</script>
-
-{#if render}
-	{@render render(merged, {}, children)}
-{:else}
-	<button {...merged}>{@render children?.()}</button>
-{/if}
-```
-
-Put your own props first and the consumer's props last. The consumer's `class`, `style`, and handlers then merge with yours, and the consumer's other props win.
-
-## Differences from Base UI
-
-- Skip handlers with `event.preventDefault()`. There is no `preventBaseUIHandler()`, and `makeEventPreventable` is not exported.
-- Handlers have Svelte's lowercase names, such as `onclick`. A prop named `onClick` is a plain prop, so the rightmost one wins instead of chaining.
-- `class` is a Svelte class value, and the result is an array with the rightmost bag first. Base UI concatenates `className` strings. `mergeClassNames` is not exported.
-- `style` is a CSS string, not an object. Base UI merges style objects by property.
-- There is no `ref` to merge. Attachments replace refs, and `mergeProps` keeps all of them.
-- A bag can be a function, as in Base UI. Base UI does not wrap the handlers that function returns, and neither does this port.
-- `mergeProps` takes up to six bags. Base UI takes five.
-- `useRender` has no counterpart. See the section above for the Svelte pattern.
-
 ## API reference
 
 ### mergeProps
 
-Merges up to six bags of props. Each bag is an object, a function of the props merged so far, `null`, or `undefined`. The result has the type `T` of the last bag.
+This function accepts up to 6 arguments, each being either a props object or a function that returns a props object.
+If you need to merge more than 6 sets of props, use `mergePropsN` instead.
 
 ```ts
 function mergeProps<T extends object>(a: T | null | undefined | PropsGetter): T;
 function mergeProps<T extends object>(a: Input, b: T | null | undefined | PropsGetter): T;
-// …the same shape for three, four, and five bags
+// …the same shape for three, four, and five arguments
 function mergeProps<T extends object>(
 	a: Input,
 	b: Input,
@@ -196,31 +168,25 @@ function mergeProps<T extends object>(
 ): T;
 
 type Input = object | null | undefined | PropsGetter;
+type PropsGetter = (previous: Record<PropertyKey, unknown>) => object | null | undefined;
 ```
 
-| Parameter | Type                                         | Description                                                                                                      |
-| --------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `a`       | `object \| PropsGetter \| null \| undefined` | The first bag. It has the lowest priority. This parameter is required.                                           |
-| `b`–`f`   | `object \| PropsGetter \| null \| undefined` | Later bags. Each overrides the bags before it. Each is optional, but the last one you pass sets the return type. |
-| Returns   | `T`                                          | The merged props, ready to spread onto an element.                                                               |
+| Parameter | Type                                         | Description                                                                                           |
+| --------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `a`       | `object \| PropsGetter \| null \| undefined` | Props object to merge.                                                                                |
+| `b`–`f`   | `object \| PropsGetter \| null \| undefined` | Props object to merge. Each one overwrites conflicting props from the previous parameters.            |
+| Returns   | `T`                                          | The merged props. `T` is the type of the last argument. `null` and `undefined` arguments are skipped. |
 
 ### mergePropsN
 
-Merges a list of bags. It does the same work as `mergeProps` and takes any number of bags. Use it when you have more than six.
+This function accepts an array of props objects or functions that return props objects.
+It uses the same logic as `mergeProps`, so use it when you need to merge more than 6 sets of props or an array of any length.
 
 ```ts
-function mergePropsN<T extends object>(bags: readonly Input[]): T;
+function mergePropsN<T extends object>(props: readonly Input[]): T;
 ```
 
-| Parameter | Type                                                      | Description                                                  |
-| --------- | --------------------------------------------------------- | ------------------------------------------------------------ |
-| `bags`    | `readonly (object \| PropsGetter \| null \| undefined)[]` | The bags to merge, in priority order from lowest to highest. |
-| Returns   | `T`                                                       | The merged props.                                            |
-
-### PropsGetter
-
-The type of a function bag. It receives a copy of the props merged so far. Its return value replaces them. Returning `null` or `undefined` clears them.
-
-```ts
-type PropsGetter = (previous: Record<PropertyKey, unknown>) => object | null | undefined;
-```
+| Parameter | Type                                                      | Description              |
+| --------- | --------------------------------------------------------- | ------------------------ |
+| `props`   | `readonly (object \| PropsGetter \| null \| undefined)[]` | Array of props to merge. |
+| Returns   | `T`                                                       | The merged props.        |

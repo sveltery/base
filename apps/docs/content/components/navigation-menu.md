@@ -733,7 +733,7 @@ Native scrollbars are visible while transitioning content, so we recommend using
 ## Closing animations
 
 The popup stays rendered until its closing animation finishes.
-See [Svelte transitions](/handbook/animation#svelte-transitions) and [Manual unmounting](/handbook/animation#manual-unmounting) for animating it in JavaScript and for manual control.
+See [JavaScript animations](/handbook/animation#javascript-animations) and [Manual unmounting](/handbook/animation#manual-unmounting) for animating it in JavaScript and for manual control.
 For Navigation Menu, call `eventDetails.preventUnmountOnClose()` in `onValueChange` when the value becomes `null`, and call `close()` on the root (bound with `bind:this`) instead of setting `value` to `null` directly.
 
 ## API reference
