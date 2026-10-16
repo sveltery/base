@@ -154,6 +154,17 @@ describe('<OTPField />', () => {
 		expect(onValueChange.mock.lastCall?.[1].reason).toBe('input-paste');
 	});
 
+	it.each([
+		['plain', 'as'],
+		['alpha', '12']
+	])('keeps an empty %s slot empty when typed characters are rejected', async (scenario, text) => {
+		render(OTPFieldHarness, { scenario });
+		const slot = inputs().find((input) => input.value === '')!;
+		await userEvent.type(slot, text);
+		expect(slot.value).toBe('');
+		expect(document.activeElement).toBe(slot);
+	});
+
 	it('moves focus with arrows, Home, and End, including RTL', async () => {
 		render(OTPFieldHarness, { scenario: 'default' });
 		const slots = inputs();
