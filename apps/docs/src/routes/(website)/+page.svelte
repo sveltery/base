@@ -50,7 +50,7 @@
 
 {#snippet a11y()}
 	<p class="Text sz-2" itemprop="text">
-		Sveltery Base keeps Base UI's behavior, which follows
+		Sveltery Base ports Base UI's behavior, which follows
 		<a class="Link" href="https://www.w3.org/WAI/ARIA/apg/patterns/"
 			>ARIA Authoring Practices Guide patterns</a
 		>, and complies with the
@@ -63,8 +63,9 @@
 {#snippet baseUi()}
 	<div class="flex flex-col gap-4" itemprop="text">
 		<p class="Text sz-2">
-			In terms of API design, both libraries are the same. Sveltery Base keeps Base UI's components,
-			parts, props, and data attributes, so Base UI's documentation and knowledge carry over.
+			In terms of API design, both libraries are very similar. Sveltery Base keeps Base UI's
+			components, parts, props, and data attributes, so Base UI's documentation and knowledge carry
+			over.
 		</p>
 		<p class="Text sz-2">
 			The differences come from Svelte. Where Svelte works differently from React, Sveltery Base
@@ -105,8 +106,8 @@
 <section class="contents">
 	<div class="col-start-1 col-end-9 flex flex-col gap-4 md:col-start-3 xl:col-end-7">
 		<p class="Text sz-2">
-			A Svelte port of Base&nbsp;UI by one of its maintainers, Sveltery&nbsp;Base is a comprehensive
-			UI component library for building accessible user interfaces with Svelte.
+			Sveltery&nbsp;Base is a Svelte port of Base&nbsp;UI: a comprehensive UI component library for
+			building accessible user interfaces with Svelte.
 		</p>
 		<p class="Text sz-2">
 			Each component is meticulously designed for composability, consistency, and craft. The
@@ -114,9 +115,8 @@
 			craft distinctive interfaces that are fundamentally accessible and reliable.
 		</p>
 		<p class="Text sz-2">
-			Sveltery Base follows Base UI release by release. It keeps the same parts, props, and
-			behavior, and changes only what Svelte does differently. What you learn in one carries over to
-			the other.
+			Sveltery Base follows Base UI v1.9.0. It keeps the same parts, props, and behavior, and
+			changes only what Svelte does differently. What you learn in one carries over to the other.
 		</p>
 		<p class="Text sz-2">
 			Sveltery Base is built to last. It is designed with care and maintained with intent. Our
