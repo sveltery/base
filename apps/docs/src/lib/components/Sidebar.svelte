@@ -58,6 +58,11 @@
 								</a>
 							</li>
 						{/each}
+						{#if section.title === 'Handbook'}
+							<li class="SideNavItem">
+								<a class="SideNavLink" href="/llms.txt" data-sveltekit-reload>llms.txt</a>
+							</li>
+						{/if}
 					</ul>
 				</div>
 			{/each}

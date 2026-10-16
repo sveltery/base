@@ -1,9 +1,13 @@
 <script lang="ts">
-	let { value }: { value: string } = $props();
+	import { checkIcon, copyIcon } from './DocIcons.svelte';
+
+	let { text, class: className }: { text: () => string | undefined; class?: string } = $props();
 	let copied = $state(false);
 	let timer: ReturnType<typeof setTimeout> | undefined;
 
 	async function copy() {
+		const value = text();
+		if (!value) return;
 		try {
 			await navigator.clipboard.writeText(value);
 		} catch {
@@ -20,8 +24,10 @@
 
 <button
 	type="button"
-	class="absolute top-2 right-2 rounded-md px-2 py-1 text-xs text-muted hover:bg-subtle hover:text-fg"
+	class={['GhostButton', className]}
+	data-layout="icon"
+	aria-label="Copy code"
 	onclick={copy}
 >
-	{copied ? 'Copied' : 'Copy'}
+	<span class="CodeBlockCopyIcon">{@render (copied ? checkIcon : copyIcon)()}</span>
 </button>
