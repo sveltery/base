@@ -1,6 +1,7 @@
 import pages from 'virtual:docs-markdown';
 import { nav } from '#lib/docs/content.server.ts';
 import { SITE } from '#lib/docs/links.ts';
+import { plainText } from '../../../markdown/reference.ts';
 
 export const prerender = true;
 
@@ -11,7 +12,7 @@ export const GET = () => {
 			'',
 			...entries.map(({ href }) => {
 				const page = pages[href];
-				return `- [${page.title}](${SITE}${href}.md): ${page.description}`;
+				return `- [${page.title}](${SITE}${href}.md): ${plainText(page.description)}`;
 			})
 		].join('\n')
 	);

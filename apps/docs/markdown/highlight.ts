@@ -95,7 +95,7 @@ export function readMarkers(source: string): Marked {
 	const lines = new Set<number>();
 	const texts = new Map<number, string[]>();
 	const out: string[] = [];
-	let pending: { kind: string; args: string } | undefined;
+	let pending: Array<{ kind: string; args: string }> = [];
 	let open = false;
 	for (const line of source.split('\n')) {
 		const match = MARKER.exec(line);
@@ -106,20 +106,22 @@ export function readMarkers(source: string): Marked {
 			open = kind === '@highlight-start';
 			if (!rest.trim()) continue;
 		} else if (kind && !rest.trim()) {
-			pending = { kind, args };
+			pending.push({ kind, args });
 			continue;
 		}
 		const index = out.length;
 		out.push(match && kind ? rest : line);
-		const marker = kind && rest.trim() ? { kind, args } : pending;
-		pending = undefined;
+		const markers = kind && rest.trim() ? [...pending, { kind, args }] : pending;
+		pending = [];
 		if (open) lines.add(index);
-		if (marker?.kind === '@highlight') lines.add(index);
-		if (marker?.kind === '@highlight-text') {
-			texts.set(
-				index,
-				[...marker.args.matchAll(/"([^"]+)"/g)].map((quoted) => quoted[1])
-			);
+		for (const marker of markers) {
+			if (marker.kind === '@highlight') lines.add(index);
+			if (marker.kind === '@highlight-text') {
+				texts.set(index, [
+					...(texts.get(index) ?? []),
+					...[...marker.args.matchAll(/"([^"]+)"/g)].map((quoted) => quoted[1])
+				]);
+			}
 		}
 	}
 	return { code: out.join('\n'), lines, texts };

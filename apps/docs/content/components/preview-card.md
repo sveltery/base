@@ -598,9 +598,11 @@ The `Viewport` is optional — reach for it only when a single popup is opened b
 
 Creates a new handle to connect a `PreviewCard.Root` with detached `PreviewCard.Trigger` components.
 
-```ts
-function createHandle<Payload = unknown>(): PreviewCardHandle<Payload>;
-```
+**Return value**
+
+`PreviewCard.Handle<Payload>`
+
+<!-- @exclude-table-of-contents -->
 
 ### Handle
 
@@ -608,29 +610,17 @@ Controls a PreviewCard imperatively and associates detached `PreviewCard.Trigger
 
 The imperative methods take effect only while a root using this handle is mounted; calls made before a root attaches (or after it unmounts) are ignored.
 
+**Properties**
+
 | Property  | Type                   | Modifiers | Description                                                                                          |
 | --------- | ---------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
 | `isOpen`  | `boolean`              | readonly  | Whether the preview card is currently open. Returns `false` while no root is attached to the handle. |
 | `payload` | `Payload \| undefined` | readonly  | The payload of the trigger that opened the preview card.                                             |
 
-```ts
-function open(triggerId: string | null): void;
-```
+**Methods**
 
-Opens the preview card and associates it with the trigger with the given id. It throws when no trigger with that id is registered, because the preview card needs a trigger to anchor to.
-
-This method should only be called in an event handler or an effect (not during rendering).
-
-```ts
-function close(): void;
-```
-
-Closes the preview card.
-
-This method should only be called in an event handler or an effect (not during rendering).
-
-```ts
-function unmount(): void;
-```
-
-Ends the closing phase of the preview card immediately.
+| Method    | Parameters                  | Returns | Description                                                                                                                                                                                                                                                                          |
+| --------- | --------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `open`    | `triggerId: string \| null` | `void`  | Opens the preview card and associates it with the trigger with the given id. It throws when no trigger with that id is registered, because the preview card needs a trigger to anchor to. This method should only be called in an event handler or an effect (not during rendering). |
+| `close`   |                             | `void`  | Closes the preview card. This method should only be called in an event handler or an effect (not during rendering).                                                                                                                                                                  |
+| `unmount` |                             | `void`  | Ends the closing phase of the preview card immediately.                                                                                                                                                                                                                              |

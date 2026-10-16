@@ -128,6 +128,26 @@ Svelte keeps the element in the DOM until its outro finishes, so the popup doesn
 </Popover.Root>
 ```
 
+```svelte title="animated-popover.svelte"
+<Popover.Root>
+	<Popover.Trigger>Trigger</Popover.Trigger>
+	<Popover.Portal>
+		<Popover.Positioner>
+			<Popover.Popup>
+				<!-- @highlight-start -->
+				{#snippet render(props, state, children)}
+					<div {...props} transition:scale|global={{ start: 0.8 }}>
+						{@render children?.()}
+					</div>
+				{/snippet}
+				<!-- @highlight-end -->
+				Popup
+			</Popover.Popup>
+		</Popover.Positioner>
+	</Popover.Portal>
+</Popover.Root>
+```
+
 ### Animating components kept in DOM when closed with the Web Animations API
 
 Components that specify `keepMounted` remain rendered in the DOM when they are closed. A Svelte transition doesn't play for them, because the element is hidden instead of removed. These elements need a different approach to be animated:
@@ -171,6 +191,27 @@ Components that specify `keepMounted` remain rendered in the DOM when they are c
 						{@render children?.()}
 					</div>
 				{/snippet}
+				Popup
+			</Popover.Popup>
+		</Popover.Positioner>
+	</Popover.Portal>
+</Popover.Root>
+```
+
+```svelte title="animated-popover.svelte"
+<Popover.Root>
+	<Popover.Trigger>Trigger</Popover.Trigger>
+	<Popover.Portal keepMounted>
+		<!-- @highlight-text "keepMounted" -->
+		<Popover.Positioner>
+			<Popover.Popup>
+				<!-- @highlight-start -->
+				{#snippet render(props, state, children)}
+					<div {...props} {@attach animateOpen(state.open)}>
+						{@render children?.()}
+					</div>
+				{/snippet}
+				<!-- @highlight-end -->
 				Popup
 			</Popover.Popup>
 		</Popover.Positioner>

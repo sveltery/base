@@ -11,32 +11,28 @@ It behaves like `Object.assign` (rightmost wins) with a few special cases, so co
 
 - For most keys (everything except `class`, `style`, event handlers, and attachments), the value from the rightmost object wins:
 
-  ```ts
-  // returns { id: 'b', dir: 'ltr' }
+  ```ts title="returns { id: 'b', dir: 'ltr' }"
   mergeProps({ id: 'a', dir: 'ltr' }, { id: 'b' });
   ```
 
 - There is no `ref` to merge. Attachments take its place, and every attachment is kept. They run from left to right:
 
-  ```ts
+  ```ts title="both a and b run"
   import { createAttachmentKey } from 'svelte/attachments';
 
-  // both a and b run
   mergeProps({ [createAttachmentKey()]: a }, { [createAttachmentKey()]: b });
   ```
 
 - `class` values are combined right-to-left (rightmost first) into an array, which Svelte renders as one class list:
 
-  ```ts
-  // class is ['b', 'a'], rendered as 'b a'
+  ```ts title="class is ['b', 'a'], rendered as 'b a'"
   mergeProps({ class: 'a' }, { class: 'b' });
   ```
 
 - `style` strings are joined, so declarations from the rightmost style overwrite earlier ones for the same property. Style objects are ignored.
 - Event handlers are merged and executed right-to-left (rightmost first). Handlers use Svelte's lowercase names, such as `onclick`. A camelCase prop such as `onValueChange` is a plain prop, so the rightmost one wins.
 
-  ```ts
-  // b runs before a
+  ```ts title="b runs before a"
   mergeProps({ onclick: a }, { onclick: b });
   ```
 
@@ -154,39 +150,36 @@ const merged = mergeProps(
 This function accepts up to 6 arguments, each being either a props object or a function that returns a props object.
 If you need to merge more than 6 sets of props, use `mergePropsN` instead.
 
-```ts
-function mergeProps<T extends object>(a: T | null | undefined | PropsGetter): T;
-function mergeProps<T extends object>(a: Input, b: T | null | undefined | PropsGetter): T;
-// …the same shape for three, four, and five arguments
-function mergeProps<T extends object>(
-	a: Input,
-	b: Input,
-	c: Input,
-	d: Input,
-	e: Input,
-	f: T | null | undefined | PropsGetter
-): T;
+**Parameters**
 
-type Input = object | null | undefined | PropsGetter;
-type PropsGetter = (previous: Record<PropertyKey, unknown>) => object | null | undefined;
-```
+| Parameter | Type                                         | Default | Description                                                                                    |
+| --------- | -------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------- |
+| `a`       | `object \| PropsGetter \| null \| undefined` | -       | Props object to merge.                                                                         |
+| `b?`      | `object \| PropsGetter \| null \| undefined` | -       | Props object to merge. The function will overwrite conflicting props from `a`.                 |
+| `c?`      | `object \| PropsGetter \| null \| undefined` | -       | Props object to merge. The function will overwrite conflicting props from previous parameters. |
+| `d?`      | `object \| PropsGetter \| null \| undefined` | -       | Props object to merge. The function will overwrite conflicting props from previous parameters. |
+| `e?`      | `object \| PropsGetter \| null \| undefined` | -       | Props object to merge. The function will overwrite conflicting props from previous parameters. |
+| `f?`      | `object \| PropsGetter \| null \| undefined` | -       | Props object to merge. The function will overwrite conflicting props from previous parameters. |
 
-| Parameter | Type                                         | Description                                                                                           |
-| --------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `a`       | `object \| PropsGetter \| null \| undefined` | Props object to merge.                                                                                |
-| `b`–`f`   | `object \| PropsGetter \| null \| undefined` | Props object to merge. Each one overwrites conflicting props from the previous parameters.            |
-| Returns   | `T`                                          | The merged props. `T` is the type of the last argument. `null` and `undefined` arguments are skipped. |
+**Return value**
+
+`T`
+
+The merged props. `T` is the type of the last argument. `null` and `undefined` arguments are skipped.
 
 ### mergePropsN
 
 This function accepts an array of props objects or functions that return props objects.
 It uses the same logic as `mergeProps`, so use it when you need to merge more than 6 sets of props or an array of any length.
 
-```ts
-function mergePropsN<T extends object>(props: readonly Input[]): T;
-```
+**Parameters**
 
-| Parameter | Type                                                      | Description              |
-| --------- | --------------------------------------------------------- | ------------------------ |
-| `props`   | `readonly (object \| PropsGetter \| null \| undefined)[]` | Array of props to merge. |
-| Returns   | `T`                                                       | The merged props.        |
+| Parameter | Type                                                      | Default | Description              |
+| --------- | --------------------------------------------------------- | ------- | ------------------------ |
+| `props`   | `readonly (object \| PropsGetter \| null \| undefined)[]` | -       | Array of props to merge. |
+
+**Return value**
+
+`T`
+
+The merged props.

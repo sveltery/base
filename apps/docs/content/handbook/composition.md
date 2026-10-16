@@ -23,8 +23,7 @@ The code snippet below shows how to use a custom button instead.
 
 The custom component must spread all the received props on its underlying DOM node. Svelte has no refs to forward. The part reads its element through an attachment inside `props`, so the spread is what connects the part to the element.
 
-```svelte
-<!-- MyButton.svelte -->
+```svelte title="MyButton.svelte"
 <script lang="ts">
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 

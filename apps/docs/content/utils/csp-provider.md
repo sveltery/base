@@ -54,8 +54,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 Then return the nonce from a layout `load` function and pass it to the provider:
 
-```ts
-// src/routes/+layout.server.ts
+```ts title="src/routes/+layout.server.ts"
 export const load = ({ locals }) => ({ nonce: locals.nonce });
 ```
 
@@ -120,7 +119,5 @@ If your CSP blocks inline style _attributes_ in addition to _elements_, you have
 ```
 
 ## API reference
-
-### CSPProvider
 
 <ApiPart name="csp-provider" part="CSPProvider" />

@@ -1,5 +1,6 @@
 ---
 title: About Sveltery Base
+navTitle: About
 description: An open-source Svelte component library for building accessible user interfaces.
 order: 5
 ---
