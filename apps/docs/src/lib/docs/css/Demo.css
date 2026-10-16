@@ -36,7 +36,7 @@
 
 		/* Center the contents vertically */
 		display: flex;
-		justify-content: center;
+		justify-content: safe center;
 		align-items: center;
 	}
 
