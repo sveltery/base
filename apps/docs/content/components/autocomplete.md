@@ -666,6 +666,7 @@ Use fuzzy matching to find relevant results even when the query doesn't exactly 
 ```svelte demo
 <script lang="ts">
 	import { Autocomplete } from '@sveltery/base/autocomplete';
+	import { matchSorter } from 'match-sorter';
 
 	interface FuzzyItem {
 		title: string;
@@ -751,42 +752,22 @@ Use fuzzy matching to find relevant results even when the query doesn't exactly 
 		}
 	];
 
-	function fuzzyScore(text: string, query: string): number {
-		const haystack = text.toLowerCase();
-		const needle = query.toLowerCase();
-
-		if (haystack === needle) {
-			return 6;
-		}
-		if (haystack.startsWith(needle)) {
-			return 5;
-		}
-		if (haystack.split(/\s+/).some((word) => word.startsWith(needle))) {
-			return 4;
-		}
-		if (haystack.includes(needle)) {
-			return 3;
-		}
-
-		let position = 0;
-		for (const character of needle) {
-			position = haystack.indexOf(character, position);
-			if (position === -1) {
-				return 0;
-			}
-			position += 1;
-		}
-		return 1;
-	}
-
 	function fuzzyFilter(item: FuzzyItem, query: string): boolean {
 		if (!query) {
 			return true;
 		}
 
-		return [item.title, item.description, item.category].some(
-			(text) => fuzzyScore(text, query) > 0
-		);
+		const results = matchSorter([item], query, {
+			keys: [
+				'title',
+				'description',
+				'category',
+				{ key: 'title', threshold: matchSorter.rankings.CONTAINS },
+				{ key: 'description', threshold: matchSorter.rankings.WORD_STARTS_WITH }
+			]
+		});
+
+		return results.length > 0;
 	}
 
 	function highlightText(text: string, query: string): { text: string; match: boolean }[] {
@@ -1542,11 +1523,13 @@ Display items in a grid layout, wrapping each row in `<Autocomplete.Row>` compon
 
 ### Virtualized
 
-Efficiently handle large datasets using a virtualization library like `@tanstack/svelte-virtual`. Set `virtualized` on `<Autocomplete.Root>` and pass each rendered `<Autocomplete.Item>` its position in the filtered items as `index`. This demo filters the items itself and passes them as `filteredItems`, so that one component can render the window without a separate part calling `Autocomplete.useFilteredItems()`.
+Efficiently handle large datasets using a virtualization library like `@tanstack/svelte-virtual`.
 
 ```svelte demo
 <script lang="ts">
 	import { Autocomplete } from '@sveltery/base/autocomplete';
+	import { createVirtualizer } from '@tanstack/svelte-virtual';
+	import { get } from 'svelte/store';
 
 	interface VirtualizedItem {
 		id: string;
@@ -1563,57 +1546,23 @@ Efficiently handle large datasets using a virtualization library like `@tanstack
 		return item ? item.name : '';
 	}
 
-	const ITEM_SIZE = 32;
-	const PADDING = 4;
-	const OVERSCAN = 20;
-
-	let value = $state('');
 	let scrollElement = $state<HTMLDivElement | null>(null);
-	let scrollTop = $state(0);
-	let viewportHeight = $state(0);
 
-	const { contains } = Autocomplete.useFilter();
-
-	const filteredItems = $derived(
-		value.trim()
-			? virtualizedItems.filter((item) => contains(item, value.trim(), getItemLabel))
-			: virtualizedItems
-	);
-
-	const totalSize = $derived(filteredItems.length * ITEM_SIZE + PADDING * 2);
-
-	const range = $derived.by(() => {
-		const first = Math.floor((scrollTop - PADDING) / ITEM_SIZE) - OVERSCAN;
-		const last = Math.ceil((scrollTop + viewportHeight - PADDING) / ITEM_SIZE) + OVERSCAN;
-		return {
-			start: Math.max(0, first),
-			end: Math.min(filteredItems.length - 1, last)
-		};
+	const virtualizer = createVirtualizer<HTMLDivElement, HTMLDivElement>({
+		count: virtualizedItems.length,
+		getScrollElement: () => scrollElement,
+		estimateSize: () => 32,
+		overscan: 20,
+		paddingStart: 4,
+		paddingEnd: 4,
+		scrollPaddingStart: 4,
+		scrollPaddingEnd: 4
 	});
-
-	const virtualItems = $derived.by(() => {
-		const rows: { index: number; start: number }[] = [];
-		for (let index = range.start; index <= range.end; index += 1) {
-			rows.push({ index, start: PADDING + index * ITEM_SIZE });
-		}
-		return rows;
-	});
-
-	function scrollToIndex(index: number, align: 'start' | 'end') {
-		if (!scrollElement) {
-			return;
-		}
-		const top = PADDING + index * ITEM_SIZE;
-		scrollElement.scrollTop =
-			align === 'start' ? top - PADDING : top + ITEM_SIZE + PADDING - scrollElement.clientHeight;
-	}
 </script>
 
 <Autocomplete.Root
 	virtualized
 	items={virtualizedItems}
-	{filteredItems}
-	bind:value
 	openOnInputClick
 	itemToStringValue={getItemLabel}
 	onItemHighlighted={(item, { reason, index }) => {
@@ -1622,12 +1571,12 @@ Efficiently handle large datasets using a virtualization library like `@tanstack
 		}
 
 		const isStart = index === 0;
-		const isEnd = index === filteredItems.length - 1;
+		const isEnd = index === $virtualizer.options.count - 1;
 		const shouldScroll = reason === 'none' || (reason === 'keyboard' && (isStart || isEnd));
 
 		if (shouldScroll) {
 			queueMicrotask(() => {
-				scrollToIndex(index, isEnd ? 'start' : 'end');
+				$virtualizer.scrollToIndex(index, { align: isEnd ? 'start' : 'end' });
 			});
 		}
 	}}
@@ -1650,27 +1599,34 @@ Efficiently handle large datasets using a virtualization library like `@tanstack
 					</div>
 				</Autocomplete.Empty>
 				<Autocomplete.List class="p-0">
+					{@const filteredItems = Autocomplete.useFilteredItems<VirtualizedItem>().current}
 					{#if filteredItems.length}
+						{@const totalSize = $virtualizer.getTotalSize()}
 						<div
 							role="presentation"
-							bind:this={scrollElement}
-							bind:clientHeight={viewportHeight}
-							onscroll={(event) => (scrollTop = event.currentTarget.scrollTop)}
+							{@attach (element) => {
+								scrollElement = element;
+								get(virtualizer).setOptions({
+									count: filteredItems.length
+								});
+								get(virtualizer).measure();
+							}}
 							class="h-[min(22.5rem,var(--total-size))] max-h-[var(--available-height)] overflow-auto overscroll-contain scroll-py-1"
 							style="--total-size: {totalSize}px"
 						>
 							<div role="presentation" class="relative w-full" style="height: {totalSize}px">
-								{#each virtualItems as virtualItem (virtualItem.index)}
+								{#each $virtualizer.getVirtualItems() as virtualItem (virtualItem.key)}
 									{@const item = filteredItems[virtualItem.index]}
 									{#if item}
 										<Autocomplete.Item
 											index={virtualItem.index}
 											data-index={virtualItem.index}
+											{@attach $virtualizer.measureElement}
 											value={item}
 											class="flex cursor-default py-2 pr-2 pl-2 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
 											aria-setsize={filteredItems.length}
 											aria-posinset={virtualItem.index + 1}
-											style="position: absolute; top: 0; left: 0; width: 100%; height: {ITEM_SIZE}px; transform: translateY({virtualItem.start}px)"
+											style="position: absolute; top: 0; left: 0; width: 100%; height: {virtualItem.size}px; transform: translateY({virtualItem.start}px)"
 										>
 											{item.name}
 										</Autocomplete.Item>
@@ -1907,27 +1863,51 @@ Memoizing each item is a React technique for datasets up to roughly 1,000 items,
 ## useFilter
 
 Matches items against a query using `Intl.Collator` for robust string matching.
-This is a plain function, not a hook: call it in a `$derived` when its options change. It is used when externally filtering items.
+This function is used when externally filtering items.
+`Autocomplete.useFilter` is a plain function, so call it in a `$derived` when its options change.
 
-| Parameter | Type                        | Default | Description |
-| --------- | --------------------------- | ------- | ----------- |
-| options?  | `AutocompleteFilterOptions` | `{}`    | -           |
+**Parameters**
 
-Returns an `AutocompleteFilter`:
+| Parameter  | Type                        | Default | Description                 |
+| ---------- | --------------------------- | ------- | --------------------------- |
+| `options?` | `AutocompleteFilterOptions` | `{}`    | Options for the comparison. |
 
-```ts
-type AutocompleteFilter = {
-	contains: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
-	startsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
-	endsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
-};
+`AutocompleteFilterOptions`
+
+| Prop       | Type                   | Description                                                                                                                  |
+| ---------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `locale`   | `Intl.LocalesArgument` | The locale to use for string comparison. Defaults to the user's runtime locale. Any `Intl.CollatorOptions` are accepted too. |
+| `multiple` | `boolean`              | Whether several values are selected. Defaults to `false`.                                                                    |
+| `value`    | `unknown`              | The selected value. In single mode, `contains` matches every item while the query equals this value's label.                 |
+
+**Return value**
+
+`AutocompleteFilter`
+
+| Property     | Type                                                                                  | Description                                          |
+| ------------ | ------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `contains`   | `<Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean` | Returns whether the item matches the query anywhere. |
+| `startsWith` | `<Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean` | Returns whether the item starts with the query.      |
+| `endsWith`   | `<Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean` | Returns whether the item ends with the query.        |
+
+```svelte
+<script lang="ts">
+	const { contains } = Autocomplete.useFilter({ locale: 'de' });
+</script>
+
+<Autocomplete.Root items={countries} filter={contains} />
 ```
 
 ## useFilteredItems
 
 Returns the internally filtered items when called inside `<Autocomplete.Root>`.
-Call it while a part initializes. It returns an object whose `current` is the filtered items. Treat the result as read-only: it is internal state and may be a shared frozen array.
+Treat the result as read-only: it is internal state and may be a shared frozen array.
+Call it while a component inside the root initializes.
 
-```ts
-type ReturnValue<T> = { readonly current: readonly T[] };
-```
+**Return value**
+
+`{ readonly current: readonly Item[] }`
+
+| Property  | Type              | Modifiers | Description                                          |
+| --------- | ----------------- | --------- | ---------------------------------------------------- |
+| `current` | `readonly Item[]` | readonly  | The filtered items. It updates as the query changes. |

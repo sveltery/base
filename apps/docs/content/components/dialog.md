@@ -1116,7 +1116,13 @@ Instead, the `onOpenChange` callback receives an additional argument, `eventDeta
 
 ## createHandle
 
-Creates a new handle to connect a `Dialog.Root` with detached `Dialog.Trigger` components. Pass a type argument to type the payload, as in `Dialog.createHandle<number>()`. It returns a `Dialog.Handle<Payload>`. The library also exports it by name as `createDialogHandle`.
+Creates a new handle to connect a `Dialog.Root` with detached `Dialog.Trigger` components.
+
+**Return value**
+
+`Dialog.Handle<Payload>`
+
+<!-- @exclude-table-of-contents -->
 
 ### Handle
 
@@ -1124,11 +1130,18 @@ Controls a Dialog imperatively and associates detached `Dialog.Trigger` componen
 
 The imperative methods take effect only while a root using this handle is mounted; calls made before a root attaches (or after it unmounts) are ignored.
 
-| Member                     | Description                                                                                                                 |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `isOpen`                   | Whether the dialog is currently open. Read-only. `false` while no root is attached to the handle.                           |
-| `payload`                  | The payload of the trigger that opened the dialog, or `undefined`. Read-only.                                               |
-| `open(triggerId)`          | Opens the dialog, optionally associating it with a trigger. Call it in an event handler or an effect, not during rendering. |
-| `openWithPayload(payload)` | Opens the dialog with the given payload, without associating it with any trigger.                                           |
-| `close()`                  | Closes the dialog.                                                                                                          |
-| `unmount()`                | Removes the popup at once, without waiting for the exit animation.                                                          |
+**Properties**
+
+| Property  | Type                   | Modifiers | Description                                                                                    |
+| --------- | ---------------------- | --------- | ---------------------------------------------------------------------------------------------- |
+| `isOpen`  | `boolean`              | readonly  | Whether the dialog is currently open. Returns `false` while no root is attached to the handle. |
+| `payload` | `Payload \| undefined` | readonly  | The payload of the trigger that opened the dialog, or the one passed to `openWithPayload()`.   |
+
+**Methods**
+
+| Method            | Parameters                  | Returns | Description                                                                                                                                                                  |
+| ----------------- | --------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `open`            | `triggerId: string \| null` | `void`  | Opens the dialog, optionally associating it with a trigger. This method should only be called in an event handler or an effect (not during rendering).                       |
+| `openWithPayload` | `payload: Payload`          | `void`  | Opens the dialog with the given payload, without associating it with any trigger. This method should only be called in an event handler or an effect (not during rendering). |
+| `close`           |                             | `void`  | Closes the dialog. This method should only be called in an event handler or an effect (not during rendering).                                                                |
+| `unmount`         |                             | `void`  | Removes the popup at once, without waiting for the exit animation.                                                                                                           |

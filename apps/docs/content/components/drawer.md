@@ -1305,7 +1305,11 @@ Use `--drawer-swipe-progress` to fade the backdrop as the drawer is swiped, and 
 
 Creates a new handle to connect a `Drawer.Root` with detached `Drawer.Trigger` components.
 
-`Drawer.createHandle<Payload>()` returns a `Drawer.Handle<Payload>`.
+**Return value**
+
+`Drawer.Handle<Payload>`
+
+<!-- @exclude-table-of-contents -->
 
 ### Handle
 
@@ -1313,16 +1317,18 @@ Controls a Drawer imperatively and associates detached `Drawer.Trigger` componen
 
 The imperative methods take effect only while a root using this handle is mounted; calls made before a root attaches (or after it unmounts) are ignored.
 
-| Property  | Type                   | Description                                                                                    |
-| --------- | ---------------------- | ---------------------------------------------------------------------------------------------- |
-| `isOpen`  | `boolean`              | Whether the dialog is currently open. Returns `false` while no root is attached to the handle. |
-| `payload` | `Payload \| undefined` | The payload of the trigger that opened the drawer, or the one passed to `openWithPayload()`.   |
+**Properties**
 
-| Method                                    | Description                                                                       |
-| ----------------------------------------- | --------------------------------------------------------------------------------- |
-| `open(triggerId: string \| null): void`   | Opens the dialog, optionally associating it with a trigger.                       |
-| `openWithPayload(payload: Payload): void` | Opens the dialog with the given payload, without associating it with any trigger. |
-| `close(): void`                           | Closes the dialog.                                                                |
-| `unmount(): void`                         | Removes the popup at once, without waiting for the exit animation.                |
+| Property  | Type                   | Modifiers | Description                                                                                    |
+| --------- | ---------------------- | --------- | ---------------------------------------------------------------------------------------------- |
+| `isOpen`  | `boolean`              | readonly  | Whether the drawer is currently open. Returns `false` while no root is attached to the handle. |
+| `payload` | `Payload \| undefined` | readonly  | The payload of the trigger that opened the drawer, or the one passed to `openWithPayload()`.   |
 
-Call these methods only in an event handler or an effect, not during rendering.
+**Methods**
+
+| Method            | Parameters                  | Returns | Description                                                                                                                                                                  |
+| ----------------- | --------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `open`            | `triggerId: string \| null` | `void`  | Opens the drawer, optionally associating it with a trigger. This method should only be called in an event handler or an effect (not during rendering).                       |
+| `openWithPayload` | `payload: Payload`          | `void`  | Opens the drawer with the given payload, without associating it with any trigger. This method should only be called in an event handler or an effect (not during rendering). |
+| `close`           |                             | `void`  | Closes the drawer. This method should only be called in an event handler or an effect (not during rendering).                                                                |
+| `unmount`         |                             | `void`  | Removes the popup at once, without waiting for the exit animation.                                                                                                           |

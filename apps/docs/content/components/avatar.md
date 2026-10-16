@@ -110,11 +110,11 @@ With `keepMounted`, the image is part of the server-rendered HTML and starts loa
 | `data-starting-style` | Present when the image begins animating in. |
 | `data-ending-style`   | Present when the image is animating out.    |
 
-With `keepMounted`, the image sets `data-error` and `data-loading`. Without it, the `<img>` renders only after it loads, so neither is present.
-
 ### Fallback
 
 <ApiPart name="avatar" part="Fallback" />
+
+<!-- @exclude-table-of-contents -->
 
 ## Additional types
 

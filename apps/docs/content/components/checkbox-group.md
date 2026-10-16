@@ -611,8 +611,6 @@ The group controls the parent checkbox's [indeterminate](/components/checkbox#Ch
 
 ## API reference
 
-### CheckboxGroup
-
 <ApiPart name="checkbox-group" part="CheckboxGroup" />
 
 | Attribute       | Description                                  |
