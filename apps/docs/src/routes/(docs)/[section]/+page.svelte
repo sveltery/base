@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { slugify } from '../../../markdown/headings.ts';
+	import { slugify } from '../../../../markdown/headings.ts';
 	import Toc from '#lib/components/Toc.svelte';
 	import '#lib/docs/css/index.css';
 
