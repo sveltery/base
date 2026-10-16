@@ -14,6 +14,10 @@
 		<span class="hidden text-sm text-muted sm:inline">Base UI for Svelte</span>
 		<div class="ml-auto flex items-center gap-1">
 			<a
+				href="https://ui.sveltery.dev"
+				class="rounded-md px-2 py-1 text-sm text-muted hover:bg-subtle hover:text-fg">Sveltery UI</a
+			>
+			<a
 				href="https://github.com/sveltery/base"
 				class="rounded-md px-2 py-1 text-sm text-muted hover:bg-subtle hover:text-fg">GitHub</a
 			>

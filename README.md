@@ -2,6 +2,8 @@
 
 An experimental, unofficial Svelte 5 port of [Base UI](https://base-ui.com/), pinned to Base UI v1.9.0 (commit [`ad7ecda5`](https://github.com/mui/base-ui/tree/ad7ecda5296b0295b41a51ecb01fce6204acd099)). Not affiliated with or endorsed by MUI or Base UI.
 
+The docs are at [base.sveltery.dev](https://base.sveltery.dev). Styled components built on it live in [Sveltery UI](https://ui.sveltery.dev).
+
 The project was restarted from a fresh `sv create` library scaffold (Prettier, ESLint, Vitest with browser component tests, Playwright). It currently ships `Toggle`, `Button`, `Checkbox`, `CheckboxGroup`, `Radio`, `RadioGroup`, `Avatar`, `Fieldset`, `Field`, `Input`, `Separator`, `Meter`, `Progress`, `Form`, `ToggleGroup`, `Switch`, `Collapsible`, `Accordion`, `Tabs`, `Toolbar`, `NumberField`, `ScrollArea`, `Slider`, `DirectionProvider`, `OTPField`, `CSPProvider`, `Popover`, `Dialog`, `AlertDialog`, and `Drawer`. The package is private and unpublished.
 
 ```svelte
