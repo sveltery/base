@@ -46,7 +46,7 @@ description: A panel that slides in from the edge of the screen.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Drawer } from '@sveltery/base/drawer';
 </script>
@@ -86,7 +86,7 @@ Use `<Drawer.VirtualKeyboardProvider>` when a bottom sheet contains form fields 
 
 By default, Drawer is an uncontrolled component that manages its own state.
 
-```svelte
+```svelte title="Uncontrolled drawer"
 <Drawer.Root>
 	<Drawer.Trigger>Open</Drawer.Trigger>
 	<Drawer.Portal>
@@ -104,7 +104,7 @@ By default, Drawer is an uncontrolled component that manages its own state.
 
 Use `bind:open` and the `onOpenChange` callback if you need to access or control the state of the drawer. Without `bind:`, the drawer manages its own state.
 
-```svelte
+```svelte title="Controlled drawer"
 <script lang="ts">
 	import { Drawer } from '@sveltery/base/drawer';
 
@@ -130,7 +130,7 @@ Use `bind:open` and the `onOpenChange` callback if you need to access or control
 
 Positioning is handled by your styles. `swipeDirection` defaults to `"down"` for bottom sheets. Use `"up"`, `"left"`, or `"right"` for other drawer positions.
 
-```svelte
+```svelte title="Swipe directions"
 <Drawer.Root swipeDirection="right"></Drawer.Root>
 ```
 
@@ -317,7 +317,7 @@ This demo stacks nested drawers using a constant peek so the frontmost drawer st
 
 Use `snapPoints` to snap a bottom sheet drawer to preset heights. Numbers between 0 and 1 represent fractions of the viewport height, and numbers greater than 1 are treated as pixel values. String values support `px` and `rem` units (for example, `'148px'` or `'30rem'`).
 
-```svelte
+```svelte title="Snap points"
 <script lang="ts">
 	import { Drawer, type DrawerSnapPoint } from '@sveltery/base/drawer';
 
@@ -332,7 +332,7 @@ Use `snapPoints` to snap a bottom sheet drawer to preset heights. Numbers betwee
 
 Apply the snap point offset in your styles when using vertical drawers:
 
-```css
+```css title="Snap point offset"
 .DrawerPopup {
 	transform: translateY(calc(var(--drawer-snap-point-offset) + var(--drawer-swipe-movement-y)));
 }
@@ -411,7 +411,7 @@ Wrap a bottom sheet in `<Drawer.VirtualKeyboardProvider>` to make it react to so
 - **Lift a pinned footer input:** if a footer contains its own input, reserve a footer slot below the scroll area and offset it by `var(--drawer-keyboard-inset, 0px)`. The demo switches the focused footer to `position: fixed` — positioned against the popup, since its `transform` contains fixed descendants — and adds the inset to its bottom padding.
 - **Always include the `0px` fallback:** the provider only sets `--drawer-keyboard-inset` while the keyboard is aligned, so a bare `var(--drawer-keyboard-inset)` is invalid before the first alignment and after cleanup.
 
-```svelte
+```svelte title="Virtual keyboard aware drawer"
 <Drawer.Root>
 	<Drawer.VirtualKeyboardProvider>
 		<!-- ... -->
@@ -1015,36 +1015,47 @@ However, if defining the drawer's content next to its trigger is not practical, 
 The imperative methods on the handle, such as `open()` and `openWithPayload()`, require a `<Drawer.Root>` using the same handle to be mounted.
 Calls made while no root is attached to the handle — before one mounts, or after it unmounts — are ignored. Each time a root mounts, it starts from fresh state: a call made while no root was attached is not replayed, and no open state carries over from a previous mount.
 
-```svelte
+```svelte title="Detached triggers"
 <script lang="ts">
 	import { Drawer } from '@sveltery/base/drawer';
 
 	const demoDrawer = Drawer.createHandle();
 </script>
 
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoDrawer}" -->
 <Drawer.Trigger handle={demoDrawer}>Open</Drawer.Trigger>
 
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoDrawer}" -->
 <Drawer.Root handle={demoDrawer}>...</Drawer.Root>
 ```
 
 The drawer can render different content depending on which trigger opened it. This is achieved by passing a `payload` to the `<Drawer.Trigger>` and using the snippet-as-a-child pattern in `<Drawer.Root>`.
 
-```svelte
+```svelte title="Detached triggers with payload"
 <script lang="ts">
 	import { Drawer } from '@sveltery/base/drawer';
 
+	// @highlight
 	const demoDrawer = Drawer.createHandle<{ title: string }>();
 </script>
 
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
 <Drawer.Trigger handle={demoDrawer} payload={{ title: 'Profile' }}>Profile</Drawer.Trigger>
 
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
 <Drawer.Trigger handle={demoDrawer} payload={{ title: 'Settings' }}>Settings</Drawer.Trigger>
 
 <Drawer.Root handle={demoDrawer}>
+	<!-- @highlight-text "payload" -->
 	{#snippet children({ payload })}
 		<Drawer.Portal>
 			<Drawer.Popup>
 				<Drawer.Content>
+					<!-- @highlight-text "payload" -->
 					<Drawer.Title>{payload?.title}</Drawer.Title>
 				</Drawer.Content>
 			</Drawer.Popup>
@@ -1059,7 +1070,7 @@ Use CSS transitions or animations to animate drawer opening, closing, swipe inte
 
 The `--nested-drawers` CSS variable can be used to determine stack depth. The frontmost drawer has index `0`.
 
-```css
+```css title="Stack depth"
 .DrawerPopup {
 	--stack-step: 0.05;
 	--stack-scale: calc(1 - (var(--nested-drawers) * var(--stack-step)));
@@ -1069,7 +1080,7 @@ The `--nested-drawers` CSS variable can be used to determine stack depth. The fr
 
 When stacked drawers have varying heights, use the `--drawer-height` and `--drawer-frontmost-height` variables to keep collapsed drawers aligned with the frontmost one.
 
-```css
+```css title="Variable-height stacking"
 .DrawerPopup {
 	--bleed: 3rem;
 	--stack-height: max(
@@ -1087,15 +1098,17 @@ When stacked drawers have varying heights, use the `--drawer-height` and `--draw
 
 The `data-nested-drawer-open` attribute marks drawers behind the frontmost drawer. Use it with `data-nested-drawer-swiping` to dim or hide parent drawer content while keeping it visible during nested swipe interactions.
 
-```css
+```css title="Nested content visibility"
 .DrawerContent {
 	transition: opacity 300ms;
 }
 
+/* @highlight-text "data-nested-drawer-open" */
 .DrawerPopup[data-nested-drawer-open] .DrawerContent {
 	opacity: 0;
 }
 
+/* @highlight-text "data-nested-drawer-open" "data-nested-drawer-swiping" */
 .DrawerPopup[data-nested-drawer-open][data-nested-drawer-swiping] .DrawerContent {
 	opacity: 1;
 }
@@ -1103,23 +1116,27 @@ The `data-nested-drawer-open` attribute marks drawers behind the frontmost drawe
 
 The `--drawer-swipe-movement-x`, `--drawer-swipe-movement-y`, and `--drawer-snap-point-offset` CSS variables can be used to create smooth drag and snap offsets:
 
-```css
+```css title="Swipe and snap offset"
 .DrawerPopup[data-swipe-direction='right'] {
+	/* @highlight-text "--drawer-swipe-movement-x" */
 	transform: translateX(var(--drawer-swipe-movement-x));
 }
 
 .DrawerPopup[data-swipe-direction='down'] {
+	/* @highlight-text "--drawer-swipe-movement-y" */
 	transform: translateY(calc(var(--drawer-snap-point-offset) + var(--drawer-swipe-movement-y)));
 }
 ```
 
 The `data-swipe-direction` attribute can be used with `data-ending-style` to animate directional dismissal:
 
-```css
+```css title="Swipe dismissal direction"
+/* @highlight-text "data-swipe-direction" */
 .DrawerPopup[data-ending-style][data-swipe-direction='right'] {
 	transform: translateX(100%);
 }
 
+/* @highlight-text "data-swipe-direction" */
 .DrawerPopup[data-ending-style][data-swipe-direction='down'] {
 	transform: translateY(100%);
 }
@@ -1127,7 +1144,7 @@ The `data-swipe-direction` attribute can be used with `data-ending-style` to ani
 
 Use `--drawer-swipe-progress` to fade the backdrop as the drawer is swiped, and `--drawer-swipe-strength` to scale release transition durations based on swipe velocity.
 
-```css
+```css title="Backdrop and release timing"
 .DrawerBackdrop {
 	--backdrop-opacity: 0.2;
 	opacity: calc(var(--backdrop-opacity) * (1 - var(--drawer-swipe-progress)));

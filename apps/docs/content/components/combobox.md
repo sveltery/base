@@ -154,7 +154,7 @@ description: An input combined with a list of predefined items to select.
 
 Import the components and place them together:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Combobox } from '@sveltery/base/combobox';
 </script>
@@ -210,7 +210,7 @@ Import the components and place them together:
 
 Each `<Combobox.Item>` takes a `value` prop identifying it. Pass the item being rendered. `<Combobox.List>` takes static children in Svelte, so render the items with `<Combobox.Collection>`, whose `children` snippet receives each item:
 
-```svelte
+```svelte title="Using item objects as values"
 <Combobox.List>
 	<Combobox.Collection>
 		{#snippet children(item: Item)}
@@ -230,7 +230,7 @@ That item is what `value`, `defaultValue`, and `onValueChange` receive. To store
 
 The following example shows a typed wrapper around the Combobox component with correct type inference and type safety. Each bindable prop of `<Combobox.Root>` is forwarded with `bind:`:
 
-```svelte
+```svelte title="Specifying generic type parameters"
 <script lang="ts" generics="Value, Multiple extends boolean | undefined = false, Item = Value">
 	import { Combobox, type ComboboxRootProps } from '@sveltery/base/combobox';
 
@@ -256,7 +256,7 @@ When your app stores IDs rather than item objects, use `Combobox.createItems` wi
 
 With static data, create the collection at module scope. The accessor parameters are inferred from `users`. Pass the derived ID to the `value` prop of `<Combobox.Item>`, not the item being rendered:
 
-```svelte
+```svelte title="Using item IDs as values"
 <script lang="ts" module>
 	import { Combobox } from '@sveltery/base/combobox';
 
@@ -283,7 +283,7 @@ Selection props and events use the derived IDs, while list rendering continues t
 
 When the data is loaded or replaced at runtime, derive the collection from it so that it is rebuilt only when the data changes:
 
-```svelte
+```svelte title="Creating a collection from dynamic data"
 <script lang="ts">
 	const items = $derived(
 		Combobox.createItems(users, {
@@ -435,7 +435,7 @@ Stable IDs preserve item matching when an async data library replaces row object
 
 When results are filtered externally (for example, by a server-side search), `items` represents records known to the app, while `filteredItems` represents the current result window displayed in the popup. Pass source items rather than derived values to `filteredItems`, preserving the flat or grouped structure of `items`:
 
-```svelte
+```svelte title="Displaying a window of async results"
 <script lang="ts">
 	const items = $derived(
 		Combobox.createItems(knownUsers, {
@@ -601,7 +601,7 @@ Base UI does not ship these strings. Translate them together with the rest of yo
 
 Visible chips can be limited by slicing the selected values rendered in `<Combobox.Value>`:
 
-```svelte
+```svelte title="Limiting visible chips"
 <script lang="ts">
 	const CHIP_LIMIT = 3;
 </script>
@@ -609,17 +609,21 @@ Visible chips can be limited by slicing the selected values rendered in `<Combob
 <Combobox.Value>
 	{#snippet children(selected)}
 		{@const selectedValue = selected as string[]}
+		<!-- @highlight-start -->
 		{@const visibleValue = selectedValue.slice(0, CHIP_LIMIT)}
 		{@const hiddenCount = selectedValue.length - visibleValue.length}
+		<!-- @highlight-end -->
 		{#each visibleValue as item (item)}
 			<Combobox.Chip aria-description="Press Backspace or Delete to remove">
 				{item}
 				<Combobox.ChipRemove aria-label="Remove {item}" />
 			</Combobox.Chip>
 		{/each}
+		<!-- @highlight-start -->
 		{#if hiddenCount > 0}
 			<span>+{hiddenCount} more</span>
 		{/if}
+		<!-- @highlight-end -->
 		<Combobox.Input
 			aria-description={selectedValue.length > 0
 				? `${selectedValue.length} selected. From the start of the input, press Left Arrow to focus the selected items`
@@ -635,7 +639,7 @@ In `multiple` mode, selecting an item clears the typed filter and closes the pop
 
 Which request to cancel depends on the input's placement. When the input is outside the popup, cancel the `item-press` close request in `onOpenChange`. When it is inside, cancel the clear request in `onInputValueChange`, marked with `eventDetails.isItemPress`.
 
-```svelte
+```svelte title="Input outside the popup"
 <Combobox.Root
 	multiple
 	onOpenChange={(open, eventDetails) => {
@@ -648,7 +652,7 @@ Which request to cancel depends on the input's placement. When the input is outs
 </Combobox.Root>
 ```
 
-```svelte
+```svelte title="Input inside the popup"
 <Combobox.Root
 	multiple
 	onInputValueChange={(value, eventDetails) => {
@@ -966,8 +970,9 @@ The typed filter still resets once the popup closes.
 
 Use `<Combobox.Label>` to provide a visible label for the combobox trigger in this pattern:
 
-```svelte
+```svelte title="Using Combobox.Label to label a combobox"
 <Combobox.Root>
+	<!-- @highlight -->
 	<Combobox.Label>Favorite fruit</Combobox.Label>
 	<!-- ... -->
 </Combobox.Root>
@@ -981,19 +986,22 @@ Organize related options with `<Combobox.Group>` and `<Combobox.GroupLabel>` to 
 
 Groups are represented by an array of objects with an `items` property, which itself is an array of individual items for each group. An extra property, such as `value`, can be provided for the heading text when rendering the group label.
 
-```ts
+```ts title="Example"
 interface ProduceGroupItem {
 	value: string;
+	// @highlight
 	items: string[];
 }
 
 const groups: ProduceGroupItem[] = [
 	{
 		value: 'Fruits',
+		// @highlight
 		items: ['Apple', 'Banana', 'Orange']
 	},
 	{
 		value: 'Vegetables',
+		// @highlight
 		items: ['Carrot', 'Lettuce', 'Spinach']
 	}
 ];

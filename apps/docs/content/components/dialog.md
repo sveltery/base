@@ -47,7 +47,7 @@ description: A popup that opens on top of the entire page.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Dialog } from '@sveltery/base/dialog';
 </script>
@@ -73,7 +73,7 @@ Import the component and assemble its parts:
 
 By default, Dialog is an uncontrolled component that manages its own state.
 
-```svelte
+```svelte title="Uncontrolled dialog"
 <Dialog.Root>
 	<Dialog.Trigger>Open</Dialog.Trigger>
 	<Dialog.Portal>
@@ -88,7 +88,7 @@ By default, Dialog is an uncontrolled component that manages its own state.
 Use `bind:open` if you need to access or control the state of the dialog.
 For example, you can control the dialog state in order to open it imperatively from another place in your app.
 
-```svelte
+```svelte title="Controlled dialog"
 <script lang="ts">
 	let open = $state(false);
 </script>
@@ -113,7 +113,7 @@ For example, you can control the dialog state in order to open it imperatively f
 
 It's also common to use `onOpenChange` if your app needs to do something when the dialog is closed or opened. This is recommended over `$effect` when reacting to state changes. The callback runs before the state changes, and the binding sets the new state, so there is no setter to call.
 
-```svelte
+```svelte title="Running code when dialog state changes"
 <Dialog.Root
 	bind:open
 	onOpenChange={(nextOpen) => {
@@ -827,15 +827,19 @@ This involves placing the `<Dialog.Trigger>` outside of `<Dialog.Root>` and link
 The imperative methods on the handle, such as `open()` and `openWithPayload()`, require a `<Dialog.Root>` using the same handle to be mounted.
 Calls made while no root is attached to the handle — before one mounts, or after it unmounts — are ignored. Each time a root mounts, it starts from fresh state: a call made while no root was attached is not replayed, and no open state carries over from a previous mount.
 
-```svelte
+```svelte title="Detached triggers"
 <script lang="ts">
 	import { Dialog } from '@sveltery/base/dialog';
 
 	const demoDialog = Dialog.createHandle();
 </script>
 
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoDialog}" -->
 <Dialog.Trigger handle={demoDialog}>Open</Dialog.Trigger>
 
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoDialog}" -->
 <Dialog.Root handle={demoDialog}>...</Dialog.Root>
 ```
 
@@ -884,7 +888,7 @@ Calls made while no root is attached to the handle — before one mounts, or aft
 A single dialog can be opened by multiple trigger elements.
 You can achieve this by using the same `handle` for several detached triggers, or by placing multiple `<Dialog.Trigger>` components inside a single `<Dialog.Root>`.
 
-```svelte
+```svelte title="Multiple triggers within the Root part"
 <Dialog.Root>
 	<Dialog.Trigger>Trigger 1</Dialog.Trigger>
 	<Dialog.Trigger>Trigger 2</Dialog.Trigger>
@@ -892,7 +896,7 @@ You can achieve this by using the same `handle` for several detached triggers, o
 </Dialog.Root>
 ```
 
-```svelte
+```svelte title="Multiple detached triggers"
 <script lang="ts">
 	import { Dialog } from '@sveltery/base/dialog';
 
@@ -909,24 +913,32 @@ This is achieved by passing a `payload` to the `<Dialog.Trigger>` and reading it
 
 The payload can be strongly typed by providing a type argument to the `createHandle()` function:
 
-```svelte
+```svelte title="Detached triggers with payload"
 <script lang="ts">
 	import { Dialog } from '@sveltery/base/dialog';
 
+	// @highlight
 	const demoDialog = Dialog.createHandle<{ text: string }>();
 </script>
 
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
 <Dialog.Trigger handle={demoDialog} payload={{ text: 'Trigger 1' }}>Trigger 1</Dialog.Trigger>
 
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
 <Dialog.Trigger handle={demoDialog} payload={{ text: 'Trigger 2' }}>Trigger 2</Dialog.Trigger>
 
 <Dialog.Root handle={demoDialog}>
+	<!-- @highlight-text "payload" -->
 	{#snippet children({ payload })}
 		<Dialog.Portal>
 			<Dialog.Popup>
 				<Dialog.Title>Dialog</Dialog.Title>
+				<!-- @highlight-text "payload" -->
 				{#if payload !== undefined}
 					<Dialog.Description>
+						<!-- @highlight-text "payload" -->
 						This has been opened by {payload.text}
 					</Dialog.Description>
 				{/if}

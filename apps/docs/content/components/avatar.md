@@ -34,7 +34,7 @@ description: An easily stylable avatar component.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Avatar } from '@sveltery/base/avatar';
 </script>
@@ -51,7 +51,7 @@ By default, `<Avatar.Image>` preloads `src` and renders the image only once it h
 
 Add the `keepMounted` prop to render the image element right away and let it load in place. Only the image that is actually displayed is requested. To render your own image component, pass a `render` snippet and spread `props` onto it:
 
-```svelte
+```svelte title="Using a custom image component"
 <Avatar.Root>
 	<Avatar.Fallback>LT</Avatar.Fallback>
 	<Avatar.Image keepMounted src="/avatar.png">
@@ -70,7 +70,7 @@ Stack the two in the same box, and place `<Avatar.Image>` after `<Avatar.Fallbac
 
 A loading image paints nothing, so the fallback shows through on its own. An image that failed to load paints a broken-image icon on top of it. Hide the image in either state with the `data-loading` and `data-error` attributes:
 
-```css
+```css title="Stacked image and fallback"
 .Root {
 	position: relative;
 }

@@ -41,7 +41,7 @@ description: A dialog that requires a user response to proceed.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { AlertDialog } from '@sveltery/base/alert-dialog';
 </script>
@@ -248,15 +248,19 @@ This involves placing the `<AlertDialog.Trigger>` outside of `<AlertDialog.Root>
 The imperative methods on the handle, such as `open()` and `openWithPayload()`, require an `<AlertDialog.Root>` using the same handle to be mounted.
 Calls made while no root is attached to the handle — before one mounts, or after it unmounts — are ignored. Each time a root mounts, it starts from fresh state: a call made while no root was attached is not replayed, and no open state carries over from a previous mount.
 
-```svelte
+```svelte title="Detached triggers"
 <script lang="ts">
 	import { AlertDialog } from '@sveltery/base/alert-dialog';
 
 	const demoAlertDialog = AlertDialog.createHandle();
 </script>
 
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoAlertDialog}" -->
 <AlertDialog.Trigger handle={demoAlertDialog}>Open</AlertDialog.Trigger>
 
+<!-- @highlight -->
+<!-- @highlight-text "handle={demoAlertDialog}" -->
 <AlertDialog.Root handle={demoAlertDialog}>...</AlertDialog.Root>
 ```
 
@@ -304,7 +308,7 @@ Calls made while no root is attached to the handle — before one mounts, or aft
 A single alert dialog can be opened by multiple trigger elements.
 You can achieve this by using the same `handle` for several detached triggers, or by placing multiple `<AlertDialog.Trigger>` components inside a single `<AlertDialog.Root>`.
 
-```svelte
+```svelte title="Multiple triggers within the Root part"
 <AlertDialog.Root>
 	<AlertDialog.Trigger>Trigger 1</AlertDialog.Trigger>
 	<AlertDialog.Trigger>Trigger 2</AlertDialog.Trigger>
@@ -312,7 +316,7 @@ You can achieve this by using the same `handle` for several detached triggers, o
 </AlertDialog.Root>
 ```
 
-```svelte
+```svelte title="Multiple detached triggers"
 <script lang="ts">
 	import { AlertDialog } from '@sveltery/base/alert-dialog';
 
@@ -329,28 +333,36 @@ This is achieved by passing a `payload` to the `<AlertDialog.Trigger>` and readi
 
 The payload can be strongly typed by providing a type argument to the `createHandle()` function:
 
-```svelte
+```svelte title="Detached triggers with payload"
 <script lang="ts">
 	import { AlertDialog } from '@sveltery/base/alert-dialog';
 
+	// @highlight
 	const demoAlertDialog = AlertDialog.createHandle<{ message: string }>();
 </script>
 
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
 <AlertDialog.Trigger handle={demoAlertDialog} payload={{ message: 'Trigger 1' }}>
 	Trigger 1
 </AlertDialog.Trigger>
 
+<!-- @highlight -->
+<!-- @highlight-text "payload" -->
 <AlertDialog.Trigger handle={demoAlertDialog} payload={{ message: 'Trigger 2' }}>
 	Trigger 2
 </AlertDialog.Trigger>
 
 <AlertDialog.Root handle={demoAlertDialog}>
+	<!-- @highlight-text "payload" -->
 	{#snippet children({ payload })}
 		<AlertDialog.Portal>
 			<AlertDialog.Popup>
 				<AlertDialog.Title>Alert dialog</AlertDialog.Title>
+				<!-- @highlight-text "payload" -->
 				{#if payload !== undefined}
 					<AlertDialog.Description>
+						<!-- @highlight-text "payload" -->
 						Confirming {payload.message}
 					</AlertDialog.Description>
 				{/if}

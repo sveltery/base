@@ -74,7 +74,7 @@ description: A native form element with consolidated error handling.
 
 Form is composed together with [Field](/components/field). Import the components and place them together:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Field } from '@sveltery/base/field';
 	import { Form } from '@sveltery/base/form';
@@ -168,7 +168,7 @@ Forms can be submitted with a [SvelteKit form action](https://svelte.dev/docs/ki
 
 You can use `onFormSubmit` instead of the native `onsubmit` to access form values as a JavaScript object. This is useful when you need to transform the values before submission, or integrate with 3rd party APIs.
 
-```svelte
+```svelte title="Submission using onFormSubmit"
 <Form
 	onFormSubmit={async (formValues: { id: string; quantity: number }) => {
 		const payload = {

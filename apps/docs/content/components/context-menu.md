@@ -44,7 +44,7 @@ description: A menu that appears at the pointer on right click or long press.
 
 Import the components and place them together:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { ContextMenu } from '@sveltery/base/context-menu';
 </script>

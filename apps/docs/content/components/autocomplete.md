@@ -107,7 +107,7 @@ description: An input that suggests options as you type.
 
 Import the components and place them together:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Autocomplete } from '@sveltery/base/autocomplete';
 </script>
@@ -517,19 +517,22 @@ Organize related options with `<Autocomplete.Group>` and `<Autocomplete.GroupLab
 
 Groups are represented by an array of objects with an `items` property, which itself is an array of individual items for each group. An extra property, such as `value`, can be provided for the heading text when rendering the group label.
 
-```ts
+```ts title="Example"
 interface ProduceGroupItem {
 	value: string;
+	// @highlight
 	items: string[];
 }
 
 const groups: ProduceGroupItem[] = [
 	{
 		value: 'Fruits',
+		// @highlight
 		items: ['Apple', 'Banana', 'Orange']
 	},
 	{
 		value: 'Vegetables',
+		// @highlight
 		items: ['Carrot', 'Lettuce', 'Spinach']
 	}
 ];
@@ -1687,7 +1690,7 @@ Efficiently handle large datasets using a virtualization library like `@tanstack
 
 Memoizing each item is a React technique for datasets up to roughly 1,000 items, and Svelte needs no equivalent. `<Autocomplete.Collection>` keeps the item for each unchanged value, so unchanged items skip re-rendering while the user types. While this speeds up typing, it does not speed up opening; with a large enough number of items, the mount cost dominates, and virtualization becomes necessary to keep the open interaction fast on low-end devices.
 
-```svelte
+```svelte title="Memoizing list items"
 <script lang="ts">
 	interface Suggestion {
 		id: string;
