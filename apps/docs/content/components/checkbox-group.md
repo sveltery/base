@@ -8,42 +8,91 @@ description: Provides shared state to a series of checkboxes.
 	import { Checkbox } from '@sveltery/base/checkbox';
 	import { CheckboxGroup } from '@sveltery/base/checkbox-group';
 
-	const fruits = [
-		{ value: 'fuji-apple', label: 'Fuji' },
-		{ value: 'gala-apple', label: 'Gala' },
-		{ value: 'granny-smith-apple', label: 'Granny Smith' }
-	];
+	const id = $props.id();
 </script>
 
 <CheckboxGroup
-	aria-labelledby="apples-caption"
+	aria-labelledby={id}
 	defaultValue={['fuji-apple']}
-	class="flex flex-col items-start gap-1 text-gray-900 dark:text-gray-100"
+	class="flex flex-col items-start gap-1 text-neutral-950 dark:text-white"
 >
-	<div class="font-medium" id="apples-caption">Apples</div>
-	{#each fruits as fruit (fruit.value)}
-		<label class="flex items-center gap-2">
-			<Checkbox.Root
-				value={fruit.value}
-				class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
-			>
-				<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
-					<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-						<path
-							d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-						/>
-					</svg>
-				</Checkbox.Indicator>
-			</Checkbox.Root>
-			{fruit.label}
-		</label>
-	{/each}
+	<div class="text-sm font-bold" {id}>Apples</div>
+
+	<label class="flex items-center gap-2 text-sm font-normal">
+		<Checkbox.Root
+			name="apple"
+			value="fuji-apple"
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		>
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					style="display: block"
+				>
+					<path d="m2.5 8.5 4 4 7-9" />
+				</svg>
+			</Checkbox.Indicator>
+		</Checkbox.Root>
+		Fuji
+	</label>
+
+	<label class="flex items-center gap-2 text-sm font-normal">
+		<Checkbox.Root
+			name="apple"
+			value="gala-apple"
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		>
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					style="display: block"
+				>
+					<path d="m2.5 8.5 4 4 7-9" />
+				</svg>
+			</Checkbox.Indicator>
+		</Checkbox.Root>
+		Gala
+	</label>
+
+	<label class="flex items-center gap-2 text-sm font-normal">
+		<Checkbox.Root
+			name="apple"
+			value="granny-smith-apple"
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		>
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					style="display: block"
+				>
+					<path d="m2.5 8.5 4 4 7-9" />
+				</svg>
+			</Checkbox.Indicator>
+		</Checkbox.Root>
+		Granny Smith
+	</label>
 </CheckboxGroup>
 ```
 
+## Usage guidelines
+
+- **Form controls must have an accessible name**: It can be created using `<label>` elements, or the `Field` and `Fieldset` components. See [Labeling a checkbox group](#labeling-a-checkbox-group) and the [forms guide](/handbook/forms).
+
 ## Anatomy
 
-Import the group and `Checkbox`, then place checkboxes inside the group:
+Checkbox Group is composed together with [Checkbox](/components/checkbox). Import the components and place them together:
 
 ```svelte
 <script lang="ts">
@@ -58,66 +107,103 @@ Import the group and `Checkbox`, then place checkboxes inside the group:
 
 ## Examples
 
-### Labeling
+### Labeling a checkbox group
 
-A group needs an accessible name. Point `aria-labelledby` at a caption, as the demo above does. Inside a `Field.Root`, `Field.Label` names the group. Name each checkbox with an enclosing `<label>`.
+Label the group with `aria-labelledby` and a sibling label element:
 
-### Value
-
-Each checkbox takes a `value`. The group's `value` is the array of values that are ticked. Bind `value` to read and change the array. Without `bind:`, the group manages its own state. Use `defaultValue` to set the initial array of an unbound group.
-
-```svelte demo
-<script lang="ts">
-	import { Checkbox } from '@sveltery/base/checkbox';
-	import { CheckboxGroup } from '@sveltery/base/checkbox-group';
-
-	const toppings = ['cheese', 'olives', 'mushrooms'];
-	let value = $state<string[]>(['cheese']);
-</script>
-
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<CheckboxGroup bind:value aria-label="Toppings" class="flex flex-col items-start gap-1">
-		{#each toppings as topping (topping)}
-			<label class="flex items-center gap-2 capitalize">
-				<Checkbox.Root
-					value={topping}
-					class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
-				>
-					<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
-						<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-							<path
-								d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-							/>
-						</svg>
-					</Checkbox.Indicator>
-				</Checkbox.Root>
-				{topping}
-			</label>
-		{/each}
-	</CheckboxGroup>
-	<button
-		type="button"
-		class="rounded-sm bg-gray-100 px-2 py-1 font-medium hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-		onclick={() => (value = toppings)}
-	>
-		Select every topping
-	</button>
-	<p>Selected: {value.length ? value.join(', ') : 'none'}</p>
-</div>
+```svelte
+<div id="protocols-label">Allowed network protocols</div>
+<CheckboxGroup aria-labelledby="protocols-label">...</CheckboxGroup>
 ```
 
-Inside a group, the group value decides whether a checkbox is ticked. A checkbox's own `checked` is ignored. A checkbox without a `value` uses its `name` as its key.
+An enclosing `<label>` is the simplest labeling pattern for each checkbox:
 
-To veto a change, call `eventDetails.cancel()` in `onValueChange`. The group then keeps its current value.
+```svelte
+<label>
+	<Checkbox.Root value="http" />
+	HTTP
+</label>
+```
+
+### Rendering as a native button
+
+By default, `<Checkbox.Root>` renders a `<span>` element to support enclosing labels. Prefer rendering each checkbox as a native button when using sibling labels (`for`/`id`). Set `nativeButton` and render a `<button>` with the `render` snippet.
+
+```svelte
+<div id="protocols-label">Allowed network protocols</div>
+<CheckboxGroup aria-labelledby="protocols-label">
+	<div>
+		<label for="protocol-http">HTTP</label>
+		<Checkbox.Root id="protocol-http" value="http" nativeButton>
+			{#snippet render(props, _state, children)}
+				<button type="button" {...props}>{@render children?.()}</button>
+			{/snippet}
+			<Checkbox.Indicator />
+		</Checkbox.Root>
+	</div>
+</CheckboxGroup>
+```
+
+Native buttons with wrapping labels are supported by using the `render` snippet to avoid invalid HTML, so the hidden input is placed outside the label:
+
+```svelte
+<div id="protocols-label">Allowed network protocols</div>
+<CheckboxGroup aria-labelledby="protocols-label">
+	<Checkbox.Root value="http" nativeButton>
+		{#snippet render(props, _state, children)}
+			<label>
+				<button type="button" {...props}>{@render children?.()}</button>
+				HTTP
+			</label>
+		{/snippet}
+	</Checkbox.Root>
+</CheckboxGroup>
+```
+
+### Form integration
+
+Use [Field](/components/field) and [Fieldset](/components/fieldset) for group labeling and form integration:
+
+```svelte
+<Form>
+	<Field.Root name="allowedNetworkProtocols">
+		<Fieldset.Root>
+			{#snippet render(props, _state, children)}
+				<CheckboxGroup {...props}>{@render children?.()}</CheckboxGroup>
+			{/snippet}
+			<Fieldset.Legend>Allowed network protocols</Fieldset.Legend>
+			<Field.Item>
+				<Field.Label>
+					<Checkbox.Root value="http" />
+					HTTP
+				</Field.Label>
+			</Field.Item>
+			<Field.Item>
+				<Field.Label>
+					<Checkbox.Root value="https" />
+					HTTPS
+				</Field.Label>
+			</Field.Item>
+			<Field.Item>
+				<Field.Label>
+					<Checkbox.Root value="ssh" />
+					SSH
+				</Field.Label>
+			</Field.Item>
+		</Fieldset.Root>
+	</Field.Root>
+</Form>
+```
 
 ### Parent checkbox
 
-A parent checkbox ticks and unticks every checkbox in the group. To add one:
+A checkbox that controls other checkboxes within a `<CheckboxGroup>` can be created:
 
-1. Pass the values of every child checkbox to `allValues`.
-2. Set `parent` on the parent `Checkbox.Root`.
+1. Bind the group's `value` with `bind:value`
+2. Pass an array of all the child checkbox values to the `allValues` prop on the `<CheckboxGroup>` component
+3. Add the `parent` boolean prop to the parent `<Checkbox.Root>`
 
-The group manages the parent's state. The parent is ticked when every value is ticked and mixed when only some are. Clicking the parent cycles through all, none, and your earlier partial selection.
+The group controls the parent checkbox's [indeterminate](/components/checkbox#root) state when some, but not all, child checkboxes are checked.
 
 ```svelte demo
 <script lang="ts">
@@ -125,37 +211,53 @@ The group manages the parent's state. The parent is ticked when every value is t
 	import { CheckboxGroup } from '@sveltery/base/checkbox-group';
 
 	const fruits = ['fuji-apple', 'gala-apple', 'granny-smith-apple'];
+	const id = $props.id();
 	let value = $state<string[]>([]);
 </script>
 
 <CheckboxGroup
+	aria-labelledby={id}
 	bind:value
 	allValues={fruits}
-	class="flex flex-col items-start gap-2 text-gray-900 dark:text-gray-100"
+	class="flex flex-col items-start gap-1 text-neutral-950 dark:text-white"
+	style="margin-left: 1rem"
 >
-	<label class="flex items-center gap-2 font-medium">
+	<label class="flex items-center gap-2 text-sm font-normal" {id} style="margin-left: -1rem">
 		<Checkbox.Root
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 data-indeterminate:bg-neutral-950 data-indeterminate:text-white dark:data-indeterminate:bg-white dark:data-indeterminate:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
 			parent
-			class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[indeterminate]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[indeterminate]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
 		>
-			<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
 				{#snippet render(props, state)}
 					<span {...props}>
 						{#if state.indeterminate}
 							<svg
-								viewBox="0 0 10 10"
-								class="size-3"
-								fill="none"
-								stroke="currentColor"
-								aria-hidden="true"
+								width="12"
+								height="12"
+								viewBox="0 0 24 24"
+								fill="currentColor"
+								stroke-width="1"
+								style="display: block"
 							>
-								<path d="M2 5h6" stroke-width="1.5" stroke-linecap="round" />
+								<line
+									x1="3"
+									y1="12"
+									x2="21"
+									y2="12"
+									stroke="currentColor"
+									vector-effect="non-scaling-stroke"
+								/>
 							</svg>
 						{:else}
-							<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-								<path
-									d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-								/>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 16 16"
+								fill="none"
+								stroke="currentColor"
+								style="display: block"
+							>
+								<path d="m2.5 8.5 4 4 7-9" />
 							</svg>
 						{/if}
 					</span>
@@ -164,31 +266,73 @@ The group manages the parent's state. The parent is ticked when every value is t
 		</Checkbox.Root>
 		Apples
 	</label>
-	{#each fruits as fruit (fruit)}
-		<label class="ml-6 flex items-center gap-2 text-sm">
-			<Checkbox.Root
-				value={fruit}
-				class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
-			>
-				<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
-					<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-						<path
-							d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-						/>
-					</svg>
-				</Checkbox.Indicator>
-			</Checkbox.Root>
-			{fruit}
-		</label>
-	{/each}
+
+	<label class="flex items-center gap-2 text-sm font-normal">
+		<Checkbox.Root
+			value="fuji-apple"
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		>
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					style="display: block"
+				>
+					<path d="m2.5 8.5 4 4 7-9" />
+				</svg>
+			</Checkbox.Indicator>
+		</Checkbox.Root>
+		Fuji
+	</label>
+
+	<label class="flex items-center gap-2 text-sm font-normal">
+		<Checkbox.Root
+			value="gala-apple"
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		>
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					style="display: block"
+				>
+					<path d="m2.5 8.5 4 4 7-9" />
+				</svg>
+			</Checkbox.Indicator>
+		</Checkbox.Root>
+		Gala
+	</label>
+
+	<label class="flex items-center gap-2 text-sm font-normal">
+		<Checkbox.Root
+			value="granny-smith-apple"
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		>
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					style="display: block"
+				>
+					<path d="m2.5 8.5 4 4 7-9" />
+				</svg>
+			</Checkbox.Indicator>
+		</Checkbox.Root>
+		Granny Smith
+	</label>
 </CheckboxGroup>
 ```
 
-A parent checkbox is not part of the group's value and is left out of form submission. It sets `aria-controls` to the ids of the child checkboxes. A disabled child that is unticked stays out of the parent's selection. A disabled child that is ticked stays ticked when the parent clears.
-
 ### Nested parent checkbox
-
-A parent checkbox can sit inside another group, with a nested group that has its own parent. Keep the two levels in sync with `onValueChange`. This example keeps `manage-users` in the outer value ticked only while every user permission is ticked.
 
 ```svelte demo
 <script lang="ts">
@@ -196,217 +340,267 @@ A parent checkbox can sit inside another group, with a nested group that has its
 	import { CheckboxGroup } from '@sveltery/base/checkbox-group';
 
 	const mainPermissions = ['view-dashboard', 'manage-users', 'access-reports'];
-	const userPermissions = ['create-user', 'edit-user', 'delete-user'];
+	const userManagementPermissions = ['create-user', 'edit-user', 'delete-user', 'assign-roles'];
 
+	const id = $props.id();
 	let mainValue = $state<string[]>([]);
-	let userValue = $state<string[]>([]);
-	const allUsersChecked = $derived(userValue.length === userPermissions.length);
-	const someUsersChecked = $derived(userValue.length > 0 && !allUsersChecked);
+	let managementValue = $state<string[]>([]);
 </script>
 
 <CheckboxGroup
+	aria-labelledby={id}
 	value={mainValue}
-	allValues={mainPermissions}
-	onValueChange={(next) => {
-		if (next.includes('manage-users')) {
-			userValue = userPermissions;
-		} else if (allUsersChecked) {
-			userValue = [];
+	onValueChange={(value) => {
+		if (value.includes('manage-users')) {
+			managementValue = userManagementPermissions;
+		} else if (managementValue.length === userManagementPermissions.length) {
+			managementValue = [];
 		}
-		mainValue = next;
+		mainValue = value;
 	}}
-	class="flex flex-col items-start gap-2 text-sm text-gray-900 dark:text-gray-100"
+	allValues={mainPermissions}
+	class="flex flex-col items-start gap-1 text-neutral-950 dark:text-white"
+	style="margin-left: 1rem"
 >
-	<label class="flex items-center gap-2 font-medium">
+	<label class="flex items-center gap-2 text-sm font-normal" {id} style="margin-left: -1rem">
 		<Checkbox.Root
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 data-indeterminate:bg-neutral-950 data-indeterminate:text-white dark:data-indeterminate:bg-white dark:data-indeterminate:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
 			parent
-			indeterminate={someUsersChecked}
-			class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[indeterminate]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[indeterminate]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
+			indeterminate={managementValue.length > 0 &&
+				managementValue.length !== userManagementPermissions.length}
 		>
-			<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
 				{#snippet render(props, state)}
 					<span {...props}>
 						{#if state.indeterminate}
 							<svg
-								viewBox="0 0 10 10"
-								class="size-3"
-								fill="none"
-								stroke="currentColor"
-								aria-hidden="true"
+								width="12"
+								height="12"
+								viewBox="0 0 24 24"
+								fill="currentColor"
+								stroke-width="1"
+								style="display: block"
 							>
-								<path d="M2 5h6" stroke-width="1.5" stroke-linecap="round" />
+								<line
+									x1="3"
+									y1="12"
+									x2="21"
+									y2="12"
+									stroke="currentColor"
+									vector-effect="non-scaling-stroke"
+								/>
 							</svg>
 						{:else}
-							<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-								<path
-									d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-								/>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 16 16"
+								fill="none"
+								stroke="currentColor"
+								style="display: block"
+							>
+								<path d="m2.5 8.5 4 4 7-9" />
 							</svg>
 						{/if}
 					</span>
 				{/snippet}
 			</Checkbox.Indicator>
 		</Checkbox.Root>
-		Permissions
+		User Permissions
 	</label>
-	<label class="ml-6 flex items-center gap-2">
+
+	<label class="flex items-center gap-2 text-sm font-normal">
 		<Checkbox.Root
 			value="view-dashboard"
-			class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
 		>
-			<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
-				<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-					<path
-						d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-					/>
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					style="display: block"
+				>
+					<path d="m2.5 8.5 4 4 7-9" />
 				</svg>
 			</Checkbox.Indicator>
 		</Checkbox.Root>
-		View dashboard
+		View Dashboard
 	</label>
-	<label class="ml-6 flex items-center gap-2">
+
+	<label class="flex items-center gap-2 text-sm font-normal">
 		<Checkbox.Root
 			value="access-reports"
-			class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
+			class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
 		>
-			<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
-				<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-					<path
-						d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-					/>
+			<Checkbox.Indicator class="flex data-unchecked:hidden">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					stroke="currentColor"
+					style="display: block"
+				>
+					<path d="m2.5 8.5 4 4 7-9" />
 				</svg>
 			</Checkbox.Indicator>
 		</Checkbox.Root>
-		Access reports
+		Access Reports
 	</label>
 
 	<CheckboxGroup
-		value={userValue}
-		allValues={userPermissions}
-		onValueChange={(next) => {
-			mainValue =
-				next.length === userPermissions.length
-					? [...new Set([...mainValue, 'manage-users'])]
-					: mainValue.filter((item) => item !== 'manage-users');
-			userValue = next;
+		aria-labelledby="manage-users-caption"
+		class="flex flex-col items-start gap-1 text-neutral-950 dark:text-white"
+		value={managementValue}
+		onValueChange={(value) => {
+			if (value.length === userManagementPermissions.length) {
+				mainValue = Array.from(new Set([...mainValue, 'manage-users']));
+			} else {
+				mainValue = mainValue.filter((v) => v !== 'manage-users');
+			}
+			managementValue = value;
 		}}
-		class="ml-6 flex flex-col items-start gap-2"
+		allValues={userManagementPermissions}
+		style="margin-left: 1rem"
 	>
-		<label class="flex items-center gap-2">
+		<label
+			class="flex items-center gap-2 text-sm font-normal"
+			id="manage-users-caption"
+			style="margin-left: -1rem"
+		>
 			<Checkbox.Root
+				class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 data-indeterminate:bg-neutral-950 data-indeterminate:text-white dark:data-indeterminate:bg-white dark:data-indeterminate:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
 				parent
-				class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[indeterminate]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[indeterminate]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
 			>
-				<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
+				<Checkbox.Indicator class="flex data-unchecked:hidden">
 					{#snippet render(props, state)}
 						<span {...props}>
 							{#if state.indeterminate}
 								<svg
-									viewBox="0 0 10 10"
-									class="size-3"
-									fill="none"
-									stroke="currentColor"
-									aria-hidden="true"
+									width="12"
+									height="12"
+									viewBox="0 0 24 24"
+									fill="currentColor"
+									stroke-width="1"
+									style="display: block"
 								>
-									<path d="M2 5h6" stroke-width="1.5" stroke-linecap="round" />
+									<line
+										x1="3"
+										y1="12"
+										x2="21"
+										y2="12"
+										stroke="currentColor"
+										vector-effect="non-scaling-stroke"
+									/>
 								</svg>
 							{:else}
-								<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-									<path
-										d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-									/>
+								<svg
+									width="16"
+									height="16"
+									viewBox="0 0 16 16"
+									fill="none"
+									stroke="currentColor"
+									style="display: block"
+								>
+									<path d="m2.5 8.5 4 4 7-9" />
 								</svg>
 							{/if}
 						</span>
 					{/snippet}
 				</Checkbox.Indicator>
 			</Checkbox.Root>
-			Manage users
+			Manage Users
 		</label>
-		{#each userPermissions as permission (permission)}
-			<label class="ml-6 flex items-center gap-2">
-				<Checkbox.Root
-					value={permission}
-					class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
-				>
-					<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
-						<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-							<path
-								d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-							/>
-						</svg>
-					</Checkbox.Indicator>
-				</Checkbox.Root>
-				{permission}
-			</label>
-		{/each}
+
+		<label class="flex items-center gap-2 text-sm font-normal">
+			<Checkbox.Root
+				value="create-user"
+				class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+			>
+				<Checkbox.Indicator class="flex data-unchecked:hidden">
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						stroke="currentColor"
+						style="display: block"
+					>
+						<path d="m2.5 8.5 4 4 7-9" />
+					</svg>
+				</Checkbox.Indicator>
+			</Checkbox.Root>
+			Create User
+		</label>
+
+		<label class="flex items-center gap-2 text-sm font-normal">
+			<Checkbox.Root
+				value="edit-user"
+				class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+			>
+				<Checkbox.Indicator class="flex data-unchecked:hidden">
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						stroke="currentColor"
+						style="display: block"
+					>
+						<path d="m2.5 8.5 4 4 7-9" />
+					</svg>
+				</Checkbox.Indicator>
+			</Checkbox.Root>
+			Edit User
+		</label>
+
+		<label class="flex items-center gap-2 text-sm font-normal">
+			<Checkbox.Root
+				value="delete-user"
+				class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+			>
+				<Checkbox.Indicator class="flex data-unchecked:hidden">
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						stroke="currentColor"
+						style="display: block"
+					>
+						<path d="m2.5 8.5 4 4 7-9" />
+					</svg>
+				</Checkbox.Indicator>
+			</Checkbox.Root>
+			Delete User
+		</label>
+
+		<label class="flex items-center gap-2 text-sm font-normal">
+			<Checkbox.Root
+				value="assign-roles"
+				class="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+			>
+				<Checkbox.Indicator class="flex data-unchecked:hidden">
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						stroke="currentColor"
+						style="display: block"
+					>
+						<path d="m2.5 8.5 4 4 7-9" />
+					</svg>
+				</Checkbox.Indicator>
+			</Checkbox.Root>
+			Assign Roles
+		</label>
 	</CheckboxGroup>
 </CheckboxGroup>
 ```
-
-### Form submission
-
-Checkboxes in a group submit as separate entries. Set the same `name` on each checkbox and give each a `value`. The form then holds one entry per ticked checkbox.
-
-```svelte demo
-<script lang="ts">
-	import { Checkbox } from '@sveltery/base/checkbox';
-	import { CheckboxGroup } from '@sveltery/base/checkbox-group';
-
-	const colors = ['red', 'green', 'blue'];
-	let submitted = $state('');
-</script>
-
-<form
-	class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100"
-	onsubmit={(event) => {
-		event.preventDefault();
-		submitted = new FormData(event.currentTarget).getAll('colors').join(', ');
-	}}
->
-	<CheckboxGroup
-		aria-label="Colors"
-		defaultValue={['green']}
-		class="flex flex-col items-start gap-1"
-	>
-		{#each colors as color (color)}
-			<label class="flex items-center gap-2 capitalize">
-				<Checkbox.Root
-					name="colors"
-					value={color}
-					class="flex size-5 items-center justify-center rounded-sm outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300 dark:data-[checked]:bg-gray-100 dark:data-[unchecked]:border-gray-600"
-				>
-					<Checkbox.Indicator class="flex text-gray-50 dark:text-gray-900">
-						<svg viewBox="0 0 10 10" class="size-3" fill="currentColor" aria-hidden="true">
-							<path
-								d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z"
-							/>
-						</svg>
-					</Checkbox.Indicator>
-				</Checkbox.Root>
-				{color}
-			</label>
-		{/each}
-	</CheckboxGroup>
-	<button
-		type="submit"
-		class="rounded-sm bg-gray-100 px-2 py-1 font-medium hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-	>
-		Submit
-	</button>
-	<output class="font-mono text-xs">{submitted || 'Nothing submitted yet'}</output>
-</form>
-```
-
-## Differences from Base UI
-
-- `value` is one bindable prop. Use `bind:value` instead of `value` and `onValueChange` together. Checkbox Group keeps `defaultValue`, because it is a form control. It is the array an empty binding starts from and the array a form reset restores.
-- `onValueChange` runs before the value changes. Call `eventDetails.cancel()` to keep the group as it is.
-- Handlers use lowercase names, such as `onclick`.
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
-- `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- Inside a `Field.Root`, the group registers as the field's control.
-- The group claims the field's label, so `Field.Label` does not set `for` on a checkbox inside the group.
 
 ## API reference
 
@@ -414,12 +608,6 @@ Checkboxes in a group submit as separate entries. Set the same `name` on each ch
 
 <ApiPart name="checkbox-group" part="CheckboxGroup" />
 
-| Attribute       | Description                                                            |
-| --------------- | ---------------------------------------------------------------------- |
-| `data-disabled` | Present when the group is disabled.                                    |
-| `data-valid`    | Present when the group is valid. Set only inside `Field.Root`.         |
-| `data-invalid`  | Present when the group is invalid. Set only inside `Field.Root`.       |
-| `data-dirty`    | Present when the value has changed. Set only inside `Field.Root`.      |
-| `data-touched`  | Present when the group has been touched. Set only inside `Field.Root`. |
-| `data-filled`   | Present when a checkbox is ticked. Set only inside `Field.Root`.       |
-| `data-focused`  | Present when the group has focus. Set only inside `Field.Root`.        |
+| Attribute       | Description                                  |
+| --------------- | -------------------------------------------- |
+| `data-disabled` | Present when the checkbox group is disabled. |
