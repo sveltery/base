@@ -82,14 +82,14 @@ const REFERENCE_TABLES: Record<string, string> = {
  * UI's MDX tables.
  */
 function tables(code: string): Promise<string> {
-	return replaceAsync(code, /<table>([\s\S]*?)<\/table>/g, async (match, body: string) => {
+	return replaceAsync(code, /<table>[\s\S]*?<\/table>/g, async (match) => {
 		// GFM unescapes `\|` inside a table's code spans. mdsvex does not.
 		const table = match.replace(/\\\|/g, '|');
 		const cells = (row: string) =>
-			[...row.matchAll(/<t[hd]\b[^>]*>([\s\S]*?)<\/t[hd]>/g)].map((cell) =>
-				cell[1].trim().replace(/\\\|/g, '|')
-			);
-		const [head, ...rows] = [...body.matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((row) => cells(row[1]));
+			[...row.matchAll(/<t[hd]\b[^>]*>([\s\S]*?)<\/t[hd]>/g)].map((cell) => cell[1].trim());
+		const [head, ...rows] = [...table.matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((row) =>
+			cells(row[1])
+		);
 		const first = head ? text(head[0]) : '';
 		const members = (MEMBER_LABELS as readonly string[]).includes(first)
 			? await memberTable(head, rows, text)
@@ -169,8 +169,8 @@ export function docsComponents({
 			// A commented-out tag is not documentation.
 			code = code.replace(/<!--[\s\S]*?-->/g, '');
 			// Base UI describes a part in its section only when the page documents several types.
-			const multiple = (code.match(/<ApiPart\b/g) ?? []).length > 1 || SECTION_LABEL.test(code);
-			SECTION_LABEL.lastIndex = 0;
+			const multiple =
+				(code.match(/<ApiPart\b/g) ?? []).length > 1 || code.search(SECTION_LABEL) !== -1;
 			code = await replaceAsync(code, /<ApiPart\b([^>]*?)\s*\/>/g, async (_tag, attrs) => {
 				const name = attribute(attrs, 'name');
 				const partName = attribute(attrs, 'part');
