@@ -1,7 +1,13 @@
+<script module lang="ts">
+	/** Each demo is one file, so its toolbar shows one tab. */
+	const FILE_NAME = 'index.svelte';
+</script>
+
 <script lang="ts">
 	import { flushSync, type Component } from 'svelte';
 	import { Menu } from '@sveltery/base/menu';
 	import { ScrollArea } from '@sveltery/base/scroll-area';
+	import { Tabs } from '@sveltery/base/tabs';
 	import { page as currentPage } from '$app/state';
 	import { openStackBlitz } from '#lib/docs/stackblitz.ts';
 	import { REPOSITORY } from '#lib/docs/links.ts';
@@ -56,6 +62,11 @@
 	</div>
 	<figure aria-label="Component demo code">
 		<div class="DemoToolbar">
+			<Tabs.Root class="DemoTabsRoot" value={FILE_NAME}>
+				<Tabs.List class="DemoTabsList" aria-label="Files">
+					<Tabs.Tab class="DemoTab" value={FILE_NAME}><span>{FILE_NAME}</span></Tabs.Tab>
+				</Tabs.List>
+			</Tabs.Root>
 			<div class="DemoToolbarActions">
 				<button
 					type="button"
