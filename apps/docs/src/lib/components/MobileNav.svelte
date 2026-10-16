@@ -1,30 +1,33 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
+	import { tick } from 'svelte';
+	import { Autocomplete } from '@sveltery/base/autocomplete';
 	import { Drawer } from '@sveltery/base/drawer';
 	import { ScrollArea } from '@sveltery/base/scroll-area';
 	import type { NavSection } from '#lib/docs/types.ts';
 	import { version } from '../../../../../package.json';
 	import { githubIcon, npmIcon, searchIcon, svelteryMark } from './Icons.svelte';
+	import { DocsSearch, openInNewTab, type SearchDocument } from './search/search.svelte.ts';
+	import SearchResultsList from './search/SearchResultsList.svelte';
 
-	let { nav, triggerClass }: { nav: NavSection[]; triggerClass: string } = $props();
+	let {
+		nav,
+		triggerClass,
+		open = $bindable(false),
+		focusSearch = false
+	}: { nav: NavSection[]; triggerClass: string; open?: boolean; focusSearch?: boolean } = $props();
 
-	let open = $state(false);
-	let query = $state('');
-
-	const matches = $derived.by(() => {
-		const needle = query.trim().toLowerCase();
-		if (!needle) return [];
-		return nav
-			.map((section) => ({
-				...section,
-				pages: section.pages.filter((item) => item.title.toLowerCase().includes(needle))
-			}))
-			.filter((section) => section.pages.length);
-	});
+	const search = new DocsSearch(() => nav);
+	let highlighted: SearchDocument | undefined;
 
 	afterNavigate(() => {
 		open = false;
+	});
+
+	// `initialFocus` only runs on open, so the shortcut focuses the input of an open drawer here.
+	$effect(() => {
+		if (open && focusSearch) document.getElementById('mobile-docs-search-input')?.focus();
 	});
 
 	function closeOnCurrentPage(event: MouseEvent, href: string) {
@@ -33,85 +36,173 @@
 		open = false;
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
+
+	async function setQuery(value: string) {
+		const hadQuery = search.hasQuery;
+		if (!value.trim()) highlighted = undefined;
+		const done = search.search(value);
+		// Switching between the nav and the results starts the list at the top.
+		if (hadQuery !== search.hasQuery) {
+			await tick();
+			document.querySelector('.MobileNavScrollAreaViewport')?.scrollTo({ top: 0, left: 0 });
+		}
+		await done;
+	}
+
+	function onkeydowncapture(event: KeyboardEvent) {
+		// Escape during IME composition only cancels the composition.
+		if (event.isComposing || event.keyCode === 229) return;
+		if (event.key === 'Escape' && search.hasQuery) {
+			event.preventDefault();
+			event.stopPropagation();
+			void setQuery('');
+			return;
+		}
+		openInNewTab(event, highlighted);
+	}
 </script>
 
-<Drawer.Root bind:open onOpenChangeComplete={(isOpen) => !isOpen && (query = '')}>
+<Drawer.Root
+	bind:open
+	onOpenChangeComplete={(isOpen) => {
+		if (isOpen) void search.activate().catch(() => {});
+		else search.reset();
+	}}
+>
 	<Drawer.Trigger class={triggerClass}>
 		{@render searchIcon('MobileNavTriggerIcon')}
 		Navigation
 	</Drawer.Trigger>
-	<Drawer.Portal>
-		<Drawer.Backdrop class="MobileNavBackdrop" />
-		<Drawer.Viewport class="MobileNavViewport">
-			<Drawer.Popup class="MobileNavPopup">
-				<Drawer.Title class="sr-only">Docs navigation</Drawer.Title>
-				<div class="MobileNavSearchHeader">
-					<div class="MobileNavHandle"></div>
-					<div class="MobileNavSearchInputRoot">
-						{@render searchIcon('MobileNavSearchIcon')}
-						<input
-							type="search"
-							aria-label="Search"
-							placeholder="Search"
-							class="MobileNavSearchInput"
-							bind:value={query}
-						/>
-					</div>
-				</div>
-				<Drawer.Content class="MobileNavContent">
-					<ScrollArea.Root class="MobileNavScrollAreaRoot">
-						<ScrollArea.Viewport class="MobileNavScrollAreaViewport">
-							<nav aria-label="Docs navigation" class="MobileNavPanel">
-								{#if query.trim()}
-									{#each matches as section (section.title)}
-										{@render navSection(section)}
-									{:else}
-										<p class="MobileNavEmptyState">No results found.</p>
-									{/each}
-								{:else}
-									{#each nav as section (section.title)}
-										{@render navSection(section)}
-									{/each}
-									<div class="MobileNavSection">
-										<div class="MobileNavHeading">Resources</div>
-										<ul class="MobileNavList">
-											<li>
-												<a
-													class="MobileNavLink"
-													href="https://www.npmjs.com/package/@sveltery/base"
-												>
-													{@render npmIcon()}
-													<span class="MobileNavResourceRow">
-														<span class="MobileNavLinkText">npm package</span>
-														<span class="MobileNavVersion">{version}</span>
-													</span>
-												</a>
-											</li>
-											<li>
-												<a class="MobileNavLink" href="https://github.com/sveltery/base">
-													{@render githubIcon()}
-													<span class="MobileNavLinkText">GitHub</span>
-												</a>
-											</li>
-											<li>
-												<a class="MobileNavLink" href="https://ui.sveltery.dev">
-													{@render svelteryMark(16)}
-													<span class="MobileNavLinkText">Sveltery UI</span>
-												</a>
-											</li>
-										</ul>
-									</div>
+	<Drawer.VirtualKeyboardProvider>
+		<Drawer.Portal>
+			<Drawer.Backdrop class="MobileNavBackdrop" />
+			<Drawer.Viewport class="MobileNavViewport">
+				<Drawer.Popup
+					class="MobileNavPopup"
+					initialFocus={() =>
+						document.querySelector<HTMLElement>(
+							focusSearch ? '#mobile-docs-search-input' : '.MobileNavPopup'
+						)}
+				>
+					<Drawer.Title class="sr-only">Docs navigation</Drawer.Title>
+					<Autocomplete.Root
+						items={search.pending ? [] : search.results}
+						value={search.value}
+						onValueChange={setQuery}
+						onOpenChange={(next, details) => {
+							if (next || details.reason !== 'escape-key') return;
+							if (search.hasQuery) void setQuery('');
+							else open = false;
+						}}
+						onItemHighlighted={(item) => (highlighted = item as SearchDocument | undefined)}
+						open={search.hasQuery}
+						inline
+						itemToStringValue={(item) => (item as SearchDocument).title}
+						filter={null}
+						autoHighlight={search.hasQuery}
+					>
+						<div class="MobileNavSearchHeader">
+							<div class="MobileNavHandle"></div>
+							<div class="MobileNavSearchInputRoot">
+								{@render searchIcon('MobileNavSearchIcon')}
+								<Autocomplete.Input
+									id="mobile-docs-search-input"
+									aria-label="Search"
+									placeholder="Search"
+									class="MobileNavSearchInput"
+									{onkeydowncapture}
+								/>
+								{#if search.hasQuery}
+									<Autocomplete.Clear aria-label="Clear search" class="MobileNavClearSearch">
+										<svg
+											width="16"
+											height="16"
+											viewBox="0 0 16 16"
+											fill="none"
+											stroke="currentColor"
+											stroke-linecap="square"
+											stroke-linejoin="round"
+											aria-hidden="true"
+										>
+											<path d="m2.5 2.5 11 11m-11 0 11-11" />
+										</svg>
+									</Autocomplete.Clear>
 								{/if}
-							</nav>
-						</ScrollArea.Viewport>
-						<ScrollArea.Scrollbar class="MobileNavScrollbar">
-							<ScrollArea.Thumb class="MobileNavScrollbarThumb" />
-						</ScrollArea.Scrollbar>
-					</ScrollArea.Root>
-				</Drawer.Content>
-			</Drawer.Popup>
-		</Drawer.Viewport>
-	</Drawer.Portal>
+							</div>
+						</div>
+						<Drawer.Content class="MobileNavContent">
+							<ScrollArea.Root class="MobileNavScrollAreaRoot">
+								<ScrollArea.Viewport class="MobileNavScrollAreaViewport">
+									{#if search.hasQuery}
+										<div class="MobileNavSearchResults">
+											{#if search.empty}
+												<Autocomplete.Status class="MobileNavEmptyState">
+													No results found.
+												</Autocomplete.Status>
+											{:else if !search.pending}
+												<SearchResultsList
+													results={search.results}
+													classes={{
+														list: 'MobileNavSearchList',
+														group: 'MobileNavSection',
+														groupLabel: 'MobileNavHeading',
+														item: 'MobileNavSearchOption',
+														breadcrumbText: 'MobileNavSearchBreadcrumbText',
+														breadcrumbPart: 'MobileNavSearchBreadcrumbPart',
+														separator: 'MobileNavSearchBreadcrumbSeparator'
+													}}
+													separator="stroked"
+													onNavigate={() => (open = false)}
+												/>
+											{/if}
+										</div>
+									{:else}
+										<nav aria-label="Docs navigation" class="MobileNavPanel">
+											{#each nav as section (section.title)}
+												{@render navSection(section)}
+											{/each}
+											<div class="MobileNavSection">
+												<div class="MobileNavHeading">Resources</div>
+												<ul class="MobileNavList">
+													<li>
+														<a
+															class="MobileNavLink"
+															href="https://www.npmjs.com/package/@sveltery/base"
+														>
+															{@render npmIcon()}
+															<span class="MobileNavResourceRow">
+																<span class="MobileNavLinkText">npm package</span>
+																<span class="MobileNavVersion">{version}</span>
+															</span>
+														</a>
+													</li>
+													<li>
+														<a class="MobileNavLink" href="https://github.com/sveltery/base">
+															{@render githubIcon()}
+															<span class="MobileNavLinkText">GitHub</span>
+														</a>
+													</li>
+													<li>
+														<a class="MobileNavLink" href="https://ui.sveltery.dev">
+															{@render svelteryMark(16)}
+															<span class="MobileNavLinkText">Sveltery UI</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</nav>
+									{/if}
+								</ScrollArea.Viewport>
+								<ScrollArea.Scrollbar class="MobileNavScrollbar">
+									<ScrollArea.Thumb class="MobileNavScrollbarThumb" />
+								</ScrollArea.Scrollbar>
+							</ScrollArea.Root>
+						</Drawer.Content>
+					</Autocomplete.Root>
+				</Drawer.Popup>
+			</Drawer.Viewport>
+		</Drawer.Portal>
+	</Drawer.VirtualKeyboardProvider>
 </Drawer.Root>
 
 {#snippet navSection(section: NavSection)}
@@ -277,7 +368,7 @@
 		pointer-events: none;
 	}
 
-	.MobileNavSearchInput {
+	:global(.MobileNavSearchInput) {
 		display: block;
 		box-sizing: border-box;
 		min-width: 0;
@@ -397,16 +488,17 @@
 		}
 	}
 
-	.MobileNavPanel {
+	.MobileNavPanel,
+	.MobileNavSearchResults {
 		padding-block: var(--mobile-nav-scroll-scrim-size)
 			calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
 	}
 
-	.MobileNavSection:not(:last-of-type) {
+	:global(.MobileNavSection:not(:last-of-type)) {
 		margin-bottom: var(--space-24);
 	}
 
-	.MobileNavHeading {
+	:global(.MobileNavHeading) {
 		display: flex;
 		align-items: center;
 		margin-inline: var(--mobile-nav-item-padding-x);
@@ -417,14 +509,16 @@
 		color: var(--gray-t1);
 	}
 
-	.MobileNavList {
+	.MobileNavList,
+	:global(.MobileNavSearchList) {
 		margin: 0;
 		padding: 0;
 		list-style: none;
 		outline: 0;
 	}
 
-	.MobileNavLink {
+	.MobileNavLink,
+	:global(.MobileNavSearchOption) {
 		display: flex;
 		gap: var(--space-8);
 		align-items: center;
@@ -451,7 +545,8 @@
 
 	@supports not (-webkit-tap-highlight-color: black) {
 		/* Applying the color on :active shows it while touch-scrolling. */
-		.MobileNavLink:active {
+		.MobileNavLink:active,
+		:global(.MobileNavSearchOption:active) {
 			background-color: var(--gray-c1);
 		}
 	}
@@ -469,11 +564,89 @@
 		color: var(--gray-t1);
 	}
 
-	.MobileNavEmptyState {
+	:global(.MobileNavEmptyState) {
 		padding: var(--space-24) var(--space-12);
 		text-align: center;
 		font-size: var(--font-size-16);
 		line-height: 1;
+		color: var(--gray-t1);
+	}
+
+	:global(.MobileNavClearSearch) {
+		position: absolute;
+		top: 50%;
+		right: var(--space-8);
+		z-index: 1;
+		transform: translateY(-50%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--space-24);
+		height: var(--space-24);
+		border: 0;
+		padding: 0;
+		background: none;
+		border-radius: 100%;
+		color: var(--gray-t2);
+		outline: 0;
+
+		& > svg {
+			pointer-events: none;
+			width: var(--space-12);
+			height: var(--space-12);
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				background-color: var(--gray-c3);
+			}
+		}
+
+		@media not (hover: hover) {
+			&:active {
+				background-color: var(--gray-c2);
+			}
+		}
+	}
+
+	:global(.MobileNavSearchOption) {
+		position: relative;
+		isolation: isolate;
+		box-sizing: border-box;
+		width: 100%;
+		min-width: 0;
+		overflow: hidden;
+		cursor: default;
+		user-select: none;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset-block: 0;
+			inset-inline: var(--space-16);
+			z-index: -1;
+			border-radius: var(--radius-6);
+			pointer-events: none;
+		}
+
+		&:global([data-highlighted])::before {
+			background-color: var(--gray-c1);
+		}
+	}
+
+	:global(.MobileNavSearchBreadcrumbText) {
+		display: block;
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	:global(.MobileNavSearchBreadcrumbSeparator) {
+		display: inline-flex;
+		margin-inline: var(--space-4);
+		vertical-align: middle;
+		flex-shrink: 0;
 		color: var(--gray-t1);
 	}
 </style>

@@ -1,16 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import type { NavSection } from '#lib/docs/types.ts';
 	import LogoLink from './LogoLink.svelte';
-	import MobileNav from './MobileNav.svelte';
+	import SearchControls from './search/SearchControls.svelte';
 	import SkipNav from './SkipNav.svelte';
 
 	let { nav }: { nav: NavSection[] } = $props();
-
-	let isMac = $state(true);
-	onMount(() => {
-		isMac = /Mac|iPhone|iPad/.test(navigator.platform);
-	});
 </script>
 
 <header class="Header">
@@ -18,13 +12,11 @@
 		<SkipNav />
 		<LogoLink />
 		<div class="HeaderSearch">
-			<button type="button" class="SearchTrigger HeaderSearchDesktopTrigger">
-				Search
-				<span class="SearchTriggerShortcut"
-					>({#if isMac}<kbd>⌘</kbd>{:else}<kbd>Ctrl+</kbd>{/if}<kbd>k</kbd>)</span
-				>
-			</button>
-			<MobileNav {nav} triggerClass="SearchTrigger HeaderSearchMobileTrigger" />
+			<SearchControls
+				{nav}
+				desktopTriggerClass="SearchTrigger HeaderSearchDesktopTrigger"
+				mobileTriggerClass="SearchTrigger HeaderSearchMobileTrigger"
+			/>
 		</div>
 	</div>
 </header>
@@ -122,10 +114,6 @@
 			outline: 2px solid currentColor;
 			outline-offset: -1px;
 		}
-	}
-
-	.SearchTriggerShortcut {
-		color: var(--gray-t1);
 	}
 
 	.HeaderSearch :global(.HeaderSearchDesktopTrigger) {
