@@ -3,12 +3,9 @@ title: Toast
 description: Generates toast notifications.
 ---
 
-Click the button to add a toast. The viewport appears in the bottom right corner of the window. Hover it or press F6 to expand the stack, and swipe a toast down or right to dismiss it.
-
 ```svelte demo
 <script lang="ts">
 	import { Toast } from '@sveltery/base/toast';
-	import ToastList from '#lib/components/ToastList.svelte';
 
 	const toastManager = Toast.createToastManager();
 	let count = 0;
@@ -25,28 +22,45 @@ Click the button to add a toast. The viewport appears in the bottom right corner
 <Toast.Provider {toastManager}>
 	<button
 		type="button"
+		class="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
 		onclick={createToast}
-		class="rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
 	>
 		Create toast
 	</button>
 	<Toast.Portal>
 		<Toast.Viewport
-			class="fixed top-auto right-4 bottom-4 z-50 mx-auto w-[calc(100vw-2rem)] sm:right-8 sm:bottom-8 sm:w-[22.5rem]"
+			class="fixed top-auto right-[1rem] bottom-[1rem] z-1 mx-auto w-[calc(100vw-2rem)] sm:right-[2rem] sm:bottom-[2rem] sm:w-[22.5rem]"
 		>
-			<ToastList />
+			{@const manager = Toast.getToastManager()}
+			{#each manager.toasts as toast (toast.id)}
+				<Toast.Root
+					{toast}
+					class="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+				>
+					<Toast.Content
+						class="flex items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100"
+					>
+						<div class="flex min-w-0 flex-1 flex-col gap-1">
+							<Toast.Title class="text-sm font-bold" />
+							<Toast.Description class="text-sm" />
+						</div>
+						<Toast.Close
+							class="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+							>Dismiss</Toast.Close
+						>
+					</Toast.Content>
+				</Toast.Root>
+			{/each}
 		</Toast.Viewport>
 	</Toast.Portal>
 </Toast.Provider>
 ```
 
-The demos on this page render their toasts with a small `ToastList` component, shown under [Render the toasts](#render-the-toasts). A demo is a single component, and `getToastManager()` has to run in a component inside `Toast.Provider`.
-
 ## Anatomy
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Toast } from '@sveltery/base/toast';
 </script>
@@ -54,8 +68,8 @@ Import the component and assemble its parts:
 <Toast.Provider>
 	<Toast.Portal>
 		<Toast.Viewport>
-			<!-- One Toast.Root for each toast in getToastManager().toasts -->
-			<Toast.Root {toast}>
+			<!-- Stacked toasts -->
+			<Toast.Root>
 				<Toast.Content>
 					<Toast.Title />
 					<Toast.Description />
@@ -63,329 +77,784 @@ Import the component and assemble its parts:
 					<Toast.Close />
 				</Toast.Content>
 			</Toast.Root>
+
+			<!-- Anchored toasts -->
+			<Toast.Positioner>
+				<Toast.Root>
+					<Toast.Arrow />
+					<Toast.Content>
+						<Toast.Title />
+						<Toast.Description />
+						<Toast.Action />
+						<Toast.Close />
+					</Toast.Content>
+				</Toast.Root>
+			</Toast.Positioner>
 		</Toast.Viewport>
 	</Toast.Portal>
 </Toast.Provider>
 ```
 
-An anchored toast wraps each `Toast.Root` in `Toast.Positioner` and can hold a `Toast.Arrow`. See [Anchored toasts](#anchored-toasts).
+<span id="render-the-toasts"></span>
+
+## General usage
+
+- `<Toast.Provider>` can be wrapped around your entire app, ensuring all toasts are rendered in the same viewport.
+- <kbd>F6</kbd> lets users jump into the toast viewport landmark region to navigate toasts with
+  keyboard focus.
+- The `data-base-ui-swipe-ignore` attribute can be manually added to elements inside of a toast to prevent swipe-to-dismiss gestures on them. Interactive elements are automatically prevented.
+- `Toast.getToastManager()` returns the `toasts` to render and the methods that change them. It reads the context of the `<Toast.Provider>`, so call it while a component initializes inside the provider. The demos on this page are single components, so they call it in a `{@const}` tag inside `<Toast.Viewport>` instead.
+
+## Global manager
+
+A global toast manager can be created by passing the `toastManager` prop to the `<Toast.Provider>`.
+This enables you to queue a toast from anywhere in the app (such as in functions outside a component) while still using the same toast renderer.
+
+The created `toastManager` exposes the same `add`, `close`, `update`, and `promise` methods as `Toast.getToastManager()`. Unlike `Toast.getToastManager()`, it does not return the reactive `toasts` array, since it lives outside the component tree.
+
+```ts title="Creating a manager instance"
+const toastManager = Toast.createToastManager();
+```
+
+```svelte title="Using the instance"
+<Toast.Provider {toastManager}>
+```
+
+## Stacking and animations
+
+The `--toast-index` CSS variable can be used to determine the stacking order of the toasts.
+The 0th index toast appears at the front.
+
+```css title="z-index stacking"
+.Toast {
+	z-index: calc(1000 - var(--toast-index));
+	transform: scale(calc(max(0, 1 - (var(--toast-index) * 0.1))));
+}
+```
+
+The `--toast-offset-y` CSS variable can be used to determine the vertical offset of the toasts when positioned absolutely with a translation offset — this is usually used with the `data-expanded` attribute, present when the toast viewport is being hovered or has focus.
+
+```css title="Expanded offset"
+.Toast[data-expanded] {
+	transform: translateY(var(--toast-offset-y));
+}
+```
+
+While the stack is collapsed, each toast's height can be clamped to the frontmost toast's height using the `--toast-frontmost-height` CSS variable, and `<Toast.Content>` is used to hide the content of the toasts behind it.
+The `data-behind` attribute marks content that sits behind the frontmost toast and pairs with the `data-expanded` attribute so the content fades back in when the viewport expands:
+
+```css title="Collapsed content"
+.Toast {
+	height: var(--toast-frontmost-height, var(--toast-height));
+}
+
+.ToastContent {
+	transition: opacity 0.25s;
+}
+
+/* @highlight-text "data-behind" */
+.ToastContent[data-behind] {
+	opacity: 0;
+}
+
+/* @highlight-text "data-expanded" */
+.ToastContent[data-expanded] {
+	opacity: 1;
+}
+```
+
+The `--toast-swipe-movement-x` and `--toast-swipe-movement-y` CSS variables are used to determine the swipe movement of the toasts in order to add a translation offset.
+
+```css title="Swipe offset"
+.Toast {
+	transform: scale(calc(max(0, 1 - (var(--toast-index) * 0.1))))
+		translateX(var(--toast-swipe-movement-x)) /* @highlight-text "--toast-swipe-movement-x" */
+		/* @highlight-text "--toast-swipe-movement-y" */
+		translateY(calc(var(--toast-swipe-movement-y) + (var(--toast-index) * -20%)));
+}
+```
+
+The `data-swipe-direction` attribute can be used to determine the swipe direction of the toasts to add a translation offset upon dismissal.
+
+```css title="Swipe direction"
+&[data-ending-style] {
+	opacity: 0;
+
+	/* @highlight-text "data-swipe-direction" */
+	&[data-swipe-direction='up'] {
+		transform: translateY(calc(var(--toast-swipe-movement-y) - 150%));
+	}
+	/* @highlight-text "data-swipe-direction" */
+	&[data-swipe-direction='down'] {
+		transform: translateY(calc(var(--toast-swipe-movement-y) + 150%));
+	}
+	/* Note: --offset-y is defined locally in these examples and derives from
+   --toast-offset-y, --toast-index, and swipe movement values */
+	/* @highlight-text "data-swipe-direction" */
+	&[data-swipe-direction='left'] {
+		transform: translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(var(--offset-y));
+	}
+	/* @highlight-text "data-swipe-direction" */
+	&[data-swipe-direction='right'] {
+		transform: translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(var(--offset-y));
+	}
+}
+```
+
+The `data-limited` attribute indicates that the toast exceeded the `limit` option.
+Limited toasts remain mounted with the HTML `inert` attribute, so this is useful for hiding them or animating them differently.
+
+The `updateKey` property increments when a toast is updated or upserted.
+This can be used to replay attention-grabbing styles by switching animation names or, when remounting is acceptable, by including it in a `{#key}` block.
 
 ## Examples
 
-### Render the toasts
+### Anchored toasts
 
-`Toast.Provider` owns the toasts. `getToastManager()` returns them as `toasts`, newest first, together with the methods that change them. Call it while a component initializes, inside the provider. Read `manager.toasts` each time you need the list, because destructuring `toasts` copies the array once and stops it updating.
+Toasts can be anchored to a specific element using `<Toast.Positioner>` and the `positionerProps` option when adding a toast. This is useful for showing contextual feedback like transient "Copied" toasts that appear near the button that triggered the action.
 
-Render one `Toast.Root` for each toast, keyed by `id`. `Toast.Title`, `Toast.Description`, and `Toast.Action` fill themselves from the toast object and render nothing when it has no content for them.
+Anchored toasts should be rendered in a separate `<Toast.Provider>` from stacked toasts. A global toast manager can be created for each to manage them separately throughout your app:
 
-```svelte
-<!-- ToastList.svelte -->
+```svelte title="Mixing stacked and anchored toasts"
+<script module lang="ts">
+	import { Toast } from '@sveltery/base/toast';
+
+	export const anchoredToastManager = Toast.createToastManager();
+	export const stackedToastManager = Toast.createToastManager();
+</script>
+
+<script lang="ts">
+	import AnchoredToasts from './AnchoredToasts.svelte';
+	import StackedToasts from './StackedToasts.svelte';
+</script>
+
+<Toast.Provider toastManager={anchoredToastManager}>
+	<AnchoredToasts />
+</Toast.Provider>
+<Toast.Provider toastManager={stackedToastManager}>
+	<StackedToasts />
+</Toast.Provider>
+
+<!-- App content -->
+```
+
+```svelte title="AnchoredToasts.svelte"
 <script lang="ts">
 	import { Toast } from '@sveltery/base/toast';
 
-	const manager = Toast.getToastManager();
+	const toastManager = Toast.getToastManager();
 </script>
 
-{#each manager.toasts as toast (toast.id)}
-	<Toast.Root {toast}>
-		<Toast.Content>
-			<Toast.Title />
-			<Toast.Description />
-			<Toast.Action />
-			<Toast.Close>Dismiss</Toast.Close>
-		</Toast.Content>
-	</Toast.Root>
-{/each}
+<Toast.Portal>
+	<Toast.Viewport>
+		{#each toastManager.toasts as toast (toast.id)}
+			<Toast.Positioner {toast}>
+				<Toast.Root {toast}>
+					<!-- ... -->
+				</Toast.Root>
+			</Toast.Positioner>
+		{/each}
+	</Toast.Viewport>
+</Toast.Portal>
 ```
 
-Place the component inside the viewport, as in the first demo. The demos on this page use the same structure with Tailwind classes. The root stacks toasts with the `--toast-index`, `--toast-offset-y`, and `--toast-height` CSS variables, and the viewport sets `--toast-frontmost-height`.
+```svelte title="StackedToasts.svelte"
+<script lang="ts">
+	import { Toast } from '@sveltery/base/toast';
 
-### Add toasts from anywhere
+	const toastManager = Toast.getToastManager();
+</script>
 
-`Toast.createToastManager()` makes a manager that you can import into any module, so code outside the component tree can add toasts. Pass it to `Toast.Provider` as `toastManager`. A provider can use `getToastManager()` and a `toastManager` at the same time. They share one list of toasts.
-
-```ts
-// toast.ts
-import { Toast } from '@sveltery/base/toast';
-
-export const toastManager = Toast.createToastManager();
+<Toast.Portal>
+	<Toast.Viewport>
+		{#each toastManager.toasts as toast (toast.id)}
+			<Toast.Root {toast}>
+				<!-- ... -->
+			</Toast.Root>
+		{/each}
+	</Toast.Viewport>
+</Toast.Portal>
 ```
-
-```svelte
-<Toast.Provider {toastManager}>…</Toast.Provider>
-```
-
-```ts
-import { toastManager } from './toast.js';
-
-const id = toastManager.add({ title: 'Saved' });
-toastManager.update(id, { title: 'Saved to the cloud' });
-toastManager.close(id);
-```
-
-`add` returns the toast's id. `close()` without an id closes every toast.
-
-### Action button
-
-Pass `actionProps` to give a toast an action button. `children` is the button's text, and the other props go to the button. Handlers use lowercase names, such as `onclick`. The button does not close the toast, so call `close(id)` yourself if it should.
 
 ```svelte demo
 <script lang="ts">
+	import { Button } from '@sveltery/base/button';
 	import { Toast } from '@sveltery/base/toast';
-	import ToastList from '#lib/components/ToastList.svelte';
+	import { Tooltip } from '@sveltery/base/tooltip';
 
-	const toastManager = Toast.createToastManager();
-	let status = $state('Nothing archived yet.');
+	const anchoredToastManager = Toast.createToastManager();
+	const stackedToastManager = Toast.createToastManager();
 
-	function archive() {
-		const id = toastManager.add({
-			title: 'Conversation archived',
-			description: 'It moves out of your inbox.',
-			actionProps: {
-				children: 'Undo',
-				onclick: () => {
-					status = 'Archive undone.';
-					toastManager.close(id);
-				}
+	let copied = $state(false);
+
+	function handleCopy(event: MouseEvent) {
+		copied = true;
+
+		anchoredToastManager.add({
+			description: 'Copied',
+			positionerProps: {
+				anchor: event.currentTarget as HTMLElement,
+				sideOffset: 10
 			},
-			onClose: () => {
-				if (status === 'Nothing archived yet.') status = 'Archived.';
+			timeout: 1500,
+			onClose() {
+				copied = false;
 			}
+		});
+	}
+
+	function createStackedToast() {
+		stackedToastManager.add({
+			description: 'Copied'
 		});
 	}
 </script>
 
-<Toast.Provider {toastManager}>
-	<div class="flex items-center gap-3 text-sm text-gray-900 dark:text-gray-100">
+<Tooltip.Provider>
+	<Toast.Provider toastManager={anchoredToastManager}>
+		<Toast.Portal>
+			<Toast.Viewport class="outline-0">
+				{@const manager = Toast.getToastManager()}
+				{#each manager.toasts as toast (toast.id)}
+					<Toast.Positioner {toast} class="z-[calc(1000-var(--toast-index))]">
+						<Toast.Root
+							{toast}
+							class="relative flex flex-col w-max border border-neutral-950 bg-white px-2 py-1 text-sm text-neutral-950 origin-[var(--transform-origin)] shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:opacity-0 data-ending-style:scale-[0.98] data-instant:transition-none data-starting-style:opacity-0 data-starting-style:scale-[0.98] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+						>
+							<Toast.Arrow
+								class="relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]"
+							/>
+							<Toast.Content>
+								<Toast.Description />
+							</Toast.Content>
+						</Toast.Root>
+					</Toast.Positioner>
+				{/each}
+			</Toast.Viewport>
+		</Toast.Portal>
+	</Toast.Provider>
+	<Toast.Provider toastManager={stackedToastManager}>
+		<Toast.Portal>
+			<Toast.Viewport
+				class="fixed top-auto right-[1rem] bottom-[1rem] z-1 mx-auto w-[calc(100vw-2rem)] sm:right-[2rem] sm:bottom-[2rem] sm:w-[22.5rem]"
+			>
+				{@const manager = Toast.getToastManager()}
+				{#each manager.toasts as toast (toast.id)}
+					<Toast.Root
+						{toast}
+						class="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+					>
+						<Toast.Content
+							class="flex items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100"
+						>
+							<div class="flex min-w-0 flex-1 flex-col gap-1">
+								<Toast.Title class="text-sm font-bold" />
+								<Toast.Description class="text-sm" />
+							</div>
+							<Toast.Close
+								class="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+								>Dismiss</Toast.Close
+							>
+						</Toast.Content>
+					</Toast.Root>
+				{/each}
+			</Toast.Viewport>
+		</Toast.Portal>
+	</Toast.Provider>
+
+	<div class="flex items-center gap-2">
+		<Tooltip.Root disabled={copied}>
+			<Tooltip.Trigger
+				closeOnClick={false}
+				onclick={handleCopy}
+				class="flex h-8 w-8 items-center justify-center rounded-none border border-neutral-950 bg-white text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+			>
+				{#snippet render(props, _state, children)}
+					<Button {...props} disabled={copied} focusableWhenDisabled aria-label="Copy to clipboard">
+						{@render children?.()}
+					</Button>
+				{/snippet}
+				{#if copied}
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						stroke="currentColor"
+						style="display: block"
+					>
+						<path d="m2.5 8.5 4 4 7-9" />
+					</svg>
+				{:else}
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						style="display: block"
+					>
+						<rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+						<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+					</svg>
+				{/if}
+			</Tooltip.Trigger>
+			<Tooltip.Portal>
+				<Tooltip.Positioner sideOffset={10}>
+					<Tooltip.Popup
+						class="relative flex flex-col border border-neutral-950 bg-white px-2 py-1 text-sm text-neutral-950 origin-[var(--transform-origin)] shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:opacity-0 data-ending-style:scale-[0.98] data-instant:transition-none data-starting-style:opacity-0 data-starting-style:scale-[0.98] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+					>
+						<Tooltip.Arrow
+							class="relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]"
+						/>
+						Copy
+					</Tooltip.Popup>
+				</Tooltip.Positioner>
+			</Tooltip.Portal>
+		</Tooltip.Root>
 		<button
 			type="button"
-			onclick={archive}
-			class="rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 font-medium hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+			class="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+			onclick={createStackedToast}
 		>
-			Archive conversation
+			Stacked toast
 		</button>
-		<span>{status}</span>
 	</div>
-	<Toast.Portal>
-		<Toast.Viewport
-			class="fixed top-auto right-4 bottom-4 z-50 mx-auto w-[calc(100vw-2rem)] sm:right-8 sm:bottom-8 sm:w-[22.5rem]"
-		>
-			<ToastList />
-		</Toast.Viewport>
-	</Toast.Portal>
-</Toast.Provider>
+</Tooltip.Provider>
 ```
 
-### Promises
+### Custom position
 
-`promise()` shows a toast with `type: 'loading'` while the promise is pending, then updates it to `type: 'success'` or `type: 'error'`. A loading toast never auto-dismisses. Each state takes a string, which becomes the description, an object of toast fields, or a function of the result or error that returns one. `promise()` returns a new promise chained on the one you passed. It resolves with the same value once the success toast shows, and rejects with the same error once the error toast shows.
+The position of the toasts is controlled by your own CSS.
+To change the toasts' position, you can modify the `Toast.Viewport` and `Toast.Root` classes.
+A more general component could accept a `data-position` attribute, which the CSS handles for each variation.
+The following shows a top-center position:
 
 ```svelte demo
 <script lang="ts">
 	import { Toast } from '@sveltery/base/toast';
-	import ToastList from '#lib/components/ToastList.svelte';
-
-	const toastManager = Toast.createToastManager();
-
-	function run(succeed: boolean) {
-		const request = new Promise<string>((resolve, reject) => {
-			setTimeout(
-				() => (succeed ? resolve('alice@example.com') : reject(new Error('Offline'))),
-				1500
-			);
-		});
-		toastManager
-			.promise(request, {
-				loading: 'Sending invite…',
-				success: (email) => ({ title: 'Invite sent', description: `Sent to ${email}.` }),
-				error: (error: Error) => ({ title: 'Invite failed', description: error.message })
-			})
-			.catch(() => {});
-	}
-
-	const button =
-		'rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800';
-</script>
-
-<Toast.Provider {toastManager}>
-	<div class="flex gap-3">
-		<button type="button" class={button} onclick={() => run(true)}>Send invite</button>
-		<button type="button" class={button} onclick={() => run(false)}>Send and fail</button>
-	</div>
-	<Toast.Portal>
-		<Toast.Viewport
-			class="fixed top-auto right-4 bottom-4 z-50 mx-auto w-[calc(100vw-2rem)] sm:right-8 sm:bottom-8 sm:w-[22.5rem]"
-		>
-			<ToastList />
-		</Toast.Viewport>
-	</Toast.Portal>
-</Toast.Provider>
-```
-
-Style the states with the `data-type` attribute that `Toast.Root`, `Toast.Title`, `Toast.Description`, `Toast.Action`, and `Toast.Close` carry. It reads `loading`, `success`, `error`, or whatever `type` you gave the toast.
-
-### Update a toast
-
-`update(id, updates)` changes a toast in place. The updates can be a function of the previous toast. An update to a toast that is closing is ignored. Changing `timeout` restarts the toast's timer. This demo starts a toast that never dismisses itself, updates its description as work progresses, and lets it dismiss after two seconds when it finishes.
-
-```svelte demo
-<script lang="ts">
-	import { Toast } from '@sveltery/base/toast';
-	import ToastList from '#lib/components/ToastList.svelte';
-
-	const toastManager = Toast.createToastManager();
-
-	function start() {
-		const id = toastManager.add({ title: 'Uploading', description: '0% done', timeout: 0 });
-		let progress = 0;
-		const interval = setInterval(() => {
-			progress += 25;
-			if (progress < 100) {
-				toastManager.update(id, { description: `${progress}% done` });
-				return;
-			}
-			clearInterval(interval);
-			toastManager.update(id, {
-				title: 'Upload complete',
-				description: '100% done',
-				type: 'success',
-				timeout: 2000
-			});
-		}, 600);
-	}
-</script>
-
-<Toast.Provider {toastManager}>
-	<button
-		type="button"
-		onclick={start}
-		class="rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
-	>
-		Start upload
-	</button>
-	<Toast.Portal>
-		<Toast.Viewport
-			class="fixed top-auto right-4 bottom-4 z-50 mx-auto w-[calc(100vw-2rem)] sm:right-8 sm:bottom-8 sm:w-[22.5rem]"
-		>
-			<ToastList />
-		</Toast.Viewport>
-	</Toast.Portal>
-</Toast.Provider>
-```
-
-Adding a toast with the `id` of a toast that is already open updates that toast and restarts its timer instead of adding a second one. Use it to deduplicate toasts.
-
-### Timeout and limit
-
-`timeout` on `Toast.Provider` is the default time in milliseconds before a toast closes itself. It defaults to `5000`. A toast can override it with its own `timeout`, and `0` keeps a toast open until someone closes it. Hovering the viewport or moving focus into it pauses every timer, and leaving resumes them.
-
-`limit` is how many toasts show at once. It defaults to `3`. The older toasts past the limit stay in the list with `data-limited` and `inert`, so you can fade them out. They show again when newer toasts close.
-
-```svelte demo
-<script lang="ts">
-	import { Toast } from '@sveltery/base/toast';
-	import ToastList from '#lib/components/ToastList.svelte';
 
 	const toastManager = Toast.createToastManager();
 	let count = 0;
-</script>
 
-<Toast.Provider {toastManager} limit={2} timeout={10000}>
-	<button
-		type="button"
-		onclick={() =>
-			toastManager.add({ title: `Toast ${++count}`, description: 'Only two show at once.' })}
-		class="rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
-	>
-		Add toast
-	</button>
-	<Toast.Portal>
-		<Toast.Viewport
-			class="fixed top-auto right-4 bottom-4 z-50 mx-auto w-[calc(100vw-2rem)] sm:right-8 sm:bottom-8 sm:w-[22.5rem]"
-		>
-			<ToastList />
-		</Toast.Viewport>
-	</Toast.Portal>
-</Toast.Provider>
-```
-
-### Anchored toasts
-
-Give a toast `positionerProps` with an `anchor` element to position it against that element instead of stacking it in the viewport. Wrap its `Toast.Root` in `Toast.Positioner`, and add `Toast.Arrow` if you want one. The positioning options, such as `side`, `align`, and `sideOffset`, go in `positionerProps` or straight on `Toast.Positioner`. Anchored toasts cannot be swiped.
-
-```svelte demo
-<script lang="ts">
-	import { Toast } from '@sveltery/base/toast';
-	import ToastList from '#lib/components/ToastList.svelte';
-
-	const toastManager = Toast.createToastManager();
-	let copyButton = $state<HTMLButtonElement | null>(null);
-
-	function copy() {
+	function createToast() {
+		count += 1;
 		toastManager.add({
-			description: 'Copied',
-			timeout: 1500,
-			positionerProps: { anchor: copyButton, sideOffset: 10 }
+			title: `Toast ${count} created`,
+			description: 'This is a toast notification.'
 		});
 	}
 </script>
 
 <Toast.Provider {toastManager}>
 	<button
-		bind:this={copyButton}
 		type="button"
-		onclick={copy}
-		class="rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
+		class="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		onclick={createToast}
 	>
-		Copy link
+		Create toast
 	</button>
 	<Toast.Portal>
-		<Toast.Viewport>
-			<ToastList anchored />
+		<Toast.Viewport
+			class="fixed top-[1rem] right-0 bottom-auto left-0 z-1 mx-auto w-[calc(100vw-2rem)] max-w-[22.5rem]"
+		>
+			{@const manager = Toast.getToastManager()}
+			{#each manager.toasts as toast (toast.id)}
+				<Toast.Root
+					{toast}
+					swipeDirection="up"
+					class="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)+(var(--toast-index)*var(--gap))+var(--toast-swipe-movement-y))] absolute top-0 right-0 left-0 z-[calc(1000-var(--toast-index))] mx-auto w-full origin-top [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)+(var(--toast-index)*var(--peek))+(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:bottom-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(-150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(-150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+				>
+					<Toast.Content
+						class="flex items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100"
+					>
+						<div class="flex min-w-0 flex-1 flex-col gap-1">
+							<Toast.Title class="text-sm font-bold" />
+							<Toast.Description class="text-sm" />
+						</div>
+						<Toast.Close
+							class="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+							>Dismiss</Toast.Close
+						>
+					</Toast.Content>
+				</Toast.Root>
+			{/each}
 		</Toast.Viewport>
 	</Toast.Portal>
 </Toast.Provider>
 ```
 
-Use separate providers for anchored toasts and stacked toasts, each with its own `toastManager`, so a stacked toast never lands in a viewport that expects positioners.
+### Undo action
 
-### High priority toasts
+When adding a toast, the `actionProps` option can be used to define props for an action button inside of it—this enables the ability to undo an action associated with the toast.
 
-A toast with `priority: 'high'` is announced right away. The root uses `role="alertdialog"` and `aria-hidden`, and the viewport mirrors the title and description in a visually hidden `role="alert"` region. The mirror goes away while focus is inside the viewport, and the toast itself is exposed instead. Toasts default to `priority: 'low'`, which the viewport's `aria-live="polite"` region announces.
+```svelte demo
+<script lang="ts">
+	import { Toast } from '@sveltery/base/toast';
 
-```ts
-toastManager.add({
-	title: 'Payment failed',
-	description: 'Your card was declined.',
-	priority: 'high'
-});
+	const toastManager = Toast.createToastManager();
+
+	function action() {
+		const id = toastManager.add({
+			title: 'Action performed',
+			description: 'You can undo this action.',
+			type: 'success',
+			timeout: 10000,
+			actionProps: {
+				children: 'Undo',
+				onclick() {
+					toastManager.close(id);
+					toastManager.add({
+						title: 'Action undone'
+					});
+				}
+			}
+		});
+	}
+</script>
+
+<Toast.Provider {toastManager}>
+	<button
+		type="button"
+		class="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		onclick={action}
+	>
+		Perform action
+	</button>
+	<Toast.Portal>
+		<Toast.Viewport
+			class="fixed top-auto right-[1rem] bottom-[1rem] z-1 mx-auto w-[calc(100vw-2rem)] sm:right-[2rem] sm:bottom-[2rem] sm:w-[22.5rem]"
+		>
+			{@const manager = Toast.getToastManager()}
+			{#each manager.toasts as toast (toast.id)}
+				<Toast.Root
+					{toast}
+					class="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+				>
+					<Toast.Content
+						class="flex items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100"
+					>
+						<div class="flex min-w-0 flex-1 flex-col items-start gap-3">
+							<div class="flex flex-col gap-1">
+								<Toast.Title
+									class="text-sm font-bold data-[type=success]:text-green-700 data-[type=error]:text-red-700 dark:data-[type=success]:text-green-400 dark:data-[type=error]:text-red-400"
+								/>
+								<Toast.Description
+									class="text-sm data-[type=success]:text-green-700 data-[type=error]:text-red-700 dark:data-[type=success]:text-green-400 dark:data-[type=error]:text-red-400"
+								/>
+							</div>
+							<Toast.Action
+								class="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+							/>
+						</div>
+					</Toast.Content>
+				</Toast.Root>
+			{/each}
+		</Toast.Viewport>
+	</Toast.Portal>
+</Toast.Provider>
 ```
 
-### Swipe to dismiss
+### Promise
 
-Drag a toast with the pointer, or swipe it on a touch screen, to dismiss it. `swipeDirection` on `Toast.Root` sets the directions that dismiss. It defaults to `['down', 'right']`. While a toast is swiped it carries `data-swiping` and `data-swipe-direction`, and it sets `--toast-swipe-movement-x` and `--toast-swipe-movement-y`.
+An asynchronous toast can be created with three possible states: `loading`, `success`, and `error`.
+The `type` string matches these states to change the styling.
+Each of the states also accepts the [method options](#toastmanagerupdateoptions) object for more granular control.
 
-```svelte
-<Toast.Root {toast} swipeDirection="up">…</Toast.Root>
-<Toast.Root {toast} swipeDirection={['left', 'right']}>…</Toast.Root>
+```svelte demo
+<script lang="ts">
+	import { Toast } from '@sveltery/base/toast';
+
+	const toastManager = Toast.createToastManager();
+
+	function runPromise() {
+		toastManager.promise(
+			// Simulate an API request with a promise that resolves after 2 seconds
+			new Promise<string>((resolve, reject) => {
+				const shouldSucceed = Math.random() > 0.3; // 70% success rate
+				setTimeout(() => {
+					if (shouldSucceed) {
+						resolve('operation completed');
+					} else {
+						reject(new Error('operation failed'));
+					}
+				}, 2000);
+			}),
+			{
+				loading: 'Loading data…',
+				success: (data: string) => `Success: ${data}`,
+				error: (err: Error) => `Error: ${err.message}`
+			}
+		);
+	}
+</script>
+
+<Toast.Provider {toastManager}>
+	<button
+		type="button"
+		class="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		onclick={runPromise}
+	>
+		Run promise
+	</button>
+	<Toast.Portal>
+		<Toast.Viewport
+			class="fixed top-auto right-[1rem] bottom-[1rem] z-1 mx-auto w-[calc(100vw-2rem)] sm:right-[2rem] sm:bottom-[2rem] sm:w-[22.5rem]"
+		>
+			{@const manager = Toast.getToastManager()}
+			{#each manager.toasts as toast (toast.id)}
+				<Toast.Root
+					{toast}
+					class="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+				>
+					<Toast.Content
+						class="flex items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100"
+					>
+						<div class="flex min-w-0 flex-1 flex-col gap-1">
+							<Toast.Title
+								class="text-sm font-bold data-[type=success]:text-green-700 data-[type=error]:text-red-700 dark:data-[type=success]:text-green-400 dark:data-[type=error]:text-red-400"
+							/>
+							<Toast.Description
+								class="text-sm data-[type=success]:text-green-700 data-[type=error]:text-red-700 dark:data-[type=success]:text-green-400 dark:data-[type=error]:text-red-400"
+							/>
+						</div>
+						<Toast.Close
+							class="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+							>Dismiss</Toast.Close
+						>
+					</Toast.Content>
+				</Toast.Root>
+			{/each}
+		</Toast.Viewport>
+	</Toast.Portal>
+</Toast.Provider>
 ```
 
-### Keyboard
+### Custom
 
-Press F6 anywhere on the page to move focus to the viewport. The stack expands and the timers pause. Press Tab to reach the toasts and their buttons. Escape closes the toast that has focus and moves focus to the next toast. When no toast remains, focus returns to where it was before F6. Shift+Tab from the viewport also returns focus there.
+A toast with custom data can be created by passing any typed object interface to the `data` option.
+This enables you to pass any data (including functions) you need to the toast and access it in the toast's rendering logic.
 
-## Differences from Base UI
+```svelte demo
+<script lang="ts">
+	import { Toast } from '@sveltery/base/toast';
+	import type { ToastObject } from '@sveltery/base/toast';
 
-- `getToastManager()` replaces the `useToastManager()` hook. It returns `{ toasts, add, close, update, promise }`. `toasts` is a getter, so read `manager.toasts` and do not destructure it. Call `getToastManager()` while a component initializes. `Toast.getToastManager` is the same function.
-- `title`, `description`, and `actionProps.children` take a `string` or a `Snippet`, where React takes a node. A snippet renders with `{@render}`. An empty string or `undefined` renders nothing.
-- A toast object has `element`, the root element, where React has `ref`. `Toast.Root` writes it. `actionProps` takes `HTMLButtonAttributes`, so handlers are lowercase, such as `onclick`.
-- `positionerProps` holds the positioning options and `anchor`. `Toast.Positioner` falls back to it for each option it does not receive.
-- `Toast.createToastManager()` hides the provider subscription behind a module symbol, where Base UI uses the string key `' subscribe'`. Only `Toast.Provider` imports the symbol.
-- `Toast.Provider` reads `timeout` and `limit` straight from its props. A changed prop is current before any descendant effect runs.
-- `Toast.Title`, `Toast.Description`, and `Toast.Action` render nothing unless they have children or the toast field has content. A `render` snippet cannot be inspected, so its own text does not count. Pass that text as children instead.
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes and CSS variables below. `render` is a snippet that receives `(props, state, children)`.
-- `Toast.Portal` has no `keepMounted`, as in Base UI. It does not render focus guards.
-- The data attribute and CSS variable names are constant objects, such as `ToastRootDataAttributes.swipeDirection` and `ToastRootCssVariables.index`, where Base UI exports namespaces.
+	interface CustomToastData {
+		userId: string;
+	}
+
+	function isCustomToast(toast: ToastObject): toast is ToastObject<CustomToastData> {
+		return toast.data?.userId !== undefined;
+	}
+
+	const toastManager = Toast.createToastManager();
+
+	function action() {
+		const data: CustomToastData = {
+			userId: '123'
+		};
+
+		toastManager.add({
+			title: 'Toast with custom data',
+			data
+		});
+	}
+</script>
+
+<Toast.Provider {toastManager}>
+	<button
+		type="button"
+		class="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		onclick={action}
+	>
+		Create custom toast
+	</button>
+	<Toast.Portal>
+		<Toast.Viewport
+			class="fixed top-auto right-[1rem] bottom-[1rem] z-1 mx-auto w-[calc(100vw-2rem)] sm:right-[2rem] sm:bottom-[2rem] sm:w-[22.5rem]"
+		>
+			{@const manager = Toast.getToastManager()}
+			{#each manager.toasts as toast (toast.id)}
+				<Toast.Root
+					{toast}
+					class="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+				>
+					<Toast.Content
+						class="flex items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100"
+					>
+						<div class="flex min-w-0 flex-1 flex-col gap-1">
+							<Toast.Title class="text-sm font-bold">{toast.title}</Toast.Title>
+							{#if isCustomToast(toast) && toast.data}
+								<Toast.Description class="text-sm"
+									>data.userId is {toast.data.userId}</Toast.Description
+								>
+							{:else}
+								<Toast.Description class="text-sm" />
+							{/if}
+						</div>
+						<Toast.Close
+							class="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+							>Dismiss</Toast.Close
+						>
+					</Toast.Content>
+				</Toast.Root>
+			{/each}
+		</Toast.Viewport>
+	</Toast.Portal>
+</Toast.Provider>
+```
+
+### Deduplicated toast
+
+When you upsert the same toast by `id`, the `updateKey` property increments so a custom renderer can replay a visual animation. This demo alternates CSS animation names from `updateKey`, which keeps the same toast mounted while replaying the pulse.
+
+```svelte demo
+<script lang="ts">
+	import { Toast } from '@sveltery/base/toast';
+
+	const toastManager = Toast.createToastManager();
+
+	const root =
+		"[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]";
+
+	function createToast() {
+		toastManager.add({
+			id: 'save-status',
+			title: 'Draft saved',
+			description: 'Click again while it is visible to replay the pulse.'
+		});
+	}
+</script>
+
+<Toast.Provider {toastManager}>
+	<button
+		type="button"
+		class="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		onclick={createToast}
+	>
+		Save draft
+	</button>
+	<Toast.Portal>
+		<Toast.Viewport
+			class="fixed top-auto right-[1rem] bottom-[1rem] z-1 mx-auto w-[calc(100vw-2rem)] sm:right-[2rem] sm:bottom-[2rem] sm:w-[22.5rem]"
+		>
+			{@const manager = Toast.getToastManager()}
+			{#each manager.toasts as toast (toast.id)}
+				{@const pulse = toast.updateKey
+					? toast.updateKey % 2 === 0
+						? 'animate-[pulse-even_0.28s_ease]'
+						: 'animate-[pulse-odd_0.28s_ease]'
+					: ''}
+				<Toast.Root {toast} class="{root} {pulse}">
+					<Toast.Content
+						class="flex items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100"
+					>
+						<div class="flex min-w-0 flex-1 flex-col gap-1">
+							<Toast.Title class="text-sm font-bold" />
+							<Toast.Description class="text-sm" />
+						</div>
+						<Toast.Close
+							class="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+							>Dismiss</Toast.Close
+						>
+					</Toast.Content>
+				</Toast.Root>
+			{/each}
+		</Toast.Viewport>
+	</Toast.Portal>
+</Toast.Provider>
+
+<style>
+	/* Alternate animation names so repeated updates restart the same pulse. */
+	@keyframes -global-pulse-even {
+		0%,
+		100% {
+			scale: 1;
+		}
+		50% {
+			scale: 1.04;
+		}
+	}
+
+	@keyframes -global-pulse-odd {
+		0%,
+		100% {
+			scale: 1;
+		}
+		50% {
+			scale: 1.04;
+		}
+	}
+</style>
+```
+
+### Varying heights
+
+Toasts with varying heights are stacked by clamping every toast's height to the frontmost toast at index 0 using the `--toast-frontmost-height` CSS variable, while the `data-behind` attribute hides the content of the toasts behind it.
+Avoid sizing `<Toast.Content>` to the root's height (such as `height: 100%`), as resizing it alongside the root cancels the root's height transition.
+
+```svelte demo
+<script lang="ts">
+	import { Toast } from '@sveltery/base/toast';
+
+	const toastManager = Toast.createToastManager();
+	let count = 0;
+
+	const TEXTS = [
+		'Short message.',
+		'A bit longer message that spans two lines.',
+		'This is a longer description that intentionally takes more vertical space to demonstrate stacking with varying heights.',
+		'An even longer description that should span multiple lines so we can verify the clamped collapsed height and smooth expansion animation when hovering or focusing the viewport.'
+	];
+
+	function createToast() {
+		count += 1;
+		const description = TEXTS[Math.floor(Math.random() * TEXTS.length)];
+		toastManager.add({
+			title: `Toast ${count} created`,
+			description
+		});
+	}
+</script>
+
+<Toast.Provider {toastManager}>
+	<button
+		type="button"
+		class="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		onclick={createToast}
+	>
+		Create varying height toast
+	</button>
+	<Toast.Portal>
+		<Toast.Viewport
+			class="fixed top-auto right-[1rem] bottom-[1rem] z-1 mx-auto w-[calc(100vw-2rem)] sm:right-[2rem] sm:bottom-[2rem] sm:w-[22.5rem]"
+		>
+			{@const manager = Toast.getToastManager()}
+			{#each manager.toasts as toast (toast.id)}
+				<Toast.Root
+					{toast}
+					class="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+				>
+					<Toast.Content
+						class="flex items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100"
+					>
+						<div class="flex min-w-0 flex-1 flex-col gap-1">
+							<Toast.Title class="text-sm font-bold" />
+							<Toast.Description class="text-sm" />
+						</div>
+						<Toast.Close
+							class="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+							>Dismiss</Toast.Close
+						>
+					</Toast.Content>
+				</Toast.Root>
+			{/each}
+		</Toast.Viewport>
+	</Toast.Portal>
+</Toast.Provider>
+```
 
 ## API reference
 
@@ -393,154 +862,291 @@ Press F6 anywhere on the page to move focus to the viewport. The stack expands a
 
 <ApiPart name="toast" part="Provider" />
 
-`Toast.Provider` renders no element, so it has no data attributes.
+### Portal
+
+<ApiPart name="toast" part="Portal" />
 
 ### Viewport
 
 <ApiPart name="toast" part="Viewport" />
 
-| Attribute       | Description                           |
-| --------------- | ------------------------------------- |
-| `data-expanded` | Present when the toasts are expanded. |
+| Attribute       | Description                                    |
+| --------------- | ---------------------------------------------- |
+| `data-expanded` | Indicates toasts are expanded in the viewport. |
 
-| CSS variable               | Description                               |
-| -------------------------- | ----------------------------------------- |
-| `--toast-frontmost-height` | The height of the frontmost toast, in px. |
-
-The viewport is a `region` labelled `Notifications`. Pass `aria-label` to change the label.
+| CSS Variable               | Description                                  |
+| -------------------------- | -------------------------------------------- |
+| `--toast-frontmost-height` | Indicates the height of the frontmost toast. |
 
 ### Root
 
 <ApiPart name="toast" part="Root" />
 
-| Attribute              | Description                                                                        |
-| ---------------------- | ---------------------------------------------------------------------------------- |
-| `data-expanded`        | Present when the viewport is expanded.                                             |
-| `data-limited`         | Present when the toast is over the provider's `limit`.                             |
-| `data-type`            | The toast's `type`.                                                                |
-| `data-swiping`         | Present while the toast is being swiped.                                           |
-| `data-swipe-direction` | The direction the toast is swiped or was swiped: `up`, `down`, `left`, or `right`. |
-| `data-starting-style`  | Present when the toast is animating in.                                            |
-| `data-ending-style`    | Present when the toast is animating out.                                           |
+| Attribute              | Description                                                              |
+| ---------------------- | ------------------------------------------------------------------------ |
+| `data-expanded`        | Present when the toast is expanded in the viewport.                      |
+| `data-limited`         | Present when the toast was limited because the toast limit was exceeded. |
+| `data-swipe-direction` | The direction the toast was swiped.                                      |
+| `data-swiping`         | Present when the toast is being swiped.                                  |
+| `data-type`            | The type of the toast.                                                   |
+| `data-starting-style`  | Present when the toast begins animating in.                              |
+| `data-ending-style`    | Present when the toast is animating out.                                 |
 
-| CSS variable               | Description                                                            |
-| -------------------------- | ---------------------------------------------------------------------- |
-| `--toast-index`            | The index of the toast in the stack, with `0` for the frontmost toast. |
-| `--toast-offset-y`         | The vertical offset of the toast when the stack is expanded, in px.    |
-| `--toast-height`           | The measured natural height of the toast, in px.                       |
-| `--toast-swipe-movement-x` | The horizontal swipe movement, in px.                                  |
-| `--toast-swipe-movement-y` | The vertical swipe movement, in px.                                    |
+| CSS Variable               | Description                                                                  |
+| -------------------------- | ---------------------------------------------------------------------------- |
+| `--toast-height`           | Indicates the measured natural height of the toast in pixels.                |
+| `--toast-index`            | Indicates the index of the toast in the list.                                |
+| `--toast-offset-y`         | Indicates the vertical pixels offset of the toast in the list when expanded. |
+| `--toast-swipe-movement-x` | Indicates the horizontal swipe movement of the toast.                        |
+| `--toast-swipe-movement-y` | Indicates the vertical swipe movement of the toast.                          |
 
 ### Content
 
 <ApiPart name="toast" part="Content" />
 
-| Attribute       | Description                                     |
-| --------------- | ----------------------------------------------- |
-| `data-expanded` | Present when the viewport is expanded.          |
-| `data-behind`   | Present when the toast is behind the frontmost. |
+| Attribute       | Description                                                        |
+| --------------- | ------------------------------------------------------------------ |
+| `data-behind`   | Present when the toast is behind the frontmost toast in the stack. |
+| `data-expanded` | Present when the toast viewport is expanded.                       |
 
 ### Title
 
 <ApiPart name="toast" part="Title" />
 
-| Attribute   | Description         |
-| ----------- | ------------------- |
-| `data-type` | The toast's `type`. |
+| Attribute   | Description            |
+| ----------- | ---------------------- |
+| `data-type` | The type of the toast. |
 
 ### Description
 
 <ApiPart name="toast" part="Description" />
 
-| Attribute   | Description         |
-| ----------- | ------------------- |
-| `data-type` | The toast's `type`. |
-
-### Close
-
-<ApiPart name="toast" part="Close" />
-
-| Attribute   | Description         |
-| ----------- | ------------------- |
-| `data-type` | The toast's `type`. |
-
-The button sets `aria-hidden` while the viewport is collapsed and the button does not have focus.
+| Attribute   | Description            |
+| ----------- | ---------------------- |
+| `data-type` | The type of the toast. |
 
 ### Action
 
 <ApiPart name="toast" part="Action" />
 
-| Attribute   | Description         |
-| ----------- | ------------------- |
-| `data-type` | The toast's `type`. |
+| Attribute   | Description            |
+| ----------- | ---------------------- |
+| `data-type` | The type of the toast. |
 
-### Portal
+### Close
 
-<ApiPart name="toast" part="Portal" />
+<ApiPart name="toast" part="Close" />
+
+| Attribute   | Description            |
+| ----------- | ---------------------- |
+| `data-type` | The type of the toast. |
 
 ### Positioner
 
 <ApiPart name="toast" part="Positioner" />
 
-| Attribute            | Description                               |
-| -------------------- | ----------------------------------------- |
-| `data-side`          | The side of the anchor the toast is on.   |
-| `data-align`         | How the toast is aligned along that side. |
-| `data-anchor-hidden` | Present when the anchor is hidden.        |
+| Attribute            | Description                                                           |
+| -------------------- | --------------------------------------------------------------------- |
+| `data-anchor-hidden` | Present when the anchor is hidden.                                    |
+| `data-align`         | Indicates how the toast is aligned relative to specified side.        |
+| `data-side`          | Indicates which side the toast is positioned relative to the trigger. |
 
-| CSS variable         | Description                                                    |
-| -------------------- | -------------------------------------------------------------- |
-| `--anchor-height`    | The anchor's height.                                           |
-| `--anchor-width`     | The anchor's width.                                            |
-| `--available-height` | The available height between the anchor and the viewport edge. |
-| `--available-width`  | The available width between the anchor and the viewport edge.  |
-| `--transform-origin` | The point the toast scales and rotates from.                   |
-| `--toast-index`      | The index of the toast in the stack.                           |
+| CSS Variable         | Description                                                                            |
+| -------------------- | -------------------------------------------------------------------------------------- |
+| `--anchor-height`    | The anchor's height.                                                                   |
+| `--anchor-width`     | The anchor's width.                                                                    |
+| `--available-height` | The available height between the anchor and the edge of the viewport.                  |
+| `--available-width`  | The available width between the anchor and the edge of the viewport.                   |
+| `--transform-origin` | The coordinates that this element is anchored to. Used for animations and transitions. |
 
 ### Arrow
 
 <ApiPart name="toast" part="Arrow" />
 
-| Attribute         | Description                                         |
-| ----------------- | --------------------------------------------------- |
-| `data-side`       | The side of the anchor the toast is on.             |
-| `data-align`      | How the toast is aligned along that side.           |
-| `data-uncentered` | Present when the arrow cannot center on the anchor. |
+| Attribute         | Description                                                          |
+| ----------------- | -------------------------------------------------------------------- |
+| `data-uncentered` | Present when the toast arrow is uncentered.                          |
+| `data-align`      | Indicates how the toast is aligned relative to specified side.       |
+| `data-side`       | Indicates which side the toast is positioned relative to the anchor. |
 
-### Toast manager
+## getToastManager
 
-`Toast.getToastManager()` and `Toast.createToastManager()` return objects with the same methods. They are not parts, so they have no `ApiPart`.
+Manages toasts, called inside of a `<Toast.Provider>`.
 
-#### getToastManager
+```ts title="Usage"
+const toastManager = Toast.getToastManager();
+```
 
-`Toast.getToastManager<Data>()` returns a `GetToastManagerReturnValue`. Call it while a component initializes, inside `Toast.Provider`.
+Read `toasts` from the returned object each time you need the list. Destructuring it copies the array once and stops it updating.
 
-| Member    | Type                                          | Description                                                                                                                                  |
-| --------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `toasts`  | `ToastObject[]` (read-only getter)            | The toasts, newest first. Read it from the object. Do not destructure it.                                                                    |
-| `add`     | `(options: ToastManagerAddOptions) => string` | Adds a toast and returns its id. An `id` of an open toast updates that toast instead. An `id` of a closing toast replaces it with a new one. |
-| `close`   | `(toastId?: string) => void`                  | Closes a toast. Without an id, closes every toast.                                                                                           |
-| `update`  | `(toastId: string, updates) => void`          | Updates a toast. `updates` is an object or a function of the previous toast.                                                                 |
-| `promise` | `(promise, options) => Promise`               | Shows loading, then success or error toast fields. Returns a chained promise.                                                                |
+| Property  | Type                                                                                      | Description                                                                  |
+| --------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `toasts`  | `ToastObject[]`                                                                           | The array of toasts. A read-only getter.                                     |
+| `add`     | `(options: ToastManagerAddOptions) => string`                                             | Creates a toast and returns its id.                                          |
+| `close`   | `(toastId?: string) => void`                                                              | Closes a toast, or every toast when no id is passed.                         |
+| `update`  | `(toastId: string, options: ToastManagerUpdate) => void`                                  | Updates a toast with new options.                                            |
+| `promise` | `(promise: Promise<Value>, options: ToastManagerPromiseOptions<Value>) => Promise<Value>` | Creates an asynchronous toast with `loading`, `success`, and `error` states. |
 
-#### createToastManager
+### `add` method
 
-`Toast.createToastManager<Data>()` returns a `ToastManager` with `add`, `close`, `update`, and `promise`, which work like the ones above. It has no `toasts`. Pass it to `Toast.Provider` as `toastManager`. Calls made before a provider mounts are dropped, because the manager keeps no queue.
+Creates a toast by adding it to the toast list.
 
-#### Toast options
+If you pass an `id` that already exists, the existing toast is updated in place instead of creating a duplicate.
 
-`add` takes these fields. `update` takes the same fields without `id` and `transitionStatus`.
+Returns a `toastId` that can be used to update or close the toast later.
 
-| Field             | Type                          | Description                                                                          |
-| ----------------- | ----------------------------- | ------------------------------------------------------------------------------------ |
-| `id`              | `string`                      | The toast's id. Adding an existing id updates that toast and restarts its timer.     |
-| `title`           | `string \| Snippet`           | The title. `Toast.Title` renders it.                                                 |
-| `description`     | `string \| Snippet`           | The description. `Toast.Description` renders it.                                     |
-| `type`            | `string`                      | Sets `data-type`. `promise()` uses `loading`, `success`, and `error`.                |
-| `timeout`         | `number`                      | Milliseconds before the toast closes. `0` keeps it open. Defaults to the provider's. |
-| `priority`        | `'low' \| 'high'`             | How the toast is announced. Defaults to `'low'`.                                     |
-| `actionProps`     | `ToastActionButtonProps`      | Props for the action button. `children` is its content.                              |
-| `positionerProps` | `ToastManagerPositionerProps` | The anchor and positioning options for an anchored toast.                            |
-| `data`            | `Data`                        | Custom data. Read it from `toast.data`.                                              |
-| `onClose`         | `() => void`                  | Called when the toast starts closing.                                                |
-| `onRemove`        | `() => void`                  | Called when the toast leaves the list, after its exit animation.                     |
+```ts title="Usage"
+const toastId = toastManager.add({
+	description: 'Hello, world!'
+});
+```
+
+```svelte title="Example"
+<script lang="ts">
+	import { Toast } from '@sveltery/base/toast';
+
+	// @highlight
+	const toastManager = Toast.createToastManager();
+</script>
+
+<Toast.Provider {toastManager}>
+	<button
+		type="button"
+		onclick={() => {
+			// @highlight-start
+			toastManager.add({
+				description: 'Hello, world!'
+			});
+			// @highlight-end
+		}}
+	>
+		Add toast
+	</button>
+</Toast.Provider>
+```
+
+For high priority toasts, the `title` and `description` strings are what are used to announce the toast to screen readers.
+Screen readers do not announce any extra content rendered inside `<Toast.Root>`, including the `<Toast.Title>` or `<Toast.Description>` components, unless they intentionally navigate to the toast viewport.
+
+### `update` method
+
+Updates the toast with new options.
+
+```ts title="Usage"
+toastManager.update(toastId, {
+	description: 'New description'
+});
+```
+
+Options replace the corresponding values of the toast, including custom `data`, which is replaced as a whole. To derive the update from the current state of the toast, pass a function instead. It receives the current toast and returns the options to apply. Custom `data` is `undefined` when the toast has none yet:
+
+```ts title="Deriving the update from the current toast"
+toastManager.update(toastId, (prevToast) => ({
+	data: prevToast.data && { ...prevToast.data, progress: 100 }
+}));
+```
+
+### `close` method
+
+Closes the toast, removing it from the toast list after any animations complete.
+
+```ts title="Usage"
+toastManager.close(toastId);
+```
+
+Or you can close all toasts at once by not passing an ID:
+
+```ts title="Close all toasts"
+toastManager.close();
+```
+
+### `promise` method
+
+Creates an asynchronous toast with three possible states: `loading`, `success`, and `error`.
+
+```ts title="Description configuration"
+const promise = toastManager.promise(
+	new Promise((resolve) => {
+		setTimeout(() => resolve('world!'), 1000);
+	}),
+	{
+		// Each are a shortcut for the `description` option
+		loading: 'Loading…',
+		success: (data) => `Hello ${data}`,
+		error: (err) => `Error: ${err}`
+	}
+);
+```
+
+Each state also accepts the [method options](#toastmanagerupdateoptions) object to granularly control the toast for each state:
+
+```ts title="Method options configuration"
+const promise = toastManager.promise(
+	new Promise((resolve) => {
+		setTimeout(() => resolve('world!'), 1000);
+	}),
+	{
+		loading: {
+			title: 'Loading…',
+			description: 'The promise is loading.'
+		},
+		success: {
+			title: 'Success',
+			description: 'The promise resolved successfully.'
+		},
+		error: {
+			title: 'Error',
+			description: 'The promise rejected.',
+			actionProps: {
+				children: 'Contact support',
+				onclick() {
+					// Redirect to support page
+				}
+			}
+		}
+	}
+);
+```
+
+See full [`promise` method](#promise-method)
+
+## Additional types
+
+### ToastManagerUpdateOptions
+
+```ts
+type ToastManagerUpdateOptions<Data extends object> = {
+	/** The title of the toast. */
+	title?: string | Snippet;
+	/**
+	 * The type of the toast. Used to conditionally style the toast,
+	 * including conditionally rendering elements based on the type.
+	 */
+	type?: string;
+	/** The description of the toast. */
+	description?: string | Snippet;
+	/**
+	 * The amount of time (in ms) before the toast is auto dismissed.
+	 * A value of `0` will prevent the toast from being dismissed automatically.
+	 * @default 5000
+	 */
+	timeout?: number;
+	/**
+	 * The priority of the toast.
+	 * - `low` - The toast will be announced politely.
+	 * - `high` - The toast will be announced urgently.
+	 * @default 'low'
+	 */
+	priority?: 'low' | 'high';
+	/** Callback function to be called when the toast is closed. */
+	onClose?: () => void;
+	/** Callback function to be called when the toast is removed from the list after any animations are complete when closed. */
+	onRemove?: () => void;
+	/** The props for the action button. `children` is the button's content. */
+	actionProps?: Omit<HTMLButtonAttributes, 'children'> & { children?: string | Snippet };
+	/** The props forwarded to the toast positioner element when rendering anchored toasts. */
+	positionerProps?: ToastManagerPositionerProps;
+	/** Custom data for the toast. */
+	data?: Data;
+};
+```

@@ -6,168 +6,173 @@ description: A one-time password input composed of individual character slots.
 ```svelte demo
 <script lang="ts">
 	import { OTPField } from '@sveltery/base/otp-field';
+
+	const OTP_LENGTH = 6;
+	const id = $props.id();
+	const descriptionId = `${id}-description`;
 </script>
 
-<div class="flex flex-col items-start gap-2">
-	<label for="verification" class="text-sm font-medium text-gray-900 dark:text-gray-100">
+<div class="flex w-full max-w-80 flex-col items-start gap-1">
+	<label for={id} class="text-sm font-bold text-neutral-950 dark:text-white">
 		Verification code
 	</label>
 	<OTPField.Root
-		id="verification"
-		length={6}
-		aria-describedby="verification-hint"
-		class="flex gap-2"
+		{id}
+		length={OTP_LENGTH}
+		aria-describedby={descriptionId}
+		class="flex w-full gap-2"
 	>
-		{#each { length: 6 } as _, index (index)}
+		{#each { length: OTP_LENGTH } as _, index (index)}
 			<OTPField.Input
-				aria-label="Character {index + 1} of 6"
-				class="size-11 rounded-md border border-gray-200 bg-white text-center text-lg text-gray-900 tabular-nums focus:z-1 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[filled]:border-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+				class="m-0 h-10 w-10 rounded-none border border-neutral-950 bg-white dark:bg-neutral-950 text-center font-inherit text-base font-normal text-neutral-950 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
+				aria-label={index === 0 ? undefined : `Character ${index + 1} of ${OTP_LENGTH}`}
 			/>
 		{/each}
 	</OTPField.Root>
-	<p id="verification-hint" class="text-sm text-gray-600 dark:text-gray-400">
-		Enter the 6-digit code we sent to your phone.
+	<p id={descriptionId} class="m-0 text-sm text-neutral-600 dark:text-neutral-400">
+		Enter the 6-character code we sent to your device.
 	</p>
 </div>
 ```
 
-Type digits, or paste a whole code into any slot. Backspace and the arrow keys move between slots.
+## Usage guidelines
+
+- **Form controls must have an accessible name**: It can be created using a `<label>` element or the `Field` component. See [Labeling an OTP field](#labeling-an-otp-field) and the [forms guide](/handbook/forms).
 
 ## Anatomy
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { OTPField } from '@sveltery/base/otp-field';
 </script>
 
-<OTPField.Root length={6}>
+<OTPField.Root>
 	<OTPField.Input />
 	<OTPField.Separator />
 </OTPField.Root>
 ```
 
-`length` is required. Render exactly that many `OTPField.Input` parts. The root warns in development when the numbers differ. The root renders a `<div>` with `role="group"` and a visually hidden input that carries the whole code for form submission and native validation.
-
-Form controls need an accessible name. Point a `<label for>` at the root's `id`, which names the first slot, or use [Field](/components/field) with `Field.Label`. Give each later slot an `aria-label` such as "Character 2 of 6". The first slot ignores `aria-label` and takes the label of the field.
-
 ## Examples
 
-### Bind the value
+### Labeling an OTP field
 
-Bind `value` to read and change the code. Without `bind:`, the field manages its own value, and `defaultValue` is the value an empty binding starts from. `onValueComplete` runs when the last slot fills.
+Pass an `id` to `<OTPField.Root>` and use a native `<label>` with a matching `for`. Let the
+first input use the field label, and add `aria-label` to the remaining inputs so assistive
+technology can announce which slot is focused.
 
-```svelte demo
-<script lang="ts">
-	import { OTPField } from '@sveltery/base/otp-field';
+Optionally, add `aria-describedby` when supporting text should be announced with the field.
 
-	let code = $state('');
-	let completed = $state('');
-</script>
-
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<label for="bound-code" class="font-medium">PIN</label>
-	<OTPField.Root
-		id="bound-code"
-		bind:value={code}
-		length={4}
-		onValueComplete={(value) => (completed = value)}
-		class="flex gap-2"
-	>
-		{#each { length: 4 } as _, index (index)}
-			<OTPField.Input
-				aria-label="Character {index + 1} of 4"
-				class="size-11 rounded-md border border-gray-200 bg-white text-center text-lg tabular-nums focus:z-1 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 dark:border-gray-700 dark:bg-gray-900"
-			/>
-		{/each}
+```svelte title="OTP Field with a native label and description"
+<div>
+	<label for="verification-code">Verification code</label>
+	<OTPField.Root id="verification-code" length={6} aria-describedby="verification-code-description">
+		<OTPField.Input />
+		<OTPField.Input aria-label="Character 2 of 6" />
+		<OTPField.Input aria-label="Character 3 of 6" />
+		<OTPField.Input aria-label="Character 4 of 6" />
+		<OTPField.Input aria-label="Character 5 of 6" />
+		<OTPField.Input aria-label="Character 6 of 6" />
 	</OTPField.Root>
-	<p>Value: {code === '' ? 'empty' : code}</p>
-	<p>Completed: {completed === '' ? 'not yet' : completed}</p>
-	<button
-		type="button"
-		class="rounded-sm bg-gray-100 px-2 py-1 font-medium hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-		onclick={() => {
-			code = '';
-			completed = '';
-		}}
-	>
-		Clear
-	</button>
+	<p id="verification-code-description">Enter the 6-character code we sent to your device.</p>
 </div>
 ```
 
-### Use in a form
+### Form integration
 
-Wrap the OTP field in a `Field.Root` and a `Form` for label association, a `name`, and validation. Set `autoSubmit` to submit the owning form when every slot is filled. Use `onValueComplete` instead to react to a full code without submitting.
+Use [Field](/components/field) to handle label associations and form integration:
 
-```svelte demo
-<script lang="ts">
-	import { Field } from '@sveltery/base/field';
-	import { Form } from '@sveltery/base/form';
-	import { OTPField } from '@sveltery/base/otp-field';
-
-	let verified = $state('');
-</script>
-
-<Form onFormSubmit={(values) => (verified = String(values.code))} class="flex flex-col gap-3">
-	<Field.Root name="code" class="flex flex-col items-start gap-2">
-		<Field.Label class="text-sm font-medium text-gray-900 dark:text-gray-100">
-			Verification code
-		</Field.Label>
-		<OTPField.Root length={6} autoSubmit required class="flex gap-2">
-			{#each { length: 6 } as _, index (index)}
-				<OTPField.Input
-					aria-label="Character {index + 1} of 6"
-					class="size-11 rounded-md border border-gray-200 bg-white text-center text-lg text-gray-900 tabular-nums focus:z-1 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 data-[invalid]:border-red-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
-				/>
-			{/each}
+```svelte title="Using OTP Field in a form"
+<Form>
+	<!-- @highlight -->
+	<Field.Root name="verificationCode">
+		<Field.Label>Verification code</Field.Label>
+		<Field.Description>Enter the 6-character code we sent to your device.</Field.Description>
+		<OTPField.Root length={6}>
+			<OTPField.Input />
+			<OTPField.Input aria-label="Character 2 of 6" />
+			<OTPField.Input aria-label="Character 3 of 6" />
+			<OTPField.Input aria-label="Character 4 of 6" />
+			<OTPField.Input aria-label="Character 5 of 6" />
+			<OTPField.Input aria-label="Character 6 of 6" />
 		</OTPField.Root>
-		<Field.Description class="text-sm text-gray-600 dark:text-gray-400">
-			The form submits when you fill the sixth slot.
-		</Field.Description>
-		<Field.Error class="text-sm text-red-700 dark:text-red-400" />
 	</Field.Root>
-	{#if verified}
-		<p class="text-sm text-green-700 dark:text-green-400">Submitted {verified}</p>
-	{/if}
 </Form>
 ```
 
-### Alphanumeric codes
+Pass `autoSubmit` to submit the owning form automatically when all slots are filled, or use
+`onValueComplete` to react to completion without submitting.
 
-`validationType` sets which characters the field accepts. It is `numeric` by default. Use `alpha` for letters, `alphanumeric` for letters and digits, and `none` to accept any character. The type also sets the virtual keyboard through `inputmode`, unless you pass `inputmode` yourself.
+### Alphanumeric verification codes
 
-```svelte
-<OTPField.Root length={6} validationType="alphanumeric">…</OTPField.Root>
-```
-
-### Grouped layout
-
-Wrap subsets of inputs in your own elements and add `OTPField.Separator` between them. The separator is a `role="separator"` element.
+Use `validationType="alphanumeric"` for recovery, backup, or invite codes that mix letters and
+numbers.
 
 ```svelte demo
 <script lang="ts">
 	import { OTPField } from '@sveltery/base/otp-field';
 
-	const slot =
-		'size-11 border border-gray-200 bg-white text-center text-lg text-gray-900 tabular-nums focus:z-1 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 first:rounded-l-md last:rounded-r-md not-first:-ml-px';
+	const CODE_LENGTH = 6;
+	const id = $props.id();
+	const descriptionId = `${id}-description`;
 </script>
 
-<div class="flex flex-col items-start gap-2">
-	<label for="grouped" class="text-sm font-medium text-gray-900 dark:text-gray-100">
+<div class="flex w-full max-w-80 flex-col items-start gap-1">
+	<label for={id} class="text-sm font-bold text-neutral-950 dark:text-white"> Recovery code </label>
+	<OTPField.Root
+		{id}
+		length={CODE_LENGTH}
+		validationType="alphanumeric"
+		aria-describedby={descriptionId}
+		class="flex w-full gap-2"
+	>
+		{#each { length: CODE_LENGTH } as _, index (index)}
+			<OTPField.Input
+				class="m-0 h-10 w-10 rounded-none border border-neutral-950 bg-white dark:bg-neutral-950 text-center font-inherit text-base font-normal text-neutral-950 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
+				aria-label={index === 0 ? undefined : `Character ${index + 1} of ${CODE_LENGTH}`}
+			/>
+		{/each}
+	</OTPField.Root>
+	<p id={descriptionId} class="m-0 text-sm text-neutral-600 dark:text-neutral-400">
+		Accept letters and numbers for backup codes such as <code class="font-mono">A7C9XZ</code>.
+	</p>
+</div>
+```
+
+### Grouped layouts
+
+Wrap subsets of inputs in your own layout elements and use `<OTPField.Separator>` when you
+want the code presented in smaller visual chunks such as `123-456`.
+
+```svelte demo
+<script lang="ts">
+	import { OTPField } from '@sveltery/base/otp-field';
+
+	const OTP_LENGTH = 6;
+	const id = $props.id();
+</script>
+
+<div class="flex w-full max-w-80 flex-col items-start gap-1">
+	<label for={id} class="text-sm font-bold text-neutral-950 dark:text-white">
 		Verification code
 	</label>
-	<OTPField.Root id="grouped" length={6} class="flex items-center gap-3">
-		<div class="flex">
+	<OTPField.Root {id} length={OTP_LENGTH} class="flex w-full items-center gap-2">
+		<div class="flex gap-2">
 			{#each { length: 3 } as _, index (index)}
-				<OTPField.Input aria-label="Character {index + 1} of 6" class={slot} />
+				<OTPField.Input
+					class="m-0 h-10 w-10 rounded-none border border-neutral-950 bg-white dark:bg-neutral-950 text-center font-inherit text-base font-normal text-neutral-950 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
+					aria-label={index === 0 ? undefined : `Character ${index + 1} of ${OTP_LENGTH}`}
+				/>
 			{/each}
 		</div>
-		<OTPField.Separator orientation="vertical" class="h-6 w-px bg-gray-400 dark:bg-gray-500" />
-		<div class="flex">
+		<OTPField.Separator class="h-px w-4 bg-current text-neutral-950 dark:text-white" />
+		<div class="flex gap-2">
 			{#each { length: 3 } as _, index (index)}
-				<OTPField.Input aria-label="Character {index + 4} of 6" class={slot} />
+				<OTPField.Input
+					class="m-0 h-10 w-10 rounded-none border border-neutral-950 bg-white dark:bg-neutral-950 text-center font-inherit text-base font-normal text-neutral-950 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
+					aria-label={`Character ${index + 4} of ${OTP_LENGTH}`}
+				/>
 			{/each}
 		</div>
 	</OTPField.Root>
@@ -176,71 +181,190 @@ Wrap subsets of inputs in your own elements and add `OTPField.Separator` between
 
 ### Placeholder hints
 
-Each slot is a real input, so the native `placeholder` attribute and CSS work. Hide the hint while the slot has focus with `placeholder:` and `focus:` variants.
-
-```svelte
-<OTPField.Input placeholder="•" class="focus:placeholder-transparent" />
-```
-
-### Normalize the value
-
-`normalizeValue` rewrites the value after whitespace removal and `validationType` filtering. The result is filtered again and then clamped to `length`. The function should be idempotent. Use `validationType="none"` when the normalizer defines the whole rule. `onValueInvalid` runs when typed or pasted text contains characters the field rejects.
+`<OTPField.Input>` is a real input, so native `placeholder` props and CSS work as usual. This
+example keeps placeholder hints visible until the active slot receives focus.
 
 ```svelte demo
 <script lang="ts">
 	import { OTPField } from '@sveltery/base/otp-field';
 
-	let message = $state('');
-	let timer: ReturnType<typeof setTimeout> | undefined;
-
-	function flash() {
-		message = 'Use letters and digits only.';
-		clearTimeout(timer);
-		timer = setTimeout(() => (message = ''), 2000);
-	}
+	const CODE_LENGTH = 6;
+	const id = $props.id();
+	const descriptionId = `${id}-description`;
 </script>
 
-<div class="flex flex-col items-start gap-2">
-	<label for="recovery" class="text-sm font-medium text-gray-900 dark:text-gray-100">
-		Recovery code
+<div class="flex w-full max-w-80 flex-col items-start gap-1">
+	<label for={id} class="text-sm font-bold text-neutral-950 dark:text-white">
+		Verification code
 	</label>
 	<OTPField.Root
-		id="recovery"
-		length={6}
-		validationType="alphanumeric"
-		normalizeValue={(value) => value.toUpperCase()}
-		onValueInvalid={flash}
-		class="flex gap-2"
+		{id}
+		length={CODE_LENGTH}
+		aria-describedby={descriptionId}
+		class="flex w-full gap-2"
 	>
-		{#each { length: 6 } as _, index (index)}
+		{#each { length: CODE_LENGTH } as _, index (index)}
 			<OTPField.Input
-				aria-label="Character {index + 1} of 6"
-				class="size-11 rounded-md border border-gray-200 bg-white text-center text-lg text-gray-900 uppercase focus:z-1 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+				class="m-0 h-10 w-10 rounded-none border border-neutral-950 bg-white dark:bg-neutral-950 text-center font-inherit text-base font-normal text-neutral-950 placeholder:text-neutral-500 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white focus:placeholder:text-transparent dark:border-white dark:text-white dark:placeholder:text-neutral-400"
+				placeholder="•"
+				aria-label={index === 0 ? undefined : `Character ${index + 1} of ${CODE_LENGTH}`}
 			/>
 		{/each}
 	</OTPField.Root>
-	<p role="status" class="min-h-5 text-sm text-gray-600 dark:text-gray-400">{message}</p>
+	<p id={descriptionId} class="m-0 text-sm text-neutral-600 dark:text-neutral-400">
+		Placeholder hints can stay visible until the active slot is focused.
+	</p>
 </div>
+```
+
+### Custom normalization
+
+Use `normalizeValue` to normalize accepted values before state updates, such as converting
+alphanumeric codes to uppercase. It runs after `validationType` filtering, and the result is filtered
+against `validationType` again. Use `validationType="none"` when the normalizer should provide the
+full validation rule.
+
+Pair custom rules with `inputmode` for keyboard hints and `onValueInvalid` for rejected characters.
+
+```svelte demo
+<script lang="ts">
+	import { OTPField } from '@sveltery/base/otp-field';
+
+	const CODE_LENGTH = 6;
+	const id = $props.id();
+	const descriptionId = `${id}-description`;
+
+	let focusedIndex = $state(0);
+	let invalidPulse = $state(0);
+	let statusMessage = $state('');
+	let invalidTimeout: ReturnType<typeof setTimeout> | undefined;
+	let skipClearOnNextValueChange = false;
+
+	$effect(() => () => clearTimeout(invalidTimeout));
+
+	function normalizeRecoveryCode(value: string) {
+		return value.toUpperCase();
+	}
+
+	function handleValueChange() {
+		if (skipClearOnNextValueChange) {
+			skipClearOnNextValueChange = false;
+			return;
+		}
+		clearTimeout(invalidTimeout);
+		invalidPulse = 0;
+		statusMessage = '';
+	}
+
+	function handleValueInvalid(value: string) {
+		skipClearOnNextValueChange = true;
+		invalidPulse += 1;
+		statusMessage = `Unsupported characters were ignored from ${value}.`;
+		clearTimeout(invalidTimeout);
+		invalidTimeout = setTimeout(() => {
+			invalidPulse = 0;
+		}, 400);
+	}
+
+	function invalidClass(index: number) {
+		if (invalidPulse === 0 || focusedIndex !== index) return '';
+		return invalidPulse % 2 === 0
+			? 'border-red-700! outline-2 -outline-offset-1 outline-red-700! focus:outline-red-700! dark:border-red-400! dark:outline-red-400! dark:focus:outline-red-400! animate-[otp-field-shake-b_180ms_ease-in-out]'
+			: 'border-red-700! outline-2 -outline-offset-1 outline-red-700! focus:outline-red-700! dark:border-red-400! dark:outline-red-400! dark:focus:outline-red-400! animate-[otp-field-shake-a_180ms_ease-in-out]';
+	}
+</script>
+
+<div class="flex w-full max-w-80 flex-col items-start gap-1">
+	<label for={id} class="text-sm font-bold text-neutral-950 dark:text-white"> Recovery code </label>
+	<OTPField.Root
+		{id}
+		length={CODE_LENGTH}
+		validationType="alphanumeric"
+		normalizeValue={normalizeRecoveryCode}
+		onValueChange={handleValueChange}
+		onValueInvalid={handleValueInvalid}
+		aria-describedby={descriptionId}
+		class="flex w-full gap-2"
+	>
+		{#each { length: CODE_LENGTH } as _, index (index)}
+			<OTPField.Input
+				class="m-0 h-10 w-10 rounded-none border border-neutral-950 bg-white dark:bg-neutral-950 text-center font-inherit text-base font-normal text-neutral-950 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white {invalidClass(
+					index
+				)}"
+				aria-label={index === 0 ? undefined : `Character ${index + 1} of ${CODE_LENGTH}`}
+				onfocus={() => (focusedIndex = index)}
+			/>
+		{/each}
+	</OTPField.Root>
+	<p id={descriptionId} class="m-0 text-sm text-neutral-600 dark:text-neutral-400">
+		Letters and digits only. Letters are converted to uppercase.
+	</p>
+	<span aria-live="polite" class="sr-only">{statusMessage}</span>
+</div>
+
+<style>
+	@keyframes -global-otp-field-shake-a {
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		25% {
+			transform: translateX(-4px);
+		}
+		75% {
+			transform: translateX(4px);
+		}
+	}
+
+	@keyframes -global-otp-field-shake-b {
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		25% {
+			transform: translateX(-4px);
+		}
+		75% {
+			transform: translateX(4px);
+		}
+	}
+</style>
 ```
 
 ### Masked entry
 
-Set `mask` to render the slots as password inputs. A `type` on one `OTPField.Input` overrides the root for that slot.
+Use `mask` when the code should be obscured while it is being typed.
 
-```svelte
-<OTPField.Root length={6} mask>…</OTPField.Root>
+```svelte demo
+<script lang="ts">
+	import { OTPField } from '@sveltery/base/otp-field';
+
+	const CODE_LENGTH = 6;
+	const id = $props.id();
+	const descriptionId = `${id}-description`;
+</script>
+
+<div class="flex w-full max-w-80 flex-col items-start gap-1">
+	<label for={id} class="text-sm font-bold text-neutral-950 dark:text-white"> Access code </label>
+	<OTPField.Root
+		{id}
+		length={CODE_LENGTH}
+		mask
+		aria-describedby={descriptionId}
+		class="flex w-full gap-2"
+	>
+		{#each { length: CODE_LENGTH } as _, index (index)}
+			<OTPField.Input
+				class="m-0 h-10 w-10 rounded-none border border-neutral-950 bg-white dark:bg-neutral-950 text-center font-inherit text-base font-normal text-neutral-950 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
+				aria-label={index === 0 ? undefined : `Character ${index + 1} of ${CODE_LENGTH}`}
+			/>
+		{/each}
+	</OTPField.Root>
+	<p id={descriptionId} class="m-0 text-sm text-neutral-600 dark:text-neutral-400">
+		Use <code class="font-mono">mask</code> to obscure the code on shared screens.
+	</p>
+</div>
 ```
-
-## Differences from Base UI
-
-- `value` is one bindable prop. Use `bind:value` instead of `value` and `onValueChange` together. `defaultValue` stays, because OTP Field is a form control. It is the value an empty binding starts from, and the value a form reset restores. A reset calls no change callback.
-- `onValueChange` runs before the value is written. Call `eventDetails.cancel()` to reject the change. `eventDetails.reason` is `input-change`, `input-clear`, `input-paste`, or `keyboard`.
-- There is no `inputRef` prop yet. The React controlled-value lock is not ported. A parent that rejects a change through `bind:value={get, set}` keeps its value.
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
-- `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- Handlers use lowercase names such as `oninput` and `onpaste`. `readonly`, `autocomplete`, and `inputmode` use the HTML spelling.
-- Text direction comes from the CSS `direction` of each input. Arrow keys follow it.
-- The hidden validation input fires a bubbling `input` event when the user changes the code, and a `change` event when focus leaves the field, so a plain listener on the form sees the change.
 
 ## API reference
 
@@ -248,40 +372,40 @@ Set `mask` to render the slots as password inputs. A `type` on one `OTPField.Inp
 
 <ApiPart name="otp-field" part="Root" />
 
-| Attribute       | Description                                                             |
-| --------------- | ----------------------------------------------------------------------- |
-| `data-disabled` | Present when the field is disabled.                                     |
-| `data-readonly` | Present when the field is read-only.                                    |
-| `data-required` | Present when the field is required.                                     |
-| `data-complete` | Present when every slot is filled.                                      |
-| `data-filled`   | Present when the field has at least one character.                      |
-| `data-focused`  | Present when one of the inputs is focused.                              |
-| `data-valid`    | Present when the field is valid. Needs a `Field.Root` ancestor.         |
-| `data-invalid`  | Present when the field is invalid. Needs a `Field.Root` ancestor.       |
-| `data-dirty`    | Present when the value has changed. Needs a `Field.Root` ancestor.      |
-| `data-touched`  | Present when the field has been touched. Needs a `Field.Root` ancestor. |
+| Attribute       | Description                                                                     |
+| --------------- | ------------------------------------------------------------------------------- |
+| `data-disabled` | Present when the OTP field is disabled.                                         |
+| `data-readonly` | Present when the OTP field is readonly.                                         |
+| `data-required` | Present when the OTP field is required.                                         |
+| `data-valid`    | Present when the OTP field is in a valid state (when wrapped in Field.Root).    |
+| `data-invalid`  | Present when the OTP field is in an invalid state (when wrapped in Field.Root). |
+| `data-dirty`    | Present when the OTP field's value has changed (when wrapped in Field.Root).    |
+| `data-touched`  | Present when the OTP field has been touched (when wrapped in Field.Root).       |
+| `data-complete` | Present when all slots are filled.                                              |
+| `data-filled`   | Present when the OTP field contains at least one character.                     |
+| `data-focused`  | Present when one of the OTP field inputs is focused.                            |
 
 ### Input
 
 <ApiPart name="otp-field" part="Input" />
 
-| Attribute       | Description                                                             |
-| --------------- | ----------------------------------------------------------------------- |
-| `data-disabled` | Present when the field is disabled.                                     |
-| `data-readonly` | Present when the field is read-only.                                    |
-| `data-required` | Present when the field is required.                                     |
-| `data-complete` | Present when every slot is filled.                                      |
-| `data-filled`   | Present when this input contains a character.                           |
-| `data-focused`  | Present when any input in the field is focused.                         |
-| `data-valid`    | Present when the field is valid. Needs a `Field.Root` ancestor.         |
-| `data-invalid`  | Present when the field is invalid. Needs a `Field.Root` ancestor.       |
-| `data-dirty`    | Present when the value has changed. Needs a `Field.Root` ancestor.      |
-| `data-touched`  | Present when the field has been touched. Needs a `Field.Root` ancestor. |
+| Attribute       | Description                                                                     |
+| --------------- | ------------------------------------------------------------------------------- |
+| `data-disabled` | Present when the OTP field is disabled.                                         |
+| `data-readonly` | Present when the OTP field is readonly.                                         |
+| `data-required` | Present when the OTP field is required.                                         |
+| `data-valid`    | Present when the OTP field is in a valid state (when wrapped in Field.Root).    |
+| `data-invalid`  | Present when the OTP field is in an invalid state (when wrapped in Field.Root). |
+| `data-dirty`    | Present when the OTP field's value has changed (when wrapped in Field.Root).    |
+| `data-touched`  | Present when the OTP field has been touched (when wrapped in Field.Root).       |
+| `data-complete` | Present when all slots are filled.                                              |
+| `data-filled`   | Present when the input contains a character.                                    |
+| `data-focused`  | Present when any OTP field input is focused.                                    |
 
 ### Separator
 
 <ApiPart name="otp-field" part="Separator" />
 
-| Attribute          | Description                                              |
-| ------------------ | -------------------------------------------------------- |
-| `data-orientation` | The separator's orientation, `horizontal` or `vertical`. |
+| Attribute          | Description                                 |
+| ------------------ | ------------------------------------------- |
+| `data-orientation` | Indicates the orientation of the separator. |
