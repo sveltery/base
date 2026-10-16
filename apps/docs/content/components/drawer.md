@@ -1,39 +1,35 @@
 ---
 title: Drawer
-description: A panel that slides in from the edge of the screen and can be swiped away.
+description: A panel that slides in from the edge of the screen.
 ---
 
 ```svelte demo
 <script lang="ts">
 	import { Drawer } from '@sveltery/base/drawer';
+
+	const button =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
 </script>
 
-<Drawer.Root>
-	<Drawer.Trigger
-		class="rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 active:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
-	>
-		Open drawer
-	</Drawer.Trigger>
+<Drawer.Root swipeDirection="right">
+	<Drawer.Trigger class={button}>Open drawer</Drawer.Trigger>
 	<Drawer.Portal>
 		<Drawer.Backdrop
-			class="fixed inset-0 z-50 min-h-dvh bg-black opacity-[calc(0.2*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[swiping]:duration-0 dark:opacity-[calc(0.7*(1-var(--drawer-swipe-progress)))]"
+			class="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute"
 		/>
-		<Drawer.Viewport class="fixed inset-0 z-50 flex items-end justify-center">
+		<Drawer.Viewport
+			class="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] fixed inset-0 flex items-stretch justify-end p-(--viewport-padding)"
+		>
 			<Drawer.Popup
-				class="max-h-[80vh] w-full overflow-y-auto rounded-t-2xl bg-gray-50 px-6 pt-4 pb-8 text-gray-900 outline outline-gray-200 transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] [transform:translateY(var(--drawer-swipe-movement-y))] data-[ending-style]:[transform:translateY(100%)] data-[starting-style]:[transform:translateY(100%)] data-[swiping]:select-none dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700"
+				class="[--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] border-l border-neutral-950 bg-white p-6 pr-[calc(1.5rem+3rem)] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain touch-auto [transform:translateX(var(--drawer-swipe-movement-x))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-ending-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-starting-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-3rem)] supports-[-webkit-touch-callout:none]:border supports-[-webkit-touch-callout:none]:pr-6 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
 			>
-				<div class="mx-auto mb-4 h-1 w-12 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-				<Drawer.Content class="mx-auto max-w-lg">
-					<Drawer.Title class="mb-1 text-lg font-medium">Notifications</Drawer.Title>
-					<Drawer.Description class="mb-6 text-base text-gray-600 dark:text-gray-400">
-						You are all caught up. Swipe down or press Escape to close.
+				<Drawer.Content class="mx-auto w-full max-w-[32rem]">
+					<Drawer.Title class="mb-1 text-base font-bold">Drawer</Drawer.Title>
+					<Drawer.Description class="mb-6 text-sm text-neutral-600 dark:text-neutral-400">
+						This is a drawer that slides in from the side. You can swipe to dismiss it.
 					</Drawer.Description>
-					<div class="flex justify-end">
-						<Drawer.Close
-							class="rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
-						>
-							Close
-						</Drawer.Close>
+					<div class="flex justify-end gap-3">
+						<Drawer.Close class={button}>Close</Drawer.Close>
 					</div>
 				</Drawer.Content>
 			</Drawer.Popup>
@@ -42,7 +38,9 @@ description: A panel that slides in from the edge of the screen and can be swipe
 </Drawer.Root>
 ```
 
-A drawer is a dialog that lives at an edge of the screen. It opens from a trigger, closes on Escape, a close button, or an outside press, and follows the finger or the mouse when you swipe it toward its edge. A swipe past the threshold, or a fast flick, closes it. A short swipe springs back.
+## Usage guidelines
+
+- **Drawer extends [Dialog](/components/dialog):** It adds gesture support, snap points, and indent effects. If you don't need these, use Dialog instead. A panel that slides in from the edge of the screen and doesn't need gesture support is a positioned Dialog.
 
 ## Anatomy
 
@@ -76,185 +74,451 @@ Import the component and assemble its parts:
 </Drawer.Provider>
 ```
 
-`Drawer.Viewport` is required: it runs the swipe gesture. `Drawer.Provider`, `Drawer.Indent`, `Drawer.IndentBackground`, `Drawer.SwipeArea`, and `Drawer.Content` are optional.
+Drawer supports swipe gestures to dismiss. Set `swipeDirection` to control which direction dismisses the drawer. `<Drawer.Content>` allows text selection of its children without swipe interference when using a mouse pointer.
 
-## Styling the swipe
+Add `data-base-ui-swipe-ignore` to a descendant to opt it out of swipe dismissal for all input types. If the element only handles touch drags along one axis, such as a JavaScript carousel, set the value to `x` or `y` so touch drags along the other axis still swipe the drawer.
 
-The drawer writes the gesture into CSS variables on the popup instead of moving it itself. Translate the popup by `--drawer-swipe-movement-y` for a vertical drawer, or `--drawer-swipe-movement-x` for a horizontal one, and fade the backdrop with `--drawer-swipe-progress`, which runs from `0` when open to `1` when fully swiped away. While a swipe runs, the popup and backdrop carry `data-swiping`, so you can turn their transitions off.
-
-Use `transform` for the movement, as the demos do. The drawer reads the popup's computed `transform` when a swipe starts, and the `translate` property is not part of it. On release, `--drawer-swipe-strength` scales from 0.1 to 1 with the swipe's speed. Multiply your exit transition's duration by it so a fast flick finishes quickly.
+Use `<Drawer.VirtualKeyboardProvider>` when a bottom sheet contains form fields and you want Base UI to manage keyboard-aware focus and scroll handling for software keyboards. Drawers without this provider are unaffected.
 
 ## Examples
 
-### Open state
+### State
 
-Bind `open` to read and change whether the drawer is open. Without `bind:`, the drawer manages its own state, and a value you pass sets the initial state. The `onOpenChange` callback runs before every change and tells you why it happened.
+By default, Drawer is an uncontrolled component that manages its own state.
+
+```svelte
+<Drawer.Root>
+	<Drawer.Trigger>Open</Drawer.Trigger>
+	<Drawer.Portal>
+		<Drawer.Viewport>
+			<Drawer.Popup>
+				<Drawer.Content>
+					<Drawer.Title>Example drawer</Drawer.Title>
+					<Drawer.Close>Close</Drawer.Close>
+				</Drawer.Content>
+			</Drawer.Popup>
+		</Drawer.Viewport>
+	</Drawer.Portal>
+</Drawer.Root>
+```
+
+Use `bind:open` and the `onOpenChange` callback if you need to access or control the state of the drawer. Without `bind:`, the drawer manages its own state.
+
+```svelte
+<script lang="ts">
+	import { Drawer } from '@sveltery/base/drawer';
+
+	let open = $state(false);
+</script>
+
+<Drawer.Root bind:open>
+	<Drawer.Trigger>Open</Drawer.Trigger>
+	<Drawer.Portal>
+		<Drawer.Viewport>
+			<Drawer.Popup>
+				<Drawer.Content>
+					<Drawer.Title>Example drawer</Drawer.Title>
+					<Drawer.Close>Close</Drawer.Close>
+				</Drawer.Content>
+			</Drawer.Popup>
+		</Drawer.Viewport>
+	</Drawer.Portal>
+</Drawer.Root>
+```
+
+### Position
+
+Positioning is handled by your styles. `swipeDirection` defaults to `"down"` for bottom sheets. Use `"up"`, `"left"`, or `"right"` for other drawer positions.
+
+```svelte
+<Drawer.Root swipeDirection="right"></Drawer.Root>
+```
 
 ```svelte demo
 <script lang="ts">
 	import { Drawer } from '@sveltery/base/drawer';
 
-	let open = $state(false);
-	let reason = $state('none yet');
-
 	const button =
-		'rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 font-medium hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800';
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
 </script>
 
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<button type="button" class={button} onclick={() => (open = true)}>Open from code</button>
-	<p>Open: {open}. Last change reason: {reason}</p>
-	<Drawer.Root bind:open onOpenChange={(_open, eventDetails) => (reason = eventDetails.reason)}>
-		<Drawer.Portal>
-			<Drawer.Backdrop
-				class="fixed inset-0 z-50 bg-black opacity-[calc(0.2*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[swiping]:duration-0"
-			/>
-			<Drawer.Viewport class="fixed inset-0 z-50 flex items-end justify-center">
-				<Drawer.Popup
-					class="w-full rounded-t-2xl bg-gray-50 px-6 pt-4 pb-8 text-gray-900 outline outline-gray-200 transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] [transform:translateY(var(--drawer-swipe-movement-y))] data-[ending-style]:[transform:translateY(100%)] data-[starting-style]:[transform:translateY(100%)] dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700"
-				>
-					<Drawer.Title class="mb-1 text-lg font-medium">Close it any way you like</Drawer.Title>
-					<Drawer.Description class="mb-6 text-gray-600 dark:text-gray-400">
-						Swipe down, press Escape, click outside, or use the button. The reason updates.
+<Drawer.Root>
+	<Drawer.Trigger class={button}>Open bottom drawer</Drawer.Trigger>
+	<Drawer.Portal>
+		<Drawer.Backdrop
+			class="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute"
+		/>
+		<Drawer.Viewport class="fixed inset-0 flex items-end justify-center">
+			<Drawer.Popup
+				class="-mb-[3rem] w-full max-h-[calc(80vh+3rem)] border-t border-neutral-950 bg-white px-6 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px)+3rem)] pt-4 text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain touch-auto [transform:translateY(var(--drawer-swipe-movement-y))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-ending-style:[transform:translateY(calc(100%-3rem+2px))] data-starting-style:[transform:translateY(calc(100%-3rem+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+			>
+				<div class="mx-auto mb-4 h-1 w-12 bg-neutral-300 dark:bg-neutral-700"></div>
+				<Drawer.Content class="mx-auto w-full max-w-[32rem]">
+					<Drawer.Title class="mb-1 text-base font-bold text-center">Notifications</Drawer.Title>
+					<Drawer.Description
+						class="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400"
+					>
+						You are all caught up. Good job!
 					</Drawer.Description>
-					<Drawer.Close class={button}>Close</Drawer.Close>
-				</Drawer.Popup>
-			</Drawer.Viewport>
-		</Drawer.Portal>
-	</Drawer.Root>
-</div>
+					<div class="flex justify-center gap-3">
+						<Drawer.Close class={button}>Close</Drawer.Close>
+					</div>
+				</Drawer.Content>
+			</Drawer.Popup>
+		</Drawer.Viewport>
+	</Drawer.Portal>
+</Drawer.Root>
 ```
 
-The `reason` in the event details is one of `trigger-press`, `outside-press`, `escape-key`, `close-watcher`, `close-press`, `focus-out`, `imperative-action`, `swipe`, or `none`. `close-watcher` is the Android back gesture in Chromium. Assigning `open = true` yourself does not call `onOpenChange`.
+### Nested drawers
+
+Use the `[data-nested-drawer-open]` selector and the `--nested-drawers` CSS variable to style drawers when a nested drawer is open.
+
+This demo stacks nested drawers using a constant peek so the frontmost drawer stays anchored to the bottom while the ones behind it are scaled down and lifted. It also uses the `--drawer-height` and `--drawer-frontmost-height` CSS variables to handle varying drawer heights.
+
+```svelte demo
+<script lang="ts">
+	import { Drawer } from '@sveltery/base/drawer';
+
+	const button =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+
+	const popupClassName =
+		"[--bleed:3rem] [--peek:1rem] [--stack-progress:clamp(0,var(--drawer-swipe-progress),1)] [--stack-step:0.05] [--stack-peek-offset:max(0px,calc((var(--nested-drawers)-var(--stack-progress))*var(--peek)))] [--scale-base:calc(max(0,1-(var(--nested-drawers)*var(--stack-step))))] [--scale:clamp(0,calc(var(--scale-base)+(var(--stack-step)*var(--stack-progress))),1)] [--shrink:calc(1-var(--scale))] [--height:max(0px,calc(var(--drawer-frontmost-height,var(--drawer-height))-var(--bleed)))] group/popup relative -mx-px -mb-[3rem] w-[calc(100%+2px)] max-h-[calc(80vh+3rem)] [height:var(--drawer-height,auto)] border border-neutral-950 border-b-0 bg-white px-6 pt-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px)+3rem)] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain touch-auto [transform-origin:50%_calc(100%-var(--bleed))] [transform:translateY(calc(var(--drawer-swipe-movement-y)-var(--stack-peek-offset)-(var(--shrink)*var(--height))))_scale(var(--scale))] after:pointer-events-none after:absolute after:inset-0 after:bg-transparent after:content-[''] after:transition-[background-color] after:duration-[450ms] after:ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-swiping:duration-0 data-nested-drawer-swiping:duration-0 data-starting-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-ending-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-ending-style:opacity-[0.9999] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-ending-style:data-swiping:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-ending-style:data-nested-drawer-swiping:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-nested-drawer-open:h-[calc(var(--height)+var(--bleed))] data-nested-drawer-open:overflow-hidden data-nested-drawer-open:after:bg-black/5 dark:border-white dark:border-b-0 dark:bg-neutral-950 dark:text-white dark:shadow-none [transition:transform_450ms_cubic-bezier(0.32,0.72,0,1),height_450ms_cubic-bezier(0.32,0.72,0,1),opacity_450ms_cubic-bezier(0.32,0.72,0,1)]";
+
+	const contentClassName =
+		'mx-auto w-full max-w-[32rem] transition-opacity duration-[300ms] ease-[cubic-bezier(0.45,1.005,0,1.005)] group-data-nested-drawer-open/popup:opacity-0 group-data-nested-drawer-swiping/popup:opacity-100';
+
+	const handleClassName =
+		'mx-auto mb-4 h-1 w-12 bg-neutral-300 transition-opacity duration-[200ms] group-data-nested-drawer-open/popup:opacity-0 group-data-nested-drawer-swiping/popup:opacity-100 dark:bg-neutral-700';
+</script>
+
+<Drawer.Root>
+	<Drawer.Trigger class={button}>Open drawer stack</Drawer.Trigger>
+	<Drawer.Portal>
+		<Drawer.Backdrop
+			class="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute"
+		/>
+		<Drawer.Viewport class="fixed inset-0 flex items-end justify-center">
+			<Drawer.Popup class={popupClassName}>
+				<div class={handleClassName}></div>
+				<Drawer.Content class={contentClassName}>
+					<Drawer.Title class="mb-1 text-base font-bold text-center">Account</Drawer.Title>
+					<Drawer.Description
+						class="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400"
+					>
+						Nested drawers can be styled to stack, while each drawer remains independently focus
+						managed.
+					</Drawer.Description>
+
+					<div class="flex items-center justify-end gap-4">
+						<div class="mr-auto">
+							<Drawer.Root>
+								<Drawer.Trigger class={button}>Security settings</Drawer.Trigger>
+								<Drawer.Portal>
+									<Drawer.Viewport class="fixed inset-0 flex items-end justify-center">
+										<Drawer.Popup class={popupClassName}>
+											<div class={handleClassName}></div>
+											<Drawer.Content class={contentClassName}>
+												<Drawer.Title class="mb-1 text-base font-bold text-center">
+													Security
+												</Drawer.Title>
+												<Drawer.Description
+													class="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400"
+												>
+													Review sign-in activity and update your security preferences.
+												</Drawer.Description>
+
+												<ul class="mb-6 list-disc pl-5 text-neutral-700 dark:text-neutral-300">
+													<li>Passkeys enabled</li>
+													<li>2FA via authenticator app</li>
+													<li>3 signed-in devices</li>
+												</ul>
+
+												<div class="flex items-center justify-end gap-4">
+													<div class="mr-auto">
+														<Drawer.Root>
+															<Drawer.Trigger class={button}>Advanced options</Drawer.Trigger>
+															<Drawer.Portal>
+																<Drawer.Viewport
+																	class="fixed inset-0 flex items-end justify-center"
+																>
+																	<Drawer.Popup class={popupClassName}>
+																		<div class={handleClassName}></div>
+																		<Drawer.Content class={contentClassName}>
+																			<Drawer.Title class="mb-1 text-base font-bold text-center">
+																				Advanced
+																			</Drawer.Title>
+																			<Drawer.Description
+																				class="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400"
+																			>
+																				This drawer is taller to demonstrate variable-height
+																				stacking.
+																			</Drawer.Description>
+
+																			<div class="grid gap-2 mb-4">
+																				<label
+																					class="text-sm font-bold text-neutral-700 dark:text-neutral-300"
+																					for="device-name-tw"
+																				>
+																					Device name
+																				</label>
+																				<input
+																					id="device-name-tw"
+																					class="h-8 w-full border border-neutral-950 bg-white px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 dark:border-white dark:bg-neutral-950 dark:text-white focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+																					value="Personal laptop"
+																				/>
+																			</div>
+
+																			<div class="grid gap-2 mb-4">
+																				<label
+																					class="text-sm font-bold text-neutral-700 dark:text-neutral-300"
+																					for="notes-tw"
+																				>
+																					Notes
+																				</label>
+																				<textarea
+																					id="notes-tw"
+																					class="min-h-32 w-full resize-y border border-neutral-950 bg-white p-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 dark:border-white dark:bg-neutral-950 dark:text-white focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+																					rows="3"
+																					>Rotate recovery codes and revoke older sessions.</textarea
+																				>
+																			</div>
+
+																			<div class="flex justify-end">
+																				<Drawer.Close class={button}>Done</Drawer.Close>
+																			</div>
+																		</Drawer.Content>
+																	</Drawer.Popup>
+																</Drawer.Viewport>
+															</Drawer.Portal>
+														</Drawer.Root>
+													</div>
+
+													<Drawer.Close class={button}>Close</Drawer.Close>
+												</div>
+											</Drawer.Content>
+										</Drawer.Popup>
+									</Drawer.Viewport>
+								</Drawer.Portal>
+							</Drawer.Root>
+						</div>
+
+						<Drawer.Close class={button}>Close</Drawer.Close>
+					</div>
+				</Drawer.Content>
+			</Drawer.Popup>
+		</Drawer.Viewport>
+	</Drawer.Portal>
+</Drawer.Root>
+```
 
 ### Snap points
 
-Pass `snapPoints` to let the drawer rest at several heights. A number from 0 to 1 is a fraction of the viewport height, a larger number is pixels, and a string takes `px` or `rem`. The popup carries `--drawer-snap-point-offset`, the distance it sits below its full height. Add it to the swipe movement in your `transform`. Bind `snapPoint` to read or set the active one. The drawer returns to `defaultSnapPoint`, or the first snap point, when it closes.
+Use `snapPoints` to snap a bottom sheet drawer to preset heights. Numbers between 0 and 1 represent fractions of the viewport height, and numbers greater than 1 are treated as pixel values. String values support `px` and `rem` units (for example, `'148px'` or `'30rem'`).
+
+```svelte
+<script lang="ts">
+	import { Drawer, type DrawerSnapPoint } from '@sveltery/base/drawer';
+
+	const snapPoints: DrawerSnapPoint[] = ['148px', 1];
+	let snapPoint = $state<DrawerSnapPoint | null>(snapPoints[0]);
+</script>
+
+<Drawer.Root {snapPoints} bind:snapPoint>
+	<!-- ... -->
+</Drawer.Root>
+```
+
+Apply the snap point offset in your styles when using vertical drawers:
+
+```css
+.DrawerPopup {
+	transform: translateY(calc(var(--drawer-snap-point-offset) + var(--drawer-swipe-movement-y)));
+}
+```
 
 ```svelte demo
 <script lang="ts">
 	import { Drawer, type DrawerSnapPoint } from '@sveltery/base/drawer';
 
-	const snapPoints: DrawerSnapPoint[] = ['148px', 0.6, 1];
-	let snapPoint = $state<DrawerSnapPoint | null | undefined>('148px');
+	const TOP_MARGIN_REM = 1;
+	const VISIBLE_SNAP_POINTS_REM = [30];
+
+	function toViewportSnapPoint(heightRem: number) {
+		return `${heightRem + TOP_MARGIN_REM}rem`;
+	}
+
+	const snapPoints: DrawerSnapPoint[] = [...VISIBLE_SNAP_POINTS_REM.map(toViewportSnapPoint), 1];
 
 	const button =
-		'rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 font-medium hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800';
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
 </script>
 
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<p>Snap point: {JSON.stringify(snapPoint)}</p>
-	<Drawer.Root {snapPoints} bind:snapPoint>
-		<Drawer.Trigger class={button}>Open sheet</Drawer.Trigger>
-		<Drawer.Portal>
-			<Drawer.Backdrop
-				class="fixed inset-0 z-50 bg-black opacity-20 transition-opacity duration-[450ms] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0"
-			/>
-			<Drawer.Viewport class="fixed inset-0 z-50 flex items-end justify-center">
-				<Drawer.Popup
-					class="h-[calc(100dvh-2rem)] w-full rounded-t-2xl bg-gray-50 px-6 pt-4 text-gray-900 outline outline-gray-200 transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] [transform:translateY(calc(var(--drawer-snap-point-offset)+var(--drawer-swipe-movement-y)))] data-[ending-style]:[transform:translateY(100%)] data-[starting-style]:[transform:translateY(100%)] data-[swiping]:select-none dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700"
+<Drawer.Root {snapPoints}>
+	<Drawer.Trigger class={button}>Open snap drawer</Drawer.Trigger>
+	<Drawer.Portal>
+		<Drawer.Backdrop
+			class="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute"
+		/>
+		<Drawer.Viewport
+			class="fixed inset-0 flex items-end justify-center touch-none [--bleed:3rem] after:pointer-events-none after:fixed after:inset-x-0 after:bottom-0 after:h-[var(--bleed)] after:bg-white after:content-[''] data-closed:after:opacity-0 dark:after:bg-neutral-950"
+		>
+			<Drawer.Popup
+				class="relative z-1 flex w-full max-h-[calc(100dvh-var(--top-margin))] min-h-0 flex-col overflow-visible border-t border-neutral-950 bg-white text-neutral-950 outline-none touch-none shadow-[0.25rem_0.25rem_0] shadow-black/12 [padding-bottom:max(0px,calc(var(--drawer-snap-point-offset)+var(--drawer-swipe-movement-y)))] [transform:translateY(calc(var(--drawer-snap-point-offset)+var(--drawer-swipe-movement-y)))] transition-[transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-[var(--bleed)] after:bg-[inherit] after:content-[''] data-ending-style:[transform:translateY(calc(100%+2px))] data-starting-style:[transform:translateY(calc(100%+2px))] data-starting-style:[padding-bottom:0] data-ending-style:[padding-bottom:0] data-starting-style:shadow-[0.25rem_0.25rem_0] data-starting-style:shadow-black/0 data-ending-style:shadow-[0.25rem_0.25rem_0] data-ending-style:shadow-black/0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+				style="--top-margin: {TOP_MARGIN_REM}rem"
+			>
+				<div
+					class="shrink-0 border-b border-neutral-300 px-6 pt-3.5 pb-4 touch-none select-none dark:border-neutral-700"
 				>
-					<div class="mx-auto mb-4 h-1 w-12 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-					<Drawer.Title class="mb-1 text-lg font-medium">Drag me up</Drawer.Title>
-					<Drawer.Description class="mb-4 text-gray-600 dark:text-gray-400">
-						The sheet rests at 148px, 60% of the screen, or full height.
-					</Drawer.Description>
-					<div class="flex gap-2">
-						{#each snapPoints as point (point)}
-							<button type="button" class={button} onclick={() => (snapPoint = point)}>
-								{point}
-							</button>
-						{/each}
+					<div class="mx-auto mb-2.5 h-1 w-12 shrink-0 bg-neutral-300 dark:bg-neutral-700"></div>
+					<Drawer.Title class="cursor-default text-center text-base font-bold">
+						Snap points
+					</Drawer.Title>
+				</div>
+				<Drawer.Content
+					class="min-h-0 flex-1 overflow-y-auto overscroll-contain touch-auto px-6 pt-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]"
+				>
+					<div class="mx-auto w-full max-w-90">
+						<Drawer.Description
+							class="mb-4 text-sm text-neutral-600 text-center dark:text-neutral-400"
+						>
+							Drag the sheet to snap between a compact peek and a near full-height view.
+						</Drawer.Description>
+						<div class="grid gap-3 mb-6" aria-hidden="true">
+							{#each Array.from({ length: 20 }, (_, index) => index) as index (index)}
+								<div class="h-12 bg-neutral-200 dark:bg-neutral-700"></div>
+							{/each}
+						</div>
+						<div class="flex items-center justify-end gap-3">
+							<Drawer.Close class={button}>Close</Drawer.Close>
+						</div>
 					</div>
-				</Drawer.Popup>
-			</Drawer.Viewport>
-		</Drawer.Portal>
-	</Drawer.Root>
-</div>
+				</Drawer.Content>
+			</Drawer.Popup>
+		</Drawer.Viewport>
+	</Drawer.Portal>
+</Drawer.Root>
 ```
 
-A fast swipe can skip snap points. Set `snapToSequentialPoints` to pick the next snap point from the drag distance alone. The popup has `data-expanded` at the full-height snap point `1`.
+By default, the drawer can skip snap points when swiping quickly. Specify the `snapToSequentialPoints` prop to disable velocity-based skipping so the snap target is determined by drag distance (you can still drag past multiple points).
 
-### Swipe direction
+### Virtual keyboard aware
 
-`swipeDirection` sets the edge the drawer closes toward: `down` (the default), `up`, `left`, or `right`. Position the popup at that edge and translate it along the matching axis.
+Wrap a bottom sheet in `<Drawer.VirtualKeyboardProvider>` to make it react to software keyboards when it contains form controls. When the keyboard opens, the provider scrolls the body to keep the focused field visible.
+
+- **Keep the popup frame stable:** place header and footer content outside a plain scrollable body.
+- **Lift a pinned footer input:** if a footer contains its own input, reserve a footer slot below the scroll area and offset it by `var(--drawer-keyboard-inset, 0px)`. The demo switches the focused footer to `position: fixed` — positioned against the popup, since its `transform` contains fixed descendants — and adds the inset to its bottom padding.
+- **Always include the `0px` fallback:** the provider only sets `--drawer-keyboard-inset` while the keyboard is aligned, so a bare `var(--drawer-keyboard-inset)` is invalid before the first alignment and after cleanup.
+
+```svelte
+<Drawer.Root>
+	<Drawer.VirtualKeyboardProvider>
+		<!-- ... -->
+	</Drawer.VirtualKeyboardProvider>
+</Drawer.Root>
+```
 
 ```svelte demo
 <script lang="ts">
 	import { Drawer } from '@sveltery/base/drawer';
 
+	const fields = [
+		['Name', 'Ada Lovelace'],
+		['Phone', '+1 (555) 123-4567'],
+		['Street address', '12 Computing Way'],
+		['Apartment', 'Unit 4B'],
+		['City', 'San Francisco'],
+		['Postal code', '94107'],
+		['Delivery window', 'After 6 PM'],
+		['Backup contact', 'Grace Hopper']
+	];
+
 	const button =
-		'rounded-md border border-gray-200 bg-gray-50 px-3.5 py-2 font-medium hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800';
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
 </script>
 
-<div class="text-sm text-gray-900 dark:text-gray-100">
-	<Drawer.Root swipeDirection="right">
-		<Drawer.Trigger class={button}>Open side panel</Drawer.Trigger>
-		<Drawer.Portal>
-			<Drawer.Backdrop
-				class="fixed inset-0 z-50 bg-black opacity-[calc(0.2*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[swiping]:duration-0"
-			/>
-			<Drawer.Viewport class="fixed inset-0 z-50 flex justify-end">
-				<Drawer.Popup
-					class="h-full w-80 max-w-[calc(100vw-3rem)] bg-gray-50 p-6 text-gray-900 outline outline-gray-200 transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] [transform:translateX(var(--drawer-swipe-movement-x))] data-[ending-style]:[transform:translateX(100%)] data-[starting-style]:[transform:translateX(100%)] data-[swiping]:select-none dark:bg-gray-900 dark:text-gray-100 dark:outline-gray-700"
-				>
-					<Drawer.Title class="mb-1 text-lg font-medium">Settings</Drawer.Title>
-					<Drawer.Description class="mb-6 text-gray-600 dark:text-gray-400">
-						Swipe right to close.
-					</Drawer.Description>
-					<Drawer.Close class={button}>Close</Drawer.Close>
-				</Drawer.Popup>
-			</Drawer.Viewport>
-		</Drawer.Portal>
-	</Drawer.Root>
-</div>
-```
-
-### Opening with a swipe
-
-`Drawer.SwipeArea` is an invisible strip that opens the drawer when you swipe away from the edge. Place it along the edge the drawer comes from. Its own `swipeDirection` is the opening direction, which defaults to the opposite of the root's. Set `disabled` to turn it off.
-
-```svelte
 <Drawer.Root>
-	<Drawer.SwipeArea class="fixed inset-x-0 bottom-0 h-6" />
-	<Drawer.Portal>…</Drawer.Portal>
-</Drawer.Root>
-```
-
-While the swipe runs, the popup follows it through the same CSS variables. Releasing past the threshold opens the drawer with the reason `swipe`.
-
-### Indenting the page
-
-Wrap the page in `Drawer.Provider` and `Drawer.Indent` to scale it back while a drawer is open, as native sheets do. `Drawer.Indent` and `Drawer.IndentBackground` carry `data-active` while any drawer in the provider is open, and `data-inactive` otherwise. `Drawer.Indent` also receives `--drawer-swipe-progress`, so the page can follow the swipe.
-
-```svelte
-<Drawer.Provider>
-	<Drawer.IndentBackground class="fixed inset-0 bg-black" />
-	<Drawer.Indent
-		class="min-h-dvh bg-white transition-transform duration-[450ms] data-[active]:scale-[calc(0.94+0.06*var(--drawer-swipe-progress))] data-[active]:rounded-xl"
-	>
-		<!-- The page and its drawers -->
-	</Drawer.Indent>
-</Drawer.Provider>
-```
-
-### Nested drawers
-
-A `Drawer.Root` inside another drawer's popup is nested. The parent popup carries `data-nested-drawer-open` while the child is open and `data-nested-drawer-swiping` while the child is swiped. `--nested-drawers` counts the open drawers above it, and `--drawer-frontmost-height` is the height of the frontmost one, so the parent can shrink behind the child. Escape closes only the frontmost drawer.
-
-### Forms and the software keyboard
-
-Wrap a drawer that holds text fields in `Drawer.VirtualKeyboardProvider`. On touch devices, it keeps the focused field above the software keyboard. It adds scroll room to the field's scroll container, centers the field in the visible space, and sets `--drawer-keyboard-inset` on `Drawer.Viewport` to the height the keyboard covers. Pad your popup with that variable when it is not scrollable.
-
-```svelte
-<Drawer.Root>
+	<Drawer.Trigger class={button}>Open keyboard-aware drawer</Drawer.Trigger>
 	<Drawer.VirtualKeyboardProvider>
 		<Drawer.Portal>
-			<Drawer.Viewport class="fixed inset-0 flex items-end pb-[var(--drawer-keyboard-inset)]">
-				<Drawer.Popup>
-					<Drawer.Content class="overflow-y-auto">
-						<input type="text" />
+			<Drawer.Backdrop
+				class="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute"
+			/>
+			<Drawer.Viewport
+				class="fixed inset-0 flex items-end justify-center touch-none [--bleed:3rem] after:pointer-events-none after:fixed after:inset-x-0 after:bottom-0 after:h-[var(--bleed)] after:bg-white after:content-[''] data-closed:after:opacity-0 has-[[data-swiping]]:after:opacity-0 dark:after:bg-neutral-950"
+			>
+				<Drawer.Popup
+					class="relative z-1 -mb-[var(--bleed)] flex h-[calc(100%-1rem+var(--bleed))] max-h-[calc(100%-1rem+var(--bleed))] w-full flex-col overflow-visible border-t border-neutral-950 bg-white text-neutral-950 outline-none touch-none shadow-[0.25rem_0.25rem_0] shadow-black/12 [--bleed:3rem] [--footer-reserved-height:calc(5.25rem+var(--bleed))] [transform:translateY(var(--drawer-swipe-movement-y))] transition-[transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform data-swiping:select-none data-ending-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-starting-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-starting-style:shadow-[0.25rem_0.25rem_0] data-starting-style:shadow-black/0 data-ending-style:shadow-[0.25rem_0.25rem_0] data-ending-style:shadow-black/0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+				>
+					<div
+						class="relative shrink-0 border-b border-neutral-300 px-6 py-4 touch-none select-none dark:border-neutral-700"
+					>
+						<div
+							class="absolute top-2 left-1/2 h-1 w-12 shrink-0 -translate-x-1/2 bg-neutral-300 dark:bg-neutral-700"
+						></div>
+						<div class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3">
+							<Drawer.Close
+								class="flex h-8 min-w-0 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none justify-self-start hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+							>
+								Cancel
+							</Drawer.Close>
+							<Drawer.Title class="cursor-default text-center text-base font-bold">
+								Delivery details
+							</Drawer.Title>
+							<Drawer.Close
+								class="flex h-8 min-w-0 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none justify-self-end hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+							>
+								Save
+							</Drawer.Close>
+						</div>
+					</div>
+
+					<Drawer.Content
+						class="min-h-0 flex-1 overflow-y-auto overscroll-contain touch-auto px-6 pt-4 pb-6"
+					>
+						<div class="mx-auto grid w-full max-w-90 gap-3">
+							{#each fields as [label, placeholder] (label)}
+								<label class="flex w-full flex-col items-start gap-1">
+									<span class="text-sm font-bold text-neutral-950 dark:text-white">
+										{label}
+									</span>
+									<input
+										class="h-8 w-full border border-neutral-950 bg-white px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:bg-neutral-950 dark:text-white dark:placeholder:text-neutral-400"
+										{placeholder}
+										type="text"
+									/>
+								</label>
+							{/each}
+
+							<label class="flex w-full flex-col items-start gap-1">
+								<span class="text-sm font-bold text-neutral-950 dark:text-white">Instructions</span>
+								<textarea
+									class="min-h-22 w-full resize-y border border-neutral-950 bg-white px-2 py-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:bg-neutral-950 dark:text-white dark:placeholder:text-neutral-400"
+									placeholder="Gate code, drop-off spot, or anything else the driver should know"
+								></textarea>
+							</label>
+						</div>
 					</Drawer.Content>
+
+					<div
+						class="relative min-h-[var(--footer-reserved-height)] shrink-0 transition-[min-height] duration-[260ms] ease-[cubic-bezier(0.32,0.72,0,1)] focus-within:min-h-[calc(var(--footer-reserved-height)+var(--drawer-keyboard-inset,0px))] motion-reduce:transition-none"
+					>
+						<div
+							class="absolute right-0 bottom-0 left-0 z-1 border-t border-neutral-950 bg-white px-6 pt-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom,0px)+var(--bleed))] transition-[bottom,padding-bottom] duration-[260ms] ease-[cubic-bezier(0.32,0.72,0,1)] will-change-[bottom,padding-bottom] focus-within:fixed focus-within:z-3 focus-within:bottom-0 focus-within:pb-[calc(0.625rem+env(safe-area-inset-bottom,0px)+var(--bleed)+var(--drawer-keyboard-inset,0px))] focus-within:[transform:translate3d(0,0,0)] motion-reduce:transition-none dark:border-white dark:bg-neutral-950"
+						>
+							<label class="mx-auto flex w-full max-w-90 flex-col gap-1">
+								<span class="text-sm font-bold text-neutral-950 dark:text-white">
+									Delivery note
+								</span>
+								<input
+									class="h-10 w-full border border-neutral-950 bg-white px-2.5 text-sm font-normal text-neutral-950 placeholder:text-neutral-500 any-pointer-coarse:text-base focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:border-white dark:bg-neutral-950 dark:text-white dark:placeholder:text-neutral-400 dark:focus:outline-white"
+									placeholder="Add a note for the driver"
+									type="text"
+								/>
+							</label>
+						</div>
+					</div>
 				</Drawer.Popup>
 			</Drawer.Viewport>
 		</Drawer.Portal>
@@ -262,46 +526,638 @@ Wrap a drawer that holds text fields in `Drawer.VirtualKeyboardProvider`. On tou
 </Drawer.Root>
 ```
 
-### Text selection and scrolling
+### Indent effect
 
-Swipes start anywhere in the popup. A mouse or pen drag does not start on a button, link, form field, or label, and inside `Drawer.Content` it selects text instead. A finger can swipe from anywhere. A scroll container inside the popup scrolls first, and the drawer takes over the swipe once the container reaches its edge.
+Scale the background down when any drawer opens by wrapping your app in `<Drawer.Provider>` and use `<Drawer.IndentBackground>` + `<Drawer.Indent>` at the top of your tree. Any `<Drawer.Root>` within the provider notifies it when it mounts, which activates the indent parts (they receive `[data-active]` state attributes).
+
+```svelte demo
+<script lang="ts">
+	import { Drawer } from '@sveltery/base/drawer';
+
+	let portalContainer = $state<HTMLDivElement | null>(null);
+
+	const button =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+</script>
+
+<Drawer.Provider>
+	<div bind:this={portalContainer} class="[--bleed:3rem] relative w-full overflow-hidden">
+		<Drawer.IndentBackground class="absolute inset-0 bg-black dark:bg-neutral-300" />
+		<Drawer.Indent
+			class="[--indent-radius:calc(1rem*(1-var(--drawer-swipe-progress)))] [--indent-transition:calc(1-clamp(0,calc(var(--drawer-swipe-progress)*100000),1))] relative min-h-80 border border-neutral-950 bg-white p-4 text-neutral-950 [transition:transform_0.4s_cubic-bezier(0.32,0.72,0,1),border-radius_0.25s_cubic-bezier(0.32,0.72,0,1)] origin-[center_top] will-change-transform [transform:scale(1)_translateY(0)] [transition-duration:calc(400ms*var(--indent-transition)),calc(250ms*var(--indent-transition))] data-active:transform-[scale(calc(0.98+(0.02*var(--drawer-swipe-progress))))_translateY(calc(0.5rem*(1-var(--drawer-swipe-progress))))] data-active:rounded-tl-(--indent-radius) data-active:rounded-tr-(--indent-radius) dark:border-white dark:bg-neutral-950 dark:text-white"
+		>
+			<div class="flex min-h-80 items-center justify-center">
+				<Drawer.Root modal={false}>
+					<Drawer.Trigger class={button}>Open drawer</Drawer.Trigger>
+					<Drawer.Portal container={portalContainer}>
+						<Drawer.Backdrop
+							class="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] absolute inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute"
+						/>
+						<Drawer.Viewport class="absolute inset-0 flex items-end justify-center">
+							<Drawer.Popup
+								class="w-full max-h-[calc(80vh+var(--bleed))] -mb-[var(--bleed)] border-t border-neutral-950 bg-white px-6 py-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px)+var(--bleed))] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] [transform:translateY(var(--drawer-swipe-movement-y))] data-swiping:select-none data-ending-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-starting-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+							>
+								<div class="mx-auto mb-4 h-1 w-12 bg-neutral-300 dark:bg-neutral-700"></div>
+								<Drawer.Content class="mx-auto w-full max-w-[32rem]">
+									<Drawer.Title class="mt-0 mb-1 text-base font-bold text-center">
+										Notifications
+									</Drawer.Title>
+									<Drawer.Description
+										class="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400"
+									>
+										You are all caught up. Good job!
+									</Drawer.Description>
+									<div class="flex justify-center gap-3">
+										<Drawer.Close class={button}>Close</Drawer.Close>
+									</div>
+								</Drawer.Content>
+							</Drawer.Popup>
+						</Drawer.Viewport>
+					</Drawer.Portal>
+				</Drawer.Root>
+			</div>
+		</Drawer.Indent>
+	</div>
+</Drawer.Provider>
+```
+
+### Non-modal
+
+Set `modal={false}` to opt out of focus trapping and `disablePointerDismissal` to keep the drawer open on outside clicks.
+
+```svelte demo
+<script lang="ts">
+	import { Drawer } from '@sveltery/base/drawer';
+
+	const button =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+</script>
+
+<Drawer.Root swipeDirection="right" modal={false} disablePointerDismissal>
+	<Drawer.Trigger class={button}>Open non-modal drawer</Drawer.Trigger>
+	<Drawer.Portal>
+		<Drawer.Viewport
+			class="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] fixed inset-0 flex items-stretch justify-end p-(--viewport-padding) pointer-events-none"
+		>
+			<Drawer.Popup
+				class="[--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] pointer-events-auto h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] border-l border-neutral-950 bg-white p-6 pr-[calc(1.5rem+3rem)] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain touch-auto [transform:translateX(var(--drawer-swipe-movement-x))] transition-[transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-ending-style:shadow-[0.25rem_0.25rem_0] data-ending-style:shadow-black/0 data-ending-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-starting-style:shadow-[0.25rem_0.25rem_0] data-starting-style:shadow-black/0 data-starting-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-3rem)] supports-[-webkit-touch-callout:none]:border supports-[-webkit-touch-callout:none]:pr-6 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+			>
+				<Drawer.Content class="mx-auto w-full max-w-[32rem]">
+					<Drawer.Title class="mb-1 text-base font-bold">Non-modal drawer</Drawer.Title>
+					<Drawer.Description class="mb-6 text-sm text-neutral-600 dark:text-neutral-400">
+						This drawer does not trap focus and ignores outside clicks. Use the close button or
+						swipe to dismiss it.
+					</Drawer.Description>
+					<div class="flex justify-end gap-3">
+						<Drawer.Close class={button}>Close</Drawer.Close>
+					</div>
+				</Drawer.Content>
+			</Drawer.Popup>
+		</Drawer.Viewport>
+	</Drawer.Portal>
+</Drawer.Root>
+```
+
+### Mobile navigation
+
+You can build a full-screen mobile navigation sheet using Drawer parts, including a flick-to-dismiss from the top gesture.
+
+```svelte demo
+<script lang="ts">
+	import { Drawer } from '@sveltery/base/drawer';
+	import { ScrollArea } from '@sveltery/base/scroll-area';
+
+	const ITEMS = [
+		{ href: '/overview', label: 'Overview' },
+		{ href: '/components', label: 'Components' },
+		{ href: '/utils', label: 'Utilities' },
+		{ href: '/overview/releases', label: 'Releases' }
+	] as const;
+
+	const LONG_LIST = [
+		{ href: '/components/accordion', label: 'Accordion' },
+		{ href: '/components/alert-dialog', label: 'Alert Dialog' },
+		{ href: '/components/autocomplete', label: 'Autocomplete' },
+		{ href: '/components/avatar', label: 'Avatar' },
+		{ href: '/components/button', label: 'Button' },
+		{ href: '/components/checkbox', label: 'Checkbox' },
+		{ href: '/components/checkbox-group', label: 'Checkbox Group' },
+		{ href: '/components/collapsible', label: 'Collapsible' },
+		{ href: '/components/combobox', label: 'Combobox' },
+		{ href: '/components/context-menu', label: 'Context Menu' },
+		{ href: '/components/dialog', label: 'Dialog' },
+		{ href: '/components/drawer', label: 'Drawer' },
+		{ href: '/components/field', label: 'Field' },
+		{ href: '/components/fieldset', label: 'Fieldset' },
+		{ href: '/components/form', label: 'Form' },
+		{ href: '/components/input', label: 'Input' },
+		{ href: '/components/menu', label: 'Menu' },
+		{ href: '/components/menubar', label: 'Menubar' },
+		{ href: '/components/meter', label: 'Meter' },
+		{ href: '/components/navigation-menu', label: 'Navigation Menu' },
+		{ href: '/components/number-field', label: 'Number Field' },
+		{ href: '/components/otp-field', label: 'OTP Field' },
+		{ href: '/components/popover', label: 'Popover' },
+		{ href: '/components/preview-card', label: 'Preview Card' },
+		{ href: '/components/progress', label: 'Progress' },
+		{ href: '/components/radio-group', label: 'Radio Group' },
+		{ href: '/components/scroll-area', label: 'Scroll Area' },
+		{ href: '/components/select', label: 'Select' },
+		{ href: '/components/separator', label: 'Separator' },
+		{ href: '/components/slider', label: 'Slider' },
+		{ href: '/components/switch', label: 'Switch' },
+		{ href: '/components/tabs', label: 'Tabs' },
+		{ href: '/components/toast', label: 'Toast' },
+		{ href: '/components/toggle', label: 'Toggle' },
+		{ href: '/components/toggle-group', label: 'Toggle Group' },
+		{ href: '/components/toolbar', label: 'Toolbar' },
+		{ href: '/components/tooltip', label: 'Tooltip' }
+	] as const;
+
+	const button =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+
+	const link =
+		'flex h-12 w-full items-center border border-neutral-950 bg-white px-4 text-sm text-neutral-950 no-underline hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+</script>
+
+<Drawer.Root>
+	<Drawer.Trigger class={button}>Open mobile menu</Drawer.Trigger>
+	<Drawer.Portal>
+		<Drawer.Backdrop
+			class="[--backdrop-opacity:1] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-[linear-gradient(to_bottom,rgb(0_0_0/5%)_0,rgb(0_0_0/10%)_50%)] opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-600 ease-[var(--ease-out-fast)] supports-[-webkit-touch-callout:none]:absolute data-starting-style:opacity-0 data-ending-style:opacity-0 data-ending-style:duration-350 data-ending-style:ease-[cubic-bezier(0.375,0.015,0.545,0.455)]"
+		/>
+		<Drawer.Viewport class="group fixed inset-0">
+			<ScrollArea.Root
+				style="position: static"
+				class="h-full overscroll-contain transition-transform duration-600 ease-[cubic-bezier(0.45,1.005,0,1.005)] group-data-starting-style:translate-y-[100dvh] group-data-ending-style:pointer-events-none"
+			>
+				<ScrollArea.Viewport class="h-full overscroll-contain touch-auto">
+					<ScrollArea.Content
+						class="flex min-h-full items-end justify-center pt-8 min-[42rem]:px-16 min-[42rem]:py-16"
+					>
+						<Drawer.Popup
+							class="group w-full max-w-[42rem] outline-none transition-transform duration-600 ease-[cubic-bezier(0.45,1.005,0,1.005)] [transform:translateY(var(--drawer-swipe-movement-y))] data-swiping:select-none data-ending-style:[transform:translateY(calc(max(100dvh,100%)+2px))] data-ending-style:duration-350 data-ending-style:ease-[cubic-bezier(0.375,0.015,0.545,0.455)] motion-reduce:transition-none"
+						>
+							<nav
+								aria-label="Navigation"
+								class="relative flex flex-col border-t border-neutral-950 bg-white px-6 pt-4 pb-6 text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-shadow duration-350 ease-[cubic-bezier(0.375,0.015,0.545,0.455)] group-data-ending-style:shadow-[0.25rem_0.25rem_0] group-data-ending-style:shadow-black/0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none min-[42rem]:border"
+							>
+								<div class="grid grid-cols-[1fr_auto_1fr] items-start">
+									<div aria-hidden="true" class="h-9 w-9"></div>
+									<div
+										class="h-1 w-12 justify-self-center bg-neutral-300 dark:bg-neutral-700"
+									></div>
+									<Drawer.Close
+										aria-label="Close menu"
+										class="flex h-8 w-8 items-center justify-center justify-self-end border-0 bg-transparent text-neutral-950 hover:bg-neutral-100 active:bg-neutral-200 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+									>
+										<svg
+											width="16"
+											height="16"
+											viewBox="0 0 16 16"
+											fill="none"
+											stroke="currentColor"
+											stroke-linecap="square"
+											stroke-linejoin="round"
+											style="display: block"
+										>
+											<path d="m2.5 2.5 11 11m-11 0 11-11" />
+										</svg>
+									</Drawer.Close>
+								</div>
+
+								<Drawer.Content class="w-full">
+									<Drawer.Title class="m-0 mb-1 text-base font-bold">Menu</Drawer.Title>
+									<Drawer.Description
+										class="m-0 mb-5 text-sm text-neutral-600 dark:text-neutral-400"
+									>
+										Scroll the long list. Flick down from the top to dismiss.
+									</Drawer.Description>
+
+									<div class="pb-8">
+										<ul class="grid list-none gap-1 p-0 m-0">
+											{#each ITEMS as item (item.label)}
+												<li class="flex">
+													<a class={link} href={item.href}>{item.label}</a>
+												</li>
+											{/each}
+										</ul>
+
+										<ul aria-label="Component links" class="mt-6 grid list-none gap-1 p-0 m-0">
+											{#each LONG_LIST as item (item.label)}
+												<li class="flex">
+													<a class={link} href={item.href}>{item.label}</a>
+												</li>
+											{/each}
+										</ul>
+									</div>
+								</Drawer.Content>
+							</nav>
+						</Drawer.Popup>
+					</ScrollArea.Content>
+				</ScrollArea.Viewport>
+				<ScrollArea.Scrollbar
+					class="pointer-events-none absolute m-px flex w-4 justify-center bg-black/12 dark:bg-white/12 opacity-0 transition-opacity duration-250 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-75 data-scrolling:delay-[0ms] hover:pointer-events-auto hover:opacity-100 hover:duration-75 hover:delay-[0ms] data-ending-style:opacity-0 data-ending-style:duration-250"
+				>
+					<ScrollArea.Thumb class="w-full bg-neutral-950 dark:bg-white" />
+				</ScrollArea.Scrollbar>
+			</ScrollArea.Root>
+		</Drawer.Viewport>
+	</Drawer.Portal>
+</Drawer.Root>
+```
+
+### Swipe to open
+
+Place `<Drawer.SwipeArea>` along the edge of the viewport to enable swipe-to-open gestures.
+
+```svelte demo
+<script lang="ts">
+	import { Drawer } from '@sveltery/base/drawer';
+
+	let portalContainer = $state<HTMLDivElement | null>(null);
+
+	const button =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+</script>
+
+<div
+	bind:this={portalContainer}
+	class="relative min-h-80 w-full overflow-hidden border border-neutral-950 bg-white text-neutral-950 dark:border-white dark:bg-neutral-950 dark:text-white"
+>
+	<Drawer.Root swipeDirection="right" modal={false}>
+		<Drawer.SwipeArea
+			class="absolute inset-y-0 right-0 z-[1] w-10 border-l-2 border-dashed border-blue-800 bg-blue-800/10 dark:border-blue-500 dark:bg-blue-500/10"
+		>
+			<span
+				class="pointer-events-none absolute right-0 top-1/2 z-0 mr-2 -translate-y-1/2 -rotate-90 origin-center whitespace-nowrap text-xs font-bold tracking-[0.12em] text-blue-800 uppercase dark:text-blue-500"
+			>
+				Swipe here
+			</span>
+		</Drawer.SwipeArea>
+		<div class="flex min-h-80 flex-col items-center justify-center gap-3 p-4 text-center">
+			<p class="text-sm text-neutral-600 text-center dark:text-neutral-400 pr-12">
+				Swipe from the right edge to open the drawer.
+			</p>
+		</div>
+		<Drawer.Portal container={portalContainer}>
+			<Drawer.Backdrop
+				class="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] absolute inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute"
+			/>
+			<Drawer.Viewport
+				class="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] absolute inset-0 z-20 flex items-stretch justify-end p-(--viewport-padding)"
+			>
+				<Drawer.Popup
+					class="[--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] border-l border-neutral-950 bg-white p-6 pr-[calc(1.5rem+3rem)] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto touch-auto [transform:translateX(var(--drawer-swipe-movement-x))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-ending-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-starting-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-3rem)] supports-[-webkit-touch-callout:none]:border supports-[-webkit-touch-callout:none]:pr-6 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+				>
+					<Drawer.Content class="mx-auto w-full max-w-[32rem]">
+						<Drawer.Title class="mb-1 text-base font-bold">Library</Drawer.Title>
+						<Drawer.Description class="mb-6 text-sm text-neutral-600 dark:text-neutral-400">
+							Swipe from the edge whenever you want to jump back into your playlists.
+						</Drawer.Description>
+						<div class="flex justify-end gap-3">
+							<Drawer.Close class={button}>Close</Drawer.Close>
+						</div>
+					</Drawer.Content>
+				</Drawer.Popup>
+			</Drawer.Viewport>
+		</Drawer.Portal>
+	</Drawer.Root>
+</div>
+```
+
+### Close confirmation
+
+This example shows a nested confirmation dialog that opens if the text entered in the drawer is going to be discarded.
+
+To implement this, both the drawer and the confirmation dialog should be controlled. The confirmation dialog may be opened when the `onOpenChange` callback of the drawer receives a request to close while there is text in the textarea. This way, the confirmation is automatically shown when the user clicks the backdrop, presses the Esc key, clicks a close button, or dismisses the drawer with a swipe gesture.
+
+Use `eventDetails.cancel()` in `onOpenChange` to prevent the drawer from closing while the confirmation prompt is shown.
+
+```svelte demo
+<script lang="ts">
+	import { AlertDialog } from '@sveltery/base/alert-dialog';
+	import { Drawer } from '@sveltery/base/drawer';
+
+	let drawerOpen = $state(false);
+	let confirmationOpen = $state(false);
+	let textareaValue = $state('');
+	const titleId = $props.id();
+
+	const button =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+</script>
+
+<Drawer.Root
+	swipeDirection="right"
+	bind:open={drawerOpen}
+	onOpenChange={(open, eventDetails) => {
+		// Show the close confirmation if there’s text in the textarea
+		if (!open && textareaValue) {
+			eventDetails.cancel();
+			confirmationOpen = true;
+			return;
+		}
+		if (!open) {
+			// Reset the textarea value
+			textareaValue = '';
+		}
+	}}
+>
+	<Drawer.Trigger class={button}>Tweet</Drawer.Trigger>
+	<Drawer.Portal>
+		<Drawer.Backdrop
+			class="[--backdrop-opacity:0.2] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute"
+		/>
+		<Drawer.Viewport
+			class="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] fixed inset-0 flex items-stretch justify-end p-(--viewport-padding)"
+		>
+			<Drawer.Popup
+				class="relative [--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] border-l border-neutral-950 bg-white p-6 pr-[calc(1.5rem+3rem)] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain touch-auto [transform:translateX(var(--drawer-swipe-movement-x))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-ending-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-starting-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-3rem)] supports-[-webkit-touch-callout:none]:border supports-[-webkit-touch-callout:none]:pr-6 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:inset-0 after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-100 after:ease-out after:pointer-events-none {confirmationOpen
+					? 'after:opacity-100'
+					: ''}"
+			>
+				<Drawer.Content class="mx-auto flex flex-col gap-4 w-full max-w-[32rem]">
+					<Drawer.Title id={titleId} class="text-base font-bold">New tweet</Drawer.Title>
+					<form
+						class="flex flex-col gap-4"
+						onsubmit={(event) => {
+							event.preventDefault();
+							// Close the drawer when submitting
+							textareaValue = '';
+							drawerOpen = false;
+						}}
+					>
+						<textarea
+							aria-labelledby={titleId}
+							required
+							class="min-h-32 w-full border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 p-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white"
+							placeholder="What’s on your mind?"
+							bind:value={textareaValue}></textarea>
+						<div class="flex justify-end gap-3">
+							<Drawer.Close class={button}>Cancel</Drawer.Close>
+							<button type="submit" class={button}>Tweet</button>
+						</div>
+					</form>
+				</Drawer.Content>
+			</Drawer.Popup>
+		</Drawer.Viewport>
+	</Drawer.Portal>
+
+	<!-- Confirmation dialog -->
+	<AlertDialog.Root bind:open={confirmationOpen}>
+		<AlertDialog.Portal>
+			<AlertDialog.Popup
+				class="fixed top-1/2 left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[translate,scale,opacity] duration-100 ease-out data-ending-style:translate-y-[calc(-50%+0.25rem)] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-starting-style:translate-y-[calc(-50%+0.25rem)] data-starting-style:scale-[0.96] data-starting-style:opacity-0"
+			>
+				<div class="flex flex-col gap-1">
+					<AlertDialog.Title class="text-base font-bold">Discard tweet?</AlertDialog.Title>
+					<AlertDialog.Description class="text-sm text-neutral-600 dark:text-neutral-400">
+						Your tweet will be lost.
+					</AlertDialog.Description>
+				</div>
+				<div class="flex justify-end gap-3">
+					<AlertDialog.Close class={button}>Go back</AlertDialog.Close>
+					<button
+						type="button"
+						class={button}
+						onclick={() => {
+							confirmationOpen = false;
+							textareaValue = '';
+							drawerOpen = false;
+						}}
+					>
+						Discard
+					</button>
+				</div>
+			</AlertDialog.Popup>
+		</AlertDialog.Portal>
+	</AlertDialog.Root>
+</Drawer.Root>
+```
+
+### Action sheet with separate destructive action
+
+This demo builds an action sheet with a grouped list of actions plus a separate destructive action button.
+
+```svelte demo
+<script lang="ts">
+	import { Drawer } from '@sveltery/base/drawer';
+
+	const ACTIONS = ['Unfollow', 'Mute', 'Add to Favourites', 'Add to Close Friends', 'Restrict'];
+
+	let open = $state(false);
+
+	const button =
+		'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+</script>
+
+<Drawer.Root bind:open>
+	<Drawer.Trigger class={button}>Open action sheet</Drawer.Trigger>
+	<Drawer.Portal>
+		<Drawer.Backdrop
+			class="[--backdrop-opacity:0.4] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-starting-style:opacity-0 data-ending-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute dark:[--backdrop-opacity:0.7]"
+		/>
+		<Drawer.Viewport class="fixed inset-0 flex items-end justify-center">
+			<Drawer.Popup
+				class="pointer-events-none flex w-full max-w-[20rem] flex-col gap-3 px-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] outline-none focus-visible:outline-none [transform:translateY(var(--drawer-swipe-movement-y))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-starting-style:[transform:translateY(calc(100%+1rem+2px))] data-ending-style:[transform:translateY(calc(100%+1rem+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)]"
+			>
+				<Drawer.Content
+					class="pointer-events-auto overflow-hidden border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+				>
+					<Drawer.Title class="sr-only">Profile actions</Drawer.Title>
+					<Drawer.Description class="sr-only">Choose an action for this user.</Drawer.Description>
+
+					<ul
+						class="m-0 list-none divide-y divide-neutral-950 p-0 dark:divide-white"
+						aria-label="Profile actions"
+					>
+						{#each ACTIONS as action, index (action)}
+							<li>
+								{#if index === 0}
+									<Drawer.Close class="sr-only">Close action sheet</Drawer.Close>
+								{/if}
+								<button
+									type="button"
+									class="h-10 w-full border-0 bg-transparent px-5 text-center text-sm text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 focus-visible:bg-neutral-100 focus-visible:outline-none dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 dark:focus-visible:bg-neutral-800"
+									onclick={() => (open = false)}
+								>
+									{action}
+								</button>
+							</li>
+						{/each}
+					</ul>
+				</Drawer.Content>
+				<div
+					class="pointer-events-auto overflow-hidden border border-neutral-950 bg-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:shadow-none"
+				>
+					<button
+						type="button"
+						class="h-10 w-full border-0 bg-transparent px-5 text-center text-sm text-red-700 select-none dark:text-red-400 hover:bg-neutral-100 active:bg-neutral-200 focus-visible:bg-neutral-100 focus-visible:outline-none dark:hover:bg-neutral-800 dark:active:bg-neutral-700 dark:focus-visible:bg-neutral-800"
+						onclick={() => (open = false)}
+					>
+						Block User
+					</button>
+				</div>
+			</Drawer.Popup>
+		</Drawer.Viewport>
+	</Drawer.Portal>
+</Drawer.Root>
+```
 
 ### Detached triggers
 
-A trigger does not have to sit inside `Drawer.Root`. Create a handle with `Drawer.createHandle()` and pass it to the root and to each trigger as `handle`. A handle also opens and closes the drawer from code, as with [Dialog](/components/dialog#detached-triggers).
+A drawer can be controlled by a trigger located either inside or outside the `<Drawer.Root>` component. For simple, one-off interactions, place the `<Drawer.Trigger>` inside `<Drawer.Root>`.
+
+However, if defining the drawer's content next to its trigger is not practical, you can use a detached trigger. This involves placing the `<Drawer.Trigger>` outside of `<Drawer.Root>` and linking them with a `handle` created by the `Drawer.createHandle()` function.
+
+The imperative methods on the handle, such as `open()` and `openWithPayload()`, require a `<Drawer.Root>` using the same handle to be mounted.
+Calls made while no root is attached to the handle — before one mounts, or after it unmounts — are ignored. Each time a root mounts, it starts from fresh state: a call made while no root was attached is not replayed, and no open state carries over from a previous mount.
 
 ```svelte
 <script lang="ts">
 	import { Drawer } from '@sveltery/base/drawer';
 
-	const handle = Drawer.createHandle<{ title: string }>();
+	const demoDrawer = Drawer.createHandle();
 </script>
 
-<Drawer.Trigger {handle} payload={{ title: 'Filters' }}>Filters</Drawer.Trigger>
+<Drawer.Trigger handle={demoDrawer}>Open</Drawer.Trigger>
 
-<Drawer.Root {handle}>…</Drawer.Root>
+<Drawer.Root handle={demoDrawer}>...</Drawer.Root>
 ```
 
-### Close from code
+The drawer can render different content depending on which trigger opened it. This is achieved by passing a `payload` to the `<Drawer.Trigger>` and using the snippet-as-a-child pattern in `<Drawer.Root>`.
 
-`Drawer.Root` renders no element, but it exports `close()` and `unmount()`. Reach them with `bind:this`. `close()` closes the drawer with the reason `imperative-action`. `unmount()` removes the popup at once, without waiting for the exit animation.
+```svelte
+<script lang="ts">
+	import { Drawer } from '@sveltery/base/drawer';
 
-## Differences from Base UI
+	const demoDrawer = Drawer.createHandle<{ title: string }>();
+</script>
 
-- `open`, `triggerId`, and `snapPoint` are bindable props. Use `bind:open` instead of `open` and `defaultOpen` together. There is no `defaultOpen` prop: pass `open` without `bind:` to set the initial state. `defaultSnapPoint` stays, because the drawer returns to it when it closes.
-- A `snapPoint` that is not one of `snapPoints` resolves to the closest snap point, as a controlled snap point does in Base UI.
-- `onOpenChange` and `onSnapPointChange` run before the state changes. Call `eventDetails.cancel()` to keep the drawer as it is. Setting `open` or `snapPoint` yourself does not call them.
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes and CSS variables below.
-- `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- `actionsRef` is replaced by `bind:this` on `Drawer.Root`, which exposes `close()` and `unmount()`.
-- Events bubble through the DOM, not through the component tree. Content portaled out of a drawer does not reach the drawer's swipe handling.
-- Handlers use lowercase names, such as `onclick`. Refs are not supported.
+<Drawer.Trigger handle={demoDrawer} payload={{ title: 'Profile' }}>Profile</Drawer.Trigger>
+
+<Drawer.Trigger handle={demoDrawer} payload={{ title: 'Settings' }}>Settings</Drawer.Trigger>
+
+<Drawer.Root handle={demoDrawer}>
+	{#snippet children({ payload })}
+		<Drawer.Portal>
+			<Drawer.Popup>
+				<Drawer.Content>
+					<Drawer.Title>{payload?.title}</Drawer.Title>
+				</Drawer.Content>
+			</Drawer.Popup>
+		</Drawer.Portal>
+	{/snippet}
+</Drawer.Root>
+```
+
+### Stacking and animations
+
+Use CSS transitions or animations to animate drawer opening, closing, swipe interactions, and nested stacking. The `data-starting-style` attribute is applied when a drawer starts to open, and `data-ending-style` is applied when it starts to close.
+
+The `--nested-drawers` CSS variable can be used to determine stack depth. The frontmost drawer has index `0`.
+
+```css
+.DrawerPopup {
+	--stack-step: 0.05;
+	--stack-scale: calc(1 - (var(--nested-drawers) * var(--stack-step)));
+	transform: translateY(var(--drawer-swipe-movement-y)) scale(var(--stack-scale));
+}
+```
+
+When stacked drawers have varying heights, use the `--drawer-height` and `--drawer-frontmost-height` variables to keep collapsed drawers aligned with the frontmost one.
+
+```css
+.DrawerPopup {
+	--bleed: 3rem;
+	--stack-height: max(
+		0px,
+		calc(var(--drawer-frontmost-height, var(--drawer-height)) - var(--bleed))
+	);
+	height: var(--drawer-height, auto);
+}
+
+.DrawerPopup[data-nested-drawer-open] {
+	height: calc(var(--stack-height) + var(--bleed));
+	overflow: hidden;
+}
+```
+
+The `data-nested-drawer-open` attribute marks drawers behind the frontmost drawer. Use it with `data-nested-drawer-swiping` to dim or hide parent drawer content while keeping it visible during nested swipe interactions.
+
+```css
+.DrawerContent {
+	transition: opacity 300ms;
+}
+
+.DrawerPopup[data-nested-drawer-open] .DrawerContent {
+	opacity: 0;
+}
+
+.DrawerPopup[data-nested-drawer-open][data-nested-drawer-swiping] .DrawerContent {
+	opacity: 1;
+}
+```
+
+The `--drawer-swipe-movement-x`, `--drawer-swipe-movement-y`, and `--drawer-snap-point-offset` CSS variables can be used to create smooth drag and snap offsets:
+
+```css
+.DrawerPopup[data-swipe-direction='right'] {
+	transform: translateX(var(--drawer-swipe-movement-x));
+}
+
+.DrawerPopup[data-swipe-direction='down'] {
+	transform: translateY(calc(var(--drawer-snap-point-offset) + var(--drawer-swipe-movement-y)));
+}
+```
+
+The `data-swipe-direction` attribute can be used with `data-ending-style` to animate directional dismissal:
+
+```css
+.DrawerPopup[data-ending-style][data-swipe-direction='right'] {
+	transform: translateX(100%);
+}
+
+.DrawerPopup[data-ending-style][data-swipe-direction='down'] {
+	transform: translateY(100%);
+}
+```
+
+Use `--drawer-swipe-progress` to fade the backdrop as the drawer is swiped, and `--drawer-swipe-strength` to scale release transition durations based on swipe velocity.
+
+```css
+.DrawerBackdrop {
+	--backdrop-opacity: 0.2;
+	opacity: calc(var(--backdrop-opacity) * (1 - var(--drawer-swipe-progress)));
+}
+
+.DrawerPopup[data-ending-style],
+.DrawerBackdrop[data-ending-style] {
+	transition-duration: calc(var(--drawer-swipe-strength) * 400ms);
+}
+
+.DrawerPopup[data-swiping],
+.DrawerBackdrop[data-swiping] {
+	transition-duration: 0ms;
+}
+```
 
 ## API reference
 
 ### Provider
 
 <ApiPart name="drawer" part="Provider" />
+
+### IndentBackground
+
+<ApiPart name="drawer" part="IndentBackground" />
+
+| Attribute       | Description                                     |
+| --------------- | ----------------------------------------------- |
+| `data-active`   | Present when a drawer in the provider is open.  |
+| `data-inactive` | Present when no drawer in the provider is open. |
 
 ### Indent
 
@@ -317,41 +1173,34 @@ A trigger does not have to sit inside `Drawer.Root`. Create a handle with `Drawe
 | `--drawer-swipe-progress` | The frontmost drawer's swipe progress, from `0` to `1`. |
 | `--drawer-height`         | The frontmost drawer's height, while a drawer is open.  |
 
-### IndentBackground
-
-<ApiPart name="drawer" part="IndentBackground" />
-
-| Attribute       | Description                                     |
-| --------------- | ----------------------------------------------- |
-| `data-active`   | Present when a drawer in the provider is open.  |
-| `data-inactive` | Present when no drawer in the provider is open. |
-
 ### Root
 
 <ApiPart name="drawer" part="Root" />
-
-`Drawer.Root` renders no element, so it has no data attributes.
 
 ### Trigger
 
 <ApiPart name="drawer" part="Trigger" />
 
-| Attribute         | Description                                                 |
-| ----------------- | ----------------------------------------------------------- |
-| `data-popup-open` | Present when the drawer is open and this trigger opened it. |
-| `data-disabled`   | Present when the trigger is disabled.                       |
+| Attribute         | Description                                    |
+| ----------------- | ---------------------------------------------- |
+| `data-popup-open` | Present when the corresponding dialog is open. |
+| `data-disabled`   | Present when the trigger is disabled.          |
 
 ### SwipeArea
 
 <ApiPart name="drawer" part="SwipeArea" />
 
-| Attribute              | Description                                           |
-| ---------------------- | ----------------------------------------------------- |
-| `data-open`            | Present when the drawer is open.                      |
-| `data-closed`          | Present when the drawer is closed.                    |
-| `data-swiping`         | Present while a swipe from this area is running.      |
-| `data-swipe-direction` | The opening direction: `up`, `down`, `left`, `right`. |
-| `data-disabled`        | Present when the swipe area is disabled.              |
+| Attribute              | Description                              |
+| ---------------------- | ---------------------------------------- |
+| `data-open`            | Present when the drawer is open.         |
+| `data-closed`          | Present when the drawer is closed.       |
+| `data-disabled`        | Present when the swipe area is disabled. |
+| `data-swipe-direction` | Indicates the swipe direction.           |
+| `data-swiping`         | Present when the drawer is being swiped. |
+
+### VirtualKeyboardProvider
+
+<ApiPart name="drawer" part="VirtualKeyboardProvider" />
 
 ### Portal
 
@@ -361,61 +1210,59 @@ A trigger does not have to sit inside `Drawer.Root`. Create a handle with `Drawe
 
 <ApiPart name="drawer" part="Backdrop" />
 
-| Attribute             | Description                               |
-| --------------------- | ----------------------------------------- |
-| `data-open`           | Present when the drawer is open.          |
-| `data-closed`         | Present when the drawer is closed.        |
-| `data-swiping`        | Present while the drawer is swiped.       |
-| `data-starting-style` | Present when the drawer is animating in.  |
-| `data-ending-style`   | Present when the drawer is animating out. |
+| Attribute             | Description                                  |
+| --------------------- | -------------------------------------------- |
+| `data-open`           | Present when the drawer is open.             |
+| `data-closed`         | Present when the drawer is closed.           |
+| `data-starting-style` | Present when the drawer begins animating in. |
+| `data-ending-style`   | Present when the drawer is animating out.    |
 
-| CSS variable              | Description                                                  |
-| ------------------------- | ------------------------------------------------------------ |
-| `--drawer-swipe-progress` | How far the drawer is swiped toward closed, from `0` to `1`. |
+| CSS variable              | Description                               |
+| ------------------------- | ----------------------------------------- |
+| `--drawer-swipe-progress` | The swipe progress of the drawer gesture. |
 
 ### Viewport
 
 <ApiPart name="drawer" part="Viewport" />
 
-| Attribute             | Description                                          |
-| --------------------- | ---------------------------------------------------- |
-| `data-open`           | Present when the drawer is open.                     |
-| `data-closed`         | Present when the drawer is closed.                   |
-| `data-nested`         | Present when the drawer is nested in another dialog. |
-| `data-starting-style` | Present when the drawer is animating in.             |
-| `data-ending-style`   | Present when the drawer is animating out.            |
+| Attribute             | Description                                              |
+| --------------------- | -------------------------------------------------------- |
+| `data-open`           | Present when the drawer is open.                         |
+| `data-closed`         | Present when the drawer is closed.                       |
+| `data-nested`         | Present when the drawer is nested within another drawer. |
+| `data-starting-style` | Present when the drawer begins animating in.             |
+| `data-ending-style`   | Present when the drawer is animating out.                |
 
-| CSS variable              | Description                                                                    |
-| ------------------------- | ------------------------------------------------------------------------------ |
-| `--drawer-keyboard-inset` | The height the software keyboard covers. Set inside `VirtualKeyboardProvider`. |
+| CSS variable              | Description                                                                                                                                                     |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--drawer-keyboard-inset` | The software keyboard inset, measured from the bottom edge of the layout viewport. Present only when the drawer is wrapped in `Drawer.VirtualKeyboardProvider`. |
 
 ### Popup
 
 <ApiPart name="drawer" part="Popup" />
 
-| Attribute                    | Description                                              |
-| ---------------------------- | -------------------------------------------------------- |
-| `data-open`                  | Present when the drawer is open.                         |
-| `data-closed`                | Present when the drawer is closed.                       |
-| `data-nested`                | Present when the drawer is nested in another drawer.     |
-| `data-nested-drawer-open`    | Present when a drawer nested in this one is open.        |
-| `data-nested-drawer-swiping` | Present while a drawer nested in this one is swiped.     |
-| `data-expanded`              | Present at the full-height snap point `1`.               |
-| `data-swiping`               | Present while the drawer is swiped.                      |
-| `data-swipe-dismiss`         | Present while the drawer closes from a swipe.            |
-| `data-swipe-direction`       | The dismiss direction: `up`, `down`, `left`, or `right`. |
-| `data-starting-style`        | Present when the drawer is animating in.                 |
-| `data-ending-style`          | Present when the drawer is animating out.                |
+| Attribute                    | Description                                                          |
+| ---------------------------- | -------------------------------------------------------------------- |
+| `data-open`                  | Present when the drawer is open.                                     |
+| `data-closed`                | Present when the drawer is closed.                                   |
+| `data-expanded`              | Present when the drawer is at the expanded (full-height) snap point. |
+| `data-nested-drawer-open`    | Present when a nested drawer is open.                                |
+| `data-nested-drawer-swiping` | Present when a nested drawer is being swiped.                        |
+| `data-swipe-direction`       | Indicates the swipe direction.                                       |
+| `data-swipe-dismiss`         | Present when the drawer is dismissed by swiping.                     |
+| `data-swiping`               | Present when the drawer is being swiped.                             |
+| `data-starting-style`        | Present when the drawer begins animating in.                         |
+| `data-ending-style`          | Present when the drawer is animating out.                            |
 
-| CSS variable                 | Description                                                     |
-| ---------------------------- | --------------------------------------------------------------- |
-| `--drawer-swipe-movement-x`  | The horizontal swipe movement.                                  |
-| `--drawer-swipe-movement-y`  | The vertical swipe movement.                                    |
-| `--drawer-snap-point-offset` | How far below its full height the popup sits at the snap point. |
-| `--drawer-swipe-strength`    | A scale from 0.1 to 1 for the release transition's duration.    |
-| `--drawer-height`            | The popup's height.                                             |
-| `--drawer-frontmost-height`  | The height of the frontmost open drawer in the nested stack.    |
-| `--nested-drawers`           | The number of open drawers nested in this one.                  |
+| CSS variable                 | Description                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------- |
+| `--drawer-frontmost-height`  | The height of the frontmost open drawer in the current nested drawer stack.  |
+| `--drawer-height`            | The height of the drawer popup.                                              |
+| `--drawer-snap-point-offset` | The snap point offset used for translating the drawer.                       |
+| `--drawer-swipe-movement-x`  | The swipe movement on the X axis.                                            |
+| `--drawer-swipe-movement-y`  | The swipe movement on the Y axis.                                            |
+| `--drawer-swipe-strength`    | A scalar (0.1-1) used to scale the swipe release transition duration in CSS. |
+| `--nested-drawers`           | The number of nested drawers that are currently open.                        |
 
 ### Content
 
@@ -437,6 +1284,28 @@ A trigger does not have to sit inside `Drawer.Root`. Create a handle with `Drawe
 | --------------- | ------------------------------------ |
 | `data-disabled` | Present when the button is disabled. |
 
-### VirtualKeyboardProvider
+## createHandle
 
-<ApiPart name="drawer" part="VirtualKeyboardProvider" />
+Creates a new handle to connect a `Drawer.Root` with detached `Drawer.Trigger` components.
+
+`Drawer.createHandle<Payload>()` returns a `Drawer.Handle<Payload>`.
+
+### Handle
+
+Controls a Drawer imperatively and associates detached `Drawer.Trigger` components with a `Drawer.Root`. Create one with `Drawer.createHandle()` and pass it to the `handle` prop of the root and of any triggers rendered outside of it.
+
+The imperative methods take effect only while a root using this handle is mounted; calls made before a root attaches (or after it unmounts) are ignored.
+
+| Property  | Type                   | Description                                                                                    |
+| --------- | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `isOpen`  | `boolean`              | Whether the dialog is currently open. Returns `false` while no root is attached to the handle. |
+| `payload` | `Payload \| undefined` | The payload of the trigger that opened the drawer, or the one passed to `openWithPayload()`.   |
+
+| Method                                    | Description                                                                       |
+| ----------------------------------------- | --------------------------------------------------------------------------------- |
+| `open(triggerId: string \| null): void`   | Opens the dialog, optionally associating it with a trigger.                       |
+| `openWithPayload(payload: Payload): void` | Opens the dialog with the given payload, without associating it with any trigger. |
+| `close(): void`                           | Closes the dialog.                                                                |
+| `unmount(): void`                         | Removes the popup at once, without waiting for the exit animation.                |
+
+Call these methods only in an event handler or an effect, not during rendering.
