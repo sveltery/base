@@ -22,9 +22,15 @@ export const PopoverPositionerDataAttributes = {
 	closed: 'data-closed',
 	/** Present when the anchor is hidden. */
 	anchorHidden: 'data-anchor-hidden',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: attributes.sideAttribute,
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: attributes.alignAttribute
 } as const;
 
@@ -44,11 +50,20 @@ export const PopoverPopupDataAttributes = {
 	startingStyle: 'data-starting-style',
 	/** Present when the popup is animating out. */
 	endingStyle: 'data-ending-style',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: attributes.sideAttribute,
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: attributes.alignAttribute,
-	/** Present if animations should be instant. */
+	/**
+	 * Present if animations should be instant.
+	 * @type {'click' | 'dismiss' | 'focus' | 'trigger-change'}
+	 */
 	instant: attributes.instantAttribute
 } as const;
 
@@ -57,9 +72,15 @@ export const PopoverArrowDataAttributes = {
 	open: 'data-open',
 	/** Present when the popup is closed. */
 	closed: 'data-closed',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: attributes.sideAttribute,
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: attributes.alignAttribute,
 	/** Present when the popover arrow is uncentered. */
 	uncentered: attributes.uncenteredAttribute
@@ -88,10 +109,16 @@ export const PopoverViewportDataAttributes = {
 	current: 'data-current',
 	/** Applied to the direct child of the viewport that contains the exiting content when transitions are present. */
 	previous: 'data-previous',
-	/** Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. */
+	/**
+	 * Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes.
+	 * @type {`${'left' | 'right' | ''} ${'down' | 'up' | ''}`}
+	 */
 	activationDirection: attributes.activationDirectionAttribute,
 	/** Indicates that the viewport is currently transitioning between old and new content. */
 	transitioning: attributes.transitioningAttribute,
-	/** Present if animations should be instant. */
+	/**
+	 * Present if animations should be instant.
+	 * @type {'click' | 'dismiss' | 'focus' | 'trigger-change'}
+	 */
 	instant: attributes.instantAttribute
 } as const;

@@ -11,7 +11,10 @@ export const NavigationMenuContentDataAttributes = {
 	startingStyle: 'data-starting-style',
 	/** Present when the content is animating out. */
 	endingStyle: 'data-ending-style',
-	/** Which direction another trigger was activated from. */
+	/**
+	 * Which direction another trigger was activated from.
+	 * @type {'left' | 'right' | 'up' | 'down'}
+	 */
 	activationDirection: 'data-activation-direction'
 } as const;
 
@@ -33,9 +36,15 @@ export const NavigationMenuPositionerDataAttributes = {
 	closed: 'data-closed',
 	/** Present when the anchor is hidden. */
 	anchorHidden: 'data-anchor-hidden',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to the specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to the specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
 	/** Present if animations should be instant. */
 	instant: 'data-instant'
@@ -53,9 +62,15 @@ export const NavigationMenuBackdropDataAttributes = {
 } as const;
 
 export const NavigationMenuPopupCssVariables = {
-	/** The fixed width of the popup element. */
+	/**
+	 * The fixed width of the popup element.
+	 * @type {number}
+	 */
 	popupWidth: '--popup-width',
-	/** The fixed height of the popup element. */
+	/**
+	 * The fixed height of the popup element.
+	 * @type {number}
+	 */
 	popupHeight: '--popup-height'
 } as const;
 
@@ -70,9 +85,15 @@ export const NavigationMenuPopupDataAttributes = {
 	endingStyle: 'data-ending-style',
 	/** Present when the anchor is hidden. */
 	anchorHidden: 'data-anchor-hidden',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to the specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to the specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align'
 } as const;
 
@@ -81,9 +102,15 @@ export const NavigationMenuArrowDataAttributes = {
 	open: 'data-open',
 	/** Present when the popup is closed. */
 	closed: 'data-closed',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
 	/** Present when the popup arrow is uncentered. */
 	uncentered: 'data-uncentered'

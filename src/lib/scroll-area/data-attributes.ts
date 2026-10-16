@@ -6,9 +6,15 @@ import * as cssVars from './css-vars.js';
 import * as attributes from './attributes.js';
 
 export const ScrollAreaRootCssVariables = {
-	/** The scroll area's corner height. */
+	/**
+	 * The scroll area's corner height.
+	 * @type {number}
+	 */
 	scrollAreaCornerHeight: cssVars.scrollAreaCornerHeight,
-	/** The scroll area's corner width. */
+	/**
+	 * The scroll area's corner width.
+	 * @type {number}
+	 */
 	scrollAreaCornerWidth: cssVars.scrollAreaCornerWidth
 } as const;
 
@@ -30,13 +36,25 @@ export const ScrollAreaRootDataAttributes = {
 } as const;
 
 export const ScrollAreaViewportCssVariables = {
-	/** The distance from the horizontal start edge in pixels. */
+	/**
+	 * The distance from the horizontal start edge in pixels.
+	 * @type {number}
+	 */
 	scrollAreaOverflowXStart: cssVars.scrollAreaOverflowXStart,
-	/** The distance from the horizontal end edge in pixels. */
+	/**
+	 * The distance from the horizontal end edge in pixels.
+	 * @type {number}
+	 */
 	scrollAreaOverflowXEnd: cssVars.scrollAreaOverflowXEnd,
-	/** The distance from the vertical start edge in pixels. */
+	/**
+	 * The distance from the vertical start edge in pixels.
+	 * @type {number}
+	 */
 	scrollAreaOverflowYStart: cssVars.scrollAreaOverflowYStart,
-	/** The distance from the vertical end edge in pixels. */
+	/**
+	 * The distance from the vertical end edge in pixels.
+	 * @type {number}
+	 */
 	scrollAreaOverflowYEnd: cssVars.scrollAreaOverflowYEnd
 } as const;
 
@@ -58,14 +76,23 @@ export const ScrollAreaViewportDataAttributes = {
 } as const;
 
 export const ScrollAreaScrollbarCssVariables = {
-	/** The scroll area thumb's height. */
+	/**
+	 * The scroll area thumb's height.
+	 * @type {number}
+	 */
 	scrollAreaThumbHeight: cssVars.scrollAreaThumbHeight,
-	/** The scroll area thumb's width. */
+	/**
+	 * The scroll area thumb's width.
+	 * @type {number}
+	 */
 	scrollAreaThumbWidth: cssVars.scrollAreaThumbWidth
 } as const;
 
 export const ScrollAreaScrollbarDataAttributes = {
-	/** Indicates the orientation of the scrollbar. */
+	/**
+	 * Indicates the orientation of the scrollbar.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: attributes.orientationAttribute,
 	/** Present when the pointer is over the scroll area. */
 	hovering: attributes.hovering,
@@ -103,7 +130,10 @@ export const ScrollAreaContentDataAttributes = {
 } as const;
 
 export const ScrollAreaThumbDataAttributes = {
-	/** Indicates the orientation of the scrollbar. */
+	/**
+	 * Indicates the orientation of the scrollbar.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: attributes.orientationAttribute,
 	/** Present when the user scrolls inside the scroll area. */
 	scrolling: attributes.scrolling

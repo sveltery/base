@@ -7,9 +7,15 @@ export const MenuArrowDataAttributes = {
 	open: 'data-open',
 	/** Present when the menu popup is closed. */
 	closed: 'data-closed',
-	/** Indicates which side the popup is positioned relative to the anchor. */
+	/**
+	 * Indicates which side the popup is positioned relative to the anchor.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
 	/** Present when the menu arrow is uncentered. */
 	uncentered: 'data-uncentered'
@@ -71,11 +77,20 @@ export const MenuPopupDataAttributes = {
 	startingStyle: 'data-starting-style',
 	/** Present when the menu is animating out. */
 	endingStyle: 'data-ending-style',
-	/** Indicates which side the popup is positioned relative to the anchor. */
+	/**
+	 * Indicates which side the popup is positioned relative to the anchor.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
-	/** Present if animations should be instant. */
+	/**
+	 * Present if animations should be instant.
+	 * @type {'click' | 'dismiss' | 'group' | 'trigger-change'}
+	 */
 	instant: 'data-instant'
 } as const;
 
@@ -88,9 +103,15 @@ export const MenuPositionerDataAttributes = {
 	closed: 'data-closed',
 	/** Present when the anchor is hidden. */
 	anchorHidden: 'data-anchor-hidden',
-	/** Indicates which side the popup is positioned relative to the anchor. */
+	/**
+	 * Indicates which side the popup is positioned relative to the anchor.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to the specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to the specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align'
 } as const;
 
@@ -139,11 +160,17 @@ export const MenuViewportDataAttributes = {
 	current: 'data-current',
 	/** Applied to the direct child of the viewport that contains the exiting content when transitions are present. */
 	previous: 'data-previous',
-	/** Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. */
+	/**
+	 * Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes.
+	 * @type {`${'left' | 'right' | ''} ${'down' | 'up' | ''}`}
+	 */
 	activationDirection: 'data-activation-direction',
 	/** Indicates that the viewport is currently transitioning between old and new content. */
 	transitioning: 'data-transitioning',
-	/** Present if animations should be instant. */
+	/**
+	 * Present if animations should be instant.
+	 * @type {'click' | 'dismiss' | 'group' | 'trigger-change'}
+	 */
 	instant: 'data-instant'
 } as const;
 

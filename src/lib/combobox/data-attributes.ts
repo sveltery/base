@@ -11,7 +11,10 @@ export const ComboboxInputDataAttributes = {
 	disabled: 'data-disabled',
 	/** Present when the component is readonly. */
 	readonly: 'data-readonly',
-	/** Indicates which side the corresponding popup is positioned relative to its anchor. */
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null}
+	 */
 	popupSide: 'data-popup-side',
 	/** Present when the component is required. */
 	required: 'data-required',
@@ -40,7 +43,10 @@ export const ComboboxInputGroupDataAttributes = {
 	disabled: 'data-disabled',
 	/** Present when the component is readonly. */
 	readonly: 'data-readonly',
-	/** Indicates which side the corresponding popup is positioned relative to its anchor. */
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null}
+	 */
 	popupSide: 'data-popup-side',
 	/** Present when the component is in a valid state (when wrapped in Field.Root). */
 	valid: 'data-valid',
@@ -69,7 +75,10 @@ export const ComboboxTriggerDataAttributes = {
 	disabled: 'data-disabled',
 	/** Present when the component is readonly. */
 	readonly: 'data-readonly',
-	/** Indicates which side the corresponding popup is positioned relative to its anchor. */
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null}
+	 */
 	popupSide: 'data-popup-side',
 	/** Present when the component is required. */
 	required: 'data-required',
@@ -103,15 +112,30 @@ export const ComboboxBackdropDataAttributes = {
 } as const;
 
 export const ComboboxPositionerCssVariables = {
-	/** The available width between the trigger and the edge of the viewport. */
+	/**
+	 * The available width between the trigger and the edge of the viewport.
+	 * @type {number}
+	 */
 	availableWidth: '--available-width',
-	/** The available height between the trigger and the edge of the viewport. */
+	/**
+	 * The available height between the trigger and the edge of the viewport.
+	 * @type {number}
+	 */
 	availableHeight: '--available-height',
-	/** The anchor's width. */
+	/**
+	 * The anchor's width.
+	 * @type {number}
+	 */
 	anchorWidth: '--anchor-width',
-	/** The anchor's height. */
+	/**
+	 * The anchor's height.
+	 * @type {number}
+	 */
 	anchorHeight: '--anchor-height',
-	/** The coordinates that this element is anchored to. Used for animations and transitions. */
+	/**
+	 * The coordinates that this element is anchored to. Used for animations and transitions.
+	 * @type {string}
+	 */
 	transformOrigin: '--transform-origin'
 } as const;
 
@@ -122,9 +146,15 @@ export const ComboboxPositionerDataAttributes = {
 	closed: 'data-closed',
 	/** Present when the anchor is hidden. */
 	anchorHidden: 'data-anchor-hidden',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
 	/** Present when the items list is empty. */
 	empty: 'data-empty'
@@ -139,9 +169,15 @@ export const ComboboxPopupDataAttributes = {
 	startingStyle: 'data-starting-style',
 	/** Present when the popup is animating out. */
 	endingStyle: 'data-ending-style',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
 	/** Present when the anchor is hidden. */
 	anchorHidden: 'data-anchor-hidden',
@@ -154,9 +190,15 @@ export const ComboboxArrowDataAttributes = {
 	open: 'data-open',
 	/** Present when the popup is closed. */
 	closed: 'data-closed',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
 	/** Present when the arrow is uncentered. */
 	uncentered: 'data-uncentered'

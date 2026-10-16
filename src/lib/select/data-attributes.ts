@@ -11,7 +11,10 @@ export const SelectTriggerDataAttributes = {
 	disabled: 'data-disabled',
 	/** Present when the select is readonly. */
 	readonly: 'data-readonly',
-	/** Indicates which side the corresponding popup is positioned relative to its anchor. */
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null}
+	 */
 	popupSide: 'data-popup-side',
 	/** Present when the select is required. */
 	required: 'data-required',
@@ -53,15 +56,30 @@ export const SelectBackdropDataAttributes = {
 } as const;
 
 export const SelectPositionerCssVariables = {
-	/** The available width between the trigger and the edge of the viewport. */
+	/**
+	 * The available width between the trigger and the edge of the viewport.
+	 * @type {number}
+	 */
 	availableWidth: '--available-width',
-	/** The available height between the trigger and the edge of the viewport. */
+	/**
+	 * The available height between the trigger and the edge of the viewport.
+	 * @type {number}
+	 */
 	availableHeight: '--available-height',
-	/** The anchor's width. */
+	/**
+	 * The anchor's width.
+	 * @type {number}
+	 */
 	anchorWidth: '--anchor-width',
-	/** The anchor's height. */
+	/**
+	 * The anchor's height.
+	 * @type {number}
+	 */
 	anchorHeight: '--anchor-height',
-	/** The coordinates that this element is anchored to. Used for animations and transitions. */
+	/**
+	 * The coordinates that this element is anchored to. Used for animations and transitions.
+	 * @type {string}
+	 */
 	transformOrigin: '--transform-origin'
 } as const;
 
@@ -72,9 +90,15 @@ export const SelectPositionerDataAttributes = {
 	closed: 'data-closed',
 	/** Present when the anchor is hidden. */
 	anchorHidden: 'data-anchor-hidden',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align'
 } as const;
 
@@ -87,9 +111,15 @@ export const SelectPopupDataAttributes = {
 	startingStyle: 'data-starting-style',
 	/** Present when the select is animating out. */
 	endingStyle: 'data-ending-style',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align'
 } as const;
 
@@ -114,9 +144,15 @@ export const SelectArrowDataAttributes = {
 	open: 'data-open',
 	/** Present when the select popup is closed. */
 	closed: 'data-closed',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
 	/** Present when the select arrow is uncentered. */
 	uncentered: 'data-uncentered'
@@ -127,11 +163,17 @@ export const SelectScrollDownArrowDataAttributes = {
 	startingStyle: 'data-starting-style',
 	/** Present when the scroll arrow is animating out. */
 	endingStyle: 'data-ending-style',
-	/** Indicates the direction of the scroll arrow. */
+	/**
+	 * Indicates the direction of the scroll arrow.
+	 * @type {'down'}
+	 */
 	direction: 'data-direction',
 	/** Present when the scroll arrow is visible. */
 	visible: 'data-visible',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side'
 } as const;
 
@@ -140,11 +182,17 @@ export const SelectScrollUpArrowDataAttributes = {
 	startingStyle: 'data-starting-style',
 	/** Present when the scroll arrow is animating out. */
 	endingStyle: 'data-ending-style',
-	/** Indicates the direction of the scroll arrow. */
+	/**
+	 * Indicates the direction of the scroll arrow.
+	 * @type {'up'}
+	 */
 	direction: 'data-direction',
 	/** Present when the scroll arrow is visible. */
 	visible: 'data-visible',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side'
 } as const;
 

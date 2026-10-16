@@ -18,9 +18,15 @@ export const TooltipPositionerDataAttributes = {
 	closed: 'data-closed',
 	/** Present when the anchor is hidden. */
 	anchorHidden: 'data-anchor-hidden',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align'
 } as const;
 
@@ -33,11 +39,20 @@ export const TooltipPopupDataAttributes = {
 	startingStyle: 'data-starting-style',
 	/** Present when the tooltip is animating out. */
 	endingStyle: 'data-ending-style',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
-	/** Present if animations should be instant. */
+	/**
+	 * Present if animations should be instant.
+	 * @type {'delay' | 'dismiss' | 'focus'}
+	 */
 	instant: 'data-instant'
 } as const;
 
@@ -46,13 +61,22 @@ export const TooltipArrowDataAttributes = {
 	open: 'data-open',
 	/** Present when the tooltip is closed. */
 	closed: 'data-closed',
-	/** Indicates which side the popup is positioned relative to the trigger. */
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'}
+	 */
 	side: 'data-side',
-	/** Indicates how the popup is aligned relative to specified side. */
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type {'start' | 'center' | 'end'}
+	 */
 	align: 'data-align',
 	/** Present when the tooltip arrow is uncentered. */
 	uncentered: 'data-uncentered',
-	/** Present if animations should be instant. */
+	/**
+	 * Present if animations should be instant.
+	 * @type {'delay' | 'dismiss' | 'focus'}
+	 */
 	instant: 'data-instant'
 } as const;
 
@@ -68,10 +92,16 @@ export const TooltipViewportDataAttributes = {
 	current: 'data-current',
 	/** Applied to the direct child of the viewport that contains the exiting content when transitions are present. */
 	previous: 'data-previous',
-	/** Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. */
+	/**
+	 * Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes.
+	 * @type {`${'left' | 'right' | ''} ${'down' | 'up' | ''}`}
+	 */
 	activationDirection: 'data-activation-direction',
 	/** Indicates that the viewport is currently transitioning between old and new content. */
 	transitioning: 'data-transitioning',
-	/** Present if animations should be instant. */
+	/**
+	 * Present if animations should be instant.
+	 * @type {'delay' | 'dismiss' | 'focus'}
+	 */
 	instant: 'data-instant'
 } as const;
