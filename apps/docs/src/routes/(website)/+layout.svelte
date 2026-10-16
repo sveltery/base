@@ -48,6 +48,7 @@
 				aria-label="social links"
 			>
 				<a class="Link Text sz-1" href="https://github.com/sveltery/base">GitHub</a>
+				<a class="Link Text sz-1" href="https://www.npmjs.com/package/@sveltery/base">npm</a>
 			</nav>
 		</footer>
 	</div>
