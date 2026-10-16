@@ -1,5 +1,7 @@
 <!--
-	A row of items in a grid list. Renders a `<div>` element.
+	Displays a single row of items in a grid list.
+	Enable `grid` on the root component to turn the listbox into a grid.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/row/ComboboxRow.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

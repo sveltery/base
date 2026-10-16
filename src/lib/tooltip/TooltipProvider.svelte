@@ -1,6 +1,6 @@
 <!--
-	Shares a delay between tooltips. Once one tooltip is visible, its neighbours open instantly.
-	Does not render its own HTML element.
+	Provides a shared delay for multiple tooltips. The grouping logic ensures that
+	once a tooltip becomes visible, the adjacent tooltips will be shown instantly.
 	Derived from Base UI v1.9.0 packages/react/src/tooltip/provider/TooltipProvider.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

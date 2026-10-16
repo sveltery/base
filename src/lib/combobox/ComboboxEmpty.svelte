@@ -1,7 +1,12 @@
 <!--
-	Renders its children only while the filtered list is empty, and announces them politely to
-	screen readers. Requires the `items` prop on the root. Keep it mounted: hide its children,
-	not the element. Renders a `<div>` element.
+	Renders its children only when the list is empty.
+	Requires the `items` prop on the root component.
+	Announces changes politely to screen readers.
+	This component's root element must remain mounted in the DOM to announce
+	changes consistently across screen readers. Avoid hiding or removing the
+	component itself with `display: none`, `hidden`, `aria-hidden`, or conditional
+	rendering. Prefer updating or conditionally rendering its children instead.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/combobox/empty/ComboboxEmpty.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

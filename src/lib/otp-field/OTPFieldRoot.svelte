@@ -1,6 +1,6 @@
 <!--
 	Groups all OTP field parts and manages their state.
-	Renders a `<div>` element and a visually hidden validation input.
+	Renders a `<div>` element.
 	Derived from Base UI v1.8.0 packages/react/src/otp-field/root/OTPFieldRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	The hidden input is not a ref. Field registration uses the first visible slot.

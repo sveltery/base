@@ -1,5 +1,8 @@
 <!--
-	A viewport for displaying content transitions. Renders a `<div>` element.
+	A viewport for displaying content transitions.
+	This component is only required if one popup can be opened by multiple triggers, its content
+	changes based on the trigger, and switching between them is animated.
+	Renders a `<div>` element.
 	Derived from Base UI v1.8.0 packages/react/src/popover/viewport/PopoverViewport.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	The current pane is keyed so `data-starting-style` lands on a new element and

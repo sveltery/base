@@ -1,6 +1,6 @@
 <!--
 	A positioning container for the drawer popup that can be made scrollable.
-	Renders a `<div>` element. It runs the swipe-to-dismiss gesture and snap point settling.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/drawer/viewport/DrawerViewport.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	Touch moves go through one capture listener on the document, so the gesture can be claimed

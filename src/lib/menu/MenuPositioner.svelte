@@ -1,5 +1,6 @@
 <!--
-	Positions the menu popup against the trigger. Renders a `<div>` element.
+	Positions the menu popup against the trigger.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/menu/positioner/MenuPositioner.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The item registry is the store's `ElementList`, so there is no CompositeList here.

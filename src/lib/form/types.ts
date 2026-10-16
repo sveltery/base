@@ -90,14 +90,19 @@ export interface FormProps<
 	 */
 	enhance?: (instance: EnhanceInstanceOf<S>) => unknown;
 	/**
-	 * When fields should validate. A `<Field.Root validationMode>` takes precedence.
+	 * Determines when the form should be validated.
+	 * The `validationMode` prop on `<Field.Root>` takes precedence over this.
+	 *
+	 * - `onSubmit` (default): validates the field when the form is submitted, afterwards fields will re-validate on change.
+	 * - `onBlur`: validates a field when it loses focus.
+	 * - `onChange`: validates the field on every change to its value.
 	 * @default 'onSubmit'
 	 */
 	validationMode?: FormValidationMode;
 	/**
-	 * Errors supplied from outside the form, usually after a server action.
-	 * Use `bind:errors` so `clearErrors` can drop a key. A new object from the
-	 * parent replaces the current errors.
+	 * Validation errors returned externally, typically after submission by a server or a form action.
+	 * This should be an object where keys correspond to the `name` attribute on `<Field.Root>`,
+	 * and values correspond to error(s) related to that field.
 	 */
 	errors?: FormErrors;
 	/**
@@ -107,9 +112,8 @@ export interface FormProps<
 	 */
 	onsubmit?: HTMLFormAttributes['onsubmit'];
 	/**
-	 * Called with each named field's value when submit is not blocked.
-	 * The native submit is cancelled before this runs. With `form`, the source submits
-	 * instead, so use `enhance`.
+	 * Event handler called when the form is submitted.
+	 * `preventDefault()` is called on the native submit event when used.
 	 */
 	onFormSubmit?: (formValues: FormValues, eventDetails: FormSubmitEventDetails) => void;
 	/**
@@ -129,7 +133,12 @@ export interface FormProps<
 	 * @default true
 	 */
 	novalidate?: boolean;
-	/** Replace the default `<form>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: HTMLFormAttributes, state: FormState, children: RenderChildren]>;
 	children?: Snippet;
 }
@@ -146,7 +155,12 @@ export interface FormErrorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 * @default 'alert'
 	 */
 	role?: HTMLAttributes<HTMLDivElement>['role'];
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FormErrorState, children: RenderChildren]
 	>;

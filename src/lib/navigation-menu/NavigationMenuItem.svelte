@@ -1,5 +1,6 @@
 <!--
-	An individual navigation menu item. Renders an `<li>` element.
+	An individual navigation menu item.
+	Renders a `<li>` element.
 	Derived from Base UI v1.9.0 packages/react/src/navigation-menu/item/NavigationMenuItem.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

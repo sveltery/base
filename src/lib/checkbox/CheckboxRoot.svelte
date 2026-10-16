@@ -1,5 +1,6 @@
 <!--
-	Represents the checkbox itself. Renders a `<span>` and a hidden checkbox beside it.
+	Represents the checkbox itself.
+	Renders a `<span>` element and a hidden `<input>` beside.
 	Derived from Base UI v1.9.0 packages/react/src/checkbox/root/CheckboxRoot.tsx
 	and the native-label fallback of useAriaLabelledBy.ts
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.

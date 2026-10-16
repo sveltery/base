@@ -1,6 +1,6 @@
 <!--
-	A container for the drawer contents. Renders a `<div>` element.
-	Mouse and pen drags that start inside it select text instead of swiping the drawer.
+	A container for the drawer contents.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/drawer/content/DrawerContent.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

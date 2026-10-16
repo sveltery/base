@@ -1,5 +1,6 @@
 <!--
-	Indicates whether the radio item is ticked. Renders a `<span>` element.
+	Indicates whether the radio item is selected.
+	Renders a `<span>` element.
 	Derived from Base UI v1.9.0
 	packages/react/src/menu/radio-item-indicator/MenuRadioItemIndicator.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
@@ -11,9 +12,14 @@
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { useMenuRadioItem } from './context.svelte.js';
 	import { itemMapping } from './item-mapping.js';
-	import type { MenuItemIndicatorProps, MenuItemIndicatorState } from './types.js';
+	import type { MenuRadioItemIndicatorProps, MenuItemIndicatorState } from './types.js';
 
-	let { keepMounted = false, render, children, ...elementProps }: MenuItemIndicatorProps = $props();
+	let {
+		keepMounted = false,
+		render,
+		children,
+		...elementProps
+	}: MenuRadioItemIndicatorProps = $props();
 
 	const item = useMenuRadioItem();
 	const bindKey = createAttachmentKey();

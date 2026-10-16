@@ -1,6 +1,7 @@
 <!--
-	A button that clears the input text. Requires the menu to be wrapped in `Menu.FilterProvider`.
-	Renders a `<button>` element while the input has text.
+	A button that clears the input text.
+	Requires the menu to be wrapped in `Menu.FilterProvider`.
+	Renders a `<button>` element when the input has text.
 	Derived from Base UI v1.9.0 packages/react/src/menu/clear/MenuClear.tsx and
 	packages/react/src/filter-dropdown/clear/FilterDropdownClear.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.

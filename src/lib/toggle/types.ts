@@ -22,30 +22,39 @@ export type ToggleHostProps = HTMLAttributes<HTMLElement>;
 
 export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
 	/**
-	 * Whether the toggle is pressed.
-	 * Use `bind:pressed` to share it with the parent.
-	 * A value passed without `bind:` holds until the parent changes it. Inside a group, the group value wins.
+	 * Whether the toggle button is currently pressed.
+	 *
+	 * To render an uncontrolled toggle, pass `pressed` without `bind:`.
 	 * @default false
 	 */
 	pressed?: boolean;
-	/** Whether the toggle should ignore user interaction. @default false */
+	/**
+	 * Whether the component should ignore user interaction.
+	 * @default false
+	 */
 	disabled?: boolean | null;
 	/**
-	 * Identifies this toggle inside a ToggleGroup.
-	 * An empty string is treated as omitted and replaced with a generated id.
+	 * A unique string that identifies the toggle when used
+	 * inside a toggle group.
 	 */
 	value?: string;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
-	/** Called before the pressed state changes. Call `eventDetails.cancel()` to veto it. */
+	/** Callback fired when the pressed state is changed. */
 	onPressedChange?: (pressed: boolean, eventDetails: ToggleChangeEventDetails) => void;
 	/** Runs before the Toggle's handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLButtonAttributes['onclick'];
-	/** Replace the default `<button>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: ToggleHostProps, state: ToggleState, children: RenderChildren]>;
 	children?: Snippet;
 }

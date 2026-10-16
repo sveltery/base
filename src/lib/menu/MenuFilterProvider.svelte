@@ -1,7 +1,8 @@
 <!--
 	Enables filtering for the menu or submenu it wraps. Add `Menu.Input` to the popup and place
-	its items in `Menu.List`. Wrap each searchable submenu in its own provider.
-	Does not render its own HTML element.
+	its items in `Menu.List`.
+	Wrap each searchable submenu in its own provider.
+	Doesn't render its own HTML element.
 	Derived from Base UI v1.9.0 packages/react/src/menu/filter-provider/MenuFilterProvider.tsx and
 	MenuFilterProviderOptions.ts (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 	MIT, see THIRD_PARTY_NOTICES.md.

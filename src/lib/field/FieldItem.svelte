@@ -1,5 +1,5 @@
 <!--
-	Groups an individual item with its own label and description.
+	Groups individual items in a checkbox group or radio group with a label and description.
 	Renders a `<div>` element.
 	Derived from Base UI v1.8.0 packages/react/src/field/item/FieldItem.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.

@@ -33,10 +33,7 @@ export type RadioRootChangeEventDetails = BaseUIChangeEventDetails<RadioRootChan
 export type RadioHostProps = HTMLAttributes<HTMLElement>;
 
 export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
-	/**
-	 * The unique identifying value of the radio.
-	 * Without a radio group, the radio is selected only when this is `''`.
-	 */
+	/** The unique identifying value of the radio in a group. */
 	value: unknown;
 	/** Whether the component should ignore user interaction. @default false */
 	disabled?: boolean | null;
@@ -51,9 +48,9 @@ export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'child
 	 */
 	required?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `true` and render a `<button>`. The `id` is then applied to that button
-	 * instead of the hidden input.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `true` if the rendered element is a native button.
 	 * @default false
 	 */
 	nativeButton?: boolean;
@@ -64,18 +61,28 @@ export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'child
 	id?: string | null;
 	/** Runs before the radio's click handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLAttributes<HTMLElement>['onclick'];
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<[props: RadioHostProps, state: RadioRootState, children: RenderChildren]>;
 	children?: Snippet;
 }
 
 export interface RadioIndicatorProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 	/**
-	 * Whether to keep the indicator in the DOM when the radio is not selected.
+	 * Whether to keep the HTML element in the DOM when the radio button is inactive.
 	 * @default false
 	 */
 	keepMounted?: boolean;
-	/** Replace the default `<span>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLSpanElement>, state: RadioIndicatorState, children: RenderChildren]
 	>;

@@ -1,5 +1,5 @@
 <!--
-	Coordinates page-level drawer UI, such as Drawer.Indent, across the drawers inside it.
+	Provides a shared context for coordinating global Drawer UI, such as indent/background effects based on whether any Drawer is open.
 	Doesn't render its own HTML element.
 	Derived from Base UI v1.9.0 packages/react/src/drawer/provider/DrawerProvider.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.

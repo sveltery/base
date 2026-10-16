@@ -52,37 +52,60 @@ export type FieldRootProps<F extends FieldHandle = FieldHandle> = FieldRootBaseP
 interface FieldRootBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
 	 * Whether the component should ignore user interaction.
-	 * Takes precedence over `disabled` on `<Field.Control>`.
+	 * Takes precedence over the `disabled` prop on the `<Field.Control>` component.
 	 * @default false
 	 */
 	disabled?: boolean | null;
 	/**
-	 * Identifies the field when a form is submitted. Takes precedence over the control's `name`.
-	 * Inside a Form with a `form` source, the name resolves to that source's field, unchecked.
+	 * Identifies the field when a form is submitted.
+	 * Takes precedence over the `name` prop on the `<Field.Control>` component.
 	 */
 	name?: string | null;
 	/**
-	 * Custom validation. Return a message or messages when the value is invalid.
-	 * An empty result is valid. Asynchronous functions do not block form submission.
+	 * A function for custom validation. Return a string or an array of strings with
+	 * the error message(s) if the value is invalid. Returning nothing, `null`, an empty
+	 * string, or an empty array means the value is valid.
+	 * Asynchronous functions are supported, but they do not prevent form submission
+	 * when using `validationMode="onSubmit"`.
 	 */
 	validate?: FieldValidate;
 	/**
-	 * When the field validates. Takes precedence over `<Form validationMode>`.
+	 * Determines when the field should be validated.
+	 * This takes precedence over the `validationMode` prop on `<Form>`.
+	 *
+	 * - `onSubmit`: triggers validation when the form is submitted, and re-validates on change after submission.
+	 * - `onBlur`: triggers validation when the control loses focus.
+	 * - `onChange`: triggers validation on every change to the control value.
 	 * @default 'onSubmit'
 	 */
 	validationMode?: FormValidationMode;
 	/**
-	 * How long to wait between `validate` callbacks when `validationMode` is `onChange`.
+	 * How long to wait between `validate` callbacks if
+	 * `validationMode="onChange"` is used. Specified in milliseconds.
 	 * @default 0
 	 */
 	validationDebounceTime?: number;
-	/** Whether the field is invalid. Useful when an external library owns the state. */
+	/**
+	 * Whether the field is invalid.
+	 * Useful when the field state is controlled by an external library.
+	 */
 	invalid?: boolean;
-	/** Whether the value has changed from its initial value. */
+	/**
+	 * Whether the field's value has been changed from its initial value.
+	 * Useful when the field state is controlled by an external library.
+	 */
 	dirty?: boolean;
-	/** Whether the field has been touched. */
+	/**
+	 * Whether the field has been touched.
+	 * Useful when the field state is controlled by an external library.
+	 */
 	touched?: boolean;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FieldRootState, children: RenderChildren]
 	>;
@@ -99,15 +122,18 @@ export interface FieldControlProps extends Omit<
 	HTMLInputAttributes,
 	'children' | 'value' | 'defaultValue'
 > {
-	/**
-	 * Current value. Use `bind:value` to share it with the parent.
-	 */
+	/** The value of the input. */
 	value?: string | number | null;
-	/** The value an empty `value` starts from, as on an HTML input. */
+	/** The default value of the input. Use when uncontrolled. */
 	defaultValue?: string | number | null;
-	/** Called when the user edits the control. `eventDetails.cancel()` vetoes the change. */
+	/** Callback fired when the `value` changes. Use when controlled. */
 	onValueChange?: (value: string, eventDetails: FieldControlChangeEventDetails) => void;
-	/** Replace the default `<input>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FieldControlState, children: RenderChildren]
 	>;
@@ -118,12 +144,19 @@ export type FieldLabelState = FieldRootState;
 
 export interface FieldLabelProps extends Omit<HTMLLabelAttributes, 'children'> {
 	/**
-	 * Whether the rendered element is a native `<label>`.
-	 * Set `false` when `render` produces a different element.
+	 * Whether the component renders a native `<label>` element when replacing it via the `render` prop.
+	 * Set to `false` if the rendered element is not a label (for example, `<div>`).
+	 *
+	 * This is useful to avoid inheriting label behaviors on `<button>` controls (such as `<Select.Trigger>` and `<Combobox.Trigger>`), including avoiding `:hover` on the button when hovering the label, and preventing clicks on the label from firing on the button.
 	 * @default true
 	 */
 	nativeLabel?: boolean;
-	/** Replace the default `<label>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FieldLabelState, children: RenderChildren]
 	>;
@@ -136,7 +169,12 @@ export interface FieldDescriptionProps extends Omit<
 	HTMLAttributes<HTMLParagraphElement>,
 	'children'
 > {
-	/** Replace the default `<p>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FieldDescriptionState, children: RenderChildren]
 	>;
@@ -150,12 +188,18 @@ export interface FieldErrorState extends FieldRootState {
 
 export interface FieldErrorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
-	 * Which validity flag shows this message.
-	 * `true` always shows it. A string matches that `ValidityState` flag.
-	 * Omit it, or pass `false`, to show form and client errors.
+	 * Determines whether to show the error message according to the field's
+	 * [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState).
+	 * Specifying `true` will always show the error message, and lets external libraries
+	 * control the visibility.
 	 */
 	match?: boolean | keyof ValidityState;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FieldErrorState, children: RenderChildren]
 	>;
@@ -167,11 +211,16 @@ export type FieldItemState = FieldRootState;
 export interface FieldItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
 	 * Whether the wrapped control should ignore user interaction.
-	 * `<Field.Root disabled>` takes precedence.
+	 * The `disabled` prop on `<Field.Root>` takes precedence over this.
 	 * @default false
 	 */
 	disabled?: boolean | null;
-	/** Replace the default `<div>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FieldItemState, children: RenderChildren]
 	>;

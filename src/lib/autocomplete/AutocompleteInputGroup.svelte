@@ -1,5 +1,6 @@
 <!--
-	Groups the input with its related controls. Renders a `<div>` element.
+	A wrapper for the input and its associated controls.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/autocomplete/input-group/AutocompleteInputGroup.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

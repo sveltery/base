@@ -62,29 +62,33 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** The id of the input element. */
 	id?: string | null;
-	/** The minimum value. */
+	/** The minimum value of the input element. */
 	min?: number;
-	/** The maximum value. */
+	/** The maximum value of the input element. */
 	max?: number;
 	/**
-	 * When true, direct text entry may sit outside `min`/`max` so native range
-	 * validation can run. Step-based interactions still clamp.
+	 * When true, direct text entry may be outside the `min`/`max` range without clamping,
+	 * so native range underflow/overflow validation can occur.
+	 * Step-based interactions (keyboard arrows, buttons, wheel, scrub) still clamp.
 	 * @default false
 	 */
 	allowOutOfRange?: boolean;
 	/**
-	 * Step while Alt is held. Also the snap size for Alt when `snapOnStep` is set.
+	 * The small step value of the input element when incrementing while the alt key is held.
+	 * Snaps to multiples of this value when `snapOnStep` is enabled.
 	 * @default 0.1
 	 */
 	smallStep?: number;
 	/**
-	 * Amount to increment, decrement, or scrub. `step="any"` disables step
-	 * validation and uses `1` for interactive stepping.
+	 * Amount to increment and decrement with the buttons and arrow keys, or to scrub with pointer movement in the scrub area.
+	 * To always enable step validation on form submission, specify the `min` prop explicitly in conjunction with this prop.
+	 * Specify `step="any"` to always disable step validation; interactive stepping then uses a base amount of `1`, while the alt and shift keys still step by `smallStep` and `largeStep`.
 	 * @default 1
 	 */
 	step?: number | 'any';
 	/**
-	 * Step while Shift is held.
+	 * The large step value of the input element when incrementing while the shift key is held.
+	 * Snaps to multiples of this value when `snapOnStep` is enabled.
 	 * @default 10
 	 */
 	largeStep?: number;
@@ -96,36 +100,69 @@ export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	readonly?: boolean | null;
 	/** Identifies the field when a form is submitted. */
 	name?: string | null;
-	/** Identifies the form that owns the hidden input. */
-	form?: string | null;
 	/**
-	 * Raw numeric value. Use `bind:value` to share it with the parent.
+	 * Identifies the form that owns the hidden input.
+	 * Useful when the number field is rendered outside the form.
 	 */
+	form?: string | null;
+	/** The raw numeric value of the field. */
 	value?: number | null;
-	/** The value an empty `value` starts from, as on an HTML input. */
+	/**
+	 * The uncontrolled value of the field when it's initially rendered.
+	 *
+	 * To render a controlled number field, use `bind:value` instead.
+	 */
 	defaultValue?: number | null;
 	/**
-	 * Whether wheel scrubbing changes the value while the input is focused.
+	 * Whether to allow the user to scrub the input value with the mouse wheel while focused and
+	 * hovering over the input.
 	 * @default false
 	 */
 	allowWheelScrub?: boolean;
-	/** Whether stepping snaps to a multiple of the active step. @default false */
+	/**
+	 * Whether the value should snap to the nearest step when incrementing or decrementing.
+	 * @default false
+	 */
 	snapOnStep?: boolean;
 	/** Options to format the input value. */
 	format?: Intl.NumberFormatOptions;
 	/**
-	 * Called when the numeric value changes. `eventDetails.cancel()` vetoes the change.
-	 * `eventDetails.reason` says what triggered it.
+	 * Callback fired when the number value changes.
+	 *
+	 * The `eventDetails.reason` indicates what triggered the change:
+	 * - `'input-change'` for parseable typing or programmatic text updates
+	 * - `'input-clear'` when the field becomes empty
+	 * - `'input-blur'` when formatting (and clamping, if enabled) occurs on blur
+	 * - `'input-paste'` for paste interactions
+	 * - `'keyboard'` for arrow-key/Home/End stepping (typing digits uses `'input-change'`/`'input-clear'`)
+	 * - `'increment-press'` / `'decrement-press'` for button presses on the increment and decrement controls
+	 * - `'wheel'` for wheel-based scrubbing
+	 * - `'scrub'` for scrub area drags
 	 */
 	onValueChange?: (value: number | null, eventDetails: NumberFieldChangeEventDetails) => void;
 	/**
-	 * Called when the value is committed: blur after typing, pointer release after
-	 * scrubbing or holding a step button, or immediately for keyboard and wheel.
+	 * Callback function that is fired when the value is committed.
+	 * It runs later than `onValueChange`, when:
+	 * - The input is blurred after typing a value.
+	 * - The pointer is released after scrubbing or pressing the increment/decrement buttons.
+	 *
+	 * It runs simultaneously with `onValueChange` when interacting with the keyboard or the
+	 * mouse wheel.
+	 *
+	 * **Warning**: This is a generic event not a change event.
 	 */
 	onValueCommitted?: (value: number | null, eventDetails: NumberFieldCommitEventDetails) => void;
-	/** Locale used to format and parse. Defaults to the runtime locale. */
+	/**
+	 * The locale of the input element.
+	 * Defaults to the user's runtime locale.
+	 */
 	locale?: Intl.LocalesArgument;
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, NumberFieldRootState>;
 	children?: Snippet;
 }
@@ -133,7 +170,12 @@ export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement
 export type NumberFieldGroupState = NumberFieldRootState;
 
 export interface NumberFieldGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, NumberFieldGroupState>;
 	children?: Snippet;
 }
@@ -145,11 +187,17 @@ export interface NumberFieldInputProps extends Omit<
 	'children' | 'value' | 'defaultValue'
 > {
 	/**
-	 * Role description for assistive tech. This is not the accessible name.
+	 * A user-friendly description of the input's role for assistive tech. This is a role
+	 * description, not an accessible name — use `Field.Label` or `aria-label` to name the control.
 	 * @default 'Number field'
 	 */
 	'aria-roledescription'?: HTMLInputAttributes['aria-roledescription'];
-	/** Replace the default `<input>`. Spread `props` onto the host element. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: NumberFieldInputState, children: RenderChildren]
 	>;
@@ -160,11 +208,18 @@ export type NumberFieldStepperState = NumberFieldRootState;
 
 export interface NumberFieldStepperProps extends Omit<HTMLButtonAttributes, 'children'> {
 	/**
-	 * Whether the rendered element is a native `<button>`.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
-	/** Replace the default `<button>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLButtonElement, NumberFieldStepperState>;
 	children?: Snippet;
 }
@@ -175,19 +230,28 @@ export interface NumberFieldScrubAreaProps extends Omit<
 	HTMLAttributes<HTMLSpanElement>,
 	'children'
 > {
-	/** Cursor movement direction. @default 'horizontal' */
+	/**
+	 * Cursor movement direction in the scrub area.
+	 * @default 'horizontal'
+	 */
 	direction?: 'horizontal' | 'vertical';
 	/**
-	 * How many pixels the cursor must move before the value changes.
+	 * Determines how many pixels the cursor must move before the value changes.
+	 * A higher value will make scrubbing less sensitive.
 	 * @default 2
 	 */
 	pixelSensitivity?: number;
 	/**
-	 * Distance from the center of the scrub area before the cursor loops.
-	 * Omit it to use the visual viewport.
+	 * If specified, determines the distance that the cursor may move from the center
+	 * of the scrub area before it will loop back around.
 	 */
 	teleportDistance?: number;
-	/** Replace the default `<span>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLSpanElement, NumberFieldScrubAreaState>;
 	children?: Snippet;
 }
@@ -198,7 +262,12 @@ export interface NumberFieldScrubAreaCursorProps extends Omit<
 	HTMLAttributes<HTMLSpanElement>,
 	'children'
 > {
-	/** Replace the default `<span>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLSpanElement, NumberFieldScrubAreaCursorState>;
 	children?: Snippet;
 }

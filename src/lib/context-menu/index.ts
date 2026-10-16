@@ -20,12 +20,15 @@ import ContextMenuRoot from './ContextMenuRoot.svelte';
 import ContextMenuTrigger from './ContextMenuTrigger.svelte';
 import type { ContextMenuPositionerProps } from './types.js';
 
-// Upstream `ContextMenu.Positioner` is `Menu.Positioner` with context-menu prop docs.
 export const ContextMenu = {
 	Root: ContextMenuRoot,
 	Trigger: ContextMenuTrigger,
 	Backdrop: MenuBackdrop,
 	Portal: MenuPortal,
+	/**
+	 * Positions the context menu popup against the pointer or a custom anchor.
+	 * Renders a `<div>` element.
+	 */
 	Positioner: MenuPositioner as Component<ContextMenuPositionerProps>,
 	Popup: MenuPopup,
 	Arrow: MenuArrow,

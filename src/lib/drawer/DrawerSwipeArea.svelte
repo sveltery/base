@@ -1,5 +1,6 @@
 <!--
-	An invisible area that opens the drawer with a swipe. Renders a `<div>` element.
+	An invisible area that listens for swipe gestures to open the drawer.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/drawer/swipe-area/DrawerSwipeArea.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	While the gesture runs it writes the popup's movement variables, and the popup leaves them alone.

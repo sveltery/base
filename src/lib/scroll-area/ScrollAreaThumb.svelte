@@ -1,5 +1,6 @@
 <!--
-	The draggable thumb that indicates the current scroll position. Renders a `<div>` element.
+	The draggable part of the scrollbar that indicates the current scroll position.
+	Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/scroll-area/thumb/ScrollAreaThumb.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

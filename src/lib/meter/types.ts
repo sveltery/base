@@ -18,14 +18,10 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 >;
 
 export interface MeterRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/**
-	 * Options to format the value.
-	 * When omitted, the value is formatted as a percentage of the range.
-	 */
+	/** Options to format the value. */
 	format?: Intl.NumberFormatOptions | undefined;
 	/**
-	 * Returns the human-readable text for `aria-valuenow`.
-	 * Receives the formatted clamped value and the raw `value` prop.
+	 * A function that returns a string value that provides a human-readable text alternative for `aria-valuenow`, the current value of the meter.
 	 */
 	getAriaValueText?: ((formattedValue: string, value: number) => string) | undefined;
 	/**
@@ -34,30 +30,49 @@ export interface MeterRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 */
 	locale?: Intl.LocalesArgument | undefined;
 	/**
-	 * The maximum value.
+	 * The maximum value
 	 * @default 100
 	 */
 	max?: number | undefined;
 	/**
-	 * The minimum value.
+	 * The minimum value
 	 * @default 0
 	 */
 	min?: number | undefined;
 	/** The current value. */
 	value: number;
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * A string value that provides a user-friendly name for `aria-valuenow`, the current value of the meter.
+	 */
+	'aria-valuetext'?: string;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MeterRootState>;
 	children?: Snippet;
 }
 
 export interface MeterTrackProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MeterTrackState>;
 	children?: Snippet;
 }
 
 export interface MeterIndicatorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** Replace the default `<div>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, MeterIndicatorState>;
 	children?: Snippet;
 }
@@ -68,12 +83,22 @@ export interface MeterValueProps extends Omit<HTMLAttributes<HTMLSpanElement>, '
 	 * Omit it to render the formatted value.
 	 */
 	children?: Snippet<[formattedValue: string, value: number]>;
-	/** Replace the default `<span>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLSpanElement, MeterValueState>;
 }
 
 export interface MeterLabelProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
-	/** Replace the default `<span>`. Spread `props` onto the host and render `children`. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLSpanElement, MeterLabelState>;
 	children?: Snippet;
 }

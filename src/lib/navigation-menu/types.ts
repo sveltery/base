@@ -58,23 +58,24 @@ export interface NavigationMenuRootProps<Value = unknown> extends Omit<
 	'children'
 > {
 	/**
-	 * The value of the item whose content is open. A nullish value closes the menu.
-	 * Use `bind:value` to share it with the parent.
-	 * A value passed without `bind:` holds until the parent changes it.
+	 * The value of the navigation menu item that should be currently open.
+	 * When non-nullish, the menu will be open. When nullish, the menu will be closed.
+	 *
+	 * To render an uncontrolled navigation menu, pass `value` without `bind:`.
 	 * @default null
 	 */
 	value?: Value | null;
-	/** Called before the value changes. Call `eventDetails.cancel()` to veto it. */
+	/** Callback fired when the value changes. */
 	onValueChange?: (value: Value | null, eventDetails: NavigationMenuChangeEventDetails) => void;
-	/** Called after any animations complete when the navigation menu is closed. */
+	/** Event handler called after any animations complete when the navigation menu is closed. */
 	onOpenChangeComplete?: (open: boolean) => void;
 	/**
-	 * How long to wait before opening the navigation popup, in milliseconds.
+	 * How long to wait before opening the navigation popup. Specified in milliseconds.
 	 * @default 50
 	 */
 	delay?: number;
 	/**
-	 * How long to wait before closing the navigation popup, in milliseconds.
+	 * How long to wait before closing the navigation popup. Specified in milliseconds.
 	 * @default 50
 	 */
 	closeDelay?: number;
@@ -83,7 +84,12 @@ export interface NavigationMenuRootProps<Value = unknown> extends Omit<
 	 * @default 'horizontal'
 	 */
 	orientation?: NavigationMenuOrientation;
-	/** Replace the `<nav>` element, or the `<div>` of a nested root. */
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLElement, NavigationMenuRootState>;
 	children?: Snippet;
 }
@@ -97,6 +103,12 @@ export interface NavigationMenuListProps extends Omit<
 	HTMLAttributes<HTMLUListElement>,
 	'children'
 > {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLUListElement, NavigationMenuListState>;
 	children?: Snippet;
 }
@@ -105,11 +117,17 @@ export type NavigationMenuItemState = Record<string, never>;
 
 export interface NavigationMenuItemProps extends Omit<HTMLLiAttributes, 'children' | 'value'> {
 	/**
-	 * A unique value that identifies this item.
-	 * An id is generated when no value is passed.
-	 * Use it when controlling the navigation menu programmatically.
+	 * A unique value that identifies this navigation menu item.
+	 * If no value is provided, a unique ID will be generated automatically.
+	 * Use when controlling the navigation menu programmatically.
 	 */
 	value?: unknown;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLLIElement, NavigationMenuItemState>;
 	children?: Snippet;
 }
@@ -128,16 +146,23 @@ export interface NavigationMenuTriggerProps extends Omit<
 	'children' | 'disabled'
 > {
 	/**
-	 * Whether the trigger ignores user interaction.
+	 * Whether the component should ignore user interaction.
 	 * @default false
 	 */
 	disabled?: boolean | null;
 	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
+	 * Whether the component renders a native `<button>` element when replacing it
+	 * via the `render` prop.
+	 * Set to `false` if the rendered element is not a button (for example, `<div>`).
 	 * @default true
 	 */
 	nativeButton?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[
 			props: NavigationMenuTriggerHostProps,
@@ -154,6 +179,12 @@ export interface NavigationMenuIconState {
 }
 
 export interface NavigationMenuIconProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLSpanElement, NavigationMenuIconState>;
 	/** Replaces the default `▼` glyph. */
 	children?: Snippet;
@@ -172,11 +203,17 @@ export interface NavigationMenuContentProps extends Omit<
 	'children'
 > {
 	/**
-	 * Whether to keep the content mounted while the popup is closed.
-	 * The content is then present in server-rendered HTML for crawlers.
+	 * Whether to keep the content mounted in the DOM while the popup is closed.
+	 * Ensures the content is present during server-side rendering for web crawlers.
 	 * @default false
 	 */
 	keepMounted?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, NavigationMenuContentState>;
 	children?: Snippet;
 }
@@ -188,15 +225,21 @@ export interface NavigationMenuLinkState {
 
 export interface NavigationMenuLinkProps extends Omit<HTMLAnchorAttributes, 'children'> {
 	/**
-	 * Whether the link is the current page.
+	 * Whether the link is the currently active page.
 	 * @default false
 	 */
 	active?: boolean;
 	/**
-	 * Whether clicking the link closes the navigation menu.
+	 * Whether to close the navigation menu when the link is clicked.
 	 * @default false
 	 */
 	closeOnClick?: boolean;
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: Snippet<
 		[props: HTMLAnchorAttributes, state: NavigationMenuLinkState, children: RenderChildren]
 	>;
@@ -207,8 +250,10 @@ export type NavigationMenuPortalState = Record<string, never>;
 
 export interface NavigationMenuPortalProps extends PortalProps {
 	/**
-	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
-	 * Host props include the move attachment.
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
 	 */
 	render?: Snippet<
 		[
@@ -263,7 +308,6 @@ export interface NavigationMenuPositionerProps extends Omit<
 	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
 	 * - `data.side`: which side of the anchor element the positioner is aligned against.
 	 * - `data.align`: how the positioner is aligned relative to the specified side.
-	 *
 	 * @example
 	 * ```svelte
 	 * <NavigationMenu.Positioner
@@ -271,7 +315,6 @@ export interface NavigationMenuPositionerProps extends Omit<
 	 *     side === 'top' || side === 'bottom' ? anchor.height : anchor.width}
 	 * />
 	 * ```
-	 *
 	 * @default 0
 	 */
 	sideOffset?: AnchorPositioningParameters['sideOffset'];
@@ -285,7 +328,6 @@ export interface NavigationMenuPositionerProps extends Omit<
 	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
 	 * - `data.side`: which side of the anchor element the positioner is aligned against.
 	 * - `data.align`: how the positioner is aligned relative to the specified side.
-	 *
 	 * @example
 	 * ```svelte
 	 * <NavigationMenu.Positioner
@@ -293,7 +335,6 @@ export interface NavigationMenuPositionerProps extends Omit<
 	 *     side === 'top' || side === 'bottom' ? anchor.width : anchor.height}
 	 * />
 	 * ```
-	 *
 	 * @default 0
 	 */
 	alignOffset?: AnchorPositioningParameters['alignOffset'];
@@ -351,17 +392,21 @@ export interface NavigationMenuPositionerProps extends Omit<
 	 *
 	 * When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`.
 	 * If `align` is omitted, it defaults to `'flip'`.
-	 *
 	 * @example
 	 * ```svelte
 	 * <NavigationMenu.Positioner
 	 *   collisionAvoidance={{ side: 'shift', align: 'shift', fallbackAxisSide: 'none' }}
 	 * />
 	 * ```
-	 *
 	 * Defaults to `{ fallbackAxisSide: 'none' }`, and to `{ fallbackAxisSide: 'end' }` in a nested menu.
 	 */
 	collisionAvoidance?: AnchorPositioningParameters['collisionAvoidance'];
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, NavigationMenuPositionerState>;
 	children?: Snippet;
 }
@@ -375,6 +420,12 @@ export interface NavigationMenuPopupState {
 }
 
 export interface NavigationMenuPopupProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLElement, NavigationMenuPopupState>;
 	children?: Snippet;
 }
@@ -387,6 +438,12 @@ export interface NavigationMenuArrowState {
 }
 
 export interface NavigationMenuArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, NavigationMenuArrowState>;
 	children?: Snippet;
 }
@@ -400,6 +457,12 @@ export interface NavigationMenuBackdropProps extends Omit<
 	HTMLAttributes<HTMLDivElement>,
 	'children'
 > {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, NavigationMenuBackdropState>;
 	children?: Snippet;
 }
@@ -410,6 +473,12 @@ export interface NavigationMenuViewportProps extends Omit<
 	HTMLAttributes<HTMLDivElement>,
 	'children'
 > {
+	/**
+	 * Allows you to replace the component's HTML element
+	 * with a different tag, or compose it with another component.
+	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
+	 * and the children to render.
+	 */
 	render?: PartRender<HTMLDivElement, NavigationMenuViewportState>;
 	children?: Snippet;
 }

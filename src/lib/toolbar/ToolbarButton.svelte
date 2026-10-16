@@ -1,5 +1,6 @@
 <!--
-	A button in a toolbar. Renders a `<button>`.
+	A button that can be used as-is or as a trigger for other components.
+	Renders a `<button>` element.
 	Derived from Base UI v1.8.0 packages/react/src/toolbar/button/ToolbarButton.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). Forwarding `disabled` to a rendered part
 	follows v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.

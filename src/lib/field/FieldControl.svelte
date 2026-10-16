@@ -1,5 +1,10 @@
 <!--
-	The form control to label and validate. Renders an `<input>` element.
+	The form control to label and validate.
+	Renders an `<input>` element.
+
+	You can omit this part and use any Base UI input component instead. For example,
+	[Input](https://base.sveltery.dev/components/input), [Checkbox](https://base.sveltery.dev/components/checkbox),
+	or [Select](https://base.sveltery.dev/components/select), among others, will work with Field out of the box.
 	Derived from Base UI v1.9.0 packages/react/src/field/control/FieldControl.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->

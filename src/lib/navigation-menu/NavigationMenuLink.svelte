@@ -1,5 +1,6 @@
 <!--
-	A link in the navigation menu. Renders an `<a>` element.
+	A link in the navigation menu that can be used to navigate to a different page or section.
+	Renders an `<a>` element.
 	Derived from Base UI v1.9.0 packages/react/src/navigation-menu/link/NavigationMenuLink.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
