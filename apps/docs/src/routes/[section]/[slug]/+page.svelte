@@ -15,8 +15,9 @@
 	<meta name="description" content={data.metadata.description} />
 </svelte:head>
 
-<div class="flex">
-	<article class="mx-auto w-full max-w-3xl min-w-0 px-6 py-10">
+<Toc title={data.metadata.title} toc={data.metadata.toc} />
+<div class="QuickNavContent">
+	<article>
 		<h1 class="text-3xl font-semibold tracking-tight">{data.metadata.title}</h1>
 		<p class="mt-2 text-lg text-muted">{data.metadata.description}</p>
 		<div class="typeset mt-8">
@@ -35,9 +36,15 @@
 			{/if}
 		</nav>
 	</article>
-	<aside
-		class="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-56 shrink-0 overflow-y-auto py-10 pr-4 xl:block"
-	>
-		<Toc toc={data.metadata.toc} />
-	</aside>
 </div>
+
+<style>
+	.QuickNavContent {
+		padding-top: 1.5rem;
+		padding-bottom: 4rem;
+
+		@media (width >= 64rem) {
+			padding-top: 0;
+		}
+	}
+</style>

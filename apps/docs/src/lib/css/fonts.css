@@ -1,0 +1,30 @@
+/* Die Grotesk, which base-ui.com uses, is commercial. Instrument Sans is the closest open grotesk in width and x-height. */
+@font-face {
+	font-family: 'Instrument Sans';
+	font-weight: normal;
+	font-display: swap;
+	src: url('/fonts/instrument-sans-regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Instrument Sans';
+	font-weight: 700;
+	font-display: swap;
+	src: url('/fonts/instrument-sans-bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Paper Mono';
+	font-weight: normal;
+	src: url('/fonts/paper-mono.woff2') format('woff2');
+	font-variation-settings: 'wght' 415;
+	size-adjust: calc(100% * 13.5 / 14);
+}
+
+@font-face {
+	font-family: 'Paper Mono';
+	font-weight: bold;
+	src: url('/fonts/paper-mono.woff2') format('woff2');
+	font-variation-settings: 'wght' 650;
+	size-adjust: calc(100% * 13.5 / 14);
+}
