@@ -1,14 +1,9 @@
 <script lang="ts">
 	import '#lib/components/website/website.css';
-	import { onMount } from 'svelte';
 	import { svelteryMark } from '#lib/components/Icons.svelte';
+	import SearchControls from '#lib/components/search/SearchControls.svelte';
 
-	let { children } = $props();
-
-	let isMac = $state(true);
-	onMount(() => {
-		isMac = /Mac|iPhone|iPad/.test(navigator.platform);
-	});
+	let { data, children } = $props();
 </script>
 
 <div class="Website p-6 md:px-12 md:py-8">
@@ -25,12 +20,11 @@
 				<a class="Link Text sz-1" href="https://ui.sveltery.dev">Sveltery UI</a>
 			</nav>
 			<div class="col-start-7 col-end-9 hidden flex-col items-start gap-2 lg:flex">
-				<button type="button" class="WebsiteSearchTrigger">
-					Search
-					<span class="WebsiteSearchTriggerShortcut"
-						>({#if isMac}<kbd>⌘</kbd>{:else}<kbd>Ctrl+</kbd>{/if}<kbd>k</kbd>)</span
-					>
-				</button>
+				<SearchControls
+					nav={data.nav}
+					desktopTriggerClass="WebsiteSearchTrigger"
+					mobileTriggerClass="hidden"
+				/>
 			</div>
 		</header>
 		<main id="main" class="contents">
