@@ -30,8 +30,7 @@ Remote functions are experimental in SvelteKit. Turn them on with `experimental:
 
 Put the schema in its own module, so that the server and the page can both import it. Any [Standard Schema](https://standardschema.dev) library works. These examples use Valibot.
 
-```ts
-// src/routes/signup/schema.ts
+```ts title="src/routes/signup/schema.ts"
 import * as v from 'valibot';
 
 export const signupSchema = v.object({
@@ -43,8 +42,7 @@ export const signupSchema = v.object({
 
 Create the remote form with `form(schema, handler)`. Call `invalid` with an issue on a field, or with a message for the whole form:
 
-```ts
-// src/routes/signup/signup.remote.ts
+```ts title="src/routes/signup/signup.remote.ts"
 import { form } from '$app/server';
 import { invalid } from '@sveltejs/kit';
 import { signupSchema } from './schema.js';
@@ -58,8 +56,7 @@ export const signup = form(signupSchema, async (data, issue) => {
 
 On the page, `preflight` runs the same schema in the browser before each submit:
 
-```svelte
-<!-- src/routes/signup/+page.svelte -->
+```svelte title="src/routes/signup/+page.svelte"
 <script lang="ts">
 	import { Field } from '@sveltery/base/field';
 	import { Form } from '@sveltery/base/form';
@@ -212,8 +209,7 @@ A classic [form action](https://svelte.dev/docs/kit/form-actions) validates the 
 
 In the action, read the form data and validate it with your schema. Return `fail()` with the first message for each field, keyed by field name, and with the submitted values, so that the page can show them again:
 
-```ts
-// src/routes/signup/+page.server.ts
+```ts title="src/routes/signup/+page.server.ts"
 import { fail } from '@sveltejs/kit';
 import * as v from 'valibot';
 import { signupSchema } from './schema.js';
@@ -241,8 +237,7 @@ export const actions = {
 
 On the page, pass `form?.errors` to `errors`, and each submitted value to the control's `defaultValue`. `use:enhance` is an action, so `fromAction` turns it into an attachment on Form. Its submit function cancels a submit that Form blocked:
 
-```svelte
-<!-- src/routes/signup/+page.svelte -->
+```svelte title="src/routes/signup/+page.svelte"
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { fromAction } from 'svelte/attachments';

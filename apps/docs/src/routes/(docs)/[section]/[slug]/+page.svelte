@@ -2,6 +2,7 @@
 	import { page } from '$app/state';
 	import Subtitle from '#lib/components/Subtitle.svelte';
 	import Toc from '#lib/components/Toc.svelte';
+	import { plainText } from '../../../../../markdown/reference.ts';
 	import '#lib/docs/css/index.css';
 
 	let { data } = $props();
@@ -9,7 +10,7 @@
 
 <svelte:head>
 	<title>{data.metadata.title} · Sveltery Base</title>
-	<meta name="description" content={data.metadata.description} />
+	<meta name="description" content={plainText(data.metadata.description)} />
 </svelte:head>
 
 <Toc title={data.metadata.title} toc={data.metadata.toc} />

@@ -53,6 +53,7 @@ export const sectionIds = Object.keys(SECTIONS);
 export function sectionIndex(id: string) {
 	if (!(id in SECTIONS)) return undefined;
 	return {
+		id,
 		title: SECTIONS[id],
 		pages: sectionEntries(id).map(({ href, heading, description, toc }) => ({
 			href,

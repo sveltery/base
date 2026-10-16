@@ -29,13 +29,22 @@ export const slugify = (value: string): string =>
 		.replace(/[^a-z0-9\s-]/g, '')
 		.replace(/\s+/g, '-');
 
-/** Gives h2 to h4 an id, h2 and h3 a self link, and exposes h2 and h3 as `metadata.toc`. */
+const EXCLUDE_FROM_TOC = '<!-- @exclude-table-of-contents -->';
+
+/**
+ * Gives h2 to h4 an id, h2 and h3 a self link, and exposes h2 and h3 as `metadata.toc`. As in Base
+ * UI, `<!-- @exclude-table-of-contents -->` keeps the next heading and its subheadings out of the toc.
+ */
 export function headings() {
 	return (tree: MdNode, file: { data: { fm?: Record<string, unknown> } }) => {
 		const toc: TocItem[] = [];
 		const used = new Set<string>();
+		let exclude: 'next' | number | undefined;
 		for (const node of tree.children ?? []) {
+			if (node.type === 'html' && node.value?.trim() === EXCLUDE_FROM_TOC) exclude = 'next';
 			if (node.type !== 'heading' || !node.depth || node.depth < 2 || node.depth > 4) continue;
+			if (exclude === 'next') exclude = node.depth;
+			else if (exclude !== undefined && node.depth <= exclude) exclude = undefined;
 			const title = text(node);
 			const base = slugify(title);
 			let id = base;
@@ -52,7 +61,8 @@ export function headings() {
 						children: node.children ?? []
 					}
 				];
-			if (node.depth <= 3) toc.push({ title, url: `#${id}`, depth: node.depth });
+			if (node.depth <= 3 && exclude === undefined)
+				toc.push({ title, url: `#${id}`, depth: node.depth });
 		}
 		file.data.fm = { ...file.data.fm, toc };
 	};

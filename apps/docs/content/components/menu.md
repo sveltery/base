@@ -1683,40 +1683,33 @@ The `Viewport` is optional. Reach for it only when a single popup is opened by m
 
 When filtering items yourself, `Menu.useFilter` matches text according to the user's locale.
 
-**Parameters:**
+**Parameters**
 
-| Parameter | Type                  | Default | Description |
-| --------- | --------------------- | ------- | ----------- |
-| options?  | `GetFilterParameters` | `{}`    | -           |
+`GetFilterParameters`
 
-**Return Value:**
+| Prop     | Type                   | Description                                                                                                                  |
+| -------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `locale` | `Intl.LocalesArgument` | The locale to use for string comparison. Defaults to the user's runtime locale. Any `Intl.CollatorOptions` are accepted too. |
 
-```ts
-type ReturnValue = Filter;
-```
+**Return value**
 
-`GetFilterParameters` takes a `locale` and any `Intl.CollatorOptions`. `Filter` has three functions, each of the form `(item, query, itemToString?) => boolean`.
+`Filter`
 
-```ts
-type Filter = {
-	/** Returns whether the item matches the query anywhere. */
-	contains: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
-	/** Returns whether the item starts with the query. */
-	startsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
-	/** Returns whether the item ends with the query. */
-	endsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
-};
-```
+| Property     | Type                                                                                  | Description                                          |
+| ------------ | ------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `contains`   | `<Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean` | Returns whether the item matches the query anywhere. |
+| `startsWith` | `<Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean` | Returns whether the item starts with the query.      |
+| `endsWith`   | `<Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean` | Returns whether the item ends with the query.        |
 
 ## createHandle
 
 Creates a new handle to connect a `Menu.Root` with detached `Menu.Trigger` components.
 
-**Return Value:**
+**Return value**
 
-```ts
-type ReturnValue = Menu.Handle<Payload>;
-```
+`Menu.Handle<Payload>`
+
+<!-- @exclude-table-of-contents -->
 
 ### Handle
 
@@ -1725,33 +1718,17 @@ Create one with `Menu.createHandle()` and pass it to the `handle` prop of the ro
 
 The imperative methods take effect only while a root using this handle is mounted. Calls made before a root attaches (or after it unmounts) are ignored.
 
-**Properties:**
+**Properties**
 
-| Property | Type                   | Modifiers | Description                                                                                  |
-| -------- | ---------------------- | --------- | -------------------------------------------------------------------------------------------- |
-| isOpen   | `boolean`              | readonly  | Whether the menu is currently open. Returns `false` while no root is attached to the handle. |
-| payload  | `Payload \| undefined` | readonly  | The payload of the trigger that owns the menu.                                               |
+| Property  | Type                   | Modifiers | Description                                                                                  |
+| --------- | ---------------------- | --------- | -------------------------------------------------------------------------------------------- |
+| `isOpen`  | `boolean`              | readonly  | Whether the menu is currently open. Returns `false` while no root is attached to the handle. |
+| `payload` | `Payload \| undefined` | readonly  | The payload of the trigger that owns the menu.                                               |
 
-**Methods:**
+**Methods**
 
-```ts
-function open(triggerId: string): void;
-```
-
-Opens the menu and associates it with the trigger with the given id.
-
-This method should only be called in an event handler or an effect (not during rendering).
-
-```ts
-function close(): void;
-```
-
-Closes the menu.
-
-This method should only be called in an event handler or an effect (not during rendering).
-
-```ts
-function unmount(): void;
-```
-
-Ends the closing phase of the menu after an externally controlled closing animation finishes.
+| Method    | Parameters          | Returns | Description                                                                                                                                                     |
+| --------- | ------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `open`    | `triggerId: string` | `void`  | Opens the menu and associates it with the trigger with the given id. This method should only be called in an event handler or an effect (not during rendering). |
+| `close`   |                     | `void`  | Closes the menu. This method should only be called in an event handler or an effect (not during rendering).                                                     |
+| `unmount` |                     | `void`  | Ends the closing phase of the menu after an externally controlled closing animation finishes.                                                                   |

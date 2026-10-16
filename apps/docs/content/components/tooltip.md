@@ -698,9 +698,11 @@ The `Viewport` is optional — reach for it only when a single popup is opened b
 
 Creates a new handle to connect a `Tooltip.Root` with detached `Tooltip.Trigger` components.
 
-```ts
-function createHandle<Payload = unknown>(): TooltipHandle<Payload>;
-```
+**Return value**
+
+`Tooltip.Handle<Payload>`
+
+<!-- @exclude-table-of-contents -->
 
 ### Handle
 
@@ -708,29 +710,17 @@ Controls a Tooltip imperatively and associates detached `Tooltip.Trigger` compon
 
 The imperative methods take effect only while a root using this handle is mounted; calls made before a root attaches (or after it unmounts) are ignored.
 
+**Properties**
+
 | Property  | Type                   | Modifiers | Description                                                                                     |
 | --------- | ---------------------- | --------- | ----------------------------------------------------------------------------------------------- |
 | `isOpen`  | `boolean`              | readonly  | Whether the tooltip is currently open. Returns `false` while no root is attached to the handle. |
 | `payload` | `Payload \| undefined` | readonly  | The payload of the trigger that opened the tooltip.                                             |
 
-```ts
-function open(triggerId: string | null): void;
-```
+**Methods**
 
-Opens the tooltip and associates it with the trigger with the given id. It throws when no trigger with that id is registered, because the tooltip needs a trigger to anchor to.
-
-This method should only be called in an event handler or an effect (not during rendering).
-
-```ts
-function close(): void;
-```
-
-Closes the tooltip.
-
-This method should only be called in an event handler or an effect (not during rendering).
-
-```ts
-function unmount(): void;
-```
-
-Ends the closing phase of the tooltip immediately.
+| Method    | Parameters                  | Returns | Description                                                                                                                                                                                                                                                                |
+| --------- | --------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `open`    | `triggerId: string \| null` | `void`  | Opens the tooltip and associates it with the trigger with the given id. It throws when no trigger with that id is registered, because the tooltip needs a trigger to anchor to. This method should only be called in an event handler or an effect (not during rendering). |
+| `close`   |                             | `void`  | Closes the tooltip. This method should only be called in an event handler or an effect (not during rendering).                                                                                                                                                             |
+| `unmount` |                             | `void`  | Ends the closing phase of the tooltip immediately.                                                                                                                                                                                                                         |

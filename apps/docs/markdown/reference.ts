@@ -28,9 +28,16 @@ const escape = (value: string) =>
 /** Doc comments use paragraphs, code spans and links, and nothing else. */
 export function inlineMarkdown(value: string): string {
 	return escape(value)
-		.replace(/`([^`]+)`/g, '<code class="Code MdCode" data-inline>$1</code>')
+		.replace(
+			/`([^`]+)`/g,
+			(_code, value: string) =>
+				`<code class="Code MdCode${/^&lt;\/?[a-z][a-z0-9-]*\s*\/?&gt;$/.test(value) ? ' MdTag' : ''}" data-inline>${value}</code>`
+		)
 		.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a class="Link" href="$2">$1</a>');
 }
+
+/** A description with its links reduced to their text, for meta tags and the search index. */
+export const plainText = (value: string) => value.replace(/\[([^\]]+)\]\([^)\s]+\)/g, '$1');
 
 const paragraphs = (value: string) =>
 	value

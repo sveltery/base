@@ -81,7 +81,7 @@ There are examples for both Tailwind CSS and plain CSS below, but since Sveltery
 
 The same popover with plain CSS. The popup is portaled to `<body>`, outside your component's markup, so the rules in a `<style>` block use `:global`:
 
-```svelte
+```svelte title="index.svelte"
 <script lang="ts">
 	import { Popover } from '@sveltery/base/popover';
 </script>
