@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { mdsvex } from 'mdsvex';
 import { defineConfig } from 'vite';
 import { elements, headings } from './markdown/headings.ts';
+import { metadata } from './markdown/metadata.ts';
 import { docsMarkdown } from './markdown/llms.ts';
 import { docsComponents, highlightCode } from './markdown/preprocess.ts';
 import { searchDocuments } from './markdown/search.ts';
@@ -13,6 +14,8 @@ const path = (relative: string) => fileURLToPath(new URL(relative, import.meta.u
 
 // The library is read from source, so the site always documents the checked-out code.
 const lib = path('../../src/lib');
+// Each docs page is `<section>/<slug>/+page.md` in this route group.
+const routes = path('./src/routes/(docs)');
 // Generated demo components. The root ignore files skip `dist`, and svelte-check, unlike for
 // `.svelte-kit`, type-checks it.
 const demos = path('./dist/demos');
@@ -25,8 +28,8 @@ export default defineConfig({
 	resolve: { alias: [{ find: /^@sveltery\/base(?=\/|$)/, replacement: lib }] },
 	plugins: [
 		tailwindcss(),
-		docsMarkdown({ pages: path('./content'), lib }),
-		searchDocuments({ pages: path('./content'), lib }),
+		docsMarkdown({ routes, lib }),
+		searchDocuments({ routes, lib }),
 		sveltekit({
 			adapter: adapter(),
 			extensions: ['.svelte', '.md'],
@@ -39,10 +42,11 @@ export default defineConfig({
 				mdsvex({
 					extensions: ['.md'],
 					smartypants: false,
-					remarkPlugins: [headings, elements],
+					remarkPlugins: [metadata, headings, elements],
+					layout: path('./src/lib/components/DocsPage.svelte'),
 					highlight: { highlighter: highlightCode }
 				}),
-				docsComponents({ pages: path('./content'), demos, lib })
+				docsComponents({ routes, demos, lib })
 			],
 			prerender: { handleHttpError: 'fail', handleMissingId: 'fail' }
 		})

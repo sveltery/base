@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { inlineMarkdown } from '../../../markdown/reference.ts';
+	import type { Snippet } from 'svelte';
+	import { page } from '$app/state';
 	import { sourceUrl } from '#lib/docs/links.ts';
 	import { markdownIcon } from './DocIcons.svelte';
 	import { githubIcon } from './Icons.svelte';
 
-	let { text, href }: { text: string; href: string } = $props();
+	let { children }: { children: Snippet } = $props();
+	const href = $derived(page.url.pathname);
 	const source = $derived(sourceUrl(href));
 </script>
 
@@ -13,8 +15,7 @@
 </svelte:head>
 
 <div class="Subtitle">
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -- the page's own front matter, escaped by inlineMarkdown. -->
-	<p>{@html inlineMarkdown(text)}</p>
+	<p>{@render children()}</p>
 	<div class="SubtitleLinks">
 		<a
 			href="{href}.md"

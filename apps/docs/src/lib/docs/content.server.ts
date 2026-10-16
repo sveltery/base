@@ -1,6 +1,6 @@
-import type { DocPage, Frontmatter, NavSection, TocItem } from './types';
+import type { DocPage, NavSection, PageMetadata, TocItem } from './types';
 
-/** Sidebar sections, in order. A page's section is its folder under `content`. */
+/** Sidebar sections, in order. A page's section is its folder under `src/routes/(docs)`. */
 const SECTIONS: Record<string, string> = {
 	overview: 'Overview',
 	handbook: 'Handbook',
@@ -8,30 +8,45 @@ const SECTIONS: Record<string, string> = {
 	utils: 'Utils'
 };
 
-const metadata = import.meta.glob<Frontmatter>(['/content/*/*.md'], {
+/** Each section's pages in nav order, until the section index pages list them. Unlisted pages follow by title. */
+const ORDER: Record<string, string[]> = {
+	overview: ['quick-start', 'accessibility', 'releases', 'community', 'about'],
+	handbook: [
+		'styling',
+		'animation',
+		'composition',
+		'customization',
+		'forms',
+		'typescript',
+		'sveltekit'
+	],
+	utils: ['csp-provider', 'direction-provider', 'merge-props']
+};
+
+/** Shorter side nav titles, such as "About" for "About Sveltery Base". */
+const NAV_TITLES: Record<string, string> = { '/overview/about': 'About' };
+
+const metadata = import.meta.glob<PageMetadata>('/src/routes/\\(docs\\)/*/*/+page.md', {
 	eager: true,
 	import: 'metadata'
 });
 
 type Entry = DocPage & { section: string; order: number; heading: string; toc: TocItem[] };
 
-const entries: Entry[] = Object.entries(metadata).map(([file, fm]) => {
-	const [section, slug] = file
-		.replace(/^\/content\//, '')
-		.replace(/\.md$/, '')
-		.split('/');
+const entries: Entry[] = Object.entries(metadata).map(([file, page]) => {
+	const [section, slug] = file.split('/').slice(-3, -1);
 	if (!(section in SECTIONS))
 		throw new Error(`${file}: folder "${section}" is not a section in content.server.ts`);
-	if (!fm?.title || !fm.description)
-		throw new Error(`${file}: frontmatter needs a title and a description`);
+	const href = `/${section}/${slug}`;
+	const order = ORDER[section]?.indexOf(slug) ?? -1;
 	return {
-		href: `/${section}/${slug}`,
-		title: fm.navTitle ?? fm.title,
-		description: fm.description,
+		href,
+		title: NAV_TITLES[href] ?? page.title,
+		description: page.subtitle,
 		section,
-		order: fm.order ?? Infinity,
-		heading: fm.title,
-		toc: fm.toc
+		order: order === -1 ? Infinity : order,
+		heading: page.title,
+		toc: page.toc
 	};
 });
 
