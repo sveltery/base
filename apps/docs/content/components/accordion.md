@@ -6,52 +6,80 @@ description: A set of collapsible panels with headings.
 ```svelte demo
 <script lang="ts">
 	import { Accordion } from '@sveltery/base/accordion';
-
-	const items = [
-		{
-			value: 'what',
-			title: 'What is Base UI?',
-			body: 'Base UI is a library of headless, accessible UI components.'
-		},
-		{
-			value: 'start',
-			title: 'How do I get started?',
-			body: 'Install the package, import a component, and style its parts with your own CSS.'
-		},
-		{
-			value: 'project',
-			title: 'Can I use it for my project?',
-			body: 'Yes. Base UI is free and open source under the MIT license.'
-		}
-	];
 </script>
 
-<Accordion.Root class="w-80 text-gray-900 dark:text-gray-100">
-	{#each items as item (item.value)}
-		<Accordion.Item value={item.value} class="border-b border-gray-200 dark:border-gray-700">
-			<Accordion.Header>
-				<Accordion.Trigger
-					class="group flex w-full items-center justify-between gap-4 py-2 text-left text-sm font-medium hover:underline focus-visible:outline-2 focus-visible:outline-blue-800"
-				>
-					{item.title}
-					<svg
-						viewBox="0 0 12 12"
-						class="size-3 shrink-0 transition-transform duration-150 group-data-[panel-open]:rotate-45"
-						fill="currentColor"
-						aria-hidden="true"
-					>
-						<path d="M6.75 0H5.25V5.25H0V6.75H5.25V12H6.75V6.75H12V5.25H6.75V0Z" />
-					</svg>
-				</Accordion.Trigger>
-			</Accordion.Header>
-			<Accordion.Panel
-				class="h-[var(--accordion-panel-height)] overflow-hidden text-sm text-gray-600 transition-[height] duration-150 ease-out data-[ending-style]:h-0 data-[starting-style]:h-0 dark:text-gray-400"
+<Accordion.Root
+	class="flex w-full max-w-80 flex-col border border-neutral-950 text-neutral-950 dark:border-white dark:text-white"
+>
+	<Accordion.Item>
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
 			>
-				<p class="pb-3">{item.body}</p>
-			</Accordion.Panel>
-		</Accordion.Item>
-	{/each}
+				What is Base UI?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">
+				Base UI is a library of high-quality unstyled Svelte components for design systems and web
+				apps.
+			</div>
+		</Accordion.Panel>
+	</Accordion.Item>
+
+	<Accordion.Item class="border-t border-neutral-950 dark:border-white">
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
+			>
+				How do I get started?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">
+				Head to the “Quick start” guide in the docs. If you’ve used unstyled libraries before,
+				you’ll feel at home.
+			</div>
+		</Accordion.Panel>
+	</Accordion.Item>
+
+	<Accordion.Item class="border-t border-neutral-950 dark:border-white">
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
+			>
+				Can I use it for my project?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">Of course! Base UI is free and open source.</div>
+		</Accordion.Panel>
+	</Accordion.Item>
 </Accordion.Root>
+
+{#snippet plus()}
+	<svg
+		width="16"
+		height="16"
+		viewBox="0 0 16 16"
+		fill="none"
+		stroke="currentColor"
+		stroke-linecap="square"
+		stroke-linejoin="round"
+		class="block shrink-0 transition-transform duration-100 ease-[ease-out] group-data-panel-open:rotate-45"
+	>
+		<path d="M1.5 8h13M8 14.5v-13" />
+	</svg>
+{/snippet}
 ```
 
 ## Anatomy
@@ -77,181 +105,196 @@ Import the component and assemble its parts:
 
 ### Open multiple panels
 
-By default, opening an item closes the open one. Set `multiple` on the root to let each item open and close on its own.
+You can set up the accordion to allow multiple panels to be open at the same time using the `multiple` prop.
 
 ```svelte demo
 <script lang="ts">
 	import { Accordion } from '@sveltery/base/accordion';
-
-	const items = [
-		{ value: 'shipping', title: 'Shipping', body: 'Orders ship within two business days.' },
-		{ value: 'returns', title: 'Returns', body: 'You can return any item within 30 days.' },
-		{
-			value: 'tracking',
-			title: 'Tracking',
-			body: 'We email a tracking link when your order ships.'
-		}
-	];
 </script>
 
-<Accordion.Root multiple class="w-80 text-gray-900 dark:text-gray-100">
-	{#each items as item (item.value)}
-		<Accordion.Item value={item.value} class="border-b border-gray-200 dark:border-gray-700">
-			<Accordion.Header>
-				<Accordion.Trigger
-					class="flex w-full justify-between py-2 text-left text-sm font-medium hover:underline focus-visible:outline-2 focus-visible:outline-blue-800"
-				>
-					{item.title}
-				</Accordion.Trigger>
-			</Accordion.Header>
-			<Accordion.Panel
-				class="h-[var(--accordion-panel-height)] overflow-hidden text-sm text-gray-600 transition-[height] duration-150 ease-out data-[ending-style]:h-0 data-[starting-style]:h-0 dark:text-gray-400"
+<Accordion.Root
+	multiple
+	class="flex w-full max-w-80 flex-col border border-neutral-950 text-neutral-950 dark:border-white dark:text-white"
+>
+	<Accordion.Item>
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
 			>
-				<p class="pb-3">{item.body}</p>
-			</Accordion.Panel>
-		</Accordion.Item>
-	{/each}
+				What is Base UI?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">
+				Base UI is a library of high-quality unstyled Svelte components for design systems and web
+				apps.
+			</div>
+		</Accordion.Panel>
+	</Accordion.Item>
+
+	<Accordion.Item class="border-t border-neutral-950 dark:border-white">
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
+			>
+				How do I get started?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">
+				Head to the “Quick start” guide in the docs. If you’ve used unstyled libraries before,
+				you’ll feel at home.
+			</div>
+		</Accordion.Panel>
+	</Accordion.Item>
+
+	<Accordion.Item class="border-t border-neutral-950 dark:border-white">
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
+			>
+				Can I use it for my project?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">Of course! Base UI is free and open source.</div>
+		</Accordion.Panel>
+	</Accordion.Item>
 </Accordion.Root>
-```
 
-### Open state
-
-Bind `value` to read and change which items are open. The value is an array of the open items' `value` props, in the order they opened. Without `bind:`, the accordion manages its own state, and a value you pass sets the initial state.
-
-```svelte demo
-<script lang="ts">
-	import { Accordion } from '@sveltery/base/accordion';
-
-	let value = $state<unknown[]>(['b']);
-</script>
-
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<p>Open items: {value.length ? value.join(', ') : 'none'}</p>
-	<div class="flex gap-2">
-		<button
-			type="button"
-			class="rounded-sm bg-gray-100 px-2 py-1 font-medium hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-			onclick={() => (value = ['a', 'b', 'c'])}
-		>
-			Open all
-		</button>
-		<button
-			type="button"
-			class="rounded-sm bg-gray-100 px-2 py-1 font-medium hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
-			onclick={() => (value = [])}
-		>
-			Close all
-		</button>
-	</div>
-	<Accordion.Root multiple bind:value class="w-80">
-		{#each ['a', 'b', 'c'] as id (id)}
-			<Accordion.Item value={id} class="border-b border-gray-200 dark:border-gray-700">
-				<Accordion.Header>
-					<Accordion.Trigger
-						class="flex w-full justify-between py-2 text-left font-medium hover:underline focus-visible:outline-2 focus-visible:outline-blue-800"
-					>
-						Item {id.toUpperCase()}
-					</Accordion.Trigger>
-				</Accordion.Header>
-				<Accordion.Panel
-					class="h-[var(--accordion-panel-height)] overflow-hidden text-gray-600 transition-[height] duration-150 ease-out data-[ending-style]:h-0 data-[starting-style]:h-0 dark:text-gray-400"
-				>
-					<p class="pb-3">Content of item {id.toUpperCase()}.</p>
-				</Accordion.Panel>
-			</Accordion.Item>
-		{/each}
-	</Accordion.Root>
-</div>
+{#snippet plus()}
+	<svg
+		width="16"
+		height="16"
+		viewBox="0 0 16 16"
+		fill="none"
+		stroke="currentColor"
+		stroke-linecap="square"
+		stroke-linejoin="round"
+		class="block shrink-0 transition-transform duration-100 ease-[ease-out] group-data-panel-open:rotate-45"
+	>
+		<path d="M1.5 8h13M8 14.5v-13" />
+	</svg>
+{/snippet}
 ```
 
 ### Hidden until found
 
-Set `hiddenUntilFound` on the root or on a panel to keep closed panels in the DOM. The browser's find-in-page can then find their text and open the panel. A closed panel uses `hidden="until-found"`, so its content stays hidden from view and from assistive technology until it opens.
+The `hiddenUntilFound` prop hides closed panels with [`hidden="until-found"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) so the browser can search their contents and reveal the matching panel automatically. It can be set on each `Accordion.Panel`, or once on `Accordion.Root` to apply to all panels.
 
-```svelte
-<Accordion.Root hiddenUntilFound>…</Accordion.Root>
-```
+To try it, press <kbd>Ctrl</kbd>+<kbd>F</kbd> (<kbd>Cmd</kbd>+<kbd>F</kbd> on macOS) and search for "restocking"—the browser opens the closed panel containing the match. When `hiddenUntilFound` is enabled, closed panels always remain mounted in the DOM, which also makes their contents indexable by search engines.
 
-Set `keepMounted` to keep closed panels in the DOM without making them searchable. `hiddenUntilFound` overrides `keepMounted`.
-
-### Disabled items
-
-Set `disabled` on the root to disable every item, or on one item to disable only that item. A disabled trigger gets the native `disabled` attribute, so it ignores clicks and leaves the tab order.
+Older browsers that don't support `hidden="until-found"` keep panels hidden until their trigger opens them, and find-in-page skips over the contents.
 
 ```svelte demo
 <script lang="ts">
 	import { Accordion } from '@sveltery/base/accordion';
 </script>
 
-<Accordion.Root class="w-80 text-sm text-gray-900 dark:text-gray-100">
-	<Accordion.Item value="plan" class="border-b border-gray-200 dark:border-gray-700">
-		<Accordion.Header>
-			<Accordion.Trigger
-				class="flex w-full justify-between py-2 text-left font-medium hover:underline focus-visible:outline-2 focus-visible:outline-blue-800"
-			>
-				Plan
-			</Accordion.Trigger>
-		</Accordion.Header>
-		<Accordion.Panel keepMounted class="text-gray-600 dark:text-gray-400">
-			<p class="pb-3">You are on the free plan.</p>
-		</Accordion.Panel>
-	</Accordion.Item>
-	<Accordion.Item value="billing" disabled class="border-b border-gray-200 dark:border-gray-700">
-		<Accordion.Header>
-			<Accordion.Trigger
-				class="flex w-full justify-between py-2 text-left font-medium data-[disabled]:text-gray-400 dark:data-[disabled]:text-gray-600"
-			>
-				Billing
-			</Accordion.Trigger>
-		</Accordion.Header>
-		<Accordion.Panel class="text-gray-600 dark:text-gray-400">
-			<p class="pb-3">Billing details.</p>
-		</Accordion.Panel>
-	</Accordion.Item>
-</Accordion.Root>
-```
-
-### Veto a change
-
-`onValueChange` on the root and `onOpenChange` on an item run before the open values change. Call `eventDetails.cancel()` to keep the accordion as it is.
-
-```svelte
 <Accordion.Root
-	onValueChange={(value, eventDetails) => {
-		if (value.length === 0) eventDetails.cancel();
-	}}
+	hiddenUntilFound
+	class="flex w-full max-w-80 flex-col border border-neutral-950 text-neutral-950 dark:border-white dark:text-white"
 >
-	…
+	<Accordion.Item>
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
+			>
+				How long does shipping take?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">
+				Standard shipping takes 3–5 business days. Express delivery arrives in 1–2 business days.
+			</div>
+		</Accordion.Panel>
+	</Accordion.Item>
+
+	<Accordion.Item class="border-t border-neutral-950 dark:border-white">
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
+			>
+				What is your return policy?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">
+				You can return any item within 30 days of delivery. Opened items may be subject to a 10%
+				restocking fee.
+			</div>
+		</Accordion.Panel>
+	</Accordion.Item>
+
+	<Accordion.Item class="border-t border-neutral-950 dark:border-white">
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
+			>
+				Do you ship internationally?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">
+				Yes, we ship to over 40 countries. International orders typically arrive within 7–14
+				business days.
+			</div>
+		</Accordion.Panel>
+	</Accordion.Item>
+
+	<Accordion.Item class="border-t border-neutral-950 dark:border-white">
+		<Accordion.Header>
+			<Accordion.Trigger
+				class="group flex w-full items-center justify-between gap-4 bg-transparent px-3 py-2 text-left text-sm font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800"
+			>
+				How can I track my order?
+				{@render plus()}
+			</Accordion.Trigger>
+		</Accordion.Header>
+		<Accordion.Panel
+			class="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] data-ending-style:h-0 data-starting-style:h-0"
+		>
+			<div class="px-3 py-2">
+				Once your order ships, you’ll receive a tracking link by email. Tracking updates can take up
+				to 24 hours to appear.
+			</div>
+		</Accordion.Panel>
+	</Accordion.Item>
 </Accordion.Root>
+
+{#snippet plus()}
+	<svg
+		width="16"
+		height="16"
+		viewBox="0 0 16 16"
+		fill="none"
+		stroke="currentColor"
+		stroke-linecap="square"
+		stroke-linejoin="round"
+		class="block shrink-0 transition-transform duration-100 ease-[ease-out] group-data-panel-open:rotate-45"
+	>
+		<path d="M1.5 8h13M8 14.5v-13" />
+	</svg>
+{/snippet}
 ```
-
-### Animate the panel
-
-The panel sets `--accordion-panel-height` and `--accordion-panel-width` to its measured size. Transition `height` to the variable, and use `[data-starting-style]` and `[data-ending-style]` for the closed size:
-
-```css
-.panel {
-	height: var(--accordion-panel-height);
-	overflow: hidden;
-	transition: height 150ms ease-out;
-}
-
-.panel[data-starting-style],
-.panel[data-ending-style] {
-	height: 0;
-}
-```
-
-## Differences from Base UI
-
-- `value` is one bindable prop. Use `bind:value` instead of `value`, `defaultValue`, and `onValueChange` together. There is no `defaultValue` prop: pass `value` without `bind:` to set the initial state. `Accordion.Item` has no `defaultValue` either. Only form controls keep `defaultValue` and `defaultChecked`.
-- `onValueChange` and `onOpenChange` run before the state changes. Call `eventDetails.cancel()` to keep the accordion as it is.
-- `multiple` defaults to `false`, so opening an item closes the others.
-- `orientation` and `loopFocus` do not move focus. Arrow keys do not move focus between triggers. `orientation` still sets `data-orientation`.
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
-- `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- Handlers use lowercase names, such as `onclick`. Call `event.preventDefault()` in a handler on `Accordion.Trigger` to skip the trigger's own handling.
-- Refs are not supported. Use `bind:this` or an attachment on the part.
 
 ## API reference
 
