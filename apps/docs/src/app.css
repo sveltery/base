@@ -1,62 +1,63 @@
 @import 'tailwindcss';
+@import './lib/css/fonts.css';
+@import './lib/css/tokens.css';
 
 @source '../content';
 
-@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+	--font-sans: 'Instrument Sans', system-ui, sans-serif;
+	--font-mono:
+		'Paper Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+		'Courier New', monospace;
+}
 
 @theme inline {
-	--color-bg: var(--bg);
-	--color-fg: var(--fg);
-	--color-muted: var(--muted);
-	--color-subtle: var(--subtle);
-	--color-line: var(--line);
-	--color-canvas: var(--canvas);
-	--color-code: var(--code);
-	--color-accent: var(--accent);
-}
-
-:root {
-	--bg: oklch(1 0 0);
-	--fg: oklch(0.2 0 0);
-	--muted: oklch(0.5 0 0);
-	--subtle: oklch(0.96 0 0);
-	--line: oklch(0.9 0 0);
-	--canvas: oklch(0.985 0 0);
-	--code: oklch(0.98 0 0);
-	--accent: oklch(0.55 0.2 260);
-	color-scheme: light;
-}
-
-.dark {
-	--bg: oklch(0.16 0 0);
-	--fg: oklch(0.94 0 0);
-	--muted: oklch(0.68 0 0);
-	--subtle: oklch(0.23 0 0);
-	--line: oklch(0.3 0 0);
-	--canvas: oklch(0.19 0 0);
-	--code: oklch(0.2 0 0);
-	--accent: oklch(0.72 0.15 260);
-	color-scheme: dark;
+	--color-bg: var(--color-content);
+	--color-fg: var(--color-foreground);
+	--color-muted: var(--gray-t1);
+	--color-subtle: var(--gray-c1);
+	--color-line: var(--color-border);
+	--color-canvas: var(--gray-s1);
+	--color-code: var(--gray-s2);
+	--color-accent: var(--color-blue);
 }
 
 @layer base {
 	html {
-		scroll-padding-top: 4.5rem;
+		color-scheme: light dark;
+		word-break: break-word;
+		scroll-padding-top: var(--header-height);
 	}
+
 	body {
-		@apply bg-bg text-fg antialiased;
+		position: relative;
+		min-width: 320px;
+		line-height: 1.5;
+		background-color: var(--color-content);
+		color: var(--color-foreground);
+		font-synthesis: none;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		overflow-y: scroll;
+		font-feature-settings: 'zero' 1;
+	}
+
+	::selection {
+		background-color: var(--color-selection);
 	}
 }
 
-/* Shiki emits both themes as variables. The `.dark` class picks one. */
+/* Shiki emits both themes as variables. The color scheme picks one. */
 .shiki,
 .shiki span {
 	color: var(--shiki-light);
 	background-color: transparent;
 }
-.dark .shiki,
-.dark .shiki span {
-	color: var(--shiki-dark);
+@media (prefers-color-scheme: dark) {
+	.shiki,
+	.shiki span {
+		color: var(--shiki-dark);
+	}
 }
 
 .code-block {

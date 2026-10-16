@@ -438,6 +438,19 @@ Toast derives from [Base UI](https://github.com/mui/base-ui) v1.9.0, commit `ad7
 - `src/lib/tabs/prehydration.ts` from `packages/react/src/tabs/indicator/prehydrationScript.min.ts`, and the `renderBeforeHydration` script in `src/lib/tabs/TabsIndicator.svelte` from `packages/react/src/tabs/indicator/TabsIndicator.tsx`. `src/lib/tabs/tabs-ssr.spec.ts` and the script-execution cases in `src/routes/fixtures/tabs/tabs.e2e.ts` from the pre-hydration cases of `packages/react/src/tabs/indicator/TabsIndicator.test.tsx`
 - The `virtualized` and Item `index` cases in `src/lib/combobox/ComboboxItem.svelte.spec.ts`, `ComboboxRoot.selection.svelte.spec.ts`, `ComboboxRoot.props.svelte.spec.ts`, `ComboboxTrigger.svelte.spec.ts` and `createItems.svelte.spec.ts`, with the `src/tests/ComboboxVirtualHarness.svelte` and `src/tests/ComboboxVirtualWindow.svelte` harnesses, assertions from `packages/react/src/combobox/item/ComboboxItem.test.tsx`, `combobox/root/ComboboxRoot.test.tsx`, `combobox/trigger/ComboboxTrigger.test.tsx` and `combobox/items/createItems.test.tsx`; the index slots in `src/lib/combobox/store.svelte.ts` from `getCompositeListSnapshot` in `packages/react/src/internals/composite/list/CompositeList.tsx` and the `listRef` length sync in `packages/react/src/combobox/root/AriaCombobox.tsx`
 
+## Documentation site
+
+The docs shell in `apps/docs` derives from the Base UI docs (`docs/src`) at commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`, under the MIT license:
+
+- `apps/docs/src/lib/css/tokens.css` and `fonts.css` from `docs/src/css/index.css` and `docs/src/css/fonts/index.css`
+- `apps/docs/src/routes/+layout.svelte` from `docs/src/app/(docs)/layout.tsx` and `layout.css`
+- `apps/docs/src/lib/components/{Header,Sidebar,MobileNav,Toc,SkipNav,LogoLink,Icons}.svelte` from `docs/src/components/{Header,SideNav,MobileNav*,SearchControls,QuickNav,SkipNav}` and `docs/src/icons`
+
+Fonts in `apps/docs/static/fonts` are under the SIL Open Font License 1.1. The license texts sit beside them:
+
+- Paper Mono, by the Paper Mono project authors (https://github.com/paper-design/paper-mono)
+- Instrument Sans, by the Instrument Sans project authors (https://github.com/Instrument/instrument-sans)
+
 MIT License
 
 Copyright (c) 2019 Material-UI SAS

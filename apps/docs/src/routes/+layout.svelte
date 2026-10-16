@@ -1,38 +1,86 @@
 <script lang="ts">
 	import '../app.css';
-	import MobileNav from '#lib/components/MobileNav.svelte';
+	import Header from '#lib/components/Header.svelte';
 	import Sidebar from '#lib/components/Sidebar.svelte';
-	import ThemeToggle from '#lib/components/ThemeToggle.svelte';
+	import { MAIN_CONTENT_ID } from '#lib/components/SkipNav.svelte';
 
 	let { data, children } = $props();
 </script>
 
-<header class="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
-	<div class="mx-auto flex h-14 max-w-[90rem] items-center gap-2 px-4">
-		<MobileNav nav={data.nav} />
-		<a href="/" class="font-semibold">Sveltery Base</a>
-		<span class="hidden text-sm text-muted sm:inline">Base UI for Svelte</span>
-		<div class="ml-auto flex items-center gap-1">
-			<a
-				href="https://ui.sveltery.dev"
-				class="rounded-md px-2 py-1 text-sm text-muted hover:bg-subtle hover:text-fg">Sveltery UI</a
-			>
-			<a
-				href="https://github.com/sveltery/base"
-				class="rounded-md px-2 py-1 text-sm text-muted hover:bg-subtle hover:text-fg">GitHub</a
-			>
-			<ThemeToggle />
+<div class="RootLayout">
+	<div class="RootLayoutContainer">
+		<div class="RootLayoutContent">
+			<div class="ContentLayoutRoot">
+				<Header nav={data.nav} />
+				<Sidebar nav={data.nav} />
+				<main class="ContentLayoutMain" id={MAIN_CONTENT_ID}>
+					<div class="QuickNavContainer">
+						{@render children()}
+					</div>
+				</main>
+			</div>
 		</div>
 	</div>
-</header>
-
-<div class="mx-auto flex max-w-[90rem]">
-	<aside
-		class="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-60 shrink-0 overflow-y-auto border-r border-line px-3 py-6 md:block"
-	>
-		<Sidebar nav={data.nav} />
-	</aside>
-	<main class="min-w-0 flex-1">
-		{@render children()}
-	</main>
 </div>
+
+<style>
+	.RootLayout {
+		z-index: 0;
+		position: relative;
+		padding-inline: var(--root-layout-padding-x);
+	}
+
+	.RootLayoutContainer {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		margin-inline: auto;
+		min-height: 100dvh;
+		max-width: calc(var(--breakpoint-max-layout-width) - var(--root-layout-padding-x) * 2);
+
+		@media (width >= 64rem) {
+			padding-top: var(--header-height);
+		}
+	}
+
+	.RootLayoutContent {
+		display: flex;
+		flex-grow: 1;
+		flex-direction: column;
+		background-color: var(--color-content);
+	}
+
+	.ContentLayoutRoot {
+		display: grid;
+		align-items: start;
+		padding-top: var(--header-height);
+		padding-inline: var(--content-layout-padding-x);
+		grid-template-columns: 1fr;
+
+		@media (width >= 64rem) {
+			padding-top: 0;
+			grid-template-columns: var(--sidebar-width) 1fr 3rem;
+		}
+
+		@media (width >= 84rem) {
+			grid-template-columns: var(--sidebar-width) 1fr var(--sidebar-width);
+		}
+	}
+
+	.ContentLayoutMain {
+		min-width: 0;
+		max-width: 48rem;
+		width: 100%;
+		margin: 0 auto;
+
+		@media (width >= 64rem) {
+			margin: 0;
+			grid-column: 2;
+		}
+	}
+
+	.QuickNavContainer {
+		padding: 0;
+		position: relative;
+	}
+</style>
