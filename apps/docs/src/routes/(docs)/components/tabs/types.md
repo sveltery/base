@@ -19,10 +19,10 @@ Groups the tabs and the corresponding panels. Renders a `<div>` element.
 
 **Root Data Attributes:**
 
-| Attribute                 | Type | Description                                                                   |
-| :------------------------ | :--- | :---------------------------------------------------------------------------- |
-| data-orientation          | -    | Indicates the orientation of the tabs.                                        |
-| data-activation-direction | -    | Indicates the direction of the activation (based on the previous active tab). |
+| Attribute                 | Type                                            | Description                                                                   |
+| :------------------------ | :---------------------------------------------- | :---------------------------------------------------------------------------- |
+| data-orientation          | `'horizontal' \| 'vertical'`                    | Indicates the orientation of the tabs.                                        |
+| data-activation-direction | `'left' \| 'right' \| 'up' \| 'down' \| 'none'` | Indicates the direction of the activation (based on the previous active tab). |
 
 ### Root.Props
 
@@ -53,10 +53,10 @@ Groups the individual tab buttons. Renders a `<div>` element.
 
 **List Data Attributes:**
 
-| Attribute                 | Type | Description                                                                   |
-| :------------------------ | :--- | :---------------------------------------------------------------------------- |
-| data-orientation          | -    | Indicates the orientation of the tabs.                                        |
-| data-activation-direction | -    | Indicates the direction of the activation (based on the previous active tab). |
+| Attribute                 | Type                                            | Description                                                                   |
+| :------------------------ | :---------------------------------------------- | :---------------------------------------------------------------------------- |
+| data-orientation          | `'horizontal' \| 'vertical'`                    | Indicates the orientation of the tabs.                                        |
+| data-activation-direction | `'left' \| 'right' \| 'up' \| 'down' \| 'none'` | Indicates the direction of the activation (based on the previous active tab). |
 
 ### List.Props
 
@@ -87,14 +87,14 @@ A panel displayed when the corresponding tab is active. Renders a `<div>` elemen
 
 **Panel Data Attributes:**
 
-| Attribute                 | Type | Description                                                                   |
-| :------------------------ | :--- | :---------------------------------------------------------------------------- |
-| data-orientation          | -    | Indicates the orientation of the tabs.                                        |
-| data-activation-direction | -    | Indicates the direction of the activation (based on the previous active tab). |
-| data-hidden               | -    | Present when the panel is hidden.                                             |
-| data-index                | -    | Indicates the index of the tab panel.                                         |
-| data-starting-style       | -    | Present when the panel begins animating in.                                   |
-| data-ending-style         | -    | Present when the panel is animating out.                                      |
+| Attribute                 | Type                                            | Description                                                                   |
+| :------------------------ | :---------------------------------------------- | :---------------------------------------------------------------------------- |
+| data-orientation          | `'horizontal' \| 'vertical'`                    | Indicates the orientation of the tabs.                                        |
+| data-activation-direction | `'left' \| 'right' \| 'up' \| 'down' \| 'none'` | Indicates the direction of the activation (based on the previous active tab). |
+| data-hidden               | -                                               | Present when the panel is hidden.                                             |
+| data-index                | -                                               | Indicates the index of the tab panel.                                         |
+| data-starting-style       | -                                               | Present when the panel begins animating in.                                   |
+| data-ending-style         | -                                               | Present when the panel is animating out.                                      |
 
 ### Panel.Props
 
@@ -128,21 +128,21 @@ A visual indicator that can be styled to match the position of the currently act
 
 **Indicator Data Attributes:**
 
-| Attribute                 | Type | Description                                                                   |
-| :------------------------ | :--- | :---------------------------------------------------------------------------- |
-| data-orientation          | -    | Indicates the orientation of the tabs.                                        |
-| data-activation-direction | -    | Indicates the direction of the activation (based on the previous active tab). |
+| Attribute                 | Type                                            | Description                                                                   |
+| :------------------------ | :---------------------------------------------- | :---------------------------------------------------------------------------- |
+| data-orientation          | `'horizontal' \| 'vertical'`                    | Indicates the orientation of the tabs.                                        |
+| data-activation-direction | `'left' \| 'right' \| 'up' \| 'down' \| 'none'` | Indicates the direction of the activation (based on the previous active tab). |
 
 **Indicator CSS Variables:**
 
-| Variable              | Type | Description                                                                                 |
-| :-------------------- | :--- | :------------------------------------------------------------------------------------------ |
-| `--active-tab-bottom` | -    | Indicates the distance on the bottom side from the parent's container if the tab is active. |
-| `--active-tab-height` | -    | Indicates the height of the tab if it is active.                                            |
-| `--active-tab-left`   | -    | Indicates the distance on the left side from the parent's container if the tab is active.   |
-| `--active-tab-right`  | -    | Indicates the distance on the right side from the parent's container if the tab is active.  |
-| `--active-tab-top`    | -    | Indicates the distance on the top side from the parent's container if the tab is active.    |
-| `--active-tab-width`  | -    | Indicates the width of the tab if it is active.                                             |
+| Variable              | Type     | Description                                                                                 |
+| :-------------------- | :------- | :------------------------------------------------------------------------------------------ |
+| `--active-tab-bottom` | `number` | Indicates the distance on the bottom side from the parent's container if the tab is active. |
+| `--active-tab-height` | `number` | Indicates the height of the tab if it is active.                                            |
+| `--active-tab-left`   | `number` | Indicates the distance on the left side from the parent's container if the tab is active.   |
+| `--active-tab-right`  | `number` | Indicates the distance on the right side from the parent's container if the tab is active.  |
+| `--active-tab-top`    | `number` | Indicates the distance on the top side from the parent's container if the tab is active.    |
+| `--active-tab-width`  | `number` | Indicates the width of the tab if it is active.                                             |
 
 ### Indicator.Props
 
@@ -179,12 +179,12 @@ An individual interactive tab button that toggles the corresponding panel. Rende
 
 **Tab Data Attributes:**
 
-| Attribute                 | Type | Description                                                                   |
-| :------------------------ | :--- | :---------------------------------------------------------------------------- |
-| data-orientation          | -    | Indicates the orientation of the tabs.                                        |
-| data-disabled             | -    | Present when the tab is disabled.                                             |
-| data-activation-direction | -    | Indicates the direction of the activation (based on the previous active tab). |
-| data-active               | -    | Present when the tab is active.                                               |
+| Attribute                 | Type                                            | Description                                                                   |
+| :------------------------ | :---------------------------------------------- | :---------------------------------------------------------------------------- |
+| data-orientation          | `'horizontal' \| 'vertical'`                    | Indicates the orientation of the tabs.                                        |
+| data-disabled             | -                                               | Present when the tab is disabled.                                             |
+| data-activation-direction | `'left' \| 'right' \| 'up' \| 'down' \| 'none'` | Indicates the direction of the activation (based on the previous active tab). |
+| data-active               | -                                               | Present when the tab is active.                                               |
 
 ### Tab.Props
 
@@ -203,4 +203,217 @@ type TabsTabState = {
 	/** Where the active tab sits relative to the previous one. */
 	tabActivationDirection: TabsActivationDirection;
 };
+```
+
+## Additional Types
+
+### TabsActivationDirection
+
+```typescript
+type TabsActivationDirection = 'left' | 'right' | 'up' | 'down' | 'none';
+```
+
+### TabsIndicatorCssVariables
+
+CSS variables of [Indicator](#indicator).
+
+```typescript
+declare namespace TabsIndicatorCssVariables {
+	/**
+	 * Indicates the distance on the left side from the parent's container if the tab is active.
+	 * @type number
+	 */
+	const activeTabLeft: '--active-tab-left';
+	/**
+	 * Indicates the distance on the right side from the parent's container if the tab is active.
+	 * @type number
+	 */
+	const activeTabRight: '--active-tab-right';
+	/**
+	 * Indicates the distance on the top side from the parent's container if the tab is active.
+	 * @type number
+	 */
+	const activeTabTop: '--active-tab-top';
+	/**
+	 * Indicates the distance on the bottom side from the parent's container if the tab is active.
+	 * @type number
+	 */
+	const activeTabBottom: '--active-tab-bottom';
+	/**
+	 * Indicates the width of the tab if it is active.
+	 * @type number
+	 */
+	const activeTabWidth: '--active-tab-width';
+	/**
+	 * Indicates the height of the tab if it is active.
+	 * @type number
+	 */
+	const activeTabHeight: '--active-tab-height';
+}
+```
+
+### TabsIndicatorDataAttributes
+
+Data attributes of [Indicator](#indicator).
+
+```typescript
+declare namespace TabsIndicatorDataAttributes {
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type 'left' | 'right' | 'up' | 'down' | 'none'
+	 */
+	const activationDirection: 'data-activation-direction';
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### TabsListDataAttributes
+
+Data attributes of [List](#list).
+
+```typescript
+declare namespace TabsListDataAttributes {
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type 'left' | 'right' | 'up' | 'down' | 'none'
+	 */
+	const activationDirection: 'data-activation-direction';
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### TabsOrientation
+
+```typescript
+type TabsOrientation = 'horizontal' | 'vertical';
+```
+
+### TabsPanelDataAttributes
+
+Data attributes of [Panel](#panel).
+
+```typescript
+declare namespace TabsPanelDataAttributes {
+	/** Indicates the index of the tab panel. */
+	const index: 'data-index';
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type 'left' | 'right' | 'up' | 'down' | 'none'
+	 */
+	const activationDirection: 'data-activation-direction';
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+	/** Present when the panel is hidden. */
+	const hidden: 'data-hidden';
+	/** Present when the panel begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the panel is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### TabsRootChangeEventDetails
+
+```typescript
+type TabsRootChangeEventDetails = BaseUIChangeEventDetails<TabsRootChangeEventReason> & {
+	/**
+	 * Where the next tab sits relative to the current one.
+	 * Automatic changes use `none`.
+	 */
+	activationDirection: TabsActivationDirection;
+};
+```
+
+### TabsRootChangeEventReason
+
+```typescript
+type TabsRootChangeEventReason =
+	typeof REASONS.none | typeof REASONS.disabled | typeof REASONS.missing | typeof REASONS.initial;
+```
+
+### TabsRootDataAttributes
+
+Data attributes of [Root](#root).
+
+```typescript
+declare namespace TabsRootDataAttributes {
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type 'left' | 'right' | 'up' | 'down' | 'none'
+	 */
+	const activationDirection: 'data-activation-direction';
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### TabsTabDataAttributes
+
+Data attributes of [Tab](#tab).
+
+```typescript
+declare namespace TabsTabDataAttributes {
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type 'left' | 'right' | 'up' | 'down' | 'none'
+	 */
+	const activationDirection: 'data-activation-direction';
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+	/** Present when the tab is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the tab is active. */
+	const active: 'data-active';
+}
+```
+
+### TabsTabHostProps
+
+```typescript
+type TabsTabHostProps = HTMLAttributes<HTMLElement>;
+```
+
+### TabsTabPosition
+
+```typescript
+type TabsTabPosition = {
+	left: number;
+	right: number;
+	top: number;
+	bottom: number;
+};
+```
+
+### TabsTabSize
+
+```typescript
+type TabsTabSize = {
+	width: number;
+	height: number;
+};
+```
+
+### TabsValue
+
+A tab value. `null` selects nothing.
+
+```typescript
+type TabsValue = unknown;
 ```

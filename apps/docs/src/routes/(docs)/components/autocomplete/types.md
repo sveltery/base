@@ -62,21 +62,21 @@ A button that opens the popup. Renders a `<button>` element.
 
 **Trigger Data Attributes:**
 
-| Attribute       | Type | Description                                                                        |
-| :-------------- | :--- | :--------------------------------------------------------------------------------- |
-| data-popup-open | -    | Present when the corresponding popup is open.                                      |
-| data-popup-side | -    | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| data-list-empty | -    | Present when the corresponding items list is empty.                                |
-| data-pressed    | -    | Present when the trigger is pressed.                                               |
-| data-disabled   | -    | Present when the component is disabled.                                            |
-| data-readonly   | -    | Present when the component is readonly.                                            |
-| data-required   | -    | Present when the component is required.                                            |
-| data-valid      | -    | Present when the component is in a valid state (when wrapped in Field.Root).       |
-| data-invalid    | -    | Present when the component is in an invalid state (when wrapped in Field.Root).    |
-| data-dirty      | -    | Present when the component's value has changed (when wrapped in Field.Root).       |
-| data-touched    | -    | Present when the component has been touched (when wrapped in Field.Root).          |
-| data-filled     | -    | Present when the component has a value (when wrapped in Field.Root).               |
-| data-focused    | -    | Present when the trigger is focused (when wrapped in Field.Root).                  |
+| Attribute       | Type                                                                               | Description                                                                        |
+| :-------------- | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| data-popup-open | -                                                                                  | Present when the corresponding popup is open.                                      |
+| data-popup-side | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start' \| null` | Indicates which side the corresponding popup is positioned relative to its anchor. |
+| data-list-empty | -                                                                                  | Present when the corresponding items list is empty.                                |
+| data-pressed    | -                                                                                  | Present when the trigger is pressed.                                               |
+| data-disabled   | -                                                                                  | Present when the component is disabled.                                            |
+| data-readonly   | -                                                                                  | Present when the component is readonly.                                            |
+| data-required   | -                                                                                  | Present when the component is required.                                            |
+| data-valid      | -                                                                                  | Present when the component is in a valid state (when wrapped in Field.Root).       |
+| data-invalid    | -                                                                                  | Present when the component is in an invalid state (when wrapped in Field.Root).    |
+| data-dirty      | -                                                                                  | Present when the component's value has changed (when wrapped in Field.Root).       |
+| data-touched    | -                                                                                  | Present when the component has been touched (when wrapped in Field.Root).          |
+| data-filled     | -                                                                                  | Present when the component has a value (when wrapped in Field.Root).               |
+| data-focused    | -                                                                                  | Present when the trigger is focused (when wrapped in Field.Root).                  |
 
 ### Trigger.Props
 
@@ -136,21 +136,21 @@ A text input to search for items in the list. Renders an `<input>` element.
 
 **Input Data Attributes:**
 
-| Attribute       | Type | Description                                                                        |
-| :-------------- | :--- | :--------------------------------------------------------------------------------- |
-| data-popup-open | -    | Present when the corresponding popup is open.                                      |
-| data-popup-side | -    | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| data-list-empty | -    | Present when the corresponding items list is empty.                                |
-| data-pressed    | -    | Present when the input is pressed.                                                 |
-| data-disabled   | -    | Present when the component is disabled.                                            |
-| data-readonly   | -    | Present when the component is readonly.                                            |
-| data-required   | -    | Present when the component is required.                                            |
-| data-valid      | -    | Present when the component is in a valid state (when wrapped in Field.Root).       |
-| data-invalid    | -    | Present when the component is in an invalid state (when wrapped in Field.Root).    |
-| data-dirty      | -    | Present when the component's value has changed (when wrapped in Field.Root).       |
-| data-touched    | -    | Present when the component has been touched (when wrapped in Field.Root).          |
-| data-filled     | -    | Present when the component has a value (when wrapped in Field.Root).               |
-| data-focused    | -    | Present when the input is focused (when wrapped in Field.Root).                    |
+| Attribute       | Type                                                                               | Description                                                                        |
+| :-------------- | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| data-popup-open | -                                                                                  | Present when the corresponding popup is open.                                      |
+| data-popup-side | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start' \| null` | Indicates which side the corresponding popup is positioned relative to its anchor. |
+| data-list-empty | -                                                                                  | Present when the corresponding items list is empty.                                |
+| data-pressed    | -                                                                                  | Present when the input is pressed.                                                 |
+| data-disabled   | -                                                                                  | Present when the component is disabled.                                            |
+| data-readonly   | -                                                                                  | Present when the component is readonly.                                            |
+| data-required   | -                                                                                  | Present when the component is required.                                            |
+| data-valid      | -                                                                                  | Present when the component is in a valid state (when wrapped in Field.Root).       |
+| data-invalid    | -                                                                                  | Present when the component is in an invalid state (when wrapped in Field.Root).    |
+| data-dirty      | -                                                                                  | Present when the component's value has changed (when wrapped in Field.Root).       |
+| data-touched    | -                                                                                  | Present when the component has been touched (when wrapped in Field.Root).          |
+| data-filled     | -                                                                                  | Present when the component has a value (when wrapped in Field.Root).               |
+| data-focused    | -                                                                                  | Present when the input is focused (when wrapped in Field.Root).                    |
 
 ### Input.Props
 
@@ -335,24 +335,24 @@ Positions the popup against the trigger. Renders a `<div>` element.
 
 **Positioner Data Attributes:**
 
-| Attribute          | Type | Description                                                           |
-| :----------------- | :--- | :-------------------------------------------------------------------- |
-| data-open          | -    | Present when the popup is open.                                       |
-| data-closed        | -    | Present when the popup is closed.                                     |
-| data-anchor-hidden | -    | Present when the anchor is hidden.                                    |
-| data-align         | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-empty         | -    | Present when the items list is empty.                                 |
-| data-side          | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute          | Type                                                                       | Description                                                           |
+| :----------------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open          | -                                                                          | Present when the popup is open.                                       |
+| data-closed        | -                                                                          | Present when the popup is closed.                                     |
+| data-anchor-hidden | -                                                                          | Present when the anchor is hidden.                                    |
+| data-align         | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-empty         | -                                                                          | Present when the items list is empty.                                 |
+| data-side          | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 **Positioner CSS Variables:**
 
-| Variable             | Type | Description                                                                            |
-| :------------------- | :--- | :------------------------------------------------------------------------------------- |
-| `--anchor-height`    | -    | The anchor's height.                                                                   |
-| `--anchor-width`     | -    | The anchor's width.                                                                    |
-| `--available-height` | -    | The available height between the trigger and the edge of the viewport.                 |
-| `--available-width`  | -    | The available width between the trigger and the edge of the viewport.                  |
-| `--transform-origin` | -    | The coordinates that this element is anchored to. Used for animations and transitions. |
+| Variable             | Type     | Description                                                                            |
+| :------------------- | :------- | :------------------------------------------------------------------------------------- |
+| `--anchor-height`    | `number` | The anchor's height.                                                                   |
+| `--anchor-width`     | `number` | The anchor's width.                                                                    |
+| `--available-height` | `number` | The available height between the trigger and the edge of the viewport.                 |
+| `--available-width`  | `number` | The available width between the trigger and the edge of the viewport.                  |
+| `--transform-origin` | `string` | The coordinates that this element is anchored to. Used for animations and transitions. |
 
 ### Positioner.Props
 
@@ -389,16 +389,16 @@ A container for the list. Renders a `<div>` element.
 
 **Popup Data Attributes:**
 
-| Attribute           | Type | Description                                                           |
-| :------------------ | :--- | :-------------------------------------------------------------------- |
-| data-open           | -    | Present when the popup is open.                                       |
-| data-closed         | -    | Present when the popup is closed.                                     |
-| data-anchor-hidden  | -    | Present when the anchor is hidden.                                    |
-| data-align          | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-empty          | -    | Present when the items list is empty.                                 |
-| data-side           | -    | Indicates which side the popup is positioned relative to the trigger. |
-| data-starting-style | -    | Present when the popup begins animating in.                           |
-| data-ending-style   | -    | Present when the popup is animating out.                              |
+| Attribute           | Type                                                                       | Description                                                           |
+| :------------------ | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open           | -                                                                          | Present when the popup is open.                                       |
+| data-closed         | -                                                                          | Present when the popup is closed.                                     |
+| data-anchor-hidden  | -                                                                          | Present when the anchor is hidden.                                    |
+| data-align          | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-empty          | -                                                                          | Present when the items list is empty.                                 |
+| data-side           | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
+| data-starting-style | -                                                                          | Present when the popup begins animating in.                           |
+| data-ending-style   | -                                                                          | Present when the popup is animating out.                              |
 
 ### Popup.Props
 
@@ -434,13 +434,13 @@ Displays an element positioned against the anchor. Renders a `<div>` element.
 
 **Arrow Data Attributes:**
 
-| Attribute       | Type | Description                                                           |
-| :-------------- | :--- | :-------------------------------------------------------------------- |
-| data-open       | -    | Present when the popup is open.                                       |
-| data-closed     | -    | Present when the popup is closed.                                     |
-| data-uncentered | -    | Present when the arrow is uncentered.                                 |
-| data-align      | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-side       | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute       | Type                                                                       | Description                                                           |
+| :-------------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open       | -                                                                          | Present when the popup is open.                                       |
+| data-closed     | -                                                                          | Present when the popup is closed.                                     |
+| data-uncentered | -                                                                          | Present when the arrow is uncentered.                                 |
+| data-align      | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-side       | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 ### Arrow.Props
 
@@ -539,9 +539,9 @@ A visual separator between items or groups. Renders a `<div>` element.
 
 **Separator Data Attributes:**
 
-| Attribute        | Type | Description                                 |
-| :--------------- | :--- | :------------------------------------------ |
-| data-orientation | -    | Indicates the orientation of the separator. |
+| Attribute        | Type                         | Description                                 |
+| :--------------- | :--------------------------- | :------------------------------------------ |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the separator. |
 
 ### Separator.Props
 
@@ -627,20 +627,20 @@ A wrapper for the input and its associated controls. Renders a `<div>` element.
 
 **InputGroup Data Attributes:**
 
-| Attribute       | Type | Description                                                                        |
-| :-------------- | :--- | :--------------------------------------------------------------------------------- |
-| data-popup-open | -    | Present when the corresponding popup is open.                                      |
-| data-popup-side | -    | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| data-list-empty | -    | Present when the corresponding items list is empty.                                |
-| data-pressed    | -    | Present when the input group is pressed.                                           |
-| data-disabled   | -    | Present when the component is disabled.                                            |
-| data-readonly   | -    | Present when the component is readonly.                                            |
-| data-valid      | -    | Present when the component is in a valid state (when wrapped in Field.Root).       |
-| data-invalid    | -    | Present when the component is in an invalid state (when wrapped in Field.Root).    |
-| data-dirty      | -    | Present when the component's value has changed (when wrapped in Field.Root).       |
-| data-touched    | -    | Present when the component has been touched (when wrapped in Field.Root).          |
-| data-filled     | -    | Present when the component has a value (when wrapped in Field.Root).               |
-| data-focused    | -    | Present when the component is focused (when wrapped in Field.Root).                |
+| Attribute       | Type                                                                               | Description                                                                        |
+| :-------------- | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| data-popup-open | -                                                                                  | Present when the corresponding popup is open.                                      |
+| data-popup-side | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start' \| null` | Indicates which side the corresponding popup is positioned relative to its anchor. |
+| data-list-empty | -                                                                                  | Present when the corresponding items list is empty.                                |
+| data-pressed    | -                                                                                  | Present when the input group is pressed.                                           |
+| data-disabled   | -                                                                                  | Present when the component is disabled.                                            |
+| data-readonly   | -                                                                                  | Present when the component is readonly.                                            |
+| data-valid      | -                                                                                  | Present when the component is in a valid state (when wrapped in Field.Root).       |
+| data-invalid    | -                                                                                  | Present when the component is in an invalid state (when wrapped in Field.Root).    |
+| data-dirty      | -                                                                                  | Present when the component's value has changed (when wrapped in Field.Root).       |
+| data-touched    | -                                                                                  | Present when the component has been touched (when wrapped in Field.Root).          |
+| data-filled     | -                                                                                  | Present when the component has a value (when wrapped in Field.Root).               |
+| data-focused    | -                                                                                  | Present when the component is focused (when wrapped in Field.Root).                |
 
 ### InputGroup.Props
 
@@ -671,4 +671,379 @@ type AutocompleteInputGroupState = {
 	/** Whether the field is focused. */
 	focused: boolean;
 };
+```
+
+## Additional Types
+
+### AutocompleteArrowDataAttributes
+
+Data attributes of [Arrow](#arrow).
+
+```typescript
+declare namespace AutocompleteArrowDataAttributes {
+	/** Present when the popup is open. */
+	const open: 'data-open';
+	/** Present when the popup is closed. */
+	const closed: 'data-closed';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the arrow is uncentered. */
+	const uncentered: 'data-uncentered';
+}
+```
+
+### AutocompleteBackdropDataAttributes
+
+Data attributes of [Backdrop](#backdrop).
+
+```typescript
+declare namespace AutocompleteBackdropDataAttributes {
+	/** Present when the popup is open. */
+	const open: 'data-open';
+	/** Present when the popup is closed. */
+	const closed: 'data-closed';
+	/** Present when the popup begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the popup is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### AutocompleteChangeEventDetails
+
+```typescript
+type AutocompleteChangeEventDetails = ComboboxChangeEventDetails;
+```
+
+### AutocompleteChangeReason
+
+```typescript
+type AutocompleteChangeReason = ComboboxChangeReason;
+```
+
+### AutocompleteClearDataAttributes
+
+Data attributes of [Clear](#clear).
+
+```typescript
+declare namespace AutocompleteClearDataAttributes {
+	/** Present when the corresponding popup is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the button is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the clear button is visible. */
+	const visible: 'data-visible';
+	/** Present when the button begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the button is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### AutocompleteFilter
+
+```typescript
+type AutocompleteFilter = {
+	/** Returns whether the item matches the query anywhere. */
+	contains: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
+	/** Returns whether the item starts with the query. */
+	startsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
+	/** Returns whether the item ends with the query. */
+	endsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
+};
+```
+
+### AutocompleteFilterOptions
+
+```typescript
+type AutocompleteFilterOptions = {
+	/** Whether the combobox selects several values. */
+	multiple?: boolean;
+	/** The selected value. While the query matches its label, every item stays visible. */
+	value?: unknown;
+	/** The locale to use for string comparison. Defaults to the user's runtime locale. */
+	locale?: Intl.LocalesArgument;
+};
+```
+
+### AutocompleteHighlightEventDetails
+
+```typescript
+type AutocompleteHighlightEventDetails = ComboboxHighlightEventDetails;
+```
+
+### AutocompleteHighlightReason
+
+```typescript
+type AutocompleteHighlightReason = ComboboxHighlightReason;
+```
+
+### AutocompleteInputDataAttributes
+
+Data attributes of [Input](#input).
+
+```typescript
+declare namespace AutocompleteInputDataAttributes {
+	/** Present when the corresponding popup is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the input is pressed. */
+	const pressed: 'data-pressed';
+	/** Present when the component is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the component is readonly. */
+	const readonly: 'data-readonly';
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null
+	 */
+	const popupSide: 'data-popup-side';
+	/** Present when the component is required. */
+	const required: 'data-required';
+	/** Present when the component is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the component is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the component has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the component's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the component has a value (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the input is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+	/** Present when the corresponding items list is empty. */
+	const listEmpty: 'data-list-empty';
+}
+```
+
+### AutocompleteInputGroupDataAttributes
+
+Data attributes of [InputGroup](#inputgroup).
+
+```typescript
+declare namespace AutocompleteInputGroupDataAttributes {
+	/** Present when the corresponding popup is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the input group is pressed. */
+	const pressed: 'data-pressed';
+	/** Present when the component is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the component is readonly. */
+	const readonly: 'data-readonly';
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null
+	 */
+	const popupSide: 'data-popup-side';
+	/** Present when the component is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the component is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the component has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the component's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the component has a value (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the component is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+	/** Present when the corresponding items list is empty. */
+	const listEmpty: 'data-list-empty';
+}
+```
+
+### AutocompleteItemDataAttributes
+
+Data attributes of [Item](#item).
+
+```typescript
+declare namespace AutocompleteItemDataAttributes {
+	/** Present when the item is highlighted. */
+	const highlighted: 'data-highlighted';
+	/** Present when the item is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### AutocompleteItemOf
+
+The item type of `items`: the element type, or a group's item type for grouped items.
+
+```typescript
+type AutocompleteItemOf<Items> = Items extends readonly (infer Entry)[]
+	? Entry extends { readonly items: readonly (infer Item)[] }
+		? Item
+		: Entry
+	: never;
+```
+
+### AutocompleteMode
+
+How the list filters and whether the input completes inline.
+
+- `list`: the list filters by the input. The input keeps the typed text.
+- `both`: the list filters by the typed text, and the input shows the highlighted item.
+- `inline`: the list does not filter, and the input shows the highlighted item.
+- `none`: the list does not filter, and the input keeps the typed text.
+
+```typescript
+type AutocompleteMode = 'list' | 'both' | 'inline' | 'none';
+```
+
+### AutocompleteOpenChangeEventDetails
+
+```typescript
+type AutocompleteOpenChangeEventDetails = ComboboxOpenChangeEventDetails;
+```
+
+### AutocompletePopupDataAttributes
+
+Data attributes of [Popup](#popup).
+
+```typescript
+declare namespace AutocompletePopupDataAttributes {
+	/** Present when the popup is open. */
+	const open: 'data-open';
+	/** Present when the popup is closed. */
+	const closed: 'data-closed';
+	/** Present when the popup begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the popup is animating out. */
+	const endingStyle: 'data-ending-style';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the anchor is hidden. */
+	const anchorHidden: 'data-anchor-hidden';
+	/** Present when the items list is empty. */
+	const empty: 'data-empty';
+}
+```
+
+### AutocompletePositionerCssVariables
+
+CSS variables of [Positioner](#positioner).
+
+```typescript
+declare namespace AutocompletePositionerCssVariables {
+	/**
+	 * The available width between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableWidth: '--available-width';
+	/**
+	 * The available height between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableHeight: '--available-height';
+	/**
+	 * The anchor's width.
+	 * @type number
+	 */
+	const anchorWidth: '--anchor-width';
+	/**
+	 * The anchor's height.
+	 * @type number
+	 */
+	const anchorHeight: '--anchor-height';
+	/**
+	 * The coordinates that this element is anchored to. Used for animations and transitions.
+	 * @type string
+	 */
+	const transformOrigin: '--transform-origin';
+}
+```
+
+### AutocompletePositionerDataAttributes
+
+Data attributes of [Positioner](#positioner).
+
+```typescript
+declare namespace AutocompletePositionerDataAttributes {
+	/** Present when the popup is open. */
+	const open: 'data-open';
+	/** Present when the popup is closed. */
+	const closed: 'data-closed';
+	/** Present when the anchor is hidden. */
+	const anchorHidden: 'data-anchor-hidden';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the items list is empty. */
+	const empty: 'data-empty';
+}
+```
+
+### AutocompleteSeparatorDataAttributes
+
+Data attributes of [Separator](#separator).
+
+```typescript
+declare namespace AutocompleteSeparatorDataAttributes {
+	/**
+	 * Indicates the orientation of the separator.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### AutocompleteTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace AutocompleteTriggerDataAttributes {
+	/** Present when the corresponding popup is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the trigger is pressed. */
+	const pressed: 'data-pressed';
+	/** Present when the component is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the component is readonly. */
+	const readonly: 'data-readonly';
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null
+	 */
+	const popupSide: 'data-popup-side';
+	/** Present when the component is required. */
+	const required: 'data-required';
+	/** Present when the component is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the component is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the component has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the component's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the component has a value (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the trigger is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+	/** Present when the corresponding items list is empty. */
+	const listEmpty: 'data-list-empty';
+}
 ```

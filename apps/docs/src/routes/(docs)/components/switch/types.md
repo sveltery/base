@@ -126,3 +126,87 @@ type SwitchThumbState = {
 	focused: boolean;
 };
 ```
+
+## Additional Types
+
+### SwitchHostProps
+
+Props passed to a `render` snippet. Spread them onto the host element. The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
+
+```typescript
+type SwitchHostProps = HTMLAttributes<HTMLElement>;
+```
+
+### SwitchRootChangeEventDetails
+
+```typescript
+type SwitchRootChangeEventDetails = BaseUIChangeEventDetails<SwitchRootChangeEventReason>;
+```
+
+### SwitchRootChangeEventReason
+
+```typescript
+type SwitchRootChangeEventReason = typeof REASONS.none;
+```
+
+### SwitchRootDataAttributes
+
+Data attributes of [Root](#root).
+
+```typescript
+declare namespace SwitchRootDataAttributes {
+	/** Present when the switch is checked. */
+	const checked: 'data-checked';
+	/** Present when the switch is not checked. */
+	const unchecked: 'data-unchecked';
+	/** Present when the switch is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the switch is readonly. */
+	const readonly: 'data-readonly';
+	/** Present when the switch is required. */
+	const required: 'data-required';
+	/** Present when the switch is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the switch is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the switch has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the switch's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the switch is active (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the switch is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+}
+```
+
+### SwitchThumbDataAttributes
+
+Data attributes of [Thumb](#thumb).
+
+```typescript
+declare namespace SwitchThumbDataAttributes {
+	/** Present when the switch is checked. */
+	const checked: 'data-checked';
+	/** Present when the switch is not checked. */
+	const unchecked: 'data-unchecked';
+	/** Present when the switch is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the switch is readonly. */
+	const readonly: 'data-readonly';
+	/** Present when the switch is required. */
+	const required: 'data-required';
+	/** Present when the switch is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the switch is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the switch has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the switch's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the switch is active (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the switch is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+}
+```

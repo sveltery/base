@@ -61,11 +61,11 @@ A button that opens and closes the corresponding panel. Renders a `<button>` ele
 
 **Trigger Data Attributes:**
 
-| Attribute       | Type | Description                                  |
-| :-------------- | :--- | :------------------------------------------- |
-| data-panel-open | -    | Present when the accordion panel is open.    |
-| data-disabled   | -    | Present when the accordion item is disabled. |
-| data-index      | -    | Indicates the index of the accordion item.   |
+| Attribute       | Type     | Description                                  |
+| :-------------- | :------- | :------------------------------------------- |
+| data-panel-open | -        | Present when the accordion panel is open.    |
+| data-disabled   | -        | Present when the accordion item is disabled. |
+| data-index      | `number` | Indicates the index of the accordion item.   |
 
 ### Trigger.Props
 
@@ -105,11 +105,11 @@ Groups an accordion header with the corresponding panel. Renders a `<div>` eleme
 
 **Item Data Attributes:**
 
-| Attribute     | Type | Description                                  |
-| :------------ | :--- | :------------------------------------------- |
-| data-open     | -    | Present when the accordion item is open.     |
-| data-disabled | -    | Present when the accordion item is disabled. |
-| data-index    | -    | Indicates the index of the accordion item.   |
+| Attribute     | Type     | Description                                  |
+| :------------ | :------- | :------------------------------------------- |
+| data-open     | -        | Present when the accordion item is open.     |
+| data-disabled | -        | Present when the accordion item is disabled. |
+| data-index    | `number` | Indicates the index of the accordion item.   |
 
 ### Item.Props
 
@@ -146,11 +146,11 @@ A heading that labels the corresponding panel. Renders an `<h3>` element.
 
 **Header Data Attributes:**
 
-| Attribute     | Type | Description                                  |
-| :------------ | :--- | :------------------------------------------- |
-| data-open     | -    | Present when the accordion item is open.     |
-| data-disabled | -    | Present when the accordion item is disabled. |
-| data-index    | -    | Indicates the index of the accordion item.   |
+| Attribute     | Type     | Description                                  |
+| :------------ | :------- | :------------------------------------------- |
+| data-open     | -        | Present when the accordion item is open.     |
+| data-disabled | -        | Present when the accordion item is disabled. |
+| data-index    | `number` | Indicates the index of the accordion item.   |
 
 ### Header.Props
 
@@ -189,21 +189,21 @@ A collapsible panel with the accordion item contents. Renders a `<div>` element.
 
 **Panel Data Attributes:**
 
-| Attribute           | Type | Description                                  |
-| :------------------ | :--- | :------------------------------------------- |
-| data-open           | -    | Present when the accordion panel is open.    |
-| data-orientation    | -    | Indicates the orientation of the accordion.  |
-| data-disabled       | -    | Present when the accordion item is disabled. |
-| data-index          | -    | Indicates the index of the accordion item.   |
-| data-starting-style | -    | Present when the panel begins animating in.  |
-| data-ending-style   | -    | Present when the panel is animating out.     |
+| Attribute           | Type     | Description                                  |
+| :------------------ | :------- | :------------------------------------------- |
+| data-open           | -        | Present when the accordion panel is open.    |
+| data-orientation    | -        | Indicates the orientation of the accordion.  |
+| data-disabled       | -        | Present when the accordion item is disabled. |
+| data-index          | `number` | Indicates the index of the accordion item.   |
+| data-starting-style | -        | Present when the panel begins animating in.  |
+| data-ending-style   | -        | Present when the panel is animating out.     |
 
 **Panel CSS Variables:**
 
-| Variable                   | Type | Description                   |
-| :------------------------- | :--- | :---------------------------- |
-| `--accordion-panel-height` | -    | The accordion panel's height. |
-| `--accordion-panel-width`  | -    | The accordion panel's width.  |
+| Variable                   | Type     | Description                   |
+| :------------------------- | :------- | :---------------------------- |
+| `--accordion-panel-height` | `number` | The accordion panel's height. |
+| `--accordion-panel-width`  | `number` | The accordion panel's width.  |
 
 ### Panel.Props
 
@@ -228,4 +228,152 @@ type AccordionPanelState = {
 	/** Orientation. It no longer moves focus. It is still exposed as `data-orientation`. */
 	orientation: AccordionOrientation;
 };
+```
+
+## Additional Types
+
+### AccordionHeaderDataAttributes
+
+Data attributes of [Header](#header).
+
+```typescript
+declare namespace AccordionHeaderDataAttributes {
+	/**
+	 * Indicates the index of the accordion item.
+	 * @type number
+	 */
+	const index: 'data-index';
+	/** Present when the accordion item is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the accordion item is open. */
+	const open: 'data-open';
+}
+```
+
+### AccordionItemChangeEventDetails
+
+```typescript
+type AccordionItemChangeEventDetails = AccordionRootChangeEventDetails;
+```
+
+### AccordionItemChangeEventReason
+
+```typescript
+type AccordionItemChangeEventReason = AccordionRootChangeEventReason;
+```
+
+### AccordionItemDataAttributes
+
+Data attributes of [Item](#item).
+
+```typescript
+declare namespace AccordionItemDataAttributes {
+	/**
+	 * Indicates the index of the accordion item.
+	 * @type number
+	 */
+	const index: 'data-index';
+	/** Present when the accordion item is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the accordion item is open. */
+	const open: 'data-open';
+}
+```
+
+### AccordionOrientation
+
+```typescript
+type AccordionOrientation = 'horizontal' | 'vertical';
+```
+
+### AccordionPanelCssVariables
+
+CSS variables of [Panel](#panel).
+
+```typescript
+declare namespace AccordionPanelCssVariables {
+	/**
+	 * The accordion panel's height.
+	 * @type number
+	 */
+	const accordionPanelHeight: '--accordion-panel-height';
+	/**
+	 * The accordion panel's width.
+	 * @type number
+	 */
+	const accordionPanelWidth: '--accordion-panel-width';
+}
+```
+
+### AccordionPanelDataAttributes
+
+Data attributes of [Panel](#panel).
+
+```typescript
+declare namespace AccordionPanelDataAttributes {
+	/**
+	 * Indicates the index of the accordion item.
+	 * @type number
+	 */
+	const index: 'data-index';
+	/** Present when the accordion panel is open. */
+	const open: 'data-open';
+	/** Indicates the orientation of the accordion. */
+	const orientation: 'data-orientation';
+	/** Present when the accordion item is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the panel begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the panel is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### AccordionRootChangeEventDetails
+
+```typescript
+type AccordionRootChangeEventDetails = BaseUIChangeEventDetails<AccordionRootChangeEventReason>;
+```
+
+### AccordionRootChangeEventReason
+
+```typescript
+type AccordionRootChangeEventReason = typeof REASONS.triggerPress | typeof REASONS.none;
+```
+
+### AccordionRootDataAttributes
+
+Data attributes of [Root](#root).
+
+```typescript
+declare namespace AccordionRootDataAttributes {
+	/** Present when the accordion is disabled. */
+	const disabled: 'data-disabled';
+	/** Indicates the orientation of the accordion. */
+	const orientation: 'data-orientation';
+}
+```
+
+### AccordionTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace AccordionTriggerDataAttributes {
+	/**
+	 * Indicates the index of the accordion item.
+	 * @type number
+	 */
+	const index: 'data-index';
+	/** Present when the accordion panel is open. */
+	const panelOpen: 'data-panel-open';
+	/** Present when the accordion item is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### AccordionTriggerHostProps
+
+```typescript
+type AccordionTriggerHostProps = HTMLAttributes<HTMLElement>;
 ```

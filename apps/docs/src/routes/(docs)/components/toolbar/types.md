@@ -19,10 +19,10 @@ A container for grouping a set of controls, such as buttons, toggle groups, or m
 
 **Root Data Attributes:**
 
-| Attribute        | Type | Description                               |
-| :--------------- | :--- | :---------------------------------------- |
-| data-orientation | -    | Indicates the orientation of the toolbar. |
-| data-disabled    | -    | Present when the toolbar is disabled.     |
+| Attribute        | Type                         | Description                               |
+| :--------------- | :--------------------------- | :---------------------------------------- |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the toolbar. |
+| data-disabled    | -                            | Present when the toolbar is disabled.     |
 
 ### Root.Props
 
@@ -53,11 +53,11 @@ A native input element that integrates with Toolbar keyboard navigation. Renders
 
 **Input Data Attributes:**
 
-| Attribute        | Type | Description                                             |
-| :--------------- | :--- | :------------------------------------------------------ |
-| data-orientation | -    | Indicates the orientation of the toolbar.               |
-| data-disabled    | -    | Present when the input is disabled.                     |
-| data-focusable   | -    | Present when the input remains focusable when disabled. |
+| Attribute        | Type                         | Description                                             |
+| :--------------- | :--------------------------- | :------------------------------------------------------ |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the toolbar.               |
+| data-disabled    | -                            | Present when the input is disabled.                     |
+| data-focusable   | -                            | Present when the input remains focusable when disabled. |
 
 ### Input.Props
 
@@ -89,10 +89,10 @@ Groups several toolbar items or toggles. Renders a `<div>` element.
 
 **Group Data Attributes:**
 
-| Attribute        | Type | Description                               |
-| :--------------- | :--- | :---------------------------------------- |
-| data-orientation | -    | Indicates the orientation of the toolbar. |
-| data-disabled    | -    | Present when the group is disabled.       |
+| Attribute        | Type                         | Description                               |
+| :--------------- | :--------------------------- | :---------------------------------------- |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the toolbar. |
+| data-disabled    | -                            | Present when the group is disabled.       |
 
 ### Group.Props
 
@@ -122,9 +122,9 @@ A separator element accessible to screen readers. Renders a `<div>` element.
 
 **Separator Data Attributes:**
 
-| Attribute        | Type | Description                                                                        |
-| :--------------- | :--- | :--------------------------------------------------------------------------------- |
-| data-orientation | -    | Indicates the orientation of the separator, which is perpendicular to the toolbar. |
+| Attribute        | Type                         | Description                                                                        |
+| :--------------- | :--------------------------- | :--------------------------------------------------------------------------------- |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the separator, which is perpendicular to the toolbar. |
 
 ### Separator.Props
 
@@ -155,11 +155,11 @@ A button that can be used as-is or as a trigger for other components. Renders a 
 
 **Button Data Attributes:**
 
-| Attribute        | Type | Description                                              |
-| :--------------- | :--- | :------------------------------------------------------- |
-| data-orientation | -    | Indicates the orientation of the toolbar.                |
-| data-disabled    | -    | Present when the button is disabled.                     |
-| data-focusable   | -    | Present when the button remains focusable when disabled. |
+| Attribute        | Type                         | Description                                              |
+| :--------------- | :--------------------------- | :------------------------------------------------------- |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the toolbar.                |
+| data-disabled    | -                            | Present when the button is disabled.                     |
+| data-focusable   | -                            | Present when the button remains focusable when disabled. |
 
 ### Button.Props
 
@@ -190,9 +190,9 @@ A link component. Renders an `<a>` element.
 
 **Link Data Attributes:**
 
-| Attribute        | Type | Description                               |
-| :--------------- | :--- | :---------------------------------------- |
-| data-orientation | -    | Indicates the orientation of the toolbar. |
+| Attribute        | Type                         | Description                               |
+| :--------------- | :--------------------------- | :---------------------------------------- |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the toolbar. |
 
 ### Link.Props
 
@@ -205,4 +205,128 @@ type ToolbarLinkState = {
 	/** The toolbar orientation. */
 	orientation: ToolbarOrientation;
 };
+```
+
+## Additional Types
+
+### ToolbarButtonDataAttributes
+
+Data attributes of [Button](#button).
+
+```typescript
+declare namespace ToolbarButtonDataAttributes {
+	/** Present when the button is disabled. */
+	const disabled: 'data-disabled';
+	/**
+	 * Indicates the orientation of the toolbar.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+	/** Present when the button remains focusable when disabled. */
+	const focusable: 'data-focusable';
+}
+```
+
+### ToolbarButtonHostProps
+
+Props passed to a `render` snippet. Spread them onto the host element. Handlers are typed for a generic element so the same object spreads onto a `<button>`, `<span>`, or `<a>`. `disabled` lets a rendered part, such as a Switch or a Menu.Trigger, disable itself. A focusable disabled native button still ends without the `disabled` attribute.
+
+```typescript
+type ToolbarButtonHostProps = HTMLAttributes<HTMLElement> & { disabled?: boolean };
+```
+
+### ToolbarGroupDataAttributes
+
+Data attributes of [Group](#group).
+
+```typescript
+declare namespace ToolbarGroupDataAttributes {
+	/** Present when the group is disabled. */
+	const disabled: 'data-disabled';
+	/**
+	 * Indicates the orientation of the toolbar.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### ToolbarInputDataAttributes
+
+Data attributes of [Input](#input).
+
+```typescript
+declare namespace ToolbarInputDataAttributes {
+	/** Present when the input is disabled. */
+	const disabled: 'data-disabled';
+	/**
+	 * Indicates the orientation of the toolbar.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+	/** Present when the input remains focusable when disabled. */
+	const focusable: 'data-focusable';
+}
+```
+
+### ToolbarInputHostProps
+
+```typescript
+type ToolbarInputHostProps = HTMLInputAttributes;
+```
+
+### ToolbarLinkDataAttributes
+
+Data attributes of [Link](#link).
+
+```typescript
+declare namespace ToolbarLinkDataAttributes {
+	/**
+	 * Indicates the orientation of the toolbar.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### ToolbarLinkHostProps
+
+```typescript
+type ToolbarLinkHostProps = HTMLAnchorAttributes;
+```
+
+### ToolbarOrientation
+
+```typescript
+type ToolbarOrientation = 'horizontal' | 'vertical';
+```
+
+### ToolbarRootDataAttributes
+
+Data attributes of [Root](#root).
+
+```typescript
+declare namespace ToolbarRootDataAttributes {
+	/** Present when the toolbar is disabled. */
+	const disabled: 'data-disabled';
+	/**
+	 * Indicates the orientation of the toolbar.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### ToolbarSeparatorDataAttributes
+
+Data attributes of [Separator](#separator).
+
+```typescript
+declare namespace ToolbarSeparatorDataAttributes {
+	/**
+	 * Indicates the orientation of the separator, which is perpendicular to the toolbar.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
 ```

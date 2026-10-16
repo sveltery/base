@@ -22,11 +22,11 @@ Provides a shared state to a series of toggle buttons.
 
 **ToggleGroup Data Attributes:**
 
-| Attribute        | Type | Description                                                                                        |
-| :--------------- | :--- | :------------------------------------------------------------------------------------------------- |
-| data-orientation | -    | Indicates the orientation of the toggle group.                                                     |
-| data-disabled    | -    | Present when the toggle group is disabled.                                                         |
-| data-multiple    | -    | Present when the toggle group allows multiple buttons to be in the pressed state at the same time. |
+| Attribute        | Type                         | Description                                                                                        |
+| :--------------- | :--------------------------- | :------------------------------------------------------------------------------------------------- |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the toggle group.                                                     |
+| data-disabled    | -                            | Present when the toggle group is disabled.                                                         |
+| data-multiple    | -                            | Present when the toggle group allows multiple buttons to be in the pressed state at the same time. |
 
 ### ToggleGroup.Props
 
@@ -43,4 +43,42 @@ type ToggleGroupState = {
 	/** The orientation of the toggle group. */
 	orientation: ToggleGroupOrientation;
 };
+```
+
+## Additional Types
+
+### ToggleGroupChangeEventDetails
+
+```typescript
+type ToggleGroupChangeEventDetails = BaseUIChangeEventDetails<ToggleGroupChangeEventReason>;
+```
+
+### ToggleGroupChangeEventReason
+
+```typescript
+type ToggleGroupChangeEventReason = typeof REASONS.none;
+```
+
+### ToggleGroupDataAttributes
+
+Data attributes of [ToggleGroup](#togglegroup).
+
+```typescript
+declare namespace ToggleGroupDataAttributes {
+	/** Present when the toggle group is disabled. */
+	const disabled: 'data-disabled';
+	/**
+	 * Indicates the orientation of the toggle group.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+	/** Present when the toggle group allows multiple buttons to be in the pressed state at the same time. */
+	const multiple: 'data-multiple';
+}
+```
+
+### ToggleGroupOrientation
+
+```typescript
+type ToggleGroupOrientation = 'horizontal' | 'vertical';
 ```

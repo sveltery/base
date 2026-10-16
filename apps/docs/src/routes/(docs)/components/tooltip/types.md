@@ -119,25 +119,25 @@ Positions the tooltip against the trigger. Renders a `<div>` element.
 
 **Positioner Data Attributes:**
 
-| Attribute          | Type | Description                                                           |
-| :----------------- | :--- | :-------------------------------------------------------------------- |
-| data-open          | -    | Present when the tooltip is open.                                     |
-| data-closed        | -    | Present when the tooltip is closed.                                   |
-| data-anchor-hidden | -    | Present when the anchor is hidden.                                    |
-| data-align         | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-side          | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute          | Type                                                                       | Description                                                           |
+| :----------------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open          | -                                                                          | Present when the tooltip is open.                                     |
+| data-closed        | -                                                                          | Present when the tooltip is closed.                                   |
+| data-anchor-hidden | -                                                                          | Present when the anchor is hidden.                                    |
+| data-align         | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-side          | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 **Positioner CSS Variables:**
 
-| Variable              | Type       | Description                                                                                                                   |
-| :-------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| `--anchor-height`     | `{number}` | The anchor's height.                                                                                                          |
-| `--anchor-width`      | `{number}` | The anchor's width.                                                                                                           |
-| `--available-height`  | `{number}` | The available height between the trigger and the edge of the viewport.                                                        |
-| `--available-width`   | `{number}` | The available width between the trigger and the edge of the viewport.                                                         |
-| `--positioner-height` | `{number}` | The height of the tooltip's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
-| `--positioner-width`  | `{number}` | The width of the tooltip's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
-| `--transform-origin`  | `{string}` | The coordinates that this element is anchored to. Used for animations and transitions.                                        |
+| Variable              | Type     | Description                                                                                                                   |
+| :-------------------- | :------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| `--anchor-height`     | `number` | The anchor's height.                                                                                                          |
+| `--anchor-width`      | `number` | The anchor's width.                                                                                                           |
+| `--available-height`  | `number` | The available height between the trigger and the edge of the viewport.                                                        |
+| `--available-width`   | `number` | The available width between the trigger and the edge of the viewport.                                                         |
+| `--positioner-height` | `number` | The height of the tooltip's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
+| `--positioner-width`  | `number` | The width of the tooltip's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
+| `--transform-origin`  | `string` | The coordinates that this element is anchored to. Used for animations and transitions.                                        |
 
 ### Positioner.Props
 
@@ -168,15 +168,15 @@ A container for the tooltip contents. Renders a `<div>` element.
 
 **Popup Data Attributes:**
 
-| Attribute           | Type | Description                                                           |
-| :------------------ | :--- | :-------------------------------------------------------------------- |
-| data-open           | -    | Present when the tooltip is open.                                     |
-| data-closed         | -    | Present when the tooltip is closed.                                   |
-| data-align          | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-instant        | -    | Present if animations should be instant.                              |
-| data-side           | -    | Indicates which side the popup is positioned relative to the trigger. |
-| data-starting-style | -    | Present when the tooltip begins animating in.                         |
-| data-ending-style   | -    | Present when the tooltip is animating out.                            |
+| Attribute           | Type                                                                       | Description                                                           |
+| :------------------ | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open           | -                                                                          | Present when the tooltip is open.                                     |
+| data-closed         | -                                                                          | Present when the tooltip is closed.                                   |
+| data-align          | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-instant        | `'delay' \| 'dismiss' \| 'focus'`                                          | Present if animations should be instant.                              |
+| data-side           | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
+| data-starting-style | -                                                                          | Present when the tooltip begins animating in.                         |
+| data-ending-style   | -                                                                          | Present when the tooltip is animating out.                            |
 
 ### Popup.Props
 
@@ -206,14 +206,14 @@ Displays an element positioned against the tooltip anchor. Renders a `<div>` ele
 
 **Arrow Data Attributes:**
 
-| Attribute       | Type | Description                                                           |
-| :-------------- | :--- | :-------------------------------------------------------------------- |
-| data-open       | -    | Present when the tooltip is open.                                     |
-| data-closed     | -    | Present when the tooltip is closed.                                   |
-| data-uncentered | -    | Present when the tooltip arrow is uncentered.                         |
-| data-align      | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-instant    | -    | Present if animations should be instant.                              |
-| data-side       | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute       | Type                                                                       | Description                                                           |
+| :-------------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open       | -                                                                          | Present when the tooltip is open.                                     |
+| data-closed     | -                                                                          | Present when the tooltip is closed.                                   |
+| data-uncentered | -                                                                          | Present when the tooltip arrow is uncentered.                         |
+| data-align      | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-instant    | `'delay' \| 'dismiss' \| 'focus'`                                          | Present if animations should be instant.                              |
+| data-side       | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 ### Arrow.Props
 
@@ -243,13 +243,13 @@ A viewport for displaying content transitions. This component is only required i
 
 **Viewport Data Attributes:**
 
-| Attribute                 | Type | Description                                                                                                                                                                                                                |
-| :------------------------ | :--- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| data-activation-direction | -    | Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. |
-| data-current              | -    | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                         |
-| data-instant              | -    | Present if animations should be instant.                                                                                                                                                                                   |
-| data-previous             | -    | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                |
-| data-transitioning        | -    | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                        |
+| Attribute                 | Type                                                       | Description                                                                                                                                                                                                                |
+| :------------------------ | :--------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data-activation-direction | `` `${'left' \| 'right' \| ''} ${'down' \| 'up' \| ''}` `` | Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. |
+| data-current              | -                                                          | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                         |
+| data-instant              | `'delay' \| 'dismiss' \| 'focus'`                          | Present if animations should be instant.                                                                                                                                                                                   |
+| data-previous             | -                                                          | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                |
+| data-transitioning        | -                                                          | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                        |
 
 **Viewport CSS Variables:**
 
@@ -271,4 +271,252 @@ type TooltipViewportState = {
 	transitioning: boolean;
 	instant: TooltipInstant | undefined;
 };
+```
+
+## Additional Types
+
+### Align
+
+```typescript
+type Align = 'start' | 'center' | 'end';
+```
+
+### Side
+
+```typescript
+type Side = 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start';
+```
+
+### TooltipActions
+
+What `bind:this` on `Tooltip.Root` exposes, replacing upstream's `actionsRef`.
+
+```typescript
+type TooltipActions = {
+	unmount: () => void;
+	close: () => void;
+};
+```
+
+### TooltipArrowDataAttributes
+
+Data attributes of [Arrow](#arrow).
+
+```typescript
+declare namespace TooltipArrowDataAttributes {
+	/** Present when the tooltip is open. */
+	const open: 'data-open';
+	/** Present when the tooltip is closed. */
+	const closed: 'data-closed';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the tooltip arrow is uncentered. */
+	const uncentered: 'data-uncentered';
+	/**
+	 * Present if animations should be instant.
+	 * @type 'delay' | 'dismiss' | 'focus'
+	 */
+	const instant: 'data-instant';
+}
+```
+
+### TooltipChangeEventDetails
+
+```typescript
+type TooltipChangeEventDetails = BaseUIChangeEventDetails<TooltipChangeReason> & {
+	/** Keeps the popup mounted until `unmount()` is called on the root. */
+	preventUnmountOnClose: () => void;
+};
+```
+
+### TooltipChangeReason
+
+```typescript
+type TooltipChangeReason =
+	| typeof REASONS.triggerHover
+	| 'trigger-focus'
+	| typeof REASONS.triggerPress
+	| typeof REASONS.outsidePress
+	| typeof REASONS.escapeKey
+	| typeof REASONS.disabled
+	| typeof REASONS.imperativeAction
+	| typeof REASONS.none;
+```
+
+### TooltipInstant
+
+```typescript
+type TooltipInstant = 'delay' | 'dismiss' | 'focus';
+```
+
+### TooltipPopupDataAttributes
+
+Data attributes of [Popup](#popup).
+
+```typescript
+declare namespace TooltipPopupDataAttributes {
+	/** Present when the tooltip is open. */
+	const open: 'data-open';
+	/** Present when the tooltip is closed. */
+	const closed: 'data-closed';
+	/** Present when the tooltip begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the tooltip is animating out. */
+	const endingStyle: 'data-ending-style';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/**
+	 * Present if animations should be instant.
+	 * @type 'delay' | 'dismiss' | 'focus'
+	 */
+	const instant: 'data-instant';
+}
+```
+
+### TooltipPositionerCssVariables
+
+CSS variables of [Positioner](#positioner).
+
+```typescript
+declare namespace TooltipPositionerCssVariables {
+	/**
+	 * The available width between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableWidth: '--available-width';
+	/**
+	 * The available height between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableHeight: '--available-height';
+	/**
+	 * The anchor's width.
+	 * @type number
+	 */
+	const anchorWidth: '--anchor-width';
+	/**
+	 * The anchor's height.
+	 * @type number
+	 */
+	const anchorHeight: '--anchor-height';
+	/**
+	 * The coordinates that this element is anchored to. Used for animations and transitions.
+	 * @type string
+	 */
+	const transformOrigin: '--transform-origin';
+	/**
+	 * The width of the tooltip's positioner. It is important to set `width` to this value when using CSS to animate size changes.
+	 * @type number
+	 */
+	const positionerWidth: '--positioner-width';
+	/**
+	 * The height of the tooltip's positioner. It is important to set `height` to this value when using CSS to animate size changes.
+	 * @type number
+	 */
+	const positionerHeight: '--positioner-height';
+}
+```
+
+### TooltipPositionerDataAttributes
+
+Data attributes of [Positioner](#positioner).
+
+```typescript
+declare namespace TooltipPositionerDataAttributes {
+	/** Present when the tooltip is open. */
+	const open: 'data-open';
+	/** Present when the tooltip is closed. */
+	const closed: 'data-closed';
+	/** Present when the anchor is hidden. */
+	const anchorHidden: 'data-anchor-hidden';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+}
+```
+
+### TooltipTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace TooltipTriggerDataAttributes {
+	/** Present when the corresponding tooltip is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the trigger is disabled, either by the `disabled` prop or by a parent `<Tooltip.Root>` component. */
+	const triggerDisabled: 'data-trigger-disabled';
+}
+```
+
+### TooltipTriggerHostProps
+
+```typescript
+type TooltipTriggerHostProps = HTMLButtonAttributes;
+```
+
+### TooltipViewportCssVariables
+
+CSS variables of [Viewport](#viewport).
+
+```typescript
+declare namespace TooltipViewportCssVariables {
+	/** The width of the parent popup. This variable is placed on the 'previous' container and stores the width of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content. */
+	const popupWidth: '--popup-width';
+	/** The height of the parent popup. This variable is placed on the 'previous' container and stores the height of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content. */
+	const popupHeight: '--popup-height';
+}
+```
+
+### TooltipViewportDataAttributes
+
+Data attributes of [Viewport](#viewport).
+
+```typescript
+declare namespace TooltipViewportDataAttributes {
+	/** Applied to the direct child of the viewport when no transitions are present or the new content when it's entering. */
+	const current: 'data-current';
+	/** Applied to the direct child of the viewport that contains the exiting content when transitions are present. */
+	const previous: 'data-previous';
+	/**
+	 * Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes.
+	 * @type `${'left' | 'right' | ''} ${'down' | 'up' | ''}`
+	 */
+	const activationDirection: 'data-activation-direction';
+	/** Indicates that the viewport is currently transitioning between old and new content. */
+	const transitioning: 'data-transitioning';
+	/**
+	 * Present if animations should be instant.
+	 * @type 'delay' | 'dismiss' | 'focus'
+	 */
+	const instant: 'data-instant';
+}
+```
+
+### TrackCursorAxis
+
+```typescript
+type TrackCursorAxis = 'none' | 'x' | 'y' | 'both';
 ```

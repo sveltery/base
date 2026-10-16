@@ -15,6 +15,9 @@ export type ReferenceRow = {
 /** A data attribute or CSS variable, with its description as HTML. */
 export type ReferenceConstant = { name: string; description: string };
 
+/** An additional type as Base UI's `AdditionalTypes` shows it: a heading and its declaration. */
+export type ReferenceType = { name: string; slug: string; code: string };
+
 /** A part as its reference tables show it. */
 export type ReferencePart = {
 	name: string;

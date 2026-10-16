@@ -10,44 +10,44 @@ Groups all parts of the combobox. Doesn't render its own HTML element.
 
 **Root Props:**
 
-| Prop                 | Type                                                                                          | Default                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| :------------------- | :-------------------------------------------------------------------------------------------- | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                 | `string`                                                                                      | -                             | Identifies the field when a form is submitted.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| defaultValue         | `ComboboxValueOf<Value, Multiple>`                                                            | `null, or [] when `multiple`` | The uncontrolled selected value of the combobox when it's initially rendered.&#xA;&#xA;To render a controlled combobox, use `bind:value` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| value                | `ComboboxValueOf<Value, Multiple>`                                                            | -                             | The selected value of the combobox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| onValueChange        | `(value: ComboboxValueOf<Value, Multiple>, eventDetails: ComboboxChangeEventDetails) => void` | -                             | Event handler called when the selected value of the combobox changes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| defaultInputValue    | `string`                                                                                      | -                             | The uncontrolled input value when initially rendered.&#xA;&#xA;To render a controlled input, use `bind:inputValue` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| inputValue           | `string`                                                                                      | -                             | The input value of the combobox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| onInputValueChange   | `(inputValue: string, eventDetails: ComboboxChangeEventDetails) => void`                      | -                             | Event handler called when the input value changes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| open                 | `boolean`                                                                                     | `false`                       | Whether the popup is currently open.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| onOpenChange         | `(open: boolean, eventDetails: ComboboxOpenChangeEventDetails) => void`                       | -                             | Event handler called when the popup is opened or closed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| autoHighlight        | `boolean`                                                                                     | `false`                       | Whether the first matching item is highlighted automatically while filtering.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| keepHighlight        | `boolean`                                                                                     | `false`                       | Whether the highlighted item should be preserved when the pointer leaves the list.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| highlightItemOnHover | `boolean`                                                                                     | `true`                        | Whether moving the pointer over items should highlight them. Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| autocomplete         | `FullAutoFill \| null`                                                                        | -                             | Provides a hint to the browser for autofill.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| filter               | `((item: Item, query: string, itemToString?: (item: Item) => string) => boolean) \| null`     | -                             | ComboboxFilter function used to match items vs input query. Receives the source item, which is the derived value's item when `items` is a `createItems()` collection, and the item itself otherwise.                                                                                                                                                                                                                                                                                                                                                                                                        |
-| filteredItems        | `ComboboxItemsData<Item>`                                                                     | -                             | Filtered items to display in the list. When provided, the list uses these items instead of filtering the `items` prop internally. When `items` is also provided, this array must preserve its flat or grouped structure. With a `createItems()` collection, pass source items rather than derived values. Nullish entries are not supported, as in `items`. Use when you want to control filtering logic externally with the `useFilter()` hook.                                                                                                                                                            |
-| form                 | `string`                                                                                      | -                             | Identifies the form that owns the internal input. Useful when the combobox is rendered outside the form.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| grid                 | `boolean`                                                                                     | `false`                       | Whether list items are presented in a grid layout. When enabled, arrow keys navigate across rows and columns inferred from DOM rows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| inline               | `boolean`                                                                                     | `false`                       | Whether the list is rendered inline without using the component's own popup.&#xA;&#xA;Specify `open` unconditionally in conjunction with this prop so the list is considered visible: `<Combobox.Root inline open>`&#xA;&#xA;In a `Combobox.Root` > `Dialog.Root` composition, bind the Combobox's `open` and `onOpenChange` props to the `Dialog`'s `open` and `onOpenChange` state instead so the component resets its transient state (filter query, highlighted item, and input value) when the dialog closes.                                                                                          |
-| isItemEqualToValue   | `(itemValue: Value, value: Value) => boolean`                                                 | `Object.is`                   | Custom comparison logic used to determine if a combobox item value matches the current selected value. Useful when item values are objects without matching referentially. With a `createItems()` collection, both arguments are derived values. Defaults to `Object.is` comparison.                                                                                                                                                                                                                                                                                                                        |
-| itemToStringLabel    | `(itemValue: Value) => string`                                                                | -                             | When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for display in the input. If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop. With a `createItems()` collection, this receives the derived value, and the collection's `getLabel` takes precedence for values it can resolve.                                                                                                                                                              |
-| itemToStringValue    | `(itemValue: Value) => string`                                                                | -                             | When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for form submission. If the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop. With a `createItems()` collection, this receives the derived value.                                                                                                                                                                                                                                               |
-| items                | `ComboboxItems<Item, Value>`                                                                  | -                             | The items to be displayed in the list. Can be a flat array of items, an array of groups with items, or a collection created by the `createItems()` function, which derives each item's selection value and label. Nullish entries are not supported: remove them from the data before passing it.                                                                                                                                                                                                                                                                                                           |
-| limit                | `number`                                                                                      | `-1`                          | The maximum number of items to display in the list.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| locale               | `Intl.LocalesArgument`                                                                        | -                             | The locale to use for string comparison. Defaults to the user's runtime locale.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| loopFocus            | `boolean`                                                                                     | `true`                        | Whether to loop keyboard focus back to the input when the end of the list is reached while using the arrow keys. The first item can then be reached by pressing ArrowDown again from the input, or the last item can be reached by pressing ArrowUp from the input. The input is always included in the focus loop per [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/). When disabled, focus does not move when on the last element and the user presses ArrowDown, or when on the first element and the user presses ArrowUp.                                               |
-| modal                | `boolean`                                                                                     | `false`                       | Determines if the popup enters a modal state when open.&#xA;- `true`: user interaction is limited to the popup: document page scroll is locked and pointer interactions on outside elements are disabled.&#xA;- `false`: user interaction with the rest of the document is allowed.&#xA;&#xA;On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.                                                                                                                                       |
-| multiple             | `Multiple`                                                                                    | `false`                       | Whether multiple items can be selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| onItemHighlighted    | `(itemValue: Value \| undefined, eventDetails: ComboboxHighlightEventDetails) => void`        | -                             | Callback fired when an item is highlighted or unhighlighted. Receives the highlighted item value (or `undefined` if no item is highlighted) and event details with a `reason` property describing why the highlight changed. The `reason` can be:&#xA;- `'keyboard'`: the highlight changed due to keyboard navigation.&#xA;- `'pointer'`: the highlight changed due to pointer hovering. The event may be a `MouseEvent` rather than a `PointerEvent`.&#xA;- `'none'`: the highlight changed for another reason, such as typing, `autoHighlight`, the item list changing, or the popup opening or closing. |
-| onOpenChangeComplete | `(open: boolean) => void`                                                                     | -                             | Event handler called after any animations complete when the popup is opened or closed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| openOnInputClick     | `boolean`                                                                                     | `true`                        | Whether the popup opens when clicking the input.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| submitOnItemClick    | `boolean`                                                                                     | `false`                       | Whether clicking an item should submit the owning form.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| virtualized          | `boolean`                                                                                     | `false`                       | Whether the items are being externally virtualized.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| disabled             | `boolean`                                                                                     | `false`                       | Whether the component should ignore user interaction.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| readonly             | `boolean`                                                                                     | `false`                       | Whether the user should be unable to choose a different option from the popup.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| required             | `boolean`                                                                                     | `false`                       | Whether the user must choose a value before submitting a form.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| id                   | `string`                                                                                      | -                             | The id of the component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Prop                 | Type                                                                                          | Default                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| :------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name                 | `string`                                                                                      | -                                 | Identifies the field when a form is submitted.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| defaultValue         | `ComboboxValueOf<Value, Multiple>`                                                            | `` null, or [] when `multiple` `` | The uncontrolled selected value of the combobox when it's initially rendered.&#xA;&#xA;To render a controlled combobox, use `bind:value` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| value                | `ComboboxValueOf<Value, Multiple>`                                                            | -                                 | The selected value of the combobox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| onValueChange        | `(value: ComboboxValueOf<Value, Multiple>, eventDetails: ComboboxChangeEventDetails) => void` | -                                 | Event handler called when the selected value of the combobox changes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| defaultInputValue    | `string`                                                                                      | -                                 | The uncontrolled input value when initially rendered.&#xA;&#xA;To render a controlled input, use `bind:inputValue` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| inputValue           | `string`                                                                                      | -                                 | The input value of the combobox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| onInputValueChange   | `(inputValue: string, eventDetails: ComboboxChangeEventDetails) => void`                      | -                                 | Event handler called when the input value changes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| open                 | `boolean`                                                                                     | `false`                           | Whether the popup is currently open.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| onOpenChange         | `(open: boolean, eventDetails: ComboboxOpenChangeEventDetails) => void`                       | -                                 | Event handler called when the popup is opened or closed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| autoHighlight        | `boolean`                                                                                     | `false`                           | Whether the first matching item is highlighted automatically while filtering.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| keepHighlight        | `boolean`                                                                                     | `false`                           | Whether the highlighted item should be preserved when the pointer leaves the list.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| highlightItemOnHover | `boolean`                                                                                     | `true`                            | Whether moving the pointer over items should highlight them. Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| autocomplete         | `FullAutoFill \| null`                                                                        | -                                 | Provides a hint to the browser for autofill.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| filter               | `((item: Item, query: string, itemToString?: (item: Item) => string) => boolean) \| null`     | -                                 | ComboboxFilter function used to match items vs input query. Receives the source item, which is the derived value's item when `items` is a `createItems()` collection, and the item itself otherwise.                                                                                                                                                                                                                                                                                                                                                                                                        |
+| filteredItems        | `ComboboxItemsData<Item>`                                                                     | -                                 | Filtered items to display in the list. When provided, the list uses these items instead of filtering the `items` prop internally. When `items` is also provided, this array must preserve its flat or grouped structure. With a `createItems()` collection, pass source items rather than derived values. Nullish entries are not supported, as in `items`. Use when you want to control filtering logic externally with the `useFilter()` hook.                                                                                                                                                            |
+| form                 | `string`                                                                                      | -                                 | Identifies the form that owns the internal input. Useful when the combobox is rendered outside the form.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| grid                 | `boolean`                                                                                     | `false`                           | Whether list items are presented in a grid layout. When enabled, arrow keys navigate across rows and columns inferred from DOM rows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| inline               | `boolean`                                                                                     | `false`                           | Whether the list is rendered inline without using the component's own popup.&#xA;&#xA;Specify `open` unconditionally in conjunction with this prop so the list is considered visible: `<Combobox.Root inline open>`&#xA;&#xA;In a `Combobox.Root` > `Dialog.Root` composition, bind the Combobox's `open` and `onOpenChange` props to the `Dialog`'s `open` and `onOpenChange` state instead so the component resets its transient state (filter query, highlighted item, and input value) when the dialog closes.                                                                                          |
+| isItemEqualToValue   | `(itemValue: Value, value: Value) => boolean`                                                 | `Object.is`                       | Custom comparison logic used to determine if a combobox item value matches the current selected value. Useful when item values are objects without matching referentially. With a `createItems()` collection, both arguments are derived values. Defaults to `Object.is` comparison.                                                                                                                                                                                                                                                                                                                        |
+| itemToStringLabel    | `(itemValue: Value) => string`                                                                | -                                 | When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for display in the input. If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop. With a `createItems()` collection, this receives the derived value, and the collection's `getLabel` takes precedence for values it can resolve.                                                                                                                                                              |
+| itemToStringValue    | `(itemValue: Value) => string`                                                                | -                                 | When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for form submission. If the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop. With a `createItems()` collection, this receives the derived value.                                                                                                                                                                                                                                               |
+| items                | `ComboboxItems<Item, Value>`                                                                  | -                                 | The items to be displayed in the list. Can be a flat array of items, an array of groups with items, or a collection created by the `createItems()` function, which derives each item's selection value and label. Nullish entries are not supported: remove them from the data before passing it.                                                                                                                                                                                                                                                                                                           |
+| limit                | `number`                                                                                      | `-1`                              | The maximum number of items to display in the list.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| locale               | `Intl.LocalesArgument`                                                                        | -                                 | The locale to use for string comparison. Defaults to the user's runtime locale.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| loopFocus            | `boolean`                                                                                     | `true`                            | Whether to loop keyboard focus back to the input when the end of the list is reached while using the arrow keys. The first item can then be reached by pressing ArrowDown again from the input, or the last item can be reached by pressing ArrowUp from the input. The input is always included in the focus loop per [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/). When disabled, focus does not move when on the last element and the user presses ArrowDown, or when on the first element and the user presses ArrowUp.                                               |
+| modal                | `boolean`                                                                                     | `false`                           | Determines if the popup enters a modal state when open.&#xA;- `true`: user interaction is limited to the popup: document page scroll is locked and pointer interactions on outside elements are disabled.&#xA;- `false`: user interaction with the rest of the document is allowed.&#xA;&#xA;On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.                                                                                                                                       |
+| multiple             | `Multiple`                                                                                    | `false`                           | Whether multiple items can be selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| onItemHighlighted    | `(itemValue: Value \| undefined, eventDetails: ComboboxHighlightEventDetails) => void`        | -                                 | Callback fired when an item is highlighted or unhighlighted. Receives the highlighted item value (or `undefined` if no item is highlighted) and event details with a `reason` property describing why the highlight changed. The `reason` can be:&#xA;- `'keyboard'`: the highlight changed due to keyboard navigation.&#xA;- `'pointer'`: the highlight changed due to pointer hovering. The event may be a `MouseEvent` rather than a `PointerEvent`.&#xA;- `'none'`: the highlight changed for another reason, such as typing, `autoHighlight`, the item list changing, or the popup opening or closing. |
+| onOpenChangeComplete | `(open: boolean) => void`                                                                     | -                                 | Event handler called after any animations complete when the popup is opened or closed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| openOnInputClick     | `boolean`                                                                                     | `true`                            | Whether the popup opens when clicking the input.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| submitOnItemClick    | `boolean`                                                                                     | `false`                           | Whether clicking an item should submit the owning form.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| virtualized          | `boolean`                                                                                     | `false`                           | Whether the items are being externally virtualized.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| disabled             | `boolean`                                                                                     | `false`                           | Whether the component should ignore user interaction.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| readonly             | `boolean`                                                                                     | `false`                           | Whether the user should be unable to choose a different option from the popup.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| required             | `boolean`                                                                                     | `false`                           | Whether the user must choose a value before submitting a form.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| id                   | `string`                                                                                      | -                                 | The id of the component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 ### Root.Props
 
@@ -68,22 +68,22 @@ A button that opens the popup. Renders a `<button>` element.
 
 **Trigger Data Attributes:**
 
-| Attribute        | Type | Description                                                                        |
-| :--------------- | :--- | :--------------------------------------------------------------------------------- |
-| data-popup-open  | -    | Present when the corresponding popup is open.                                      |
-| data-popup-side  | -    | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| data-list-empty  | -    | Present when the corresponding items list is empty.                                |
-| data-pressed     | -    | Present when the trigger is pressed.                                               |
-| data-disabled    | -    | Present when the component is disabled.                                            |
-| data-readonly    | -    | Present when the component is readonly.                                            |
-| data-required    | -    | Present when the component is required.                                            |
-| data-valid       | -    | Present when the component is in a valid state (when wrapped in Field.Root).       |
-| data-invalid     | -    | Present when the component is in an invalid state (when wrapped in Field.Root).    |
-| data-dirty       | -    | Present when the component's value has changed (when wrapped in Field.Root).       |
-| data-touched     | -    | Present when the component has been touched (when wrapped in Field.Root).          |
-| data-filled      | -    | Present when the component has a value (when wrapped in Field.Root).               |
-| data-focused     | -    | Present when the trigger is focused (when wrapped in Field.Root).                  |
-| data-placeholder | -    | Present when the combobox doesn't have a value.                                    |
+| Attribute        | Type                                                                               | Description                                                                        |
+| :--------------- | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| data-popup-open  | -                                                                                  | Present when the corresponding popup is open.                                      |
+| data-popup-side  | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start' \| null` | Indicates which side the corresponding popup is positioned relative to its anchor. |
+| data-list-empty  | -                                                                                  | Present when the corresponding items list is empty.                                |
+| data-pressed     | -                                                                                  | Present when the trigger is pressed.                                               |
+| data-disabled    | -                                                                                  | Present when the component is disabled.                                            |
+| data-readonly    | -                                                                                  | Present when the component is readonly.                                            |
+| data-required    | -                                                                                  | Present when the component is required.                                            |
+| data-valid       | -                                                                                  | Present when the component is in a valid state (when wrapped in Field.Root).       |
+| data-invalid     | -                                                                                  | Present when the component is in an invalid state (when wrapped in Field.Root).    |
+| data-dirty       | -                                                                                  | Present when the component's value has changed (when wrapped in Field.Root).       |
+| data-touched     | -                                                                                  | Present when the component has been touched (when wrapped in Field.Root).          |
+| data-filled      | -                                                                                  | Present when the component has a value (when wrapped in Field.Root).               |
+| data-focused     | -                                                                                  | Present when the trigger is focused (when wrapped in Field.Root).                  |
+| data-placeholder | -                                                                                  | Present when the combobox doesn't have a value.                                    |
 
 ### Trigger.Props
 
@@ -146,21 +146,21 @@ A text input to search for items in the list. Renders an `<input>` element.
 
 **Input Data Attributes:**
 
-| Attribute       | Type | Description                                                                        |
-| :-------------- | :--- | :--------------------------------------------------------------------------------- |
-| data-popup-open | -    | Present when the corresponding popup is open.                                      |
-| data-popup-side | -    | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| data-list-empty | -    | Present when the corresponding items list is empty.                                |
-| data-pressed    | -    | Present when the input is pressed.                                                 |
-| data-disabled   | -    | Present when the component is disabled.                                            |
-| data-readonly   | -    | Present when the component is readonly.                                            |
-| data-required   | -    | Present when the component is required.                                            |
-| data-valid      | -    | Present when the component is in a valid state (when wrapped in Field.Root).       |
-| data-invalid    | -    | Present when the component is in an invalid state (when wrapped in Field.Root).    |
-| data-dirty      | -    | Present when the component's value has changed (when wrapped in Field.Root).       |
-| data-touched    | -    | Present when the component has been touched (when wrapped in Field.Root).          |
-| data-filled     | -    | Present when the component has a value (when wrapped in Field.Root).               |
-| data-focused    | -    | Present when the input is focused (when wrapped in Field.Root).                    |
+| Attribute       | Type                                                                               | Description                                                                        |
+| :-------------- | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| data-popup-open | -                                                                                  | Present when the corresponding popup is open.                                      |
+| data-popup-side | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start' \| null` | Indicates which side the corresponding popup is positioned relative to its anchor. |
+| data-list-empty | -                                                                                  | Present when the corresponding items list is empty.                                |
+| data-pressed    | -                                                                                  | Present when the input is pressed.                                                 |
+| data-disabled   | -                                                                                  | Present when the component is disabled.                                            |
+| data-readonly   | -                                                                                  | Present when the component is readonly.                                            |
+| data-required   | -                                                                                  | Present when the component is required.                                            |
+| data-valid      | -                                                                                  | Present when the component is in a valid state (when wrapped in Field.Root).       |
+| data-invalid    | -                                                                                  | Present when the component is in an invalid state (when wrapped in Field.Root).    |
+| data-dirty      | -                                                                                  | Present when the component's value has changed (when wrapped in Field.Root).       |
+| data-touched    | -                                                                                  | Present when the component has been touched (when wrapped in Field.Root).          |
+| data-filled     | -                                                                                  | Present when the component has a value (when wrapped in Field.Root).               |
+| data-focused    | -                                                                                  | Present when the input is focused (when wrapped in Field.Root).                    |
 
 ### Input.Props
 
@@ -345,24 +345,24 @@ Positions the popup against the trigger. Renders a `<div>` element.
 
 **Positioner Data Attributes:**
 
-| Attribute          | Type | Description                                                           |
-| :----------------- | :--- | :-------------------------------------------------------------------- |
-| data-open          | -    | Present when the popup is open.                                       |
-| data-closed        | -    | Present when the popup is closed.                                     |
-| data-anchor-hidden | -    | Present when the anchor is hidden.                                    |
-| data-align         | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-empty         | -    | Present when the items list is empty.                                 |
-| data-side          | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute          | Type                                                                       | Description                                                           |
+| :----------------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open          | -                                                                          | Present when the popup is open.                                       |
+| data-closed        | -                                                                          | Present when the popup is closed.                                     |
+| data-anchor-hidden | -                                                                          | Present when the anchor is hidden.                                    |
+| data-align         | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-empty         | -                                                                          | Present when the items list is empty.                                 |
+| data-side          | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 **Positioner CSS Variables:**
 
-| Variable             | Type | Description                                                                            |
-| :------------------- | :--- | :------------------------------------------------------------------------------------- |
-| `--anchor-height`    | -    | The anchor's height.                                                                   |
-| `--anchor-width`     | -    | The anchor's width.                                                                    |
-| `--available-height` | -    | The available height between the trigger and the edge of the viewport.                 |
-| `--available-width`  | -    | The available width between the trigger and the edge of the viewport.                  |
-| `--transform-origin` | -    | The coordinates that this element is anchored to. Used for animations and transitions. |
+| Variable             | Type     | Description                                                                            |
+| :------------------- | :------- | :------------------------------------------------------------------------------------- |
+| `--anchor-height`    | `number` | The anchor's height.                                                                   |
+| `--anchor-width`     | `number` | The anchor's width.                                                                    |
+| `--available-height` | `number` | The available height between the trigger and the edge of the viewport.                 |
+| `--available-width`  | `number` | The available width between the trigger and the edge of the viewport.                  |
+| `--transform-origin` | `string` | The coordinates that this element is anchored to. Used for animations and transitions. |
 
 ### Positioner.Props
 
@@ -399,16 +399,16 @@ A container for the list. Renders a `<div>` element.
 
 **Popup Data Attributes:**
 
-| Attribute           | Type | Description                                                           |
-| :------------------ | :--- | :-------------------------------------------------------------------- |
-| data-open           | -    | Present when the popup is open.                                       |
-| data-closed         | -    | Present when the popup is closed.                                     |
-| data-anchor-hidden  | -    | Present when the anchor is hidden.                                    |
-| data-align          | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-empty          | -    | Present when the items list is empty.                                 |
-| data-side           | -    | Indicates which side the popup is positioned relative to the trigger. |
-| data-starting-style | -    | Present when the popup begins animating in.                           |
-| data-ending-style   | -    | Present when the popup is animating out.                              |
+| Attribute           | Type                                                                       | Description                                                           |
+| :------------------ | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open           | -                                                                          | Present when the popup is open.                                       |
+| data-closed         | -                                                                          | Present when the popup is closed.                                     |
+| data-anchor-hidden  | -                                                                          | Present when the anchor is hidden.                                    |
+| data-align          | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-empty          | -                                                                          | Present when the items list is empty.                                 |
+| data-side           | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
+| data-starting-style | -                                                                          | Present when the popup begins animating in.                           |
+| data-ending-style   | -                                                                          | Present when the popup is animating out.                              |
 
 ### Popup.Props
 
@@ -444,13 +444,13 @@ Displays an element positioned against the anchor. Renders a `<div>` element.
 
 **Arrow Data Attributes:**
 
-| Attribute       | Type | Description                                                           |
-| :-------------- | :--- | :-------------------------------------------------------------------- |
-| data-open       | -    | Present when the popup is open.                                       |
-| data-closed     | -    | Present when the popup is closed.                                     |
-| data-uncentered | -    | Present when the arrow is uncentered.                                 |
-| data-align      | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-side       | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute       | Type                                                                       | Description                                                           |
+| :-------------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open       | -                                                                          | Present when the popup is open.                                       |
+| data-closed     | -                                                                          | Present when the popup is closed.                                     |
+| data-uncentered | -                                                                          | Present when the arrow is uncentered.                                 |
+| data-align      | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-side       | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 ### Arrow.Props
 
@@ -552,9 +552,9 @@ A visual separator between items or groups. Renders a `<div>` element.
 
 **Separator Data Attributes:**
 
-| Attribute        | Type | Description                                 |
-| :--------------- | :--- | :------------------------------------------ |
-| data-orientation | -    | Indicates the orientation of the separator. |
+| Attribute        | Type                         | Description                                 |
+| :--------------- | :--------------------------- | :------------------------------------------ |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the separator. |
 
 ### Separator.Props
 
@@ -767,21 +767,21 @@ A wrapper for the input and its associated controls. Renders a `<div>` element.
 
 **InputGroup Data Attributes:**
 
-| Attribute        | Type | Description                                                                        |
-| :--------------- | :--- | :--------------------------------------------------------------------------------- |
-| data-popup-open  | -    | Present when the corresponding popup is open.                                      |
-| data-popup-side  | -    | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| data-list-empty  | -    | Present when the corresponding items list is empty.                                |
-| data-pressed     | -    | Present when the input group is pressed.                                           |
-| data-disabled    | -    | Present when the component is disabled.                                            |
-| data-readonly    | -    | Present when the component is readonly.                                            |
-| data-valid       | -    | Present when the component is in a valid state (when wrapped in Field.Root).       |
-| data-invalid     | -    | Present when the component is in an invalid state (when wrapped in Field.Root).    |
-| data-dirty       | -    | Present when the component's value has changed (when wrapped in Field.Root).       |
-| data-touched     | -    | Present when the component has been touched (when wrapped in Field.Root).          |
-| data-filled      | -    | Present when the component has a value (when wrapped in Field.Root).               |
-| data-focused     | -    | Present when the component is focused (when wrapped in Field.Root).                |
-| data-placeholder | -    | Present when the combobox doesn't have a value.                                    |
+| Attribute        | Type                                                                               | Description                                                                        |
+| :--------------- | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| data-popup-open  | -                                                                                  | Present when the corresponding popup is open.                                      |
+| data-popup-side  | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start' \| null` | Indicates which side the corresponding popup is positioned relative to its anchor. |
+| data-list-empty  | -                                                                                  | Present when the corresponding items list is empty.                                |
+| data-pressed     | -                                                                                  | Present when the input group is pressed.                                           |
+| data-disabled    | -                                                                                  | Present when the component is disabled.                                            |
+| data-readonly    | -                                                                                  | Present when the component is readonly.                                            |
+| data-valid       | -                                                                                  | Present when the component is in a valid state (when wrapped in Field.Root).       |
+| data-invalid     | -                                                                                  | Present when the component is in an invalid state (when wrapped in Field.Root).    |
+| data-dirty       | -                                                                                  | Present when the component's value has changed (when wrapped in Field.Root).       |
+| data-touched     | -                                                                                  | Present when the component has been touched (when wrapped in Field.Root).          |
+| data-filled      | -                                                                                  | Present when the component has a value (when wrapped in Field.Root).               |
+| data-focused     | -                                                                                  | Present when the component is focused (when wrapped in Field.Root).                |
+| data-placeholder | -                                                                                  | Present when the combobox doesn't have a value.                                    |
 
 ### InputGroup.Props
 
@@ -814,4 +814,706 @@ type ComboboxInputGroupState = {
 	/** Whether the field is focused. */
 	focused: boolean;
 };
+```
+
+## Additional Types
+
+### Align
+
+```typescript
+type Align = 'start' | 'center' | 'end';
+```
+
+### AriaComboboxProps
+
+The core every combobox-like root wraps. Combobox maps `value` and `multiple` onto it. Autocomplete wraps it with `selectionMode: 'none'`.
+
+```typescript
+type AriaComboboxProps<Value = unknown, Item = Value> = {
+	/** How selection is remembered: one value, several, or none (input value only). */
+	selectionMode: 'single' | 'multiple' | 'none';
+	/** The selected value. Use `bind:selectedValue` to share it with the parent. */
+	selectedValue?: unknown;
+	/** The selected value an empty binding starts from and a form reset restores. */
+	defaultSelectedValue?: unknown;
+	/** Called before the selected value changes. Call `eventDetails.cancel()` to keep it. */
+	onSelectedValueChange?: (value: never, eventDetails: ComboboxChangeEventDetails) => void;
+	/** Whether the first matching item is highlighted automatically. `'always'` highlights it as soon as the list opens. */
+	autoHighlight?: boolean | 'always';
+	/** How the list filters and whether the input completes inline, as `aria-autocomplete`. */
+	autoComplete?: 'list' | 'both' | 'inline' | 'none';
+	/** A hint for browser autofill, on the hidden input. */
+	formAutoComplete?: FullAutoFill | null;
+	/** With `selectionMode: 'none'`, whether pressing an item fills the input. */
+	fillInputOnItemPress?: boolean;
+	/** The query the list is filtered by, when it differs from the input value. */
+	filterQuery?: string;
+	/** The input value of the combobox. */
+	inputValue?: string;
+	/**
+	 * The uncontrolled input value when initially rendered.
+	 *
+	 * To render a controlled input, use `bind:inputValue` instead.
+	 */
+	defaultInputValue?: string;
+	/** Event handler called when the input value changes. */
+	onInputValueChange?: (inputValue: string, eventDetails: ComboboxChangeEventDetails) => void;
+	/** Whether the popup is currently open. */
+	open?: boolean;
+	/** Event handler called when the popup is opened or closed. */
+	onOpenChange?: (open: boolean, eventDetails: ComboboxOpenChangeEventDetails) => void;
+	/** Event handler called after any animations complete when the popup is opened or closed. */
+	onOpenChangeComplete?: (open: boolean) => void;
+	/**
+	 * Callback fired when an item is highlighted or unhighlighted. Receives the highlighted item value (or `undefined` if no item is highlighted) and event details with a `reason` property describing why the highlight changed. The `reason` can be:
+	 * - `'keyboard'`: the highlight changed due to keyboard navigation.
+	 * - `'pointer'`: the highlight changed due to pointer hovering. The event may be a `MouseEvent` rather than a `PointerEvent`.
+	 * - `'none'`: the highlight changed for another reason, such as typing, `autoHighlight`, the item list changing, or the popup opening or closing.
+	 */
+	onItemHighlighted?: (
+		itemValue: Value | undefined,
+		eventDetails: ComboboxHighlightEventDetails
+	) => void;
+	/** Identifies the field when a form is submitted. */
+	name?: string;
+	/** Identifies the form that owns the internal input. Useful when the combobox is rendered outside the form. */
+	form?: string;
+	/** The id of the component. */
+	id?: string;
+	/** Whether the user must choose a value before submitting a form. */
+	required?: boolean;
+	/** Whether the user should be unable to choose a different option from the popup. */
+	readonly?: boolean;
+	/** Whether the component should ignore user interaction. */
+	disabled?: boolean;
+	/** Whether the popup opens when clicking the input. */
+	openOnInputClick?: boolean;
+	/** Whether the highlighted item should be preserved when the pointer leaves the list. */
+	keepHighlight?: boolean;
+	/** Whether moving the pointer over items should highlight them. Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state. */
+	highlightItemOnHover?: boolean;
+	/** Whether to loop keyboard focus back to the input when the end of the list is reached while using the arrow keys. The first item can then be reached by pressing ArrowDown again from the input, or the last item can be reached by pressing ArrowUp from the input. The input is always included in the focus loop per [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/). When disabled, focus does not move when on the last element and the user presses ArrowDown, or when on the first element and the user presses ArrowUp. */
+	loopFocus?: boolean;
+	/** Whether list items are presented in a grid layout. When enabled, arrow keys navigate across rows and columns inferred from DOM rows. */
+	grid?: boolean;
+	/** The items to be displayed in the list. Can be a flat array of items, an array of groups with items, or a collection created by the `createItems()` function, which derives each item's selection value and label. Nullish entries are not supported: remove them from the data before passing it. */
+	items?: ComboboxItems<Item, Value>;
+	/** Filtered items to display in the list. When provided, the list uses these items instead of filtering the `items` prop internally. When `items` is also provided, this array must preserve its flat or grouped structure. With a `createItems()` collection, pass source items rather than derived values. Nullish entries are not supported, as in `items`. Use when you want to control filtering logic externally with the `useFilter()` hook. */
+	filteredItems?: ComboboxItemsData<Item>;
+	/** ComboboxFilter function used to match items vs input query. Receives the source item, which is the derived value's item when `items` is a `createItems()` collection, and the item itself otherwise. */
+	filter?: ((item: Item, query: string, itemToString?: (item: Item) => string) => boolean) | null;
+	/** When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for display in the input. If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop. With a `createItems()` collection, this receives the derived value, and the collection's `getLabel` takes precedence for values it can resolve. */
+	itemToStringLabel?: (itemValue: Value) => string;
+	/** When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for form submission. If the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop. With a `createItems()` collection, this receives the derived value. */
+	itemToStringValue?: (itemValue: Value) => string;
+	/** Custom comparison logic used to determine if a combobox item value matches the current selected value. Useful when item values are objects without matching referentially. With a `createItems()` collection, both arguments are derived values. Defaults to `Object.is` comparison. */
+	isItemEqualToValue?: (itemValue: Value, value: Value) => boolean;
+	/**
+	 * Whether the list is rendered inline without using the component's own popup.
+	 *
+	 * Specify `open` unconditionally in conjunction with this prop so the list is considered visible: `<Combobox.Root inline open>`
+	 *
+	 * In a `Combobox.Root` > `Dialog.Root` composition, bind the Combobox's `open` and `onOpenChange` props to the `Dialog`'s `open` and `onOpenChange` state instead so the component resets its transient state (filter query, highlighted item, and input value) when the dialog closes.
+	 */
+	inline?: boolean;
+	/** Whether the items are being externally virtualized. */
+	virtualized?: boolean;
+	/**
+	 * Determines if the popup enters a modal state when open.
+	 * - `true`: user interaction is limited to the popup: document page scroll is locked and pointer interactions on outside elements are disabled.
+	 * - `false`: user interaction with the rest of the document is allowed.
+	 *
+	 * On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.
+	 */
+	modal?: boolean;
+	/** The maximum number of items to display in the list. */
+	limit?: number;
+	/** The locale to use for string comparison. Defaults to the user's runtime locale. */
+	locale?: Intl.LocalesArgument;
+	/** Whether clicking an item should submit the owning form. */
+	submitOnItemClick?: boolean;
+	children?: Snippet;
+};
+```
+
+### ComboboxArrowDataAttributes
+
+Data attributes of [Arrow](#arrow).
+
+```typescript
+declare namespace ComboboxArrowDataAttributes {
+	/** Present when the popup is open. */
+	const open: 'data-open';
+	/** Present when the popup is closed. */
+	const closed: 'data-closed';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the arrow is uncentered. */
+	const uncentered: 'data-uncentered';
+}
+```
+
+### ComboboxBackdropDataAttributes
+
+Data attributes of [Backdrop](#backdrop).
+
+```typescript
+declare namespace ComboboxBackdropDataAttributes {
+	/** Present when the popup is open. */
+	const open: 'data-open';
+	/** Present when the popup is closed. */
+	const closed: 'data-closed';
+	/** Present when the popup begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the popup is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### ComboboxChangeEventDetails
+
+```typescript
+type ComboboxChangeEventDetails = BaseUIChangeEventDetails<ComboboxChangeReason> & {
+	/**
+	 * When `reason` is `input-clear` in multiple mode, whether an item press caused the clear.
+	 * Automatic cleanup clears omit it.
+	 */
+	isItemPress?: boolean;
+};
+```
+
+### ComboboxChangeReason
+
+```typescript
+type ComboboxChangeReason =
+	| typeof REASONS.triggerPress
+	| typeof REASONS.inputPress
+	| typeof REASONS.outsidePress
+	| typeof REASONS.itemPress
+	| typeof REASONS.closePress
+	| typeof REASONS.escapeKey
+	| typeof REASONS.listNavigation
+	| typeof REASONS.focusOut
+	| typeof REASONS.inputChange
+	| typeof REASONS.inputClear
+	| typeof REASONS.clearPress
+	| typeof REASONS.chipRemovePress
+	| typeof REASONS.cancelOpen
+	| typeof REASONS.imperativeAction
+	| typeof REASONS.none;
+```
+
+### ComboboxClearDataAttributes
+
+Data attributes of [Clear](#clear).
+
+```typescript
+declare namespace ComboboxClearDataAttributes {
+	/** Present when the corresponding popup is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the button is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the clear button is visible. */
+	const visible: 'data-visible';
+	/** Present when the button begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the button is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### ComboboxFilter
+
+```typescript
+type ComboboxFilter = {
+	/** Returns whether the item matches the query anywhere. */
+	contains: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
+	/** Returns whether the item starts with the query. */
+	startsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
+	/** Returns whether the item ends with the query. */
+	endsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
+};
+```
+
+### ComboboxFilterOptions
+
+```typescript
+type ComboboxFilterOptions = {
+	/** Whether the combobox selects several values. */
+	multiple?: boolean;
+	/** The selected value. While the query matches its label, every item stays visible. */
+	value?: unknown;
+	/** The locale to use for string comparison. Defaults to the user's runtime locale. */
+	locale?: Intl.LocalesArgument;
+};
+```
+
+### ComboboxFocusTarget
+
+```typescript
+type ComboboxFocusTarget =
+	| boolean
+	| HTMLElement
+	| null
+	| ((interactionType: OpenInteractionType | null) => void | boolean | HTMLElement | null);
+```
+
+### ComboboxHighlightEventDetails
+
+```typescript
+type ComboboxHighlightEventDetails = ComboboxHighlightReason extends typeof REASONS.pointer
+	? { reason: ComboboxHighlightReason; event: MouseEvent | PointerEvent } & { index: number }
+	: BaseUIGenericEventDetails<ComboboxHighlightReason, { index: number }>;
+```
+
+### ComboboxHighlightReason
+
+```typescript
+type ComboboxHighlightReason =
+	typeof REASONS.keyboard | typeof REASONS.pointer | typeof REASONS.none;
+```
+
+### ComboboxInputDataAttributes
+
+Data attributes of [Input](#input).
+
+```typescript
+declare namespace ComboboxInputDataAttributes {
+	/** Present when the corresponding popup is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the input is pressed. */
+	const pressed: 'data-pressed';
+	/** Present when the component is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the component is readonly. */
+	const readonly: 'data-readonly';
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null
+	 */
+	const popupSide: 'data-popup-side';
+	/** Present when the component is required. */
+	const required: 'data-required';
+	/** Present when the component is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the component is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the component has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the component's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the component has a value (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the input is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+	/** Present when the corresponding items list is empty. */
+	const listEmpty: 'data-list-empty';
+}
+```
+
+### ComboboxInputGroupDataAttributes
+
+Data attributes of [InputGroup](#inputgroup).
+
+```typescript
+declare namespace ComboboxInputGroupDataAttributes {
+	/** Present when the corresponding popup is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the input group is pressed. */
+	const pressed: 'data-pressed';
+	/** Present when the component is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the component is readonly. */
+	const readonly: 'data-readonly';
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null
+	 */
+	const popupSide: 'data-popup-side';
+	/** Present when the component is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the component is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the component has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the component's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the component has a value (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the component is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+	/** Present when the corresponding items list is empty. */
+	const listEmpty: 'data-list-empty';
+	/** Present when the combobox doesn't have a value. */
+	const placeholder: 'data-placeholder';
+}
+```
+
+### ComboboxItemCollection
+
+A collection from `createItems()`. Pass it to the root's `items`.
+
+```typescript
+type ComboboxItemCollection<Item = unknown, Value = Item> = {
+	/** Source items with their flat or grouped structure, or `undefined` while loading. */
+	data: ComboboxItemsData<Item> | undefined;
+	/** Projects a source item to its selection value. */
+	value: (item: Item) => Value;
+	/** Whether a selection value belongs to the collection's data. */
+	hasValue: (value: Value, isEqual: ItemEqualityComparer<Value>) => boolean;
+	/** A source item's label. */
+	itemLabel: (item: Item) => string;
+	/** A selection value's label, also for values whose item is not rendered. */
+	label: (
+		value: Value,
+		isEqual: ItemEqualityComparer<Value>,
+		fallback?: ((value: Value) => string) | undefined
+	) => string;
+};
+```
+
+### ComboboxItemDataAttributes
+
+Data attributes of [Item](#item).
+
+```typescript
+declare namespace ComboboxItemDataAttributes {
+	/** Present when the item is selected. */
+	const selected: 'data-selected';
+	/** Present when the item is highlighted. */
+	const highlighted: 'data-highlighted';
+	/** Present when the item is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### ComboboxItemIndicatorDataAttributes
+
+Data attributes of [ItemIndicator](#itemindicator).
+
+```typescript
+declare namespace ComboboxItemIndicatorDataAttributes {
+	/** Present when the indicator begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the indicator is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### ComboboxItems
+
+Flat items, groups of items, or a `createItems()` collection.
+
+```typescript
+type ComboboxItems<Item = unknown, Value = Item> =
+	ComboboxItemsData<Item> | ComboboxItemCollection<Item, Value>;
+```
+
+### ComboboxItemsData
+
+Flat items, or groups of items: any object with an `items` array marks a group.
+
+```typescript
+type ComboboxItemsData<Item> = readonly Item[] | readonly Group<Item>[];
+```
+
+### ComboboxOpenChangeEventDetails
+
+```typescript
+type ComboboxOpenChangeEventDetails = ComboboxChangeEventDetails & {
+	/** Keeps the popup mounted until the root's `unmount()` is called. */
+	preventUnmountOnClose: () => void;
+};
+```
+
+### ComboboxPopupDataAttributes
+
+Data attributes of [Popup](#popup).
+
+```typescript
+declare namespace ComboboxPopupDataAttributes {
+	/** Present when the popup is open. */
+	const open: 'data-open';
+	/** Present when the popup is closed. */
+	const closed: 'data-closed';
+	/** Present when the popup begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the popup is animating out. */
+	const endingStyle: 'data-ending-style';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the anchor is hidden. */
+	const anchorHidden: 'data-anchor-hidden';
+	/** Present when the items list is empty. */
+	const empty: 'data-empty';
+}
+```
+
+### ComboboxPositionerCssVariables
+
+CSS variables of [Positioner](#positioner).
+
+```typescript
+declare namespace ComboboxPositionerCssVariables {
+	/**
+	 * The available width between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableWidth: '--available-width';
+	/**
+	 * The available height between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableHeight: '--available-height';
+	/**
+	 * The anchor's width.
+	 * @type number
+	 */
+	const anchorWidth: '--anchor-width';
+	/**
+	 * The anchor's height.
+	 * @type number
+	 */
+	const anchorHeight: '--anchor-height';
+	/**
+	 * The coordinates that this element is anchored to. Used for animations and transitions.
+	 * @type string
+	 */
+	const transformOrigin: '--transform-origin';
+}
+```
+
+### ComboboxPositionerDataAttributes
+
+Data attributes of [Positioner](#positioner).
+
+```typescript
+declare namespace ComboboxPositionerDataAttributes {
+	/** Present when the popup is open. */
+	const open: 'data-open';
+	/** Present when the popup is closed. */
+	const closed: 'data-closed';
+	/** Present when the anchor is hidden. */
+	const anchorHidden: 'data-anchor-hidden';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the items list is empty. */
+	const empty: 'data-empty';
+}
+```
+
+### ComboboxPrimitiveValue
+
+```typescript
+type ComboboxPrimitiveValue = string | number | bigint | boolean;
+```
+
+### ComboboxSeparatorDataAttributes
+
+Data attributes of [Separator](#separator).
+
+```typescript
+declare namespace ComboboxSeparatorDataAttributes {
+	/**
+	 * Indicates the orientation of the separator.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### ComboboxSharedRootProps
+
+Props AriaCombobox and every root built on it share.
+
+```typescript
+type ComboboxSharedRootProps<Value = unknown, Item = Value> = {
+	/** The input value of the combobox. */
+	inputValue?: string;
+	/**
+	 * The uncontrolled input value when initially rendered.
+	 *
+	 * To render a controlled input, use `bind:inputValue` instead.
+	 */
+	defaultInputValue?: string;
+	/** Event handler called when the input value changes. */
+	onInputValueChange?: (inputValue: string, eventDetails: ComboboxChangeEventDetails) => void;
+	/** Whether the popup is currently open. */
+	open?: boolean;
+	/** Event handler called when the popup is opened or closed. */
+	onOpenChange?: (open: boolean, eventDetails: ComboboxOpenChangeEventDetails) => void;
+	/** Event handler called after any animations complete when the popup is opened or closed. */
+	onOpenChangeComplete?: (open: boolean) => void;
+	/**
+	 * Callback fired when an item is highlighted or unhighlighted. Receives the highlighted item value (or `undefined` if no item is highlighted) and event details with a `reason` property describing why the highlight changed. The `reason` can be:
+	 * - `'keyboard'`: the highlight changed due to keyboard navigation.
+	 * - `'pointer'`: the highlight changed due to pointer hovering. The event may be a `MouseEvent` rather than a `PointerEvent`.
+	 * - `'none'`: the highlight changed for another reason, such as typing, `autoHighlight`, the item list changing, or the popup opening or closing.
+	 */
+	onItemHighlighted?: (
+		itemValue: Value | undefined,
+		eventDetails: ComboboxHighlightEventDetails
+	) => void;
+	/** Identifies the field when a form is submitted. */
+	name?: string;
+	/** Identifies the form that owns the internal input. Useful when the combobox is rendered outside the form. */
+	form?: string;
+	/** The id of the component. */
+	id?: string;
+	/** Whether the user must choose a value before submitting a form. */
+	required?: boolean;
+	/** Whether the user should be unable to choose a different option from the popup. */
+	readonly?: boolean;
+	/** Whether the component should ignore user interaction. */
+	disabled?: boolean;
+	/** Whether the popup opens when clicking the input. */
+	openOnInputClick?: boolean;
+	/** Whether the highlighted item should be preserved when the pointer leaves the list. */
+	keepHighlight?: boolean;
+	/** Whether moving the pointer over items should highlight them. Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state. */
+	highlightItemOnHover?: boolean;
+	/** Whether to loop keyboard focus back to the input when the end of the list is reached while using the arrow keys. The first item can then be reached by pressing ArrowDown again from the input, or the last item can be reached by pressing ArrowUp from the input. The input is always included in the focus loop per [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/). When disabled, focus does not move when on the last element and the user presses ArrowDown, or when on the first element and the user presses ArrowUp. */
+	loopFocus?: boolean;
+	/** Whether list items are presented in a grid layout. When enabled, arrow keys navigate across rows and columns inferred from DOM rows. */
+	grid?: boolean;
+	/** The items to be displayed in the list. Can be a flat array of items, an array of groups with items, or a collection created by the `createItems()` function, which derives each item's selection value and label. Nullish entries are not supported: remove them from the data before passing it. */
+	items?: ComboboxItems<Item, Value>;
+	/** Filtered items to display in the list. When provided, the list uses these items instead of filtering the `items` prop internally. When `items` is also provided, this array must preserve its flat or grouped structure. With a `createItems()` collection, pass source items rather than derived values. Nullish entries are not supported, as in `items`. Use when you want to control filtering logic externally with the `useFilter()` hook. */
+	filteredItems?: ComboboxItemsData<Item>;
+	/** ComboboxFilter function used to match items vs input query. Receives the source item, which is the derived value's item when `items` is a `createItems()` collection, and the item itself otherwise. */
+	filter?: ((item: Item, query: string, itemToString?: (item: Item) => string) => boolean) | null;
+	/** When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for display in the input. If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop. With a `createItems()` collection, this receives the derived value, and the collection's `getLabel` takes precedence for values it can resolve. */
+	itemToStringLabel?: (itemValue: Value) => string;
+	/** When the item values are objects (`<Combobox.Item value={object}>`), this function converts the object value to a string representation for form submission. If the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop. With a `createItems()` collection, this receives the derived value. */
+	itemToStringValue?: (itemValue: Value) => string;
+	/** Custom comparison logic used to determine if a combobox item value matches the current selected value. Useful when item values are objects without matching referentially. With a `createItems()` collection, both arguments are derived values. Defaults to `Object.is` comparison. */
+	isItemEqualToValue?: (itemValue: Value, value: Value) => boolean;
+	/**
+	 * Whether the list is rendered inline without using the component's own popup.
+	 *
+	 * Specify `open` unconditionally in conjunction with this prop so the list is considered visible: `<Combobox.Root inline open>`
+	 *
+	 * In a `Combobox.Root` > `Dialog.Root` composition, bind the Combobox's `open` and `onOpenChange` props to the `Dialog`'s `open` and `onOpenChange` state instead so the component resets its transient state (filter query, highlighted item, and input value) when the dialog closes.
+	 */
+	inline?: boolean;
+	/** Whether the items are being externally virtualized. */
+	virtualized?: boolean;
+	/**
+	 * Determines if the popup enters a modal state when open.
+	 * - `true`: user interaction is limited to the popup: document page scroll is locked and pointer interactions on outside elements are disabled.
+	 * - `false`: user interaction with the rest of the document is allowed.
+	 *
+	 * On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.
+	 */
+	modal?: boolean;
+	/** The maximum number of items to display in the list. */
+	limit?: number;
+	/** The locale to use for string comparison. Defaults to the user's runtime locale. */
+	locale?: Intl.LocalesArgument;
+	/** Whether clicking an item should submit the owning form. */
+	submitOnItemClick?: boolean;
+	children?: Snippet;
+};
+```
+
+### ComboboxTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace ComboboxTriggerDataAttributes {
+	/** Present when the corresponding popup is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the trigger is pressed. */
+	const pressed: 'data-pressed';
+	/** Present when the component is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the component is readonly. */
+	const readonly: 'data-readonly';
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null
+	 */
+	const popupSide: 'data-popup-side';
+	/** Present when the component is required. */
+	const required: 'data-required';
+	/** Present when the component is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the component is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the component has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the component's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the component has a value (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the trigger is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+	/** Present when the corresponding items list is empty. */
+	const listEmpty: 'data-list-empty';
+	/** Present when the combobox doesn't have a value. */
+	const placeholder: 'data-placeholder';
+}
+```
+
+### ComboboxValueOf
+
+The value of a combobox: one item value or `null`, or an array when `multiple`.
+
+```typescript
+type ComboboxValueOf<Value, Multiple extends boolean | undefined> = Multiple extends true
+	? Value[]
+	: Value | null;
+```
+
+### CreateComboboxItemsOptions
+
+```typescript
+type CreateComboboxItemsOptions<
+	Item,
+	Value extends ComboboxPrimitiveValue = ComboboxPrimitiveValue
+> = {
+	/** Projects an item to the primitive value that identifies it, used as the item's selection value. Each item must derive a unique value. */
+	getValue: (item: Item) => Value;
+	/** Projects an item to the label shown in the input and matched against the query. */
+	getLabel: (item: Item) => string;
+};
+```
+
+### Side
+
+```typescript
+type Side = 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start';
+```
+
+## External Types
+
+### OpenInteractionType
+
+```typescript
+type OpenInteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard' | '';
 ```

@@ -10,28 +10,28 @@ Groups all parts of the select. Doesn't render its own HTML element.
 
 **Root Props:**
 
-| Prop                 | Type                                                                                                                          | Default                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| :------------------- | :---------------------------------------------------------------------------------------------------------------------------- | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                 | `string`                                                                                                                      | -                             | Identifies the field when a form is submitted.                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| defaultValue         | `SelectValueOf<Value, Multiple>`                                                                                              | `null, or [] when `multiple`` | The uncontrolled value of the select when it's initially rendered.&#xA;&#xA;To render a controlled select, use `bind:value` instead.                                                                                                                                                                                                                                                                                                                                    |
-| value                | `SelectValueOf<Value, Multiple>`                                                                                              | -                             | The value of the select.                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| onValueChange        | `(value: SelectValueOf<Value, Multiple>, eventDetails: SelectChangeEventDetails) => void`                                     | -                             | Event handler called when the value of the select changes.                                                                                                                                                                                                                                                                                                                                                                                                              |
-| open                 | `boolean`                                                                                                                     | `false`                       | Whether the select popup is currently open.                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| onOpenChange         | `(open: boolean, eventDetails: SelectOpenChangeEventDetails) => void`                                                         | -                             | Event handler called when the select popup is opened or closed.                                                                                                                                                                                                                                                                                                                                                                                                         |
-| highlightItemOnHover | `boolean`                                                                                                                     | `true`                        | Whether moving the pointer over items should highlight them. Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.                                                                                                                                                                                                                                                                                                 |
-| autocomplete         | `FullAutoFill \| null`                                                                                                        | -                             | Provides a hint to the browser for autofill.                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| form                 | `string`                                                                                                                      | -                             | Identifies the form that owns the hidden input. Useful when the select is rendered outside the form.                                                                                                                                                                                                                                                                                                                                                                    |
-| isItemEqualToValue   | `(itemValue: Value, value: Value) => boolean`                                                                                 | `Object.is`                   | Custom comparison logic used to determine if a select item value matches the current selected value. Useful when item values are objects without matching referentially. Defaults to `Object.is` comparison.                                                                                                                                                                                                                                                            |
-| itemToStringLabel    | `(itemValue: Value) => string`                                                                                                | -                             | When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for display in the trigger. If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.                                                                                                                                                                          |
-| itemToStringValue    | `(itemValue: Value) => string`                                                                                                | -                             | When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for form submission. If the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop.                                                                                                                                                                                 |
-| items                | `Record<string, string \| null \| undefined> \| ReadonlyArray<LabeledItem> \| ReadonlyArray<Group<LabeledItem>> \| undefined` | -                             | Data structure of the items rendered in the select popup. When specified, `<Select.Value>` renders the label of the selected item instead of the raw value.                                                                                                                                                                                                                                                                                                             |
-| modal                | `boolean`                                                                                                                     | `true`                        | Determines if the select enters a modal state when open.&#xA;- `true`: user interaction is limited to the select: document page scroll is locked and pointer interactions on outside elements are disabled.&#xA;- `false`: user interaction with the rest of the document is allowed.&#xA;&#xA;On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior. |
-| multiple             | `Multiple`                                                                                                                    | `false`                       | Whether multiple items can be selected.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| onOpenChangeComplete | `(open: boolean) => void`                                                                                                     | -                             | Event handler called after any animations complete when the select popup is opened or closed.                                                                                                                                                                                                                                                                                                                                                                           |
-| disabled             | `boolean`                                                                                                                     | `false`                       | Whether the component should ignore user interaction.                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| readonly             | `boolean`                                                                                                                     | `false`                       | Whether the user should be unable to choose a different option from the select popup.                                                                                                                                                                                                                                                                                                                                                                                   |
-| required             | `boolean`                                                                                                                     | `false`                       | Whether the user must choose a value before submitting a form.                                                                                                                                                                                                                                                                                                                                                                                                          |
-| id                   | `string`                                                                                                                      | -                             | The id of the Select.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Prop                 | Type                                                                                                                          | Default                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------- | :---------------------------------------------------------------------------------------------------------------------------- | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name                 | `string`                                                                                                                      | -                                 | Identifies the field when a form is submitted.                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| defaultValue         | `SelectValueOf<Value, Multiple>`                                                                                              | `` null, or [] when `multiple` `` | The uncontrolled value of the select when it's initially rendered.&#xA;&#xA;To render a controlled select, use `bind:value` instead.                                                                                                                                                                                                                                                                                                                                    |
+| value                | `SelectValueOf<Value, Multiple>`                                                                                              | -                                 | The value of the select.                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| onValueChange        | `(value: SelectValueOf<Value, Multiple>, eventDetails: SelectChangeEventDetails) => void`                                     | -                                 | Event handler called when the value of the select changes.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| open                 | `boolean`                                                                                                                     | `false`                           | Whether the select popup is currently open.                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| onOpenChange         | `(open: boolean, eventDetails: SelectOpenChangeEventDetails) => void`                                                         | -                                 | Event handler called when the select popup is opened or closed.                                                                                                                                                                                                                                                                                                                                                                                                         |
+| highlightItemOnHover | `boolean`                                                                                                                     | `true`                            | Whether moving the pointer over items should highlight them. Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.                                                                                                                                                                                                                                                                                                 |
+| autocomplete         | `FullAutoFill \| null`                                                                                                        | -                                 | Provides a hint to the browser for autofill.                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| form                 | `string`                                                                                                                      | -                                 | Identifies the form that owns the hidden input. Useful when the select is rendered outside the form.                                                                                                                                                                                                                                                                                                                                                                    |
+| isItemEqualToValue   | `(itemValue: Value, value: Value) => boolean`                                                                                 | `Object.is`                       | Custom comparison logic used to determine if a select item value matches the current selected value. Useful when item values are objects without matching referentially. Defaults to `Object.is` comparison.                                                                                                                                                                                                                                                            |
+| itemToStringLabel    | `(itemValue: Value) => string`                                                                                                | -                                 | When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for display in the trigger. If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.                                                                                                                                                                          |
+| itemToStringValue    | `(itemValue: Value) => string`                                                                                                | -                                 | When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for form submission. If the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop.                                                                                                                                                                                 |
+| items                | `Record<string, string \| null \| undefined> \| ReadonlyArray<LabeledItem> \| ReadonlyArray<Group<LabeledItem>> \| undefined` | -                                 | Data structure of the items rendered in the select popup. When specified, `<Select.Value>` renders the label of the selected item instead of the raw value.                                                                                                                                                                                                                                                                                                             |
+| modal                | `boolean`                                                                                                                     | `true`                            | Determines if the select enters a modal state when open.&#xA;- `true`: user interaction is limited to the select: document page scroll is locked and pointer interactions on outside elements are disabled.&#xA;- `false`: user interaction with the rest of the document is allowed.&#xA;&#xA;On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior. |
+| multiple             | `Multiple`                                                                                                                    | `false`                           | Whether multiple items can be selected.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| onOpenChangeComplete | `(open: boolean) => void`                                                                                                     | -                                 | Event handler called after any animations complete when the select popup is opened or closed.                                                                                                                                                                                                                                                                                                                                                                           |
+| disabled             | `boolean`                                                                                                                     | `false`                           | Whether the component should ignore user interaction.                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| readonly             | `boolean`                                                                                                                     | `false`                           | Whether the user should be unable to choose a different option from the select popup.                                                                                                                                                                                                                                                                                                                                                                                   |
+| required             | `boolean`                                                                                                                     | `false`                           | Whether the user must choose a value before submitting a form.                                                                                                                                                                                                                                                                                                                                                                                                          |
+| id                   | `string`                                                                                                                      | -                                 | The id of the Select.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 ### Root.Props
 
@@ -52,21 +52,21 @@ A button that opens the select popup. Renders a `<button>` element.
 
 **Trigger Data Attributes:**
 
-| Attribute        | Type | Description                                                                        |
-| :--------------- | :--- | :--------------------------------------------------------------------------------- |
-| data-popup-open  | -    | Present when the corresponding select is open.                                     |
-| data-popup-side  | -    | Indicates which side the corresponding popup is positioned relative to its anchor. |
-| data-pressed     | -    | Present when the trigger is pressed.                                               |
-| data-disabled    | -    | Present when the select is disabled.                                               |
-| data-readonly    | -    | Present when the select is readonly.                                               |
-| data-required    | -    | Present when the select is required.                                               |
-| data-valid       | -    | Present when the select is in a valid state (when wrapped in Field.Root).          |
-| data-invalid     | -    | Present when the select is in an invalid state (when wrapped in Field.Root).       |
-| data-dirty       | -    | Present when the select's value has changed (when wrapped in Field.Root).          |
-| data-touched     | -    | Present when the select has been touched (when wrapped in Field.Root).             |
-| data-filled      | -    | Present when the select has a value (when wrapped in Field.Root).                  |
-| data-focused     | -    | Present when the select trigger is focused (when wrapped in Field.Root).           |
-| data-placeholder | -    | Present when the select doesn't have a value.                                      |
+| Attribute        | Type                                                                               | Description                                                                        |
+| :--------------- | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| data-popup-open  | -                                                                                  | Present when the corresponding select is open.                                     |
+| data-popup-side  | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start' \| null` | Indicates which side the corresponding popup is positioned relative to its anchor. |
+| data-pressed     | -                                                                                  | Present when the trigger is pressed.                                               |
+| data-disabled    | -                                                                                  | Present when the select is disabled.                                               |
+| data-readonly    | -                                                                                  | Present when the select is readonly.                                               |
+| data-required    | -                                                                                  | Present when the select is required.                                               |
+| data-valid       | -                                                                                  | Present when the select is in a valid state (when wrapped in Field.Root).          |
+| data-invalid     | -                                                                                  | Present when the select is in an invalid state (when wrapped in Field.Root).       |
+| data-dirty       | -                                                                                  | Present when the select's value has changed (when wrapped in Field.Root).          |
+| data-touched     | -                                                                                  | Present when the select has been touched (when wrapped in Field.Root).             |
+| data-filled      | -                                                                                  | Present when the select has a value (when wrapped in Field.Root).                  |
+| data-focused     | -                                                                                  | Present when the select trigger is focused (when wrapped in Field.Root).           |
+| data-placeholder | -                                                                                  | Present when the select doesn't have a value.                                      |
 
 ### Trigger.Props
 
@@ -250,23 +250,23 @@ Positions the select popup. Renders a `<div>` element.
 
 **Positioner Data Attributes:**
 
-| Attribute          | Type | Description                                                           |
-| :----------------- | :--- | :-------------------------------------------------------------------- |
-| data-open          | -    | Present when the select popup is open.                                |
-| data-closed        | -    | Present when the select popup is closed.                              |
-| data-anchor-hidden | -    | Present when the anchor is hidden.                                    |
-| data-align         | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-side          | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute          | Type                                                                                 | Description                                                           |
+| :----------------- | :----------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open          | -                                                                                    | Present when the select popup is open.                                |
+| data-closed        | -                                                                                    | Present when the select popup is closed.                              |
+| data-anchor-hidden | -                                                                                    | Present when the anchor is hidden.                                    |
+| data-align         | `'start' \| 'center' \| 'end'`                                                       | Indicates how the popup is aligned relative to specified side.        |
+| data-side          | `'none' \| 'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 **Positioner CSS Variables:**
 
-| Variable             | Type | Description                                                                            |
-| :------------------- | :--- | :------------------------------------------------------------------------------------- |
-| `--anchor-height`    | -    | The anchor's height.                                                                   |
-| `--anchor-width`     | -    | The anchor's width.                                                                    |
-| `--available-height` | -    | The available height between the trigger and the edge of the viewport.                 |
-| `--available-width`  | -    | The available width between the trigger and the edge of the viewport.                  |
-| `--transform-origin` | -    | The coordinates that this element is anchored to. Used for animations and transitions. |
+| Variable             | Type     | Description                                                                            |
+| :------------------- | :------- | :------------------------------------------------------------------------------------- |
+| `--anchor-height`    | `number` | The anchor's height.                                                                   |
+| `--anchor-width`     | `number` | The anchor's width.                                                                    |
+| `--available-height` | `number` | The available height between the trigger and the edge of the viewport.                 |
+| `--available-width`  | `number` | The available width between the trigger and the edge of the viewport.                  |
+| `--transform-origin` | `string` | The coordinates that this element is anchored to. Used for animations and transitions. |
 
 ### Positioner.Props
 
@@ -300,14 +300,14 @@ A container for the select list. Renders a `<div>` element.
 
 **Popup Data Attributes:**
 
-| Attribute           | Type | Description                                                           |
-| :------------------ | :--- | :-------------------------------------------------------------------- |
-| data-open           | -    | Present when the select is open.                                      |
-| data-closed         | -    | Present when the select is closed.                                    |
-| data-align          | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-side           | -    | Indicates which side the popup is positioned relative to the trigger. |
-| data-starting-style | -    | Present when the select begins animating in.                          |
-| data-ending-style   | -    | Present when the select is animating out.                             |
+| Attribute           | Type                                                                                 | Description                                                           |
+| :------------------ | :----------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open           | -                                                                                    | Present when the select is open.                                      |
+| data-closed         | -                                                                                    | Present when the select is closed.                                    |
+| data-align          | `'start' \| 'center' \| 'end'`                                                       | Indicates how the popup is aligned relative to specified side.        |
+| data-side           | `'none' \| 'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
+| data-starting-style | -                                                                                    | Present when the select begins animating in.                          |
+| data-ending-style   | -                                                                                    | Present when the select is animating out.                             |
 
 ### Popup.Props
 
@@ -339,13 +339,13 @@ Displays an element positioned against the select popup anchor. Renders a `<div>
 
 **Arrow Data Attributes:**
 
-| Attribute       | Type | Description                                                           |
-| :-------------- | :--- | :-------------------------------------------------------------------- |
-| data-open       | -    | Present when the select popup is open.                                |
-| data-closed     | -    | Present when the select popup is closed.                              |
-| data-uncentered | -    | Present when the select arrow is uncentered.                          |
-| data-align      | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-side       | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute       | Type                                                                                 | Description                                                           |
+| :-------------- | :----------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open       | -                                                                                    | Present when the select popup is open.                                |
+| data-closed     | -                                                                                    | Present when the select popup is closed.                              |
+| data-uncentered | -                                                                                    | Present when the select arrow is uncentered.                          |
+| data-align      | `'start' \| 'center' \| 'end'`                                                       | Indicates how the popup is aligned relative to specified side.        |
+| data-side       | `'none' \| 'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 ### Arrow.Props
 
@@ -446,9 +446,9 @@ A visual separator between items or groups. Renders a `<div>` element.
 
 **Separator Data Attributes:**
 
-| Attribute        | Type | Description                                 |
-| :--------------- | :--- | :------------------------------------------ |
-| data-orientation | -    | Indicates the orientation of the separator. |
+| Attribute        | Type                         | Description                                 |
+| :--------------- | :--------------------------- | :------------------------------------------ |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the separator. |
 
 ### Separator.Props
 
@@ -536,13 +536,13 @@ An element that scrolls the select popup up when hovered. Does not render when u
 
 **ScrollUpArrow Data Attributes:**
 
-| Attribute           | Type | Description                                                           |
-| :------------------ | :--- | :-------------------------------------------------------------------- |
-| data-direction      | -    | Indicates the direction of the scroll arrow.                          |
-| data-side           | -    | Indicates which side the popup is positioned relative to the trigger. |
-| data-visible        | -    | Present when the scroll arrow is visible.                             |
-| data-starting-style | -    | Present when the scroll arrow begins animating in.                    |
-| data-ending-style   | -    | Present when the scroll arrow is animating out.                       |
+| Attribute           | Type                                                                                 | Description                                                           |
+| :------------------ | :----------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-direction      | `'up'`                                                                               | Indicates the direction of the scroll arrow.                          |
+| data-side           | `'none' \| 'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
+| data-visible        | -                                                                                    | Present when the scroll arrow is visible.                             |
+| data-starting-style | -                                                                                    | Present when the scroll arrow begins animating in.                    |
+| data-ending-style   | -                                                                                    | Present when the scroll arrow is animating out.                       |
 
 ### ScrollUpArrow.Props
 
@@ -575,13 +575,13 @@ An element that scrolls the select popup down when hovered. Does not render when
 
 **ScrollDownArrow Data Attributes:**
 
-| Attribute           | Type | Description                                                           |
-| :------------------ | :--- | :-------------------------------------------------------------------- |
-| data-direction      | -    | Indicates the direction of the scroll arrow.                          |
-| data-side           | -    | Indicates which side the popup is positioned relative to the trigger. |
-| data-visible        | -    | Present when the scroll arrow is visible.                             |
-| data-starting-style | -    | Present when the scroll arrow begins animating in.                    |
-| data-ending-style   | -    | Present when the scroll arrow is animating out.                       |
+| Attribute           | Type                                                                                 | Description                                                           |
+| :------------------ | :----------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-direction      | `'down'`                                                                             | Indicates the direction of the scroll arrow.                          |
+| data-side           | `'none' \| 'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
+| data-visible        | -                                                                                    | Present when the scroll arrow is visible.                             |
+| data-starting-style | -                                                                                    | Present when the scroll arrow begins animating in.                    |
+| data-ending-style   | -                                                                                    | Present when the scroll arrow is animating out.                       |
 
 ### ScrollDownArrow.Props
 
@@ -599,4 +599,356 @@ type SelectScrollDownArrowState = {
 	side: Side | 'none';
 	transitionStatus: 'starting' | 'ending' | 'idle' | undefined;
 };
+```
+
+## Additional Types
+
+### Align
+
+```typescript
+type Align = 'start' | 'center' | 'end';
+```
+
+### SelectArrowDataAttributes
+
+Data attributes of [Arrow](#arrow).
+
+```typescript
+declare namespace SelectArrowDataAttributes {
+	/** Present when the select popup is open. */
+	const open: 'data-open';
+	/** Present when the select popup is closed. */
+	const closed: 'data-closed';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the select arrow is uncentered. */
+	const uncentered: 'data-uncentered';
+}
+```
+
+### SelectBackdropDataAttributes
+
+Data attributes of [Backdrop](#backdrop).
+
+```typescript
+declare namespace SelectBackdropDataAttributes {
+	/** Present when the select is open. */
+	const open: 'data-open';
+	/** Present when the select is closed. */
+	const closed: 'data-closed';
+	/** Present when the select begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the select is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### SelectChangeEventDetails
+
+```typescript
+type SelectChangeEventDetails = BaseUIChangeEventDetails<SelectChangeReason>;
+```
+
+### SelectChangeReason
+
+```typescript
+type SelectChangeReason =
+	| typeof REASONS.triggerPress
+	| typeof REASONS.outsidePress
+	| typeof REASONS.escapeKey
+	| typeof REASONS.windowResize
+	| typeof REASONS.itemPress
+	| typeof REASONS.focusOut
+	| typeof REASONS.listNavigation
+	| typeof REASONS.cancelOpen
+	| typeof REASONS.imperativeAction
+	| typeof REASONS.none;
+```
+
+### SelectFocusTarget
+
+```typescript
+type SelectFocusTarget =
+	boolean | HTMLElement | null | ((closeType: string) => void | boolean | HTMLElement | null);
+```
+
+### SelectIconDataAttributes
+
+Data attributes of [Icon](#icon).
+
+```typescript
+declare namespace SelectIconDataAttributes {
+	/** Present when the corresponding popup is open. */
+	const popupOpen: 'data-popup-open';
+}
+```
+
+### SelectItemDataAttributes
+
+Data attributes of [Item](#item).
+
+```typescript
+declare namespace SelectItemDataAttributes {
+	/** Present when the select item is selected. */
+	const selected: 'data-selected';
+	/** Present when the select item is highlighted. */
+	const highlighted: 'data-highlighted';
+	/** Present when the select item is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### SelectItemIndicatorDataAttributes
+
+Data attributes of [ItemIndicator](#itemindicator).
+
+```typescript
+declare namespace SelectItemIndicatorDataAttributes {
+	/** Present when the indicator begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the indicator is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### SelectItems
+
+```typescript
+type SelectItems =
+	| Record<string, string | null | undefined>
+	| ReadonlyArray<LabeledItem>
+	| ReadonlyArray<Group<LabeledItem>>
+	| undefined;
+```
+
+### SelectOpenChangeEventDetails
+
+```typescript
+type SelectOpenChangeEventDetails = SelectChangeEventDetails & {
+	/** Keeps the popup mounted until the root's `unmount()` is called. */
+	preventUnmountOnClose: () => void;
+};
+```
+
+### SelectPopupDataAttributes
+
+Data attributes of [Popup](#popup).
+
+```typescript
+declare namespace SelectPopupDataAttributes {
+	/** Present when the select is open. */
+	const open: 'data-open';
+	/** Present when the select is closed. */
+	const closed: 'data-closed';
+	/** Present when the select begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the select is animating out. */
+	const endingStyle: 'data-ending-style';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+}
+```
+
+### SelectPositionerCssVariables
+
+CSS variables of [Positioner](#positioner).
+
+```typescript
+declare namespace SelectPositionerCssVariables {
+	/**
+	 * The available width between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableWidth: '--available-width';
+	/**
+	 * The available height between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableHeight: '--available-height';
+	/**
+	 * The anchor's width.
+	 * @type number
+	 */
+	const anchorWidth: '--anchor-width';
+	/**
+	 * The anchor's height.
+	 * @type number
+	 */
+	const anchorHeight: '--anchor-height';
+	/**
+	 * The coordinates that this element is anchored to. Used for animations and transitions.
+	 * @type string
+	 */
+	const transformOrigin: '--transform-origin';
+}
+```
+
+### SelectPositionerDataAttributes
+
+Data attributes of [Positioner](#positioner).
+
+```typescript
+declare namespace SelectPositionerDataAttributes {
+	/** Present when the select popup is open. */
+	const open: 'data-open';
+	/** Present when the select popup is closed. */
+	const closed: 'data-closed';
+	/** Present when the anchor is hidden. */
+	const anchorHidden: 'data-anchor-hidden';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+}
+```
+
+### SelectScrollDownArrowDataAttributes
+
+Data attributes of [ScrollDownArrow](#scrolldownarrow).
+
+```typescript
+declare namespace SelectScrollDownArrowDataAttributes {
+	/** Present when the scroll arrow begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the scroll arrow is animating out. */
+	const endingStyle: 'data-ending-style';
+	/**
+	 * Indicates the direction of the scroll arrow.
+	 * @type 'down'
+	 */
+	const direction: 'data-direction';
+	/** Present when the scroll arrow is visible. */
+	const visible: 'data-visible';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+}
+```
+
+### SelectScrollUpArrowDataAttributes
+
+Data attributes of [ScrollUpArrow](#scrolluparrow).
+
+```typescript
+declare namespace SelectScrollUpArrowDataAttributes {
+	/** Present when the scroll arrow begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the scroll arrow is animating out. */
+	const endingStyle: 'data-ending-style';
+	/**
+	 * Indicates the direction of the scroll arrow.
+	 * @type 'up'
+	 */
+	const direction: 'data-direction';
+	/** Present when the scroll arrow is visible. */
+	const visible: 'data-visible';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'none' | 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+}
+```
+
+### SelectSeparatorDataAttributes
+
+Data attributes of [Separator](#separator).
+
+```typescript
+declare namespace SelectSeparatorDataAttributes {
+	/**
+	 * Indicates the orientation of the separator.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### SelectTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace SelectTriggerDataAttributes {
+	/** Present when the corresponding select is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the trigger is pressed. */
+	const pressed: 'data-pressed';
+	/** Present when the select is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the select is readonly. */
+	const readonly: 'data-readonly';
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null
+	 */
+	const popupSide: 'data-popup-side';
+	/** Present when the select is required. */
+	const required: 'data-required';
+	/** Present when the select is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the select is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the select has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the select's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the select has a value (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the select trigger is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+	/** Present when the select doesn't have a value. */
+	const placeholder: 'data-placeholder';
+}
+```
+
+### SelectValueDataAttributes
+
+Data attributes of [Value](#value).
+
+```typescript
+declare namespace SelectValueDataAttributes {
+	/** Present when the select doesn't have a value. */
+	const placeholder: 'data-placeholder';
+}
+```
+
+### SelectValueOf
+
+The value of a select: one item value or `null`, or an array when `multiple`.
+
+```typescript
+type SelectValueOf<Value, Multiple extends boolean | undefined> = Multiple extends true
+	? Value[]
+	: Value | null;
+```
+
+### Side
+
+```typescript
+type Side = 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start';
 ```

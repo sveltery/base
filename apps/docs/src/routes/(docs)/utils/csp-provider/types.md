@@ -18,3 +18,20 @@ Provides a default Content Security Policy (CSP) configuration for Base UI compo
 ### CSPProvider.Props
 
 Re-export of [CSPProvider](#cspprovider) props.
+
+## Additional Types
+
+### CSPReading
+
+Live CSP configuration from the nearest `CSPProvider`. Outside a provider, `nonce` is `undefined` and `disableStyleElements` is `false`. Inside a provider, an omitted prop stays `undefined`. Upstream copies the props through and only the fallback context defaults `disableStyleElements` to `false`. Read these properties in the template or in `$derived`.
+
+Upstream `useCSPContext()` returns a plain object. Svelte keeps the provider props as the source of truth, so callers read these properties instead of copying them into state.
+
+```typescript
+type CSPReading = {
+	/** Nonce for inline `<style>` and `<script>` tags. */
+	nonce: string | undefined;
+	/** When `true`, components skip inline `<style>` elements. `false` when no provider is mounted. `undefined` when a provider omits the prop. Both are falsy, so a consumer that checks the flag still renders style elements. */
+	disableStyleElements: boolean | undefined;
+};
+```

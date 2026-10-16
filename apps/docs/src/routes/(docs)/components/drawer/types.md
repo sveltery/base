@@ -113,9 +113,9 @@ An overlay displayed beneath the popup. Renders a `<div>` element.
 
 **Backdrop CSS Variables:**
 
-| Variable                  | Type | Description                               |
-| :------------------------ | :--- | :---------------------------------------- |
-| `--drawer-swipe-progress` | -    | The swipe progress of the drawer gesture. |
+| Variable                  | Type     | Description                               |
+| :------------------------ | :------- | :---------------------------------------- |
+| `--drawer-swipe-progress` | `number` | The swipe progress of the drawer gesture. |
 
 ### Backdrop.Props
 
@@ -144,30 +144,30 @@ A container for the drawer contents. Renders a `<div>` element.
 
 **Popup Data Attributes:**
 
-| Attribute                  | Type                                    | Description                                                          |
-| :------------------------- | :-------------------------------------- | :------------------------------------------------------------------- |
-| data-open                  | -                                       | Present when the drawer is open.                                     |
-| data-closed                | -                                       | Present when the drawer is closed.                                   |
-| data-expanded              | -                                       | Present when the drawer is at the expanded (full-height) snap point. |
-| data-nested-drawer-open    | -                                       | Present when a nested drawer is open.                                |
-| data-nested-drawer-swiping | -                                       | Present when a nested drawer is being swiped.                        |
-| data-swipe-direction       | `{'up' \| 'down' \| 'left' \| 'right'}` | Indicates the swipe direction.                                       |
-| data-swipe-dismiss         | -                                       | Present when the drawer is dismissed by swiping.                     |
-| data-swiping               | -                                       | Present when the drawer is being swiped.                             |
-| data-starting-style        | -                                       | Present when the drawer begins animating in.                         |
-| data-ending-style          | -                                       | Present when the drawer is animating out.                            |
+| Attribute                  | Type                                  | Description                                                          |
+| :------------------------- | :------------------------------------ | :------------------------------------------------------------------- |
+| data-open                  | -                                     | Present when the drawer is open.                                     |
+| data-closed                | -                                     | Present when the drawer is closed.                                   |
+| data-expanded              | -                                     | Present when the drawer is at the expanded (full-height) snap point. |
+| data-nested-drawer-open    | -                                     | Present when a nested drawer is open.                                |
+| data-nested-drawer-swiping | -                                     | Present when a nested drawer is being swiped.                        |
+| data-swipe-direction       | `'up' \| 'down' \| 'left' \| 'right'` | Indicates the swipe direction.                                       |
+| data-swipe-dismiss         | -                                     | Present when the drawer is dismissed by swiping.                     |
+| data-swiping               | -                                     | Present when the drawer is being swiped.                             |
+| data-starting-style        | -                                     | Present when the drawer begins animating in.                         |
+| data-ending-style          | -                                     | Present when the drawer is animating out.                            |
 
 **Popup CSS Variables:**
 
-| Variable                     | Type | Description                                                                  |
-| :--------------------------- | :--- | :--------------------------------------------------------------------------- |
-| `--drawer-frontmost-height`  | -    | The height of the frontmost open drawer in the current nested drawer stack.  |
-| `--drawer-height`            | -    | The height of the drawer popup.                                              |
-| `--drawer-snap-point-offset` | -    | The snap point offset used for translating the drawer.                       |
-| `--drawer-swipe-movement-x`  | -    | The swipe movement on the X axis.                                            |
-| `--drawer-swipe-movement-y`  | -    | The swipe movement on the Y axis.                                            |
-| `--drawer-swipe-strength`    | -    | A scalar (0.1-1) used to scale the swipe release transition duration in CSS. |
-| `--nested-drawers`           | -    | The number of nested drawers that are currently open.                        |
+| Variable                     | Type         | Description                                                                  |
+| :--------------------------- | :----------- | :--------------------------------------------------------------------------- |
+| `--drawer-frontmost-height`  | `CSS length` | The height of the frontmost open drawer in the current nested drawer stack.  |
+| `--drawer-height`            | `CSS length` | The height of the drawer popup.                                              |
+| `--drawer-snap-point-offset` | `CSS length` | The snap point offset used for translating the drawer.                       |
+| `--drawer-swipe-movement-x`  | `CSS length` | The swipe movement on the X axis.                                            |
+| `--drawer-swipe-movement-y`  | `CSS length` | The swipe movement on the Y axis.                                            |
+| `--drawer-swipe-strength`    | `number`     | A scalar (0.1-1) used to scale the swipe release transition duration in CSS. |
+| `--nested-drawers`           | `number`     | The number of nested drawers that are currently open.                        |
 
 ### Popup.Props
 
@@ -289,9 +289,9 @@ A positioning container for the drawer popup that can be made scrollable. Render
 
 **Viewport CSS Variables:**
 
-| Variable                  | Type | Description                                                                                                                                                     |
-| :------------------------ | :--- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--drawer-keyboard-inset` | -    | The software keyboard inset, measured from the bottom edge of the layout viewport. Present only when the drawer is wrapped in `Drawer.VirtualKeyboardProvider`. |
+| Variable                  | Type         | Description                                                                                                                                                     |
+| :------------------------ | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--drawer-keyboard-inset` | `CSS length` | The software keyboard inset, measured from the bottom edge of the layout viewport. Present only when the drawer is wrapped in `Drawer.VirtualKeyboardProvider`. |
 
 ### Viewport.Props
 
@@ -372,13 +372,13 @@ An invisible area that listens for swipe gestures to open the drawer. Renders a 
 
 **SwipeArea Data Attributes:**
 
-| Attribute            | Type                                    | Description                              |
-| :------------------- | :-------------------------------------- | :--------------------------------------- |
-| data-open            | -                                       | Present when the drawer is open.         |
-| data-closed          | -                                       | Present when the drawer is closed.       |
-| data-disabled        | -                                       | Present when the swipe area is disabled. |
-| data-swipe-direction | `{'up' \| 'down' \| 'left' \| 'right'}` | Indicates the swipe direction.           |
-| data-swiping         | -                                       | Present when the drawer is being swiped. |
+| Attribute            | Type                                  | Description                              |
+| :------------------- | :------------------------------------ | :--------------------------------------- |
+| data-open            | -                                     | Present when the drawer is open.         |
+| data-closed          | -                                     | Present when the drawer is closed.       |
+| data-disabled        | -                                     | Present when the swipe area is disabled. |
+| data-swipe-direction | `'up' \| 'down' \| 'left' \| 'right'` | Indicates the swipe direction.           |
+| data-swiping         | -                                     | Present when the drawer is being swiped. |
 
 ### SwipeArea.Props
 
@@ -406,3 +406,261 @@ Provides keyboard-aware focus and scroll handling for bottom-sheet drawers with 
 ### VirtualKeyboardProvider.Props
 
 Re-export of [VirtualKeyboardProvider](#virtualkeyboardprovider) props.
+
+## Additional Types
+
+### DrawerActions
+
+Methods on the `Drawer.Root` instance. Reach them with `bind:this`.
+
+```typescript
+type DrawerActions = DialogActions;
+```
+
+### DrawerBackdropCssVariables
+
+CSS variables of [Backdrop](#backdrop).
+
+```typescript
+declare namespace DrawerBackdropCssVariables {
+	/**
+	 * The swipe progress of the drawer gesture.
+	 * @type number
+	 */
+	const swipeProgress: '--drawer-swipe-progress';
+}
+```
+
+### DrawerBackdropDataAttributes
+
+Data attributes of [Backdrop](#backdrop).
+
+```typescript
+declare namespace DrawerBackdropDataAttributes {
+	/** Present when the drawer is open. */
+	const open: 'data-open';
+	/** Present when the drawer is closed. */
+	const closed: 'data-closed';
+	/** Present when the drawer begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the drawer is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### DrawerChangeEventDetails
+
+```typescript
+type DrawerChangeEventDetails = BaseUIChangeEventDetails<DrawerChangeEventReason> & {
+	/** Keeps the popup mounted until the `unmount` action is called. */
+	preventUnmountOnClose: () => void;
+};
+```
+
+### DrawerChangeEventReason
+
+```typescript
+type DrawerChangeEventReason =
+	| typeof REASONS.triggerPress
+	| typeof REASONS.outsidePress
+	| typeof REASONS.escapeKey
+	| typeof REASONS.closeWatcher
+	| typeof REASONS.closePress
+	| typeof REASONS.focusOut
+	| typeof REASONS.imperativeAction
+	| typeof REASONS.swipe
+	| typeof REASONS.none;
+```
+
+### DrawerCloseDataAttributes
+
+Data attributes of [Close](#close).
+
+```typescript
+declare namespace DrawerCloseDataAttributes {
+	/** Present when the button is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### DrawerDivProps
+
+```typescript
+type DrawerDivProps = HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>>;
+```
+
+### DrawerPopupCssVariables
+
+CSS variables of [Popup](#popup).
+
+```typescript
+declare namespace DrawerPopupCssVariables {
+	/**
+	 * The number of nested drawers that are currently open.
+	 * @type number
+	 */
+	const nestedDrawers: '--nested-drawers';
+	/**
+	 * The height of the drawer popup.
+	 * @type CSS length
+	 */
+	const height: '--drawer-height';
+	/**
+	 * The height of the frontmost open drawer in the current nested drawer stack.
+	 * @type CSS length
+	 */
+	const frontmostHeight: '--drawer-frontmost-height';
+	/**
+	 * The swipe movement on the X axis.
+	 * @type CSS length
+	 */
+	const swipeMovementX: '--drawer-swipe-movement-x';
+	/**
+	 * The swipe movement on the Y axis.
+	 * @type CSS length
+	 */
+	const swipeMovementY: '--drawer-swipe-movement-y';
+	/**
+	 * The snap point offset used for translating the drawer.
+	 * @type CSS length
+	 */
+	const snapPointOffset: '--drawer-snap-point-offset';
+	/**
+	 * A scalar (0.1-1) used to scale the swipe release transition duration in CSS.
+	 * @type number
+	 */
+	const swipeStrength: '--drawer-swipe-strength';
+}
+```
+
+### DrawerPopupDataAttributes
+
+Data attributes of [Popup](#popup).
+
+```typescript
+declare namespace DrawerPopupDataAttributes {
+	/** Present when the drawer is open. */
+	const open: 'data-open';
+	/** Present when the drawer is closed. */
+	const closed: 'data-closed';
+	/** Present when the drawer begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the drawer is animating out. */
+	const endingStyle: 'data-ending-style';
+	/** Present when the drawer is at the expanded (full-height) snap point. */
+	const expanded: 'data-expanded';
+	/** Present when a nested drawer is open. */
+	const nestedDrawerOpen: 'data-nested-drawer-open';
+	/** Present when a nested drawer is being swiped. */
+	const nestedDrawerSwiping: 'data-nested-drawer-swiping';
+	/** Present when the drawer is dismissed by swiping. */
+	const swipeDismiss: 'data-swipe-dismiss';
+	/**
+	 * Indicates the swipe direction.
+	 * @type 'up' | 'down' | 'left' | 'right'
+	 */
+	const swipeDirection: 'data-swipe-direction';
+	/** Present when the drawer is being swiped. */
+	const swiping: 'data-swiping';
+}
+```
+
+### DrawerSnapPoint
+
+```typescript
+type DrawerSnapPoint = number | string;
+```
+
+### DrawerSnapPointChangeEventDetails
+
+```typescript
+type DrawerSnapPointChangeEventDetails = BaseUIChangeEventDetails<DrawerSnapPointChangeEventReason>;
+```
+
+### DrawerSnapPointChangeEventReason
+
+```typescript
+type DrawerSnapPointChangeEventReason = DrawerChangeEventReason;
+```
+
+### DrawerSwipeAreaDataAttributes
+
+Data attributes of [SwipeArea](#swipearea).
+
+```typescript
+declare namespace DrawerSwipeAreaDataAttributes {
+	/** Present when the drawer is open. */
+	const open: 'data-open';
+	/** Present when the drawer is closed. */
+	const closed: 'data-closed';
+	/** Present when the swipe area is disabled. */
+	const disabled: 'data-disabled';
+	/**
+	 * Indicates the swipe direction.
+	 * @type 'up' | 'down' | 'left' | 'right'
+	 */
+	const swipeDirection: 'data-swipe-direction';
+	/** Present when the drawer is being swiped. */
+	const swiping: 'data-swiping';
+}
+```
+
+### DrawerSwipeDirection
+
+```typescript
+type DrawerSwipeDirection = SwipeDirection;
+```
+
+### DrawerTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace DrawerTriggerDataAttributes {
+	/** Present when the trigger is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the corresponding dialog is open. */
+	const popupOpen: 'data-popup-open';
+}
+```
+
+### DrawerViewportCssVariables
+
+CSS variables of [Viewport](#viewport).
+
+```typescript
+declare namespace DrawerViewportCssVariables {
+	/**
+	 * The software keyboard inset, measured from the bottom edge of the layout viewport. Present only when the drawer is wrapped in `Drawer.VirtualKeyboardProvider`.
+	 * @type CSS length
+	 */
+	const keyboardInset: '--drawer-keyboard-inset';
+}
+```
+
+### DrawerViewportDataAttributes
+
+Data attributes of [Viewport](#viewport).
+
+```typescript
+declare namespace DrawerViewportDataAttributes {
+	/** Present when the drawer is open. */
+	const open: 'data-open';
+	/** Present when the drawer is closed. */
+	const closed: 'data-closed';
+	/** Present when the drawer begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the drawer is animating out. */
+	const endingStyle: 'data-ending-style';
+	/** Present when the drawer is nested within another drawer. */
+	const nested: 'data-nested';
+}
+```
+
+## External Types
+
+### SwipeDirection
+
+```typescript
+type SwipeDirection = 'up' | 'down' | 'left' | 'right';
+```

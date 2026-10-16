@@ -29,10 +29,10 @@ Groups all parts of the scroll area. Renders a `<div>` element.
 
 **Root CSS Variables:**
 
-| Variable                      | Type | Description                      |
-| :---------------------------- | :--- | :------------------------------- |
-| `--scroll-area-corner-height` | -    | The scroll area's corner height. |
-| `--scroll-area-corner-width`  | -    | The scroll area's corner width.  |
+| Variable                      | Type     | Description                      |
+| :---------------------------- | :------- | :------------------------------- |
+| `--scroll-area-corner-height` | `number` | The scroll area's corner height. |
+| `--scroll-area-corner-width`  | `number` | The scroll area's corner width.  |
 
 ### Root.Props
 
@@ -134,12 +134,12 @@ The actual scrollable container of the scroll area. Renders a `<div>` element.
 
 **Viewport CSS Variables:**
 
-| Variable                         | Type | Description                                            |
-| :------------------------------- | :--- | :----------------------------------------------------- |
-| `--scroll-area-overflow-x-end`   | -    | The distance from the horizontal end edge in pixels.   |
-| `--scroll-area-overflow-x-start` | -    | The distance from the horizontal start edge in pixels. |
-| `--scroll-area-overflow-y-end`   | -    | The distance from the vertical end edge in pixels.     |
-| `--scroll-area-overflow-y-start` | -    | The distance from the vertical start edge in pixels.   |
+| Variable                         | Type     | Description                                            |
+| :------------------------------- | :------- | :----------------------------------------------------- |
+| `--scroll-area-overflow-x-end`   | `number` | The distance from the horizontal end edge in pixels.   |
+| `--scroll-area-overflow-x-start` | `number` | The distance from the horizontal start edge in pixels. |
+| `--scroll-area-overflow-y-end`   | `number` | The distance from the vertical end edge in pixels.     |
+| `--scroll-area-overflow-y-start` | `number` | The distance from the vertical start edge in pixels.   |
 
 ### Viewport.Props
 
@@ -180,10 +180,10 @@ The draggable part of the scrollbar that indicates the current scroll position. 
 
 **Thumb Data Attributes:**
 
-| Attribute        | Type | Description                                           |
-| :--------------- | :--- | :---------------------------------------------------- |
-| data-orientation | -    | Indicates the orientation of the scrollbar.           |
-| data-scrolling   | -    | Present when the user scrolls inside the scroll area. |
+| Attribute        | Type                         | Description                                           |
+| :--------------- | :--------------------------- | :---------------------------------------------------- |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the scrollbar.           |
+| data-scrolling   | -                            | Present when the user scrolls inside the scroll area. |
 
 ### Thumb.Props
 
@@ -214,24 +214,24 @@ A vertical or horizontal scrollbar for the scroll area. Renders a `<div>` elemen
 
 **Scrollbar Data Attributes:**
 
-| Attribute             | Type | Description                                                       |
-| :-------------------- | :--- | :---------------------------------------------------------------- |
-| data-orientation      | -    | Indicates the orientation of the scrollbar.                       |
-| data-has-overflow-x   | -    | Present when the scroll area content is wider than the viewport.  |
-| data-has-overflow-y   | -    | Present when the scroll area content is taller than the viewport. |
-| data-hovering         | -    | Present when the pointer is over the scroll area.                 |
-| data-overflow-x-end   | -    | Present when there is overflow on the horizontal end side.        |
-| data-overflow-x-start | -    | Present when there is overflow on the horizontal start side.      |
-| data-overflow-y-end   | -    | Present when there is overflow on the vertical end side.          |
-| data-overflow-y-start | -    | Present when there is overflow on the vertical start side.        |
-| data-scrolling        | -    | Present when the user scrolls inside the scroll area.             |
+| Attribute             | Type                         | Description                                                       |
+| :-------------------- | :--------------------------- | :---------------------------------------------------------------- |
+| data-orientation      | `'horizontal' \| 'vertical'` | Indicates the orientation of the scrollbar.                       |
+| data-has-overflow-x   | -                            | Present when the scroll area content is wider than the viewport.  |
+| data-has-overflow-y   | -                            | Present when the scroll area content is taller than the viewport. |
+| data-hovering         | -                            | Present when the pointer is over the scroll area.                 |
+| data-overflow-x-end   | -                            | Present when there is overflow on the horizontal end side.        |
+| data-overflow-x-start | -                            | Present when there is overflow on the horizontal start side.      |
+| data-overflow-y-end   | -                            | Present when there is overflow on the vertical end side.          |
+| data-overflow-y-start | -                            | Present when there is overflow on the vertical start side.        |
+| data-scrolling        | -                            | Present when the user scrolls inside the scroll area.             |
 
 **Scrollbar CSS Variables:**
 
-| Variable                     | Type | Description                     |
-| :--------------------------- | :--- | :------------------------------ |
-| `--scroll-area-thumb-height` | -    | The scroll area thumb's height. |
-| `--scroll-area-thumb-width`  | -    | The scroll area thumb's width.  |
+| Variable                     | Type     | Description                     |
+| :--------------------------- | :------- | :------------------------------ |
+| `--scroll-area-thumb-height` | `number` | The scroll area thumb's height. |
+| `--scroll-area-thumb-width`  | `number` | The scroll area thumb's width.  |
 
 ### Scrollbar.Props
 
@@ -277,3 +277,262 @@ A small rectangular area that appears at the intersection of horizontal and vert
 ### Corner.Props
 
 Re-export of [Corner](#corner) props.
+
+## Additional Types
+
+### Coords
+
+```typescript
+type Coords = {
+	x: number;
+	y: number;
+};
+```
+
+### HiddenState
+
+```typescript
+type HiddenState = {
+	x: boolean;
+	y: boolean;
+	corner: boolean;
+};
+```
+
+### NormalizedThreshold
+
+```typescript
+type NormalizedThreshold = {
+	xStart: number;
+	xEnd: number;
+	yStart: number;
+	yEnd: number;
+};
+```
+
+### OverflowEdges
+
+```typescript
+type OverflowEdges = {
+	xStart: boolean;
+	xEnd: boolean;
+	yStart: boolean;
+	yEnd: boolean;
+};
+```
+
+### OverflowEdgeThreshold
+
+```typescript
+type OverflowEdgeThreshold =
+	| number
+	| Partial<{
+			xStart: number;
+			xEnd: number;
+			yStart: number;
+			yEnd: number;
+	  }>;
+```
+
+### ScrollAreaContentDataAttributes
+
+Data attributes of [Content](#content).
+
+```typescript
+declare namespace ScrollAreaContentDataAttributes {
+	/** Present when the user scrolls inside the scroll area. */
+	const scrolling: 'data-scrolling';
+	/** Present when the scroll area content is wider than the viewport. */
+	const hasOverflowX: 'data-has-overflow-x';
+	/** Present when the scroll area content is taller than the viewport. */
+	const hasOverflowY: 'data-has-overflow-y';
+	/** Present when there is overflow on the horizontal start side. */
+	const overflowXStart: 'data-overflow-x-start';
+	/** Present when there is overflow on the horizontal end side. */
+	const overflowXEnd: 'data-overflow-x-end';
+	/** Present when there is overflow on the vertical start side. */
+	const overflowYStart: 'data-overflow-y-start';
+	/** Present when there is overflow on the vertical end side. */
+	const overflowYEnd: 'data-overflow-y-end';
+}
+```
+
+### ScrollAreaRootCssVariables
+
+CSS variables of [Root](#root).
+
+```typescript
+declare namespace ScrollAreaRootCssVariables {
+	/**
+	 * The scroll area's corner height.
+	 * @type number
+	 */
+	const scrollAreaCornerHeight: '--scroll-area-corner-height';
+	/**
+	 * The scroll area's corner width.
+	 * @type number
+	 */
+	const scrollAreaCornerWidth: '--scroll-area-corner-width';
+}
+```
+
+### ScrollAreaRootDataAttributes
+
+Data attributes of [Root](#root).
+
+```typescript
+declare namespace ScrollAreaRootDataAttributes {
+	/** Present when the user scrolls inside the scroll area. */
+	const scrolling: 'data-scrolling';
+	/** Present when the scroll area content is wider than the viewport. */
+	const hasOverflowX: 'data-has-overflow-x';
+	/** Present when the scroll area content is taller than the viewport. */
+	const hasOverflowY: 'data-has-overflow-y';
+	/** Present when there is overflow on the horizontal start side. */
+	const overflowXStart: 'data-overflow-x-start';
+	/** Present when there is overflow on the horizontal end side. */
+	const overflowXEnd: 'data-overflow-x-end';
+	/** Present when there is overflow on the vertical start side. */
+	const overflowYStart: 'data-overflow-y-start';
+	/** Present when there is overflow on the vertical end side. */
+	const overflowYEnd: 'data-overflow-y-end';
+}
+```
+
+### ScrollAreaScrollbarCssVariables
+
+CSS variables of [Scrollbar](#scrollbar).
+
+```typescript
+declare namespace ScrollAreaScrollbarCssVariables {
+	/**
+	 * The scroll area thumb's height.
+	 * @type number
+	 */
+	const scrollAreaThumbHeight: '--scroll-area-thumb-height';
+	/**
+	 * The scroll area thumb's width.
+	 * @type number
+	 */
+	const scrollAreaThumbWidth: '--scroll-area-thumb-width';
+}
+```
+
+### ScrollAreaScrollbarDataAttributes
+
+Data attributes of [Scrollbar](#scrollbar).
+
+```typescript
+declare namespace ScrollAreaScrollbarDataAttributes {
+	/**
+	 * Indicates the orientation of the scrollbar.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+	/** Present when the pointer is over the scroll area. */
+	const hovering: 'data-hovering';
+	/** Present when the user scrolls inside the scroll area. */
+	const scrolling: 'data-scrolling';
+	/** Present when the scroll area content is wider than the viewport. */
+	const hasOverflowX: 'data-has-overflow-x';
+	/** Present when the scroll area content is taller than the viewport. */
+	const hasOverflowY: 'data-has-overflow-y';
+	/** Present when there is overflow on the horizontal start side. */
+	const overflowXStart: 'data-overflow-x-start';
+	/** Present when there is overflow on the horizontal end side. */
+	const overflowXEnd: 'data-overflow-x-end';
+	/** Present when there is overflow on the vertical start side. */
+	const overflowYStart: 'data-overflow-y-start';
+	/** Present when there is overflow on the vertical end side. */
+	const overflowYEnd: 'data-overflow-y-end';
+}
+```
+
+### ScrollAreaThumbDataAttributes
+
+Data attributes of [Thumb](#thumb).
+
+```typescript
+declare namespace ScrollAreaThumbDataAttributes {
+	/**
+	 * Indicates the orientation of the scrollbar.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+	/** Present when the user scrolls inside the scroll area. */
+	const scrolling: 'data-scrolling';
+}
+```
+
+### ScrollAreaViewportCssVariables
+
+CSS variables of [Viewport](#viewport).
+
+```typescript
+declare namespace ScrollAreaViewportCssVariables {
+	/**
+	 * The distance from the horizontal start edge in pixels.
+	 * @type number
+	 */
+	const scrollAreaOverflowXStart: '--scroll-area-overflow-x-start';
+	/**
+	 * The distance from the horizontal end edge in pixels.
+	 * @type number
+	 */
+	const scrollAreaOverflowXEnd: '--scroll-area-overflow-x-end';
+	/**
+	 * The distance from the vertical start edge in pixels.
+	 * @type number
+	 */
+	const scrollAreaOverflowYStart: '--scroll-area-overflow-y-start';
+	/**
+	 * The distance from the vertical end edge in pixels.
+	 * @type number
+	 */
+	const scrollAreaOverflowYEnd: '--scroll-area-overflow-y-end';
+}
+```
+
+### ScrollAreaViewportDataAttributes
+
+Data attributes of [Viewport](#viewport).
+
+```typescript
+declare namespace ScrollAreaViewportDataAttributes {
+	/** Present when the user scrolls inside the scroll area. */
+	const scrolling: 'data-scrolling';
+	/** Present when the scroll area content is wider than the viewport. */
+	const hasOverflowX: 'data-has-overflow-x';
+	/** Present when the scroll area content is taller than the viewport. */
+	const hasOverflowY: 'data-has-overflow-y';
+	/** Present when there is overflow on the horizontal start side. */
+	const overflowXStart: 'data-overflow-x-start';
+	/** Present when there is overflow on the horizontal end side. */
+	const overflowXEnd: 'data-overflow-x-end';
+	/** Present when there is overflow on the vertical start side. */
+	const overflowYStart: 'data-overflow-y-start';
+	/** Present when there is overflow on the vertical end side. */
+	const overflowYEnd: 'data-overflow-y-end';
+}
+```
+
+### ScrollAxis
+
+```typescript
+type ScrollAxis = 'vertical' | 'horizontal';
+```
+
+### Size
+
+```typescript
+type Size = {
+	width: number;
+	height: number;
+};
+```
+
+### TextDirection
+
+```typescript
+type TextDirection = 'ltr' | 'rtl';
+```

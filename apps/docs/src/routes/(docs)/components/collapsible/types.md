@@ -102,10 +102,10 @@ A panel with the collapsible contents. Renders a `<div>` element.
 
 **Panel CSS Variables:**
 
-| Variable                     | Type | Description                     |
-| :--------------------------- | :--- | :------------------------------ |
-| `--collapsible-panel-height` | -    | The collapsible panel's height. |
-| `--collapsible-panel-width`  | -    | The collapsible panel's width.  |
+| Variable                     | Type     | Description                     |
+| :--------------------------- | :------- | :------------------------------ |
+| `--collapsible-panel-height` | `number` | The collapsible panel's height. |
+| `--collapsible-panel-width`  | `number` | The collapsible panel's width.  |
 
 ### Panel.Props
 
@@ -122,4 +122,98 @@ type CollapsiblePanelState = {
 	/** Whether the collapsible should ignore user interaction. */
 	disabled: boolean;
 };
+```
+
+## Additional Types
+
+### CollapsiblePanelCssVariables
+
+CSS variables of [Panel](#panel).
+
+```typescript
+declare namespace CollapsiblePanelCssVariables {
+	/**
+	 * The collapsible panel's height.
+	 * @type number
+	 */
+	const collapsiblePanelHeight: '--collapsible-panel-height';
+	/**
+	 * The collapsible panel's width.
+	 * @type number
+	 */
+	const collapsiblePanelWidth: '--collapsible-panel-width';
+}
+```
+
+### CollapsiblePanelDataAttributes
+
+Data attributes of [Panel](#panel).
+
+```typescript
+declare namespace CollapsiblePanelDataAttributes {
+	/** Present when the collapsible panel is open. */
+	const open: 'data-open';
+	/** Present when the collapsible panel is closed. */
+	const closed: 'data-closed';
+	/** Present when the panel begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the panel is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### CollapsibleRootChangeEventDetails
+
+```typescript
+type CollapsibleRootChangeEventDetails = BaseUIChangeEventDetails<CollapsibleRootChangeEventReason>;
+```
+
+### CollapsibleRootChangeEventReason
+
+```typescript
+type CollapsibleRootChangeEventReason = typeof REASONS.triggerPress | typeof REASONS.none;
+```
+
+### CollapsibleRootDataAttributes
+
+Data attributes of [Root](#root).
+
+```typescript
+declare namespace CollapsibleRootDataAttributes {
+	/** Present when the collapsible is open. */
+	const open: 'data-open';
+	/** Present when the collapsible is closed. */
+	const closed: 'data-closed';
+	/** Present when the collapsible begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the collapsible is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### CollapsibleTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace CollapsibleTriggerDataAttributes {
+	/** Present when the collapsible panel is open. */
+	const panelOpen: 'data-panel-open';
+}
+```
+
+### CollapsibleTriggerHostProps
+
+Props a trigger `render` snippet spreads onto its host. Handlers are typed for a generic element so the same object spreads onto a `<button>` or another element when `nativeButton` is false.
+
+```typescript
+type CollapsibleTriggerHostProps = HTMLAttributes<HTMLElement>;
+```
+
+### TransitionStatus
+
+Open/close motion phase. `undefined` is the settled closed phase.
+
+```typescript
+type TransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
 ```

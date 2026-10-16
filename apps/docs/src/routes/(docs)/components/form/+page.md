@@ -267,8 +267,3 @@ When parsing the schema using `schema.safeParse()`, the `z.flattenError(result.e
 ### Error
 
 <TypesForm.Error />
-
-| Attribute             | Description                                 |
-| --------------------- | ------------------------------------------- |
-| `data-starting-style` | Present when the error begins animating in. |
-| `data-ending-style`   | Present when the error is animating out.    |

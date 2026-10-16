@@ -56,3 +56,16 @@ type FieldsetLegendState = {
 	disabled: boolean;
 };
 ```
+
+## Additional Types
+
+### FieldsetLegendDataAttributes
+
+Data attributes of [Legend](#legend).
+
+```typescript
+declare namespace FieldsetLegendDataAttributes {
+	/** Present when the fieldset is disabled. */
+	const disabled: 'data-disabled';
+}
+```

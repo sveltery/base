@@ -99,7 +99,7 @@ With `keepMounted`, the image is part of the server-rendered HTML and starts loa
 ## API reference
 
 <script>
-	import { TypesAvatar } from './types';
+	import { TypesAvatar, TypesAvatarAdditional } from './types';
 </script>
 
 ### Root
@@ -118,8 +118,4 @@ With `keepMounted`, the image is part of the server-rendered HTML and starts loa
 
 ## Additional types
 
-### ImageLoadingStatus
-
-```ts
-type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
-```
+<TypesAvatarAdditional showAdditionalTypes={['imageloadingstatus']} />

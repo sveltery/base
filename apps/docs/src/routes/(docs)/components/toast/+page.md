@@ -860,7 +860,7 @@ Avoid sizing `<Toast.Content>` to the root's height (such as `height: 100%`), as
 ## API reference
 
 <script>
-	import { TypesToast } from './types';
+	import { TypesToast, TypesToastAdditional } from './types';
 </script>
 
 ### Provider
@@ -1054,41 +1054,4 @@ See full [`promise` method](#promise-method)
 
 ## Additional types
 
-### ToastManagerUpdateOptions
-
-```ts
-type ToastManagerUpdateOptions<Data extends object> = {
-	/** The title of the toast. */
-	title?: string | Snippet;
-	/**
-	 * The type of the toast. Used to conditionally style the toast,
-	 * including conditionally rendering elements based on the type.
-	 */
-	type?: string;
-	/** The description of the toast. */
-	description?: string | Snippet;
-	/**
-	 * The amount of time (in ms) before the toast is auto dismissed.
-	 * A value of `0` will prevent the toast from being dismissed automatically.
-	 * @default 5000
-	 */
-	timeout?: number;
-	/**
-	 * The priority of the toast.
-	 * - `low` - The toast will be announced politely.
-	 * - `high` - The toast will be announced urgently.
-	 * @default 'low'
-	 */
-	priority?: 'low' | 'high';
-	/** Callback function to be called when the toast is closed. */
-	onClose?: () => void;
-	/** Callback function to be called when the toast is removed from the list after any animations are complete when closed. */
-	onRemove?: () => void;
-	/** The props for the action button. `children` is the button's content. */
-	actionProps?: Omit<HTMLButtonAttributes, 'children'> & { children?: string | Snippet };
-	/** The props forwarded to the toast positioner element when rendering anchored toasts. */
-	positionerProps?: ToastManagerPositionerProps;
-	/** Custom data for the toast. */
-	data?: Data;
-};
-```
+<TypesToastAdditional showAdditionalTypes={['toastmanagerupdateoptions']} />

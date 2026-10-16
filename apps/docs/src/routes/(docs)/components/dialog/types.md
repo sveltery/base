@@ -135,9 +135,9 @@ A container for the dialog contents. Renders a `<div>` element.
 
 **Popup CSS Variables:**
 
-| Variable           | Type | Description                                   |
-| :----------------- | :--- | :-------------------------------------------- |
-| `--nested-dialogs` | -    | Indicates how many dialogs are nested within. |
+| Variable           | Type     | Description                                   |
+| :----------------- | :------- | :-------------------------------------------- |
+| `--nested-dialogs` | `number` | Indicates how many dialogs are nested within. |
 
 ### Popup.Props
 
@@ -253,4 +253,163 @@ type DialogViewportState = {
 	/** Whether a dialog nested inside this one is open. */
 	nestedDialogOpen: boolean;
 };
+```
+
+## Additional Types
+
+### DialogActions
+
+Methods on the `Dialog.Root` instance. Reach them with `bind:this`.
+
+```typescript
+type DialogActions = {
+	unmount: () => void;
+	close: () => void;
+};
+```
+
+### DialogBackdropDataAttributes
+
+Data attributes of [Backdrop](#backdrop).
+
+```typescript
+declare namespace DialogBackdropDataAttributes {
+	/** Present when the dialog is open. */
+	const open: 'data-open';
+	/** Present when the dialog is closed. */
+	const closed: 'data-closed';
+	/** Present when the dialog begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the dialog is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### DialogChangeEventDetails
+
+```typescript
+type DialogChangeEventDetails = BaseUIChangeEventDetails<DialogChangeEventReason> & {
+	preventUnmountOnClose: () => void;
+};
+```
+
+### DialogChangeEventReason
+
+```typescript
+type DialogChangeEventReason =
+	| typeof REASONS.triggerPress
+	| typeof REASONS.outsidePress
+	| typeof REASONS.escapeKey
+	| typeof REASONS.closePress
+	| typeof REASONS.focusOut
+	| typeof REASONS.imperativeAction
+	| typeof REASONS.none;
+```
+
+### DialogCloseDataAttributes
+
+Data attributes of [Close](#close).
+
+```typescript
+declare namespace DialogCloseDataAttributes {
+	/** Present when the button is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### DialogDivProps
+
+```typescript
+type DialogDivProps = HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>>;
+```
+
+### DialogFocusTarget
+
+```typescript
+type DialogFocusTarget =
+	| boolean
+	| HTMLElement
+	| null
+	| ((interaction: DialogInteractionType) => boolean | HTMLElement | null | void);
+```
+
+### DialogInteractionType
+
+```typescript
+type DialogInteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard' | '';
+```
+
+### DialogPopupCssVariables
+
+CSS variables of [Popup](#popup).
+
+```typescript
+declare namespace DialogPopupCssVariables {
+	/**
+	 * Indicates how many dialogs are nested within.
+	 * @type number
+	 */
+	const nestedDialogs: '--nested-dialogs';
+}
+```
+
+### DialogPopupDataAttributes
+
+Data attributes of [Popup](#popup).
+
+```typescript
+declare namespace DialogPopupDataAttributes {
+	/** Present when the dialog is open. */
+	const open: 'data-open';
+	/** Present when the dialog is closed. */
+	const closed: 'data-closed';
+	/** Present when the dialog begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the dialog is animating out. */
+	const endingStyle: 'data-ending-style';
+	/** Present when the dialog is nested within another dialog. */
+	const nested: 'data-nested';
+	/** Present when the dialog has other open dialogs nested within it. */
+	const nestedDialogOpen: 'data-nested-dialog-open';
+}
+```
+
+### DialogTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace DialogTriggerDataAttributes {
+	/** Present when the trigger is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the corresponding dialog is open. */
+	const popupOpen: 'data-popup-open';
+}
+```
+
+### DialogTriggerHostProps
+
+```typescript
+type DialogTriggerHostProps = HTMLAttributes<HTMLElement>;
+```
+
+### DialogViewportDataAttributes
+
+Data attributes of [Viewport](#viewport).
+
+```typescript
+declare namespace DialogViewportDataAttributes {
+	/** Present when the dialog is open. */
+	const open: 'data-open';
+	/** Present when the dialog is closed. */
+	const closed: 'data-closed';
+	/** Present when the dialog begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the dialog is animating out. */
+	const endingStyle: 'data-ending-style';
+	/** Present when the dialog is nested within another dialog. */
+	const nested: 'data-nested';
+	/** Present when the dialog has other open dialogs nested within it. */
+	const nestedDialogOpen: 'data-nested-dialog-open';
+}
 ```

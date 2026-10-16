@@ -1,9 +1,10 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, sep } from 'node:path';
 import type { Plugin } from 'vite';
-import { apiReference, type ApiPart } from './api.ts';
-import { referencePart } from './reference.ts';
-import { typesMarkdown } from './types-markdown.ts';
+import { apiFolder, sortTypes, type ApiExternal, type ApiPart, type ApiType } from './api.ts';
+import { highlight } from './highlight.ts';
+import { referencePart, type ReferenceType } from './reference.ts';
+import { prettyCode, typesMarkdown } from './types-markdown.ts';
 
 /**
  * A page's `types.ts`, as Base UI writes it:
@@ -15,8 +16,13 @@ export type TypesStub = {
 	/** `createTypes` documents one part, `createMultipleTypes` several, each with its description. */
 	multiple: boolean;
 	parts: ApiPart[];
+	/** The entries' exported types no part documents, for Additional Types. */
+	types: ApiType[];
+	externals: ApiExternal[];
 	/** Each tag the page writes, such as `TypesAccordion.Root`, and the part it renders. */
 	tags: Map<string, ApiPart>;
+	/** The tag that renders `AdditionalTypes`, such as `TypesAvatarAdditional`. */
+	additional?: string;
 	/** Where the factory call's closing parenthesis is, so the precompute can go before it. */
 	callEnd: number;
 };
@@ -33,31 +39,45 @@ export function readStub(file: string, lib: string, code = readFileSync(file, 'u
 			match[2]
 		])
 	);
-	const parts = call[2]
+	const names = call[2]
 		.replace(/[{}]/g, '')
 		.split(',')
 		.map((name) => name.trim())
-		.filter(Boolean)
-		.flatMap((name) => {
-			const folder = folders.get(name);
-			if (!folder) throw new Error(`${file}: import ${name} from '@sveltery/base/<folder>'`);
-			return apiReference(lib, folder).filter(
-				(part) => part.name === name || part.name.startsWith(`${name}.`)
-			);
-		});
+		.filter(Boolean);
+	const read = names.map((name) => {
+		const folder = folders.get(name);
+		if (!folder) throw new Error(`${file}: import ${name} from '@sveltery/base/<folder>'`);
+		return { name, ...apiFolder(lib, folder) };
+	});
+	const parts = read.flatMap(({ name, parts }) =>
+		parts.filter((part) => part.name === name || part.name.startsWith(`${name}.`))
+	);
+	const unique = <T extends { name: string }>(items: T[]) => [
+		...new Map(items.map((item) => [item.name, item])).values()
+	];
 	const multiple = call[1] === 'createMultipleTypes';
 	if (!multiple && parts.length !== 1) {
 		throw new Error(`${file}: createTypes documents one part. Use createMultipleTypes.`);
 	}
 	const tags = new Map<string, ApiPart>();
-	for (const [, name, member] of code.matchAll(
-		/export const (\w+) = (?:types(?:\.(\w+))?|create)/g
+	let additional: string | undefined;
+	for (const [, name, member, additionalTypes] of code.matchAll(
+		/export const (\w+) = (?:types(?:\.(\w+))?|create|(AdditionalTypes))/g
 	)) {
-		if (!multiple) tags.set(name, parts[0]);
+		if (additionalTypes) additional = name;
+		else if (!multiple) tags.set(name, parts[0]);
 		else if (member) tags.set(name, partNamed(parts, member, file));
 		else for (const part of parts) tags.set(`${name}.${shortName(part.name)}`, part);
 	}
-	return { multiple, parts, tags, callEnd: call.index + call[0].length - 1 };
+	return {
+		multiple,
+		parts,
+		types: sortTypes(unique(read.flatMap(({ types }) => types))),
+		externals: unique(read.flatMap(({ externals }) => externals)),
+		tags,
+		additional,
+		callEnd: call.index + call[0].length - 1
+	};
 }
 
 const partNamed = (parts: ApiPart[], short: string, file: string) => {
@@ -88,6 +108,12 @@ export async function syncTypes(file: string, stub: TypesStub, routes: string): 
 	return true;
 }
 
+const referenceType = async (type: ApiType): Promise<ReferenceType> => ({
+	name: type.name,
+	slug: type.name.toLowerCase(),
+	code: await highlight(await prettyCode(type.code), 'ts')
+});
+
 /**
  * Fills each page's `types.ts` with its parts' reference tables, as Base UI's
  * `loadPrecomputedTypes` loader does, and keeps the `types.md` beside it current.
@@ -104,7 +130,10 @@ export function docsTypes({ routes, lib }: { routes: string; lib: string }): Plu
 				this.addWatchFile(file);
 			}
 			await syncTypes(id, stub, routes);
-			const precompute = { parts: await Promise.all(stub.parts.map(referencePart)) };
+			const precompute = {
+				parts: await Promise.all(stub.parts.map(referencePart)),
+				additionalTypes: stub.additional ? await Promise.all(stub.types.map(referenceType)) : []
+			};
 			return `${code.slice(0, stub.callEnd)}, ${JSON.stringify(precompute)}${code.slice(stub.callEnd)}`;
 		}
 	};

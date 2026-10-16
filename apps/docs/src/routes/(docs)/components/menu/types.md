@@ -217,25 +217,25 @@ Positions the menu popup against the trigger. Renders a `<div>` element.
 
 **Positioner Data Attributes:**
 
-| Attribute          | Type | Description                                                          |
-| :----------------- | :--- | :------------------------------------------------------------------- |
-| data-open          | -    | Present when the menu popup is open.                                 |
-| data-closed        | -    | Present when the menu popup is closed.                               |
-| data-anchor-hidden | -    | Present when the anchor is hidden.                                   |
-| data-align         | -    | Indicates how the popup is aligned relative to the specified side.   |
-| data-side          | -    | Indicates which side the popup is positioned relative to the anchor. |
+| Attribute          | Type                                                                       | Description                                                          |
+| :----------------- | :------------------------------------------------------------------------- | :------------------------------------------------------------------- |
+| data-open          | -                                                                          | Present when the menu popup is open.                                 |
+| data-closed        | -                                                                          | Present when the menu popup is closed.                               |
+| data-anchor-hidden | -                                                                          | Present when the anchor is hidden.                                   |
+| data-align         | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to the specified side.   |
+| data-side          | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the anchor. |
 
 **Positioner CSS Variables:**
 
-| Variable              | Type       | Description                                                                                                                |
-| :-------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------- |
-| `--anchor-height`     | `{number}` | The anchor's height.                                                                                                       |
-| `--anchor-width`      | `{number}` | The anchor's width.                                                                                                        |
-| `--available-height`  | `{number}` | The available height between the anchor and the edge of the viewport.                                                      |
-| `--available-width`   | `{number}` | The available width between the anchor and the edge of the viewport.                                                       |
-| `--positioner-height` | `{number}` | The height of the menu's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
-| `--positioner-width`  | `{number}` | The width of the menu's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
-| `--transform-origin`  | `{string}` | The coordinates that this element is anchored to. Used for animations and transitions.                                     |
+| Variable              | Type     | Description                                                                                                                |
+| :-------------------- | :------- | :------------------------------------------------------------------------------------------------------------------------- |
+| `--anchor-height`     | `number` | The anchor's height.                                                                                                       |
+| `--anchor-width`      | `number` | The anchor's width.                                                                                                        |
+| `--available-height`  | `number` | The available height between the anchor and the edge of the viewport.                                                      |
+| `--available-width`   | `number` | The available width between the anchor and the edge of the viewport.                                                       |
+| `--positioner-height` | `number` | The height of the menu's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
+| `--positioner-width`  | `number` | The width of the menu's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
+| `--transform-origin`  | `string` | The coordinates that this element is anchored to. Used for animations and transitions.                                     |
 
 ### Positioner.Props
 
@@ -268,15 +268,15 @@ A container for the menu items. Renders a `<div>` element.
 
 **Popup Data Attributes:**
 
-| Attribute           | Type | Description                                                          |
-| :------------------ | :--- | :------------------------------------------------------------------- |
-| data-open           | -    | Present when the menu is open.                                       |
-| data-closed         | -    | Present when the menu is closed.                                     |
-| data-align          | -    | Indicates how the popup is aligned relative to specified side.       |
-| data-instant        | -    | Present if animations should be instant.                             |
-| data-side           | -    | Indicates which side the popup is positioned relative to the anchor. |
-| data-starting-style | -    | Present when the menu begins animating in.                           |
-| data-ending-style   | -    | Present when the menu is animating out.                              |
+| Attribute           | Type                                                                       | Description                                                          |
+| :------------------ | :------------------------------------------------------------------------- | :------------------------------------------------------------------- |
+| data-open           | -                                                                          | Present when the menu is open.                                       |
+| data-closed         | -                                                                          | Present when the menu is closed.                                     |
+| data-align          | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.       |
+| data-instant        | `'click' \| 'dismiss' \| 'group' \| 'trigger-change'`                      | Present if animations should be instant.                             |
+| data-side           | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the anchor. |
+| data-starting-style | -                                                                          | Present when the menu begins animating in.                           |
+| data-ending-style   | -                                                                          | Present when the menu is animating out.                              |
 
 ### Popup.Props
 
@@ -308,13 +308,13 @@ Displays an element positioned against the menu anchor. Renders a `<div>` elemen
 
 **Arrow Data Attributes:**
 
-| Attribute       | Type | Description                                                          |
-| :-------------- | :--- | :------------------------------------------------------------------- |
-| data-open       | -    | Present when the menu popup is open.                                 |
-| data-closed     | -    | Present when the menu popup is closed.                               |
-| data-uncentered | -    | Present when the menu arrow is uncentered.                           |
-| data-align      | -    | Indicates how the popup is aligned relative to specified side.       |
-| data-side       | -    | Indicates which side the popup is positioned relative to the anchor. |
+| Attribute       | Type                                                                       | Description                                                          |
+| :-------------- | :------------------------------------------------------------------------- | :------------------------------------------------------------------- |
+| data-open       | -                                                                          | Present when the menu popup is open.                                 |
+| data-closed     | -                                                                          | Present when the menu popup is closed.                               |
+| data-uncentered | -                                                                          | Present when the menu arrow is uncentered.                           |
+| data-align      | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.       |
+| data-side       | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the anchor. |
 
 ### Arrow.Props
 
@@ -378,13 +378,13 @@ A viewport for displaying content transitions. This component is only required i
 
 **Viewport Data Attributes:**
 
-| Attribute                 | Type | Description                                                                                                                                                                                                                |
-| :------------------------ | :--- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| data-activation-direction | -    | Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. |
-| data-current              | -    | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                         |
-| data-instant              | -    | Present if animations should be instant.                                                                                                                                                                                   |
-| data-previous             | -    | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                |
-| data-transitioning        | -    | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                        |
+| Attribute                 | Type                                                       | Description                                                                                                                                                                                                                |
+| :------------------------ | :--------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data-activation-direction | `` `${'left' \| 'right' \| ''} ${'down' \| 'up' \| ''}` `` | Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. |
+| data-current              | -                                                          | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                         |
+| data-instant              | `'click' \| 'dismiss' \| 'group' \| 'trigger-change'`      | Present if animations should be instant.                                                                                                                                                                                   |
+| data-previous             | -                                                          | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                |
+| data-transitioning        | -                                                          | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                        |
 
 **Viewport CSS Variables:**
 
@@ -449,9 +449,9 @@ A separator element accessible to screen readers. Renders a `<div>` element.
 
 **Separator Data Attributes:**
 
-| Attribute        | Type | Description                                 |
-| :--------------- | :--- | :------------------------------------------ |
-| data-orientation | -    | Indicates the orientation of the separator. |
+| Attribute        | Type                         | Description                                 |
+| :--------------- | :--------------------------- | :------------------------------------------ |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the separator. |
 
 ### Separator.Props
 
@@ -765,4 +765,506 @@ Re-export of [LinkItem](#linkitem) props.
 type MenuLinkItemState = {
 	highlighted: boolean;
 };
+```
+
+## Additional Types
+
+### Align
+
+```typescript
+type Align = 'start' | 'center' | 'end';
+```
+
+### Filter
+
+```typescript
+type Filter = {
+	/** Returns whether the item matches the query anywhere. */
+	contains: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
+	/** Returns whether the item starts with the query. */
+	startsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
+	/** Returns whether the item ends with the query. */
+	endsWith: <Item>(item: Item, query: string, itemToString?: (item: Item) => string) => boolean;
+};
+```
+
+### GetFilterParameters
+
+```typescript
+type GetFilterParameters = {
+	/** The locale to use for string comparison. Defaults to the user's runtime locale. */
+	locale?: Intl.LocalesArgument;
+};
+```
+
+### MenuActions
+
+```typescript
+type MenuActions = {
+	unmount: () => void;
+	close: () => void;
+};
+```
+
+### MenuArrowDataAttributes
+
+Data attributes of [Arrow](#arrow).
+
+```typescript
+declare namespace MenuArrowDataAttributes {
+	/** Present when the menu popup is open. */
+	const open: 'data-open';
+	/** Present when the menu popup is closed. */
+	const closed: 'data-closed';
+	/**
+	 * Indicates which side the popup is positioned relative to the anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the menu arrow is uncentered. */
+	const uncentered: 'data-uncentered';
+}
+```
+
+### MenuBackdropDataAttributes
+
+Data attributes of [Backdrop](#backdrop).
+
+```typescript
+declare namespace MenuBackdropDataAttributes {
+	/** Present when the menu is open. */
+	const open: 'data-open';
+	/** Present when the menu is closed. */
+	const closed: 'data-closed';
+	/** Present when the menu begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the menu is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### MenuChangeEventDetails
+
+```typescript
+type MenuChangeEventDetails = BaseUIChangeEventDetails<MenuChangeReason> & {
+	/** Keeps the popup mounted until `unmount()` is called on the root. */
+	preventUnmountOnClose: () => void;
+};
+```
+
+### MenuChangeReason
+
+```typescript
+type MenuChangeReason =
+	| typeof REASONS.triggerHover
+	| typeof REASONS.triggerFocus
+	| typeof REASONS.triggerPress
+	| typeof REASONS.outsidePress
+	| typeof REASONS.focusOut
+	| typeof REASONS.listNavigation
+	| typeof REASONS.escapeKey
+	| typeof REASONS.itemPress
+	| typeof REASONS.closePress
+	| typeof REASONS.siblingOpen
+	| typeof REASONS.cancelOpen
+	| typeof REASONS.imperativeAction
+	| typeof REASONS.none;
+```
+
+### MenuCheckboxItemDataAttributes
+
+Data attributes of [CheckboxItem](#checkboxitem).
+
+```typescript
+declare namespace MenuCheckboxItemDataAttributes {
+	/** Present when the menu checkbox item is checked. */
+	const checked: 'data-checked';
+	/** Present when the menu checkbox item is not checked. */
+	const unchecked: 'data-unchecked';
+	/** Present when the menu checkbox item is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the menu checkbox item is highlighted. */
+	const highlighted: 'data-highlighted';
+}
+```
+
+### MenuCheckboxItemIndicatorDataAttributes
+
+Data attributes of [CheckboxItemIndicator](#checkboxitemindicator).
+
+```typescript
+declare namespace MenuCheckboxItemIndicatorDataAttributes {
+	/** Present when the menu checkbox item is checked. */
+	const checked: 'data-checked';
+	/** Present when the menu checkbox item is not checked. */
+	const unchecked: 'data-unchecked';
+	/** Present when the menu checkbox item is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the indicator begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the indicator is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### MenuClearDataAttributes
+
+Data attributes of [Clear](#clear).
+
+```typescript
+declare namespace MenuClearDataAttributes {
+	/** Present when the button is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### MenuFilterChangeEventDetails
+
+```typescript
+type MenuFilterChangeEventDetails = BaseUIChangeEventDetails<MenuFilterChangeReason>;
+```
+
+### MenuFilterChangeReason
+
+```typescript
+type MenuFilterChangeReason =
+	| typeof REASONS.inputChange
+	| typeof REASONS.inputClear
+	| typeof REASONS.clearPress
+	| typeof REASONS.popupClose;
+```
+
+### MenuFilterFunction
+
+```typescript
+type MenuFilterFunction = (text: string, query: string) => boolean;
+```
+
+### MenuHighlightEventDetails
+
+```typescript
+type MenuHighlightEventDetails = MenuHighlightReason extends typeof REASONS.pointer
+	? { reason: MenuHighlightReason; event: MouseEvent | PointerEvent } & {
+			/** The highlighted item's `label` prop, or its text content when the prop is not set. */
+			label: string | undefined;
+		}
+	: BaseUIGenericEventDetails<
+			MenuHighlightReason,
+			{
+				/** The highlighted item's `label` prop, or its text content when the prop is not set. */
+				label: string | undefined;
+			}
+		>;
+```
+
+### MenuHighlightReason
+
+```typescript
+type MenuHighlightReason = typeof REASONS.keyboard | typeof REASONS.pointer | typeof REASONS.none;
+```
+
+### MenuInputDataAttributes
+
+Data attributes of [Input](#input).
+
+```typescript
+declare namespace MenuInputDataAttributes {
+	/** Present while the input shows its focus ring. Cleared when keyboard navigation highlights an item. */
+	const highlighted: 'data-highlighted';
+}
+```
+
+### MenuInstant
+
+```typescript
+type MenuInstant = 'dismiss' | 'click' | 'group' | 'trigger-change';
+```
+
+### MenuItemDataAttributes
+
+Data attributes of [Item](#item).
+
+```typescript
+declare namespace MenuItemDataAttributes {
+	/** Present when the menu item is highlighted. */
+	const highlighted: 'data-highlighted';
+	/** Present when the menu item is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### MenuItemIndicatorProps
+
+```typescript
+type MenuItemIndicatorProps = {
+	/** Whether to keep the HTML element in the DOM when the checkbox item is not checked. */
+	keepMounted?: boolean;
+	/** Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. */
+	render?: Snippet<
+		[
+			props: HTMLAttributes<HTMLSpanElement>,
+			state: MenuItemIndicatorState,
+			children: Snippet | undefined
+		]
+	>;
+	children?: Snippet;
+};
+```
+
+### MenuItemIndicatorState
+
+```typescript
+type MenuItemIndicatorState = {
+	checked: boolean;
+	disabled: boolean;
+	highlighted: boolean;
+	transitionStatus: 'starting' | 'ending' | 'idle' | undefined;
+};
+```
+
+### MenuLinkItemDataAttributes
+
+Data attributes of [LinkItem](#linkitem).
+
+```typescript
+declare namespace MenuLinkItemDataAttributes {
+	/** Present when the link is highlighted. */
+	const highlighted: 'data-highlighted';
+}
+```
+
+### MenuOrientation
+
+```typescript
+type MenuOrientation = 'horizontal' | 'vertical';
+```
+
+### MenuPopupDataAttributes
+
+Data attributes of [Popup](#popup).
+
+```typescript
+declare namespace MenuPopupDataAttributes {
+	/** Present when the menu is open. */
+	const open: 'data-open';
+	/** Present when the menu is closed. */
+	const closed: 'data-closed';
+	/** Present when the menu begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the menu is animating out. */
+	const endingStyle: 'data-ending-style';
+	/**
+	 * Indicates which side the popup is positioned relative to the anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/**
+	 * Present if animations should be instant.
+	 * @type 'click' | 'dismiss' | 'group' | 'trigger-change'
+	 */
+	const instant: 'data-instant';
+}
+```
+
+### MenuPositionerCssVariables
+
+CSS variables of [Positioner](#positioner).
+
+```typescript
+declare namespace MenuPositionerCssVariables {
+	/**
+	 * The available width between the anchor and the edge of the viewport.
+	 * @type number
+	 */
+	const availableWidth: '--available-width';
+	/**
+	 * The available height between the anchor and the edge of the viewport.
+	 * @type number
+	 */
+	const availableHeight: '--available-height';
+	/**
+	 * The anchor's width.
+	 * @type number
+	 */
+	const anchorWidth: '--anchor-width';
+	/**
+	 * The anchor's height.
+	 * @type number
+	 */
+	const anchorHeight: '--anchor-height';
+	/**
+	 * The coordinates that this element is anchored to. Used for animations and transitions.
+	 * @type string
+	 */
+	const transformOrigin: '--transform-origin';
+	/**
+	 * The width of the menu's positioner. It is important to set `width` to this value when using CSS to animate size changes.
+	 * @type number
+	 */
+	const positionerWidth: '--positioner-width';
+	/**
+	 * The height of the menu's positioner. It is important to set `height` to this value when using CSS to animate size changes.
+	 * @type number
+	 */
+	const positionerHeight: '--positioner-height';
+}
+```
+
+### MenuPositionerDataAttributes
+
+Data attributes of [Positioner](#positioner).
+
+```typescript
+declare namespace MenuPositionerDataAttributes {
+	/** Present when the menu popup is open. */
+	const open: 'data-open';
+	/** Present when the menu popup is closed. */
+	const closed: 'data-closed';
+	/** Present when the anchor is hidden. */
+	const anchorHidden: 'data-anchor-hidden';
+	/**
+	 * Indicates which side the popup is positioned relative to the anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to the specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+}
+```
+
+### MenuRadioItemDataAttributes
+
+Data attributes of [RadioItem](#radioitem).
+
+```typescript
+declare namespace MenuRadioItemDataAttributes {
+	/** Present when the menu radio item is selected. */
+	const checked: 'data-checked';
+	/** Present when the menu radio item is not selected. */
+	const unchecked: 'data-unchecked';
+	/** Present when the menu radio item is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the menu radio item is highlighted. */
+	const highlighted: 'data-highlighted';
+}
+```
+
+### MenuRadioItemIndicatorDataAttributes
+
+Data attributes of [RadioItemIndicator](#radioitemindicator).
+
+```typescript
+declare namespace MenuRadioItemIndicatorDataAttributes {
+	/** Present when the menu radio item is selected. */
+	const checked: 'data-checked';
+	/** Present when the menu radio item is not selected. */
+	const unchecked: 'data-unchecked';
+	/** Present when the menu radio item is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the radio indicator begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the radio indicator is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### MenuSeparatorDataAttributes
+
+Data attributes of [Separator](#separator).
+
+```typescript
+declare namespace MenuSeparatorDataAttributes {
+	/**
+	 * Indicates the orientation of the separator.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
+```
+
+### MenuSubmenuTriggerDataAttributes
+
+Data attributes of [SubmenuTrigger](#submenutrigger).
+
+```typescript
+declare namespace MenuSubmenuTriggerDataAttributes {
+	/** Present when the corresponding submenu is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the submenu trigger is highlighted. */
+	const highlighted: 'data-highlighted';
+	/** Present when the submenu trigger is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### MenuTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace MenuTriggerDataAttributes {
+	/** Present when the corresponding menu is open. */
+	const popupOpen: 'data-popup-open';
+	/** Present when the trigger is pressed. */
+	const pressed: 'data-pressed';
+	/** Present when the trigger is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### MenuViewportCssVariables
+
+CSS variables of [Viewport](#viewport).
+
+```typescript
+declare namespace MenuViewportCssVariables {
+	/** The width of the parent popup. This variable is placed on the 'previous' container and stores the width of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content. */
+	const popupWidth: '--popup-width';
+	/** The height of the parent popup. This variable is placed on the 'previous' container and stores the height of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content. */
+	const popupHeight: '--popup-height';
+}
+```
+
+### MenuViewportDataAttributes
+
+Data attributes of [Viewport](#viewport).
+
+```typescript
+declare namespace MenuViewportDataAttributes {
+	/** Applied to the direct child of the viewport when no transitions are present or the new content when it's entering. */
+	const current: 'data-current';
+	/** Applied to the direct child of the viewport that contains the exiting content when transitions are present. */
+	const previous: 'data-previous';
+	/**
+	 * Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes.
+	 * @type `${'left' | 'right' | ''} ${'down' | 'up' | ''}`
+	 */
+	const activationDirection: 'data-activation-direction';
+	/** Indicates that the viewport is currently transitioning between old and new content. */
+	const transitioning: 'data-transitioning';
+	/**
+	 * Present if animations should be instant.
+	 * @type 'click' | 'dismiss' | 'group' | 'trigger-change'
+	 */
+	const instant: 'data-instant';
+}
+```
+
+### Side
+
+```typescript
+type Side = 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start';
 ```

@@ -50,3 +50,238 @@ A native form element with consolidated error handling. Renders a `<form>` eleme
 ### Form.Props
 
 Re-export of [Form](#form) props.
+
+## Additional Types
+
+### ControlKind
+
+Every control kind. `switch` is a Switch, which submits as a lone checkbox, so it fits boolean fields only.
+
+```typescript
+type ControlKind = InputKind | 'switch';
+```
+
+### ControlType
+
+Control kinds that fit a handle's value. Kit narrows `as()`'s first parameter by value type (`'number' | 'range' | 'hidden' | 'submit'` for a number), so this narrows the same way. `hidden`, `submit` and `file` are left out because a Field does not render them.
+
+```typescript
+type ControlType<F> = F extends { as(...args: infer A): unknown }
+	? string extends A[0]
+		? ControlKind
+		: WithSwitch<Extract<A[0], InputKind>>
+	: ControlKind;
+```
+
+### ControlTypeProp
+
+`type` is optional when a text input fits the value, and required otherwise.
+
+```typescript
+type ControlTypeProp<F> =
+	'text' extends ControlType<F> ? { type?: ControlType<F> } : { type: ControlType<F> };
+```
+
+### EnhanceInstance
+
+What an `enhance` callback receives. Kit's `RemoteFormEnhanceInstance` satisfies it.
+
+```typescript
+type EnhanceInstance = {
+	element: HTMLFormElement;
+	submit: () => EnhanceSubmission;
+};
+```
+
+### EnhanceInstanceOf
+
+The instance a source's `enhance` callback receives. Kit's type when the source is Kit's.
+
+```typescript
+type EnhanceInstanceOf<S> = S extends {
+	enhance(callback: (instance: infer I) => void | Promise<void>): unknown;
+}
+	? I extends EnhanceInstance
+		? I
+		: EnhanceInstance
+	: EnhanceInstance;
+```
+
+### EnhanceSubmission
+
+What `submit()` returns inside an `enhance` callback. Kit's adds `updates(...)`.
+
+```typescript
+type EnhanceSubmission = Promise<boolean> & {
+	updates: (...updates: never[]) => Promise<boolean>;
+};
+```
+
+### FieldHandle
+
+The slice of SvelteKit's `RemoteFormField` that Field reads. A remote form's `fields.email` satisfies it as is. Other sources build one.
+
+```typescript
+type FieldHandle = {
+	/** Props for a native input of `type`: the encoded `name`, and `value` or `checked`. */
+	as: (type: string, value?: unknown, checked?: boolean | undefined) => object;
+	/** Issues on this exact path, or `undefined` when there are none. */
+	issues: () => FormIssue[];
+	value: () => unknown;
+	set: (value: never) => unknown;
+	touched: () => boolean;
+	dirty: () => boolean;
+};
+```
+
+### FieldValidityData
+
+Validity stored on a registered field. Field owns how this is computed. Form reads `state.valid` when deciding whether submit can proceed.
+
+```typescript
+type FieldValidityData = {
+	state: {
+		badInput: boolean;
+		customError: boolean;
+		patternMismatch: boolean;
+		rangeOverflow: boolean;
+		rangeUnderflow: boolean;
+		stepMismatch: boolean;
+		tooLong: boolean;
+		tooShort: boolean;
+		typeMismatch: boolean;
+		valueMissing: boolean;
+		valid: boolean | null;
+	};
+	error: string;
+	errors: string[];
+	value: unknown;
+	initialValue: unknown;
+};
+```
+
+### FormActions
+
+Methods on the `Form` instance. Reach them with `bind:this`.
+
+```typescript
+type FormActions = {
+	/** Validates every registered field. Pass a field name to validate the first field registered under that name. */
+	validate: (fieldName?: string) => void;
+};
+```
+
+### FormErrors
+
+Server or action errors keyed by field name. Values are one message or several.
+
+```typescript
+type FormErrors = Record<string, string | string[]>;
+```
+
+### FormField
+
+One entry in the form's field registry, keyed by the field's registration id.
+
+```typescript
+type FormField = {
+	name: string | undefined;
+	/** After this returns, the registry entry reflects the latest synchronous validity verdict. Async validators do not block submit. */
+	validate: () => void;
+	validityData: FieldValidityData;
+	/** Whether the field stops a submit before it reaches the source: native constraints, `validate`, `invalid` or `errors`. Source issues never do, because the source re-checks its own schema and only the server can clear a server issue. */
+	blocksSubmit: boolean;
+	/** Focusable control, or null when this field has none. Read when submitting. */
+	control: HTMLElement | null;
+	getValue: () => unknown;
+};
+```
+
+### FormFocusInvalidDetail
+
+The first invalid control in document order, and the field it belongs to.
+
+```typescript
+type FormFocusInvalidDetail = {
+	control: HTMLElement;
+	field: FormField;
+};
+```
+
+### FormIssue
+
+One validation issue. Kit's `RemoteFormIssue` has this shape.
+
+```typescript
+type FormIssue = {
+	message: string;
+	path: (string | number)[];
+};
+```
+
+### FormSource
+
+The slice of SvelteKit's `RemoteForm` that Form reads. A remote form satisfies it as is. Other owners build one. Form spreads it onto the `<form>`, so its enumerable keys must be form attributes and its attachment, as Kit documents for `<form {...remote}>`.
+
+```typescript
+type FormSource = {
+	method?: 'POST';
+	action?: string;
+	/** Field handles by path. The root also carries `issues()` and `allIssues()`. */
+	fields: object;
+	/** In-flight submits, client validation included. */
+	pending: number;
+	/** True after a submit attempt, until reset. */
+	submitted: boolean;
+	/** Re-run validation. `preflightOnly` skips the server. `all` includes untouched fields. */
+	validate: (
+		options?: { all?: boolean | undefined; preflightOnly?: boolean | undefined } | undefined
+	) => Promise<void>;
+	/** Replace what happens once the source has validated a submit. One callback per source. */
+	enhance?: (callback: EnhanceCallback<EnhanceInstance>) => unknown;
+};
+```
+
+### FormSubmitEventDetails
+
+```typescript
+type FormSubmitEventDetails = BaseUIGenericEventDetails<FormSubmitEventReason>;
+```
+
+### FormSubmitEventReason
+
+```typescript
+type FormSubmitEventReason = typeof REASONS.none;
+```
+
+### FormValidationMode
+
+```typescript
+type FormValidationMode = 'onSubmit' | 'onBlur' | 'onChange';
+```
+
+## External Types
+
+### InputKind
+
+```typescript
+type InputKind =
+	| 'text'
+	| 'email'
+	| 'password'
+	| 'url'
+	| 'tel'
+	| 'search'
+	| 'number'
+	| 'range'
+	| 'date'
+	| 'datetime-local'
+	| 'time'
+	| 'month'
+	| 'week'
+	| 'color'
+	| 'checkbox'
+	| 'radio'
+	| 'select'
+	| 'select multiple';
+```

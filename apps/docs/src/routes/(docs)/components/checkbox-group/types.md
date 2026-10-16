@@ -47,3 +47,28 @@ type CheckboxGroupState = {
 	focused: boolean;
 };
 ```
+
+## Additional Types
+
+### CheckboxGroupChangeEventDetails
+
+```typescript
+type CheckboxGroupChangeEventDetails = BaseUIChangeEventDetails<CheckboxGroupChangeEventReason>;
+```
+
+### CheckboxGroupChangeEventReason
+
+```typescript
+type CheckboxGroupChangeEventReason = typeof REASONS.none;
+```
+
+### CheckboxGroupDataAttributes
+
+Data attributes of [CheckboxGroup](#checkboxgroup).
+
+```typescript
+declare namespace CheckboxGroupDataAttributes {
+	/** Present when the checkbox group is disabled. */
+	const disabled: 'data-disabled';
+}
+```

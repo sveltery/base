@@ -1178,24 +1178,9 @@ Use `--drawer-swipe-progress` to fade the backdrop as the drawer is swiped, and 
 
 <TypesDrawer.IndentBackground />
 
-| Attribute       | Description                                     |
-| --------------- | ----------------------------------------------- |
-| `data-active`   | Present when a drawer in the provider is open.  |
-| `data-inactive` | Present when no drawer in the provider is open. |
-
 ### Indent
 
 <TypesDrawer.Indent />
-
-| Attribute       | Description                                     |
-| --------------- | ----------------------------------------------- |
-| `data-active`   | Present when a drawer in the provider is open.  |
-| `data-inactive` | Present when no drawer in the provider is open. |
-
-| CSS variable              | Description                                             |
-| ------------------------- | ------------------------------------------------------- |
-| `--drawer-swipe-progress` | The frontmost drawer's swipe progress, from `0` to `1`. |
-| `--drawer-height`         | The frontmost drawer's height, while a drawer is open.  |
 
 ### Root
 

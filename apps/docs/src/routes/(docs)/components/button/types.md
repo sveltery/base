@@ -36,3 +36,24 @@ type ButtonState = {
 	disabled: boolean;
 };
 ```
+
+## Additional Types
+
+### ButtonDataAttributes
+
+Data attributes of [Button](#button).
+
+```typescript
+declare namespace ButtonDataAttributes {
+	/** Present when the button is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### ButtonHostProps
+
+Props passed to a `render` snippet. Spread them onto the host element. Handlers are typed for a generic element so the same object spreads onto a `<button>`, `<span>` or `<a>`. Native hosts also receive `type` and, when disabled, the `disabled` attribute at runtime.
+
+```typescript
+type ButtonHostProps = HTMLAttributes<HTMLElement>;
+```

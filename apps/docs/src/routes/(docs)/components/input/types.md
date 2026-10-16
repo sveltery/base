@@ -51,3 +51,40 @@ type InputState = {
 	focused: boolean;
 };
 ```
+
+## Additional Types
+
+### InputChangeEventDetails
+
+```typescript
+type InputChangeEventDetails = FieldControlChangeEventDetails;
+```
+
+### InputChangeEventReason
+
+```typescript
+type InputChangeEventReason = FieldControlChangeEventReason;
+```
+
+### InputDataAttributes
+
+Data attributes of [Input](#input).
+
+```typescript
+declare namespace InputDataAttributes {
+	/** Present when the input is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the input is in a valid state (when wrapped in Field.Root). */
+	const valid: 'data-valid';
+	/** Present when the input is in an invalid state (when wrapped in Field.Root). */
+	const invalid: 'data-invalid';
+	/** Present when the input has been touched (when wrapped in Field.Root). */
+	const touched: 'data-touched';
+	/** Present when the input's value has changed (when wrapped in Field.Root). */
+	const dirty: 'data-dirty';
+	/** Present when the input is filled (when wrapped in Field.Root). */
+	const filled: 'data-filled';
+	/** Present when the input is focused (when wrapped in Field.Root). */
+	const focused: 'data-focused';
+}
+```

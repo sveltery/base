@@ -17,3 +17,25 @@ Enables RTL behavior for Base UI components.
 ### DirectionProvider.Props
 
 Re-export of [DirectionProvider](#directionprovider) props.
+
+## Additional Types
+
+### DirectionReading
+
+Live reading direction from the nearest `DirectionProvider`. `direction` is `ltr` when no provider is mounted. Read it in the template or in `$derived`.
+
+Upstream `useDirection()` returns the string itself. Svelte keeps the provider prop as the source of truth, so callers read this property instead of copying it into state.
+
+```typescript
+type DirectionReading = {
+	direction: TextDirection;
+};
+```
+
+### TextDirection
+
+Reading direction. Matches Base UI `TextDirection`.
+
+```typescript
+type TextDirection = 'ltr' | 'rtl';
+```

@@ -129,25 +129,25 @@ Positions the popup against the trigger. Renders a `<div>` element.
 
 **Positioner Data Attributes:**
 
-| Attribute          | Type | Description                                                           |
-| :----------------- | :--- | :-------------------------------------------------------------------- |
-| data-open          | -    | Present when the preview card is open.                                |
-| data-closed        | -    | Present when the preview card is closed.                              |
-| data-anchor-hidden | -    | Present when the anchor is hidden.                                    |
-| data-align         | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-side          | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute          | Type                                                                       | Description                                                           |
+| :----------------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open          | -                                                                          | Present when the preview card is open.                                |
+| data-closed        | -                                                                          | Present when the preview card is closed.                              |
+| data-anchor-hidden | -                                                                          | Present when the anchor is hidden.                                    |
+| data-align         | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-side          | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 **Positioner CSS Variables:**
 
-| Variable              | Type       | Description                                                                                                                        |
-| :-------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------- |
-| `--anchor-height`     | `{number}` | The anchor's height.                                                                                                               |
-| `--anchor-width`      | `{number}` | The anchor's width.                                                                                                                |
-| `--available-height`  | `{number}` | The available height between the trigger and the edge of the viewport.                                                             |
-| `--available-width`   | `{number}` | The available width between the trigger and the edge of the viewport.                                                              |
-| `--positioner-height` | `{number}` | The height of the preview card's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
-| `--positioner-width`  | `{number}` | The width of the preview card's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
-| `--transform-origin`  | `{string}` | The coordinates that this element is anchored to. Used for animations and transitions.                                             |
+| Variable              | Type     | Description                                                                                                                        |
+| :-------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| `--anchor-height`     | `number` | The anchor's height.                                                                                                               |
+| `--anchor-width`      | `number` | The anchor's width.                                                                                                                |
+| `--available-height`  | `number` | The available height between the trigger and the edge of the viewport.                                                             |
+| `--available-width`   | `number` | The available width between the trigger and the edge of the viewport.                                                              |
+| `--positioner-height` | `number` | The height of the preview card's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
+| `--positioner-width`  | `number` | The width of the preview card's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
+| `--transform-origin`  | `string` | The coordinates that this element is anchored to. Used for animations and transitions.                                             |
 
 ### Positioner.Props
 
@@ -177,14 +177,14 @@ A container for the preview card contents. Renders a `<div>` element.
 
 **Popup Data Attributes:**
 
-| Attribute           | Type | Description                                                           |
-| :------------------ | :--- | :-------------------------------------------------------------------- |
-| data-open           | -    | Present when the preview card is open.                                |
-| data-closed         | -    | Present when the preview card is closed.                              |
-| data-align          | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-side           | -    | Indicates which side the popup is positioned relative to the trigger. |
-| data-starting-style | -    | Present when the preview card begins animating in.                    |
-| data-ending-style   | -    | Present when the preview card is animating out.                       |
+| Attribute           | Type                                                                       | Description                                                           |
+| :------------------ | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open           | -                                                                          | Present when the preview card is open.                                |
+| data-closed         | -                                                                          | Present when the preview card is closed.                              |
+| data-align          | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-side           | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
+| data-starting-style | -                                                                          | Present when the preview card begins animating in.                    |
+| data-ending-style   | -                                                                          | Present when the preview card is animating out.                       |
 
 ### Popup.Props
 
@@ -214,13 +214,13 @@ Displays an element positioned against the preview card anchor. Renders a `<div>
 
 **Arrow Data Attributes:**
 
-| Attribute       | Type | Description                                                           |
-| :-------------- | :--- | :-------------------------------------------------------------------- |
-| data-open       | -    | Present when the preview card is open.                                |
-| data-closed     | -    | Present when the preview card is closed.                              |
-| data-uncentered | -    | Present when the preview card arrow is uncentered.                    |
-| data-align      | -    | Indicates how the popup is aligned relative to specified side.        |
-| data-side       | -    | Indicates which side the popup is positioned relative to the trigger. |
+| Attribute       | Type                                                                       | Description                                                           |
+| :-------------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-open       | -                                                                          | Present when the preview card is open.                                |
+| data-closed     | -                                                                          | Present when the preview card is closed.                              |
+| data-uncentered | -                                                                          | Present when the preview card arrow is uncentered.                    |
+| data-align      | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
+| data-side       | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 
 ### Arrow.Props
 
@@ -249,13 +249,13 @@ A viewport for displaying content transitions. This component is only required i
 
 **Viewport Data Attributes:**
 
-| Attribute                 | Type | Description                                                                                                                                                                                                                |
-| :------------------------ | :--- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| data-activation-direction | -    | Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. |
-| data-current              | -    | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                         |
-| data-instant              | -    | Present if animations should be instant.                                                                                                                                                                                   |
-| data-previous             | -    | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                |
-| data-transitioning        | -    | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                        |
+| Attribute                 | Type                                                       | Description                                                                                                                                                                                                                |
+| :------------------------ | :--------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data-activation-direction | `` `${'left' \| 'right' \| ''} ${'down' \| 'up' \| ''}` `` | Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes. |
+| data-current              | -                                                          | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                         |
+| data-instant              | `'dismiss' \| 'focus'`                                     | Present if animations should be instant.                                                                                                                                                                                   |
+| data-previous             | -                                                          | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                |
+| data-transitioning        | -                                                          | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                        |
 
 **Viewport CSS Variables:**
 
@@ -277,4 +277,242 @@ type PreviewCardViewportState = {
 	transitioning: boolean;
 	instant: PreviewCardInstant | undefined;
 };
+```
+
+## Additional Types
+
+### Align
+
+```typescript
+type Align = 'start' | 'center' | 'end';
+```
+
+### PreviewCardActions
+
+```typescript
+type PreviewCardActions = {
+	unmount: () => void;
+	close: () => void;
+};
+```
+
+### PreviewCardArrowDataAttributes
+
+Data attributes of [Arrow](#arrow).
+
+```typescript
+declare namespace PreviewCardArrowDataAttributes {
+	/** Present when the preview card is open. */
+	const open: 'data-open';
+	/** Present when the preview card is closed. */
+	const closed: 'data-closed';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the preview card arrow is uncentered. */
+	const uncentered: 'data-uncentered';
+}
+```
+
+### PreviewCardBackdropDataAttributes
+
+Data attributes of [Backdrop](#backdrop).
+
+```typescript
+declare namespace PreviewCardBackdropDataAttributes {
+	/** Present when the preview card is open. */
+	const open: 'data-open';
+	/** Present when the preview card is closed. */
+	const closed: 'data-closed';
+	/** Present when the preview card begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the preview card is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### PreviewCardChangeEventDetails
+
+```typescript
+type PreviewCardChangeEventDetails = BaseUIChangeEventDetails<PreviewCardChangeReason> & {
+	/** Prevents the popup from unmounting until the `unmount` action is called. */
+	preventUnmountOnClose: () => void;
+};
+```
+
+### PreviewCardChangeReason
+
+```typescript
+type PreviewCardChangeReason =
+	| typeof REASONS.triggerHover
+	| typeof REASONS.triggerPress
+	| typeof REASONS.outsidePress
+	| typeof REASONS.escapeKey
+	| typeof REASONS.imperativeAction
+	| typeof REASONS.none
+	| 'trigger-focus';
+```
+
+### PreviewCardInstant
+
+```typescript
+type PreviewCardInstant = 'dismiss' | 'focus';
+```
+
+### PreviewCardPopupDataAttributes
+
+Data attributes of [Popup](#popup).
+
+```typescript
+declare namespace PreviewCardPopupDataAttributes {
+	/** Present when the preview card is open. */
+	const open: 'data-open';
+	/** Present when the preview card is closed. */
+	const closed: 'data-closed';
+	/** Present when the preview card begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the preview card is animating out. */
+	const endingStyle: 'data-ending-style';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+}
+```
+
+### PreviewCardPositionerCssVariables
+
+CSS variables of [Positioner](#positioner).
+
+```typescript
+declare namespace PreviewCardPositionerCssVariables {
+	/**
+	 * The available width between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableWidth: '--available-width';
+	/**
+	 * The available height between the trigger and the edge of the viewport.
+	 * @type number
+	 */
+	const availableHeight: '--available-height';
+	/**
+	 * The anchor's width.
+	 * @type number
+	 */
+	const anchorWidth: '--anchor-width';
+	/**
+	 * The anchor's height.
+	 * @type number
+	 */
+	const anchorHeight: '--anchor-height';
+	/**
+	 * The coordinates that this element is anchored to. Used for animations and transitions.
+	 * @type string
+	 */
+	const transformOrigin: '--transform-origin';
+	/**
+	 * The width of the preview card's positioner. It is important to set `width` to this value when using CSS to animate size changes.
+	 * @type number
+	 */
+	const positionerWidth: '--positioner-width';
+	/**
+	 * The height of the preview card's positioner. It is important to set `height` to this value when using CSS to animate size changes.
+	 * @type number
+	 */
+	const positionerHeight: '--positioner-height';
+}
+```
+
+### PreviewCardPositionerDataAttributes
+
+Data attributes of [Positioner](#positioner).
+
+```typescript
+declare namespace PreviewCardPositionerDataAttributes {
+	/** Present when the preview card is open. */
+	const open: 'data-open';
+	/** Present when the preview card is closed. */
+	const closed: 'data-closed';
+	/** Present when the anchor is hidden. */
+	const anchorHidden: 'data-anchor-hidden';
+	/**
+	 * Indicates which side the popup is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the popup is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+}
+```
+
+### PreviewCardTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace PreviewCardTriggerDataAttributes {
+	/** Present when the corresponding preview card is open. */
+	const popupOpen: 'data-popup-open';
+}
+```
+
+### PreviewCardViewportCssVariables
+
+CSS variables of [Viewport](#viewport).
+
+```typescript
+declare namespace PreviewCardViewportCssVariables {
+	/** The width of the parent popup. This variable is placed on the 'previous' container and stores the width of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content. */
+	const popupWidth: '--popup-width';
+	/** The height of the parent popup. This variable is placed on the 'previous' container and stores the height of the popup when the previous content was rendered. It can be used to freeze the dimensions of the popup when animating between different content. */
+	const popupHeight: '--popup-height';
+}
+```
+
+### PreviewCardViewportDataAttributes
+
+Data attributes of [Viewport](#viewport).
+
+```typescript
+declare namespace PreviewCardViewportDataAttributes {
+	/** Applied to the direct child of the viewport when no transitions are present or the new content when it's entering. */
+	const current: 'data-current';
+	/** Applied to the direct child of the viewport that contains the exiting content when transitions are present. */
+	const previous: 'data-previous';
+	/**
+	 * Indicates the direction from which the popup was activated. This can be used to create directional animations based on how the popup was triggered. Contains space-separated values for both horizontal and vertical axes.
+	 * @type `${'left' | 'right' | ''} ${'down' | 'up' | ''}`
+	 */
+	const activationDirection: 'data-activation-direction';
+	/** Indicates that the viewport is currently transitioning between old and new content. */
+	const transitioning: 'data-transitioning';
+	/**
+	 * Present if animations should be instant.
+	 * @type 'dismiss' | 'focus'
+	 */
+	const instant: 'data-instant';
+}
+```
+
+### Side
+
+```typescript
+type Side = 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start';
 ```

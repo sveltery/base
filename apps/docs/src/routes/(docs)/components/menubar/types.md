@@ -20,11 +20,11 @@ The container for menus.
 
 **Menubar Data Attributes:**
 
-| Attribute             | Type | Description                                          |
-| :-------------------- | :--- | :--------------------------------------------------- |
-| data-orientation      | -    | Determines the orientation of the menubar.           |
-| data-has-submenu-open | -    | Present when any submenu within the menubar is open. |
-| data-modal            | -    | Present when the corresponding menubar is modal.     |
+| Attribute             | Type                         | Description                                          |
+| :-------------------- | :--------------------------- | :--------------------------------------------------- |
+| data-orientation      | `'horizontal' \| 'vertical'` | Determines the orientation of the menubar.           |
+| data-has-submenu-open | -                            | Present when any submenu within the menubar is open. |
+| data-modal            | -                            | Present when the corresponding menubar is modal.     |
 
 ### Menubar.Props
 
@@ -41,4 +41,30 @@ type MenubarState = {
 	/** Whether any menu within the menubar is open. */
 	hasSubmenuOpen: boolean;
 };
+```
+
+## Additional Types
+
+### MenubarDataAttributes
+
+Data attributes of [Menubar](#menubar).
+
+```typescript
+declare namespace MenubarDataAttributes {
+	/** Present when the corresponding menubar is modal. */
+	const modal: 'data-modal';
+	/**
+	 * Determines the orientation of the menubar.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+	/** Present when any submenu within the menubar is open. */
+	const hasSubmenuOpen: 'data-has-submenu-open';
+}
+```
+
+### MenubarOrientation
+
+```typescript
+type MenubarOrientation = MenuOrientation;
 ```

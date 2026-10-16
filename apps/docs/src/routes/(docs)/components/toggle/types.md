@@ -41,3 +41,38 @@ type ToggleState = {
 	disabled: boolean;
 };
 ```
+
+## Additional Types
+
+### ToggleChangeEventDetails
+
+```typescript
+type ToggleChangeEventDetails = BaseUIChangeEventDetails<ToggleChangeEventReason>;
+```
+
+### ToggleChangeEventReason
+
+```typescript
+type ToggleChangeEventReason = typeof REASONS.none;
+```
+
+### ToggleDataAttributes
+
+Data attributes of [Toggle](#toggle).
+
+```typescript
+declare namespace ToggleDataAttributes {
+	/** Present when the toggle button is pressed. */
+	const pressed: 'data-pressed';
+	/** Present when the toggle button is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### ToggleHostProps
+
+Props passed to a `render` snippet. Spread them onto the host element. Handlers are typed for a generic element so the same object spreads onto a `<button>` or, with `nativeButton={false}`, a `<span>`.
+
+```typescript
+type ToggleHostProps = HTMLAttributes<HTMLElement>;
+```

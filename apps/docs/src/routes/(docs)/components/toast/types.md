@@ -18,25 +18,25 @@ Groups all parts of an individual toast. Renders a `<div>` element.
 
 **Root Data Attributes:**
 
-| Attribute            | Type | Description                                                              |
-| :------------------- | :--- | :----------------------------------------------------------------------- |
-| data-expanded        | -    | Present when the toast is expanded in the viewport.                      |
-| data-limited         | -    | Present when the toast was limited because the toast limit was exceeded. |
-| data-swipe-direction | -    | The direction the toast was swiped.                                      |
-| data-swiping         | -    | Present when the toast is being swiped.                                  |
-| data-type            | -    | The type of the toast.                                                   |
-| data-starting-style  | -    | Present when the toast begins animating in.                              |
-| data-ending-style    | -    | Present when the toast is animating out.                                 |
+| Attribute            | Type                                  | Description                                                              |
+| :------------------- | :------------------------------------ | :----------------------------------------------------------------------- |
+| data-expanded        | `boolean`                             | Present when the toast is expanded in the viewport.                      |
+| data-limited         | `boolean`                             | Present when the toast was limited because the toast limit was exceeded. |
+| data-swipe-direction | `'up' \| 'down' \| 'left' \| 'right'` | The direction the toast was swiped.                                      |
+| data-swiping         | `boolean`                             | Present when the toast is being swiped.                                  |
+| data-type            | `string`                              | The type of the toast.                                                   |
+| data-starting-style  | -                                     | Present when the toast begins animating in.                              |
+| data-ending-style    | -                                     | Present when the toast is animating out.                                 |
 
 **Root CSS Variables:**
 
-| Variable                   | Type | Description                                                                  |
-| :------------------------- | :--- | :--------------------------------------------------------------------------- |
-| `--toast-height`           | -    | Indicates the measured natural height of the toast in pixels.                |
-| `--toast-index`            | -    | Indicates the index of the toast in the list.                                |
-| `--toast-offset-y`         | -    | Indicates the vertical pixels offset of the toast in the list when expanded. |
-| `--toast-swipe-movement-x` | -    | Indicates the horizontal swipe movement of the toast.                        |
-| `--toast-swipe-movement-y` | -    | Indicates the vertical swipe movement of the toast.                          |
+| Variable                   | Type     | Description                                                                  |
+| :------------------------- | :------- | :--------------------------------------------------------------------------- |
+| `--toast-height`           | `number` | Indicates the measured natural height of the toast in pixels.                |
+| `--toast-index`            | `number` | Indicates the index of the toast in the list.                                |
+| `--toast-offset-y`         | `number` | Indicates the vertical pixels offset of the toast in the list when expanded. |
+| `--toast-swipe-movement-x` | `number` | Indicates the horizontal swipe movement of the toast.                        |
+| `--toast-swipe-movement-y` | `number` | Indicates the vertical swipe movement of the toast.                          |
 
 ### Root.Props
 
@@ -117,21 +117,21 @@ Positions the toast against the anchor. Renders a `<div>` element.
 
 **Positioner Data Attributes:**
 
-| Attribute          | Type | Description                                                           |
-| :----------------- | :--- | :-------------------------------------------------------------------- |
-| data-anchor-hidden | -    | Present when the anchor is hidden.                                    |
-| data-align         | -    | Indicates how the toast is aligned relative to specified side.        |
-| data-side          | -    | Indicates which side the toast is positioned relative to the trigger. |
+| Attribute          | Type                                                                       | Description                                                           |
+| :----------------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| data-anchor-hidden | -                                                                          | Present when the anchor is hidden.                                    |
+| data-align         | `'start' \| 'center' \| 'end'`                                             | Indicates how the toast is aligned relative to specified side.        |
+| data-side          | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the toast is positioned relative to the trigger. |
 
 **Positioner CSS Variables:**
 
-| Variable             | Type | Description                                                                            |
-| :------------------- | :--- | :------------------------------------------------------------------------------------- |
-| `--anchor-height`    | -    | The anchor's height.                                                                   |
-| `--anchor-width`     | -    | The anchor's width.                                                                    |
-| `--available-height` | -    | The available height between the anchor and the edge of the viewport.                  |
-| `--available-width`  | -    | The available width between the anchor and the edge of the viewport.                   |
-| `--transform-origin` | -    | The coordinates that this element is anchored to. Used for animations and transitions. |
+| Variable             | Type     | Description                                                                            |
+| :------------------- | :------- | :------------------------------------------------------------------------------------- |
+| `--anchor-height`    | `number` | The anchor's height.                                                                   |
+| `--anchor-width`     | `number` | The anchor's width.                                                                    |
+| `--available-height` | `number` | The available height between the anchor and the edge of the viewport.                  |
+| `--available-width`  | `number` | The available width between the anchor and the edge of the viewport.                   |
+| `--transform-origin` | `string` | The coordinates that this element is anchored to. Used for animations and transitions. |
 
 ### Positioner.Props
 
@@ -162,11 +162,11 @@ Displays an element positioned against the toast anchor. Renders a `<div>` eleme
 
 **Arrow Data Attributes:**
 
-| Attribute       | Type | Description                                                          |
-| :-------------- | :--- | :------------------------------------------------------------------- |
-| data-uncentered | -    | Present when the toast arrow is uncentered.                          |
-| data-align      | -    | Indicates how the toast is aligned relative to specified side.       |
-| data-side       | -    | Indicates which side the toast is positioned relative to the anchor. |
+| Attribute       | Type                                                                       | Description                                                          |
+| :-------------- | :------------------------------------------------------------------------- | :------------------------------------------------------------------- |
+| data-uncentered | -                                                                          | Present when the toast arrow is uncentered.                          |
+| data-align      | `'start' \| 'center' \| 'end'`                                             | Indicates how the toast is aligned relative to specified side.       |
+| data-side       | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the toast is positioned relative to the anchor. |
 
 ### Arrow.Props
 
@@ -197,10 +197,10 @@ A container for the contents of a toast. Renders a `<div>` element.
 
 **Content Data Attributes:**
 
-| Attribute     | Type | Description                                                        |
-| :------------ | :--- | :----------------------------------------------------------------- |
-| data-behind   | -    | Present when the toast is behind the frontmost toast in the stack. |
-| data-expanded | -    | Present when the toast viewport is expanded.                       |
+| Attribute     | Type      | Description                                                        |
+| :------------ | :-------- | :----------------------------------------------------------------- |
+| data-behind   | `boolean` | Present when the toast is behind the frontmost toast in the stack. |
+| data-expanded | `boolean` | Present when the toast viewport is expanded.                       |
 
 ### Content.Props
 
@@ -230,9 +230,9 @@ A title that labels the toast. Renders an `<h2>` element.
 
 **Title Data Attributes:**
 
-| Attribute | Type | Description            |
-| :-------- | :--- | :--------------------- |
-| data-type | -    | The type of the toast. |
+| Attribute | Type     | Description            |
+| :-------- | :------- | :--------------------- |
+| data-type | `string` | The type of the toast. |
 
 ### Title.Props
 
@@ -260,9 +260,9 @@ A description that describes the toast. Can be used as the default message for t
 
 **Description Data Attributes:**
 
-| Attribute | Type | Description            |
-| :-------- | :--- | :--------------------- |
-| data-type | -    | The type of the toast. |
+| Attribute | Type     | Description            |
+| :-------- | :------- | :--------------------- |
+| data-type | `string` | The type of the toast. |
 
 ### Description.Props
 
@@ -291,9 +291,9 @@ Closes the toast when clicked. Renders a `<button>` element.
 
 **Close Data Attributes:**
 
-| Attribute | Type | Description            |
-| :-------- | :--- | :--------------------- |
-| data-type | -    | The type of the toast. |
+| Attribute | Type     | Description            |
+| :-------- | :------- | :--------------------- |
+| data-type | `string` | The type of the toast. |
 
 ### Close.Props
 
@@ -323,9 +323,9 @@ Performs an action when clicked. Renders a `<button>` element.
 
 **Action Data Attributes:**
 
-| Attribute | Type | Description            |
-| :-------- | :--- | :--------------------- |
-| data-type | -    | The type of the toast. |
+| Attribute | Type     | Description            |
+| :-------- | :------- | :--------------------- |
+| data-type | `string` | The type of the toast. |
 
 ### Action.Props
 
@@ -352,15 +352,15 @@ A container viewport for toasts. Renders a `<div>` element.
 
 **Viewport Data Attributes:**
 
-| Attribute     | Type | Description                                    |
-| :------------ | :--- | :--------------------------------------------- |
-| data-expanded | -    | Indicates toasts are expanded in the viewport. |
+| Attribute     | Type      | Description                                    |
+| :------------ | :-------- | :--------------------------------------------- |
+| data-expanded | `boolean` | Indicates toasts are expanded in the viewport. |
 
 **Viewport CSS Variables:**
 
-| Variable                   | Type | Description                                  |
-| :------------------------- | :--- | :------------------------------------------- |
-| `--toast-frontmost-height` | -    | Indicates the height of the frontmost toast. |
+| Variable                   | Type     | Description                                  |
+| :------------------------- | :------- | :------------------------------------------- |
+| `--toast-frontmost-height` | `number` | Indicates the height of the frontmost toast. |
 
 ### Viewport.Props
 
@@ -373,4 +373,593 @@ type ToastViewportState = {
 	/** Whether toasts are expanded in the viewport. */
 	expanded: boolean;
 };
+```
+
+## Additional Types
+
+### ToastObject
+
+```typescript
+type ToastObject<Data extends object = any> = {
+	/** The unique identifier for the toast. */
+	id: string;
+	/** The toast's root element. `Toast.Root` writes it. Focus management reads it. */
+	element?: HTMLElement | null | undefined;
+	/** The title of the toast. */
+	title?: ToastNode | undefined;
+	/** The type of the toast. Used to conditionally style the toast, including conditionally rendering elements based on the type. */
+	type?: string | undefined;
+	/** The description of the toast. */
+	description?: ToastNode | undefined;
+	/** The amount of time (in ms) before the toast is auto dismissed. A value of `0` will prevent the toast from being dismissed automatically. */
+	timeout?: number | undefined;
+	/**
+	 * The priority of the toast.
+	 * - `low` - The toast will be announced politely.
+	 * - `high` - The toast will be announced urgently.
+	 */
+	priority?: 'low' | 'high' | undefined;
+	/** The transition status of the toast. */
+	transitionStatus?: 'starting' | 'ending' | undefined;
+	/** A counter that increments whenever the toast is updated or upserted. */
+	updateKey?: number | undefined;
+	/** Whether the toast was limited because the toast limit was exceeded. */
+	limited?: boolean | undefined;
+	/** The height of the toast. */
+	height?: number | undefined;
+	/** Called when the toast is closed. */
+	onClose?: (() => void) | undefined;
+	/** Called when the toast is removed from the list after any animations are complete when closed. */
+	onRemove?: (() => void) | undefined;
+	/** The props for the action button. `children` is the button's content. */
+	actionProps?: ToastActionButtonProps | undefined;
+	/** Positioning options for `Toast.Positioner` when rendering anchored toasts. */
+	positionerProps?: ToastManagerPositionerProps | undefined;
+	/** Custom data for the toast. */
+	data?: Data | undefined;
+};
+```
+
+### Align
+
+```typescript
+type Align = 'start' | 'center' | 'end';
+```
+
+### GetToastManagerReturnValue
+
+What `getToastManager()` returns. Read `toasts` from the object; do not destructure it.
+
+```typescript
+type GetToastManagerReturnValue<Data extends object = any> = {
+	toasts: ToastObject<Data>[];
+	add: <T extends Data = Data>(options: ToastManagerAddOptions<T>) => string;
+	close: (toastId?: string) => void;
+	update: <T extends Data = Data>(toastId: string, options: ToastManagerUpdate<T>) => void;
+	promise: <Value, T extends Data = Data>(
+		promise: Promise<Value>,
+		options: ToastManagerPromiseOptions<Value, T>
+	) => Promise<Value>;
+};
+```
+
+### Side
+
+```typescript
+type Side = 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start';
+```
+
+### ToastActionButtonProps
+
+```typescript
+type ToastActionButtonProps = {
+	children?: ToastNode | undefined;
+};
+```
+
+### ToastActionDataAttributes
+
+Data attributes of [Action](#action).
+
+```typescript
+declare namespace ToastActionDataAttributes {
+	/**
+	 * The type of the toast.
+	 * @type string
+	 */
+	const type: 'data-type';
+}
+```
+
+### ToastArrowDataAttributes
+
+Data attributes of [Arrow](#arrow).
+
+```typescript
+declare namespace ToastArrowDataAttributes {
+	/**
+	 * Indicates which side the toast is positioned relative to the anchor.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the toast is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+	/** Present when the toast arrow is uncentered. */
+	const uncentered: 'data-uncentered';
+}
+```
+
+### ToastCloseDataAttributes
+
+Data attributes of [Close](#close).
+
+```typescript
+declare namespace ToastCloseDataAttributes {
+	/**
+	 * The type of the toast.
+	 * @type string
+	 */
+	const type: 'data-type';
+}
+```
+
+### ToastContentDataAttributes
+
+Data attributes of [Content](#content).
+
+```typescript
+declare namespace ToastContentDataAttributes {
+	/**
+	 * Present when the toast viewport is expanded.
+	 * @type boolean
+	 */
+	const expanded: 'data-expanded';
+	/**
+	 * Present when the toast is behind the frontmost toast in the stack.
+	 * @type boolean
+	 */
+	const behind: 'data-behind';
+}
+```
+
+### ToastDescriptionDataAttributes
+
+Data attributes of [Description](#description).
+
+```typescript
+declare namespace ToastDescriptionDataAttributes {
+	/**
+	 * The type of the toast.
+	 * @type string
+	 */
+	const type: 'data-type';
+}
+```
+
+### ToastManager
+
+A toast manager for use outside of components. Pass it to `Toast.Provider`.
+
+```typescript
+type ToastManager<Data extends object = any> = {
+	add: <T extends Data = Data>(options: ToastManagerAddOptions<T>) => string;
+	close: (id?: string) => void;
+	update: <T extends Data = Data>(id: string, updates: ToastManagerUpdate<T>) => void;
+	promise: <Value, T extends Data = Data>(
+		promiseValue: Promise<Value>,
+		options: ToastManagerPromiseOptions<Value, T>
+	) => Promise<Value>;
+};
+```
+
+### ToastManagerAddOptions
+
+```typescript
+type ToastManagerAddOptions<Data extends object = any> = {
+	/** The unique identifier for the toast. Adding a toast with an existing ID updates it in place and refreshes its auto-dismiss timer. */
+	id?: string | undefined;
+	/** The title of the toast. */
+	title?: ToastNode | undefined;
+	/** The type of the toast. Used to conditionally style the toast, including conditionally rendering elements based on the type. */
+	type?: string | undefined;
+	/** The description of the toast. */
+	description?: ToastNode | undefined;
+	/** The amount of time (in ms) before the toast is auto dismissed. A value of `0` will prevent the toast from being dismissed automatically. */
+	timeout?: number | undefined;
+	/**
+	 * The priority of the toast.
+	 * - `low` - The toast will be announced politely.
+	 * - `high` - The toast will be announced urgently.
+	 */
+	priority?: 'low' | 'high' | undefined;
+	/** The transition status of the toast. */
+	transitionStatus?: 'starting' | 'ending' | undefined;
+	/** Called when the toast is closed. */
+	onClose?: (() => void) | undefined;
+	/** Called when the toast is removed from the list after any animations are complete when closed. */
+	onRemove?: (() => void) | undefined;
+	/** The props for the action button. `children` is the button's content. */
+	actionProps?: ToastActionButtonProps | undefined;
+	/** Positioning options for `Toast.Positioner` when rendering anchored toasts. */
+	positionerProps?: ToastManagerPositionerProps | undefined;
+	/** Custom data for the toast. */
+	data?: Data | undefined;
+};
+```
+
+### ToastManagerEvent
+
+```typescript
+type ToastManagerEvent =
+	| { action: 'add'; options: ToastManagerAddOptions & { id: string } }
+	| { action: 'close'; options: { id: string | undefined } }
+	| { action: 'update'; options: { id: string; updates: ToastManagerUpdate } }
+	| {
+			action: 'promise';
+			options: ToastManagerPromiseOptions<any> & {
+				promise: Promise<any>;
+				setPromise: (promise: Promise<any>) => void;
+			};
+	  };
+```
+
+### ToastManagerPositionerProps
+
+```typescript
+type ToastManagerPositionerProps = {
+	/** An element to position the toast against. */
+	anchor?: Element | null | undefined;
+	/** Determines which CSS `position` property to use. */
+	positionMethod?: 'absolute' | 'fixed';
+	/** Which side of the anchor element to align the toast against. May automatically change to avoid collisions. */
+	side?: Side;
+	/** How to align the popup relative to the specified side. */
+	align?: Align;
+	/**
+	 * Distance between the anchor and the popup in pixels. Also accepts a function that returns the distance to read the dimensions of the anchor and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
+	 */
+	sideOffset?: number | OffsetFunction;
+	/**
+	 * Additional offset along the alignment axis in pixels. Also accepts a function that returns the offset to read the dimensions of the anchor and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
+	 */
+	alignOffset?: number | OffsetFunction;
+	/** An element or a rectangle that delimits the area that the popup is confined to. */
+	collisionBoundary?: Boundary;
+	/** Additional space to maintain from the edge of the collision boundary. */
+	collisionPadding?: Padding;
+	/**
+	 * Minimum distance to maintain between the arrow and the edges of the popup.
+	 *
+	 * Use it to prevent the arrow element from hanging out of the rounded corners of a popup.
+	 */
+	arrowPadding?: number;
+	/** Whether to maintain the popup in the viewport after the anchor element was scrolled out of view. */
+	sticky?: boolean;
+	/** Whether to disable the popup from tracking any layout shift of its positioning anchor. */
+	disableAnchorTracking?: boolean;
+	/**
+	 * Determines how to handle collisions when positioning the popup.
+	 *
+	 * `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`):
+	 * - `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`).
+	 * - `'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible.
+	 * - `'none'`: do not correct side-axis overflow.
+	 *
+	 * `align` controls overflow on the alignment axis (`start`/`center`/`end`):
+	 * - `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.
+	 * - `'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit.
+	 * - `'none'`: do not correct alignment-axis overflow.
+	 *
+	 * `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit:
+	 * - `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR).
+	 * - `'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR).
+	 * - `'none'`: do not fallback to the perpendicular axis.
+	 *
+	 * When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.
+	 */
+	collisionAvoidance?: CollisionAvoidance;
+};
+```
+
+### ToastManagerPromiseOptions
+
+```typescript
+type ToastManagerPromiseOptions<Value, Data extends object = any> = {
+	loading: string | ToastManagerUpdateOptions<Data>;
+	success:
+		| string
+		| ToastManagerUpdateOptions<Data>
+		| ((result: Value) => string | ToastManagerUpdateOptions<Data>);
+	error:
+		| string
+		| ToastManagerUpdateOptions<Data>
+		| ((error: any) => string | ToastManagerUpdateOptions<Data>);
+};
+```
+
+### ToastManagerUpdate
+
+```typescript
+type ToastManagerUpdate<Data extends object = any> =
+	| ToastManagerUpdateOptions<Data>
+	| ((prevToast: ToastObject<Data>) => ToastManagerUpdateOptions<Data>);
+```
+
+### ToastManagerUpdateOptions
+
+```typescript
+type ToastManagerUpdateOptions<Data extends object = any> = Partial<
+	Omit<
+		ToastObject<Data>,
+		'id' | 'element' | 'height' | 'transitionStatus' | 'limited' | 'updateKey'
+	>
+>;
+```
+
+### ToastNode
+
+Text, or a snippet for rich content. `''` renders nothing, like an empty React node.
+
+```typescript
+type ToastNode = string | Snippet;
+```
+
+### ToastPositionerCssVariables
+
+CSS variables of [Positioner](#positioner).
+
+```typescript
+declare namespace ToastPositionerCssVariables {
+	/**
+	 * The available width between the anchor and the edge of the viewport.
+	 * @type number
+	 */
+	const availableWidth: '--available-width';
+	/**
+	 * The available height between the anchor and the edge of the viewport.
+	 * @type number
+	 */
+	const availableHeight: '--available-height';
+	/**
+	 * The anchor's width.
+	 * @type number
+	 */
+	const anchorWidth: '--anchor-width';
+	/**
+	 * The anchor's height.
+	 * @type number
+	 */
+	const anchorHeight: '--anchor-height';
+	/**
+	 * The coordinates that this element is anchored to. Used for animations and transitions.
+	 * @type string
+	 */
+	const transformOrigin: '--transform-origin';
+}
+```
+
+### ToastPositionerDataAttributes
+
+Data attributes of [Positioner](#positioner).
+
+```typescript
+declare namespace ToastPositionerDataAttributes {
+	/** Present when the anchor is hidden. */
+	const anchorHidden: 'data-anchor-hidden';
+	/**
+	 * Indicates which side the toast is positioned relative to the trigger.
+	 * @type 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'
+	 */
+	const side: 'data-side';
+	/**
+	 * Indicates how the toast is aligned relative to specified side.
+	 * @type 'start' | 'center' | 'end'
+	 */
+	const align: 'data-align';
+}
+```
+
+### ToastPositioningOptions
+
+Positioning options shared by `Toast.Positioner` and a toast's `positionerProps`.
+
+```typescript
+type ToastPositioningOptions = {
+	/** Determines which CSS `position` property to use. */
+	positionMethod?: 'absolute' | 'fixed';
+	/** Which side of the anchor element to align the toast against. May automatically change to avoid collisions. */
+	side?: Side;
+	/** How to align the popup relative to the specified side. */
+	align?: Align;
+	/**
+	 * Distance between the anchor and the popup in pixels. Also accepts a function that returns the distance to read the dimensions of the anchor and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
+	 */
+	sideOffset?: number | OffsetFunction;
+	/**
+	 * Additional offset along the alignment axis in pixels. Also accepts a function that returns the offset to read the dimensions of the anchor and positioner elements, along with its side and alignment.
+	 *
+	 * The function takes a `data` object parameter with the following properties:
+	 * - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`.
+	 * - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`.
+	 * - `data.side`: which side of the anchor element the positioner is aligned against.
+	 * - `data.align`: how the positioner is aligned relative to the specified side.
+	 */
+	alignOffset?: number | OffsetFunction;
+	/** An element or a rectangle that delimits the area that the popup is confined to. */
+	collisionBoundary?: Boundary;
+	/** Additional space to maintain from the edge of the collision boundary. */
+	collisionPadding?: Padding;
+	/**
+	 * Minimum distance to maintain between the arrow and the edges of the popup.
+	 *
+	 * Use it to prevent the arrow element from hanging out of the rounded corners of a popup.
+	 */
+	arrowPadding?: number;
+	/** Whether to maintain the popup in the viewport after the anchor element was scrolled out of view. */
+	sticky?: boolean;
+	/** Whether to disable the popup from tracking any layout shift of its positioning anchor. */
+	disableAnchorTracking?: boolean;
+	/**
+	 * Determines how to handle collisions when positioning the popup.
+	 *
+	 * `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`):
+	 * - `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`).
+	 * - `'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible.
+	 * - `'none'`: do not correct side-axis overflow.
+	 *
+	 * `align` controls overflow on the alignment axis (`start`/`center`/`end`):
+	 * - `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows.
+	 * - `'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit.
+	 * - `'none'`: do not correct alignment-axis overflow.
+	 *
+	 * `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit:
+	 * - `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR).
+	 * - `'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR).
+	 * - `'none'`: do not fallback to the perpendicular axis.
+	 *
+	 * When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.
+	 */
+	collisionAvoidance?: CollisionAvoidance;
+};
+```
+
+### ToastRootCssVariables
+
+CSS variables of [Root](#root).
+
+```typescript
+declare namespace ToastRootCssVariables {
+	/**
+	 * Indicates the index of the toast in the list.
+	 * @type number
+	 */
+	const index: '--toast-index';
+	/**
+	 * Indicates the vertical pixels offset of the toast in the list when expanded.
+	 * @type number
+	 */
+	const offsetY: '--toast-offset-y';
+	/**
+	 * Indicates the measured natural height of the toast in pixels.
+	 * @type number
+	 */
+	const height: '--toast-height';
+	/**
+	 * Indicates the horizontal swipe movement of the toast.
+	 * @type number
+	 */
+	const swipeMovementX: '--toast-swipe-movement-x';
+	/**
+	 * Indicates the vertical swipe movement of the toast.
+	 * @type number
+	 */
+	const swipeMovementY: '--toast-swipe-movement-y';
+}
+```
+
+### ToastRootDataAttributes
+
+Data attributes of [Root](#root).
+
+```typescript
+declare namespace ToastRootDataAttributes {
+	/**
+	 * Present when the toast is expanded in the viewport.
+	 * @type boolean
+	 */
+	const expanded: 'data-expanded';
+	/**
+	 * Present when the toast was limited because the toast limit was exceeded.
+	 * @type boolean
+	 */
+	const limited: 'data-limited';
+	/**
+	 * The type of the toast.
+	 * @type string
+	 */
+	const type: 'data-type';
+	/**
+	 * Present when the toast is being swiped.
+	 * @type boolean
+	 */
+	const swiping: 'data-swiping';
+	/**
+	 * The direction the toast was swiped.
+	 * @type 'up' | 'down' | 'left' | 'right'
+	 */
+	const swipeDirection: 'data-swipe-direction';
+	/** Present when the toast begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the toast is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### ToastSwipeDirection
+
+```typescript
+type ToastSwipeDirection = 'up' | 'down' | 'left' | 'right';
+```
+
+### ToastTitleDataAttributes
+
+Data attributes of [Title](#title).
+
+```typescript
+declare namespace ToastTitleDataAttributes {
+	/**
+	 * The type of the toast.
+	 * @type string
+	 */
+	const type: 'data-type';
+}
+```
+
+### ToastViewportCssVariables
+
+CSS variables of [Viewport](#viewport).
+
+```typescript
+declare namespace ToastViewportCssVariables {
+	/**
+	 * Indicates the height of the frontmost toast.
+	 * @type number
+	 */
+	const frontmostHeight: '--toast-frontmost-height';
+}
+```
+
+### ToastViewportDataAttributes
+
+Data attributes of [Viewport](#viewport).
+
+```typescript
+declare namespace ToastViewportDataAttributes {
+	/**
+	 * Indicates toasts are expanded in the viewport.
+	 * @type boolean
+	 */
+	const expanded: 'data-expanded';
+}
 ```

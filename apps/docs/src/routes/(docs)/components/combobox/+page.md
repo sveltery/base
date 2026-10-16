@@ -2438,25 +2438,13 @@ Svelte updates only what changed, so items need no memoizing: `<Combobox.Collect
 
 <TypesCombobox.Chip />
 
-| Attribute       | Description                            |
-| --------------- | -------------------------------------- |
-| `data-disabled` | Present when the combobox is disabled. |
-
 ### ChipRemove
 
 <TypesCombobox.ChipRemove />
 
-| Attribute       | Description                          |
-| --------------- | ------------------------------------ |
-| `data-disabled` | Present when the button is disabled. |
-
 ### List
 
 <TypesCombobox.List />
-
-| Attribute    | Description                                  |
-| ------------ | -------------------------------------------- |
-| `data-empty` | Present when the filtered list has no items. |
 
 ### Portal
 

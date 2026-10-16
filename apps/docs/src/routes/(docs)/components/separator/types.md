@@ -17,9 +17,9 @@ A separator element accessible to screen readers. Renders a `<div>` element.
 
 **Separator Data Attributes:**
 
-| Attribute        | Type | Description                                 |
-| :--------------- | :--- | :------------------------------------------ |
-| data-orientation | -    | Indicates the orientation of the separator. |
+| Attribute        | Type                         | Description                                 |
+| :--------------- | :--------------------------- | :------------------------------------------ |
+| data-orientation | `'horizontal' \| 'vertical'` | Indicates the orientation of the separator. |
 
 ### Separator.Props
 
@@ -32,4 +32,20 @@ type SeparatorState = {
 	/** The orientation of the separator. */
 	orientation: 'horizontal' | 'vertical';
 };
+```
+
+## Additional Types
+
+### SeparatorDataAttributes
+
+Data attributes of [Separator](#separator).
+
+```typescript
+declare namespace SeparatorDataAttributes {
+	/**
+	 * Indicates the orientation of the separator.
+	 * @type 'horizontal' | 'vertical'
+	 */
+	const orientation: 'data-orientation';
+}
 ```

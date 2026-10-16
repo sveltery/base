@@ -133,9 +133,9 @@ A container for the dialog contents. Renders a `<div>` element.
 
 **Popup CSS Variables:**
 
-| Variable           | Type | Description                                   |
-| :----------------- | :--- | :-------------------------------------------- |
-| `--nested-dialogs` | -    | Indicates how many dialogs are nested within. |
+| Variable           | Type     | Description                                   |
+| :----------------- | :------- | :-------------------------------------------- |
+| `--nested-dialogs` | `number` | Indicates how many dialogs are nested within. |
 
 ### Popup.Props
 
@@ -251,4 +251,123 @@ type AlertDialogViewportState = {
 	/** Whether a dialog nested inside this one is open. */
 	nestedDialogOpen: boolean;
 };
+```
+
+## Additional Types
+
+### AlertDialogActions
+
+Methods on the `AlertDialog.Root` instance. Reach them with `bind:this`.
+
+```typescript
+type AlertDialogActions = DialogActions;
+```
+
+### AlertDialogBackdropDataAttributes
+
+Data attributes of [Backdrop](#backdrop).
+
+```typescript
+declare namespace AlertDialogBackdropDataAttributes {
+	/** Present when the dialog is open. */
+	const open: 'data-open';
+	/** Present when the dialog is closed. */
+	const closed: 'data-closed';
+	/** Present when the dialog begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the dialog is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### AlertDialogChangeEventDetails
+
+```typescript
+type AlertDialogChangeEventDetails = DialogChangeEventDetails;
+```
+
+### AlertDialogChangeEventReason
+
+```typescript
+type AlertDialogChangeEventReason = DialogChangeEventReason;
+```
+
+### AlertDialogCloseDataAttributes
+
+Data attributes of [Close](#close).
+
+```typescript
+declare namespace AlertDialogCloseDataAttributes {
+	/** Present when the button is disabled. */
+	const disabled: 'data-disabled';
+}
+```
+
+### AlertDialogPopupCssVariables
+
+CSS variables of [Popup](#popup).
+
+```typescript
+declare namespace AlertDialogPopupCssVariables {
+	/**
+	 * Indicates how many dialogs are nested within.
+	 * @type number
+	 */
+	const nestedDialogs: '--nested-dialogs';
+}
+```
+
+### AlertDialogPopupDataAttributes
+
+Data attributes of [Popup](#popup).
+
+```typescript
+declare namespace AlertDialogPopupDataAttributes {
+	/** Present when the dialog is open. */
+	const open: 'data-open';
+	/** Present when the dialog is closed. */
+	const closed: 'data-closed';
+	/** Present when the dialog begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the dialog is animating out. */
+	const endingStyle: 'data-ending-style';
+	/** Present when the dialog is nested within another dialog. */
+	const nested: 'data-nested';
+	/** Present when the dialog has other open dialogs nested within it. */
+	const nestedDialogOpen: 'data-nested-dialog-open';
+}
+```
+
+### AlertDialogTriggerDataAttributes
+
+Data attributes of [Trigger](#trigger).
+
+```typescript
+declare namespace AlertDialogTriggerDataAttributes {
+	/** Present when the trigger is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the corresponding alert dialog is open. */
+	const popupOpen: 'data-popup-open';
+}
+```
+
+### AlertDialogViewportDataAttributes
+
+Data attributes of [Viewport](#viewport).
+
+```typescript
+declare namespace AlertDialogViewportDataAttributes {
+	/** Present when the dialog is open. */
+	const open: 'data-open';
+	/** Present when the dialog is closed. */
+	const closed: 'data-closed';
+	/** Present when the dialog begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the dialog is animating out. */
+	const endingStyle: 'data-ending-style';
+	/** Present when the dialog is nested within another dialog. */
+	const nested: 'data-nested';
+	/** Present when the dialog has other open dialogs nested within it. */
+	const nestedDialogOpen: 'data-nested-dialog-open';
+}
 ```

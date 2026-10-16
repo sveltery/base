@@ -336,3 +336,217 @@ type FieldValidityState = {
 	initialValue: unknown;
 };
 ```
+
+## Additional Types
+
+### FieldControlChangeEventDetails
+
+```typescript
+type FieldControlChangeEventDetails = BaseUIChangeEventDetails<FieldControlChangeEventReason>;
+```
+
+### FieldControlChangeEventReason
+
+```typescript
+type FieldControlChangeEventReason = typeof REASONS.none;
+```
+
+### FieldControlDataAttributes
+
+Data attributes of [Control](#control).
+
+```typescript
+declare namespace FieldControlDataAttributes {
+	/** Present when the field is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the field is in a valid state. */
+	const valid: 'data-valid';
+	/** Present when the field is in an invalid state. */
+	const invalid: 'data-invalid';
+	/** Present when the field has been touched. */
+	const touched: 'data-touched';
+	/** Present when the field's value has changed. */
+	const dirty: 'data-dirty';
+	/** Present when the field is filled. */
+	const filled: 'data-filled';
+	/** Present when the field control is focused. */
+	const focused: 'data-focused';
+}
+```
+
+### FieldDescriptionDataAttributes
+
+Data attributes of [Description](#description).
+
+```typescript
+declare namespace FieldDescriptionDataAttributes {
+	/** Present when the field is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the field is in a valid state. */
+	const valid: 'data-valid';
+	/** Present when the field is in an invalid state. */
+	const invalid: 'data-invalid';
+	/** Present when the field has been touched. */
+	const touched: 'data-touched';
+	/** Present when the field's value has changed. */
+	const dirty: 'data-dirty';
+	/** Present when the field is filled. */
+	const filled: 'data-filled';
+	/** Present when the field control is focused. */
+	const focused: 'data-focused';
+}
+```
+
+### FieldErrorDataAttributes
+
+Data attributes of [Error](#error).
+
+```typescript
+declare namespace FieldErrorDataAttributes {
+	/** Present when the field is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the field is in a valid state. */
+	const valid: 'data-valid';
+	/** Present when the field is in an invalid state. */
+	const invalid: 'data-invalid';
+	/** Present when the field has been touched. */
+	const touched: 'data-touched';
+	/** Present when the field's value has changed. */
+	const dirty: 'data-dirty';
+	/** Present when the field is filled. */
+	const filled: 'data-filled';
+	/** Present when the field control is focused. */
+	const focused: 'data-focused';
+	/** Present when the error message begins animating in. */
+	const startingStyle: 'data-starting-style';
+	/** Present when the error message is animating out. */
+	const endingStyle: 'data-ending-style';
+}
+```
+
+### FieldItemDataAttributes
+
+Data attributes of [Item](#item).
+
+```typescript
+declare namespace FieldItemDataAttributes {
+	/** Present when the field is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the field is in a valid state. */
+	const valid: 'data-valid';
+	/** Present when the field is in an invalid state. */
+	const invalid: 'data-invalid';
+	/** Present when the field has been touched. */
+	const touched: 'data-touched';
+	/** Present when the field's value has changed. */
+	const dirty: 'data-dirty';
+	/** Present when the field is filled. */
+	const filled: 'data-filled';
+	/** Present when the field control is focused. */
+	const focused: 'data-focused';
+}
+```
+
+### FieldLabelDataAttributes
+
+Data attributes of [Label](#label).
+
+```typescript
+declare namespace FieldLabelDataAttributes {
+	/** Present when the field is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the field is in a valid state. */
+	const valid: 'data-valid';
+	/** Present when the field is in an invalid state. */
+	const invalid: 'data-invalid';
+	/** Present when the field has been touched. */
+	const touched: 'data-touched';
+	/** Present when the field's value has changed. */
+	const dirty: 'data-dirty';
+	/** Present when the field is filled. */
+	const filled: 'data-filled';
+	/** Present when the field control is focused. */
+	const focused: 'data-focused';
+}
+```
+
+### FieldRootActions
+
+Methods on the `Field.Root` instance. Reach them with `bind:this`.
+
+```typescript
+type FieldRootActions = {
+	/** Validates the field when called. */
+	validate: () => void;
+};
+```
+
+### FieldRootDataAttributes
+
+Data attributes of [Root](#root).
+
+```typescript
+declare namespace FieldRootDataAttributes {
+	/** Present when the field is disabled. */
+	const disabled: 'data-disabled';
+	/** Present when the field has been touched. */
+	const touched: 'data-touched';
+	/** Present when the field's value has changed. */
+	const dirty: 'data-dirty';
+	/** Present when the field is valid. */
+	const valid: 'data-valid';
+	/** Present when the field is invalid. */
+	const invalid: 'data-invalid';
+	/** Present when the field is filled. */
+	const filled: 'data-filled';
+	/** Present when the field control is focused. */
+	const focused: 'data-focused';
+}
+```
+
+### FieldTransitionStatus
+
+```typescript
+type FieldTransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
+```
+
+### FieldValidate
+
+```typescript
+type FieldValidate = (
+	value: unknown,
+	formValues: Record<string, unknown>
+) => FieldValidateResult | Promise<FieldValidateResult>;
+```
+
+### FieldValidateResult
+
+```typescript
+type FieldValidateResult = string | string[] | null | void;
+```
+
+### FieldValidityData
+
+Validity stored on a registered field. Field owns how this is computed. Form reads `state.valid` when deciding whether submit can proceed.
+
+```typescript
+type FieldValidityData = {
+	state: {
+		badInput: boolean;
+		customError: boolean;
+		patternMismatch: boolean;
+		rangeOverflow: boolean;
+		rangeUnderflow: boolean;
+		stepMismatch: boolean;
+		tooLong: boolean;
+		tooShort: boolean;
+		typeMismatch: boolean;
+		valueMissing: boolean;
+		valid: boolean | null;
+	};
+	error: string;
+	errors: string[];
+	value: unknown;
+	initialValue: unknown;
+};
+```
