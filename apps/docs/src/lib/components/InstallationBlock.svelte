@@ -53,9 +53,9 @@
 			<Tabs.Panel value={manager.value} class="InstallationBlockTabPanel">
 				<pre class="CodeBlockPreInline CodeBlockPre"><code class="Code"
 						><span class="line"
-							><span class="pl-en">{manager.value}</span> <span class="pl-smi">{manager.command}</span> <span
-								class="pl-s">{name}</span
-							></span
+							><span class="pl-en">{manager.value}</span> <span class="pl-smi"
+								>{manager.command}</span
+							> <span class="pl-s">{name}</span></span
 						></code
 					></pre>
 			</Tabs.Panel>

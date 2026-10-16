@@ -3,7 +3,14 @@
 </script>
 
 {#snippet copyIcon()}
-	<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
+	<svg
+		width="16"
+		height="16"
+		viewBox="0 0 16 16"
+		fill="none"
+		stroke="currentColor"
+		aria-hidden="true"
+	>
 		<path stroke-linecap="square" d="M1.5 1.5h10v10h-10z" />
 		<path stroke-linecap="square" d="M4.5 11.5h-3v-10h10v3" />
 		<path d="M12 4.5h2.5v10h-10V12" />
@@ -11,7 +18,14 @@
 {/snippet}
 
 {#snippet checkIcon()}
-	<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
+	<svg
+		width="16"
+		height="16"
+		viewBox="0 0 16 16"
+		fill="none"
+		stroke="currentColor"
+		aria-hidden="true"
+	>
 		<path d="m2.5 8.5 4 4 7-9" />
 	</svg>
 {/snippet}
@@ -26,7 +40,14 @@
 {/snippet}
 
 {#snippet externalLinkIcon()}
-	<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
+	<svg
+		width="16"
+		height="16"
+		viewBox="0 0 16 16"
+		fill="none"
+		stroke="currentColor"
+		aria-hidden="true"
+	>
 		<path stroke-linecap="square" stroke-linejoin="round" d="m4 12 8-8" />
 		<path d="M5 3.5h7.5V11" />
 	</svg>

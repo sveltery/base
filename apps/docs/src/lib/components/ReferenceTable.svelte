@@ -7,7 +7,10 @@
 		$props();
 </script>
 
-<section class="AccordionRoot ReferenceAccordionRoot ReferenceBlockSpaced min-[32rem]:hidden" style:--rows={rows.length}>
+<section
+	class="AccordionRoot ReferenceAccordionRoot ReferenceBlockSpaced min-[32rem]:hidden"
+	style:--rows={rows.length}
+>
 	<div class="AccordionHeaderRow" aria-hidden="true">
 		<div class="AccordionHeaderCell"><span class="AccordionHeaderCellInner">{label}</span></div>
 	</div>
@@ -15,7 +18,13 @@
 		<details class="AccordionItem">
 			<summary class="AccordionTrigger">
 				<code class="Code TableCode" style:color="var(--color-navy)">{row.name}</code>
-				<svg class="AccordionIcon ml-auto mr-1" width="10" height="10" viewBox="0 0 10 10" fill="none">
+				<svg
+					class="AccordionIcon ml-auto mr-1"
+					width="10"
+					height="10"
+					viewBox="0 0 10 10"
+					fill="none"
+				>
 					<path d="M1 3.5L5 7.5L9 3.5" stroke="currentColor" />
 				</svg>
 			</summary>
@@ -26,7 +35,10 @@
 		</details>
 	{/each}
 </section>
-<div class="TableRoot ReferenceTableRoot ReferenceBlockSpaced hidden min-[32rem]:block" style:--rows={rows.length}>
+<div
+	class="TableRoot ReferenceTableRoot ReferenceBlockSpaced hidden min-[32rem]:block"
+	style:--rows={rows.length}
+>
 	<table class="TableRootTable">
 		<thead class="TableHead">
 			<tr class="TableRow">
@@ -46,11 +58,15 @@
 				<tr class="TableRow">
 					<th scope="row" class="TableCell">
 						<div class="TableCellInner">
-							<code class="Code TableCode whitespace-nowrap" style:color="var(--color-navy)">{row.name}</code>
+							<code class="Code TableCode whitespace-nowrap" style:color="var(--color-navy)"
+								>{row.name}</code
+							>
 						</div>
 					</th>
-					<!-- eslint-disable-next-line svelte/no-at-html-tags -- mdsvex output of the page's own table. -->
-					<td class="TableCell" colspan="2"><div class="TableCellInner">{@html row.description}</div></td>
+					<td class="TableCell" colspan="2">
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -- mdsvex output of the page's own table. -->
+						<div class="TableCellInner">{@html row.description}</div>
+					</td>
 				</tr>
 			{/each}
 		</tbody>

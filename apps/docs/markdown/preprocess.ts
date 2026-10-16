@@ -77,7 +77,8 @@ function tables(code: string): string {
 			[...row.matchAll(/<t[hd]\b[^>]*>([\s\S]*?)<\/t[hd]>/g)].map((cell) => cell[1].trim());
 		const [head, ...rows] = [...body.matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((row) => cells(row[1]));
 		const label = head && REFERENCE_TABLES[text(head[0]).toLowerCase()];
-		if (!label) return `<div class="TableRoot MdTable">${table.replace('<table>', '<table class="TableRootTable">')}</div>`;
+		if (!label)
+			return `<div class="TableRoot MdTable">${table.replace('<table>', '<table class="TableRootTable">')}</div>`;
 		return `<ReferenceTable label="${label}" rows={${literal(rows.map(([name, description]) => ({ name: text(name), description })))}} />`;
 	});
 }
@@ -135,7 +136,10 @@ export function docsComponents({
 				}
 				documented.add(part.name);
 				for (const file of part.files) dependencies.add(file);
-				return `<ApiPart part={${literal(await referencePart(part))}} />`;
+				// Base UI describes a part in its section only when the component has several.
+				const reference = await referencePart(part);
+				if (parts.length === 1) reference.description = '';
+				return `<ApiPart part={${literal(reference)}} />`;
 			});
 
 			if (/<ApiPart\b(?! part=\{)/.test(code)) {

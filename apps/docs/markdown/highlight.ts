@@ -59,6 +59,10 @@ async function prettylights(): Promise<ThemeRegistration> {
 				settings: { foreground: 'var(--color-docs-infra-syntax-attr-key)' }
 			},
 			{
+				scope: ['support.type.property-name.css'],
+				settings: { foreground: 'var(--color-docs-infra-syntax-css-property)' }
+			},
+			{
 				scope: ['entity.name.type'],
 				settings: { foreground: 'var(--color-prettylights-syntax-entity)' }
 			},
@@ -70,7 +74,10 @@ async function prettylights(): Promise<ThemeRegistration> {
 	};
 }
 
-const highlighter = prettylights().then((theme) => createHighlighter({ themes: [theme], langs }));
+const theme = prettylights();
+const highlighter = theme.then((registration) =>
+	createHighlighter({ themes: [registration], langs })
+);
 
 /** Lines and text the `@highlight` comments mark, with the comments removed from the code. */
 type Marked = { code: string; lines: Set<number>; texts: Map<number, string[]> };
@@ -109,7 +116,10 @@ export function readMarkers(source: string): Marked {
 		if (open) lines.add(index);
 		if (marker?.kind === '@highlight') lines.add(index);
 		if (marker?.kind === '@highlight-text') {
-			texts.set(index, [...marker.args.matchAll(/"([^"]+)"/g)].map((quoted) => quoted[1]));
+			texts.set(
+				index,
+				[...marker.args.matchAll(/"([^"]+)"/g)].map((quoted) => quoted[1])
+			);
 		}
 	}
 	return { code: out.join('\n'), lines, texts };
@@ -164,7 +174,7 @@ const escapeHtml = (value: string) =>
 export async function highlightType(code: string, { value = false } = {}): Promise<string> {
 	const shiki = await highlighter;
 	const prefix = value ? 'const _ = ' : 'type _ = ';
-	const lines = shiki.codeToTokensBase(`${prefix}${code}`, { lang: 'ts', theme: 'prettylights' });
+	const lines = shiki.codeToTokensBase(`${prefix}${code}`, { lang: 'ts', theme: await theme });
 	let offset = 0;
 	let html = '';
 	for (const line of lines) {

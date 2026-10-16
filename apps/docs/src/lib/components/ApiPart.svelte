@@ -58,10 +58,9 @@
 				<summary
 					{id}
 					class="AccordionTrigger ReferenceTrigger"
-					aria-label="{label}: {row.name},{required ? ' required,' : ''} type: {row.shortType.replace(
-						/<[^>]+>/g,
-						''
-					)}"
+					aria-label="{label}: {row.name},{required
+						? ' required,'
+						: ''} type: {row.shortType.replace(/<[^>]+>/g, '')}"
 					onclick={keepSelection}
 				>
 					<span class="AccordionScrollable ReferenceNameCell">
@@ -72,14 +71,18 @@
 						</span>
 					</span>
 					<span class="AccordionScrollable ReferenceTypeCell">
-						<!-- eslint-disable-next-line svelte/no-at-html-tags -- Shiki output, built from the library's types. -->
-						<span class="AccordionScrollableInner"><code class="Code TableCode">{@html row.shortType}</code></span>
+						<span class="AccordionScrollableInner">
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -- Shiki output, built from the library's types. -->
+							<code class="Code TableCode">{@html row.shortType}</code>
+						</span>
 					</span>
 					{#if !state}
 						<span class="AccordionScrollable ReferenceDefaultCell">
 							<span class="AccordionScrollableInner">
 								{#if row.default === undefined}
-									<code class="Code TableCode" style:color="var(--color-docs-infra-syntax-nullish)">—</code>
+									<code class="Code TableCode" style:color="var(--color-docs-infra-syntax-nullish)"
+										>—</code
+									>
 								{:else}
 									<!-- eslint-disable-next-line svelte/no-at-html-tags -- Shiki output, built from the library's defaults. -->
 									<code class="Code TableCode">{@html row.default}</code>
@@ -98,7 +101,9 @@
 									<div class="DescriptionListInner">
 										{#if id}
 											<a class="Link" href="#{id}">
-												<code class="Code TableCode" style:color="var(--color-blue)">{row.name}</code>
+												<code class="Code TableCode" style:color="var(--color-blue)"
+													>{row.name}</code
+												>
 											</a>
 										{:else}
 											<code class="Code TableCode" style:color="var(--color-blue)">{row.name}</code>
@@ -118,7 +123,9 @@
 								</div>
 							{/if}
 							<div class="DescriptionListItem">
-								<dt class="DescriptionTerm separator"><div class="DescriptionListInner">Type</div></dt>
+								<dt class="DescriptionTerm separator">
+									<div class="DescriptionListInner">Type</div>
+								</dt>
 								<dd class="DescriptionListDetails">
 									<div class="DescriptionListInner">
 										<div class="CodeBlockRoot">
@@ -134,8 +141,10 @@
 										<div class="DescriptionListInner">Default</div>
 									</dt>
 									<dd class="DescriptionListDetails">
-										<!-- eslint-disable-next-line svelte/no-at-html-tags -- Shiki output, built from the library's defaults. -->
-										<div class="DescriptionListInner"><code class="Code TableCode">{@html row.default}</code></div>
+										<div class="DescriptionListInner">
+											<!-- eslint-disable-next-line svelte/no-at-html-tags -- Shiki output, built from the library's defaults. -->
+											<code class="Code TableCode">{@html row.default}</code>
+										</div>
 									</dd>
 								</div>
 							{/if}

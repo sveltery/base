@@ -7,10 +7,16 @@
 	let root = $state<HTMLElement>();
 
 	// Base UI's precomputed blocks render the `pre` with these classes.
-	const pre = $derived(html.replace('<pre class="', '<pre class="CodeBlockPreInline CodeBlockPre '));
+	const pre = $derived(
+		html.replace('<pre class="', '<pre class="CodeBlockPreInline CodeBlockPre ')
+	);
 </script>
 
-<figure bind:this={root} class="CodeBlockRoot MdFigure" aria-labelledby={title ? titleId : undefined}>
+<figure
+	bind:this={root}
+	class="CodeBlockRoot MdFigure"
+	aria-labelledby={title ? titleId : undefined}
+>
 	{#if title}
 		<div class="CodeBlockPanel">
 			<div id={titleId} class="CodeBlockPanelTitle">{title}</div>

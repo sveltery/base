@@ -110,7 +110,10 @@ export function docsMarkdown({ pages, lib }: { pages: string; lib: string }): Pl
 		readdirSync(pages).flatMap((section) =>
 			readdirSync(join(pages, section))
 				.filter((file) => file.endsWith('.md'))
-				.map((file) => ({ href: `/${section}/${file.replace(/\.md$/, '')}`, path: join(pages, section, file) }))
+				.map((file) => ({
+					href: `/${section}/${file.replace(/\.md$/, '')}`,
+					path: join(pages, section, file)
+				}))
 		);
 	return {
 		name: 'docs-markdown',

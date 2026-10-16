@@ -1,4 +1,4 @@
-import type { DocPage, Frontmatter, NavSection } from './types';
+import type { DocPage, Frontmatter, NavSection, TocItem } from './types';
 
 /** Sidebar sections, in order. A page's section is its folder under `content`. */
 const SECTIONS: Record<string, string> = {
@@ -13,7 +13,7 @@ const metadata = import.meta.glob<Frontmatter>(['/content/*/*.md'], {
 	import: 'metadata'
 });
 
-type Entry = DocPage & { section: string; order: number };
+type Entry = DocPage & { section: string; order: number; heading: string; toc: TocItem[] };
 
 const entries: Entry[] = Object.entries(metadata).map(([file, fm]) => {
 	const [section, slug] = file
@@ -29,18 +29,36 @@ const entries: Entry[] = Object.entries(metadata).map(([file, fm]) => {
 		title: fm.navTitle ?? fm.title,
 		description: fm.description,
 		section,
-		order: fm.order ?? Infinity
+		order: fm.order ?? Infinity,
+		heading: fm.title,
+		toc: fm.toc
 	};
 });
 
-/** The sidebar. Each section lists its pages by `order`, then title. */
+/** A section's pages by `order`, then title. */
+const sectionEntries = (id: string) =>
+	entries
+		.filter((entry) => entry.section === id)
+		.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
+
+/** The sidebar. */
 export const nav: NavSection[] = Object.entries(SECTIONS).map(([id, title]) => ({
 	title,
-	pages: entries
-		.filter((entry) => entry.section === id)
-		.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title))
-		.map(({ href, title, description }) => ({ href, title, description }))
+	pages: sectionEntries(id).map(({ href, title, description }) => ({ href, title, description }))
 }));
 
-/** Every page in reading order, which is also the previous and next order. */
-export const pages: DocPage[] = nav.flatMap((section) => section.pages);
+export const sectionIds = Object.keys(SECTIONS);
+
+/** A section's index page lists its pages with their full titles and outlines, as Base UI's does. */
+export function sectionIndex(id: string) {
+	if (!(id in SECTIONS)) return undefined;
+	return {
+		title: SECTIONS[id],
+		pages: sectionEntries(id).map(({ href, heading, description, toc }) => ({
+			href,
+			title: heading,
+			description,
+			toc
+		}))
+	};
+}

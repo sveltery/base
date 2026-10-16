@@ -75,7 +75,8 @@ export function elements() {
 		const name =
 			node.type === 'list' && (node as { ordered?: boolean }).ordered ? 'MdOl' : CLASSES[node.type];
 		const existing = node.data?.hProperties as Record<string, unknown> | undefined;
-		if (name && !existing?.class) node.data = { ...node.data, hProperties: { ...existing, class: name } };
+		if (name && !existing?.class)
+			node.data = { ...node.data, hProperties: { ...existing, class: name } };
 		if (node.type === 'inlineCode') {
 			const tag = HTML_TAG.test(decode(node.value ?? ''));
 			node.data = {
