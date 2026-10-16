@@ -8,6 +8,7 @@
 	import { untrack } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
+	import { ACTIVE_COMPOSITE_ITEM } from '../internal/composite-root.svelte.js';
 	import { chain } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
@@ -127,6 +128,7 @@
 			id: tabId,
 			'aria-selected': active,
 			'aria-disabled': disabled,
+			...(active ? { [ACTIVE_COMPOSITE_ITEM]: '' } : {}),
 			...(panelId ? { 'aria-controls': panelId } : {}),
 			...elementProps,
 			...getStateAttributesProps(tabState, tabsStateAttributesMapping),
