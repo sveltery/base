@@ -46,6 +46,7 @@
 								<a
 									class="SideNavLink"
 									href={item.href}
+									data-sveltekit-reload={item.external || undefined}
 									data-active={active || undefined}
 									aria-current={active
 										? page.url.pathname === item.href
@@ -55,14 +56,12 @@
 									onclick={(event) => scrollToTop(event, item.href)}
 								>
 									{item.title}
+									{#each item.badges as badge (badge)}
+										<span class="SideNavBadge">{badge}</span>
+									{/each}
 								</a>
 							</li>
 						{/each}
-						{#if section.title === 'Handbook'}
-							<li class="SideNavItem">
-								<a class="SideNavLink" href="/llms.txt" data-sveltekit-reload>llms.txt</a>
-							</li>
-						{/if}
 					</ul>
 				</div>
 			{/each}
@@ -252,6 +251,23 @@
 			outline: 2px solid var(--gray-t2);
 			outline-offset: -2px;
 		}
+	}
+
+	.SideNavBadge {
+		/* An atomic inline keeps the link's hover underline off the badge. */
+		display: inline-block;
+		vertical-align: middle;
+		margin-inline-start: 4px;
+		color: var(--poppy-t1);
+		line-height: inherit;
+		user-select: none;
+		text-transform: uppercase;
+		font-size: 0.625rem;
+		font-weight: var(--font-weight-700);
+		letter-spacing: 0.035em;
+		padding-inline: 2px;
+		translate: 0 -2px;
+		word-break: keep-all;
 	}
 
 	.SideNavLinkIconContainer {

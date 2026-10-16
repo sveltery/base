@@ -1,7 +1,29 @@
-import type { NavSection } from '#lib/docs/types.ts';
-import type { SearchDocument } from '../../../../markdown/search.ts';
+import type {
+	Sitemap,
+	SitemapPage,
+	SitemapSectionData,
+	SitemapSections
+} from '../../../../markdown/sitemap.ts';
+import { slugify } from '../../../../markdown/headings.ts';
+import { getSitemapPageInfo } from '#lib/docs/sitemap.ts';
 
-export type { SearchDocument };
+/** One search result. The fields match the index schema of upstream's `useSearch`. */
+export type SearchDocument = {
+	type: 'page' | 'part' | 'export' | 'section' | 'subsection';
+	group: string;
+	title: string;
+	description: string;
+	slug: string;
+	sectionTitle: string;
+	page?: string;
+	part?: string;
+	export?: string;
+	props?: string;
+	types?: string;
+	section?: string;
+	subsection?: string;
+	url: string;
+};
 export type SearchGroup = { group: string; items: SearchDocument[] };
 
 // Upstream's `useSearch` defaults, from @mui/internal-docs-infra.
@@ -20,21 +42,6 @@ const BOOST = {
 	subsection: 2.5,
 	props: 1.5
 };
-const SCHEMA = {
-	type: 'string',
-	group: 'string',
-	title: 'string',
-	description: 'string',
-	slug: 'string',
-	sectionTitle: 'string',
-	page: 'string',
-	part: 'string',
-	export: 'string',
-	props: 'string',
-	types: 'string',
-	section: 'string',
-	subsection: 'string'
-} as const;
 // Words that carry meaning in docs, such as the "for" of `htmlFor`, stay searchable.
 const KEPT_STOPWORDS = new Set(
 	'about but for between before after above below once then where to from up down in out on off over under'.split(
@@ -42,7 +49,100 @@ const KEPT_STOPWORDS = new Set(
 	)
 );
 
-type Index = { orama: unknown; documents: SearchDocument[] };
+type Index = { orama: unknown; defaults: SearchGroup[] };
+
+/**
+ * The ids the page gives its h2 to h4 headings, in document order, as `headings.ts` assigns them:
+ * a repeated title gets a numbered id.
+ */
+function headingIds(sections: SitemapSections) {
+	const used: Record<string, true> = {};
+	const ids: [SitemapSections[string], string][] = [];
+	const visit = (level: SitemapSections, depth: number) => {
+		for (const heading of Object.values(level)) {
+			if (depth <= 4) {
+				const base = slugify(heading.title);
+				let id = base;
+				for (let count = 1; id in used; count++) id = `${base}-${count}`;
+				used[id] = true;
+				ids.push([heading, id]);
+			}
+			if (heading.children) visit(heading.children, depth + 1);
+		}
+	};
+	visit(sections, 2);
+	return new Map(ids);
+}
+
+/**
+ * Upstream's `defaultFlattenPage`, with `includeCategoryInGroup` and `excludeSections`: a page, its
+ * API parts and exports, and each of its headings. Each result links to the heading's real id, and
+ * a part or an export to the last heading with its name.
+ */
+function flattenPage(page: SitemapPage, section: SitemapSectionData): SearchDocument[] {
+	const { href } = getSitemapPageInfo(section, page);
+	const title = page.title;
+	const base = { description: page.description ?? '', sectionTitle: section.title };
+	const ids = headingIds(page.sections ?? {});
+	const idOf = new Map([...ids].map(([heading, id]) => [heading.title, id]));
+	const documents: SearchDocument[] = [
+		{
+			...base,
+			type: 'page',
+			group: `${section.title} Pages`,
+			page: title,
+			title,
+			slug: page.slug,
+			url: href,
+			...(page.types?.length ? { types: page.types.join(' ') } : {})
+		}
+	];
+	for (const [part, api] of Object.entries(page.parts ?? {}))
+		documents.push({
+			...base,
+			type: 'part',
+			group: 'API Reference',
+			part,
+			export: `${page.slug}.${part}`,
+			slug: part.toLowerCase(),
+			title: `${title} ‣ ${part}`,
+			props: api.props?.join(' ') ?? '',
+			url: `${href}#${idOf.get(part) ?? part.toLowerCase()}`
+		});
+	for (const [name, api] of Object.entries(page.exports ?? {})) {
+		const id = idOf.get(name) ?? 'api-reference';
+		documents.push({
+			...base,
+			type: 'export',
+			group: 'API Reference',
+			export: id,
+			slug: page.slug,
+			title: name,
+			props: api.props?.join(' ') ?? '',
+			url: `${href}#${id}`
+		});
+	}
+	const visit = (sections: SitemapSections, trail: string[]): void => {
+		for (const heading of Object.values(sections)) {
+			const path = [...trail, heading.title];
+			const type = trail.length ? 'subsection' : 'section';
+			const id = ids.get(heading);
+			if (id)
+				documents.push({
+					...base,
+					type,
+					group: 'Sections',
+					[type]: path.join(' ‣ '),
+					slug: `${page.slug}#${id}`,
+					title: `${title} ‣ ${path.join(' ‣ ')}`,
+					url: `${href}#${id}`
+				});
+			if (heading.children) visit(heading.children, path);
+		}
+	};
+	visit(page.sections ?? {}, []);
+	return documents;
+}
 
 let index: Promise<Index> | undefined;
 
@@ -56,15 +156,16 @@ export function loadSearchIndex(): Promise<Index> {
 }
 
 async function build(): Promise<Index> {
-	const [{ create, insertMultiple }, { pluginQPS }, { stopwords }, { documents }] =
-		await Promise.all([
+	const [{ create, insertMultiple }, { pluginQPS }, { stopwords }, { sitemap }] = await Promise.all(
+		[
 			import('@orama/orama'),
 			import('@orama/plugin-qps'),
 			import('@orama/stopwords/english'),
-			import('virtual:search-documents')
-		]);
+			import('virtual:sitemap') as Promise<{ sitemap: Sitemap }>
+		]
+	);
 	const orama = create({
-		schema: SCHEMA,
+		schema: sitemap.schema,
 		components: {
 			tokenizer: {
 				stemming: true,
@@ -84,10 +185,18 @@ async function build(): Promise<Index> {
 		},
 		plugins: [pluginQPS()]
 	});
+	// Each page's first document is the page itself. With no query, those show, grouped by section.
+	const documents: SearchDocument[] = [];
+	const defaults: SearchGroup[] = [];
+	for (const section of Object.values(sitemap.data)) {
+		const pages = section.pages.map((page) => flattenPage(page, section));
+		documents.push(...pages.flat());
+		defaults.push({ group: `${section.title} Pages`, items: pages.map(([page]) => page) });
+	}
 	// QPS only keeps statistics for properties that hold data, so one empty document fills them all.
-	const empty = Object.fromEntries(Object.keys(SCHEMA).map((key) => [key, '']));
+	const empty = Object.fromEntries(Object.keys(sitemap.schema).map((key) => [key, '']));
 	await insertMultiple(orama, [empty, ...documents] as never[]);
-	return { orama, documents };
+	return { orama, defaults };
 }
 
 /** Upstream's query: grouped, at most five per group, exact and prefix title matches first. */
@@ -137,13 +246,8 @@ export class DocsSearch {
 	results = $state<SearchGroup[]>([]);
 	defaults: SearchGroup[] = [];
 
-	#nav: () => NavSection[];
 	#latest = 0;
 	#timeout: ReturnType<typeof setTimeout> | undefined;
-
-	constructor(nav: () => NavSection[]) {
-		this.#nav = nav;
-	}
 
 	get hasQuery() {
 		return this.value.trim() !== '';
@@ -156,12 +260,7 @@ export class DocsSearch {
 	/** Loads the index, then shows every page if nothing was typed meanwhile. */
 	async activate() {
 		if (this.ready) return;
-		const loaded = await loadSearchIndex();
-		const pages = loaded.documents.filter((doc) => doc.type === 'page');
-		this.defaults = this.#nav().map((section) => ({
-			group: `${section.title} Pages`,
-			items: section.pages.flatMap((page) => pages.find((doc) => doc.url === page.href) ?? [])
-		}));
+		this.defaults = (await loadSearchIndex()).defaults;
 		this.ready = true;
 		if (this.hasQuery) await this.search(this.value);
 		else this.results = this.defaults;

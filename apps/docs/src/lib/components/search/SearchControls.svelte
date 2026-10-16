@@ -11,7 +11,7 @@
 		mobileTriggerClass
 	}: { nav: NavSection[]; desktopTriggerClass: string; mobileTriggerClass: string } = $props();
 
-	const search = new DocsSearch(() => nav);
+	const search = new DocsSearch();
 	let desktopOpen = $state(false);
 	let mobileOpen = $state(false);
 	let focusMobileSearch = $state(false);

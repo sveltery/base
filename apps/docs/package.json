@@ -8,7 +8,8 @@
 		"build": "vite build",
 		"preview": "wrangler dev --port 4173",
 		"prepare": "svelte-kit sync || echo ''",
-		"check": "rm -rf dist && svelte-kit sync && vite build && svelte-check --tsconfig ./tsconfig.json"
+		"check": "rm -rf dist && svelte-kit sync && vite build && svelte-check --tsconfig ./tsconfig.json",
+		"docs:validate": "node markdown/validate.ts"
 	},
 	"dependencies": {
 		"@sveltery/base": "workspace:*"
