@@ -134,13 +134,21 @@ type SwitchThumbState = {
 Props passed to a `render` snippet. Spread them onto the host element. The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
 
 ```typescript
-type SwitchHostProps = HTMLAttributes<HTMLElement>;
+type SwitchHostProps = {};
 ```
 
 ### SwitchRootChangeEventDetails
 
 ```typescript
-type SwitchRootChangeEventDetails = BaseUIChangeEventDetails<SwitchRootChangeEventReason>;
+type SwitchRootChangeEventDetails = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	isCanceled: boolean;
+	isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
 ```
 
 ### SwitchRootChangeEventReason

@@ -47,7 +47,15 @@ type ToggleState = {
 ### ToggleChangeEventDetails
 
 ```typescript
-type ToggleChangeEventDetails = BaseUIChangeEventDetails<ToggleChangeEventReason>;
+type ToggleChangeEventDetails = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	isCanceled: boolean;
+	isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
 ```
 
 ### ToggleChangeEventReason
@@ -74,5 +82,5 @@ declare namespace ToggleDataAttributes {
 Props passed to a `render` snippet. Spread them onto the host element. Handlers are typed for a generic element so the same object spreads onto a `<button>` or, with `nativeButton={false}`, a `<span>`.
 
 ```typescript
-type ToggleHostProps = HTMLAttributes<HTMLElement>;
+type ToggleHostProps = {};
 ```

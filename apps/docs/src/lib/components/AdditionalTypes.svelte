@@ -30,6 +30,8 @@
 	<div id={type.slug} class="AdditionalTypeWrapper" data-shown={shown}>
 		<h3 class="ReferenceSectionHeading AdditionalTypeHeading">
 			{type.name}
+			<!-- Base UI's link clears the hash, which hides the type again. -->
+			<!-- svelte-ignore a11y_invalid_attribute -->
 			<a href="#" class="AdditionalTypeBackLink" data-hidden={shown} onclick={back}>
 				{hydrated && canGoBack ? 'Back' : 'Hide'}
 			</a>

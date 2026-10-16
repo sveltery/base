@@ -686,7 +686,7 @@ declare namespace NavigationMenuTriggerDataAttributes {
 ### NavigationMenuTriggerHostProps
 
 ```typescript
-type NavigationMenuTriggerHostProps = HTMLButtonAttributes;
+type NavigationMenuTriggerHostProps = {};
 ```
 
 ### Side

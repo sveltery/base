@@ -846,7 +846,10 @@ declare namespace ContextMenuRadioItemIndicatorDataAttributes {
 ### ContextMenuRootActions
 
 ```typescript
-type ContextMenuRootActions = MenuActions;
+type ContextMenuRootActions = {
+	unmount: () => void;
+	close: () => void;
+};
 ```
 
 ### ContextMenuRootChangeEventDetails

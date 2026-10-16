@@ -182,7 +182,15 @@ type RadioGroupState = {
 ### RadioGroupChangeEventDetails
 
 ```typescript
-type RadioGroupChangeEventDetails = BaseUIChangeEventDetails<RadioGroupChangeEventReason>;
+type RadioGroupChangeEventDetails = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	isCanceled: boolean;
+	isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
 ```
 
 ### RadioGroupChangeEventReason
@@ -207,7 +215,7 @@ declare namespace RadioGroupDataAttributes {
 Props passed to a `render` snippet. Spread them onto the host element. The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
 
 ```typescript
-type RadioHostProps = HTMLAttributes<HTMLElement>;
+type RadioHostProps = {};
 ```
 
 ### RadioIndicatorDataAttributes
@@ -256,7 +264,15 @@ type RadioIndicatorPhase = 'starting' | 'ending' | 'idle' | undefined;
 ### RadioRootChangeEventDetails
 
 ```typescript
-type RadioRootChangeEventDetails = BaseUIChangeEventDetails<RadioRootChangeEventReason>;
+type RadioRootChangeEventDetails = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	isCanceled: boolean;
+	isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
 ```
 
 ### RadioRootChangeEventReason

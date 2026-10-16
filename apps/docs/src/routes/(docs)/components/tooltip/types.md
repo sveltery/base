@@ -474,7 +474,7 @@ declare namespace TooltipTriggerDataAttributes {
 ### TooltipTriggerHostProps
 
 ```typescript
-type TooltipTriggerHostProps = HTMLButtonAttributes;
+type TooltipTriggerHostProps = {};
 ```
 
 ### TooltipViewportCssVariables

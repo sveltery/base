@@ -32,7 +32,8 @@
 		"test:e2e": "playwright test",
 		"test": "vitest run && playwright test",
 		"verify": "bash scripts/verify.sh",
-		"verify:component": "bash scripts/verify-component.sh"
+		"verify:component": "bash scripts/verify-component.sh",
+		"docs:validate": "pnpm --filter @sveltery/base-docs docs:validate"
 	},
 	"files": [
 		"dist",

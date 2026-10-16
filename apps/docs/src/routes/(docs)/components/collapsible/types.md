@@ -207,7 +207,7 @@ declare namespace CollapsibleTriggerDataAttributes {
 Props a trigger `render` snippet spreads onto its host. Handlers are typed for a generic element so the same object spreads onto a `<button>` or another element when `nativeButton` is false.
 
 ```typescript
-type CollapsibleTriggerHostProps = HTMLAttributes<HTMLElement>;
+type CollapsibleTriggerHostProps = {};
 ```
 
 ### TransitionStatus

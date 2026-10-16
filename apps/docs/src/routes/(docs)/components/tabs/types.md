@@ -387,7 +387,7 @@ declare namespace TabsTabDataAttributes {
 ### TabsTabHostProps
 
 ```typescript
-type TabsTabHostProps = HTMLAttributes<HTMLElement>;
+type TabsTabHostProps = {};
 ```
 
 ### TabsTabPosition

@@ -8,7 +8,8 @@ import { elements, headings } from './markdown/headings.ts';
 import { metadata } from './markdown/metadata.ts';
 import { docsMarkdown } from './markdown/llms.ts';
 import { docsComponents, highlightCode } from './markdown/preprocess.ts';
-import { searchDocuments } from './markdown/search.ts';
+import { relativePaths } from './markdown/relative-paths.ts';
+import { sitemap } from './markdown/sitemap.ts';
 import { docsTypes } from './markdown/types.ts';
 
 const path = (relative: string) => fileURLToPath(new URL(relative, import.meta.url));
@@ -30,7 +31,17 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		docsMarkdown({ routes, lib }),
-		searchDocuments({ routes, lib }),
+		// Upstream's `app/sitemap/index.ts`: each side nav heading and its section index, in order.
+		sitemap({
+			routes,
+			lib,
+			sections: {
+				Overview: 'overview',
+				Handbook: 'handbook',
+				Components: 'components',
+				Utils: 'utils'
+			}
+		}),
 		docsTypes({ routes, lib }),
 		sveltekit({
 			adapter: adapter(),
@@ -44,7 +55,12 @@ export default defineConfig({
 				mdsvex({
 					extensions: ['.md'],
 					smartypants: false,
-					remarkPlugins: [metadata, headings, elements],
+					remarkPlugins: [
+						metadata,
+						headings,
+						elements,
+						relativePaths({ routes: path('./src/routes') })
+					],
 					layout: path('./src/lib/components/DocsPage.svelte'),
 					highlight: { highlighter: highlightCode }
 				}),

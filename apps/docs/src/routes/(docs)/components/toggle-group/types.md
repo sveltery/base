@@ -50,7 +50,15 @@ type ToggleGroupState = {
 ### ToggleGroupChangeEventDetails
 
 ```typescript
-type ToggleGroupChangeEventDetails = BaseUIChangeEventDetails<ToggleGroupChangeEventReason>;
+type ToggleGroupChangeEventDetails = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	isCanceled: boolean;
+	isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
 ```
 
 ### ToggleGroupChangeEventReason

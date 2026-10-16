@@ -14,6 +14,11 @@ export type PageMetadata = {
 	toc: TocItem[];
 };
 
-export type DocPage = { href: string; title: string; description: string };
+export type DocPage = {
+	href: string;
+	title: string;
+	external: boolean;
+	badges: import('./sitemap.ts').Badge[];
+};
 
 export type NavSection = { title: string; pages: DocPage[] };

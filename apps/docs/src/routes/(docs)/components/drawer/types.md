@@ -414,7 +414,10 @@ Re-export of [VirtualKeyboardProvider](#virtualkeyboardprovider) props.
 Methods on the `Drawer.Root` instance. Reach them with `bind:this`.
 
 ```typescript
-type DrawerActions = DialogActions;
+type DrawerActions = {
+	unmount: () => void;
+	close: () => void;
+};
 ```
 
 ### DrawerBackdropCssVariables
@@ -486,7 +489,7 @@ declare namespace DrawerCloseDataAttributes {
 ### DrawerDivProps
 
 ```typescript
-type DrawerDivProps = HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>>;
+type DrawerDivProps = {};
 ```
 
 ### DrawerPopupCssVariables

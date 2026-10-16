@@ -112,7 +112,7 @@ type EnhanceInstanceOf<S> = S extends {
 What `submit()` returns inside an `enhance` callback. Kit's adds `updates(...)`.
 
 ```typescript
-type EnhanceSubmission = Promise<boolean> & {
+type EnhanceSubmission = {
 	updates: (...updates: never[]) => Promise<boolean>;
 };
 ```
@@ -245,7 +245,10 @@ type FormSource = {
 ### FormSubmitEventDetails
 
 ```typescript
-type FormSubmitEventDetails = BaseUIGenericEventDetails<FormSubmitEventReason>;
+type FormSubmitEventDetails = {
+	reason: Reason;
+	event: Event;
+};
 ```
 
 ### FormSubmitEventReason

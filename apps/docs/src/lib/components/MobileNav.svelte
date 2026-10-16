@@ -18,7 +18,7 @@
 		focusSearch = false
 	}: { nav: NavSection[]; triggerClass: string; open?: boolean; focusSearch?: boolean } = $props();
 
-	const search = new DocsSearch(() => nav);
+	const search = new DocsSearch();
 	let highlighted: SearchDocument | undefined;
 
 	afterNavigate(() => {
@@ -215,11 +215,15 @@
 					<a
 						class="MobileNavLink"
 						href={item.href}
+						data-sveltekit-reload={item.external || undefined}
 						aria-current={active ? 'page' : undefined}
 						data-active={active ? '' : undefined}
 						onclick={(event) => closeOnCurrentPage(event, item.href)}
 					>
 						<span class="MobileNavLinkText">{item.title}</span>
+						{#each item.badges as badge (badge)}
+							<span class="MobileNavBadge">{badge}</span>
+						{/each}
 					</a>
 				</li>
 			{/each}
@@ -549,6 +553,18 @@
 		:global(.MobileNavSearchOption:active) {
 			background-color: var(--gray-c1);
 		}
+	}
+
+	.MobileNavBadge {
+		color: var(--poppy-t1);
+		line-height: inherit;
+		user-select: none;
+		text-transform: uppercase;
+		font-size: 0.6875rem;
+		font-weight: var(--font-weight-700);
+		letter-spacing: 0.035em;
+		padding-inline: 0.125rem;
+		translate: 0 -3px;
 	}
 
 	.MobileNavResourceRow {

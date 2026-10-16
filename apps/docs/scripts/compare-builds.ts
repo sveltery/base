@@ -1,5 +1,5 @@
 // Builds the docs at a base ref and in this checkout, then diffs the prerendered output: the URL
-// list, every page's <title>, meta description and <main> HTML, and every non-HTML file.
+// list, every page's <title>, meta description, side nav and <main> HTML, and every non-HTML file.
 // Usage, from apps/docs: node scripts/compare-builds.ts [base-ref] [--no-build]
 import { execSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
@@ -50,6 +50,7 @@ function parts(html: string) {
 	return {
 		title: first(html, /<title>([\s\S]*?)<\/title>/),
 		description: first(html, /<meta name="description" content="([^"]*)"/),
+		nav: first(html, /<nav aria-label="Main navigation"[^>]*>([\s\S]*?)<\/nav>/),
 		main: first(html, /<main\b[^>]*>([\s\S]*)<\/main>/)
 	};
 }
@@ -79,7 +80,7 @@ for (const file of [...before].filter((name) => after.has(name)).sort()) {
 		continue;
 	}
 	const [pa, pb] = [parts(a), parts(b)];
-	for (const key of ['title', 'description', 'main'] as const) {
+	for (const key of ['title', 'description', 'nav', 'main'] as const) {
 		if (pa[key] === pb[key]) continue;
 		if (key === 'main' && pieces(pa.main) === pieces(pb.main)) {
 			reordered.push(file);

@@ -375,5 +375,5 @@ declare namespace AccordionTriggerDataAttributes {
 ### AccordionTriggerHostProps
 
 ```typescript
-type AccordionTriggerHostProps = HTMLAttributes<HTMLElement>;
+type AccordionTriggerHostProps = {};
 ```

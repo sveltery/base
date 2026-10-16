@@ -77,7 +77,7 @@ export function pageMarkdown(source: string, stub: TypesStub | undefined): Markd
 		}
 		const additional = /^<(Types\w+)\s+showAdditionalTypes=\{\[(.*)\]\}\s*\/>\s*$/.exec(line);
 		if (additional && additional[1] === stub?.additional) {
-			const shown = additional[2].match(/[\w.]+/g) ?? [];
+			const shown = additional[2].match(/[\w.]+/g) ?? ([] as string[]);
 			for (const type of stub.types.filter((type) => shown.includes(type.name.toLowerCase())))
 				out.push(`### ${type.name}`, '', '```ts', type.code, '```', '');
 			continue;

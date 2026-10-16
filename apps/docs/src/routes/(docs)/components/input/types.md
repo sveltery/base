@@ -57,7 +57,15 @@ type InputState = {
 ### InputChangeEventDetails
 
 ```typescript
-type InputChangeEventDetails = FieldControlChangeEventDetails;
+type InputChangeEventDetails = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	isCanceled: boolean;
+	isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
 ```
 
 ### InputChangeEventReason

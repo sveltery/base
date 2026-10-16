@@ -192,11 +192,19 @@ function typeDeclaration(
 			? declaration.typeParameters
 			: undefined;
 	const head = `${name}${parameters ? `<${parameters.map((p) => p.getText()).join(', ')}>` : ''}`;
-	if (ts.isTypeAliasDeclaration(declaration)) {
+	const resolved = checker.getDeclaredTypeOfSymbol(symbol);
+	// An object built from other types, such as `Partial<Omit<ToastObject, 'id'>>`, reads better
+	// as its members, as Base UI expands it.
+	const object =
+		!(resolved.flags & ts.TypeFlags.Union) &&
+		resolved.flags & (ts.TypeFlags.Object | ts.TypeFlags.Intersection) &&
+		!resolved.getCallSignatures().length &&
+		checker.getPropertiesOfType(resolved).length > 0;
+	if (ts.isTypeAliasDeclaration(declaration) && !object) {
 		const text =
 			readableType(checker, declaration.type, publicTypes, new Map(), externals) ??
 			checker.typeToString(
-				checker.getDeclaredTypeOfSymbol(symbol),
+				resolved,
 				undefined,
 				ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.InTypeAlias
 			);
@@ -218,7 +226,8 @@ export const objectType = (head: string, props: ApiProp[]) =>
 		`type ${head} = {`,
 		...props.flatMap((prop) => [
 			...jsDoc(prop.description ? prop.description.split('\n') : []),
-			`${prop.name}${prop.required ? '' : '?'}: ${prop.type};`
+			// `?` already says a member can be undefined, as Base UI's `stripTrailingUndefined` assumes.
+			`${prop.name}${prop.required ? '' : '?'}: ${prop.required ? prop.type : prop.type.replace(/ \| undefined$/, '')};`
 		]),
 		'};'
 	].join('\n');

@@ -3,6 +3,7 @@ import { dirname, join, relative, sep } from 'node:path';
 import type { Plugin } from 'vite';
 import { apiFolder, sortTypes, type ApiExternal, type ApiPart, type ApiType } from './api.ts';
 import { highlight } from './highlight.ts';
+import { ordering, sortByOrder } from './type-order.ts';
 import { referencePart, type ReferenceType } from './reference.ts';
 import { prettyCode, typesMarkdown } from './types-markdown.ts';
 
@@ -85,6 +86,12 @@ const partNamed = (parts: ApiPart[], short: string, file: string) => {
 	if (!part) throw new Error(`${file}: no part ${short}`);
 	return part;
 };
+
+/** The stub's parts in Base UI's order: by `namespaceParts` when it documents several. */
+export const orderedParts = (stub: TypesStub) =>
+	stub.multiple
+		? sortByOrder(stub.parts, ordering.namespaceParts, (part) => shortName(part.name))
+		: stub.parts;
 
 /** `Collapsible.Root` is `Root`. A part without a namespace, such as `Button`, keeps its name. */
 export const shortName = (name: string) => name.split('.').pop()!;

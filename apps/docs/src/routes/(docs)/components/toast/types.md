@@ -384,39 +384,39 @@ type ToastObject<Data extends object = any> = {
 	/** The unique identifier for the toast. */
 	id: string;
 	/** The toast's root element. `Toast.Root` writes it. Focus management reads it. */
-	element?: HTMLElement | null | undefined;
+	element?: HTMLElement | null;
 	/** The title of the toast. */
-	title?: ToastNode | undefined;
+	title?: ToastNode;
 	/** The type of the toast. Used to conditionally style the toast, including conditionally rendering elements based on the type. */
-	type?: string | undefined;
+	type?: string;
 	/** The description of the toast. */
-	description?: ToastNode | undefined;
+	description?: ToastNode;
 	/** The amount of time (in ms) before the toast is auto dismissed. A value of `0` will prevent the toast from being dismissed automatically. */
-	timeout?: number | undefined;
+	timeout?: number;
 	/**
 	 * The priority of the toast.
 	 * - `low` - The toast will be announced politely.
 	 * - `high` - The toast will be announced urgently.
 	 */
-	priority?: 'low' | 'high' | undefined;
+	priority?: 'low' | 'high';
 	/** The transition status of the toast. */
-	transitionStatus?: 'starting' | 'ending' | undefined;
+	transitionStatus?: 'starting' | 'ending';
 	/** A counter that increments whenever the toast is updated or upserted. */
-	updateKey?: number | undefined;
+	updateKey?: number;
 	/** Whether the toast was limited because the toast limit was exceeded. */
-	limited?: boolean | undefined;
+	limited?: boolean;
 	/** The height of the toast. */
-	height?: number | undefined;
+	height?: number;
 	/** Called when the toast is closed. */
-	onClose?: (() => void) | undefined;
+	onClose?: () => void;
 	/** Called when the toast is removed from the list after any animations are complete when closed. */
-	onRemove?: (() => void) | undefined;
+	onRemove?: () => void;
 	/** The props for the action button. `children` is the button's content. */
-	actionProps?: ToastActionButtonProps | undefined;
+	actionProps?: ToastActionButtonProps;
 	/** Positioning options for `Toast.Positioner` when rendering anchored toasts. */
-	positionerProps?: ToastManagerPositionerProps | undefined;
+	positionerProps?: ToastManagerPositionerProps;
 	/** Custom data for the toast. */
-	data?: Data | undefined;
+	data?: Data;
 };
 ```
 
@@ -453,7 +453,7 @@ type Side = 'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start';
 
 ```typescript
 type ToastActionButtonProps = {
-	children?: ToastNode | undefined;
+	children?: ToastNode;
 };
 ```
 
@@ -560,33 +560,33 @@ type ToastManager<Data extends object = any> = {
 ```typescript
 type ToastManagerAddOptions<Data extends object = any> = {
 	/** The unique identifier for the toast. Adding a toast with an existing ID updates it in place and refreshes its auto-dismiss timer. */
-	id?: string | undefined;
+	id?: string;
 	/** The title of the toast. */
-	title?: ToastNode | undefined;
+	title?: ToastNode;
 	/** The type of the toast. Used to conditionally style the toast, including conditionally rendering elements based on the type. */
-	type?: string | undefined;
+	type?: string;
 	/** The description of the toast. */
-	description?: ToastNode | undefined;
+	description?: ToastNode;
 	/** The amount of time (in ms) before the toast is auto dismissed. A value of `0` will prevent the toast from being dismissed automatically. */
-	timeout?: number | undefined;
+	timeout?: number;
 	/**
 	 * The priority of the toast.
 	 * - `low` - The toast will be announced politely.
 	 * - `high` - The toast will be announced urgently.
 	 */
-	priority?: 'low' | 'high' | undefined;
+	priority?: 'low' | 'high';
 	/** The transition status of the toast. */
-	transitionStatus?: 'starting' | 'ending' | undefined;
+	transitionStatus?: 'starting' | 'ending';
 	/** Called when the toast is closed. */
-	onClose?: (() => void) | undefined;
+	onClose?: () => void;
 	/** Called when the toast is removed from the list after any animations are complete when closed. */
-	onRemove?: (() => void) | undefined;
+	onRemove?: () => void;
 	/** The props for the action button. `children` is the button's content. */
-	actionProps?: ToastActionButtonProps | undefined;
+	actionProps?: ToastActionButtonProps;
 	/** Positioning options for `Toast.Positioner` when rendering anchored toasts. */
-	positionerProps?: ToastManagerPositionerProps | undefined;
+	positionerProps?: ToastManagerPositionerProps;
 	/** Custom data for the toast. */
-	data?: Data | undefined;
+	data?: Data;
 };
 ```
 
@@ -611,7 +611,7 @@ type ToastManagerEvent =
 ```typescript
 type ToastManagerPositionerProps = {
 	/** An element to position the toast against. */
-	anchor?: Element | null | undefined;
+	anchor?: Element | null;
 	/** Determines which CSS `position` property to use. */
 	positionMethod?: 'absolute' | 'fixed';
 	/** Which side of the anchor element to align the toast against. May automatically change to avoid collisions. */
@@ -703,12 +703,32 @@ type ToastManagerUpdate<Data extends object = any> =
 ### ToastManagerUpdateOptions
 
 ```typescript
-type ToastManagerUpdateOptions<Data extends object = any> = Partial<
-	Omit<
-		ToastObject<Data>,
-		'id' | 'element' | 'height' | 'transitionStatus' | 'limited' | 'updateKey'
-	>
->;
+type ToastManagerUpdateOptions<Data extends object = any> = {
+	/** The title of the toast. */
+	title?: ToastNode;
+	/** The type of the toast. Used to conditionally style the toast, including conditionally rendering elements based on the type. */
+	type?: string;
+	/** The description of the toast. */
+	description?: ToastNode;
+	/** The amount of time (in ms) before the toast is auto dismissed. A value of `0` will prevent the toast from being dismissed automatically. */
+	timeout?: number;
+	/**
+	 * The priority of the toast.
+	 * - `low` - The toast will be announced politely.
+	 * - `high` - The toast will be announced urgently.
+	 */
+	priority?: 'low' | 'high';
+	/** Called when the toast is closed. */
+	onClose?: () => void;
+	/** Called when the toast is removed from the list after any animations are complete when closed. */
+	onRemove?: () => void;
+	/** The props for the action button. `children` is the button's content. */
+	actionProps?: ToastActionButtonProps;
+	/** Positioning options for `Toast.Positioner` when rendering anchored toasts. */
+	positionerProps?: ToastManagerPositionerProps;
+	/** Custom data for the toast. */
+	data?: Data;
+};
 ```
 
 ### ToastNode

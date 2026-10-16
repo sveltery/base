@@ -15,7 +15,9 @@
 
 <svelte:head>
 	<title>{title} · Sveltery Base</title>
-	<meta name="description" content={description} />
+	{#if description}
+		<meta name="description" content={description} />
+	{/if}
 </svelte:head>
 
 <Toc {title} {toc} />

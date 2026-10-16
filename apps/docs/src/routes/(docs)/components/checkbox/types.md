@@ -147,7 +147,7 @@ type CheckboxIndicatorState = {
 Props passed to a `render` snippet. Spread them onto the host element. The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
 
 ```typescript
-type CheckboxHostProps = HTMLAttributes<HTMLElement>;
+type CheckboxHostProps = {};
 ```
 
 ### CheckboxIndicatorDataAttributes
@@ -198,7 +198,15 @@ type CheckboxIndicatorPhase = 'starting' | 'ending' | 'idle' | undefined;
 ### CheckboxRootChangeEventDetails
 
 ```typescript
-type CheckboxRootChangeEventDetails = BaseUIChangeEventDetails<CheckboxRootChangeEventReason>;
+type CheckboxRootChangeEventDetails = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	isCanceled: boolean;
+	isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
 ```
 
 ### CheckboxRootChangeEventReason

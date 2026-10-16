@@ -232,7 +232,9 @@ declare namespace ToolbarButtonDataAttributes {
 Props passed to a `render` snippet. Spread them onto the host element. Handlers are typed for a generic element so the same object spreads onto a `<button>`, `<span>`, or `<a>`. `disabled` lets a rendered part, such as a Switch or a Menu.Trigger, disable itself. A focusable disabled native button still ends without the `disabled` attribute.
 
 ```typescript
-type ToolbarButtonHostProps = HTMLAttributes<HTMLElement> & { disabled?: boolean };
+type ToolbarButtonHostProps = {
+	disabled?: boolean;
+};
 ```
 
 ### ToolbarGroupDataAttributes
@@ -272,7 +274,7 @@ declare namespace ToolbarInputDataAttributes {
 ### ToolbarInputHostProps
 
 ```typescript
-type ToolbarInputHostProps = HTMLInputAttributes;
+type ToolbarInputHostProps = {};
 ```
 
 ### ToolbarLinkDataAttributes
@@ -292,7 +294,7 @@ declare namespace ToolbarLinkDataAttributes {
 ### ToolbarLinkHostProps
 
 ```typescript
-type ToolbarLinkHostProps = HTMLAnchorAttributes;
+type ToolbarLinkHostProps = {};
 ```
 
 ### ToolbarOrientation

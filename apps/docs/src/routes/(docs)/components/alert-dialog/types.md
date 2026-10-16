@@ -260,7 +260,10 @@ type AlertDialogViewportState = {
 Methods on the `AlertDialog.Root` instance. Reach them with `bind:this`.
 
 ```typescript
-type AlertDialogActions = DialogActions;
+type AlertDialogActions = {
+	unmount: () => void;
+	close: () => void;
+};
 ```
 
 ### AlertDialogBackdropDataAttributes

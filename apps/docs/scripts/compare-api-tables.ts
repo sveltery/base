@@ -19,6 +19,8 @@ type Section = {
 	variables: Row[];
 	/** Everything else in the section: the description, the empty-props note, prose. */
 	rest: string;
+	/** An `AdditionalTypes` entry, shown or hidden until a link targets it. */
+	additional?: 'shown' | 'hidden';
 };
 
 const ENTITIES: Record<string, string> = { lt: '<', gt: '>', amp: '&', quot: '"', '#39': "'" };
@@ -59,9 +61,15 @@ function apiSections(file: string): Map<string, Section> {
 	if (start === -1) return sections;
 	const api = html.slice(start, html.indexOf('</main>', start));
 	for (const chunk of api.split(/<h3\b/).slice(1)) {
-		const heading = text(/>([\s\S]*?)<\/h3>/.exec(chunk)![1]);
+		const additional = chunk.includes('AdditionalTypeHeading')
+			? /data-shown="true"/.test(api.slice(0, api.indexOf(chunk)).slice(-200))
+				? 'shown'
+				: 'hidden'
+			: undefined;
+		const heading = text(/>([\s\S]*?)<\/h3>/.exec(chunk)![1]).replace(/ (Hide|Back)$/, '');
 		const body = chunk.slice(chunk.indexOf('</h3>') + 5);
 		sections.set(heading, {
+			additional,
 			props: accordionRows(body, 'Props'),
 			state: accordionRows(body, 'States'),
 			attributes: tableRows(body, 'Attribute'),
@@ -166,6 +174,17 @@ for (const file of pages(baseDir).sort()) {
 			note(false, `${at}: section missing`);
 			continue;
 		}
+		// A hand-written declaration now read from the library: its text is the library's.
+		if (head.additional && !base.additional) {
+			note(
+				head.additional === 'shown',
+				`${at}: hand-written type now generated from the library` +
+					(base.rest === head.rest
+						? ', same declaration'
+						: `\n  base: ${base.rest}\n  head: ${head.rest}`)
+			);
+			continue;
+		}
 		if (base.rest !== head.rest)
 			note(false, `${at}: text changed\n  base: ${base.rest}\n  head: ${head.rest}`);
 		for (const kind of ['props', 'state'] as const) {
@@ -219,8 +238,15 @@ for (const file of pages(baseDir).sort()) {
 			);
 		}
 	}
-	for (const heading of after.keys()) {
-		if (!before.has(heading)) note(false, `${route} ${heading}: section added`);
+	for (const [heading, head] of after) {
+		if (before.has(heading)) continue;
+		note(
+			head.additional === 'hidden',
+			`${route} ${heading}: section added` +
+				(head.additional === 'hidden'
+					? ', an additional type hidden until a link targets it, as Base UI renders it'
+					: '')
+		);
 	}
 }
 

@@ -600,7 +600,7 @@ declare namespace PopoverTriggerDataAttributes {
 ### PopoverTriggerHostProps
 
 ```typescript
-type PopoverTriggerHostProps = HTMLButtonAttributes;
+type PopoverTriggerHostProps = {};
 ```
 
 ### PopoverViewportCssVariables

@@ -320,7 +320,7 @@ declare namespace DialogCloseDataAttributes {
 ### DialogDivProps
 
 ```typescript
-type DialogDivProps = HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>>;
+type DialogDivProps = {};
 ```
 
 ### DialogFocusTarget
@@ -390,7 +390,7 @@ declare namespace DialogTriggerDataAttributes {
 ### DialogTriggerHostProps
 
 ```typescript
-type DialogTriggerHostProps = HTMLAttributes<HTMLElement>;
+type DialogTriggerHostProps = {};
 ```
 
 ### DialogViewportDataAttributes

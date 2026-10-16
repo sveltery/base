@@ -1,18 +1,20 @@
 import pages from 'virtual:docs-markdown';
-import { nav } from '#lib/docs/content.server.ts';
+import { sitemap } from 'virtual:sitemap';
+import { getSitemapPageInfo } from '#lib/docs/sitemap.ts';
 import { SITE } from '#lib/docs/links.ts';
 import { plainText } from '../../../markdown/reference.ts';
 
 export const prerender = true;
 
 export const GET = () => {
-	const sections = nav.map(({ title, pages: entries }) =>
+	const sections = Object.entries(sitemap.data).map(([title, section]) =>
 		[
 			`## ${title}`,
 			'',
-			...entries.map(({ href }) => {
-				const page = pages[href];
-				return `- [${page.title}](${SITE}${href}.md): ${plainText(page.description)}`;
+			...section.pages.flatMap((entry) => {
+				const { href, external } = getSitemapPageInfo(section, entry);
+				if (external) return [];
+				return `- [${pages[href].title}](${SITE}${href}.md): ${plainText(pages[href].description)}`;
 			})
 		].join('\n')
 	);

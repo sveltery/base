@@ -53,7 +53,15 @@ type CheckboxGroupState = {
 ### CheckboxGroupChangeEventDetails
 
 ```typescript
-type CheckboxGroupChangeEventDetails = BaseUIChangeEventDetails<CheckboxGroupChangeEventReason>;
+type CheckboxGroupChangeEventDetails = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	isCanceled: boolean;
+	isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
 ```
 
 ### CheckboxGroupChangeEventReason

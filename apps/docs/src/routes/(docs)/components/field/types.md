@@ -342,7 +342,15 @@ type FieldValidityState = {
 ### FieldControlChangeEventDetails
 
 ```typescript
-type FieldControlChangeEventDetails = BaseUIChangeEventDetails<FieldControlChangeEventReason>;
+type FieldControlChangeEventDetails = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	isCanceled: boolean;
+	isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
 ```
 
 ### FieldControlChangeEventReason
