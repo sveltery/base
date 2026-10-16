@@ -658,8 +658,6 @@ This should be an object with field names as keys, and an error string or array 
 </Form>
 ```
 
-<span id="bind-a-sveltekit-remote-form"></span><span id="connect-a-form-action"></span>
-
 When using [SvelteKit form actions](https://svelte.dev/docs/kit/form-actions) you can return server-side errors from `fail()` and pass the page's `form?.errors` to the `errors` prop. A complete example is available [here](/handbook/sveltekit#connect-a-form-action). A SvelteKit [remote form](/handbook/sveltekit#bind-a-sveltekit-remote-form) goes to the `form` prop of `<Form>` instead, and needs no `errors`.
 
 ```svelte title="Returning errors from a form action"
