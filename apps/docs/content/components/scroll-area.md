@@ -8,35 +8,37 @@ description: A native scroll container with custom scrollbars.
 	import { ScrollArea } from '@sveltery/base/scroll-area';
 </script>
 
-<ScrollArea.Root
-	class="h-36 w-80 max-w-full rounded-md bg-clip-padding text-gray-900 outline outline-1 -outline-offset-1 outline-gray-200 dark:text-gray-100 dark:outline-gray-700"
->
+<ScrollArea.Root class="h-[8.5rem] w-96 max-w-[calc(100vw-8rem)] bg-white dark:bg-neutral-950">
 	<ScrollArea.Viewport
-		class="h-full rounded-md focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800"
+		class="h-full border border-neutral-950 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:border-white dark:focus-visible:outline-white"
 	>
-		<ScrollArea.Content class="flex flex-col gap-4 py-3 pr-6 pl-4 text-sm leading-[1.375rem]">
+		<ScrollArea.Content
+			class="flex flex-col gap-4 py-2 pr-5 pl-3 text-sm leading-[1.375rem] text-neutral-950 dark:text-white"
+		>
 			<p>
-				Vernacular architecture is building done without architects. It uses local materials and
-				answers local needs, so the same idea looks different in every region.
+				Vernacular architecture is building done outside any academic tradition, and without
+				professional guidance. It is not a particular architectural movement or style, but rather a
+				broad category, encompassing a wide range and variety of building types, with differing
+				methods of construction, from around the world, both historical and extant and classical and
+				modern. Vernacular architecture constitutes 95% of the world's built environment, as
+				estimated in 1995 by Amos Rapoport, as measured against the small percentage of new
+				buildings every year designed by architects and built by engineers.
 			</p>
 			<p>
-				Traditional timber frames, adobe walls, and thatched roofs often keep a building cool in
-				summer and warm in winter without any machinery.
-			</p>
-			<p>
-				Many modern architects study these buildings to learn how people lived with the climate
-				before they could fight it.
-			</p>
-			<p>
-				A good example is the courtyard house, which has appeared in many cultures and gives shade,
-				privacy, and fresh air.
+				This type of architecture usually serves immediate, local needs, is constrained by the
+				materials available in its particular region and reflects local traditions and cultural
+				practices. The study of vernacular architecture does not examine formally schooled
+				architects, but instead that of the design skills and tradition of local builders, who were
+				rarely given any attribution for the work. More recently, vernacular architecture has been
+				examined by designers and the building industry in an effort to be more energy conscious
+				with contemporary design and construction—part of a broader interest in sustainable design.
 			</p>
 		</ScrollArea.Content>
 	</ScrollArea.Viewport>
 	<ScrollArea.Scrollbar
-		class="pointer-events-none m-1 flex w-1 justify-center rounded bg-gray-200 opacity-0 transition-opacity duration-150 data-[hovering]:pointer-events-auto data-[hovering]:opacity-100 data-[hovering]:duration-75 data-[scrolling]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling]:duration-75 dark:bg-gray-700"
+		class="pointer-events-none m-px flex w-4 justify-center bg-black/12 opacity-0 transition-opacity data-hovering:pointer-events-auto data-hovering:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0 dark:bg-white/12"
 	>
-		<ScrollArea.Thumb class="w-full rounded bg-gray-500 dark:bg-gray-400" />
+		<ScrollArea.Thumb class="w-full bg-neutral-950 dark:bg-white" />
 	</ScrollArea.Scrollbar>
 </ScrollArea.Root>
 ```
@@ -45,7 +47,7 @@ description: A native scroll container with custom scrollbars.
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { ScrollArea } from '@sveltery/base/scroll-area';
 </script>
@@ -65,39 +67,41 @@ Import the component and assemble its parts:
 
 ### Both scrollbars
 
-Add a second `ScrollArea.Scrollbar` with `orientation="horizontal"` for horizontal scrolling. Add a `ScrollArea.Corner` so the two scrollbars do not overlap. The root needs a fixed size, and the content needs to overflow it.
+Use `<ScrollArea.Corner>` to prevent the scrollbars from intersecting.
 
 ```svelte demo
 <script lang="ts">
 	import { ScrollArea } from '@sveltery/base/scroll-area';
-
-	const scrollbar =
-		'pointer-events-none m-1 flex justify-center rounded bg-gray-200 opacity-0 transition-opacity duration-150 data-[hovering]:pointer-events-auto data-[hovering]:opacity-100 data-[hovering]:duration-75 data-[scrolling]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling]:duration-75 data-[orientation=horizontal]:h-1 data-[orientation=vertical]:w-1 dark:bg-gray-700';
 </script>
 
-<ScrollArea.Root
-	class="h-48 w-80 max-w-full rounded-md bg-clip-padding text-gray-900 outline outline-1 -outline-offset-1 outline-gray-200 dark:text-gray-100 dark:outline-gray-700"
->
+<ScrollArea.Root class="h-80 w-80 max-w-[calc(100vw-8rem)]">
 	<ScrollArea.Viewport
-		class="h-full rounded-md focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800"
+		class="h-full border border-neutral-950 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:border-white dark:focus-visible:outline-white"
 	>
-		<ScrollArea.Content class="p-4">
-			<ul class="m-0! grid w-[32rem] list-none! grid-cols-8 gap-2 p-0! text-sm">
-				{#each { length: 100 } as _, index (index)}
+		<ScrollArea.Content class="pt-3 pr-6 pb-6 pl-3">
+			<ul
+				class="m-0 grid list-none grid-cols-[repeat(10,6.25rem)] grid-rows-[repeat(10,6.25rem)] gap-3 p-0"
+			>
+				{#each Array.from({ length: 100 }, (_, i) => i + 1) as n (n)}
 					<li
-						class="my-0! flex size-12 items-center justify-center rounded-sm bg-gray-100 dark:bg-gray-800"
+						class="flex items-center justify-center bg-neutral-200 text-sm font-bold text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400"
 					>
-						{index + 1}
+						{n}
 					</li>
 				{/each}
 			</ul>
 		</ScrollArea.Content>
 	</ScrollArea.Viewport>
-	<ScrollArea.Scrollbar class={scrollbar}>
-		<ScrollArea.Thumb class="w-full rounded bg-gray-500 dark:bg-gray-400" />
+	<ScrollArea.Scrollbar
+		class="relative m-px flex bg-black/12 dark:bg-white/12 opacity-0 transition-opacity pointer-events-none data-[orientation=vertical]:w-4 data-[orientation=horizontal]:h-4 data-hovering:pointer-events-auto data-hovering:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0"
+	>
+		<ScrollArea.Thumb class="w-full bg-neutral-950 dark:bg-white" />
 	</ScrollArea.Scrollbar>
-	<ScrollArea.Scrollbar orientation="horizontal" class={scrollbar}>
-		<ScrollArea.Thumb class="rounded bg-gray-500 dark:bg-gray-400" />
+	<ScrollArea.Scrollbar
+		class="relative m-px flex bg-black/12 dark:bg-white/12 opacity-0 transition-opacity pointer-events-none data-[orientation=vertical]:w-4 data-[orientation=horizontal]:h-4 data-hovering:pointer-events-auto data-hovering:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0"
+		orientation="horizontal"
+	>
+		<ScrollArea.Thumb class="w-full bg-neutral-950 dark:bg-white" />
 	</ScrollArea.Scrollbar>
 	<ScrollArea.Corner />
 </ScrollArea.Root>
@@ -105,118 +109,99 @@ Add a second `ScrollArea.Scrollbar` with `orientation="horizontal"` for horizont
 
 ### Gradient scroll fade
 
-The viewport sets `--scroll-area-overflow-y-start` and `--scroll-area-overflow-y-end` to the distance in pixels from each edge. Use them in a `mask-image` to fade the content at an edge only while more content waits behind it. The fallback in `var(--scroll-area-overflow-y-end, 40px)` keeps the bottom fade on the server, before the viewport measures anything.
+Use the viewport overflow CSS variables to drive a CSS mask, which gradually increases the fade as the user scrolls away from the edges.
 
-```svelte demo
-<script lang="ts">
-	import { ScrollArea } from '@sveltery/base/scroll-area';
-</script>
-
-<ScrollArea.Root
-	class="h-36 w-80 max-w-full rounded-md text-gray-900 outline outline-1 -outline-offset-1 outline-gray-200 dark:text-gray-100 dark:outline-gray-700"
->
-	<ScrollArea.Viewport
-		class="h-full rounded-md [mask-image:linear-gradient(to_bottom,transparent_0,black_min(40px,var(--scroll-area-overflow-y-start)),black_calc(100%-min(40px,var(--scroll-area-overflow-y-end,40px))),transparent_100%)] [mask-repeat:no-repeat]"
-	>
-		<ScrollArea.Content class="flex flex-col gap-4 py-6 pr-6 pl-4 text-sm leading-[1.375rem]">
-			<p>The top fades in once you scroll down.</p>
-			<p>The bottom fades out once you reach the end.</p>
-			<p>Both fades follow the distance to each edge.</p>
-			<p>Each fade is at most 40 pixels tall.</p>
-			<p>The mask needs no JavaScript.</p>
-			<p>It works with any content.</p>
-		</ScrollArea.Content>
-	</ScrollArea.Viewport>
-	<ScrollArea.Scrollbar
-		class="pointer-events-none m-1 flex w-1 justify-center rounded bg-gray-200 opacity-0 transition-opacity duration-150 data-[hovering]:pointer-events-auto data-[hovering]:opacity-100 data-[scrolling]:pointer-events-auto data-[scrolling]:opacity-100 dark:bg-gray-700"
-	>
-		<ScrollArea.Thumb class="w-full rounded bg-gray-500 dark:bg-gray-400" />
-	</ScrollArea.Scrollbar>
-</ScrollArea.Root>
+```css title="scroll-area.module.css"
+.Viewport {
+	mask-image: linear-gradient(
+		to bottom,
+		transparent 0,
+		black min(40px, var(--scroll-area-overflow-y-start)),
+		black calc(100% - min(40px, var(--scroll-area-overflow-y-end, 40px))),
+		transparent 100%
+	);
+	mask-repeat: no-repeat;
+}
 ```
 
-The overflow variables do not inherit. A child of the viewport that needs one must opt in with `inherit`:
+For SSR, a fallback can be used as part of the end-side `var()` call so the mask is visible before the overflow CSS variables hydrate.
 
-```css
-.child {
+```css title="SSR fallback"
+/* @highlight-text ", 40px" */
+var(--scroll-area-overflow-y-end, 40px);
+```
+
+When the fade is applied to `<ScrollArea.Viewport>` itself, the variables can be used directly. However, inheritance to children is disabled, so they must explicitly opt-in using the `inherit` keyword.
+
+```css title="Child element opt-in"
+.Child {
 	--scroll-area-overflow-y-start: inherit;
 	--scroll-area-overflow-y-end: inherit;
 }
 ```
 
-### Overflow edge attributes
-
-The root, viewport, content, and scrollbar get `data-overflow-y-start`, `data-overflow-y-end`, `data-overflow-x-start`, and `data-overflow-x-end` while content waits behind that edge. Use them to show a shadow or a hint. Set `overflowEdgeThreshold` on the root to ignore the first pixels of overflow. Pass one number for every edge, or an object with `xStart`, `xEnd`, `yStart`, and `yEnd`.
-
 ```svelte demo
 <script lang="ts">
 	import { ScrollArea } from '@sveltery/base/scroll-area';
 </script>
 
 <ScrollArea.Root
-	overflowEdgeThreshold={{ yStart: 8, yEnd: 8 }}
-	class="group relative h-36 w-80 max-w-full rounded-md text-gray-900 outline outline-1 -outline-offset-1 outline-gray-200 dark:text-gray-100 dark:outline-gray-700"
+	class="h-48 w-96 max-w-[calc(100vw-8rem)] bg-neutral-100 has-[>_:first-child:focus-visible]:outline-2 has-[>_:first-child:focus-visible]:outline-offset-0 has-[>_:first-child:focus-visible]:outline-neutral-950 dark:bg-neutral-800 dark:has-[>_:first-child:focus-visible]:outline-white"
 >
-	<div
-		class="pointer-events-none absolute inset-x-0 top-0 z-10 h-4 rounded-t-md bg-gradient-to-b from-gray-900/15 to-transparent opacity-0 transition-opacity group-data-[overflow-y-start]:opacity-100 dark:from-white/15"
-	></div>
-	<div
-		class="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-4 rounded-b-md bg-gradient-to-t from-gray-900/15 to-transparent opacity-0 transition-opacity group-data-[overflow-y-end]:opacity-100 dark:from-white/15"
-	></div>
-	<ScrollArea.Viewport class="h-full rounded-md">
-		<ScrollArea.Content class="flex flex-col gap-3 p-4 text-sm">
-			{#each { length: 12 } as _, index (index)}
-				<p>Line {index + 1}</p>
-			{/each}
+	<ScrollArea.Viewport
+		class="h-full mask-linear-[to_bottom,transparent_0,black_min(40px,var(--scroll-area-overflow-y-start)),black_calc(100%_-_min(40px,var(--scroll-area-overflow-y-end,40px))),transparent_100%] bg-neutral-100 mask-no-repeat outline-none dark:bg-neutral-800"
+	>
+		<ScrollArea.Content
+			class="flex flex-col gap-4 py-2 pr-5 pl-3 text-sm leading-[1.375rem] text-neutral-950 dark:text-white"
+		>
+			<p>
+				Vernacular architecture is building done outside any academic tradition, and without
+				professional guidance. It is not a particular architectural movement or style, but rather a
+				broad category, encompassing a wide range and variety of building types, with differing
+				methods of construction, from around the world, both historical and extant and classical and
+				modern. Vernacular architecture constitutes 95% of the world's built environment, as
+				estimated in 1995 by Amos Rapoport, as measured against the small percentage of new
+				buildings every year designed by architects and built by engineers.
+			</p>
+			<p>
+				This type of architecture usually serves immediate, local needs, is constrained by the
+				materials available in its particular region and reflects local traditions and cultural
+				practices. The study of vernacular architecture does not examine formally schooled
+				architects, but instead that of the design skills and tradition of local builders, who were
+				rarely given any attribution for the work. More recently, vernacular architecture has been
+				examined by designers and the building industry in an effort to be more energy conscious
+				with contemporary design and construction—part of a broader interest in sustainable design.
+			</p>
 		</ScrollArea.Content>
 	</ScrollArea.Viewport>
+	<ScrollArea.Scrollbar
+		class="pointer-events-none m-px flex w-4 justify-center bg-black/8 opacity-0 transition-opacity duration-150 data-hovering:pointer-events-auto data-hovering:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0 dark:bg-white/12"
+	>
+		<ScrollArea.Thumb class="w-full bg-neutral-950 dark:bg-white" />
+	</ScrollArea.Scrollbar>
 </ScrollArea.Root>
 ```
 
-### Combine with Tabs
+### Combining with Tabs
 
-Render `Tabs.List` as a scroll viewport to scroll a long list of tabs. Pass a `render` snippet to the list, spread `props` onto `ScrollArea.Viewport`, and render `children` inside it.
+Use `<Tabs.List>`'s `render` snippet to render `<ScrollArea.Viewport>` directly when the tab list itself needs the viewport overflow values for a mask fade. This keeps the mask logic on the same element that receives the scroll state.
 
-```svelte demo
-<script lang="ts">
-	import { ScrollArea } from '@sveltery/base/scroll-area';
-	import { Tabs } from '@sveltery/base/tabs';
-
-	const tab =
-		'z-10 flex h-8 shrink-0 items-center px-3 text-sm font-medium whitespace-nowrap text-gray-600 outline-0 select-none hover:text-gray-900 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[active]:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 dark:data-[active]:text-gray-100';
-	const names = ['Overview', 'Projects', 'Account', 'Billing', 'Security', 'Notifications', 'Team'];
-</script>
-
-<Tabs.Root value="Overview" class="w-80 max-w-full text-gray-900 dark:text-gray-100">
-	<ScrollArea.Root class="relative border-b border-gray-200 dark:border-gray-700">
+```svelte title="Tabs with ScrollArea"
+<Tabs.Root value="overview">
+	<ScrollArea.Root>
+		<!-- @highlight-start -->
 		<Tabs.List>
 			{#snippet render(props, state, children)}
-				<ScrollArea.Viewport {...props} class="relative flex">
-					{@render children?.()}
-				</ScrollArea.Viewport>
+				<ScrollArea.Viewport {...props}>{@render children?.()}</ScrollArea.Viewport>
 			{/snippet}
-			{#each names as name (name)}
-				<Tabs.Tab value={name} class={tab}>{name}</Tabs.Tab>
-			{/each}
-			<Tabs.Indicator
-				class="absolute bottom-0 left-0 h-0.5 w-[var(--active-tab-width)] translate-x-[var(--active-tab-left)] bg-gray-900 transition-all duration-200 dark:bg-gray-100"
-			/>
+			<!-- @highlight-end -->
+			<Tabs.Tab value="overview">Overview</Tabs.Tab>
+			<Tabs.Indicator />
 		</Tabs.List>
 	</ScrollArea.Root>
-	{#each names as name (name)}
-		<Tabs.Panel value={name} class="py-3 text-sm">{name} panel</Tabs.Panel>
-	{/each}
+	<Tabs.Panel value="overview">...</Tabs.Panel>
 </Tabs.Root>
 ```
-
-## Differences from Base UI
-
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
-- `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- Handlers use Svelte's lowercase names, such as `onpointerdown` and `onscroll`. Call `event.preventDefault()` in a handler to skip the part's own handler.
-- The root reads the reading direction from a [Direction Provider](/utils/direction-provider). Without a provider the direction is `ltr`. The root also passes a `dir` prop to its element.
-- `ScrollArea.Root` renders the inline `<style>` element that hides the native scrollbars. A [CSP Provider](/utils/csp-provider) gives that element a `nonce`, and `disableStyleElements` removes it. Without the element, hide the native scrollbars yourself.
-- The parts take no `ref`. Use `bind:this` or an attachment on a part's element through its `render` snippet.
 
 ## API reference
 
@@ -224,88 +209,86 @@ Render `Tabs.List` as a scroll viewport to scroll a long list of tabs. Pass a `r
 
 <ApiPart name="scroll-area" part="Root" />
 
-| Attribute               | Description                                                                     |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `data-scrolling`        | Present while the user scrolls inside the scroll area.                          |
-| `data-has-overflow-x`   | Present when the content is wider than the viewport.                            |
-| `data-has-overflow-y`   | Present when the content is taller than the viewport.                           |
-| `data-overflow-x-start` | Present when content waits behind the inline start edge of the horizontal axis. |
-| `data-overflow-x-end`   | Present when content waits behind the inline end edge of the horizontal axis.   |
-| `data-overflow-y-start` | Present when content waits behind the top edge.                                 |
-| `data-overflow-y-end`   | Present when content waits behind the bottom edge.                              |
+| Attribute               | Description                                                       |
+| ----------------------- | ----------------------------------------------------------------- |
+| `data-has-overflow-x`   | Present when the scroll area content is wider than the viewport.  |
+| `data-has-overflow-y`   | Present when the scroll area content is taller than the viewport. |
+| `data-overflow-x-end`   | Present when there is overflow on the horizontal end side.        |
+| `data-overflow-x-start` | Present when there is overflow on the horizontal start side.      |
+| `data-overflow-y-end`   | Present when there is overflow on the vertical end side.          |
+| `data-overflow-y-start` | Present when there is overflow on the vertical start side.        |
+| `data-scrolling`        | Present when the user scrolls inside the scroll area.             |
 
-| CSS variable                  | Description               |
-| ----------------------------- | ------------------------- |
-| `--scroll-area-corner-height` | The height of the corner. |
-| `--scroll-area-corner-width`  | The width of the corner.  |
+| CSS Variable                  | Description                      |
+| ----------------------------- | -------------------------------- |
+| `--scroll-area-corner-height` | The scroll area's corner height. |
+| `--scroll-area-corner-width`  | The scroll area's corner width.  |
 
 ### Viewport
 
 <ApiPart name="scroll-area" part="Viewport" />
 
-| Attribute               | Description                                                                     |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `data-scrolling`        | Present while the user scrolls inside the scroll area.                          |
-| `data-has-overflow-x`   | Present when the content is wider than the viewport.                            |
-| `data-has-overflow-y`   | Present when the content is taller than the viewport.                           |
-| `data-overflow-x-start` | Present when content waits behind the inline start edge of the horizontal axis. |
-| `data-overflow-x-end`   | Present when content waits behind the inline end edge of the horizontal axis.   |
-| `data-overflow-y-start` | Present when content waits behind the top edge.                                 |
-| `data-overflow-y-end`   | Present when content waits behind the bottom edge.                              |
+| Attribute               | Description                                                       |
+| ----------------------- | ----------------------------------------------------------------- |
+| `data-has-overflow-x`   | Present when the scroll area content is wider than the viewport.  |
+| `data-has-overflow-y`   | Present when the scroll area content is taller than the viewport. |
+| `data-overflow-x-end`   | Present when there is overflow on the horizontal end side.        |
+| `data-overflow-x-start` | Present when there is overflow on the horizontal start side.      |
+| `data-overflow-y-end`   | Present when there is overflow on the vertical end side.          |
+| `data-overflow-y-start` | Present when there is overflow on the vertical start side.        |
+| `data-scrolling`        | Present when the user scrolls inside the scroll area.             |
 
-| CSS variable                     | Description                                        |
-| -------------------------------- | -------------------------------------------------- |
-| `--scroll-area-overflow-x-start` | The distance in pixels from the inline start edge. |
-| `--scroll-area-overflow-x-end`   | The distance in pixels from the inline end edge.   |
-| `--scroll-area-overflow-y-start` | The distance in pixels from the top edge.          |
-| `--scroll-area-overflow-y-end`   | The distance in pixels from the bottom edge.       |
+| CSS Variable                     | Description                                            |
+| -------------------------------- | ------------------------------------------------------ |
+| `--scroll-area-overflow-x-end`   | The distance from the horizontal end edge in pixels.   |
+| `--scroll-area-overflow-x-start` | The distance from the horizontal start edge in pixels. |
+| `--scroll-area-overflow-y-end`   | The distance from the vertical end edge in pixels.     |
+| `--scroll-area-overflow-y-start` | The distance from the vertical start edge in pixels.   |
 
 ### Content
 
 <ApiPart name="scroll-area" part="Content" />
 
-| Attribute               | Description                                                                     |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `data-scrolling`        | Present while the user scrolls inside the scroll area.                          |
-| `data-has-overflow-x`   | Present when the content is wider than the viewport.                            |
-| `data-has-overflow-y`   | Present when the content is taller than the viewport.                           |
-| `data-overflow-x-start` | Present when content waits behind the inline start edge of the horizontal axis. |
-| `data-overflow-x-end`   | Present when content waits behind the inline end edge of the horizontal axis.   |
-| `data-overflow-y-start` | Present when content waits behind the top edge.                                 |
-| `data-overflow-y-end`   | Present when content waits behind the bottom edge.                              |
+| Attribute               | Description                                                       |
+| ----------------------- | ----------------------------------------------------------------- |
+| `data-has-overflow-x`   | Present when the scroll area content is wider than the viewport.  |
+| `data-has-overflow-y`   | Present when the scroll area content is taller than the viewport. |
+| `data-overflow-x-end`   | Present when there is overflow on the horizontal end side.        |
+| `data-overflow-x-start` | Present when there is overflow on the horizontal start side.      |
+| `data-overflow-y-end`   | Present when there is overflow on the vertical end side.          |
+| `data-overflow-y-start` | Present when there is overflow on the vertical start side.        |
+| `data-scrolling`        | Present when the user scrolls inside the scroll area.             |
 
 ### Scrollbar
 
 <ApiPart name="scroll-area" part="Scrollbar" />
 
-| Attribute               | Description                                                                     |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `data-orientation`      | `vertical` or `horizontal`.                                                     |
-| `data-hovering`         | Present when the pointer is over the scroll area.                               |
-| `data-scrolling`        | Present while the user scrolls along this scrollbar's axis.                     |
-| `data-has-overflow-x`   | Present when the content is wider than the viewport.                            |
-| `data-has-overflow-y`   | Present when the content is taller than the viewport.                           |
-| `data-overflow-x-start` | Present when content waits behind the inline start edge of the horizontal axis. |
-| `data-overflow-x-end`   | Present when content waits behind the inline end edge of the horizontal axis.   |
-| `data-overflow-y-start` | Present when content waits behind the top edge.                                 |
-| `data-overflow-y-end`   | Present when content waits behind the bottom edge.                              |
+| Attribute               | Description                                                       |
+| ----------------------- | ----------------------------------------------------------------- |
+| `data-orientation`      | Indicates the orientation of the scrollbar.                       |
+| `data-has-overflow-x`   | Present when the scroll area content is wider than the viewport.  |
+| `data-has-overflow-y`   | Present when the scroll area content is taller than the viewport. |
+| `data-hovering`         | Present when the pointer is over the scroll area.                 |
+| `data-overflow-x-end`   | Present when there is overflow on the horizontal end side.        |
+| `data-overflow-x-start` | Present when there is overflow on the horizontal start side.      |
+| `data-overflow-y-end`   | Present when there is overflow on the vertical end side.          |
+| `data-overflow-y-start` | Present when there is overflow on the vertical start side.        |
+| `data-scrolling`        | Present when the user scrolls inside the scroll area.             |
 
-| CSS variable                 | Description                                       |
-| ---------------------------- | ------------------------------------------------- |
-| `--scroll-area-thumb-height` | The thumb's height. Set on a vertical scrollbar.  |
-| `--scroll-area-thumb-width`  | The thumb's width. Set on a horizontal scrollbar. |
+| CSS Variable                 | Description                     |
+| ---------------------------- | ------------------------------- |
+| `--scroll-area-thumb-height` | The scroll area thumb's height. |
+| `--scroll-area-thumb-width`  | The scroll area thumb's width.  |
 
 ### Thumb
 
 <ApiPart name="scroll-area" part="Thumb" />
 
-| Attribute          | Description                                             |
-| ------------------ | ------------------------------------------------------- |
-| `data-orientation` | `vertical` or `horizontal`.                             |
-| `data-scrolling`   | Present while the user scrolls along this thumb's axis. |
+| Attribute          | Description                                           |
+| ------------------ | ----------------------------------------------------- |
+| `data-orientation` | Indicates the orientation of the scrollbar.           |
+| `data-scrolling`   | Present when the user scrolls inside the scroll area. |
 
 ### Corner
 
 <ApiPart name="scroll-area" part="Corner" />
-
-The corner sets no data attributes or CSS variables. It renders only when both scrollbars are visible.

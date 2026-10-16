@@ -5,33 +5,113 @@ description: A container for grouping a set of buttons and controls.
 
 ```svelte demo
 <script lang="ts">
+	import { Select } from '@sveltery/base/select';
+	import { Toggle } from '@sveltery/base/toggle';
+	import { ToggleGroup } from '@sveltery/base/toggle-group';
 	import { Toolbar } from '@sveltery/base/toolbar';
 
-	const item =
-		'flex h-8 items-center justify-center rounded-sm px-2.5 text-sm font-medium text-gray-900 outline-0 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-800 dark:active:bg-gray-700';
+	const toggleClass =
+		'flex h-8 min-w-8 items-center justify-center gap-2 border-0 bg-transparent px-3 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:not-data-pressed:bg-neutral-200 data-pressed:bg-neutral-950 data-pressed:text-white data-pressed:hover:not-data-disabled:bg-neutral-950 data-pressed:hover:not-data-disabled:text-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:not-data-pressed:bg-neutral-700 dark:data-pressed:bg-white dark:data-pressed:text-neutral-950 dark:data-pressed:hover:not-data-disabled:bg-white dark:data-pressed:hover:not-data-disabled:text-neutral-950 focus-visible:bg-transparent focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+	const buttonClass =
+		'flex h-8 min-w-8 items-center justify-center gap-2 border-0 bg-transparent font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:not-data-pressed:bg-neutral-200 data-pressed:bg-neutral-950 data-pressed:text-white data-pressed:hover:not-data-disabled:bg-neutral-950 data-pressed:hover:not-data-disabled:text-white dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:not-data-pressed:bg-neutral-700 dark:data-pressed:bg-white dark:data-pressed:text-neutral-950 dark:data-pressed:hover:not-data-disabled:bg-white dark:data-pressed:hover:not-data-disabled:text-neutral-950 focus-visible:bg-transparent focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
 </script>
 
+{#snippet check()}
+	<svg
+		width="16"
+		height="16"
+		viewBox="0 0 16 16"
+		fill="none"
+		stroke="currentColor"
+		style="display: block"
+	>
+		<path d="m2.5 8.5 4 4 7-9" />
+	</svg>
+{/snippet}
+
 <Toolbar.Root
-	class="flex w-fit items-center gap-px rounded-md border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-900"
+	class="flex w-150 items-center gap-px border border-neutral-950 bg-white p-px dark:border-white dark:bg-neutral-950"
 >
-	<Toolbar.Group class="flex gap-px">
-		<Toolbar.Button class={item}>Bold</Toolbar.Button>
-		<Toolbar.Button class={item}>Italic</Toolbar.Button>
-		<Toolbar.Button class={item}>Underline</Toolbar.Button>
+	<ToggleGroup class="flex gap-px" aria-label="Alignment">
+		<Toolbar.Button aria-label="Align left" value="align-left" class={toggleClass}>
+			{#snippet render(props, state, children)}
+				<Toggle {...props}>{@render children?.()}</Toggle>
+			{/snippet}
+			Align Left
+		</Toolbar.Button>
+		<Toolbar.Button aria-label="Align right" value="align-right" class={toggleClass}>
+			{#snippet render(props, state, children)}
+				<Toggle {...props}>{@render children?.()}</Toggle>
+			{/snippet}
+			Align Right
+		</Toolbar.Button>
+	</ToggleGroup>
+	<Toolbar.Separator class="m-1 h-4 w-px bg-neutral-950 dark:bg-white" />
+	<Toolbar.Group class="flex gap-px" aria-label="Numerical format">
+		<Toolbar.Button class={buttonClass} aria-label="Format as currency">$</Toolbar.Button>
+		<Toolbar.Button class={buttonClass} aria-label="Format as percent">%</Toolbar.Button>
 	</Toolbar.Group>
-	<Toolbar.Separator class="mx-1 h-5 w-px bg-gray-300 dark:bg-gray-600" />
-	<Toolbar.Button class={item}>Copy</Toolbar.Button>
-	<Toolbar.Link href="/" class="{item} text-gray-900! no-underline! dark:text-gray-100!"
-		>Help</Toolbar.Link
+	<Toolbar.Separator class="m-1 h-4 w-px bg-neutral-950 dark:bg-white" />
+	<Select.Root defaultValue="Helvetica">
+		<Toolbar.Button
+			class="flex h-8 min-w-32 cursor-default items-center justify-between gap-2 border-0 bg-transparent px-2 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:not-data-pressed:bg-neutral-200 data-pressed:bg-neutral-100 data-pressed:text-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:not-data-pressed:bg-neutral-700 dark:data-pressed:bg-neutral-800 dark:data-pressed:text-white focus-visible:bg-transparent focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		>
+			{#snippet render(props, state, children)}
+				<Select.Trigger {...props}>{@render children?.()}</Select.Trigger>
+			{/snippet}
+			<Select.Value />
+			<Select.Icon>
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: block">
+					<path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
+				</svg>
+			</Select.Icon>
+		</Toolbar.Button>
+		<Select.Portal>
+			<Select.Positioner class="z-10 outline-none select-none" sideOffset={4}>
+				<Select.Popup
+					class="group max-h-[var(--available-height)] min-w-[var(--anchor-width)] origin-[var(--transform-origin)] overflow-y-auto border border-neutral-950 bg-white bg-clip-padding text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 outline-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-[side=none]:min-w-[calc(var(--anchor-width)+1.75rem)] data-[side=none]:translate-y-px data-[side=none]:scale-100 data-[side=none]:opacity-100 data-[side=none]:transition-none data-starting-style:scale-[0.98] data-starting-style:opacity-0 data-[side=none]:data-starting-style:scale-100 data-[side=none]:data-starting-style:opacity-100 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
+				>
+					<Select.Item
+						value="Helvetica"
+						class="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-4 pl-2.5 text-sm outline-none select-none data-highlighted:bg-neutral-950 data-highlighted:text-white pointer-coarse:py-2.5 dark:data-highlighted:bg-white dark:data-highlighted:text-neutral-950"
+					>
+						<Select.ItemIndicator class="col-start-1">
+							{@render check()}
+						</Select.ItemIndicator>
+						<Select.ItemText class="col-start-2">Helvetica</Select.ItemText>
+					</Select.Item>
+					<Select.Item
+						value="Arial"
+						class="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-4 pl-2.5 text-sm outline-none select-none data-highlighted:bg-neutral-950 data-highlighted:text-white pointer-coarse:py-2.5 dark:data-highlighted:bg-white dark:data-highlighted:text-neutral-950"
+					>
+						<Select.ItemIndicator class="col-start-1">
+							{@render check()}
+						</Select.ItemIndicator>
+						<Select.ItemText class="col-start-2">Arial</Select.ItemText>
+					</Select.Item>
+				</Select.Popup>
+			</Select.Positioner>
+		</Select.Portal>
+	</Select.Root>
+	<Toolbar.Separator class="m-1 h-4 w-px bg-neutral-950 dark:bg-white" />
+	<Toolbar.Link
+		class="mr-[0.875rem] ml-auto flex-none self-center font-[inherit] text-sm text-neutral-500 no-underline hover:text-blue-700 dark:text-neutral-400 dark:hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+		href="#">Edited 51m ago</Toolbar.Link
 	>
 </Toolbar.Root>
 ```
+
+## Usage guidelines
+
+To ensure that toolbars are accessible and helpful, follow these guidelines:
+
+- **Use inputs sparingly**: Left and right arrow keys are used to both move the text insertion cursor in an input, and to navigate among controls in horizontal toolbars. When using an input in a horizontal toolbar, use only one and place it as the last element of the toolbar.
 
 ## Anatomy
 
 Import the component and assemble its parts:
 
-```svelte
+```svelte title="Anatomy"
 <script lang="ts">
 	import { Toolbar } from '@sveltery/base/toolbar';
 </script>
@@ -39,104 +119,82 @@ Import the component and assemble its parts:
 <Toolbar.Root>
 	<Toolbar.Button />
 	<Toolbar.Link />
+	<Toolbar.Separator />
 	<Toolbar.Group>
 		<Toolbar.Button />
 		<Toolbar.Button />
 	</Toolbar.Group>
-	<Toolbar.Separator />
 	<Toolbar.Input />
 </Toolbar.Root>
 ```
 
 ## Examples
 
-### Keyboard navigation
+### Using with Menu
 
-The toolbar is one tab stop. Press Tab to focus the first item, then use the left and right arrow keys to move between the buttons and links. The up and down arrow keys do the same in a vertical toolbar. Focus wraps from the last item to the first. Set `loopFocus={false}` on the root to stop at the ends.
+All Sveltery Base popup components that provide a `Trigger` component can be integrated with a toolbar by passing the trigger to `<Toolbar.Button>` with the `render` snippet:
 
-```svelte
-<Toolbar.Root loopFocus={false}>…</Toolbar.Root>
-```
-
-### Vertical toolbar
-
-Set `orientation="vertical"` on the root. The root sets `aria-orientation`, and every part gets `data-orientation="vertical"`.
-
-```svelte demo
-<script lang="ts">
-	import { Toolbar } from '@sveltery/base/toolbar';
-
-	const item =
-		'flex h-8 items-center justify-start rounded-sm px-3 text-sm font-medium text-gray-900 outline-0 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-800 dark:active:bg-gray-700';
-</script>
-
-<Toolbar.Root
-	orientation="vertical"
-	class="flex w-32 flex-col gap-px rounded-md border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-900"
->
-	<Toolbar.Button class={item}>Cut</Toolbar.Button>
-	<Toolbar.Button class={item}>Copy</Toolbar.Button>
-	<Toolbar.Button class={item}>Paste</Toolbar.Button>
+```svelte title="Using popups with toolbar"
+<Toolbar.Root>
+	<Menu.Root>
+		<!-- @highlight-start -->
+		<Toolbar.Button>
+			{#snippet render(props, state, children)}
+				<Menu.Trigger {...props}>{@render children?.()}</Menu.Trigger>
+			{/snippet}
+		</Toolbar.Button>
+		<!-- @highlight-end -->
+		<Menu.Portal>
+			<!-- Compose the rest of the menu -->
+		</Menu.Portal>
+	</Menu.Root>
 </Toolbar.Root>
 ```
 
-### Disabled items
+This applies to `<AlertDialog>`, `<Dialog>`, `<Menu>`, `<Popover>`, and `<Select>`.
 
-Set `disabled` on the root to disable every button, on a group to disable the buttons inside it, or on one button. Links stay active. A disabled button stays in the arrow key order by default, so keyboard users can find it, and it gets `aria-disabled` instead of the `disabled` attribute. Set `focusableWhenDisabled={false}` to remove a disabled button from the order.
+### Using with Tooltip
 
-```svelte demo
-<script lang="ts">
-	import { Toolbar } from '@sveltery/base/toolbar';
+Unlike other popups, the toolbar item should be passed to the `render` snippet of `<Tooltip.Trigger>`:
 
-	let disabled = $state(true);
-
-	const item =
-		'flex h-8 items-center justify-center rounded-sm px-2.5 text-sm font-medium text-gray-900 outline-0 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 data-[disabled]:cursor-not-allowed data-[disabled]:text-gray-400 data-[disabled]:hover:bg-transparent dark:text-gray-100 dark:hover:bg-gray-800 dark:active:bg-gray-700 dark:data-[disabled]:text-gray-600';
-</script>
-
-<div class="flex flex-col items-start gap-3 text-sm text-gray-900 dark:text-gray-100">
-	<label class="flex items-center gap-2">
-		<input type="checkbox" bind:checked={disabled} />
-		Disable the group
-	</label>
-	<Toolbar.Root
-		class="flex w-fit items-center gap-px rounded-md border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-900"
-	>
-		<Toolbar.Button class={item}>Undo</Toolbar.Button>
-		<Toolbar.Group {disabled} class="flex gap-px">
-			<Toolbar.Button class={item}>Bold</Toolbar.Button>
-			<Toolbar.Button class={item}>Italic</Toolbar.Button>
-		</Toolbar.Group>
-		<Toolbar.Button disabled focusableWhenDisabled={false} class={item}>Redo</Toolbar.Button>
-		<Toolbar.Link href="/" class="{item} text-gray-900! no-underline! dark:text-gray-100!"
-			>Help</Toolbar.Link
-		>
-	</Toolbar.Root>
-</div>
+```svelte title="Using popups with toolbar"
+<Toolbar.Root>
+	<Tooltip.Root>
+		<!-- @highlight-start -->
+		<Tooltip.Trigger>
+			{#snippet render(props, state, children)}
+				<Toolbar.Button {...props}>{@render children?.()}</Toolbar.Button>
+			{/snippet}
+		</Tooltip.Trigger>
+		<!-- @highlight-end -->
+		<Tooltip.Portal>
+			<!-- Compose the rest of the tooltip -->
+		</Tooltip.Portal>
+	</Tooltip.Root>
+</Toolbar.Root>
 ```
 
-### Render a part as another element
+### Using with NumberField
 
-Pass a `render` snippet to replace the element of a part. Set `nativeButton={false}` on `Toolbar.Button` when the snippet renders anything but a `<button>`.
+To use a NumberField in the toolbar, pass `<NumberField.Input>` to `<Toolbar.Input>` using the `render` snippet:
 
-```svelte
-<Toolbar.Button nativeButton={false}>
-	{#snippet render(props, state, children)}
-		<span {...props}>{@render children?.()}</span>
-	{/snippet}
-	Bold
-</Toolbar.Button>
+```svelte title="Using NumberField with toolbar"
+<Toolbar.Root>
+	<NumberField.Root>
+		<NumberField.Group>
+			<NumberField.Decrement />
+			<!-- @highlight-start -->
+			<Toolbar.Input>
+				{#snippet render(props)}
+					<NumberField.Input {...props} />
+				{/snippet}
+			</Toolbar.Input>
+			<!-- @highlight-end -->
+			<NumberField.Increment />
+		</NumberField.Group>
+	</NumberField.Root>
+</Toolbar.Root>
 ```
-
-## Differences from Base UI
-
-- Parts take `class` and a `style` string, not functions of state. Style state through the data attributes below.
-- `render` is a snippet that receives `(props, state, children)`. Spread `props` onto your element and render `children`.
-- Handlers use Svelte's lowercase names, such as `onclick` and `onkeydown`. Call `event.preventDefault()` in a handler to skip the part's own handler. A `preventDefault()` call in the root's `onkeydown` skips the arrow key navigation.
-- The arrow keys follow the reading direction from a [Direction Provider](/utils/direction-provider). In `rtl`, the left arrow moves to the next item.
-- The arrow keys in `Toolbar.Input` always move to the next or previous item. Base UI keeps them in the text field until the caret reaches its start or end.
-- `Toolbar.Input` takes a plain `value`, not `bind:value`.
-- A popup trigger placed directly in a toolbar, not rendered through `Toolbar.Button`, works as itself but does not join the toolbar's arrow key order. Nothing scrolls the focused item into view, and the parts take no `ref`.
 
 ## API reference
 
@@ -144,52 +202,52 @@ Pass a `render` snippet to replace the element of a part. Set `nativeButton={fal
 
 <ApiPart name="toolbar" part="Root" />
 
-| Attribute          | Description                           |
-| ------------------ | ------------------------------------- |
-| `data-orientation` | `horizontal` or `vertical`.           |
-| `data-disabled`    | Present when the toolbar is disabled. |
+| Attribute          | Description                               |
+| ------------------ | ----------------------------------------- |
+| `data-orientation` | Indicates the orientation of the toolbar. |
+| `data-disabled`    | Present when the toolbar is disabled.     |
 
 ### Button
 
 <ApiPart name="toolbar" part="Button" />
 
-| Attribute          | Description                                                         |
-| ------------------ | ------------------------------------------------------------------- |
-| `data-orientation` | `horizontal` or `vertical`.                                         |
-| `data-disabled`    | Present when the button, its group, or the toolbar is disabled.     |
-| `data-focusable`   | Present when `focusableWhenDisabled` is true, which is the default. |
-
-### Group
-
-<ApiPart name="toolbar" part="Group" />
-
-| Attribute          | Description                                        |
-| ------------------ | -------------------------------------------------- |
-| `data-orientation` | `horizontal` or `vertical`.                        |
-| `data-disabled`    | Present when the group or the toolbar is disabled. |
+| Attribute          | Description                                              |
+| ------------------ | -------------------------------------------------------- |
+| `data-orientation` | Indicates the orientation of the toolbar.                |
+| `data-disabled`    | Present when the button is disabled.                     |
+| `data-focusable`   | Present when the button remains focusable when disabled. |
 
 ### Link
 
 <ApiPart name="toolbar" part="Link" />
 
-| Attribute          | Description                 |
-| ------------------ | --------------------------- |
-| `data-orientation` | `horizontal` or `vertical`. |
+| Attribute          | Description                               |
+| ------------------ | ----------------------------------------- |
+| `data-orientation` | Indicates the orientation of the toolbar. |
 
 ### Input
 
 <ApiPart name="toolbar" part="Input" />
 
-| Attribute          | Description                                                         |
-| ------------------ | ------------------------------------------------------------------- |
-| `data-orientation` | `horizontal` or `vertical`.                                         |
-| `data-disabled`    | Present when the input, its group, or the toolbar is disabled.      |
-| `data-focusable`   | Present when `focusableWhenDisabled` is true, which is the default. |
+| Attribute          | Description                                             |
+| ------------------ | ------------------------------------------------------- |
+| `data-orientation` | Indicates the orientation of the toolbar.               |
+| `data-disabled`    | Present when the input is disabled.                     |
+| `data-focusable`   | Present when the input remains focusable when disabled. |
+
+### Group
+
+<ApiPart name="toolbar" part="Group" />
+
+| Attribute          | Description                               |
+| ------------------ | ----------------------------------------- |
+| `data-orientation` | Indicates the orientation of the toolbar. |
+| `data-disabled`    | Present when the group is disabled.       |
 
 ### Separator
 
 <ApiPart name="toolbar" part="Separator" />
 
-| Attribute          | Description                                                 |
-| ------------------ | ----------------------------------------------------------- |
-| `data-orientation` | `horizontal` or `vertical`, perpendicular to the toolbar's. |
+| Attribute          | Description                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| `data-orientation` | Indicates the orientation of the separator, which is perpendicular to the toolbar. |
