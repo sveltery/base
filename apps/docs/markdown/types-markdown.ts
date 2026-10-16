@@ -26,14 +26,25 @@ function propsTable(title: string, props: ApiProp[]): string[] {
 	];
 }
 
-function constantsTable(title: string, label: string, column: string, constants: ApiConstant[]) {
+/** Base UI writes a CSS variable's name as code, and a data attribute's as plain text. */
+const CONSTANT_TABLES = {
+	'Data Attributes': { column: 'Attribute', name: (name: string) => name },
+	'CSS Variables': { column: 'Variable', name: code }
+};
+
+function constantsTable(
+	title: string,
+	label: keyof typeof CONSTANT_TABLES,
+	constants: ApiConstant[]
+) {
+	const { column, name } = CONSTANT_TABLES[label];
 	if (!constants.length) return [];
 	return [
 		`**${title} ${label}:**`,
 		table(
 			[column, 'Type', 'Description'],
 			constants.map((constant) => [
-				column === 'Variable' ? code(constant.name) : constant.name,
+				name(constant.name),
 				code(constant.type),
 				cell(constant.description) || '-'
 			])
@@ -68,8 +79,8 @@ function partSection(part: ApiPart): string[] {
 		`### ${title}`,
 		part.description,
 		...propsTable(title, part.props),
-		...constantsTable(title, 'Data Attributes', 'Attribute', part.dataAttributes),
-		...constantsTable(title, 'CSS Variables', 'Variable', part.cssVariables),
+		...constantsTable(title, 'Data Attributes', part.dataAttributes),
+		...constantsTable(title, 'CSS Variables', part.cssVariables),
 		`### ${title}.Props`,
 		`Re-export of [${title}](#${title.toLowerCase()}) props.`,
 		...(part.state.length ? [`### ${title}.State`, stateType(part)] : [])

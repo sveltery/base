@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { parse } from 'svelte/compiler';
 import ts from 'typescript';
-import { ordering, sortByOrder } from './type-order.ts';
+import { compare, ordering, sortByOrder } from './type-order.ts';
 
 /** One row of a props or state table. */
 export type ApiProp = {
@@ -42,8 +42,17 @@ export type ApiPart = {
  * state from the TypeScript types the components declare.
  */
 export function apiReference(lib: string, folder: string): ApiPart[] {
+	const current = library(lib);
+	let parts = current.parts.get(folder);
+	if (!parts) {
+		parts = readParts(lib, folder, ts.createProgram(current.entries, OPTIONS, current.host));
+		current.parts.set(folder, parts);
+	}
+	return parts;
+}
+
+function readParts(lib: string, folder: string, program: ts.Program): ApiPart[] {
 	const index = join(lib, folder, 'index.ts');
-	const program = createProgram(lib);
 	const checker = program.getTypeChecker();
 	const source = program.getSourceFile(index);
 	if (!source) throw new Error(`${index} is not in the API program`);
@@ -57,7 +66,7 @@ export function apiReference(lib: string, folder: string): ApiPart[] {
 	};
 
 	const parts = partFiles(source, dirname(index));
-	const groups = constantGroups(checker, exportedTypes(index), parts);
+	const { groups, files: groupFiles } = constantGroups(checker, exportedTypes(index), parts);
 	return parts.map(({ name, file, doc, propsType }) => {
 		const component = readFileSync(file, 'utf8');
 		const declaration = propsDeclaration(component, file);
@@ -87,12 +96,10 @@ export function apiReference(lib: string, folder: string): ApiPart[] {
 			state: stateSymbol ? table(stateSymbol, new Map()) : [],
 			dataAttributes: groups.get(`${flat(name)}DataAttributes`) ?? [],
 			cssVariables: groups.get(`${flat(name)}CssVariables`) ?? [],
-			files: [...files, ...groups.files]
+			files: [...files, ...groupFiles]
 		};
 	});
 }
-
-let parsed: { key: string; host: ts.CompilerHost; entries: string[] } | undefined;
 
 const OPTIONS: ts.CompilerOptions = {
 	target: ts.ScriptTarget.ESNext,
@@ -104,36 +111,45 @@ const OPTIONS: ts.CompilerOptions = {
 	types: []
 };
 
+type Library = {
+	key: string;
+	host: ts.CompilerHost;
+	entries: string[];
+	parts: Map<string, ApiPart[]>;
+};
+let cached: Library | undefined;
+
 /**
- * A program over every library entry, with a checker of its own. TypeScript orders union members
- * and mapped keys by when the checker first created each type, so a shared checker would let the
- * pages read before this one change its tables. Parsed files are shared, and reparsed when a `.ts`
- * file in the library changes.
+ * The library's parsed files and each folder's parts, kept until a `.ts` or `.svelte` file in it
+ * changes. Each folder is read with a checker of its own: TypeScript orders union members and
+ * mapped keys by when the checker first created each type, so a shared checker would let the
+ * folders read before this one change its tables.
  */
-function createProgram(lib: string): ts.Program {
-	const files = typeScriptFiles(lib);
+function library(lib: string): Library {
+	const files = libraryFiles(lib);
 	const key = files.map((file) => `${file}:${statSync(file).mtimeMs}`).join('\n');
-	if (parsed?.key !== key) {
-		const host = ts.createCompilerHost(OPTIONS);
-		const sources = new Map<string, ts.SourceFile | undefined>();
-		const getSourceFile = host.getSourceFile;
-		host.getSourceFile = (fileName, ...rest) => {
-			if (!sources.has(fileName)) sources.set(fileName, getSourceFile(fileName, ...rest));
-			return sources.get(fileName);
-		};
-		const entries = readdirSync(lib)
-			.map((folder) => join(lib, folder, 'index.ts'))
-			.filter((file) => files.includes(file));
-		parsed = { key, host, entries };
-	}
-	return ts.createProgram(parsed.entries, OPTIONS, parsed.host);
+	if (cached?.key === key) return cached;
+	const host = ts.createCompilerHost(OPTIONS);
+	const sources = new Map<string, ts.SourceFile | undefined>();
+	const getSourceFile = host.getSourceFile;
+	host.getSourceFile = (fileName, ...rest) => {
+		if (!sources.has(fileName)) sources.set(fileName, getSourceFile(fileName, ...rest));
+		return sources.get(fileName);
+	};
+	const entries = readdirSync(lib)
+		.map((folder) => join(lib, folder, 'index.ts'))
+		.filter((file) => files.includes(file));
+	cached = { key, host, entries, parts: new Map() };
+	return cached;
 }
 
-function typeScriptFiles(dir: string): string[] {
+function libraryFiles(dir: string): string[] {
 	return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
 		const path = join(dir, entry.name);
-		if (entry.isDirectory()) return typeScriptFiles(path);
-		return entry.name.endsWith('.ts') && !/\.(spec|test)\.ts$/.test(entry.name) ? [path] : [];
+		if (entry.isDirectory()) return libraryFiles(path);
+		return /\.(ts|svelte)$/.test(entry.name) && !/\.(spec|test)\.ts$/.test(entry.name)
+			? [path]
+			: [];
 	});
 }
 
@@ -340,9 +356,10 @@ function constantGroups(
 	checker: ts.TypeChecker,
 	exports: Map<string, ts.Symbol>,
 	parts: PartFile[]
-): Map<string, ApiConstant[]> & { files: string[] } {
+): { groups: Map<string, ApiConstant[]>; files: string[] } {
 	const partNames = new Set(parts.map((part) => flat(part.name)));
-	const groups = Object.assign(new Map<string, ApiConstant[]>(), { files: [] as string[] });
+	const groups = new Map<string, ApiConstant[]>();
+	const files: string[] = [];
 	for (const [name, exported] of exports) {
 		const kind = (Object.keys(GROUP_KINDS) as Array<keyof typeof GROUP_KINDS>).find(
 			(suffix) => name.endsWith(suffix) && name.length > suffix.length
@@ -357,15 +374,15 @@ function constantGroups(
 			symbol.flags & ts.SymbolFlags.ValueModule
 				? checker.getExportsOfModule(symbol).map((member) => constant(checker, member, name))
 				: objectConstants(checker, symbol, name);
-		groups.files.push(symbol.declarations![0].getSourceFile().fileName);
+		files.push(symbol.declarations![0].getSourceFile().fileName);
 		// Base UI sorts a group by value, then applies its order.
-		const byValue = constants.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+		const byValue = constants.sort((a, b) => compare(a.name, b.name));
 		groups.set(
 			name,
 			sortByOrder(byValue, GROUP_KINDS[kind], (constant) => constant.name)
 		);
 	}
-	return groups;
+	return { groups, files };
 }
 
 type Defaults = Map<string, { value?: string; bindable: boolean }>;

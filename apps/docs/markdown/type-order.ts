@@ -231,4 +231,4 @@ export function sortByOrder<T>(items: T[], order: string[], name: (item: T) => s
 }
 
 /** JavaScript's default sort, which upstream's `Object.keys(...).sort()` uses. */
-const compare = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+export const compare = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
