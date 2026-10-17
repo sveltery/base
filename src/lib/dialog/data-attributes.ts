@@ -21,7 +21,10 @@ export const DialogCloseDataAttributes = {
 } as const;
 
 export const DialogPopupCssVariables = {
-	/** Indicates how many dialogs are nested within. */
+	/**
+	 * Indicates how many dialogs are nested within.
+	 * @type {number}
+	 */
 	nestedDialogs: attributes.nestedDialogsVar
 } as const;
 

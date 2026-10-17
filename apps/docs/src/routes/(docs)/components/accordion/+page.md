@@ -301,69 +301,26 @@ Older browsers that don't support `hidden="until-found"` keep panels hidden unti
 
 ## API reference
 
+<script>
+	import { TypesAccordion } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="accordion" part="Root" />
-
-| Attribute          | Description                                         |
-| ------------------ | --------------------------------------------------- |
-| `data-orientation` | The `orientation` prop: `vertical` or `horizontal`. |
-| `data-disabled`    | Present when the accordion is disabled.             |
+<TypesAccordion.Root />
 
 ### Item
 
-<ApiPart name="accordion" part="Item" />
-
-| Attribute          | Description                                                         |
-| ------------------ | ------------------------------------------------------------------- |
-| `data-open`        | Present when the item is open.                                      |
-| `data-closed`      | Present when the item is closed.                                    |
-| `data-hidden`      | Present when the item is closed and its panel has finished closing. |
-| `data-disabled`    | Present when the item or the accordion is disabled.                 |
-| `data-orientation` | The `orientation` prop of the root.                                 |
-| `data-index`       | The index of the item in DOM order.                                 |
+<TypesAccordion.Item />
 
 ### Header
 
-<ApiPart name="accordion" part="Header" />
-
-| Attribute          | Description                                                         |
-| ------------------ | ------------------------------------------------------------------- |
-| `data-open`        | Present when the item is open.                                      |
-| `data-closed`      | Present when the item is closed.                                    |
-| `data-hidden`      | Present when the item is closed and its panel has finished closing. |
-| `data-disabled`    | Present when the item or the accordion is disabled.                 |
-| `data-orientation` | The `orientation` prop of the root.                                 |
-| `data-index`       | The index of the item in DOM order.                                 |
+<TypesAccordion.Header />
 
 ### Trigger
 
-<ApiPart name="accordion" part="Trigger" />
-
-| Attribute          | Description                                                         |
-| ------------------ | ------------------------------------------------------------------- |
-| `data-panel-open`  | Present when the item is open.                                      |
-| `data-hidden`      | Present when the item is closed and its panel has finished closing. |
-| `data-disabled`    | Present when the item or the accordion is disabled.                 |
-| `data-orientation` | The `orientation` prop of the root.                                 |
-| `data-index`       | The index of the item in DOM order.                                 |
+<TypesAccordion.Trigger />
 
 ### Panel
 
-<ApiPart name="accordion" part="Panel" />
-
-| Attribute             | Description                                                         |
-| --------------------- | ------------------------------------------------------------------- |
-| `data-open`           | Present when the item is open.                                      |
-| `data-closed`         | Present when the item is closed.                                    |
-| `data-hidden`         | Present when the item is closed and its panel has finished closing. |
-| `data-disabled`       | Present when the item or the accordion is disabled.                 |
-| `data-orientation`    | The `orientation` prop of the root.                                 |
-| `data-index`          | The index of the item in DOM order.                                 |
-| `data-starting-style` | Present when the panel is animating in.                             |
-| `data-ending-style`   | Present when the panel is animating out.                            |
-
-| CSS variable               | Description                                                       |
-| -------------------------- | ----------------------------------------------------------------- |
-| `--accordion-panel-height` | The panel's height in pixels while it measures, otherwise `auto`. |
-| `--accordion-panel-width`  | The panel's width in pixels while it measures, otherwise `auto`.  |
+<TypesAccordion.Panel />

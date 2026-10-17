@@ -859,116 +859,53 @@ Avoid sizing `<Toast.Content>` to the root's height (such as `height: 100%`), as
 
 ## API reference
 
+<script>
+	import { TypesToast, TypesToastAdditional } from './types';
+</script>
+
 ### Provider
 
-<ApiPart name="toast" part="Provider" />
+<TypesToast.Provider />
 
 ### Portal
 
-<ApiPart name="toast" part="Portal" />
+<TypesToast.Portal />
 
 ### Viewport
 
-<ApiPart name="toast" part="Viewport" />
-
-| Attribute       | Description                                    |
-| --------------- | ---------------------------------------------- |
-| `data-expanded` | Indicates toasts are expanded in the viewport. |
-
-| CSS Variable               | Description                                  |
-| -------------------------- | -------------------------------------------- |
-| `--toast-frontmost-height` | Indicates the height of the frontmost toast. |
+<TypesToast.Viewport />
 
 ### Root
 
-<ApiPart name="toast" part="Root" />
-
-| Attribute              | Description                                                              |
-| ---------------------- | ------------------------------------------------------------------------ |
-| `data-expanded`        | Present when the toast is expanded in the viewport.                      |
-| `data-limited`         | Present when the toast was limited because the toast limit was exceeded. |
-| `data-swipe-direction` | The direction the toast was swiped.                                      |
-| `data-swiping`         | Present when the toast is being swiped.                                  |
-| `data-type`            | The type of the toast.                                                   |
-| `data-starting-style`  | Present when the toast begins animating in.                              |
-| `data-ending-style`    | Present when the toast is animating out.                                 |
-
-| CSS Variable               | Description                                                                  |
-| -------------------------- | ---------------------------------------------------------------------------- |
-| `--toast-height`           | Indicates the measured natural height of the toast in pixels.                |
-| `--toast-index`            | Indicates the index of the toast in the list.                                |
-| `--toast-offset-y`         | Indicates the vertical pixels offset of the toast in the list when expanded. |
-| `--toast-swipe-movement-x` | Indicates the horizontal swipe movement of the toast.                        |
-| `--toast-swipe-movement-y` | Indicates the vertical swipe movement of the toast.                          |
+<TypesToast.Root />
 
 ### Content
 
-<ApiPart name="toast" part="Content" />
-
-| Attribute       | Description                                                        |
-| --------------- | ------------------------------------------------------------------ |
-| `data-behind`   | Present when the toast is behind the frontmost toast in the stack. |
-| `data-expanded` | Present when the toast viewport is expanded.                       |
+<TypesToast.Content />
 
 ### Title
 
-<ApiPart name="toast" part="Title" />
-
-| Attribute   | Description            |
-| ----------- | ---------------------- |
-| `data-type` | The type of the toast. |
+<TypesToast.Title />
 
 ### Description
 
-<ApiPart name="toast" part="Description" />
-
-| Attribute   | Description            |
-| ----------- | ---------------------- |
-| `data-type` | The type of the toast. |
+<TypesToast.Description />
 
 ### Action
 
-<ApiPart name="toast" part="Action" />
-
-| Attribute   | Description            |
-| ----------- | ---------------------- |
-| `data-type` | The type of the toast. |
+<TypesToast.Action />
 
 ### Close
 
-<ApiPart name="toast" part="Close" />
-
-| Attribute   | Description            |
-| ----------- | ---------------------- |
-| `data-type` | The type of the toast. |
+<TypesToast.Close />
 
 ### Positioner
 
-<ApiPart name="toast" part="Positioner" />
-
-| Attribute            | Description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
-| `data-anchor-hidden` | Present when the anchor is hidden.                                    |
-| `data-align`         | Indicates how the toast is aligned relative to specified side.        |
-| `data-side`          | Indicates which side the toast is positioned relative to the trigger. |
-
-| CSS Variable         | Description                                                                            |
-| -------------------- | -------------------------------------------------------------------------------------- |
-| `--anchor-height`    | The anchor's height.                                                                   |
-| `--anchor-width`     | The anchor's width.                                                                    |
-| `--available-height` | The available height between the anchor and the edge of the viewport.                  |
-| `--available-width`  | The available width between the anchor and the edge of the viewport.                   |
-| `--transform-origin` | The coordinates that this element is anchored to. Used for animations and transitions. |
+<TypesToast.Positioner />
 
 ### Arrow
 
-<ApiPart name="toast" part="Arrow" />
-
-| Attribute         | Description                                                          |
-| ----------------- | -------------------------------------------------------------------- |
-| `data-uncentered` | Present when the toast arrow is uncentered.                          |
-| `data-align`      | Indicates how the toast is aligned relative to specified side.       |
-| `data-side`       | Indicates which side the toast is positioned relative to the anchor. |
+<TypesToast.Arrow />
 
 ## getToastManager
 
@@ -1117,41 +1054,4 @@ See full [`promise` method](#promise-method)
 
 ## Additional types
 
-### ToastManagerUpdateOptions
-
-```ts
-type ToastManagerUpdateOptions<Data extends object> = {
-	/** The title of the toast. */
-	title?: string | Snippet;
-	/**
-	 * The type of the toast. Used to conditionally style the toast,
-	 * including conditionally rendering elements based on the type.
-	 */
-	type?: string;
-	/** The description of the toast. */
-	description?: string | Snippet;
-	/**
-	 * The amount of time (in ms) before the toast is auto dismissed.
-	 * A value of `0` will prevent the toast from being dismissed automatically.
-	 * @default 5000
-	 */
-	timeout?: number;
-	/**
-	 * The priority of the toast.
-	 * - `low` - The toast will be announced politely.
-	 * - `high` - The toast will be announced urgently.
-	 * @default 'low'
-	 */
-	priority?: 'low' | 'high';
-	/** Callback function to be called when the toast is closed. */
-	onClose?: () => void;
-	/** Callback function to be called when the toast is removed from the list after any animations are complete when closed. */
-	onRemove?: () => void;
-	/** The props for the action button. `children` is the button's content. */
-	actionProps?: Omit<HTMLButtonAttributes, 'children'> & { children?: string | Snippet };
-	/** The props forwarded to the toast positioner element when rendering anchored toasts. */
-	positionerProps?: ToastManagerPositionerProps;
-	/** Custom data for the toast. */
-	data?: Data;
-};
-```
+<TypesToastAdditional showAdditionalTypes={['toastmanagerupdateoptions']} />

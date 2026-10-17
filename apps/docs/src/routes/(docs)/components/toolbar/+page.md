@@ -201,56 +201,30 @@ To use a NumberField in the toolbar, pass `<NumberField.Input>` to `<Toolbar.Inp
 
 ## API reference
 
+<script>
+	import { TypesToolbar } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="toolbar" part="Root" />
-
-| Attribute          | Description                               |
-| ------------------ | ----------------------------------------- |
-| `data-orientation` | Indicates the orientation of the toolbar. |
-| `data-disabled`    | Present when the toolbar is disabled.     |
+<TypesToolbar.Root />
 
 ### Button
 
-<ApiPart name="toolbar" part="Button" />
-
-| Attribute          | Description                                              |
-| ------------------ | -------------------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the toolbar.                |
-| `data-disabled`    | Present when the button is disabled.                     |
-| `data-focusable`   | Present when the button remains focusable when disabled. |
+<TypesToolbar.Button />
 
 ### Link
 
-<ApiPart name="toolbar" part="Link" />
-
-| Attribute          | Description                               |
-| ------------------ | ----------------------------------------- |
-| `data-orientation` | Indicates the orientation of the toolbar. |
+<TypesToolbar.Link />
 
 ### Input
 
-<ApiPart name="toolbar" part="Input" />
-
-| Attribute          | Description                                             |
-| ------------------ | ------------------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the toolbar.               |
-| `data-disabled`    | Present when the input is disabled.                     |
-| `data-focusable`   | Present when the input remains focusable when disabled. |
+<TypesToolbar.Input />
 
 ### Group
 
-<ApiPart name="toolbar" part="Group" />
-
-| Attribute          | Description                               |
-| ------------------ | ----------------------------------------- |
-| `data-orientation` | Indicates the orientation of the toolbar. |
-| `data-disabled`    | Present when the group is disabled.       |
+<TypesToolbar.Group />
 
 ### Separator
 
-<ApiPart name="toolbar" part="Separator" />
-
-| Attribute          | Description                                                                        |
-| ------------------ | ---------------------------------------------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the separator, which is perpendicular to the toolbar. |
+<TypesToolbar.Separator />

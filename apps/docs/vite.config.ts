@@ -10,6 +10,7 @@ import { docsMarkdown } from './markdown/llms.ts';
 import { docsComponents, highlightCode } from './markdown/preprocess.ts';
 import { relativePaths } from './markdown/relative-paths.ts';
 import { sitemap } from './markdown/sitemap.ts';
+import { docsTypes } from './markdown/types.ts';
 
 const path = (relative: string) => fileURLToPath(new URL(relative, import.meta.url));
 
@@ -41,6 +42,7 @@ export default defineConfig({
 				Utils: 'utils'
 			}
 		}),
+		docsTypes({ routes, lib }),
 		sveltekit({
 			adapter: adapter(),
 			extensions: ['.svelte', '.md'],

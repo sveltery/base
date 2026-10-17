@@ -91,8 +91,8 @@ For buttons that enter a loading state after activation, specify `focusableWhenD
 
 ## API reference
 
-<ApiPart name="button" part="Button" />
+<script>
+	import { TypesButton } from './types';
+</script>
 
-| Attribute       | Description                          |
-| --------------- | ------------------------------------ |
-| `data-disabled` | Present when the button is disabled. |
+<TypesButton />

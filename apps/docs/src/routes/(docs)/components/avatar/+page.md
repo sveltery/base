@@ -98,31 +98,24 @@ With `keepMounted`, the image is part of the server-rendered HTML and starts loa
 
 ## API reference
 
+<script>
+	import { TypesAvatar, TypesAvatarAdditional } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="avatar" part="Root" />
+<TypesAvatar.Root />
 
 ### Image
 
-<ApiPart name="avatar" part="Image" />
-
-| Attribute             | Description                                 |
-| --------------------- | ------------------------------------------- |
-| `data-error`          | Present when the image failed to load.      |
-| `data-loading`        | Present while the image is loading.         |
-| `data-starting-style` | Present when the image begins animating in. |
-| `data-ending-style`   | Present when the image is animating out.    |
+<TypesAvatar.Image />
 
 ### Fallback
 
-<ApiPart name="avatar" part="Fallback" />
+<TypesAvatar.Fallback />
 
 <!-- @exclude-table-of-contents -->
 
 ## Additional types
 
-### ImageLoadingStatus
-
-```ts
-type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
-```
+<TypesAvatarAdditional showAdditionalTypes={['imageloadingstatus']} />

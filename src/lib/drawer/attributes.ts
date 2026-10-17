@@ -13,38 +13,70 @@ import type { TransitionStatusValue } from '../internal/useTransitionStatus.svel
 import type { SwipeDirection } from '../internal/useSwipeDismiss.svelte.js';
 
 export const DrawerPopupCssVars = {
-	/** The number of nested drawers that are open. */
+	/**
+	 * The number of nested drawers that are currently open.
+	 * @type {number}
+	 */
 	nestedDrawers: '--nested-drawers',
-	/** The height of the drawer popup. */
+	/**
+	 * The height of the drawer popup.
+	 * @type {CSS length}
+	 */
 	height: '--drawer-height',
-	/** The height of the frontmost open drawer in the nested drawer stack. */
+	/**
+	 * The height of the frontmost open drawer in the current nested drawer stack.
+	 * @type {CSS length}
+	 */
 	frontmostHeight: '--drawer-frontmost-height',
-	/** The swipe movement on the X axis. */
+	/**
+	 * The swipe movement on the X axis.
+	 * @type {CSS length}
+	 */
 	swipeMovementX: '--drawer-swipe-movement-x',
-	/** The swipe movement on the Y axis. */
+	/**
+	 * The swipe movement on the Y axis.
+	 * @type {CSS length}
+	 */
 	swipeMovementY: '--drawer-swipe-movement-y',
-	/** The snap point offset used to translate the drawer. */
+	/**
+	 * The snap point offset used for translating the drawer.
+	 * @type {CSS length}
+	 */
 	snapPointOffset: '--drawer-snap-point-offset',
-	/** A scalar (0.1 to 1) that scales the swipe release transition duration. */
+	/**
+	 * A scalar (0.1-1) used to scale the swipe release transition duration in CSS.
+	 * @type {number}
+	 */
 	swipeStrength: '--drawer-swipe-strength'
 } as const;
 
 export const DrawerBackdropCssVars = {
-	/** The swipe progress of the drawer gesture. */
+	/**
+	 * The swipe progress of the drawer gesture.
+	 * @type {number}
+	 */
 	swipeProgress: '--drawer-swipe-progress'
 } as const;
 
 export const DrawerViewportCssVars = {
-	/** The software keyboard inset. Set only inside `Drawer.VirtualKeyboardProvider`. */
+	/**
+	 * The software keyboard inset, measured from the bottom edge of the layout viewport.
+	 * Present only when the drawer is wrapped in `Drawer.VirtualKeyboardProvider`.
+	 * @type {CSS length}
+	 */
 	keyboardInset: '--drawer-keyboard-inset'
 } as const;
 
 export const DrawerPopupDataAttributes = {
+	/** Present when the drawer is open. */
 	open: 'data-open',
+	/** Present when the drawer is closed. */
 	closed: 'data-closed',
+	/** Present when the drawer begins animating in. */
 	startingStyle: 'data-starting-style',
+	/** Present when the drawer is animating out. */
 	endingStyle: 'data-ending-style',
-	/** Present at the expanded (full-height) snap point. */
+	/** Present when the drawer is at the expanded (full-height) snap point. */
 	expanded: 'data-expanded',
 	/** Present when a nested drawer is open. */
 	nestedDrawerOpen: 'data-nested-drawer-open',
@@ -52,17 +84,28 @@ export const DrawerPopupDataAttributes = {
 	nestedDrawerSwiping: 'data-nested-drawer-swiping',
 	/** Present when the drawer is dismissed by swiping. */
 	swipeDismiss: 'data-swipe-dismiss',
-	/** `up`, `down`, `left`, or `right`. */
+	/**
+	 * Indicates the swipe direction.
+	 * @type {'up' | 'down' | 'left' | 'right'}
+	 */
 	swipeDirection: 'data-swipe-direction',
-	/** Present while the drawer is being swiped. */
+	/** Present when the drawer is being swiped. */
 	swiping: 'data-swiping'
 } as const;
 
 export const DrawerSwipeAreaDataAttributes = {
+	/** Present when the drawer is open. */
 	open: 'data-open',
+	/** Present when the drawer is closed. */
 	closed: 'data-closed',
+	/** Present when the swipe area is disabled. */
 	disabled: 'data-disabled',
+	/**
+	 * Indicates the swipe direction.
+	 * @type {'up' | 'down' | 'left' | 'right'}
+	 */
 	swipeDirection: 'data-swipe-direction',
+	/** Present when the drawer is being swiped. */
 	swiping: 'data-swiping'
 } as const;
 

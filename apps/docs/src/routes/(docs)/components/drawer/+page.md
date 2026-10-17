@@ -1166,143 +1166,69 @@ Use `--drawer-swipe-progress` to fade the backdrop as the drawer is swiped, and 
 
 ## API reference
 
+<script>
+	import { TypesDrawer } from './types';
+</script>
+
 ### Provider
 
-<ApiPart name="drawer" part="Provider" />
+<TypesDrawer.Provider />
 
 ### IndentBackground
 
-<ApiPart name="drawer" part="IndentBackground" />
-
-| Attribute       | Description                                     |
-| --------------- | ----------------------------------------------- |
-| `data-active`   | Present when a drawer in the provider is open.  |
-| `data-inactive` | Present when no drawer in the provider is open. |
+<TypesDrawer.IndentBackground />
 
 ### Indent
 
-<ApiPart name="drawer" part="Indent" />
-
-| Attribute       | Description                                     |
-| --------------- | ----------------------------------------------- |
-| `data-active`   | Present when a drawer in the provider is open.  |
-| `data-inactive` | Present when no drawer in the provider is open. |
-
-| CSS variable              | Description                                             |
-| ------------------------- | ------------------------------------------------------- |
-| `--drawer-swipe-progress` | The frontmost drawer's swipe progress, from `0` to `1`. |
-| `--drawer-height`         | The frontmost drawer's height, while a drawer is open.  |
+<TypesDrawer.Indent />
 
 ### Root
 
-<ApiPart name="drawer" part="Root" />
+<TypesDrawer.Root />
 
 ### Trigger
 
-<ApiPart name="drawer" part="Trigger" />
-
-| Attribute         | Description                                    |
-| ----------------- | ---------------------------------------------- |
-| `data-popup-open` | Present when the corresponding dialog is open. |
-| `data-disabled`   | Present when the trigger is disabled.          |
+<TypesDrawer.Trigger />
 
 ### SwipeArea
 
-<ApiPart name="drawer" part="SwipeArea" />
-
-| Attribute              | Description                              |
-| ---------------------- | ---------------------------------------- |
-| `data-open`            | Present when the drawer is open.         |
-| `data-closed`          | Present when the drawer is closed.       |
-| `data-disabled`        | Present when the swipe area is disabled. |
-| `data-swipe-direction` | Indicates the swipe direction.           |
-| `data-swiping`         | Present when the drawer is being swiped. |
+<TypesDrawer.SwipeArea />
 
 ### VirtualKeyboardProvider
 
-<ApiPart name="drawer" part="VirtualKeyboardProvider" />
+<TypesDrawer.VirtualKeyboardProvider />
 
 ### Portal
 
-<ApiPart name="drawer" part="Portal" />
+<TypesDrawer.Portal />
 
 ### Backdrop
 
-<ApiPart name="drawer" part="Backdrop" />
-
-| Attribute             | Description                                  |
-| --------------------- | -------------------------------------------- |
-| `data-open`           | Present when the drawer is open.             |
-| `data-closed`         | Present when the drawer is closed.           |
-| `data-starting-style` | Present when the drawer begins animating in. |
-| `data-ending-style`   | Present when the drawer is animating out.    |
-
-| CSS variable              | Description                               |
-| ------------------------- | ----------------------------------------- |
-| `--drawer-swipe-progress` | The swipe progress of the drawer gesture. |
+<TypesDrawer.Backdrop />
 
 ### Viewport
 
-<ApiPart name="drawer" part="Viewport" />
-
-| Attribute             | Description                                              |
-| --------------------- | -------------------------------------------------------- |
-| `data-open`           | Present when the drawer is open.                         |
-| `data-closed`         | Present when the drawer is closed.                       |
-| `data-nested`         | Present when the drawer is nested within another drawer. |
-| `data-starting-style` | Present when the drawer begins animating in.             |
-| `data-ending-style`   | Present when the drawer is animating out.                |
-
-| CSS variable              | Description                                                                                                                                                     |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--drawer-keyboard-inset` | The software keyboard inset, measured from the bottom edge of the layout viewport. Present only when the drawer is wrapped in `Drawer.VirtualKeyboardProvider`. |
+<TypesDrawer.Viewport />
 
 ### Popup
 
-<ApiPart name="drawer" part="Popup" />
-
-| Attribute                    | Description                                                          |
-| ---------------------------- | -------------------------------------------------------------------- |
-| `data-open`                  | Present when the drawer is open.                                     |
-| `data-closed`                | Present when the drawer is closed.                                   |
-| `data-expanded`              | Present when the drawer is at the expanded (full-height) snap point. |
-| `data-nested-drawer-open`    | Present when a nested drawer is open.                                |
-| `data-nested-drawer-swiping` | Present when a nested drawer is being swiped.                        |
-| `data-swipe-direction`       | Indicates the swipe direction.                                       |
-| `data-swipe-dismiss`         | Present when the drawer is dismissed by swiping.                     |
-| `data-swiping`               | Present when the drawer is being swiped.                             |
-| `data-starting-style`        | Present when the drawer begins animating in.                         |
-| `data-ending-style`          | Present when the drawer is animating out.                            |
-
-| CSS variable                 | Description                                                                  |
-| ---------------------------- | ---------------------------------------------------------------------------- |
-| `--drawer-frontmost-height`  | The height of the frontmost open drawer in the current nested drawer stack.  |
-| `--drawer-height`            | The height of the drawer popup.                                              |
-| `--drawer-snap-point-offset` | The snap point offset used for translating the drawer.                       |
-| `--drawer-swipe-movement-x`  | The swipe movement on the X axis.                                            |
-| `--drawer-swipe-movement-y`  | The swipe movement on the Y axis.                                            |
-| `--drawer-swipe-strength`    | A scalar (0.1-1) used to scale the swipe release transition duration in CSS. |
-| `--nested-drawers`           | The number of nested drawers that are currently open.                        |
+<TypesDrawer.Popup />
 
 ### Content
 
-<ApiPart name="drawer" part="Content" />
+<TypesDrawer.Content />
 
 ### Title
 
-<ApiPart name="drawer" part="Title" />
+<TypesDrawer.Title />
 
 ### Description
 
-<ApiPart name="drawer" part="Description" />
+<TypesDrawer.Description />
 
 ### Close
 
-<ApiPart name="drawer" part="Close" />
-
-| Attribute       | Description                          |
-| --------------- | ------------------------------------ |
-| `data-disabled` | Present when the button is disabled. |
+<TypesDrawer.Close />
 
 ## createHandle
 

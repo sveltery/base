@@ -208,90 +208,30 @@ Use `<Tabs.List>`'s `render` snippet to render `<ScrollArea.Viewport>` directly 
 
 ## API reference
 
+<script>
+	import { TypesScrollArea } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="scroll-area" part="Root" />
-
-| Attribute               | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `data-has-overflow-x`   | Present when the scroll area content is wider than the viewport.  |
-| `data-has-overflow-y`   | Present when the scroll area content is taller than the viewport. |
-| `data-overflow-x-end`   | Present when there is overflow on the horizontal end side.        |
-| `data-overflow-x-start` | Present when there is overflow on the horizontal start side.      |
-| `data-overflow-y-end`   | Present when there is overflow on the vertical end side.          |
-| `data-overflow-y-start` | Present when there is overflow on the vertical start side.        |
-| `data-scrolling`        | Present when the user scrolls inside the scroll area.             |
-
-| CSS Variable                  | Description                      |
-| ----------------------------- | -------------------------------- |
-| `--scroll-area-corner-height` | The scroll area's corner height. |
-| `--scroll-area-corner-width`  | The scroll area's corner width.  |
+<TypesScrollArea.Root />
 
 ### Viewport
 
-<ApiPart name="scroll-area" part="Viewport" />
-
-| Attribute               | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `data-has-overflow-x`   | Present when the scroll area content is wider than the viewport.  |
-| `data-has-overflow-y`   | Present when the scroll area content is taller than the viewport. |
-| `data-overflow-x-end`   | Present when there is overflow on the horizontal end side.        |
-| `data-overflow-x-start` | Present when there is overflow on the horizontal start side.      |
-| `data-overflow-y-end`   | Present when there is overflow on the vertical end side.          |
-| `data-overflow-y-start` | Present when there is overflow on the vertical start side.        |
-| `data-scrolling`        | Present when the user scrolls inside the scroll area.             |
-
-| CSS Variable                     | Description                                            |
-| -------------------------------- | ------------------------------------------------------ |
-| `--scroll-area-overflow-x-end`   | The distance from the horizontal end edge in pixels.   |
-| `--scroll-area-overflow-x-start` | The distance from the horizontal start edge in pixels. |
-| `--scroll-area-overflow-y-end`   | The distance from the vertical end edge in pixels.     |
-| `--scroll-area-overflow-y-start` | The distance from the vertical start edge in pixels.   |
+<TypesScrollArea.Viewport />
 
 ### Content
 
-<ApiPart name="scroll-area" part="Content" />
-
-| Attribute               | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `data-has-overflow-x`   | Present when the scroll area content is wider than the viewport.  |
-| `data-has-overflow-y`   | Present when the scroll area content is taller than the viewport. |
-| `data-overflow-x-end`   | Present when there is overflow on the horizontal end side.        |
-| `data-overflow-x-start` | Present when there is overflow on the horizontal start side.      |
-| `data-overflow-y-end`   | Present when there is overflow on the vertical end side.          |
-| `data-overflow-y-start` | Present when there is overflow on the vertical start side.        |
-| `data-scrolling`        | Present when the user scrolls inside the scroll area.             |
+<TypesScrollArea.Content />
 
 ### Scrollbar
 
-<ApiPart name="scroll-area" part="Scrollbar" />
-
-| Attribute               | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| `data-orientation`      | Indicates the orientation of the scrollbar.                       |
-| `data-has-overflow-x`   | Present when the scroll area content is wider than the viewport.  |
-| `data-has-overflow-y`   | Present when the scroll area content is taller than the viewport. |
-| `data-hovering`         | Present when the pointer is over the scroll area.                 |
-| `data-overflow-x-end`   | Present when there is overflow on the horizontal end side.        |
-| `data-overflow-x-start` | Present when there is overflow on the horizontal start side.      |
-| `data-overflow-y-end`   | Present when there is overflow on the vertical end side.          |
-| `data-overflow-y-start` | Present when there is overflow on the vertical start side.        |
-| `data-scrolling`        | Present when the user scrolls inside the scroll area.             |
-
-| CSS Variable                 | Description                     |
-| ---------------------------- | ------------------------------- |
-| `--scroll-area-thumb-height` | The scroll area thumb's height. |
-| `--scroll-area-thumb-width`  | The scroll area thumb's width.  |
+<TypesScrollArea.Scrollbar />
 
 ### Thumb
 
-<ApiPart name="scroll-area" part="Thumb" />
-
-| Attribute          | Description                                           |
-| ------------------ | ----------------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the scrollbar.           |
-| `data-scrolling`   | Present when the user scrolls inside the scroll area. |
+<TypesScrollArea.Thumb />
 
 ### Corner
 
-<ApiPart name="scroll-area" part="Corner" />
+<TypesScrollArea.Corner />

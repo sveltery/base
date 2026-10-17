@@ -100,121 +100,34 @@ Import the component and assemble its parts:
 
 ## API reference
 
+<script>
+	import { TypesNumberField } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="number-field" part="Root" />
-
-| Attribute        | Description                                                                        |
-| ---------------- | ---------------------------------------------------------------------------------- |
-| `data-disabled`  | Present when the number field is disabled.                                         |
-| `data-readonly`  | Present when the number field is readonly.                                         |
-| `data-required`  | Present when the number field is required.                                         |
-| `data-valid`     | Present when the number field is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the number field is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the number field's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the number field has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the number field is filled (when wrapped in Field.Root).              |
-| `data-focused`   | Present when the number field is focused (when wrapped in Field.Root).             |
-| `data-scrubbing` | Present while scrubbing.                                                           |
+<TypesNumberField.Root />
 
 ### ScrubArea
 
-<ApiPart name="number-field" part="ScrubArea" />
-
-| Attribute        | Description                                                                        |
-| ---------------- | ---------------------------------------------------------------------------------- |
-| `data-disabled`  | Present when the number field is disabled.                                         |
-| `data-readonly`  | Present when the number field is readonly.                                         |
-| `data-required`  | Present when the number field is required.                                         |
-| `data-valid`     | Present when the number field is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the number field is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the number field's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the number field has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the number field is filled (when wrapped in Field.Root).              |
-| `data-focused`   | Present when the number field is focused (when wrapped in Field.Root).             |
-| `data-scrubbing` | Present while scrubbing.                                                           |
+<TypesNumberField.ScrubArea />
 
 ### ScrubAreaCursor
 
-<ApiPart name="number-field" part="ScrubAreaCursor" />
-
-| Attribute        | Description                                                                        |
-| ---------------- | ---------------------------------------------------------------------------------- |
-| `data-disabled`  | Present when the number field is disabled.                                         |
-| `data-readonly`  | Present when the number field is readonly.                                         |
-| `data-required`  | Present when the number field is required.                                         |
-| `data-valid`     | Present when the number field is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the number field is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the number field's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the number field has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the number field is filled (when wrapped in Field.Root).              |
-| `data-focused`   | Present when the number field is focused (when wrapped in Field.Root).             |
-| `data-scrubbing` | Present while scrubbing.                                                           |
+<TypesNumberField.ScrubAreaCursor />
 
 ### Group
 
-<ApiPart name="number-field" part="Group" />
-
-| Attribute        | Description                                                                        |
-| ---------------- | ---------------------------------------------------------------------------------- |
-| `data-disabled`  | Present when the number field is disabled.                                         |
-| `data-readonly`  | Present when the number field is readonly.                                         |
-| `data-required`  | Present when the number field is required.                                         |
-| `data-valid`     | Present when the number field is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the number field is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the number field's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the number field has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the number field is filled (when wrapped in Field.Root).              |
-| `data-focused`   | Present when the number field is focused (when wrapped in Field.Root).             |
-| `data-scrubbing` | Present while scrubbing.                                                           |
+<TypesNumberField.Group />
 
 ### Decrement
 
-<ApiPart name="number-field" part="Decrement" />
-
-| Attribute        | Description                                                                        |
-| ---------------- | ---------------------------------------------------------------------------------- |
-| `data-disabled`  | Present when the number field is disabled.                                         |
-| `data-readonly`  | Present when the number field is readonly.                                         |
-| `data-required`  | Present when the number field is required.                                         |
-| `data-valid`     | Present when the number field is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the number field is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the number field's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the number field has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the number field is filled (when wrapped in Field.Root).              |
-| `data-focused`   | Present when the number field is focused (when wrapped in Field.Root).             |
-| `data-scrubbing` | Present while scrubbing.                                                           |
+<TypesNumberField.Decrement />
 
 ### Input
 
-<ApiPart name="number-field" part="Input" />
-
-| Attribute        | Description                                                                        |
-| ---------------- | ---------------------------------------------------------------------------------- |
-| `data-disabled`  | Present when the number field is disabled.                                         |
-| `data-readonly`  | Present when the number field is readonly.                                         |
-| `data-required`  | Present when the number field is required.                                         |
-| `data-valid`     | Present when the number field is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the number field is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the number field's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the number field has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the number field is filled (when wrapped in Field.Root).              |
-| `data-focused`   | Present when the number field is focused (when wrapped in Field.Root).             |
-| `data-scrubbing` | Present while scrubbing.                                                           |
+<TypesNumberField.Input />
 
 ### Increment
 
-<ApiPart name="number-field" part="Increment" />
-
-| Attribute        | Description                                                                        |
-| ---------------- | ---------------------------------------------------------------------------------- |
-| `data-disabled`  | Present when the number field is disabled.                                         |
-| `data-readonly`  | Present when the number field is readonly.                                         |
-| `data-required`  | Present when the number field is required.                                         |
-| `data-valid`     | Present when the number field is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the number field is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the number field's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the number field has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the number field is filled (when wrapped in Field.Root).              |
-| `data-focused`   | Present when the number field is focused (when wrapped in Field.Root).             |
-| `data-scrubbing` | Present while scrubbing.                                                           |
+<TypesNumberField.Increment />

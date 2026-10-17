@@ -310,97 +310,34 @@ For grouped multi-thumb range sliders in forms, [Fieldset](/components/fieldset)
 
 ## API reference
 
+<script>
+	import { TypesSlider } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="slider" part="Root" />
-
-| Attribute          | Description                                                                  |
-| ------------------ | ---------------------------------------------------------------------------- |
-| `data-dragging`    | Present while the user is dragging.                                          |
-| `data-orientation` | Indicates the orientation of the slider.                                     |
-| `data-disabled`    | Present when the slider is disabled.                                         |
-| `data-valid`       | Present when the slider is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`     | Present when the slider is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`       | Present when the slider's value has changed (when wrapped in Field.Root).    |
-| `data-touched`     | Present when the slider has been touched (when wrapped in Field.Root).       |
-| `data-focused`     | Present when the slider is focused (when wrapped in Field.Root).             |
+<TypesSlider.Root />
 
 ### Label
 
-<ApiPart name="slider" part="Label" />
+<TypesSlider.Label />
 
 ### Value
 
-<ApiPart name="slider" part="Value" />
-
-| Attribute          | Description                                                                  |
-| ------------------ | ---------------------------------------------------------------------------- |
-| `data-dragging`    | Present while the user is dragging.                                          |
-| `data-orientation` | Indicates the orientation of the slider.                                     |
-| `data-disabled`    | Present when the slider is disabled.                                         |
-| `data-valid`       | Present when the slider is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`     | Present when the slider is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`       | Present when the slider's value has changed (when wrapped in Field.Root).    |
-| `data-touched`     | Present when the slider has been touched (when wrapped in Field.Root).       |
-| `data-focused`     | Present when the slider is focused (when wrapped in Field.Root).             |
+<TypesSlider.Value />
 
 ### Control
 
-<ApiPart name="slider" part="Control" />
-
-| Attribute          | Description                                                                  |
-| ------------------ | ---------------------------------------------------------------------------- |
-| `data-dragging`    | Present while the user is dragging.                                          |
-| `data-orientation` | Indicates the orientation of the slider.                                     |
-| `data-disabled`    | Present when the slider is disabled.                                         |
-| `data-valid`       | Present when the slider is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`     | Present when the slider is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`       | Present when the slider's value has changed (when wrapped in Field.Root).    |
-| `data-touched`     | Present when the slider has been touched (when wrapped in Field.Root).       |
-| `data-focused`     | Present when the slider is focused (when wrapped in Field.Root).             |
+<TypesSlider.Control />
 
 ### Track
 
-<ApiPart name="slider" part="Track" />
-
-| Attribute          | Description                                                                  |
-| ------------------ | ---------------------------------------------------------------------------- |
-| `data-dragging`    | Present while the user is dragging.                                          |
-| `data-orientation` | Indicates the orientation of the slider.                                     |
-| `data-disabled`    | Present when the slider is disabled.                                         |
-| `data-valid`       | Present when the slider is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`     | Present when the slider is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`       | Present when the slider's value has changed (when wrapped in Field.Root).    |
-| `data-touched`     | Present when the slider has been touched (when wrapped in Field.Root).       |
-| `data-focused`     | Present when the slider is focused (when wrapped in Field.Root).             |
+<TypesSlider.Track />
 
 ### Indicator
 
-<ApiPart name="slider" part="Indicator" />
-
-| Attribute          | Description                                                                  |
-| ------------------ | ---------------------------------------------------------------------------- |
-| `data-dragging`    | Present while the user is dragging.                                          |
-| `data-orientation` | Indicates the orientation of the slider.                                     |
-| `data-disabled`    | Present when the slider is disabled.                                         |
-| `data-valid`       | Present when the slider is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`     | Present when the slider is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`       | Present when the slider's value has changed (when wrapped in Field.Root).    |
-| `data-touched`     | Present when the slider has been touched (when wrapped in Field.Root).       |
-| `data-focused`     | Present when the slider is focused (when wrapped in Field.Root).             |
+<TypesSlider.Indicator />
 
 ### Thumb
 
-<ApiPart name="slider" part="Thumb" />
-
-| Attribute          | Description                                                                  |
-| ------------------ | ---------------------------------------------------------------------------- |
-| `data-dragging`    | Present while the user is dragging.                                          |
-| `data-orientation` | Indicates the orientation of the slider.                                     |
-| `data-disabled`    | Present when the slider is disabled.                                         |
-| `data-valid`       | Present when the slider is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`     | Present when the slider is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`       | Present when the slider's value has changed (when wrapped in Field.Root).    |
-| `data-touched`     | Present when the slider has been touched (when wrapped in Field.Root).       |
-| `data-focused`     | Present when the slider is focused (when wrapped in Field.Root).             |
-| `data-index`       | Indicates the index of the thumb in range sliders.                           |
+<TypesSlider.Thumb />

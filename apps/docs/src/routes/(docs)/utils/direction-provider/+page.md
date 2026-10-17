@@ -47,9 +47,13 @@ Import the component and wrap it around your app:
 
 ## API reference
 
+<script>
+	import { TypesDirectionProvider } from './types';
+</script>
+
 ### DirectionProvider
 
-<ApiPart name="direction-provider" part="DirectionProvider" />
+<TypesDirectionProvider />
 
 ### useDirection
 

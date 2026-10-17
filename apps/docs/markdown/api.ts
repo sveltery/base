@@ -2,6 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { parse } from 'svelte/compiler';
 import ts from 'typescript';
+import { compare, EVERYTHING_ELSE, ordering, sortByOrder } from './type-order.ts';
 
 /** One row of a props or state table. */
 export type ApiProp = {
@@ -13,6 +14,16 @@ export type ApiProp = {
 	required: boolean;
 };
 
+/** One data attribute or CSS variable, such as `data-open`. */
+export type ApiConstant = {
+	/** The member that holds it, such as `open`. */
+	key: string;
+	name: string;
+	/** The value's type from a `@type` tag, such as `number` for `data-index`. */
+	type?: string;
+	description: string;
+};
+
 /** One exported part, such as `Collapsible.Trigger`. */
 export type ApiPart = {
 	/** The name a consumer writes, such as `Collapsible.Trigger` or `Button`. */
@@ -22,17 +33,50 @@ export type ApiPart = {
 	description: string;
 	props: ApiProp[];
 	state: ApiProp[];
+	dataAttributes: ApiConstant[];
+	cssVariables: ApiConstant[];
 	/** Source files the reference was read from, for dev-server reloads. */
 	files: string[];
 };
+
+/** An exported type no part documents, such as `ImageLoadingStatus` or a data-attribute group. */
+export type ApiType = {
+	name: string;
+	description: string;
+	/** Its declaration, such as `type ImageLoadingStatus = 'idle' | 'loading'`, unformatted. */
+	code: string;
+	/** The part whose data attributes or CSS variables a constant group holds. */
+	of?: { part: string; kind: ConstantKind };
+};
+
+/**
+ * A type the reference names but a consumer cannot import, such as a private union of strings.
+ * Base UI defines these under External Types rather than spelling them out at each use.
+ */
+export type ApiExternal = { name: string; code: string };
+
+/** What one library folder documents. */
+export type ApiFolder = { parts: ApiPart[]; types: ApiType[]; externals: ApiExternal[] };
 
 /**
  * Reads the public parts of one library folder, such as `collapsible`, and their props and
  * state from the TypeScript types the components declare.
  */
-export function apiReference(lib: string, folder: string): ApiPart[] {
+export const apiReference = (lib: string, folder: string): ApiPart[] =>
+	apiFolder(lib, folder).parts;
+
+export function apiFolder(lib: string, folder: string): ApiFolder {
+	const current = library(lib);
+	let read = current.folders.get(folder);
+	if (!read) {
+		read = readFolder(lib, folder, ts.createProgram(current.entries, OPTIONS, current.host));
+		current.folders.set(folder, read);
+	}
+	return read;
+}
+
+function readFolder(lib: string, folder: string, program: ts.Program): ApiFolder {
 	const index = join(lib, folder, 'index.ts');
-	const program = createProgram(lib);
 	const checker = program.getTypeChecker();
 	const source = program.getSourceFile(index);
 	if (!source) throw new Error(`${index} is not in the API program`);
@@ -45,7 +89,12 @@ export function apiReference(lib: string, folder: string): ApiPart[] {
 		return new Map(checker.getExportsOfModule(moduleSymbol).map((symbol) => [symbol.name, symbol]));
 	};
 
-	return partFiles(source, dirname(index)).map(({ name, file, doc, propsType }) => {
+	const partList = partFiles(source, dirname(index));
+	const entryExports = exportedTypes(index);
+	const { groups, files: groupFiles } = constantGroups(checker, entryExports, partList);
+	const externals = new Map<string, string>();
+	const documented = new Set<string>();
+	const parts = partList.map(({ name, file, doc, propsType }): ApiPart => {
 		const component = readFileSync(file, 'utf8');
 		const declaration = propsDeclaration(component, file);
 		const { defaults } = declaration;
@@ -55,52 +104,197 @@ export function apiReference(lib: string, folder: string): ApiPart[] {
 		const propsSymbol = types.get(propsName);
 		if (!propsSymbol) throw new Error(`${file}: ${propsName} is not exported beside it`);
 		const stateSymbol = types.get(propsName.replace(/Props$/, 'State'));
+		for (const documentedName of [propsName, `${flat(name)}Props`]) {
+			documented.add(documentedName).add(documentedName.replace(/Props$/, 'State'));
+		}
 		const header = doc ?? headerComment(component);
 		const files = new Set([file]);
 		const table = (symbol: ts.Symbol, propDefaults: Defaults) =>
-			members(checker, symbol, propDefaults, publicTypes, files);
+			members(checker, symbol, propDefaults, publicTypes, files, externals);
 		return {
 			name,
 			element: header.match(/Renders an? `(<[a-z0-9-]+>)`/)?.[1],
 			description: header,
 			// A plain `children` snippet is implied. One with arguments or a doc comment is listed.
-			props: table(propsSymbol, defaults).filter(
-				(prop) => prop.name !== 'children' || prop.description || prop.type !== 'Snippet'
+			props: sortByOrder(
+				table(propsSymbol, defaults).filter(
+					(prop) => prop.name !== 'children' || prop.description || prop.type !== 'Snippet'
+				),
+				ordering.props,
+				(prop) => prop.name
 			),
 			state: stateSymbol ? table(stateSymbol, new Map()) : [],
-			files: [...files]
+			dataAttributes: tableOrder(groups.get(`${flat(name)}DataAttributes`)),
+			cssVariables: tableOrder(groups.get(`${flat(name)}CssVariables`)),
+			files: [...files, ...groupFiles]
 		};
 	});
+	const types = [...entryExports].flatMap(([name, exported]): ApiType[] => {
+		const group = groups.get(name);
+		if (group) {
+			const part = partList.find((candidate) => name === flat(candidate.name) + group.kind)!;
+			return [
+				{
+					name,
+					description: '',
+					code: constantNamespace(name, group.constants),
+					of: { part: part.name, kind: group.kind }
+				}
+			];
+		}
+		const symbol =
+			exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported;
+		if (
+			documented.has(name) ||
+			symbol.flags & ts.SymbolFlags.Value ||
+			!(symbol.flags & (ts.SymbolFlags.TypeAlias | ts.SymbolFlags.Interface))
+		) {
+			return [];
+		}
+		return [
+			{
+				name,
+				description: paragraphs(ts.displayPartsToString(symbol.getDocumentationComment(checker))),
+				code: typeDeclaration(checker, symbol, name, publicTypes, externals)
+			}
+		];
+	});
+	return {
+		parts,
+		types,
+		externals: [...externals].map(([name, code]) => ({ name, code }))
+	};
 }
 
-let cached: { key: string; program: ts.Program } | undefined;
+/** Where Base UI's `typeSuffixes` puts a type, as its `sortAdditionalTypes` ranks a flat name. */
+const suffixRank = (name: string) => {
+	const rank = ordering.typeSuffixes.indexOf(name);
+	return rank === -1 ? ordering.typeSuffixes.indexOf(EVERYTHING_ELSE) : rank;
+};
 
-/** One program over every library entry. It is rebuilt when a `.ts` file in the library changes. */
-function createProgram(lib: string): ts.Program {
-	const files = typeScriptFiles(lib);
+/** Additional types in Base UI's order: by `typeSuffixes`, then by name. */
+export const sortTypes = (types: ApiType[]) =>
+	types.sort(
+		(a, b) => suffixRank(a.name) - suffixRank(b.name) || a.name.localeCompare(b.name, 'en')
+	);
+
+/** `type Name<T> = ...` as written, or an interface as an object type with its members' docs. */
+function typeDeclaration(
+	checker: ts.TypeChecker,
+	symbol: ts.Symbol,
+	name: string,
+	publicTypes: Set<string>,
+	externals: Map<string, string>
+): string {
+	const declaration = symbol.declarations![0];
+	const parameters =
+		ts.isTypeAliasDeclaration(declaration) || ts.isInterfaceDeclaration(declaration)
+			? declaration.typeParameters
+			: undefined;
+	const head = `${name}${parameters ? `<${parameters.map((p) => p.getText()).join(', ')}>` : ''}`;
+	const resolved = checker.getDeclaredTypeOfSymbol(symbol);
+	// An object built from other types, such as `Partial<Omit<ToastObject, 'id'>>`, reads better
+	// as its members, as Base UI expands it.
+	const object =
+		!(resolved.flags & ts.TypeFlags.Union) &&
+		resolved.flags & (ts.TypeFlags.Object | ts.TypeFlags.Intersection) &&
+		!resolved.getCallSignatures().length &&
+		checker.getPropertiesOfType(resolved).length > 0;
+	if (ts.isTypeAliasDeclaration(declaration) && !object) {
+		const text =
+			readableType(checker, declaration.type, publicTypes, new Map(), externals) ??
+			checker.typeToString(
+				resolved,
+				undefined,
+				ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.InTypeAlias
+			);
+		return `type ${head} = ${text};`;
+	}
+	return objectType(head, members(checker, symbol, new Map(), publicTypes, new Set(), externals));
+}
+
+const jsDoc = (lines: string[]) =>
+	lines.length === 0
+		? []
+		: lines.length === 1
+			? [`/** ${lines[0]} */`]
+			: ['/**', ...lines.map((line) => (line ? ` * ${line}` : ' *')), ' */'];
+
+/** `type AccordionRootState = { ... }`, each member under its doc comment. */
+export const objectType = (head: string, props: ApiProp[]) =>
+	[
+		`type ${head} = {`,
+		...props.flatMap((prop) => [
+			...jsDoc(prop.description ? prop.description.split('\n') : []),
+			// `?` already says a member can be undefined, as Base UI's `stripTrailingUndefined` assumes.
+			`${prop.name}${prop.required ? '' : '?'}: ${prop.required ? prop.type : prop.type.replace(/ \| undefined$/, '')};`
+		]),
+		'};'
+	].join('\n');
+
+/** A constant group as Base UI declares it: `declare namespace Name { const open: 'data-open'; }`. */
+const constantNamespace = (name: string, constants: ApiConstant[]) =>
+	[
+		`declare namespace ${name} {`,
+		...constants.flatMap((constant) => [
+			...jsDoc([
+				...(constant.description ? constant.description.split('\n') : []),
+				...(constant.type ? [`@type ${constant.type}`] : [])
+			]),
+			`const ${constant.key}: '${constant.name}';`
+		]),
+		'}'
+	].join('\n');
+
+const OPTIONS: ts.CompilerOptions = {
+	target: ts.ScriptTarget.ESNext,
+	module: ts.ModuleKind.ESNext,
+	moduleResolution: ts.ModuleResolutionKind.Bundler,
+	strict: true,
+	skipLibCheck: true,
+	noEmit: true,
+	types: []
+};
+
+type Library = {
+	key: string;
+	host: ts.CompilerHost;
+	entries: string[];
+	folders: Map<string, ApiFolder>;
+};
+let cached: Library | undefined;
+
+/**
+ * The library's parsed files and each folder's parts, kept until a `.ts` or `.svelte` file in it
+ * changes. Each folder is read with a checker of its own: TypeScript orders union members and
+ * mapped keys by when the checker first created each type, so a shared checker would let the
+ * folders read before this one change its tables.
+ */
+function library(lib: string): Library {
+	const files = libraryFiles(lib);
 	const key = files.map((file) => `${file}:${statSync(file).mtimeMs}`).join('\n');
-	if (cached?.key === key) return cached.program;
+	if (cached?.key === key) return cached;
+	const host = ts.createCompilerHost(OPTIONS);
+	const sources = new Map<string, ts.SourceFile | undefined>();
+	const getSourceFile = host.getSourceFile;
+	host.getSourceFile = (fileName, ...rest) => {
+		if (!sources.has(fileName)) sources.set(fileName, getSourceFile(fileName, ...rest));
+		return sources.get(fileName);
+	};
 	const entries = readdirSync(lib)
 		.map((folder) => join(lib, folder, 'index.ts'))
 		.filter((file) => files.includes(file));
-	const program = ts.createProgram(entries, {
-		target: ts.ScriptTarget.ESNext,
-		module: ts.ModuleKind.ESNext,
-		moduleResolution: ts.ModuleResolutionKind.Bundler,
-		strict: true,
-		skipLibCheck: true,
-		noEmit: true,
-		types: []
-	});
-	cached = { key, program };
-	return program;
+	cached = { key, host, entries, folders: new Map() };
+	return cached;
 }
 
-function typeScriptFiles(dir: string): string[] {
+function libraryFiles(dir: string): string[] {
 	return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
 		const path = join(dir, entry.name);
-		if (entry.isDirectory()) return typeScriptFiles(path);
-		return entry.name.endsWith('.ts') && !/\.(spec|test)\.ts$/.test(entry.name) ? [path] : [];
+		if (entry.isDirectory()) return libraryFiles(path);
+		return /\.(ts|svelte)$/.test(entry.name) && !/\.(spec|test)\.ts$/.test(entry.name)
+			? [path]
+			: [];
 	});
 }
 
@@ -214,61 +408,141 @@ function members(
 	symbol: ts.Symbol,
 	defaults: Defaults,
 	publicTypes: Set<string>,
-	files: Set<string>
+	files: Set<string>,
+	externals: Map<string, string>
 ): ApiProp[] {
 	const type = checker.getDeclaredTypeOfSymbol(
 		symbol.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(symbol) : symbol
 	);
-	return checker
-		.getPropertiesOfType(type)
-		.filter((property) =>
-			property.declarations?.some(
-				(declaration) => !declaration.getSourceFile().fileName.includes('/node_modules/')
+	return (
+		checker
+			.getPropertiesOfType(type)
+			// A symbol-keyed member such as `[subscribe]` has no name a consumer can write.
+			.filter((property) => !property.name.startsWith('__@'))
+			.filter((property) =>
+				property.declarations?.some(
+					(declaration) => !declaration.getSourceFile().fileName.includes('/node_modules/')
+				)
 			)
-		)
-		.map((property): ApiProp => {
-			const declaration = property.declarations![0];
-			files.add(declaration.getSourceFile().fileName);
-			const typeNode =
-				ts.isPropertySignature(declaration) || ts.isPropertyDeclaration(declaration)
-					? declaration.type
-					: undefined;
-			// The type as written, with private aliases expanded. An indexed access is resolved.
-			const typeText =
-				(typeNode && readableType(checker, typeNode, publicTypes)) ??
-				checker
-					.typeToString(
-						checker.getTypeOfSymbol(property),
-						undefined,
-						ts.TypeFormatFlags.NoTruncation
-					)
-					.replace(/ \| undefined$/, '');
-			const docs = ts.displayPartsToString(property.getDocumentationComment(checker));
-			const tagDefault = property.getJsDocTags(checker).find((tag) => tag.name === 'default');
-			const inlineDefault = docs.match(/@default\s+(\S+)/)?.[1];
-			const code = defaults.get(property.name);
-			return {
-				name: property.name,
-				type: typeText
-					.replace(/\s+/g, ' ')
-					.replace(/([<[(]) /g, '$1')
-					.replace(/,? ([>\])])/g, '$1')
-					.replace(/^\| /, ''),
-				default:
-					(tagDefault?.text ? ts.displayPartsToString(tagDefault.text) : inlineDefault) ??
-					code?.value,
-				description: paragraphs(docs.replace(/\s*@default\s+\S+\s*/, ' ')),
-				bindable: code?.bindable ?? false,
-				required: !(property.flags & ts.SymbolFlags.Optional)
-			};
-		})
-		.filter((prop) => prop.description || !/^on[a-z]/.test(prop.name))
-		.sort((a, b) => order(a) - order(b));
+			.map((property): ApiProp => {
+				const declaration = property.declarations![0];
+				files.add(declaration.getSourceFile().fileName);
+				const typeNode =
+					ts.isPropertySignature(declaration) || ts.isPropertyDeclaration(declaration)
+						? declaration.type
+						: undefined;
+				// The type as written, with private aliases expanded. An indexed access is resolved.
+				const typeText =
+					(typeNode && readableType(checker, typeNode, publicTypes, new Map(), externals)) ??
+					checker
+						.typeToString(
+							checker.getTypeOfSymbol(property),
+							undefined,
+							ts.TypeFormatFlags.NoTruncation
+						)
+						.replace(/ \| undefined$/, '');
+				const docs = ts.displayPartsToString(property.getDocumentationComment(checker));
+				const tagDefault = property.getJsDocTags(checker).find((tag) => tag.name === 'default');
+				const inlineDefault = docs.match(/@default\s+(\S+)/)?.[1];
+				const code = defaults.get(property.name);
+				return {
+					name: property.name,
+					type: typeText
+						.replace(/\s+/g, ' ')
+						.replace(/([<[(]) /g, '$1')
+						.replace(/,? ([>\])])/g, '$1')
+						.replace(/^\| /, ''),
+					default:
+						(tagDefault?.text ? ts.displayPartsToString(tagDefault.text) : inlineDefault) ??
+						code?.value,
+					description: paragraphs(docs.replace(/\s*@default\s+\S+\s*/, ' ')),
+					bindable: code?.bindable ?? false,
+					required: !(property.flags & ts.SymbolFlags.Optional)
+				};
+			})
+			.filter((prop) => prop.description || !/^on[a-z]/.test(prop.name))
+	);
 }
 
-/** Upstream lists the main props first and `render` last. */
-const order = (prop: ApiProp) =>
-	prop.name === 'render' ? 2 : prop.name === 'class' || prop.name === 'style' ? 1 : 0;
+/** `Accordion.Root` is `AccordionRoot`, the prefix of its `AccordionRootDataAttributes`. */
+const flat = (name: string) => name.replaceAll('.', '');
+
+const GROUP_KINDS = {
+	DataAttributes: ordering.dataAttributes,
+	CssVariables: ordering.cssVariables
+};
+type ConstantKind = keyof typeof GROUP_KINDS;
+type ConstantGroup = { kind: ConstantKind; constants: ApiConstant[] };
+
+/** A group's table rows: Base UI sorts them by value, then applies its order. */
+function tableOrder(group: ConstantGroup | undefined): ApiConstant[] {
+	if (!group) return [];
+	const byValue = [...group.constants].sort((a, b) => compare(a.name, b.name));
+	return sortByOrder(byValue, GROUP_KINDS[group.kind], (constant) => constant.name);
+}
+
+/** The members of `const Name = { open: 'data-open' } as const`, in declaration order. */
+function objectConstants(checker: ts.TypeChecker, symbol: ts.Symbol, name: string): ApiConstant[] {
+	const declaration = symbol.valueDeclaration;
+	let object =
+		declaration && ts.isVariableDeclaration(declaration) ? declaration.initializer : undefined;
+	while (object && ts.isAsExpression(object)) object = object.expression;
+	if (!object || !ts.isObjectLiteralExpression(object)) {
+		throw new Error(`${name} is not an object of constants`);
+	}
+	return object.properties.map((property) =>
+		constant(checker, checker.getSymbolAtLocation(property.name!)!, name)
+	);
+}
+
+/** One constant: its string value, its doc comment, and the type its `@type` tag names. */
+function constant(checker: ts.TypeChecker, member: ts.Symbol, group: string): ApiConstant {
+	const value = checker.getTypeOfSymbol(member);
+	if (!value.isStringLiteral()) throw new Error(`${group}.${member.name} is not a string`);
+	const typeTag = member.getJsDocTags(checker).find((tag) => tag.name === 'type');
+	return {
+		key: member.name,
+		name: value.value,
+		// `@type {number}` names `number`, as Base UI's table shows it.
+		type: typeTag?.text
+			? ts.displayPartsToString(typeTag.text).replace(/^\{([\s\S]*)\}$/, '$1')
+			: undefined,
+		description: paragraphs(ts.displayPartsToString(member.getDocumentationComment(checker)))
+	};
+}
+
+/**
+ * The entry's data-attribute and CSS-variable objects, keyed by export name, in declaration order.
+ * Base UI matches each to a part by name: `AccordionPanelCssVariables` holds the variables of
+ * `Accordion.Panel`.
+ */
+function constantGroups(
+	checker: ts.TypeChecker,
+	exports: Map<string, ts.Symbol>,
+	parts: PartFile[]
+): { groups: Map<string, ConstantGroup>; files: string[] } {
+	const partNames = new Set(parts.map((part) => flat(part.name)));
+	const groups = new Map<string, ConstantGroup>();
+	const files: string[] = [];
+	for (const [name, exported] of exports) {
+		const kind = (Object.keys(GROUP_KINDS) as ConstantKind[]).find(
+			(suffix) => name.endsWith(suffix) && name.length > suffix.length
+		);
+		if (!kind) continue;
+		if (!partNames.has(name.slice(0, -kind.length))) {
+			throw new Error(`${name} names no part. Parts: ${[...partNames].join(', ')}`);
+		}
+		const symbol =
+			exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported;
+		const constants =
+			symbol.flags & ts.SymbolFlags.ValueModule
+				? checker.getExportsOfModule(symbol).map((member) => constant(checker, member, name))
+				: objectConstants(checker, symbol, name);
+		files.push(symbol.declarations![0].getSourceFile().fileName);
+		groups.set(name, { kind, constants });
+	}
+	return { groups, files };
+}
 
 type Defaults = Map<string, { value?: string; bindable: boolean }>;
 
@@ -287,13 +561,16 @@ function publicTypeNames(program: ts.Program, checker: ts.TypeChecker, lib: stri
 /**
  * The type as written, with each private alias such as `PartRender<HTMLDivElement, State>`
  * replaced by its definition, so the table names only types a consumer can look up.
+ * A private union of literals or function type keeps its name, as Base UI keeps it, and its
+ * definition goes to `externals`.
  * Returns undefined for an indexed access such as `Params['side']`, which reads better resolved.
  */
 function readableType(
 	checker: ts.TypeChecker,
 	node: ts.TypeNode,
 	publicTypes: Set<string>,
-	substitutions = new Map<string, string>()
+	substitutions: Map<string, string>,
+	externals: Map<string, string>
 ): string | undefined {
 	const edits: Array<{ start: number; end: number; text: string }> = [];
 	let indexed = false;
@@ -318,8 +595,18 @@ function readableType(
 				!publicTypes.has(name) &&
 				!declaration.getSourceFile().fileName.includes('/node_modules/')
 			) {
+				if (!declaration.typeParameters && isExternal(checker, declaration)) {
+					if (!externals.has(name)) {
+						externals.set(name, '');
+						externals.set(
+							name,
+							`type ${name} = ${externalDefinition(checker, declaration, publicTypes, externals)};`
+						);
+					}
+					return;
+				}
 				const args = (child.typeArguments ?? []).map((arg) =>
-					readableType(checker, arg, publicTypes, substitutions)
+					readableType(checker, arg, publicTypes, substitutions, externals)
 				);
 				if (args.some((arg) => arg === undefined)) {
 					indexed = true;
@@ -331,7 +618,7 @@ function readableType(
 						args[i] ?? parameter.default?.getText() ?? 'unknown'
 					])
 				);
-				const text = readableType(checker, declaration.type, publicTypes, inner);
+				const text = readableType(checker, declaration.type, publicTypes, inner, externals);
 				if (text === undefined) {
 					indexed = true;
 					return;
@@ -350,6 +637,49 @@ function readableType(
 		text = text.slice(0, edit.start - offset) + edit.text + text.slice(edit.end - offset);
 	}
 	return text;
+}
+
+/** A union's members as values, such as `'up' | 'down'` for `typeof SWIPE.up | typeof SWIPE.down`. */
+function externalDefinition(
+	checker: ts.TypeChecker,
+	declaration: ts.TypeAliasDeclaration,
+	publicTypes: Set<string>,
+	externals: Map<string, string>
+): string {
+	if (ts.isFunctionTypeNode(declaration.type)) {
+		return (
+			readableType(checker, declaration.type, publicTypes, new Map(), externals) ??
+			declaration.type.getText()
+		);
+	}
+	// Each member as written, in the order written, rather than in the checker's union order.
+	const members = (node: ts.TypeNode): ts.Type[] => {
+		if (ts.isUnionTypeNode(node)) return node.types.flatMap(members);
+		const type = checker.getTypeFromTypeNode(node);
+		return type.isUnion() ? type.types : [type];
+	};
+	return members(declaration.type)
+		.map((member) => checker.typeToString(member).replace(/^"(.*)"$/, "'$1'"))
+		.join(' | ');
+}
+
+/**
+ * Base UI's external types: a union of string, number and boolean literals, or a function type.
+ * Unions with `undefined`, such as a transition status, are spelled out where they are used.
+ */
+function isExternal(checker: ts.TypeChecker, declaration: ts.TypeAliasDeclaration): boolean {
+	if (ts.isFunctionTypeNode(declaration.type)) return true;
+	const type = checker.getTypeAtLocation(declaration.name);
+	const literal = (member: ts.Type) =>
+		member.isLiteral() ||
+		!!(
+			member.flags &
+			(ts.TypeFlags.BooleanLike |
+				ts.TypeFlags.String |
+				ts.TypeFlags.Number |
+				ts.TypeFlags.TemplateLiteral)
+		);
+	return type.isUnion() ? type.types.every(literal) : literal(type);
 }
 
 /** Lines joined into paragraphs, which are separated by a blank line. A `- ` list item keeps its own line. */

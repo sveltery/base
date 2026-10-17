@@ -42,22 +42,26 @@ Import the component and assemble its parts:
 
 ## API reference
 
+<script>
+	import { TypesMeter } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="meter" part="Root" />
+<TypesMeter.Root />
 
 ### Track
 
-<ApiPart name="meter" part="Track" />
+<TypesMeter.Track />
 
 ### Indicator
 
-<ApiPart name="meter" part="Indicator" />
+<TypesMeter.Indicator />
 
 ### Value
 
-<ApiPart name="meter" part="Value" />
+<TypesMeter.Value />
 
 ### Label
 
-<ApiPart name="meter" part="Label" />
+<TypesMeter.Label />

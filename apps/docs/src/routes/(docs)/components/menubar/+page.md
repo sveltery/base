@@ -174,10 +174,8 @@ Import the component and assemble its parts:
 
 ## API reference
 
-<ApiPart name="menubar" part="Menubar" />
+<script>
+	import { TypesMenubar } from './types';
+</script>
 
-| Attribute               | Description                                          |
-| ----------------------- | ---------------------------------------------------- |
-| `data-orientation`      | Determines the orientation of the menubar.           |
-| `data-has-submenu-open` | Present when any submenu within the menubar is open. |
-| `data-modal`            | Present when the corresponding menubar is modal.     |
+<TypesMenubar />

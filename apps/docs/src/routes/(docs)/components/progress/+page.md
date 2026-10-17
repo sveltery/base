@@ -52,52 +52,26 @@ Import the component and assemble its parts:
 
 ## API reference
 
+<script>
+	import { TypesProgress } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="progress" part="Root" />
-
-| Attribute            | Description                                          |
-| -------------------- | ---------------------------------------------------- |
-| `data-complete`      | Present when the progress has completed.             |
-| `data-indeterminate` | Present when the progress is in indeterminate state. |
-| `data-progressing`   | Present while the progress is progressing.           |
+<TypesProgress.Root />
 
 ### Track
 
-<ApiPart name="progress" part="Track" />
-
-| Attribute            | Description                                          |
-| -------------------- | ---------------------------------------------------- |
-| `data-complete`      | Present when the progress has completed.             |
-| `data-indeterminate` | Present when the progress is in indeterminate state. |
-| `data-progressing`   | Present while the progress is progressing.           |
+<TypesProgress.Track />
 
 ### Indicator
 
-<ApiPart name="progress" part="Indicator" />
-
-| Attribute            | Description                                          |
-| -------------------- | ---------------------------------------------------- |
-| `data-complete`      | Present when the progress has completed.             |
-| `data-indeterminate` | Present when the progress is in indeterminate state. |
-| `data-progressing`   | Present while the progress is progressing.           |
+<TypesProgress.Indicator />
 
 ### Value
 
-<ApiPart name="progress" part="Value" />
-
-| Attribute            | Description                                          |
-| -------------------- | ---------------------------------------------------- |
-| `data-complete`      | Present when the progress has completed.             |
-| `data-indeterminate` | Present when the progress is in indeterminate state. |
-| `data-progressing`   | Present while the progress is progressing.           |
+<TypesProgress.Value />
 
 ### Label
 
-<ApiPart name="progress" part="Label" />
-
-| Attribute            | Description                                          |
-| -------------------- | ---------------------------------------------------- |
-| `data-complete`      | Present when the progress has completed.             |
-| `data-indeterminate` | Present when the progress is in indeterminate state. |
-| `data-progressing`   | Present while the progress is progressing.           |
+<TypesProgress.Label />

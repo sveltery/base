@@ -234,175 +234,82 @@ To create a submenu, create a `<ContextMenu.SubmenuRoot>` inside the parent cont
 
 ## API reference
 
+<script>
+	import { TypesContextMenu } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="context-menu" part="Root" />
+<TypesContextMenu.Root />
 
 ### Trigger
 
-<ApiPart name="context-menu" part="Trigger" />
-
-| Attribute         | Description                                          |
-| ----------------- | ---------------------------------------------------- |
-| `data-popup-open` | Present when the corresponding context menu is open. |
-| `data-pressed`    | Present when the corresponding context menu is open. |
+<TypesContextMenu.Trigger />
 
 ### Portal
 
-<ApiPart name="context-menu" part="Portal" />
+<TypesContextMenu.Portal />
 
 ### Backdrop
 
-<ApiPart name="context-menu" part="Backdrop" />
-
-| Attribute             | Description                                |
-| --------------------- | ------------------------------------------ |
-| `data-open`           | Present when the menu is open.             |
-| `data-closed`         | Present when the menu is closed.           |
-| `data-starting-style` | Present when the menu begins animating in. |
-| `data-ending-style`   | Present when the menu is animating out.    |
+<TypesContextMenu.Backdrop />
 
 ### Positioner
 
-<ApiPart name="context-menu" part="Positioner" />
-
-| Attribute            | Description                                                          |
-| -------------------- | -------------------------------------------------------------------- |
-| `data-open`          | Present when the menu popup is open.                                 |
-| `data-closed`        | Present when the menu popup is closed.                               |
-| `data-anchor-hidden` | Present when the anchor is hidden.                                   |
-| `data-align`         | Indicates how the popup is aligned relative to the specified side.   |
-| `data-side`          | Indicates which side the popup is positioned relative to the anchor. |
-
-| CSS variable          | Description                                                                                                                |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--anchor-height`     | The anchor's height.                                                                                                       |
-| `--anchor-width`      | The anchor's width.                                                                                                        |
-| `--available-height`  | The available height between the anchor and the edge of the viewport.                                                      |
-| `--available-width`   | The available width between the anchor and the edge of the viewport.                                                       |
-| `--positioner-height` | The height of the menu's positioner. It is important to set `height` to this value when using CSS to animate size changes. |
-| `--positioner-width`  | The width of the menu's positioner. It is important to set `width` to this value when using CSS to animate size changes.   |
-| `--transform-origin`  | The coordinates that this element is anchored to. Used for animations and transitions.                                     |
+<TypesContextMenu.Positioner />
 
 ### Popup
 
-<ApiPart name="context-menu" part="Popup" />
-
-| Attribute             | Description                                                          |
-| --------------------- | -------------------------------------------------------------------- |
-| `data-open`           | Present when the menu is open.                                       |
-| `data-closed`         | Present when the menu is closed.                                     |
-| `data-align`          | Indicates how the popup is aligned relative to specified side.       |
-| `data-instant`        | Present if animations should be instant.                             |
-| `data-side`           | Indicates which side the popup is positioned relative to the anchor. |
-| `data-starting-style` | Present when the menu begins animating in.                           |
-| `data-ending-style`   | Present when the menu is animating out.                              |
+<TypesContextMenu.Popup />
 
 ### Arrow
 
-<ApiPart name="context-menu" part="Arrow" />
-
-| Attribute         | Description                                                          |
-| ----------------- | -------------------------------------------------------------------- |
-| `data-open`       | Present when the menu popup is open.                                 |
-| `data-closed`     | Present when the menu popup is closed.                               |
-| `data-uncentered` | Present when the menu arrow is uncentered.                           |
-| `data-align`      | Indicates how the popup is aligned relative to specified side.       |
-| `data-side`       | Indicates which side the popup is positioned relative to the anchor. |
+<TypesContextMenu.Arrow />
 
 ### Item
 
-<ApiPart name="context-menu" part="Item" />
-
-| Attribute          | Description                                |
-| ------------------ | ------------------------------------------ |
-| `data-highlighted` | Present when the menu item is highlighted. |
-| `data-disabled`    | Present when the menu item is disabled.    |
+<TypesContextMenu.Item />
 
 ### LinkItem
 
-<ApiPart name="context-menu" part="LinkItem" />
-
-| Attribute          | Description                           |
-| ------------------ | ------------------------------------- |
-| `data-highlighted` | Present when the link is highlighted. |
+<TypesContextMenu.LinkItem />
 
 ### SubmenuRoot
 
-<ApiPart name="context-menu" part="SubmenuRoot" />
+<TypesContextMenu.SubmenuRoot />
 
 ### SubmenuTrigger
 
-<ApiPart name="context-menu" part="SubmenuTrigger" />
-
-| Attribute          | Description                                      |
-| ------------------ | ------------------------------------------------ |
-| `data-popup-open`  | Present when the corresponding submenu is open.  |
-| `data-highlighted` | Present when the submenu trigger is highlighted. |
-| `data-disabled`    | Present when the submenu trigger is disabled.    |
+<TypesContextMenu.SubmenuTrigger />
 
 ### Group
 
-<ApiPart name="context-menu" part="Group" />
+<TypesContextMenu.Group />
 
 ### GroupLabel
 
-<ApiPart name="context-menu" part="GroupLabel" />
+<TypesContextMenu.GroupLabel />
 
 ### RadioGroup
 
-<ApiPart name="context-menu" part="RadioGroup" />
+<TypesContextMenu.RadioGroup />
 
 ### RadioItem
 
-<ApiPart name="context-menu" part="RadioItem" />
-
-| Attribute          | Description                                       |
-| ------------------ | ------------------------------------------------- |
-| `data-checked`     | Present when the menu radio item is selected.     |
-| `data-unchecked`   | Present when the menu radio item is not selected. |
-| `data-highlighted` | Present when the menu radio item is highlighted.  |
-| `data-disabled`    | Present when the menu radio item is disabled.     |
+<TypesContextMenu.RadioItem />
 
 ### RadioItemIndicator
 
-<ApiPart name="context-menu" part="RadioItemIndicator" />
-
-| Attribute             | Description                                           |
-| --------------------- | ----------------------------------------------------- |
-| `data-checked`        | Present when the menu radio item is selected.         |
-| `data-unchecked`      | Present when the menu radio item is not selected.     |
-| `data-disabled`       | Present when the menu radio item is disabled.         |
-| `data-starting-style` | Present when the radio indicator begins animating in. |
-| `data-ending-style`   | Present when the radio indicator is animating out.    |
+<TypesContextMenu.RadioItemIndicator />
 
 ### CheckboxItem
 
-<ApiPart name="context-menu" part="CheckboxItem" />
-
-| Attribute          | Description                                         |
-| ------------------ | --------------------------------------------------- |
-| `data-checked`     | Present when the menu checkbox item is checked.     |
-| `data-unchecked`   | Present when the menu checkbox item is not checked. |
-| `data-highlighted` | Present when the menu checkbox item is highlighted. |
-| `data-disabled`    | Present when the menu checkbox item is disabled.    |
+<TypesContextMenu.CheckboxItem />
 
 ### CheckboxItemIndicator
 
-<ApiPart name="context-menu" part="CheckboxItemIndicator" />
-
-| Attribute             | Description                                         |
-| --------------------- | --------------------------------------------------- |
-| `data-checked`        | Present when the menu checkbox item is checked.     |
-| `data-unchecked`      | Present when the menu checkbox item is not checked. |
-| `data-disabled`       | Present when the menu checkbox item is disabled.    |
-| `data-starting-style` | Present when the indicator begins animating in.     |
-| `data-ending-style`   | Present when the indicator is animating out.        |
+<TypesContextMenu.CheckboxItemIndicator />
 
 ### Separator
 
-<ApiPart name="context-menu" part="Separator" />
-
-| Attribute          | Description                                 |
-| ------------------ | ------------------------------------------- |
-| `data-orientation` | Indicates the orientation of the separator. |
+<TypesContextMenu.Separator />

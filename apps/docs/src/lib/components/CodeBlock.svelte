@@ -2,7 +2,11 @@
 	import { ScrollArea } from '@sveltery/base/scroll-area';
 	import CopyButton from './CopyButton.svelte';
 
-	let { html, title }: { html: string; title?: string } = $props();
+	let {
+		html,
+		title,
+		class: className
+	}: { html: string; title?: string; class?: string } = $props();
 	const titleId = $props.id();
 	let root = $state<HTMLElement>();
 
@@ -14,7 +18,7 @@
 
 <figure
 	bind:this={root}
-	class="CodeBlockRoot MdFigure"
+	class={['CodeBlockRoot MdFigure', className]}
 	aria-labelledby={title ? titleId : undefined}
 >
 	{#if title}

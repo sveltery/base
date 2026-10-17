@@ -176,48 +176,18 @@ Use [Field](/components/field) and [Fieldset](/components/fieldset) for group la
 
 ## API reference
 
+<script>
+	import { TypesRadioGroup } from './types';
+</script>
+
 ### RadioGroup
 
-<ApiPart name="radio-group" part="RadioGroup" />
-
-| Attribute       | Description                               |
-| --------------- | ----------------------------------------- |
-| `data-disabled` | Present when the radio group is disabled. |
+<TypesRadioGroup.RadioGroup />
 
 ### Root
 
-<ApiPart name="radio" part="Root" />
-
-| Attribute        | Description                                                                 |
-| ---------------- | --------------------------------------------------------------------------- |
-| `data-checked`   | Present when the radio is checked.                                          |
-| `data-unchecked` | Present when the radio is not checked.                                      |
-| `data-disabled`  | Present when the radio is disabled.                                         |
-| `data-readonly`  | Present when the radio is readonly.                                         |
-| `data-required`  | Present when the radio is required.                                         |
-| `data-valid`     | Present when the radio is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the radio is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the radio's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the radio has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the radio is checked (when wrapped in Field.Root).             |
-| `data-focused`   | Present when the radio is focused (when wrapped in Field.Root).             |
+<TypesRadioGroup.Root />
 
 ### Indicator
 
-<ApiPart name="radio" part="Indicator" />
-
-| Attribute             | Description                                                                 |
-| --------------------- | --------------------------------------------------------------------------- |
-| `data-checked`        | Present when the radio is checked.                                          |
-| `data-unchecked`      | Present when the radio is not checked.                                      |
-| `data-disabled`       | Present when the radio is disabled.                                         |
-| `data-readonly`       | Present when the radio is readonly.                                         |
-| `data-required`       | Present when the radio is required.                                         |
-| `data-valid`          | Present when the radio is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`        | Present when the radio is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`          | Present when the radio's value has changed (when wrapped in Field.Root).    |
-| `data-touched`        | Present when the radio has been touched (when wrapped in Field.Root).       |
-| `data-filled`         | Present when the radio is checked (when wrapped in Field.Root).             |
-| `data-focused`        | Present when the radio is focused (when wrapped in Field.Root).             |
-| `data-starting-style` | Present when the radio indicator begins animating in.                       |
-| `data-ending-style`   | Present when the radio indicator is animating out.                          |
+<TypesRadioGroup.Indicator />
