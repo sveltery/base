@@ -60,14 +60,13 @@ const version = (name: string) =>
 
 const repo = fileURLToPath(new URL('../../..', import.meta.url));
 
+// The project StackBlitz gets installs Svelte and SvelteKit itself.
+const STACKBLITZ_PROVIDES = /^(svelte(\/|$)|\$app\/)/;
+
 type SourceFile = { name: string; path: string; code: string };
 
 /** A variant's entry file and the relative imports it reaches, with each import pointing at its tab name. */
-export function readVariant(entry: string): {
-	files: SourceFile[];
-	dependencies: Record<string, string>;
-	path: string;
-} {
+export function readVariant(entry: string) {
 	const files: SourceFile[] = [];
 	const dependencies: Record<string, string> = {};
 	const visit = (path: string, depth: number): string => {
@@ -85,19 +84,16 @@ export function readVariant(entry: string): {
 				const target = join(dirname(path), specifier);
 				if (!existsSync(target)) throw new Error(`${path}: ${specifier} does not exist`);
 				const tab = visit(target, depth + 1);
-				file.code = file.code.replace(
-					new RegExp(`(['"])${specifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\1`),
-					`$1./${tab}$1`
-				);
-			} else if (/^[#$]/.test(specifier) && !specifier.startsWith('$app/')) {
+				for (const quote of [`'`, `"`])
+					file.code = file.code.replaceAll(
+						`${quote}${specifier}${quote}`,
+						`${quote}./${tab}${quote}`
+					);
+			} else if (/^[#$]/.test(specifier) && !STACKBLITZ_PROVIDES.test(specifier)) {
 				throw new Error(
 					`${path}: a demo imports ${specifier}, which a StackBlitz project can't resolve. Import a file beside it.`
 				);
-			} else if (
-				specifier !== 'svelte' &&
-				!specifier.startsWith('svelte/') &&
-				!specifier.startsWith('$app/')
-			) {
+			} else if (!STACKBLITZ_PROVIDES.test(specifier)) {
 				dependencies[packageName(specifier)] = version(packageName(specifier));
 			}
 		}
@@ -137,10 +133,10 @@ export function readDemo(stub: string, code = readFileSync(stub, 'utf8')) {
 export function pageDemos(page: string, source: string) {
 	const demos = new Map<string, SourceFile[]>();
 	for (const [, name, path] of source.matchAll(/import \{ (Demo\w+) \} from '(\.[^']+)';/g)) {
-		const [[, variant]] = readDemo(join(dirname(page), path, 'index.ts')).variants;
+		const { files } = readDemo(join(dirname(page), path, 'index.ts')).variants[0][1];
 		demos.set(
 			name,
-			variant.files.map((file) => ({ ...file, code: readMarkers(file.code).code }))
+			files.map((file) => ({ ...file, code: readMarkers(file.code).code }))
 		);
 	}
 	return demos;

@@ -37,8 +37,6 @@ const list = (root: string) =>
 
 const first = (html: string, pattern: RegExp) => pattern.exec(html)?.[1] ?? '(missing)';
 
-// A demo's toolbar holds its file tabs and source links, and a demo's files each have an anchor.
-// `--demo-frames` sets both aside, to compare everything else on a page that only moved its demos.
 const demoFrames = args.includes('--demo-frames');
 const withoutDemoFrames = (html: string) =>
 	html

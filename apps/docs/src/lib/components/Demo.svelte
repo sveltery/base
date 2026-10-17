@@ -18,10 +18,15 @@
 	import { openStackBlitz } from '#lib/docs/stackblitz.ts';
 	import { REPOSITORY } from '#lib/docs/links.ts';
 	import CopyButton from './CopyButton.svelte';
-	import { checkIcon, copyIcon, externalLinkIcon, moreVertIcon } from './DocIcons.svelte';
+	import {
+		caretSortIcon,
+		checkIcon,
+		copyIcon,
+		externalLinkIcon,
+		moreVertIcon
+	} from './DocIcons.svelte';
 	import { githubIcon } from './Icons.svelte';
 
-	// `createDemoWithVariants` passes the variants with the files the `docs-demos` plugin read.
 	let { slug, variants }: { slug: string; variants: DemoVariantData[] } = $props();
 
 	// Base UI keeps the reader's styling method for every demo with the same set of variants.
@@ -95,12 +100,6 @@
 		setTimeout(() => (linkCopied = false), 2000);
 	}
 </script>
-
-{#snippet caretSortIcon()}
-	<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-		<path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
-	</svg>
-{/snippet}
 
 <div class="DemoRoot">
 	{#each variants as { name, files } (name)}

@@ -77,7 +77,6 @@
 		}
 	}
 
-	/* The actions sit at the toolbar's right edge, after the file tabs a demo with several files shows. */
 	.DemoToolbarActions {
 		display: flex;
 		align-items: center;
