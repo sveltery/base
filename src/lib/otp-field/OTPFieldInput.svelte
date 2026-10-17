@@ -152,10 +152,7 @@
 		}
 	}
 
-	function handleCompositionStart(
-		event: CompositionEvent & { currentTarget: EventTarget & HTMLInputElement }
-	) {
-		oncompositionstart?.(event);
+	function handleCompositionStart() {
 		// Some Android keyboards report all text as composing, so Android commits on `input`.
 		if (!platform.os.android) composingValue = slotValue;
 	}
@@ -163,7 +160,6 @@
 	function handleCompositionEnd(
 		event: CompositionEvent & { currentTarget: EventTarget & HTMLInputElement }
 	) {
-		oncompositionend?.(event);
 		if (composingValue == null) return;
 		composingValue = null;
 		if (!model.disabled && !model.readOnly) {
@@ -301,8 +297,8 @@
 		onfocus: chain(handleFocus, onfocus),
 		onblur: chain((event) => model.handleInputBlur(event), onblur),
 		oninput: chain(handleInput, oninput),
-		oncompositionstart: handleCompositionStart,
-		oncompositionend: handleCompositionEnd,
+		oncompositionstart: chain(handleCompositionStart, oncompositionstart),
+		oncompositionend: chain(handleCompositionEnd, oncompositionend),
 		onkeydown: handleKeyDown,
 		onpaste: handlePaste,
 		[model.slots.attachmentKey]: remember

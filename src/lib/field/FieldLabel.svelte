@@ -11,6 +11,7 @@
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
 	import { getControlById } from '../internal/useLabel.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import { chain } from '../internal/mergeProps.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { useFieldItemContext } from './item-context.js';
@@ -93,21 +94,8 @@
 		focusControl(event);
 	}
 
-	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLLabelElement }) {
-		onmousedown?.(event);
-		if (nativeLabel) handleInteraction(event);
-	}
-
-	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLLabelElement }) {
-		onclick?.(event);
-		if (!nativeLabel) handleInteraction(event);
-	}
-
-	function handlePointerDown(
-		event: PointerEvent & { currentTarget: EventTarget & HTMLLabelElement }
-	) {
-		onpointerdown?.(event);
-		if (!nativeLabel) event.preventDefault();
+	function handlePointerDown(event: PointerEvent) {
+		event.preventDefault();
 	}
 
 	const hostProps: HTMLLabelAttributes = $derived({
@@ -115,9 +103,13 @@
 		...elementProps,
 		...getStateAttributesProps(labelState, fieldValidityMapping),
 		id,
-		onmousedown: handleMouseDown,
-		onclick: handleClick,
-		...(!nativeLabel ? { onpointerdown: handlePointerDown } : {}),
+		...(nativeLabel
+			? { onmousedown: chain(handleInteraction, onmousedown), onclick, onpointerdown }
+			: {
+					onmousedown,
+					onclick: chain(handleInteraction, onclick),
+					onpointerdown: chain(handlePointerDown, onpointerdown)
+				}),
 		[elementKey]: remember
 	});
 </script>
