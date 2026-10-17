@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import pages from 'virtual:docs-markdown';
+import { pages } from 'virtual:docs-markdown';
 import type { EntryGenerator, RequestHandler } from './$types';
 
 export const prerender = true;
@@ -13,7 +13,5 @@ export const entries: EntryGenerator = () =>
 export const GET: RequestHandler = ({ params }) => {
 	const page = pages[`/${params.section}/${params.slug}`];
 	if (!page) error(404, 'Page not found');
-	return new Response(page.markdown, {
-		headers: { 'content-type': 'text/markdown; charset=utf-8' }
-	});
+	return new Response(page, { headers: { 'content-type': 'text/markdown; charset=utf-8' } });
 };

@@ -1,0 +1,70 @@
+# Sveltery Base
+
+This is the documentation for the `@sveltery/base` package, a Svelte 5 port of Base UI.
+It contains a collection of components and utilities for building user interfaces in Svelte.
+The library is designed to be composable and styling agnostic.
+The Tailwind CSS examples are written for Tailwind CSS v4. If `package.json` uses Tailwind CSS v3, automatically convert unsupported styles to v3-compatible equivalents.
+
+## Overview
+
+- [Quick start](https://base.sveltery.dev/overview/quick-start.md): A quick guide to getting started with Sveltery Base.
+- [Accessibility](https://base.sveltery.dev/overview/accessibility.md): Learn how to make the most of Sveltery Base's accessibility features and guidelines.
+- [Releases](https://base.sveltery.dev/overview/releases.md): Changelogs for each Sveltery Base release.
+- [Community](https://base.sveltery.dev/overview/community.md): Learn how to use Sveltery Base with styles, where to get help, how to stay up to date, and how to contribute.
+- [About Sveltery Base](https://base.sveltery.dev/overview/about.md): An overview of Sveltery Base, providing information on its origins, credits, and goals.
+
+## Handbook
+
+- [Styling](https://base.sveltery.dev/handbook/styling.md): A guide to styling Sveltery Base components with your preferred styling engine.
+- [Animation](https://base.sveltery.dev/handbook/animation.md): A guide to animating Sveltery Base components.
+- [Composition](https://base.sveltery.dev/handbook/composition.md): A guide to composing Sveltery Base components with your own Svelte components.
+- [Customization](https://base.sveltery.dev/handbook/customization.md): A guide to customizing the behavior of Sveltery Base components.
+- [Forms](https://base.sveltery.dev/handbook/forms.md): A guide to building forms with Sveltery Base components.
+- [TypeScript](https://base.sveltery.dev/handbook/typescript.md): A guide to using TypeScript with Sveltery Base.
+- [SvelteKit](https://base.sveltery.dev/handbook/sveltekit.md): Notes on server rendering, form actions, and remote form functions when you use Sveltery Base in a SvelteKit app.
+
+## Components
+
+- [Accordion](https://base.sveltery.dev/components/accordion.md): A set of collapsible panels with headings.
+- [Alert Dialog](https://base.sveltery.dev/components/alert-dialog.md): A dialog that requires a user response to proceed.
+- [Autocomplete](https://base.sveltery.dev/components/autocomplete.md): An input that suggests options as you type.
+- [Avatar](https://base.sveltery.dev/components/avatar.md): An easily stylable avatar component.
+- [Button](https://base.sveltery.dev/components/button.md): A button component that can be rendered as another tag or focusable when disabled.
+- [Checkbox](https://base.sveltery.dev/components/checkbox.md): An easily stylable checkbox component.
+- [Checkbox Group](https://base.sveltery.dev/components/checkbox-group.md): Provides shared state to a series of checkboxes.
+- [Collapsible](https://base.sveltery.dev/components/collapsible.md): A collapsible panel controlled by a button.
+- [Combobox](https://base.sveltery.dev/components/combobox.md): An input combined with a list of predefined items to select.
+- [Context Menu](https://base.sveltery.dev/components/context-menu.md): A menu that appears at the pointer on right click or long press.
+- [Dialog](https://base.sveltery.dev/components/dialog.md): A popup that opens on top of the entire page.
+- [Drawer](https://base.sveltery.dev/components/drawer.md): A panel that slides in from the edge of the screen.
+- [Field](https://base.sveltery.dev/components/field.md): A component that provides labeling and validation for form controls.
+- [Fieldset](https://base.sveltery.dev/components/fieldset.md): A native fieldset element with an easily stylable legend.
+- [Form](https://base.sveltery.dev/components/form.md): A native form element with consolidated error handling.
+- [Input](https://base.sveltery.dev/components/input.md): A native input element that automatically works with Field.
+- [Menu](https://base.sveltery.dev/components/menu.md): A list of actions in a dropdown, enhanced with keyboard navigation.
+- [Menubar](https://base.sveltery.dev/components/menubar.md): A menu bar providing commands and options for your application.
+- [Meter](https://base.sveltery.dev/components/meter.md): A graphical display of a numeric value within a range.
+- [Navigation Menu](https://base.sveltery.dev/components/navigation-menu.md): A collection of links and menus for website navigation.
+- [Number Field](https://base.sveltery.dev/components/number-field.md): A numeric input element with increment and decrement buttons, and a scrub area.
+- [OTP Field](https://base.sveltery.dev/components/otp-field.md): A one-time password input composed of individual character slots.
+- [Popover](https://base.sveltery.dev/components/popover.md): An accessible popup anchored to a button.
+- [Preview Card](https://base.sveltery.dev/components/preview-card.md): A link that shows a destination preview without interrupting keyboard or screen reader navigation.
+- [Progress](https://base.sveltery.dev/components/progress.md): Displays the status of a task that takes a long time.
+- [Radio Group](https://base.sveltery.dev/components/radio-group.md): Provides shared state to a series of radio buttons.
+- [Scroll Area](https://base.sveltery.dev/components/scroll-area.md): A native scroll container with custom scrollbars.
+- [Select](https://base.sveltery.dev/components/select.md): A common form component for choosing a predefined value in a dropdown menu.
+- [Separator](https://base.sveltery.dev/components/separator.md): A separator element accessible to screen readers.
+- [Slider](https://base.sveltery.dev/components/slider.md): An easily stylable range input.
+- [Switch](https://base.sveltery.dev/components/switch.md): A control that indicates whether a setting is on or off.
+- [Tabs](https://base.sveltery.dev/components/tabs.md): A component for toggling between related panels on the same page.
+- [Toast](https://base.sveltery.dev/components/toast.md): Generates toast notifications.
+- [Toggle](https://base.sveltery.dev/components/toggle.md): A two-state button that can be on or off.
+- [Toggle Group](https://base.sveltery.dev/components/toggle-group.md): Provides a shared state to a series of toggle buttons.
+- [Toolbar](https://base.sveltery.dev/components/toolbar.md): A container for grouping a set of buttons and controls.
+- [Tooltip](https://base.sveltery.dev/components/tooltip.md): A popup that appears when an element is hovered or focused, showing a hint for sighted users.
+
+## Utils
+
+- [CSP Provider](https://base.sveltery.dev/utils/csp-provider.md): Configures CSP-related behavior for inline tags rendered by Sveltery Base components.
+- [Direction Provider](https://base.sveltery.dev/utils/direction-provider.md): Enables RTL behavior for Sveltery Base components.
+- [mergeProps](https://base.sveltery.dev/utils/merge-props.md): A utility to merge multiple sets of Svelte props.

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import PageMeta from '#lib/components/PageMeta.svelte';
 	import Toc from '#lib/components/Toc.svelte';
 	import type { TocItem } from '#lib/docs/types.ts';
 	import '#lib/docs/css/index.css';
@@ -13,12 +14,7 @@
 	}: { title: string; description: string; toc: TocItem[]; children: Snippet } = $props();
 </script>
 
-<svelte:head>
-	<title>{title} · Sveltery Base</title>
-	{#if description}
-		<meta name="description" content={description} />
-	{/if}
-</svelte:head>
+<PageMeta title="{title} · Sveltery Base" {description} group="docs" />
 
 <Toc {title} {toc} />
 <div class="QuickNavContent">

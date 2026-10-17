@@ -26,24 +26,21 @@ const path = (relative: string) => fileURLToPath(new URL(relative, import.meta.u
 const lib = path('../../src/lib');
 // Each docs page is `<section>/<slug>/+page.md` in this route group.
 const routes = path('./src/routes/(docs)');
+// Upstream's `app/sitemap/index.ts`: each side nav heading and its section index, in order.
+const sections = {
+	Overview: 'overview',
+	Handbook: 'handbook',
+	Components: 'components',
+	Utils: 'utils'
+};
 
 export default defineConfig({
 	// tsconfig.json maps the same paths for type checking.
 	resolve: { alias: [{ find: /^@sveltery\/base(?=\/|$)/, replacement: lib }] },
 	plugins: [
 		tailwindcss(),
-		docsMarkdown({ routes, lib }),
-		// Upstream's `app/sitemap/index.ts`: each side nav heading and its section index, in order.
-		sitemap({
-			routes,
-			lib,
-			sections: {
-				Overview: 'overview',
-				Handbook: 'handbook',
-				Components: 'components',
-				Utils: 'utils'
-			}
-		}),
+		docsMarkdown({ routes, sections }),
+		sitemap({ routes, lib, sections }),
 		docsTypes({ routes, lib }),
 		docsDemos({ routes }),
 		sveltekit({
