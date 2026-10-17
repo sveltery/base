@@ -429,13 +429,45 @@ describe('<NumberField />', () => {
 		}).rejects.toThrow(/NumberFieldScrubAreaContext is missing/);
 	});
 
-	it('fires the scrub area onclick once when clicked without scrubbing', async () => {
-		const onScrubClick = vi.fn();
-		render(NumberFieldHarness, { scenario: 'scrub-click', onScrubClick });
-		await userEvent.click(page.getByTestId('scrub'));
-		// The synthesized click waits one task, and Firefox adds 20ms before it.
-		await new Promise((resolve) => setTimeout(resolve, 50));
-		expect(onScrubClick).toHaveBeenCalledTimes(1);
+	// A real lock can land before or after the release, and headless Chromium grants it with a
+	// pointermove that scrubs the value. So each test fixes which side of the race it covers.
+	describe('scrub area click without scrubbing', () => {
+		async function clickScrubArea() {
+			const onScrubClick = vi.fn();
+			render(NumberFieldHarness, { scenario: 'scrub-click', onScrubClick });
+			await userEvent.click(page.getByTestId('scrub'));
+			// The synthesized click waits one task, and Firefox adds 20ms before it.
+			await new Promise((resolve) => setTimeout(resolve, 50));
+			return onScrubClick;
+		}
+
+		it('fires onclick once when the native click reaches the area', async () => {
+			const lock = vi
+				.spyOn(Element.prototype, 'requestPointerLock')
+				.mockRejectedValue(new DOMException('denied', 'NotAllowedError'));
+			try {
+				expect(await clickScrubArea()).toHaveBeenCalledTimes(1);
+			} finally {
+				lock.mockRestore();
+			}
+		});
+
+		it('fires onclick once when the pointer lock takes the native click', async () => {
+			const lock = vi
+				.spyOn(Element.prototype, 'requestPointerLock')
+				.mockResolvedValue(undefined as never);
+			// A locked pointer sends its click to the lock element, so the area never sees it.
+			const takeClick = (event: MouseEvent) => {
+				if (event.isTrusted) event.stopImmediatePropagation();
+			};
+			window.addEventListener('click', takeClick, true);
+			try {
+				expect(await clickScrubArea()).toHaveBeenCalledTimes(1);
+			} finally {
+				window.removeEventListener('click', takeClick, true);
+				lock.mockRestore();
+			}
+		});
 	});
 
 	describe('scrub area', () => {
