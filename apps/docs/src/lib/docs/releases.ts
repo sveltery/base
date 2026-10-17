@@ -1,6 +1,17 @@
 /** Sveltery Base releases, newest first. Highlights take code spans and links. */
 export const releases = [
 	{
+		version: 'v0.2.0',
+		date: '2026-10-17',
+		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.2.0',
+		highlights: [
+			'Breaking: `Form`, `Field` and `Fieldset` now have the same API as Base UI 1.9.0.',
+			"Removed the additions Base UI does not have: Form's `form` source prop, `enhance`, `onFocusInvalid` and `Form.Error`, the `field` and `type` props on `Field.Root`, and the bound-control layer in the form controls.",
+			'`Form` renders `novalidate` on the server, and it no longer skips validation when the submitter has `formnovalidate`.',
+			'To use a SvelteKit remote form, spread `f.fields.x.as(type)` on `Field.Control`. See the [SvelteKit handbook page](/handbook/sveltekit).'
+		]
+	},
+	{
 		version: 'v0.1.1',
 		date: '2026-10-17',
 		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.1.1',
