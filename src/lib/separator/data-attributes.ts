@@ -3,6 +3,9 @@
 // MIT, see THIRD_PARTY_NOTICES.md.
 
 export const SeparatorDataAttributes = {
-	/** Indicates the orientation of the separator. */
+	/**
+	 * Indicates the orientation of the separator.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: 'data-orientation'
 } as const;

@@ -588,6 +588,13 @@ describe('<Slider />', () => {
 			expect(document.activeElement).toBe(slider());
 		});
 
+		it('focuses the slider on a double click, as useLabel does', async () => {
+			render(SliderHarness, { scenario: 'label', defaultValue: 50 });
+			const event = new MouseEvent('click', { bubbles: true, cancelable: true, detail: 2 });
+			page.getByTestId('label').element().dispatchEvent(event);
+			expect([event.defaultPrevented, document.activeElement]).toEqual([true, slider()]);
+		});
+
 		it('focuses the field control instead of an unrelated range input', async () => {
 			render(SliderHarness, { scenario: 'field-label', unrelated: true, defaultValue: 50 });
 			click(page.getByTestId('label').element());

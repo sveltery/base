@@ -76,7 +76,7 @@ The Sveltery Base ecosystem, support channels, and ways to stay up to date.
 
 - Sections:
   - Sveltery UI
-  - Base UI
+  - Unofficial ports
   - Get help and contribute
     - GitHub
   - Stay up to date

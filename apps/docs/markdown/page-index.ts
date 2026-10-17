@@ -1,9 +1,8 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { compile } from 'mdsvex';
-import { apiReference, type ApiPart } from './api.ts';
 import { metadata, slugify, type Sections } from './metadata.ts';
-import { shortName } from './preprocess.ts';
+import { orderedParts, pageStub, shortName } from './types.ts';
 
 /** A part's or an export's API, as upstream's `SitemapPart` lists it. */
 export type ApiSummary = { props?: string[]; dataAttributes?: string[]; cssVariables?: string[] };
@@ -259,23 +258,24 @@ export function mergePages(existing: IndexPage[], children: IndexPage[]): IndexP
 	];
 }
 
-const API_PART = /<ApiPart\b[^>]*?\bname="([^"]+)"[^>]*?\bpart="([^"]+)"[^>]*?\/>/g;
-
 /**
- * The exports, parts and types a page documents, from its `<ApiPart>` tags. Upstream's types
- * loader writes these into the parent index.
+ * The exports, parts and types a page documents, from the `types.ts` beside it, as upstream's
+ * `updateParentIndex` writes them into the parent index.
  */
-function pageApi(source: string, lib: string): Pick<IndexPage, 'parts' | 'exports' | 'types'> {
-	const references = new Map<string, ApiPart[]>();
+const names = (items: Array<{ name: string }>) => items.map((item) => item.name).sort();
+
+function pageApi(file: string, lib: string): Pick<IndexPage, 'parts' | 'exports' | 'types'> {
+	const stub = pageStub(file, lib);
 	const parts: Record<string, ApiSummary> = {};
 	const exports: Record<string, ApiSummary> = {};
 	const types: string[] = [];
-	for (const [, name, partName] of source.matchAll(API_PART)) {
-		if (!references.has(name)) references.set(name, apiReference(lib, name));
-		const part = references.get(name)!.find((entry) => shortName(entry.name) === partName);
-		if (!part) continue;
-		const api = { props: part.props.map((prop) => prop.name).sort() };
-		if (part.name.includes('.')) parts[partName] = api;
+	for (const part of stub ? orderedParts(stub) : []) {
+		const api = {
+			props: names(part.props),
+			dataAttributes: names(part.dataAttributes),
+			cssVariables: names(part.cssVariables)
+		};
+		if (part.name.includes('.')) parts[shortName(part.name)] = api;
 		else exports[part.name] = api;
 		types.push(`${part.name}.Props`, `${part.name}.State`);
 	}
@@ -311,7 +311,7 @@ async function childPages(dir: string, lib: string): Promise<IndexPage[]> {
 			title,
 			...(subtitle ? { description: subtitle } : {}),
 			sections,
-			...pageApi(source, lib)
+			...pageApi(file, lib)
 		});
 	}
 	return pages;

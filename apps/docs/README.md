@@ -18,8 +18,8 @@ To document a new component:
 
 1. Create `src/routes/(docs)/components/<folder>/+page.md`, where `<folder>` is the component's folder in `src/lib`.
 2. Write the title, subtitle and description, a hero demo, the anatomy, examples, and the differences from Base UI.
-3. Add an `<ApiPart>` for each part under `## API reference`.
-4. Run `pnpm --filter @sveltery/base-docs check`. It fails if a demo does not compile or type-check, if a component page has no `<ApiPart>`, or if a folder the page documents has a part without one.
+3. Add a `types.ts` beside the page, and a `<TypesX.Part />` tag for each part under `## API reference`.
+4. Run `pnpm --filter @sveltery/base-docs check`. It fails if a demo does not compile or type-check, if a component page has no `types.ts`, or if a part the `types.ts` documents has no tag on the page.
 
 ````md
 # Collapsible
@@ -56,9 +56,13 @@ Bind `open` with `bind:open`. There is no `defaultOpen` prop.
 
 ## API reference
 
+<script>
+	import { TypesCollapsible } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="collapsible" part="Root" />
+<TypesCollapsible.Root />
 ````
 
 ## Title and description
@@ -90,7 +94,20 @@ The build writes the block to `dist/demos/<section>-<page>-<n>.svelte`, compiles
 
 ## API reference
 
-`<ApiPart name="<folder>" part="<Part>" />` renders one part's props and state. `name` is the folder in `src/lib`. `part` is the name after the dot, such as `Root` for `Collapsible.Root`, or the export name for a part without a namespace, such as `Button`.
+A page's `types.ts` names the library export it documents, as Base UI's does:
+
+```ts
+import { Collapsible } from '@sveltery/base/collapsible';
+import { createMultipleTypes } from '#lib/docs/create-types.ts';
+
+const { types } = createMultipleTypes(import.meta.url, Collapsible);
+
+export const TypesCollapsible = types;
+```
+
+`createMultipleTypes` documents a namespace's parts, and `<TypesCollapsible.Root />` renders one with its description. `createTypes` documents a single export, such as `Button`, without its description. To show the exported types no part documents, also take `AdditionalTypes` and render it, as `avatar` does. Each type is hidden until `showAdditionalTypes` names it or a link targets it.
+
+The `docs-types` Vite plugin fills each `types.ts` from the component types, and writes a `types.md` beside it in Base UI's format. Commit it. `pnpm docs:validate` regenerates every `types.md`, and in CI it fails when one is out of date.
 
 The build reads the tables from the component types:
 
@@ -99,8 +116,9 @@ The build reads the tables from the component types:
 - A prop's description and `@default` come from its doc comment. Without a `@default` tag, the default comes from the `$props()` destructuring. A `$bindable()` prop is marked bindable.
 - The state comes from the type with the same name ending in `State`, such as `CollapsibleRootState`.
 - The part description comes from the comment at the top of the `.svelte` file.
+- The data attributes and CSS variables come from the `<Part>DataAttributes` and `<Part>CssVariables` exports, such as `CollapsiblePanelDataAttributes`. Each constant's doc comment is its description, and its `@type` tag is its type.
 - A `children` prop is left out when its type is a plain `Snippet` with no doc comment. A `children` snippet with arguments, such as `Meter.Value`'s, is listed.
-- A private type alias, such as a local `PartRender`, is shown expanded, so the Type column names only types a consumer can import.
+- A private type alias, such as a local `PartRender`, is shown expanded, so the Type column names only types a consumer can import. A private union of literals or function type keeps its name, and `types.md` defines it under External Types.
 
 To change a table, change the doc comment in `src/lib`.
 
@@ -108,10 +126,9 @@ To change a table, change the doc comment in `src/lib`.
 
 These need no import:
 
-| Component                      | Use                                     |
-| ------------------------------ | --------------------------------------- |
-| `<ApiPart name="..." part="">` | The generated props and state of a part |
-| `<Subtitle>`                   | The lead paragraph under the title      |
+| Component    | Use                                |
+| ------------ | ---------------------------------- |
+| `<Subtitle>` | The lead paragraph under the title |
 
 ## Sections
 
@@ -121,4 +138,4 @@ A page's sidebar section is its folder under `src/routes/(docs)`: `overview`, `h
 2. The generated zone, after the "DO NOT EDIT AFTER THIS LINE" marker. It holds each page's title, subtitle and outline.
 3. The tail, after the last marker, which you can edit.
 
-A build or the dev server regenerates the index when a page changes, and a new page joins the end of the list with a `[New]` tag. Commit the result. `pnpm docs:validate` regenerates every index, and in CI it fails when one is out of date. `virtual:sitemap` serves the indexes to the sidebar, the mobile nav, search and `/llms.txt`. To add a section, add its folder with an index page and add it to `sitemap({ sections })` in `vite.config.ts`.
+A build or the dev server regenerates the index when a page changes, and a new page joins the end of the list with a `[New]` tag. Commit the result. `pnpm docs:validate` regenerates every index, and in CI it fails when one is out of date. An index lists each page's parts, props, data attributes and CSS variables from its `types.ts`. `virtual:sitemap` serves the indexes to the sidebar, the mobile nav, search and `/llms.txt`. To add a section, add its folder with an index page and add it to `sitemap({ sections })` in `vite.config.ts`.

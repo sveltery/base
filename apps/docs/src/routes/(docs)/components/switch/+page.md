@@ -6,23 +6,7 @@
 
 <Meta name="description" content="A control that indicates whether a setting is on or off." />
 
-```svelte demo
-<script lang="ts">
-	import { Switch } from '@sveltery/base/switch';
-</script>
-
-<label class="flex items-center gap-2 text-sm font-normal text-neutral-950 dark:text-white">
-	<Switch.Root
-		defaultChecked
-		class="flex h-5 w-9 shrink-0 border border-neutral-950 bg-white p-0.5 transition-colors duration-150 ease-[ease] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 data-checked:bg-neutral-950 dark:border-white dark:bg-neutral-950 dark:focus-visible:outline-white dark:data-checked:bg-white"
-	>
-		<Switch.Thumb
-			class="size-3.5 bg-neutral-950 transition-[translate,background-color] duration-150 ease-[ease] data-checked:translate-x-4 data-checked:bg-white dark:bg-white dark:data-checked:bg-neutral-950"
-		/>
-	</Switch.Root>
-	Notifications
-</label>
-```
+<DemoSwitchHero />
 
 ## Usage guidelines
 
@@ -109,38 +93,15 @@ Use [Field](/components/field) to handle label associations and form integration
 
 ## API reference
 
+<script>
+	import { DemoSwitchHero } from './demos/hero';
+	import { TypesSwitch } from './types';
+</script>
+
 ### Root
 
-<ApiPart name="switch" part="Root" />
-
-| Attribute        | Description                                                                  |
-| ---------------- | ---------------------------------------------------------------------------- |
-| `data-checked`   | Present when the switch is checked.                                          |
-| `data-unchecked` | Present when the switch is not checked.                                      |
-| `data-disabled`  | Present when the switch is disabled.                                         |
-| `data-readonly`  | Present when the switch is readonly.                                         |
-| `data-required`  | Present when the switch is required.                                         |
-| `data-valid`     | Present when the switch is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the switch is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the switch's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the switch has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the switch is active (when wrapped in Field.Root).              |
-| `data-focused`   | Present when the switch is focused (when wrapped in Field.Root).             |
+<TypesSwitch.Root />
 
 ### Thumb
 
-<ApiPart name="switch" part="Thumb" />
-
-| Attribute        | Description                                                                  |
-| ---------------- | ---------------------------------------------------------------------------- |
-| `data-checked`   | Present when the switch is checked.                                          |
-| `data-unchecked` | Present when the switch is not checked.                                      |
-| `data-disabled`  | Present when the switch is disabled.                                         |
-| `data-readonly`  | Present when the switch is readonly.                                         |
-| `data-required`  | Present when the switch is required.                                         |
-| `data-valid`     | Present when the switch is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the switch is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the switch's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the switch has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the switch is active (when wrapped in Field.Root).              |
-| `data-focused`   | Present when the switch is focused (when wrapped in Field.Root).             |
+<TypesSwitch.Thumb />

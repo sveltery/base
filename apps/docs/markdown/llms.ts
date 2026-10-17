@@ -1,9 +1,11 @@
 import { readFileSync } from 'node:fs';
 import type { Plugin } from 'vite';
-import { apiReference, type ApiProp } from './api.ts';
+import type { ApiProp } from './api.ts';
+import { pageDemos } from './demos.ts';
 import { readMarkers } from './highlight.ts';
 import { pageFiles } from './pages.ts';
-import { fenceMeta, shortName } from './preprocess.ts';
+import { fenceMeta } from './preprocess.ts';
+import { pageStub, type TypesStub } from './types.ts';
 import { releases } from '../src/lib/docs/releases.ts';
 
 /** A page as `/llms.txt` and its `.md` twin show it. */
@@ -46,10 +48,14 @@ function propsTable(title: string, props: ApiProp[]): string {
 }
 
 /**
- * The page's source as plain markdown: demos and examples as code, each `<ApiPart>` as a props
- * table, and no Svelte scripts, comments or highlight markers.
+ * The page's source as plain markdown: demos and examples as code, each `<TypesAccordion.Root />`
+ * as a props table, and no Svelte scripts, comments or highlight markers.
  */
-export function pageMarkdown(source: string, lib: string): MarkdownPage {
+export function pageMarkdown(
+	source: string,
+	stub: TypesStub | undefined,
+	demos: ReturnType<typeof pageDemos>
+): MarkdownPage {
 	const { title, subtitle, body } = head(source);
 	const out: string[] = [];
 	const lines = body.split('\n');
@@ -69,10 +75,26 @@ export function pageMarkdown(source: string, lib: string): MarkdownPage {
 			while (i < lines.length && !lines[i].includes('</script>')) i++;
 			continue;
 		}
-		const part = /^<ApiPart\b.*name="([^"]+)".*part="([^"]+)".*\/>\s*$/.exec(line);
-		if (part) {
-			const found = apiReference(lib, part[1]).find((p) => shortName(p.name) === part[2]);
-			if (found) out.push(found.description, '', propsTable(found.name, found.props));
+		const files = demos.get(/^<(Demo\w+)\s*\/>\s*$/.exec(line)?.[1] ?? '');
+		if (files) {
+			for (const file of files)
+				out.push(
+					`\`\`\`${file.name.split('.').pop()}${files.length > 1 ? ` title="${file.name}"` : ''}`,
+					file.code.replace(/\n$/, ''),
+					'```'
+				);
+			continue;
+		}
+		const found = stub?.tags.get(/^<(Types[\w.]+)\s*\/>\s*$/.exec(line)?.[1] ?? '');
+		if (found) {
+			out.push(found.description, '', propsTable(found.name, found.props));
+			continue;
+		}
+		const additional = /^<(Types\w+)\s+showAdditionalTypes=\{\[(.*)\]\}\s*\/>\s*$/.exec(line);
+		if (additional && additional[1] === stub?.additional) {
+			const shown = additional[2].match(/[\w.]+/g) ?? ([] as string[]);
+			for (const type of stub.types.filter((type) => shown.includes(type.name.toLowerCase())))
+				out.push(`### ${type.name}`, '', '```ts', type.code, '```', '');
 			continue;
 		}
 		if (/^<ReleaseTimeline\s*\/>\s*$/.test(line)) {
@@ -128,12 +150,13 @@ export function docsMarkdown({ routes, lib }: { routes: string; lib: string }): 
 			if (id !== RESOLVED) return;
 			const entries = pageFiles(routes).map(({ href, path }) => {
 				this.addWatchFile(path);
-				return [href, pageMarkdown(readFileSync(path, 'utf8'), lib)] as const;
+				const source = readFileSync(path, 'utf8');
+				return [href, pageMarkdown(source, pageStub(path, lib), pageDemos(path, source))] as const;
 			});
 			return `export default ${JSON.stringify(Object.fromEntries(entries))};`;
 		},
 		handleHotUpdate({ file, server }) {
-			if (!file.startsWith(routes) || !file.endsWith('/+page.md')) return;
+			if (!file.startsWith(routes) || !/\/(\+page\.md|demos\/.*)$/.test(file)) return;
 			const module = server.moduleGraph.getModuleById(RESOLVED);
 			if (module) server.moduleGraph.invalidateModule(module);
 		}

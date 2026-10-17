@@ -6,58 +6,7 @@
 
 <Meta name="description" content="Provides shared state to a series of radio buttons." />
 
-```svelte demo
-<script lang="ts">
-	import { Radio } from '@sveltery/base/radio';
-	import { RadioGroup } from '@sveltery/base/radio-group';
-
-	const id = $props.id();
-</script>
-
-<RadioGroup
-	aria-labelledby={id}
-	defaultValue="fuji-apple"
-	class="flex flex-col items-start gap-1 text-neutral-950 dark:text-white"
->
-	<div class="text-sm font-bold" {id}>Best apple</div>
-
-	<label class="flex items-center gap-2 text-sm font-normal text-neutral-950 dark:text-white">
-		<Radio.Root
-			value="fuji-apple"
-			class="flex size-4 shrink-0 items-center justify-center border rounded-full p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
-		>
-			<Radio.Indicator
-				class="flex items-center justify-center data-unchecked:hidden before:size-2 before:rounded-full before:bg-current"
-			/>
-		</Radio.Root>
-		Fuji
-	</label>
-
-	<label class="flex items-center gap-2 text-sm font-normal text-neutral-950 dark:text-white">
-		<Radio.Root
-			value="gala-apple"
-			class="flex size-4 shrink-0 items-center justify-center border rounded-full p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
-		>
-			<Radio.Indicator
-				class="flex items-center justify-center data-unchecked:hidden before:size-2 before:rounded-full before:bg-current"
-			/>
-		</Radio.Root>
-		Gala
-	</label>
-
-	<label class="flex items-center gap-2 text-sm font-normal text-neutral-950 dark:text-white">
-		<Radio.Root
-			value="granny-smith-apple"
-			class="flex size-4 shrink-0 items-center justify-center border rounded-full p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
-		>
-			<Radio.Indicator
-				class="flex items-center justify-center data-unchecked:hidden before:size-2 before:rounded-full before:bg-current"
-			/>
-		</Radio.Root>
-		Granny Smith
-	</label>
-</RadioGroup>
-```
+<DemoRadioHero />
 
 ## Usage guidelines
 
@@ -176,48 +125,19 @@ Use [Field](/components/field) and [Fieldset](/components/fieldset) for group la
 
 ## API reference
 
+<script>
+	import { DemoRadioHero } from './demos/hero';
+	import { TypesRadioGroup } from './types';
+</script>
+
 ### RadioGroup
 
-<ApiPart name="radio-group" part="RadioGroup" />
-
-| Attribute       | Description                               |
-| --------------- | ----------------------------------------- |
-| `data-disabled` | Present when the radio group is disabled. |
+<TypesRadioGroup.RadioGroup />
 
 ### Root
 
-<ApiPart name="radio" part="Root" />
-
-| Attribute        | Description                                                                 |
-| ---------------- | --------------------------------------------------------------------------- |
-| `data-checked`   | Present when the radio is checked.                                          |
-| `data-unchecked` | Present when the radio is not checked.                                      |
-| `data-disabled`  | Present when the radio is disabled.                                         |
-| `data-readonly`  | Present when the radio is readonly.                                         |
-| `data-required`  | Present when the radio is required.                                         |
-| `data-valid`     | Present when the radio is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`   | Present when the radio is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`     | Present when the radio's value has changed (when wrapped in Field.Root).    |
-| `data-touched`   | Present when the radio has been touched (when wrapped in Field.Root).       |
-| `data-filled`    | Present when the radio is checked (when wrapped in Field.Root).             |
-| `data-focused`   | Present when the radio is focused (when wrapped in Field.Root).             |
+<TypesRadioGroup.Root />
 
 ### Indicator
 
-<ApiPart name="radio" part="Indicator" />
-
-| Attribute             | Description                                                                 |
-| --------------------- | --------------------------------------------------------------------------- |
-| `data-checked`        | Present when the radio is checked.                                          |
-| `data-unchecked`      | Present when the radio is not checked.                                      |
-| `data-disabled`       | Present when the radio is disabled.                                         |
-| `data-readonly`       | Present when the radio is readonly.                                         |
-| `data-required`       | Present when the radio is required.                                         |
-| `data-valid`          | Present when the radio is in a valid state (when wrapped in Field.Root).    |
-| `data-invalid`        | Present when the radio is in an invalid state (when wrapped in Field.Root). |
-| `data-dirty`          | Present when the radio's value has changed (when wrapped in Field.Root).    |
-| `data-touched`        | Present when the radio has been touched (when wrapped in Field.Root).       |
-| `data-filled`         | Present when the radio is checked (when wrapped in Field.Root).             |
-| `data-focused`        | Present when the radio is focused (when wrapped in Field.Root).             |
-| `data-starting-style` | Present when the radio indicator begins animating in.                       |
-| `data-ending-style`   | Present when the radio indicator is animating out.                          |
+<TypesRadioGroup.Indicator />

@@ -77,7 +77,6 @@
 		}
 	}
 
-	/* Demos here are one file, so the toolbar holds one file tab and the actions, pinned to its right edge. */
 	.DemoToolbarActions {
 		display: flex;
 		align-items: center;
