@@ -45,6 +45,10 @@
 
 	let {
 		value,
+		name: nameProp,
+		checked: checkedProp,
+		defaultChecked: defaultCheckedProp,
+		type: _type,
 		disabled: disabledProp,
 		readonly: readOnlyProp,
 		required: requiredProp,
@@ -72,7 +76,12 @@
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId.current);
 	const rootId = $derived(nativeButton ? controlId.current : generatedRootId);
 
-	const checked = $derived(group !== undefined ? group.checkedValue === value : value === '');
+	const checked = $derived(selectedNow());
+	group?.registerOption?.(() => ({
+		value,
+		checked: checkedProp ?? undefined,
+		name: nameProp ?? undefined
+	}));
 	const disabled = $derived(
 		field.disabled || fieldItem.disabled || Boolean(group?.disabled) || (disabledProp ?? false)
 	);
@@ -80,7 +89,7 @@
 	const readOnly = $derived(Boolean(group?.readOnly) || (readOnlyProp ?? false));
 	const required = $derived(Boolean(group?.required) || (requiredProp ?? false));
 	const serialized = $derived(value !== undefined ? serializeValue(value) : undefined);
-	const fieldName = $derived(group?.name);
+	const fieldName = $derived(group?.name ?? nameProp ?? undefined);
 	const fieldForm = $derived(group?.form);
 
 	const radioState: RadioRootState = $derived({
@@ -142,7 +151,9 @@
 	}
 
 	const inputStyle = $derived(toCssStyle(fieldName ? visuallyHiddenInput : visuallyHidden));
+	// A `checked` prop, such as the one in Kit's `.as('radio', value)`, owns this radio's state.
 	function selectedNow() {
+		if (checkedProp != null) return checkedProp;
 		return group !== undefined ? group.checkedValue === value : value === '';
 	}
 
@@ -268,7 +279,8 @@
 	bind:this={inputNode}
 	type="radio"
 	{checked}
-	defaultChecked={group !== undefined && value !== undefined && group.defaultValue === value}
+	defaultChecked={defaultCheckedProp ??
+		(group !== undefined && value !== undefined && group.defaultValue === value)}
 	{disabled}
 	form={fieldForm}
 	id={hiddenInputId}

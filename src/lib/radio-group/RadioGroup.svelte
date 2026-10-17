@@ -8,6 +8,7 @@
 	The radios are the existing Radio parts.
 -->
 <script lang="ts">
+	import { onDestroy } from 'svelte';
 	import { SvelteSet } from 'svelte/reactivity';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { contains, ownerDocument } from '@sveltery/utils';
@@ -25,7 +26,7 @@
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
-	import { setRadioGroupContext } from '../radio/group-context.js';
+	import { setRadioGroupContext, type RadioOption } from '../radio/group-context.js';
 	import type { RadioRootChangeEventDetails } from '../radio/types.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
 
@@ -83,7 +84,16 @@
 	const fieldset = findFieldsetRootContext();
 	const labelable = useLabelableContext();
 	const disabled = $derived(field.disabled || (disabledProp ?? false));
-	const name = $derived(field.name ?? nameProp ?? undefined);
+	// Radios that carry their own `name` and `checked`, as Kit's `.as('radio', value)` does.
+	const options = new SvelteSet<() => RadioOption>();
+	const optionName = $derived.by(() => {
+		for (const read of options) {
+			const option = read();
+			if (option.name) return option.name;
+		}
+		return undefined;
+	});
+	const name = $derived(field.name ?? nameProp ?? optionName);
 
 	// The group takes its name from `aria-labelledby`, so Field.Label must not point `for`
 	// at one radio inside it.
@@ -95,12 +105,22 @@
 			value = next;
 		}
 	);
-	const checkedValue = $derived(selection.current);
+	// A radio's `checked` prop wins over the group's own selection.
+	const optionSelection = $derived.by(() => {
+		let owned = false;
+		for (const read of options) {
+			const option = read();
+			if (option.checked) return { value: option.value };
+			if (option.checked !== undefined) owned = true;
+		}
+		return owned ? { value: undefined } : null;
+	});
+	const checkedValue = $derived(optionSelection ? optionSelection.value : selection.current);
 
 	const registration = attachFieldControl(field, {
 		enabled: () => !disabled,
 		id: () => elementProps.id ?? `base-ui-${uid}`,
-		name: () => nameProp ?? undefined,
+		name: () => nameProp ?? optionName,
 		getValue: () => checkedValue ?? null,
 		getFormValue: submittedValue
 	});
@@ -180,6 +200,10 @@
 		setCheckedValue,
 		setTouched(next) {
 			touched = next;
+		},
+		registerOption(read) {
+			options.add(read);
+			onDestroy(() => options.delete(read));
 		},
 		registerInputSync(sync) {
 			inputSyncs.add(sync);

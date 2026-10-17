@@ -35,6 +35,20 @@ export type RadioHostProps = HTMLAttributes<HTMLElement>;
 export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
 	/** The unique identifying value of the radio in a group. */
 	value: unknown;
+	/**
+	 * Identifies the field when a form is submitted.
+	 * A name on Field.Root or RadioGroup takes precedence.
+	 */
+	name?: string | null;
+	/**
+	 * Whether this radio is selected. When set, it owns the selection instead of the group.
+	 * Kit's `.as('radio', value)` passes it.
+	 */
+	checked?: boolean | null;
+	/** Whether the radio's input is selected after a form reset. */
+	defaultChecked?: boolean | null;
+	/** Accepted so `.as('radio', value)` can be spread. Always `'radio'`. */
+	type?: 'radio' | null;
 	/** Whether the component should ignore user interaction. @default false */
 	disabled?: boolean | null;
 	/**

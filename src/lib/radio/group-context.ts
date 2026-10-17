@@ -53,7 +53,18 @@ export interface RadioGroupContextValue {
 	 * did not take resyncs every radio's input, not only the clicked one.
 	 */
 	registerInputSync?: (sync: () => void) => () => void;
+	/**
+	 * Registers a radio's own name and `checked` prop while it initializes, so the group
+	 * can read the selection and name from its radios during SSR.
+	 */
+	registerOption?: (read: () => RadioOption) => void;
 	syncInputs?: () => void;
+}
+
+export interface RadioOption {
+	value: unknown;
+	checked: boolean | undefined;
+	name: string | undefined;
 }
 
 export const [useRadioGroupContext, setRadioGroupContext] = defineOptionalContext<
