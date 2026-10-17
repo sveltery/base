@@ -3,7 +3,7 @@ import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 import type { FieldRootState } from '../field/types.js';
 import type { BaseUIChangeEventDetails, BaseUIGenericEventDetails, REASONS } from '@sveltery/utils';
 import type { OTPValidationType } from './otp.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type OTPFieldValidationType = OTPValidationType;
 
@@ -44,10 +44,6 @@ export interface OTPFieldInputState extends Omit<OTPFieldRootState, 'filled' | '
 	/** The character rendered in this slot. */
 	value: string;
 }
-
-type RootRender = Snippet<
-	[props: HTMLAttributes<HTMLDivElement>, state: OTPFieldRootState, children: RenderChildren]
->;
 
 export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
@@ -148,7 +144,7 @@ export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: RootRender;
+	render?: RenderSnippet<HTMLDivElement, OTPFieldRootState>;
 	children?: Snippet;
 }
 
