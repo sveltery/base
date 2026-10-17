@@ -52,5 +52,3 @@ Sveltery Base ships Svelte components, so it works with any maintained bundler t
 ## Community
 
 Visit the [Community](/overview/community) page to learn more about ecosystem projects, support channels, and how to stay up to date and contribute.
-
-<center>Planted invalid HTML.</center>
