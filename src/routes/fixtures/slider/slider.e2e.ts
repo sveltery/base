@@ -1,5 +1,6 @@
 // Each case runs against the Svelte Slider and the React Base UI 1.9.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { openBeforeHydration } from '../hold-hydration.js';
 import { openFixture } from '../open-fixture.js';
 
 function open(page: Page, scenario: string, reference: boolean) {
@@ -65,8 +66,38 @@ for (const reference of [false, true]) {
 			await page.keyboard.press('ArrowUp');
 			await expect(slider).toHaveAttribute('aria-valuenow', '31');
 		});
+
+		test('renders no prehydration script once mounted', async ({ page }) => {
+			await open(page, 'edge', reference);
+			await expect(page.getByTestId('thumb')).toHaveCount(2);
+			await expect(page.getByTestId('control').locator('script')).toHaveCount(0);
+		});
 	});
 }
+
+function edgeBoxes(page: Page) {
+	return page
+		.getByTestId('control')
+		.evaluate((control) =>
+			[...control.querySelectorAll('[data-testid="thumb"], [data-testid="indicator"]')].map(
+				(part) => part.getBoundingClientRect().toJSON()
+			)
+		);
+}
+
+test('svelte hydration keeps edge-aligned parts in place and drops the script', async ({
+	page
+}) => {
+	const { hydrate } = await openBeforeHydration(page, 'slider', 'edge');
+	const script = page.getByTestId('control').locator('script');
+	await expect(script).toHaveCount(1);
+	await expect(page.getByTestId('thumb').last()).toBeVisible();
+	const before = await edgeBoxes(page);
+
+	await hydrate();
+	await expect(script).toHaveCount(0);
+	expect(await edgeBoxes(page)).toEqual(before);
+});
 
 test('svelte SSR does not link the label before hydration', async ({ request }) => {
 	const html = await (await request.get('/fixtures/slider?case=labelled')).text();

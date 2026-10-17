@@ -270,7 +270,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/scroll-area/dom.ts` from `packages/react/src/scroll-area/utils/getOffset.ts`
 - `src/lib/slider/SliderIndicator.svelte` and `src/lib/slider/indicator-style.ts` from `packages/react/src/slider/indicator/SliderIndicator.tsx`
 - `src/lib/slider/SliderThumb.svelte` and `src/lib/slider/prehydration.ts` from `packages/react/src/slider/thumb/SliderThumb.tsx` and `prehydrationScript.min.ts`
-- `src/lib/internal/PrehydrationScript.ts` from `packages/react/src/internals/PrehydrationScript.tsx`
+- `src/lib/internal/PrehydrationScript.svelte` from `packages/react/src/internals/PrehydrationScript.tsx`
 - `src/lib/slider/SliderLabel.svelte` from `packages/react/src/slider/label/SliderLabel.tsx` and the non-native path of `packages/react/src/internals/labelable-provider/useLabel.ts`
 - `src/lib/slider/SliderValue.svelte` from `packages/react/src/slider/value/SliderValue.tsx`
 - `src/lib/slider/asc.ts`, `roundValueToStep.ts`, `getSliderValue.ts`, `validateMinimumDistance.ts`, `getMidpoint.ts`, `getPushedThumbValues.ts`, and `resolveThumbCollision.ts` from the matching files in `packages/react/src/slider/utils`

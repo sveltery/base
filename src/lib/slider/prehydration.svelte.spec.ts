@@ -4,8 +4,7 @@ import { expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import SliderHarness from '../../tests/SliderHarness.svelte';
 
-it('renders an empty prehydration script in the browser', async () => {
+it('renders no prehydration script in a client-only mount', async () => {
 	render(SliderHarness, { defaultValue: 20, thumbAlignment: 'edge' });
-	const script = page.getByTestId('thumb').element().querySelector('script');
-	expect(script?.outerHTML).toBe('<script></script>');
+	expect(page.getByTestId('thumb').element().querySelector('script')).toBeNull();
 });
