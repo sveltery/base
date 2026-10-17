@@ -294,7 +294,7 @@
 		return '';
 	}
 
-	function openAncestorPopup() {
+	function openAncestorPopup({ tree }: Leaving) {
 		if (!tree || !store.nodeId) return null;
 		for (const node of getNodeAncestors(tree.nodes, store.nodeId)) {
 			const floating = node.context?.floatingElement;
@@ -316,11 +316,18 @@
 		});
 	}
 
-	/** What the return reads from the popup it leaves, taken before the popup is gone. */
+	/**
+	 * What the return reads from the popup it leaves, taken before the popup is gone. The return
+	 * runs after this component is destroyed, when a prop can read a derived that its owner
+	 * destroyed with it, so the return reads the props from here.
+	 */
 	interface Leaving {
 		endedBy: OpenInteractionType;
 		reference: Element | null;
 		focusInside: boolean;
+		returnFocus: typeof returnFocus;
+		explicitReturnFocus: boolean | undefined;
+		tree: typeof tree;
 	}
 
 	/**
@@ -329,8 +336,13 @@
 	 * teardown as upstream's.
 	 */
 	function restoreReturnFocus(leaving: Leaving, resolved: HTMLElement | null | undefined) {
-		const target = resolved === undefined ? returnTarget(leaving, returnFocus) : resolved;
-		const spec = returnFocus;
+		// A popup that closed in the same update as the teardown reads the props from after it. One
+		// still open was unmounted without a close, such as with its whole tree.
+		if (resolved === undefined && !store.isOpen()) {
+			leaving = { ...leaving, returnFocus, explicitReturnFocus };
+		}
+		const target = resolved === undefined ? returnTarget(leaving) : resolved;
+		const spec = leaving.returnFocus;
 		// Upstream clears the flag after each return, also a prevented or cancelled one.
 		const prevented = preventReturn;
 		preventReturn = false;
@@ -359,7 +371,7 @@
 				return;
 			}
 			if (store.floatingElement?.isConnected) return;
-			const ancestor = openAncestorPopup();
+			const ancestor = openAncestorPopup(leaving);
 			if (ancestor) {
 				ancestor.focus({ preventScroll: true });
 				return;
@@ -368,10 +380,13 @@
 		});
 	}
 
-	function returnTarget(
-		{ endedBy, reference, focusInside }: Leaving,
-		spec: typeof returnFocus
-	): HTMLElement | null {
+	function returnTarget({
+		endedBy,
+		reference,
+		focusInside,
+		returnFocus: spec,
+		explicitReturnFocus
+	}: Leaving): HTMLElement | null {
 		// `returnFocus={null}` does not move focus. Upstream skips the restore when the
 		// prop is null (`FloatingFocusManager.tsx` 868–872). A function that returns
 		// `null` is a different value and falls back to the trigger below.
@@ -761,13 +776,16 @@
 					contains(floating, active) ||
 					inInsideElement(active) ||
 					active === doc.body ||
-					active == null
+					active == null,
+				returnFocus,
+				explicitReturnFocus,
+				tree
 			};
 			// A popup that closed in an earlier update resolves its target now, as upstream's cleanup
 			// does. A return function then reads the state from before the unmount, such as Menu's
 			// trigger, which the unmount clears. One that closes in this update reads
 			// `returnFocus` once the update has finished.
-			const resolved = store.isOpen() ? undefined : returnTarget(leaving, returnFocus);
+			const resolved = store.isOpen() ? undefined : returnTarget(leaving);
 			queueMicrotask(() => restoreReturnFocus(leaving, resolved));
 		};
 	});

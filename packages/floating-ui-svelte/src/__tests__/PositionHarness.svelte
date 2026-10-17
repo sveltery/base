@@ -1,5 +1,8 @@
 <script lang="ts">
+	import type { Middleware } from '@floating-ui/dom';
 	import { FloatingPosition } from '../usePosition.svelte.js';
+
+	let { middleware = [] }: { middleware?: Middleware[] } = $props();
 
 	let active = $state<'a' | 'b'>('a');
 	let open = $state(true);
@@ -16,7 +19,7 @@
 		reference: active === 'a' ? a : b,
 		placement: 'bottom',
 		strategy: 'fixed',
-		middleware: [],
+		middleware,
 		open,
 		enabled: true,
 		autoUpdate: {}
