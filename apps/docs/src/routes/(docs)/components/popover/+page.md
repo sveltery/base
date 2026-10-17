@@ -248,7 +248,7 @@ Creates a new handle to connect a `Popover.Root` with detached `Popover.Trigger`
 
 `Popover.Handle<Payload>`
 
-<!-- @exclude-table-of-contents -->
+[//]: # '@exclude-table-of-contents'
 
 ### Handle
 

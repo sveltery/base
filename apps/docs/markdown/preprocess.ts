@@ -110,13 +110,13 @@ const mdTable = (table: string) =>
 
 /** Base UI's reference sections: a bold `Return value` paragraph, then optionally the type's name. */
 const SECTION_LABEL =
-	/<p class="MdP"><strong>(Parameters|Return value|Properties|Methods)<\/strong><\/p>(\s*<p class="MdP"><code class="Code MdCode" data-inline(?:="")?>([\s\S]*?)<\/code><\/p>)?/g;
+	/<p class="MdP"><strong>(Parameters|Return value|Properties|Methods)<\/strong><\/p>(\s*<p class="MdP"><code class="Code MdCode[^"]*"[^>]*>([\s\S]*?)<\/code><\/p>)?/g;
 
 function referenceSections(code: string): string {
 	return code.replace(SECTION_LABEL, (_match, label, subtext, type) => {
 		const heading = `<h3 class="ReferenceSectionHeading">${label}</h3>`;
 		if (!subtext) return heading;
-		return `${heading}<p class="ReferenceSectionSubtext"><code><span class="pl-en">${type}</span></code></p>`;
+		return `${heading}<p class="ReferenceSectionSubtext"><code><span class="pl-en">${text(type)}</span></code></p>`;
 	});
 }
 

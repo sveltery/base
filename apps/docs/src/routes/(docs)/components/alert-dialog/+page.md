@@ -214,7 +214,7 @@ Creates a new handle to connect an `AlertDialog.Root` with detached `AlertDialog
 
 `AlertDialog.Handle<Payload>`
 
-<!-- @exclude-table-of-contents -->
+[//]: # '@exclude-table-of-contents'
 
 ### Handle
 

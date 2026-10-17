@@ -16,7 +16,7 @@ const META = /^<Meta\s+name="([^"]+)"\s+content="([^"]*)"\s*\/>$/;
 const markdownText = (node: MdNode): string =>
 	node.type === 'inlineCode'
 		? `\`${text(node)}\``
-		: node.children
+		: node.children && node.type !== 'linkReference'
 			? node.children.map(markdownText).join('')
 			: text(node);
 

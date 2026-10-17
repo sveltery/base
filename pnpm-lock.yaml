@@ -318,6 +318,9 @@ importers:
       prettier:
         specifier: ^3.9.9
         version: 3.9.9
+      remark-typography:
+        specifier: 0.8.9
+        version: 0.8.9
       shiki:
         specifier: ^4.5.0
         version: 4.5.0
@@ -1502,6 +1505,9 @@ packages:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
     engines: {node: '>= 0.4'}
 
+  bail@2.0.2:
+    resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
+
   balanced-match@4.0.4:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
@@ -1547,6 +1553,14 @@ packages:
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
+
+  codsen-format-diagnostic-value@1.1.1:
+    resolution: {integrity: sha512-h/5wY3WiUCVOYvJG5aWu9kh/+Ik+rv3qEvM0UNner4E4bPPbs6YYzvIt/Ilz9gnkNp7Tw5aC1nMqDkUGQ57k7g==}
+    engines: {node: '>=18.20.8'}
+
+  codsen-utils@1.10.3:
+    resolution: {integrity: sha512-55URKxFAk+3rsLy0/NIW3YSiA9gO0b8gEzGcfCr239ve73xWMujPxu0cG+HF3yQJowGO0TdSu+roMqqaZ5Ts4w==}
+    engines: {node: '>=18.20.8'}
 
   comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
@@ -1723,6 +1737,9 @@ packages:
     resolution: {integrity: sha512-KfYbmpRm0VbLjEvVa9yGwCi9GI34xvi7A/HXYWQO65CSD2u3MczUJSuwXKFIxlGsgBQizV9q5J9NHj4VG0n+pA==}
     engines: {node: '>=12.0.0'}
 
+  extend@3.0.2:
+    resolution: {integrity: sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==}
+
   fast-check@3.23.2:
     resolution: {integrity: sha512-h5+1OzzfCC3Ef7VbtKdcv7zsstUQwUDlYpUTvjeUsJAssPgLn7QzbboPtL5ro04Mq0rPOsMzl7q5hIbRs2wD1A==}
     engines: {node: '>=8.0.0'}
@@ -1816,6 +1833,10 @@ packages:
   is-glob@4.0.3:
     resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
     engines: {node: '>=0.10.0'}
+
+  is-plain-obj@4.1.0:
+    resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
+    engines: {node: '>=12'}
 
   is-reference@3.0.3:
     resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
@@ -2219,6 +2240,22 @@ packages:
     resolution: {integrity: sha512-+Owyggi9IxT1ePKGafcI87ubSmxol6smwJ+RAHDQlx9+9cPwFWDiKFFCPuWhr9ignlGpZ9vDQLw67N4dcTVFEA==}
     engines: {node: '>=20'}
 
+  ranges-apply@7.2.6:
+    resolution: {integrity: sha512-CFOjYFPvX/rM6crewKQhETVhw29zrhBXymQf4WPJL/VTB+KsEARkgUmi5+m1rlcYeqvzSVyCMdVJkr633V5+TA==}
+    engines: {node: '>=18.20.8'}
+
+  ranges-merge@9.2.6:
+    resolution: {integrity: sha512-mrZE731+mERehnYglYEKDP6WH09oRy2rOJu56b5JQikT6jLknPb1Ze2nzQ/N6Op3Uc/bQs1Wq/3PDZhku/6k/g==}
+    engines: {node: '>=18.20.8'}
+
+  ranges-push@7.3.3:
+    resolution: {integrity: sha512-hoUfb5IiwaRbzoXFKGsmEvXiKWzdsMQOxBXCAM6ud9XtTEhfVb7bsoOyuL7NqYw0+C+1vVKormSlEvRXfL0TwA==}
+    engines: {node: '>=18.20.8'}
+
+  ranges-sort@6.2.5:
+    resolution: {integrity: sha512-kzUI1uc0m8p52TmH+GVz5KbJnvph8PU7DoNBeo0CuCINqwHP46wIO8SvEgpwkZ1tO1YToLx+VA5kgnAgqi3tHg==}
+    engines: {node: '>=18.20.8'}
+
   react-dom@19.2.8:
     resolution: {integrity: sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==}
     peerDependencies:
@@ -2244,6 +2281,10 @@ packages:
 
   regex@6.1.0:
     resolution: {integrity: sha512-6VwtthbV4o/7+OaAF9I5L5V3llLEsoPyq9P1JVXkedTP33c7MfCG0/5NOPcSJn0TzXcG9YUrR0gQSWioew3LDg==}
+
+  remark-typography@0.8.9:
+    resolution: {integrity: sha512-wUBsgHqUUNDirsuMBW90LitJ8qZ62uFHQE0G8rIgPY3cw/2pKkdJYjENFE+0cF5xW/WiqdaTBBvsWagltO//qw==}
+    engines: {node: '>=18.20.8'}
 
   remove-accents@0.5.0:
     resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
@@ -2311,6 +2352,26 @@ packages:
 
   std-env@4.3.0:
     resolution: {integrity: sha512-OtU/EgQ1kIm5KwqQpBC6ZEMXrZRui11w8zgfTWp8cdO9B8OaPsbA8bTHO2P+HNo1VlUTGMVBwPhydu6poeXiag==}
+
+  string-apostrophes@4.2.7:
+    resolution: {integrity: sha512-vuMuVK7NJCDM7elnzvQjpNRF+tndoxHqa1kpcyMHCwN286GU6ydwxRCEp2a+or7VaY+tg5TYrZoORbEx2fYi7Q==}
+    engines: {node: '>=18.20.8'}
+
+  string-collapse-leading-whitespace@7.3.1:
+    resolution: {integrity: sha512-u+EW373wuRHByj93sqlOx9hSIXAo0PYs1W/dgM5rc3Vyl4IRzsLHS1cRzMNre+SEEcc6sCe84QR12nhtzVd4DA==}
+    engines: {node: '>=18.20.8'}
+
+  string-dashes@1.4.7:
+    resolution: {integrity: sha512-ClwHqAoknadOMiDIb384Hy4vphuy+XL9dVkfffuB4eSmNPIIc1nlOwH5RczKW8A3FcsgAe6nsKF08JhL13GBfQ==}
+    engines: {node: '>=18.20.8'}
+
+  string-left-right@6.2.5:
+    resolution: {integrity: sha512-oc7BSa7LWJMFARfOtTS5X0cHao+XVGGp7YrT+fBmI3t7HMYlAchwSBwug2myCOb2ZCAWA5/8tH4wJwtisZ96Mw==}
+    engines: {node: '>=18.20.8'}
+
+  string-remove-widows@4.2.10:
+    resolution: {integrity: sha512-NpQMu8eAo2blV/HzL7vo1Gg6zbJYdKxueqSHJPQgvmpMPy+Qnc4kdlLkFAnDN8tCfR3HWewFFBPcI4TMLK9jlg==}
+    engines: {node: '>=18.20.8'}
 
   stringify-entities@4.0.4:
     resolution: {integrity: sha512-IwfBptatlO+QCJUo19AqvrPNqlVMpW9YEL2LIVY+Rpv2qsjCGxaDLNRgeGsQWJhfItebuJhsGSLjaBbNSQ+ieg==}
@@ -2391,6 +2452,9 @@ packages:
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
 
+  trough@2.2.0:
+    resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
+
   ts-algebra@2.0.0:
     resolution: {integrity: sha512-FPAhNPFMrkwz76P7cdjdmiShwMynZYN6SgOujD1urY4oNm80Ou9oMdmbR45LotcKOXoy7wSmHkRFE6Mxbrhefw==}
 
@@ -2439,6 +2503,9 @@ packages:
 
   unenv@2.0.0-rc.24:
     resolution: {integrity: sha512-i7qRCmY42zmCwnYlh9H2SvLEypEFGye5iRmEMKjcGi7zk9UquigRjFtTLz0TYqr0ZGLZhaMHl/foy1bZR+Cwlw==}
+
+  unified@11.0.5:
+    resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
 
   unist-util-is@4.1.0:
     resolution: {integrity: sha512-ZOQSsnce92GrxSqlnEEseX0gi7GH9zTJZ0p9dtu87WRb/37mMPO2Ilx1s/t9vBHrFhbgweUwb+t7cIn5dxPhZg==}
@@ -3626,6 +3693,8 @@ snapshots:
 
   axobject-query@4.1.0: {}
 
+  bail@2.0.2: {}
+
   balanced-match@4.0.4: {}
 
   blake3-wasm@2.1.5: {}
@@ -3669,6 +3738,12 @@ snapshots:
     optional: true
 
   clsx@2.1.1: {}
+
+  codsen-format-diagnostic-value@1.1.1: {}
+
+  codsen-utils@1.10.3:
+    dependencies:
+      codsen-format-diagnostic-value: 1.1.1
 
   comma-separated-tokens@2.0.3: {}
 
@@ -3877,6 +3952,8 @@ snapshots:
 
   expect-type@1.4.0: {}
 
+  extend@3.0.2: {}
+
   fast-check@3.23.2:
     dependencies:
       pure-rand: 6.1.0
@@ -3961,6 +4038,8 @@ snapshots:
   is-glob@4.0.3:
     dependencies:
       is-extglob: 2.1.1
+
+  is-plain-obj@4.1.0: {}
 
   is-reference@3.0.3:
     dependencies:
@@ -4304,6 +4383,26 @@ snapshots:
     dependencies:
       hookified: 2.2.0
 
+  ranges-apply@7.2.6:
+    dependencies:
+      codsen-utils: 1.10.3
+      ranges-merge: 9.2.6
+
+  ranges-merge@9.2.6:
+    dependencies:
+      codsen-utils: 1.10.3
+      ranges-sort: 6.2.5
+
+  ranges-push@7.3.3:
+    dependencies:
+      codsen-utils: 1.10.3
+      ranges-sort: 6.2.5
+      string-collapse-leading-whitespace: 7.3.1
+
+  ranges-sort@6.2.5:
+    dependencies:
+      codsen-utils: 1.10.3
+
   react-dom@19.2.8(react@19.2.8):
     dependencies:
       react: 19.2.8
@@ -4324,6 +4423,16 @@ snapshots:
   regex@6.1.0:
     dependencies:
       regex-utilities: 2.3.0
+
+  remark-typography@0.8.9:
+    dependencies:
+      '@types/mdast': 4.0.4
+      codsen-utils: 1.10.3
+      string-apostrophes: 4.2.7
+      string-dashes: 1.4.7
+      string-remove-widows: 4.2.10
+      unified: 11.0.5
+      vfile: 6.0.3
 
   remove-accents@0.5.0: {}
 
@@ -4425,6 +4534,30 @@ snapshots:
   stackback@0.0.2: {}
 
   std-env@4.3.0: {}
+
+  string-apostrophes@4.2.7:
+    dependencies:
+      codsen-utils: 1.10.3
+      ranges-apply: 7.2.6
+
+  string-collapse-leading-whitespace@7.3.1: {}
+
+  string-dashes@1.4.7:
+    dependencies:
+      codsen-utils: 1.10.3
+      ranges-apply: 7.2.6
+      string-left-right: 6.2.5
+
+  string-left-right@6.2.5:
+    dependencies:
+      codsen-utils: 1.10.3
+
+  string-remove-widows@4.2.10:
+    dependencies:
+      codsen-utils: 1.10.3
+      ranges-apply: 7.2.6
+      ranges-push: 7.3.3
+      string-left-right: 6.2.5
 
   stringify-entities@4.0.4:
     dependencies:
@@ -4542,6 +4675,8 @@ snapshots:
 
   trim-lines@3.0.1: {}
 
+  trough@2.2.0: {}
+
   ts-algebra@2.0.0:
     optional: true
 
@@ -4584,6 +4719,16 @@ snapshots:
   unenv@2.0.0-rc.24:
     dependencies:
       pathe: 2.0.3
+
+  unified@11.0.5:
+    dependencies:
+      '@types/unist': 3.0.3
+      bail: 2.0.2
+      devlop: 1.1.0
+      extend: 3.0.2
+      is-plain-obj: 4.1.0
+      trough: 2.2.0
+      vfile: 6.0.3
 
   unist-util-is@4.1.0: {}
 

@@ -4,7 +4,9 @@ import type {
 	SitemapSectionData,
 	SitemapSections
 } from '../../../../markdown/sitemap.ts';
-import { slugify } from '../../../../markdown/headings.ts';
+import { libraryHeadingId } from '../../../../markdown/concat-headings.ts';
+import { stripHeadingTag } from '../../../../markdown/heading-tags.ts';
+import { stringToUrl } from '../../../../markdown/slug.ts';
 import { getSitemapPageInfo } from '#lib/docs/sitemap.ts';
 
 /** One search result. The fields match the index schema of upstream's `useSearch`. */
@@ -52,22 +54,21 @@ const KEPT_STOPWORDS = new Set(
 type Index = { orama: unknown; defaults: SearchGroup[] };
 
 /**
- * The ids the page gives its h2 to h4 headings, in document order, as `headings.ts` assigns them:
- * a repeated title gets a numbered id.
+ * The ids the page gives its headings, in document order, as `slug.ts` assigns them after the h1's:
+ * a repeated title gets a numbered id, and a Forms library's h3 its library's name.
  */
-function headingIds(sections: SitemapSections) {
-	const used: Record<string, true> = {};
+function headingIds(sections: SitemapSections, page: string) {
+	const used: Record<string, true> = { [stringToUrl(page)]: true };
 	const ids: [SitemapSections[string], string][] = [];
-	const visit = (level: SitemapSections, depth: number) => {
+	const visit = (level: SitemapSections, depth: number, parent?: string) => {
 		for (const heading of Object.values(level)) {
-			if (depth <= 4) {
-				const base = slugify(heading.title);
-				let id = base;
-				for (let count = 1; id in used; count++) id = `${base}-${count}`;
-				used[id] = true;
-				ids.push([heading, id]);
-			}
-			if (heading.children) visit(heading.children, depth + 1);
+			const title = stripHeadingTag(heading.title);
+			const base = stringToUrl(title);
+			let id = base;
+			for (let count = 1; id in used; count++) id = `${base}-${count}`;
+			used[id] = true;
+			ids.push([heading, (depth === 3 && parent && libraryHeadingId(page, parent, title)) || id]);
+			if (heading.children) visit(heading.children, depth + 1, depth === 2 ? title : parent);
 		}
 	};
 	visit(sections, 2);
@@ -83,7 +84,7 @@ function flattenPage(page: SitemapPage, section: SitemapSectionData): SearchDocu
 	const { href } = getSitemapPageInfo(section, page);
 	const title = page.title;
 	const base = { description: page.description ?? '', sectionTitle: section.title };
-	const ids = headingIds(page.sections ?? {});
+	const ids = headingIds(page.sections ?? {}, title);
 	const idOf = new Map([...ids].map(([heading, id]) => [heading.title, id]));
 	const documents: SearchDocument[] = [
 		{

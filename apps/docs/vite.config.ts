@@ -4,13 +4,20 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { mdsvex } from 'mdsvex';
 import { defineConfig } from 'vite';
-import { elements, headings } from './markdown/headings.ts';
+import typography from 'remark-typography';
+import { codeInline } from './markdown/code-inline.ts';
+import { concatHeadings } from './markdown/concat-headings.ts';
+import { excludeHeading } from './markdown/exclude-heading.ts';
+import { headingTags } from './markdown/heading-tags.ts';
+import { elements, headings, mdsvexPlugins } from './markdown/headings.ts';
+import { markdownCode } from './markdown/markdown-code.ts';
 import { metadata } from './markdown/metadata.ts';
 import { docsDemos } from './markdown/demos.ts';
 import { docsMarkdown } from './markdown/llms.ts';
 import { docsComponents, highlightCode } from './markdown/preprocess.ts';
 import { relativePaths } from './markdown/relative-paths.ts';
 import { sitemap } from './markdown/sitemap.ts';
+import { slug } from './markdown/slug.ts';
 import { docsTypes } from './markdown/types.ts';
 
 const path = (relative: string) => fileURLToPath(new URL(relative, import.meta.url));
@@ -51,12 +58,17 @@ export default defineConfig({
 				mdsvex({
 					extensions: ['.md'],
 					smartypants: false,
-					remarkPlugins: [
+					// Upstream's `docs/next.config.mjs` plugin lists, in its order.
+					remarkPlugins: mdsvexPlugins(
+						headingTags,
 						metadata,
-						headings,
-						elements,
-						relativePaths({ routes: path('./src/routes') })
-					],
+						typography,
+						excludeHeading,
+						relativePaths({ routes: path('./src/routes') }),
+						markdownCode,
+						elements
+					),
+					rehypePlugins: mdsvexPlugins(codeInline, slug, concatHeadings, headings),
 					layout: path('./src/lib/components/DocsPage.svelte'),
 					highlight: { highlighter: highlightCode }
 				}),

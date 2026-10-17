@@ -90,7 +90,7 @@ With `keepMounted`, the image is part of the server-rendered HTML and starts loa
 
 <TypesAvatar.Fallback />
 
-<!-- @exclude-table-of-contents -->
+[//]: # '@exclude-table-of-contents'
 
 ## Additional types
 

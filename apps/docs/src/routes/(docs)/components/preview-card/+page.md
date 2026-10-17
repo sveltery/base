@@ -228,7 +228,7 @@ Creates a new handle to connect a `PreviewCard.Root` with detached `PreviewCard.
 
 `PreviewCard.Handle<Payload>`
 
-<!-- @exclude-table-of-contents -->
+[//]: # '@exclude-table-of-contents'
 
 ### Handle
 

@@ -330,7 +330,7 @@ Inside `<Menu.Viewport>`, content is wrapped in `div`s with transition data attr
 
 <DemoMenuDetachedTriggersFull />
 
-### Filtering
+### Filtering [Preview]
 
 Wrap `<Menu.Root>` in `<Menu.FilterProvider>`, add `<Menu.Input>` to the popup, and put the items inside `<Menu.List>`.
 
@@ -469,7 +469,7 @@ Use the same `Menu.createHandle()` handle for the root and its detached trigger:
 	import { TypesMenu } from './types';
 </script>
 
-### FilterProvider
+### FilterProvider [Preview]
 
 <TypesMenu.FilterProvider />
 
@@ -601,7 +601,7 @@ Creates a new handle to connect a `Menu.Root` with detached `Menu.Trigger` compo
 
 `Menu.Handle<Payload>`
 
-<!-- @exclude-table-of-contents -->
+[//]: # '@exclude-table-of-contents'
 
 ### Handle
 

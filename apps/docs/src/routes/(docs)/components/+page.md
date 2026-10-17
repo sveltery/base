@@ -913,7 +913,7 @@ A list of actions in a dropdown, enhanced with keyboard navigation.
     - Animating the Menu
       - Position and Size
       - Content
-    - Filtering
+    - Filtering [Preview]
       - Matching items
       - Controlling the query
       - Highlighting
@@ -921,7 +921,7 @@ A list of actions in a dropdown, enhanced with keyboard navigation.
       - Submenus
       - Filtering with detached triggers
   - API reference
-    - FilterProvider
+    - FilterProvider [Preview]
     - Root
     - Trigger
     - Portal
