@@ -61,10 +61,17 @@ export interface NavigationMenuRootProps<Value = unknown> extends Omit<
 	 * The value of the navigation menu item that should be currently open.
 	 * When non-nullish, the menu will be open. When nullish, the menu will be closed.
 	 *
-	 * To render an uncontrolled navigation menu, pass `value` without `bind:`.
+	 * To render an uncontrolled navigation menu, use the `defaultValue` prop instead.
 	 * @default null
 	 */
 	value?: Value | null;
+	/**
+	 * The uncontrolled value of the item that should be initially selected.
+	 *
+	 * To render a controlled navigation menu, use `bind:value` instead.
+	 * @default null
+	 */
+	defaultValue?: Value | null;
 	/** Callback fired when the value changes. */
 	onValueChange?: (value: Value | null, eventDetails: NavigationMenuChangeEventDetails) => void;
 	/** Event handler called after any animations complete when the navigation menu is closed. */

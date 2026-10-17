@@ -25,7 +25,8 @@
 	} from './types.js';
 
 	let {
-		value = $bindable(null),
+		value = $bindable(),
+		defaultValue = null,
 		onValueChange,
 		onOpenChangeComplete,
 		delay = OPEN_DELAY,
@@ -35,6 +36,8 @@
 		children,
 		...elementProps
 	}: NavigationMenuRootProps<Value> = $props();
+	// svelte-ignore state_referenced_locally
+	if (value === undefined) value = defaultValue;
 
 	const uid = $props.id();
 	const nested = useFloatingParentNodeId() != null;

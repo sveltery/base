@@ -43,6 +43,13 @@ export interface PreviewCardRootProps<Payload = unknown> {
 	 * @default false
 	 */
 	open?: boolean;
+	/**
+	 * Whether the preview card is initially open.
+	 *
+	 * To render a controlled preview card, use `bind:open` instead.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/** Event handler called when the preview card is opened or closed. */
 	onOpenChange?: (open: boolean, details: PreviewCardChangeEventDetails) => void;
 	/**
@@ -55,6 +62,11 @@ export interface PreviewCardRootProps<Payload = unknown> {
 	 * There's no need to specify this prop when the preview card is uncontrolled (that is, when `open` is not bound).
 	 */
 	triggerId?: string | null;
+	/**
+	 * ID of the trigger that the preview card is associated with.
+	 * This is useful in conjunction with the `defaultOpen` prop to create an initially open preview card.
+	 */
+	defaultTriggerId?: string | null;
 	/**
 	 * A handle to associate the preview card with a trigger.
 	 * If specified, allows external triggers to control the card's open state.

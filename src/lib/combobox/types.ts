@@ -103,6 +103,13 @@ export interface ComboboxSharedRootProps<Value = unknown, Item = Value> {
 	 * @default false
 	 */
 	open?: boolean;
+	/**
+	 * Whether the popup is initially open.
+	 *
+	 * To render a controlled popup, use `bind:open` instead.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/** Event handler called when the popup is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: ComboboxOpenChangeEventDetails) => void;
 	/** Event handler called after any animations complete when the popup is opened or closed. */

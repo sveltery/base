@@ -21,7 +21,8 @@
 		value = $bindable(),
 		defaultValue,
 		onValueChange,
-		open = $bindable(false),
+		open = $bindable(),
+		defaultOpen = false,
 		mode = 'list',
 		openOnInputClick = false,
 		itemToStringValue,
@@ -30,6 +31,8 @@
 		readonly = false,
 		...rest
 	}: AutocompleteRootItemsProps<Items> = $props();
+	// svelte-ignore state_referenced_locally
+	if (open === undefined) open = defaultOpen;
 
 	// Inline completion writes the highlighted label into the input, which `readonly` prevents.
 	const enableInline = $derived((mode === 'inline' || mode === 'both') && !readonly);

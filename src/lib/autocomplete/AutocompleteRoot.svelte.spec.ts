@@ -3,8 +3,8 @@
 // packages/react/src/combobox/root/ComboboxRoot.test.tsx, clear/ComboboxClear.test.tsx,
 // trigger/ComboboxTrigger.test.tsx, list/ComboboxList.test.tsx and store.test.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// `actionsRef` is the root's exported `close()` and `unmount()`, `defaultOpen` is `open`
-// without a binding and `setProps` is a write to a bound prop.
+// `actionsRef` is the root's exported `close()` and `unmount()`, `defaultOpen` cases use `open`
+// without a binding, which also sets the initial state, and `setProps` is a write to a bound prop.
 // Not ported, React only: the React.startTransition unmount case, and the store.test.tsx cases
 // that observe React store transactions, `useStore` re-reads and ref callbacks during commit.
 import { tick } from 'svelte';

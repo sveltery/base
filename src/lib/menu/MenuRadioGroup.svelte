@@ -15,6 +15,7 @@
 
 	let {
 		value = $bindable(),
+		defaultValue,
 		onValueChange,
 		disabled: disabledProp,
 		'aria-labelledby': ariaLabelledBy,
@@ -23,6 +24,8 @@
 		children,
 		...elementProps
 	}: MenuRadioGroupProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (value === undefined && defaultValue !== undefined) value = defaultValue;
 
 	// A filterable menu hides the group once the query filters out all its items.
 	const filter = findMenuRoot()?.store.filter;

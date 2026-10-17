@@ -52,10 +52,16 @@ export interface AccordionRootProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	/**
 	 * The value of the item(s) that should be expanded.
 	 *
-	 * To render an uncontrolled accordion, pass `value` without `bind:`.
+	 * To render an uncontrolled accordion, use the `defaultValue` prop instead.
 	 * @default []
 	 */
 	value?: unknown[];
+	/**
+	 * The uncontrolled value of the item(s) that should be initially expanded.
+	 *
+	 * To render a controlled accordion, use `bind:value` instead.
+	 */
+	defaultValue?: unknown[];
 	/**
 	 * Whether the component should ignore user interaction.
 	 * @default false

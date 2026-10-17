@@ -14,6 +14,7 @@
 
 	let {
 		value = $bindable(),
+		defaultValue,
 		disabled,
 		hiddenUntilFound = false,
 		keepMounted,
@@ -25,6 +26,8 @@
 		children,
 		...elementProps
 	}: AccordionRootProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (value === undefined && defaultValue !== undefined) value = defaultValue;
 
 	const EMPTY: unknown[] = [];
 	const selection = new WrittenReference<unknown[] | undefined>(

@@ -79,6 +79,13 @@ export interface MenuRootProps<Payload = unknown> {
 	 * @default false
 	 */
 	open?: boolean;
+	/**
+	 * Whether the menu is initially open.
+	 *
+	 * To render a controlled menu, use `bind:open` instead.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/** Event handler called when the menu is opened or closed. */
 	onOpenChange?: (open: boolean, details: MenuChangeEventDetails) => void;
 	/** Event handler called after any animations complete when the menu is opened or closed. */
@@ -144,6 +151,11 @@ export interface MenuRootProps<Payload = unknown> {
 	 * There's no need to specify this prop when the menu is uncontrolled (that is, when `open` is not bound).
 	 */
 	triggerId?: string | null;
+	/**
+	 * ID of the trigger that the menu is associated with.
+	 * This is useful in conjunction with the `defaultOpen` prop to create an initially open menu.
+	 */
+	defaultTriggerId?: string | null;
 	/**
 	 * A handle to associate the menu with a trigger.
 	 * If specified, allows external triggers to control the menu's open state.
@@ -514,10 +526,17 @@ export interface MenuCheckboxItemProps
 	/**
 	 * Whether the checkbox item is currently ticked.
 	 *
-	 * To render an uncontrolled checkbox item, pass `checked` without `bind:`.
+	 * To render an uncontrolled checkbox item, use the `defaultChecked` prop instead.
 	 * @default false
 	 */
 	checked?: boolean;
+	/**
+	 * Whether the checkbox item is initially ticked.
+	 *
+	 * To render a controlled checkbox item, use `bind:checked` instead.
+	 * @default false
+	 */
+	defaultChecked?: boolean;
 	/** Event handler called when the checkbox item is ticked or unticked. */
 	onCheckedChange?: (checked: boolean, details: MenuChangeEventDetails) => void;
 	/**
@@ -613,9 +632,15 @@ export interface MenuRadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>
 	/**
 	 * The value of the radio item that should be currently selected.
 	 *
-	 * To render an uncontrolled radio group, pass `value` without `bind:`.
+	 * To render an uncontrolled radio group, use the `defaultValue` prop instead.
 	 */
 	value?: unknown;
+	/**
+	 * The uncontrolled value of the radio item that should be initially selected.
+	 *
+	 * To render a controlled radio group, use `bind:value` instead.
+	 */
+	defaultValue?: unknown;
 	/** Function called when the selected value changes. */
 	onValueChange?: (value: unknown, details: MenuChangeEventDetails) => void;
 	/**
@@ -675,7 +700,7 @@ export interface MenuRadioItemProps
 
 export interface MenuSubmenuRootProps extends Omit<
 	MenuRootProps,
-	'modal' | 'handle' | 'triggerId' | 'children'
+	'modal' | 'handle' | 'triggerId' | 'defaultTriggerId' | 'children'
 > {
 	children?: Snippet;
 }
@@ -736,10 +761,15 @@ export interface MenuFilterProviderProps {
 	 * The filter query.
 	 * When the popup closes, `onValueChange` is called with an empty query.
 	 *
-	 * To render an uncontrolled filter, pass `value` without `bind:`.
+	 * To render an uncontrolled filter, use the `defaultValue` prop instead.
 	 * @default ''
 	 */
 	value?: string;
+	/**
+	 * The uncontrolled filter query when the menu is initially rendered.
+	 * To render a controlled query, use `bind:value` instead.
+	 */
+	defaultValue?: string;
 	/** Event handler called when the filter query changes. */
 	onValueChange?: (value: string, details: MenuFilterChangeEventDetails) => void;
 	/**

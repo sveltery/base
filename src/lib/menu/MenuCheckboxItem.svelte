@@ -16,7 +16,8 @@
 	} from './types.js';
 
 	let {
-		checked = $bindable(false),
+		checked = $bindable(),
+		defaultChecked = false,
 		onCheckedChange,
 		id,
 		label,
@@ -27,6 +28,8 @@
 		children,
 		...elementProps
 	}: MenuCheckboxItemProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (checked === undefined) checked = defaultChecked;
 
 	const { store } = useMenuRoot();
 	const uid = $props.id();

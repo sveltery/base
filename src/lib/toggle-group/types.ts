@@ -24,10 +24,16 @@ export interface ToggleGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	/**
 	 * The pressed state of the toggle group represented by an array of the values of all pressed toggle buttons.
 	 *
-	 * To render an uncontrolled toggle group, pass `value` without `bind:`.
+	 * To render an uncontrolled toggle group, use the `defaultValue` prop instead.
 	 * @default []
 	 */
 	value?: readonly string[];
+	/**
+	 * The pressed state of the toggle group represented by an array of
+	 * the values of all pressed toggle buttons.
+	 * This is the uncontrolled counterpart of `value`.
+	 */
+	defaultValue?: readonly string[];
 	/**
 	 * Whether the toggle group should ignore user interaction.
 	 * @default false

@@ -13,12 +13,15 @@
 
 	let {
 		value = $bindable(),
+		defaultValue,
 		orientation = 'horizontal',
 		onValueChange,
 		render,
 		children,
 		...elementProps
 	}: TabsRootProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (value === undefined && defaultValue !== undefined) value = defaultValue;
 
 	const selection = new WrittenReference<TabsValue | null | undefined>(
 		() => value,

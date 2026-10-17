@@ -61,6 +61,13 @@ export interface SelectRootProps<Value = unknown, Multiple extends boolean | und
 	 * @default false
 	 */
 	open?: boolean;
+	/**
+	 * Whether the select popup is initially open.
+	 *
+	 * To render a controlled select popup, use `bind:open` instead.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/** Event handler called when the select popup is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: SelectOpenChangeEventDetails) => void;
 	/**

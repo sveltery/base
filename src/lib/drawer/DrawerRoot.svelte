@@ -15,12 +15,14 @@
 
 	let {
 		open = $bindable(),
+		defaultOpen,
 		modal = true,
 		onOpenChange,
 		onOpenChangeComplete,
 		disablePointerDismissal = false,
 		handle,
 		triggerId = $bindable(),
+		defaultTriggerId,
 		swipeDirection = 'down',
 		snapPoints,
 		snapToSequentialPoints = false,
@@ -29,6 +31,10 @@
 		onSnapPointChange,
 		children
 	}: DrawerRootProps<Payload> = $props();
+	// svelte-ignore state_referenced_locally
+	if (open === undefined && defaultOpen !== undefined) open = defaultOpen;
+	// svelte-ignore state_referenced_locally
+	if (triggerId === undefined && defaultTriggerId !== undefined) triggerId = defaultTriggerId;
 
 	const parent = findDrawerRootState();
 	const provider = findDrawerProvider();

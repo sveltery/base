@@ -254,7 +254,8 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			const open = this.open;
 			const count = this.triggerCount;
 			const currentId = this.boundTriggerId.read();
-			const claimsLone = open && active == null && count === 1 && !this.openedWithoutTrigger;
+			const claimsLone =
+				open && active == null && count === 1 && !this.openedWithoutTrigger && currentId == null;
 			if (active === element || currentId === id || claimsLone) {
 				this.domReferenceElement = element;
 				this.boundTriggerId.write(id);

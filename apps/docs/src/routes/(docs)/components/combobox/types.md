@@ -19,6 +19,7 @@ Groups all parts of the combobox. Doesn't render its own HTML element.
 | defaultInputValue    | `string`                                                                                      | -                                 | The uncontrolled input value when initially rendered.&#xA;&#xA;To render a controlled input, use `bind:inputValue` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | inputValue           | `string`                                                                                      | -                                 | The input value of the combobox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | onInputValueChange   | `(inputValue: string, eventDetails: ComboboxChangeEventDetails) => void`                      | -                                 | Event handler called when the input value changes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| defaultOpen          | `boolean`                                                                                     | `false`                           | Whether the popup is initially open.&#xA;&#xA;To render a controlled popup, use `bind:open` instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | open                 | `boolean`                                                                                     | `false`                           | Whether the popup is currently open.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | onOpenChange         | `(open: boolean, eventDetails: ComboboxOpenChangeEventDetails) => void`                       | -                                 | Event handler called when the popup is opened or closed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | autoHighlight        | `boolean`                                                                                     | `false`                           | Whether the first matching item is highlighted automatically while filtering.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -862,6 +863,12 @@ type AriaComboboxProps<Value = unknown, Item = Value> = {
 	onInputValueChange?: (inputValue: string, eventDetails: ComboboxChangeEventDetails) => void;
 	/** Whether the popup is currently open. */
 	open?: boolean;
+	/**
+	 * Whether the popup is initially open.
+	 *
+	 * To render a controlled popup, use `bind:open` instead.
+	 */
+	defaultOpen?: boolean;
 	/** Event handler called when the popup is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: ComboboxOpenChangeEventDetails) => void;
 	/** Event handler called after any animations complete when the popup is opened or closed. */
@@ -1362,6 +1369,12 @@ type ComboboxSharedRootProps<Value = unknown, Item = Value> = {
 	onInputValueChange?: (inputValue: string, eventDetails: ComboboxChangeEventDetails) => void;
 	/** Whether the popup is currently open. */
 	open?: boolean;
+	/**
+	 * Whether the popup is initially open.
+	 *
+	 * To render a controlled popup, use `bind:open` instead.
+	 */
+	defaultOpen?: boolean;
 	/** Event handler called when the popup is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: ComboboxOpenChangeEventDetails) => void;
 	/** Event handler called after any animations complete when the popup is opened or closed. */

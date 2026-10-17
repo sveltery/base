@@ -15,12 +15,15 @@
 
 	let {
 		open = $bindable(),
+		defaultOpen,
 		disabled,
 		onOpenChange,
 		render,
 		children,
 		...elementProps
 	}: CollapsibleRootProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (open === undefined && defaultOpen !== undefined) open = defaultOpen;
 
 	const collapsible = new CollapsibleRoot(
 		() => open === true,

@@ -2,7 +2,8 @@
 // AlertDialogRoot.spec.tsx, and the shared suites it runs: packages/react/test/popupConformanceTests.tsx,
 // dialogRootSharedTests.tsx, and detachedTriggersConformanceTests.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// Not ported: `defaultOpen` with `open={false}` (there is no `defaultOpen`), and the render count of
+// `defaultOpen`, also with `open={false}`, is in src/tests/default-props.svelte.spec.ts. Not
+// ported: the render count of
 // an inactive detached trigger (Svelte has no component re-render to count). The payload type checks
 // in AlertDialogRoot.spec.tsx are in src/tests/PayloadTypes.svelte, which `pnpm check` verifies.
 import { tick } from 'svelte';

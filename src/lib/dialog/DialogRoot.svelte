@@ -11,14 +11,20 @@
 
 	let {
 		open = $bindable(),
+		defaultOpen,
 		modal = true,
 		onOpenChange,
 		onOpenChangeComplete,
 		disablePointerDismissal = false,
 		handle,
 		triggerId = $bindable(),
+		defaultTriggerId,
 		children
 	}: DialogRootProps<Payload> = $props();
+	// svelte-ignore state_referenced_locally
+	if (open === undefined && defaultOpen !== undefined) open = defaultOpen;
+	// svelte-ignore state_referenced_locally
+	if (triggerId === undefined && defaultTriggerId !== undefined) triggerId = defaultTriggerId;
 
 	const uid = $props.id();
 	const store = createDialogRoot({

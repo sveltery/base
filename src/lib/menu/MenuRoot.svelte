@@ -12,6 +12,7 @@
 
 	let {
 		open = $bindable(),
+		defaultOpen,
 		onOpenChange,
 		onOpenChangeComplete,
 		onItemHighlighted,
@@ -22,9 +23,14 @@
 		disabled = false,
 		closeParentOnEsc = false,
 		triggerId = $bindable(),
+		defaultTriggerId,
 		handle,
 		children
 	}: MenuRootProps<Payload> = $props();
+	// svelte-ignore state_referenced_locally
+	if (open === undefined && defaultOpen !== undefined) open = defaultOpen;
+	// svelte-ignore state_referenced_locally
+	if (triggerId === undefined && defaultTriggerId !== undefined) triggerId = defaultTriggerId;
 
 	const uid = $props.id();
 

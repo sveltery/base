@@ -12,13 +12,16 @@
 	import type { MenuFilterProviderProps } from './types.js';
 
 	let {
-		value = $bindable(''),
+		value = $bindable(),
+		defaultValue = '',
 		onValueChange,
 		filter,
 		autoHighlight = false,
 		locale,
 		children
 	}: MenuFilterProviderProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (value === undefined) value = defaultValue;
 
 	setMenuFilterProvider({
 		get filter() {
@@ -31,7 +34,7 @@
 			return locale;
 		},
 		get value() {
-			return value;
+			return value ?? '';
 		},
 		setValue(next, details) {
 			onValueChange?.(next, details);

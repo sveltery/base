@@ -81,6 +81,13 @@ export interface DrawerRootProps<Payload = unknown> extends Omit<
 	 */
 	open?: boolean;
 	/**
+	 * Whether the drawer is initially open.
+	 *
+	 * To render a controlled drawer, use `bind:open` instead.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
+	/**
 	 * Determines if the drawer enters a modal state when open.
 	 * - `true`: user interaction is limited to just the drawer: focus is trapped, document page scroll is locked, and pointer interactions on outside elements are disabled.
 	 * - `false`: user interaction with the rest of the document is allowed.
@@ -103,6 +110,11 @@ export interface DrawerRootProps<Payload = unknown> extends Omit<
 	 * @default null
 	 */
 	triggerId?: string | null;
+	/**
+	 * ID of the trigger that the drawer is associated with.
+	 * This is useful in conjunction with the `defaultOpen` prop to create an initially open drawer.
+	 */
+	defaultTriggerId?: string | null;
 	/** Event handler called when the drawer is opened or closed. */
 	onOpenChange?: (open: boolean, eventDetails: DrawerChangeEventDetails) => void;
 	/**

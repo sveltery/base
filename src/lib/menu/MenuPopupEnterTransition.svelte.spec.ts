@@ -1,7 +1,7 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/menu/popup/MenuPopupEnterTransition.test.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// Svelte has no `defaultOpen`: an initial `open` the menu then writes stands in for it, and a
-// changed `open` prop stands in for a controlled flip.
+// An initial `open` the menu then writes stands in for `defaultOpen`, and a changed `open` prop
+// stands in for a controlled flip.
 import { page, userEvent } from 'vitest/browser';
 import { afterEach, describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
