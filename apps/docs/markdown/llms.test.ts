@@ -51,7 +51,7 @@ describe('pageMarkdown', () => {
 	it('reads the title, subtitle and description from the head', () => {
 		const { title, subtitle, description, markdown: body } = markdown('Text.');
 		expect([title, subtitle, description]).toEqual(['Page', 'A subtitle.', 'A description.']);
-		expect(body).toBe('planted failure');
+		expect(body).toBe('# Page\n\nA description.\n\nText.\n');
 	});
 
 	it('fails on a component it has no markdown for', () => {
