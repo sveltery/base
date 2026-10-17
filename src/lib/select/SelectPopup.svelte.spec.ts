@@ -194,6 +194,45 @@ describe('Select.Popup', () => {
 		await expect.element(positioner()).toHaveAttribute('data-side', 'none');
 	});
 
+	it('keeps the anchor and origin variables and resets the available size after an aligned close', async () => {
+		render(SelectHarness, {
+			root: { defaultValue: 'item-1' },
+			wrapper: { style: 'padding-top:200px;padding-left:100px' },
+			items: [{ value: 'item-1' }, { value: 'item-2' }]
+		});
+		const style = () => (positioner().element() as HTMLElement).style;
+		const popupStyle = () => (page.getByTestId('popup').element() as HTMLElement).style;
+
+		await userEvent.click(trigger());
+		await expect.element(positioner()).toHaveAttribute('data-side', 'none');
+		await expect.poll(() => popupStyle().getPropertyValue('--transform-origin')).not.toBe('');
+		const anchorWidth = style().getPropertyValue('--anchor-width');
+		const anchorHeight = style().getPropertyValue('--anchor-height');
+		const origin = style().getPropertyValue('--transform-origin');
+		const popupOrigin = popupStyle().getPropertyValue('--transform-origin');
+		expect(anchorWidth).toMatch(/px$/);
+		expect(origin).not.toBe('');
+
+		await userEvent.keyboard('{Escape}');
+		await expect.element(positioner()).toHaveAttribute('hidden');
+
+		expect({
+			anchorWidth: style().getPropertyValue('--anchor-width'),
+			anchorHeight: style().getPropertyValue('--anchor-height'),
+			origin: style().getPropertyValue('--transform-origin'),
+			availableWidth: style().getPropertyValue('--available-width'),
+			availableHeight: style().getPropertyValue('--available-height'),
+			popupOrigin: popupStyle().getPropertyValue('--transform-origin')
+		}).toEqual({
+			anchorWidth,
+			anchorHeight,
+			origin,
+			availableWidth: '100vw',
+			availableHeight: '100vh',
+			popupOrigin
+		});
+	});
+
 	describe('inline alignment', () => {
 		const longer = { value: 'with-longer-label', text: 'With longer label' };
 		const other = { value: 'other', text: 'Other option' };

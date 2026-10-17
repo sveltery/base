@@ -157,7 +157,7 @@
 		if (store.open || positioner.alignItemWithTriggerActive) return;
 		initialPlaced = false;
 		reachedMaxHeight = false;
-		untrack(() => store.clearAlignedStyles());
+		untrack(() => store.clearAlignedPositionerStyles());
 	});
 
 	$effect(() => {
@@ -293,7 +293,7 @@
 			const isPinchZoomed = (win.visualViewport?.scale ?? 1) !== 1 && platform.engine.webkit;
 
 			if (fallbackToAlignPopupToTrigger || isPinchZoomed) {
-				store.clearAlignedStyles();
+				store.clearAlignedPositionerStyles();
 				positioner.disableAlignItemWithTrigger();
 				return;
 			}
@@ -355,6 +355,7 @@
 		store.popupElement = node;
 		return () => {
 			if (store.popupElement === node) store.popupElement = null;
+			store.alignedPopupStyle = {};
 		};
 	}
 

@@ -290,15 +290,11 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 		}
 	}
 
-	clearAlignedStyles() {
-		for (const [element, styles] of [
-			[this.positionerElement, this.alignedPositionerStyle],
-			[this.popupElement, this.alignedPopupStyle]
-		] as const) {
-			for (const property of Object.keys(styles)) element?.style.removeProperty(property);
+	clearAlignedPositionerStyles() {
+		for (const property of Object.keys(this.alignedPositionerStyle)) {
+			this.positionerElement?.style.removeProperty(property);
 		}
 		this.alignedPositionerStyle = {};
-		this.alignedPopupStyle = {};
 	}
 
 	handleScrollArrowVisibility(scroller: HTMLElement) {
@@ -315,6 +311,5 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 		this.#lastOpenMethod = null;
 		this.scrollUpArrowVisible = false;
 		this.scrollDownArrowVisible = false;
-		this.clearAlignedStyles();
 	}
 }
