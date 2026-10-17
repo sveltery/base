@@ -27,8 +27,6 @@
 	];
 </script>
 
-<center>Planted invalid HTML.</center>
-
 <PageMeta
 	title="Unstyled UI components for accessible design systems · Sveltery Base"
 	{description}
