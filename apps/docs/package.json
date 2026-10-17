@@ -8,7 +8,7 @@
 		"build": "vite build",
 		"preview": "wrangler dev --port 4173",
 		"prepare": "svelte-kit sync || echo ''",
-		"check": "rm -rf dist && svelte-kit sync && vite build && svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-kit sync && vite build && svelte-check --tsconfig ./tsconfig.json",
 		"docs:validate": "node markdown/validate.ts"
 	},
 	"dependencies": {
@@ -27,6 +27,7 @@
 		"@types/node": "^24",
 		"match-sorter": "^8.3.0",
 		"mdsvex": "^0.12.8",
+		"prettier": "^3.9.9",
 		"shiki": "^4.5.0",
 		"svelte": "^5.57.1",
 		"svelte-check": "^4.6.0",

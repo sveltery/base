@@ -1,6 +1,6 @@
 // Builds the docs at a base ref and in this checkout, then diffs the prerendered output: the URL
 // list, every page's <title>, meta description, side nav and <main> HTML, and every non-HTML file.
-// Usage, from apps/docs: node scripts/compare-builds.ts [base-ref] [--no-build]
+// Usage, from apps/docs: node scripts/compare-builds.ts [base-ref] [--no-build] [--demo-frames]
 import { execSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -37,13 +37,23 @@ const list = (root: string) =>
 
 const first = (html: string, pattern: RegExp) => pattern.exec(html)?.[1] ?? '(missing)';
 
+const demoFrames = args.includes('--demo-frames');
+const withoutDemoFrames = (html: string) =>
+	html
+		.replace(/<div class="DemoToolbar">[\s\S]*?(?=<div class="DemoCodeBlockCollapsible">)/g, '')
+		.replace(/\s*<span id="[^"]*" class="DemoFileAnchor"><\/span>\s*/g, '')
+		.replace(/ data-demo="[^"]*"/g, '');
+const demoCount = (html: string) => html.split('class="DemoRoot"').length - 1;
+
 // Svelte names scoped classes after the component's file, so a style that moves files gets a new
 // hash. Its hydration markers follow the component tree, which a page's wrapper changes.
-const normalize = (html: string) =>
-	html
-		.replace(/svelte-[a-z0-9]{6,}/g, 'svelte-HASH')
-		.replace(/<!--(\[-?\d*|\]|)-->/g, '')
-		.replace(/>\s+</g, '> <');
+// `--demo-frames` also drops the numbers in Svelte's `$s` markers and generated ids, which count
+// the components a toolbar renders.
+const normalize = (html: string) => {
+	if (demoFrames) html = html.replace(/<!--\$s\d+-->/g, '').replace(/\b(base-ui-)?s\d+\b/g, '$1sN');
+	html = html.replace(/svelte-[a-z0-9]{6,}/g, 'svelte-HASH').replace(/<!--(\[-?\d*|\]|)-->/g, '');
+	return (demoFrames ? withoutDemoFrames(html) : html).replace(/>\s+</g, '> <');
+};
 
 function parts(html: string) {
 	html = normalize(html);
@@ -63,6 +73,7 @@ const pieces = (value: string) =>
 		.sort()
 		.join('\n');
 const reordered: string[] = [];
+const demos = { before: 0, after: 0 };
 
 const before = list(baseTree);
 const after = list(repo);
@@ -79,6 +90,10 @@ for (const file of [...before].filter((name) => after.has(name)).sort()) {
 		else differences.push(`changed: ${file}`);
 		continue;
 	}
+	demos.before += demoCount(a);
+	demos.after += demoCount(b);
+	if (demoCount(a) !== demoCount(b))
+		differences.push(`${file}: ${demoCount(a)} demos before, ${demoCount(b)} after`);
 	const [pa, pb] = [parts(a), parts(b)];
 	for (const key of ['title', 'description', 'nav', 'main'] as const) {
 		if (pa[key] === pb[key]) continue;
@@ -95,8 +110,9 @@ for (const file of [...before].filter((name) => after.has(name)).sort()) {
 }
 
 console.log(
-	`${before.size} files before, ${after.size} after. Scoped class hashes and hydration markers ignored.`
+	`${before.size} files before, ${after.size} after. Scoped class hashes and hydration markers ignored${demoFrames ? ', and demo toolbars and file anchors' : ''}.`
 );
+console.log(`${demos.before} demos before, ${demos.after} after.`);
 if (reordered.length)
 	console.log(`Same API rows and types in another order: ${reordered.join(', ')}`);
 console.log(differences.length ? differences.join('\n') : 'No differences.');

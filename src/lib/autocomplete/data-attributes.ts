@@ -11,7 +11,10 @@ export const AutocompleteTriggerDataAttributes = {
 	disabled: 'data-disabled',
 	/** Present when the component is readonly. */
 	readonly: 'data-readonly',
-	/** Indicates which side the corresponding popup is positioned relative to its anchor. */
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null}
+	 */
 	popupSide: 'data-popup-side',
 	/** Present when the component is required. */
 	required: 'data-required',
@@ -42,7 +45,10 @@ export const AutocompleteInputGroupDataAttributes = {
 	disabled: 'data-disabled',
 	/** Present when the component is readonly. */
 	readonly: 'data-readonly',
-	/** Indicates which side the corresponding popup is positioned relative to its anchor. */
+	/**
+	 * Indicates which side the corresponding popup is positioned relative to its anchor.
+	 * @type {'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start' | null}
+	 */
 	popupSide: 'data-popup-side',
 	/** Present when the component is in a valid state (when wrapped in Field.Root). */
 	valid: 'data-valid',

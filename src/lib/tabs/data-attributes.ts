@@ -5,16 +5,28 @@
 import * as attributes from './attributes.js';
 
 export const TabsRootDataAttributes = {
-	/** Indicates the direction of the activation (based on the previous active tab). */
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type {'left' | 'right' | 'up' | 'down' | 'none'}
+	 */
 	activationDirection: attributes.activationDirectionAttribute,
-	/** Indicates the orientation of the tabs. */
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: attributes.orientationAttribute
 } as const;
 
 export const TabsTabDataAttributes = {
-	/** Indicates the direction of the activation (based on the previous active tab). */
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type {'left' | 'right' | 'up' | 'down' | 'none'}
+	 */
 	activationDirection: attributes.activationDirectionAttribute,
-	/** Indicates the orientation of the tabs. */
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: attributes.orientationAttribute,
 	/** Present when the tab is disabled. */
 	disabled: 'data-disabled',
@@ -23,33 +35,63 @@ export const TabsTabDataAttributes = {
 } as const;
 
 export const TabsIndicatorCssVariables = {
-	/** Indicates the distance on the left side from the parent's container if the tab is active. */
+	/**
+	 * Indicates the distance on the left side from the parent's container if the tab is active.
+	 * @type {number}
+	 */
 	activeTabLeft: attributes.activeTabLeft,
-	/** Indicates the distance on the right side from the parent's container if the tab is active. */
+	/**
+	 * Indicates the distance on the right side from the parent's container if the tab is active.
+	 * @type {number}
+	 */
 	activeTabRight: attributes.activeTabRight,
-	/** Indicates the distance on the top side from the parent's container if the tab is active. */
+	/**
+	 * Indicates the distance on the top side from the parent's container if the tab is active.
+	 * @type {number}
+	 */
 	activeTabTop: attributes.activeTabTop,
-	/** Indicates the distance on the bottom side from the parent's container if the tab is active. */
+	/**
+	 * Indicates the distance on the bottom side from the parent's container if the tab is active.
+	 * @type {number}
+	 */
 	activeTabBottom: attributes.activeTabBottom,
-	/** Indicates the width of the tab if it is active. */
+	/**
+	 * Indicates the width of the tab if it is active.
+	 * @type {number}
+	 */
 	activeTabWidth: attributes.activeTabWidth,
-	/** Indicates the height of the tab if it is active. */
+	/**
+	 * Indicates the height of the tab if it is active.
+	 * @type {number}
+	 */
 	activeTabHeight: attributes.activeTabHeight
 } as const;
 
 export const TabsIndicatorDataAttributes = {
-	/** Indicates the direction of the activation (based on the previous active tab). */
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type {'left' | 'right' | 'up' | 'down' | 'none'}
+	 */
 	activationDirection: attributes.activationDirectionAttribute,
-	/** Indicates the orientation of the tabs. */
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: attributes.orientationAttribute
 } as const;
 
 export const TabsPanelDataAttributes = {
 	/** Indicates the index of the tab panel. */
 	index: 'data-index',
-	/** Indicates the direction of the activation (based on the previous active tab). */
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type {'left' | 'right' | 'up' | 'down' | 'none'}
+	 */
 	activationDirection: attributes.activationDirectionAttribute,
-	/** Indicates the orientation of the tabs. */
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: attributes.orientationAttribute,
 	/** Present when the panel is hidden. */
 	hidden: 'data-hidden',
@@ -60,8 +102,14 @@ export const TabsPanelDataAttributes = {
 } as const;
 
 export const TabsListDataAttributes = {
-	/** Indicates the direction of the activation (based on the previous active tab). */
+	/**
+	 * Indicates the direction of the activation (based on the previous active tab).
+	 * @type {'left' | 'right' | 'up' | 'down' | 'none'}
+	 */
 	activationDirection: attributes.activationDirectionAttribute,
-	/** Indicates the orientation of the tabs. */
+	/**
+	 * Indicates the orientation of the tabs.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: attributes.orientationAttribute
 } as const;

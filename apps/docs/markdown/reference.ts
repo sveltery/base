@@ -1,4 +1,4 @@
-import type { ApiPart, ApiProp } from './api.ts';
+import type { ApiConstant, ApiPart, ApiProp } from './api.ts';
 import { highlightType } from './highlight.ts';
 
 /** One row of a reference table, with its type, default and description as HTML. */
@@ -12,12 +12,20 @@ export type ReferenceRow = {
 	description: string;
 };
 
+/** A data attribute or CSS variable, with its description as HTML. */
+export type ReferenceConstant = { name: string; description: string };
+
+/** An additional type as Base UI's `AdditionalTypes` shows it: a heading and its declaration. */
+export type ReferenceType = { name: string; slug: string; code: string };
+
 /** A part as its reference tables show it. */
 export type ReferencePart = {
 	name: string;
 	description: string;
 	props: ReferenceRow[];
 	state: ReferenceRow[];
+	dataAttributes: ReferenceConstant[];
+	cssVariables: ReferenceConstant[];
 	/** The text under the heading when the part takes no props. */
 	empty?: string;
 };
@@ -107,12 +115,19 @@ async function row(prop: ApiProp): Promise<ReferenceRow> {
 	};
 }
 
+const constant = ({ name, description }: ApiConstant): ReferenceConstant => ({
+	name,
+	description: inlineMarkdown(description)
+});
+
 export async function referencePart(part: ApiPart): Promise<ReferencePart> {
 	return {
 		name: part.name,
 		description: paragraphs(part.description),
 		props: await Promise.all(part.props.map(row)),
 		state: await Promise.all(part.state.map(row)),
+		dataAttributes: part.dataAttributes.map(constant),
+		cssVariables: part.cssVariables.map(constant),
 		empty: part.props.length
 			? undefined
 			: part.element

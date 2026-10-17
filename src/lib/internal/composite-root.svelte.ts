@@ -24,6 +24,7 @@ import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
 import { ARROW_KEYS, COMPOSITE_KEYS } from './composite-keys.js';
 import { ElementList } from './element-list.svelte.js';
+import { chain } from './mergeProps.js';
 import { axisKeys, modifierHeld } from './roving-keys.js';
 
 export const ACTIVE_COMPOSITE_ITEM = 'data-composite-item-active';
@@ -207,10 +208,9 @@ export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistratio
 	): CompositeItemProps {
 		const props: CompositeItemProps = {
 			tabindex: this.tabIndex(node, claim, meta),
-			onfocus: (event) => {
-				handlers.onfocus?.(event);
+			onfocus: chain((event: FocusEvent) => {
 				if (event.currentTarget instanceof HTMLElement) this.highlight(event.currentTarget);
-			},
+			}, handlers.onfocus),
 			[this.attachmentKey]: register
 		};
 		if ((this.options.keydown ?? 'item') === 'item') {

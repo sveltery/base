@@ -216,15 +216,13 @@
 		group?.setTouched(false);
 	}
 
-	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onblur?.(event);
+	function handleBlur() {
 		// The group releases the Field when focus leaves it, so moves between its radios
 		// do not churn the focused state.
 		if (!group) focusOwner.set(false);
 	}
 
-	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onkeydown?.(event);
+	function handleKeyDown(event: KeyboardEvent) {
 		// Radio only activates with Space. Enter never becomes a click.
 		if (event.key === 'Enter') event.preventDefault();
 	}
@@ -251,9 +249,9 @@
 			...(invalid ? { 'aria-invalid': true as const } : {}),
 			...elementProps,
 			onclick: handleClick,
-			onkeydown: handleKeyDown,
+			onkeydown: chain(handleKeyDown, onkeydown),
 			onfocus: chain(handleFocus, onfocus),
-			onblur: handleBlur,
+			onblur: chain(handleBlur, onblur),
 			[rootKey]: registerRoot
 		}) as RadioHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});
