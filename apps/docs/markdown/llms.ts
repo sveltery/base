@@ -9,7 +9,6 @@ import { unified } from 'unified';
 import { SKIP, visit } from 'unist-util-visit';
 import type { Plugin } from 'vite';
 import { readDemo } from './demos.ts';
-import { readMarkers } from './highlight.ts';
 import { pageFiles } from './pages.ts';
 import { relativePaths } from './relative-paths.ts';
 import { sectionData } from './sitemap.ts';
@@ -156,7 +155,7 @@ function demoNodes(stub: string): RootContent[] {
 				paragraph([text(description)]),
 				...files.map((file) => {
 					const lang = extname(file.name).slice(1);
-					return code(`${fileComment(file.name, lang)}\n${readMarkers(file.code).code}`, lang);
+					return code(`${fileComment(file.name, lang)}\n${file.code}`, lang);
 				})
 			];
 		})
