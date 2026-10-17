@@ -103,16 +103,19 @@ On the page, spread the remote form onto Form, and each field's `as()` props ont
 </Form>
 ```
 
-`{...f}` gives Form the `method`, the `action` and SvelteKit's submit handler. Leave `name` off `Field.Root`, because a `Field.Root` name replaces the name that `as()` gives the control. Each field shows its issues in `Field.Error` and sets `data-invalid` and `aria-invalid`. An edit clears the field's issue. The native constraints, such as `required`, run through Form's own validation. `f.fields.issues()` holds the issues on the whole form, such as `invalid('Signups are closed')`. After a successful submit, `f.result` holds the handler's return value and SvelteKit resets the form.
+`{...f}` gives Form the `method`, the `action` and SvelteKit's submit handler. Leave `name` off `Field.Root`, because a `Field.Root` name replaces the name that `as()` gives the control. Each field shows its issues in `Field.Error` and sets `data-invalid`. An edit hides the field's issue. The native constraints, such as `required`, run through Form's own validation. `f.fields.issues()` holds the issues on the whole form, such as `invalid('Signups are closed')`. After a successful submit, `f.result` holds the handler's return value and SvelteKit resets the form.
 
 `errorsByName` matches an issue to an input by its path joined with dots. List a nested field in `inputs` under that key, such as `'address.city'`.
 
 This example uses `Field.Control` for every field. Composite controls such as Checkbox and Number Field render their own native input, and this page does not cover wiring them to a remote form yet.
 
-This setup has two limits:
+This setup has these limits:
 
 1. SvelteKit sends a submit that Form blocked. Form blocks an invalid submit with `preventDefault()` only, as Base UI does, and SvelteKit's submit handler does not check `defaultPrevented`. `preflight` stops the submit only when the schema has the same rules as the controls, so put every rule in the schema.
-2. Without JavaScript, the form posts unchecked, because Form renders `novalidate`. The server's schema is the only check.
+2. Form does not focus a field when a server issue arrives. Form focuses the first invalid field when `errors` changes after a submit, and SvelteKit's preflight already changes `errors` before the server answers.
+3. An edit hides a server issue only until the next submit. SvelteKit keeps server issues through preflight, so the issue shows again while the request is in flight.
+4. The `aria-invalid` from `as()` stays on the input after an edit, until SvelteKit validates again.
+5. Without JavaScript, the form posts unchecked, because Form renders `novalidate`. The server's schema is the only check.
 
 ## Connect a form action
 
