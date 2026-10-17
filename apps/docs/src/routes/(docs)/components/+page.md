@@ -456,7 +456,7 @@ An input combined with a list of predefined items to select.
   - createItems
 - Exports:
   - Combobox - Root
-    - Props: autoHighlight, autocomplete, defaultInputValue, defaultValue, disabled, filter, filteredItems, form, grid, highlightItemOnHover, id, inline, inputValue, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, keepHighlight, limit, locale, loopFocus, modal, multiple, name, onInputValueChange, onItemHighlighted, onOpenChange, onOpenChangeComplete, onValueChange, open, openOnInputClick, readonly, required, submitOnItemClick, value, virtualized
+    - Props: autoHighlight, autocomplete, defaultInputValue, defaultValue, disabled, filter, filteredItems, form, grid, highlightItemOnHover, id, inline, inputValue, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, limit, locale, loopFocus, modal, multiple, name, onInputValueChange, onItemHighlighted, onOpenChange, onOpenChangeComplete, onValueChange, open, openOnInputClick, readonly, required, value, virtualized
   - Combobox - Trigger
     - Props: disabled, id, nativeButton, render
     - Data Attributes: data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-list-empty, data-placeholder, data-popup-open, data-popup-side, data-pressed, data-readonly, data-required, data-touched, data-valid

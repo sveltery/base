@@ -98,10 +98,6 @@ const explained: Record<string, string> = {
 	'Toggle.Toggle onclick': preventDefault,
 	'Button.Button onclick': 'Ours documents which clicks reach `onclick`.',
 	'Toolbar.Button onclick': 'Ours documents which clicks reach `onclick`.',
-	'Combobox.Root keepHighlight':
-		'Upstream `Combobox.Root` omits this shared prop. Ours exposes it.',
-	'Combobox.Root submitOnItemClick':
-		'Upstream `Combobox.Root` omits this shared prop. Ours exposes it.',
 	'AlertDialog.Trigger id':
 		'`Dialog.Trigger` props, shared with `AlertDialog`. Upstream says `DialogRoot` here.',
 	'ContextMenu.RadioItem value':

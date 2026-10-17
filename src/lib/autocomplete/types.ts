@@ -83,7 +83,6 @@ export interface AutocompleteRootProps<ItemValue = unknown> extends Omit<
 	| 'form'
 	| 'filter'
 	| 'inline'
-	| 'submitOnItemClick'
 > {
 	/**
 	 * Identifies the form that owns the internal input.
@@ -102,6 +101,11 @@ export interface AutocompleteRootProps<ItemValue = unknown> extends Omit<
 	 * @default false
 	 */
 	inline?: boolean;
+	/**
+	 * Whether the highlighted item should be preserved when the pointer leaves the list.
+	 * @default false
+	 */
+	keepHighlight?: boolean;
 	/**
 	 * Whether clicking an item should submit the autocomplete's owning form.
 	 * By default, clicking an item via a pointer or Enter key does not submit the owning form.
