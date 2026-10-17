@@ -72,6 +72,31 @@ test.describe('with JS', () => {
 			.toEqual({ received: { plan: 'pro' } });
 		expect(errors, 'no page errors, including form_field_unbound').toEqual([]);
 	});
+
+	test('spread + value={undefined}: nothing starts selected, and the round trip works', async ({
+		page
+	}) => {
+		const errors = await open(page, url('spread-undefined'));
+		await expect(radio(page, 'free')).not.toBeChecked();
+		await expect(radio(page, 'pro')).not.toBeChecked();
+		await page.getByTestId('radio-free').click();
+		await submit(page);
+		await expect(error(page, 'plan')).toHaveText('The free plan is full');
+		await expect(radio(page, 'free')).toBeChecked();
+		await page.getByTestId('radio-pro').click();
+		await expect(error(page, 'plan')).toHaveCount(0);
+		await submit(page);
+		await expect
+			.poll(async () => (await debug(page)).result)
+			.toEqual({ received: { plan: 'pro' } });
+		expect(errors).toEqual([]);
+	});
+
+	test('spread + defaultValue: the spread value still wins', async ({ page }) => {
+		await open(page, url('spread-default'));
+		await expect(radio(page, 'free')).toBeChecked();
+		await expect(radio(page, 'pro')).not.toBeChecked();
+	});
 });
 
 test.describe('without JS', () => {
@@ -102,5 +127,14 @@ test.describe('without JS', () => {
 		await submit(page);
 		await expect(field(page, 'plan')).toBeVisible();
 		expect((await debug(page)).result).toEqual({ received: { plan: 'pro' } });
+	});
+
+	test('spread + value={undefined}: a rejected choice comes back unselected', async ({ page }) => {
+		await page.goto(url('spread-undefined'));
+		await page.getByText('free', { exact: true }).click();
+		await submit(page);
+		await expect(group(page)).toHaveAttribute('aria-invalid', 'true');
+		await expect(radio(page, 'free')).not.toBeChecked();
+		await expect(radio(page, 'pro')).not.toBeChecked();
 	});
 });

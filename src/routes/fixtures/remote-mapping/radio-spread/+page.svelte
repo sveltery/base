@@ -46,6 +46,14 @@
 				>
 					{@render options()}
 				</RadioGroup>
+			{:else if v === 'spread-undefined'}
+				<RadioGroup data-testid="group" {...f.fields.plan.as('radio', 'free')} value={undefined}>
+					{@render options()}
+				</RadioGroup>
+			{:else if v === 'spread-default'}
+				<RadioGroup data-testid="group" {...f.fields.plan.as('radio', 'free')} defaultValue="pro">
+					{@render options()}
+				</RadioGroup>
 			{/if}
 			<Field.Error data-testid="error" />
 		</Field.Root>
