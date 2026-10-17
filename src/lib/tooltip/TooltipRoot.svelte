@@ -6,7 +6,7 @@
 	`close` and `unmount` are exports. Bind the root with `bind:this`.
 	The payload reset effect is not needed: the payload is read from the active trigger.
 -->
-<script lang="ts">
+<script lang="ts" generics="Payload = unknown">
 	import { untrack } from 'svelte';
 	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { useFloatingParentNodeId } from '@sveltery/floating-ui-svelte';
@@ -25,7 +25,7 @@
 		triggerId = $bindable(),
 		handle,
 		children
-	}: TooltipRootProps = $props();
+	}: TooltipRootProps<Payload> = $props();
 
 	const uid = $props.id();
 	const nested = useFloatingParentNodeId() != null;
@@ -93,4 +93,4 @@
 {#if shouldRenderInteractions}
 	<TooltipRootInteractions {store} {disabled} {trackCursorAxis} />
 {/if}
-{@render children?.({ payload: store.payload })}
+{@render children?.({ payload: store.payload as Payload | undefined })}

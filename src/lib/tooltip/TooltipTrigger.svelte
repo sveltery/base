@@ -4,7 +4,7 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The element stays mounted when a handle receives its root store.
 -->
-<script lang="ts">
+<script lang="ts" generics="Payload = unknown">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { mergeProps } from '../internal/mergeProps.js';
@@ -28,7 +28,7 @@
 		render,
 		children,
 		...elementProps
-	}: TooltipTriggerProps = $props();
+	}: TooltipTriggerProps<Payload> = $props();
 
 	const root = findTooltipRoot();
 	if (!untrack(() => handle) && !root) {

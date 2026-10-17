@@ -4,7 +4,7 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	The link stays mounted when a handle receives its root store.
 -->
-<script lang="ts">
+<script lang="ts" generics="Payload = unknown">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { mergeProps } from '../internal/mergeProps.js';
@@ -26,7 +26,7 @@
 		render,
 		children,
 		...elementProps
-	}: PreviewCardTriggerProps = $props();
+	}: PreviewCardTriggerProps<Payload> = $props();
 
 	const root = findPreviewCardRoot();
 	if (!untrack(() => handle) && !root) {
