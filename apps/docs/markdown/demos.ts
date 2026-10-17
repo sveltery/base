@@ -33,11 +33,15 @@ const LANGUAGES: Record<string, string> = {
 	'.json': 'json'
 };
 
-/** The tab name of a file another one imports, as Base UI flattens it: `_index.css` is `index.css`, `button/index.ts` is `button.ts`. */
-function flatName(file: string) {
+/**
+ * The tab name of a file another one imports, as Base UI flattens it: `../../_index.module.css` and
+ * `./index.module.css` are `index.module.css`, and `./button/index.ts` is `button.ts`.
+ */
+function flatName(file: string, specifier: string) {
 	const name = basename(file);
 	if (name.startsWith('_index.')) return name.slice(1);
-	return name.startsWith('index.') ? `${basename(dirname(file))}${extname(file)}` : name;
+	if (!name.startsWith('index.') || specifier === `./${name}`) return name;
+	return `${basename(dirname(file))}${extname(file)}`;
 }
 
 /** The import specifiers of a file. A Svelte component's markup is not read, only its scripts. */
@@ -69,8 +73,8 @@ type SourceFile = { name: string; path: string; code: string };
 export function readVariant(entry: string) {
 	const files: SourceFile[] = [];
 	const dependencies: Record<string, string> = {};
-	const visit = (path: string, depth: number): string => {
-		const name = files.length ? flatName(path) : basename(path);
+	const visit = (path: string, specifier: string, depth: number): string => {
+		const name = files.length ? flatName(path, specifier) : basename(path);
 		const known = files.find((file) => file.path === path);
 		if (known) return known.name;
 		if (files.some((file) => file.name === name))
@@ -83,7 +87,7 @@ export function readVariant(entry: string) {
 					throw new Error(`${path}: demo imports go ${MAX_DEPTH} files deep at most`);
 				const target = join(dirname(path), specifier);
 				if (!existsSync(target)) throw new Error(`${path}: ${specifier} does not exist`);
-				const tab = visit(target, depth + 1);
+				const tab = visit(target, specifier, depth + 1);
 				for (const quote of [`'`, `"`])
 					file.code = file.code.replaceAll(
 						`${quote}${specifier}${quote}`,
@@ -99,7 +103,7 @@ export function readVariant(entry: string) {
 		}
 		return name;
 	};
-	visit(entry, 0);
+	visit(entry, '', 0);
 	return { files, dependencies, path: relative(repo, dirname(entry)).replaceAll(sep, '/') };
 }
 
@@ -128,12 +132,13 @@ export function readDemo(stub: string, code = readFileSync(stub, 'utf8')) {
 
 /**
  * The demos a page renders, such as `<DemoAccordionHero />`, from the stubs its script imports:
- * each tag and the files of its first variant, with highlight markers removed.
+ * each tag and the files of its Tailwind variant, or of its only variant, with highlight markers removed.
  */
 export function pageDemos(page: string, source: string) {
 	const demos = new Map<string, SourceFile[]>();
 	for (const [, name, path] of source.matchAll(/import \{ (Demo\w+) \} from '(\.[^']+)';/g)) {
-		const { files } = readDemo(join(dirname(page), path, 'index.ts')).variants[0][1];
+		const { variants } = readDemo(join(dirname(page), path, 'index.ts'));
+		const { files } = (variants.find(([variant]) => variant === 'Tailwind') ?? variants[0])[1];
 		demos.set(
 			name,
 			files.map((file) => ({ ...file, code: readMarkers(file.code).code }))
