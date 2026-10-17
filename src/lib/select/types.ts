@@ -6,7 +6,7 @@ import type { FieldRootState } from '../field/types.js';
 import type { ItemsInput } from '../internal/listbox/resolveValueLabel.js';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, AnchorPositioningParameters, Side } from '../internal/popups/index.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { SeparatorProps, SeparatorState } from '../separator/types.js';
 
@@ -36,10 +36,6 @@ export type SelectOpenChangeEventDetails = SelectChangeEventDetails & {
 export type SelectValueOf<Value, Multiple extends boolean | undefined> = Multiple extends true
 	? Value[]
 	: Value | null;
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface SelectRootProps<Value = unknown, Multiple extends boolean | undefined = false> {
 	/** The value of the select. */
@@ -151,7 +147,7 @@ export interface SelectLabelProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, FieldRootState>;
+	render?: RenderSnippet<HTMLDivElement, FieldRootState>;
 	children?: Snippet;
 }
 
@@ -233,7 +229,7 @@ export interface SelectIconProps extends Omit<HTMLAttributes<HTMLSpanElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, SelectIconState>;
+	render?: RenderSnippet<HTMLSpanElement, SelectIconState>;
 	children?: Snippet;
 }
 
@@ -268,7 +264,7 @@ export interface SelectBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectBackdropState>;
+	render?: RenderSnippet<HTMLDivElement, SelectBackdropState>;
 	children?: Snippet;
 }
 
@@ -395,7 +391,7 @@ export interface SelectPositionerProps extends Omit<HTMLAttributes<HTMLDivElemen
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectPositionerState>;
+	render?: RenderSnippet<HTMLDivElement, SelectPositionerState>;
 	children?: Snippet;
 }
 
@@ -429,7 +425,7 @@ export interface SelectPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectPopupState>;
+	render?: RenderSnippet<HTMLDivElement, SelectPopupState>;
 	children?: Snippet;
 }
 
@@ -442,7 +438,7 @@ export interface SelectListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectListState>;
+	render?: RenderSnippet<HTMLDivElement, SelectListState>;
 	children?: Snippet;
 }
 
@@ -485,7 +481,7 @@ export interface SelectItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectItemState>;
+	render?: RenderSnippet<HTMLDivElement, SelectItemState>;
 	children?: Snippet;
 }
 
@@ -510,7 +506,7 @@ export interface SelectItemIndicatorProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, SelectItemIndicatorState>;
+	render?: RenderSnippet<HTMLSpanElement, SelectItemIndicatorState>;
 	children?: Snippet;
 }
 
@@ -523,7 +519,7 @@ export interface SelectItemTextProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectItemTextState>;
+	render?: RenderSnippet<HTMLDivElement, SelectItemTextState>;
 	children?: Snippet;
 }
 
@@ -545,7 +541,7 @@ export interface SelectArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectArrowState>;
+	render?: RenderSnippet<HTMLDivElement, SelectArrowState>;
 	children?: Snippet;
 }
 
@@ -571,7 +567,7 @@ export interface SelectScrollArrowProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectScrollArrowState>;
+	render?: RenderSnippet<HTMLDivElement, SelectScrollArrowState>;
 	children?: Snippet;
 }
 
@@ -584,7 +580,7 @@ export interface SelectGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectGroupState>;
+	render?: RenderSnippet<HTMLDivElement, SelectGroupState>;
 	children?: Snippet;
 }
 
@@ -597,7 +593,7 @@ export interface SelectGroupLabelProps extends Omit<HTMLAttributes<HTMLDivElemen
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, SelectGroupLabelState>;
+	render?: RenderSnippet<HTMLDivElement, SelectGroupLabelState>;
 	children?: Snippet;
 }
 

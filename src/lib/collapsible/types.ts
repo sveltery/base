@@ -1,7 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 /** Open/close motion phase. `undefined` is the settled closed phase. */
 export type TransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
@@ -25,10 +25,6 @@ export type CollapsibleTriggerState = CollapsibleRootState;
 export type CollapsibleRootChangeEventReason = typeof REASONS.triggerPress | typeof REASONS.none;
 export type CollapsibleRootChangeEventDetails =
 	BaseUIChangeEventDetails<CollapsibleRootChangeEventReason>;
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface CollapsibleRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
@@ -58,7 +54,7 @@ export interface CollapsibleRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, CollapsibleRootState>;
+	render?: RenderSnippet<HTMLDivElement, CollapsibleRootState>;
 	children?: Snippet;
 }
 
@@ -124,6 +120,6 @@ export interface CollapsiblePanelProps extends Omit<HTMLAttributes<HTMLDivElemen
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, CollapsiblePanelState>;
+	render?: RenderSnippet<HTMLDivElement, CollapsiblePanelState>;
 	children?: Snippet;
 }

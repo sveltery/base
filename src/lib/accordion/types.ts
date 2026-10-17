@@ -2,7 +2,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { TransitionStatus } from '../collapsible/types.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type AccordionOrientation = 'horizontal' | 'vertical';
 
@@ -43,10 +43,6 @@ export type AccordionRootChangeEventDetails =
 
 export type AccordionItemChangeEventReason = AccordionRootChangeEventReason;
 export type AccordionItemChangeEventDetails = AccordionRootChangeEventDetails;
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface AccordionRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
@@ -113,7 +109,7 @@ export interface AccordionRootProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, AccordionRootState>;
+	render?: RenderSnippet<HTMLDivElement, AccordionRootState>;
 	children?: Snippet;
 }
 
@@ -138,7 +134,7 @@ export interface AccordionItemProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, AccordionItemState>;
+	render?: RenderSnippet<HTMLDivElement, AccordionItemState>;
 	children?: Snippet;
 }
 
@@ -149,7 +145,7 @@ export interface AccordionHeaderProps extends Omit<HTMLAttributes<HTMLHeadingEle
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLHeadingElement, AccordionHeaderState>;
+	render?: RenderSnippet<HTMLHeadingElement, AccordionHeaderState>;
 	children?: Snippet;
 }
 
@@ -208,6 +204,6 @@ export interface AccordionPanelProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, AccordionPanelState>;
+	render?: RenderSnippet<HTMLDivElement, AccordionPanelState>;
 	children?: Snippet;
 }

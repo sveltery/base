@@ -6,7 +6,7 @@ import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { PopoverHandle } from './handle.svelte.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type { Align, Side };
 
@@ -42,10 +42,6 @@ export interface PopoverRootState {
 	modal: PopoverModal;
 	payload: unknown;
 }
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface PopoverRootProps<Payload = unknown> {
 	/**
@@ -316,7 +312,7 @@ export interface PopoverPositionerProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PopoverPositionerState>;
+	render?: RenderSnippet<HTMLDivElement, PopoverPositionerState>;
 	children?: Snippet;
 }
 
@@ -364,7 +360,7 @@ export interface PopoverPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PopoverPopupState>;
+	render?: RenderSnippet<HTMLDivElement, PopoverPopupState>;
 	children?: Snippet;
 }
 
@@ -382,7 +378,7 @@ export interface PopoverArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PopoverArrowState>;
+	render?: RenderSnippet<HTMLDivElement, PopoverArrowState>;
 	children?: Snippet;
 }
 
@@ -398,7 +394,7 @@ export interface PopoverBackdropProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PopoverBackdropState>;
+	render?: RenderSnippet<HTMLDivElement, PopoverBackdropState>;
 	children?: Snippet;
 }
 
@@ -479,6 +475,6 @@ export interface PopoverViewportProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PopoverViewportState>;
+	render?: RenderSnippet<HTMLDivElement, PopoverViewportState>;
 	children?: Snippet;
 }

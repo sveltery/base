@@ -18,7 +18,7 @@ import type {
 import type { FieldRootState } from '../field/types.js';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, AnchorPositioningParameters, Side } from '../internal/popups/index.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { SeparatorProps, SeparatorState } from '../separator/types.js';
 import type { ComboboxItemCollection, ComboboxItemsData } from './collection.js';
@@ -81,10 +81,6 @@ export type ComboboxValueOf<Value, Multiple extends boolean | undefined> = Multi
 /** Flat items, groups of items, or a `createItems()` collection. */
 export type ComboboxItems<Item = unknown, Value = Item> =
 	ComboboxItemsData<Item> | ComboboxItemCollection<Item, Value>;
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 /** Props AriaCombobox and every root built on it share. */
 export interface ComboboxSharedRootProps<Value = unknown, Item = Value> {
@@ -349,7 +345,7 @@ export interface ComboboxLabelProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxLabelState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxLabelState>;
 	children?: Snippet;
 }
 
@@ -410,7 +406,7 @@ export interface ComboboxInputGroupProps extends Omit<HTMLAttributes<HTMLDivElem
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxInputGroupState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxInputGroupState>;
 	children?: Snippet;
 }
 
@@ -458,7 +454,7 @@ export interface ComboboxListProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxListState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxListState>;
 	/** The list content. Render `Combobox.Collection` inside to map the filtered items. */
 	children?: Snippet;
 }
@@ -472,7 +468,7 @@ export interface ComboboxStatusProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxStatusState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxStatusState>;
 	children?: Snippet;
 }
 
@@ -507,7 +503,7 @@ export interface ComboboxBackdropProps extends Omit<HTMLAttributes<HTMLDivElemen
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxBackdropState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxBackdropState>;
 	children?: Snippet;
 }
 
@@ -634,7 +630,7 @@ export interface ComboboxPositionerProps extends Omit<HTMLAttributes<HTMLDivElem
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxPositionerState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxPositionerState>;
 	children?: Snippet;
 }
 
@@ -685,7 +681,7 @@ export interface ComboboxPopupProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxPopupState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxPopupState>;
 	children?: Snippet;
 }
 
@@ -707,7 +703,7 @@ export interface ComboboxArrowProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxArrowState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxArrowState>;
 	children?: Snippet;
 }
 
@@ -720,7 +716,7 @@ export interface ComboboxIconProps extends Omit<HTMLAttributes<HTMLSpanElement>,
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, ComboboxIconState>;
+	render?: RenderSnippet<HTMLSpanElement, ComboboxIconState>;
 	children?: Snippet;
 }
 
@@ -738,7 +734,7 @@ export interface ComboboxGroupProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxGroupState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxGroupState>;
 	children?: Snippet;
 }
 
@@ -751,7 +747,7 @@ export interface ComboboxGroupLabelProps extends Omit<HTMLAttributes<HTMLDivElem
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxGroupLabelState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxGroupLabelState>;
 	children?: Snippet;
 }
 
@@ -792,7 +788,7 @@ export interface ComboboxItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxItemState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxItemState>;
 	children?: Snippet;
 }
 
@@ -817,7 +813,7 @@ export interface ComboboxItemIndicatorProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, ComboboxItemIndicatorState>;
+	render?: RenderSnippet<HTMLSpanElement, ComboboxItemIndicatorState>;
 	children?: Snippet;
 }
 
@@ -830,7 +826,7 @@ export interface ComboboxChipsProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxChipsState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxChipsState>;
 	children?: Snippet;
 }
 
@@ -846,7 +842,7 @@ export interface ComboboxChipProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxChipState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxChipState>;
 	children?: Snippet;
 }
 
@@ -892,7 +888,7 @@ export interface ComboboxRowProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxRowState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxRowState>;
 	children?: Snippet;
 }
 
@@ -910,7 +906,7 @@ export interface ComboboxEmptyProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, ComboboxEmptyState>;
+	render?: RenderSnippet<HTMLDivElement, ComboboxEmptyState>;
 	/** Shown while the filtered list has no items. */
 	children?: Snippet;
 }

@@ -5,7 +5,7 @@ import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 import type { TooltipHandle } from './handle.svelte.js';
 
 export type { Align, Side };
@@ -27,10 +27,6 @@ export type TooltipChangeEventDetails = BaseUIChangeEventDetails<TooltipChangeRe
 	/** Keeps the popup mounted until `unmount()` is called on the root. */
 	preventUnmountOnClose: () => void;
 };
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface TooltipProviderProps {
 	/** How long to wait before opening the tooltip on hover. Specified in milliseconds. */
@@ -290,7 +286,7 @@ export interface TooltipPositionerProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, TooltipPositionerState>;
+	render?: RenderSnippet<HTMLDivElement, TooltipPositionerState>;
 	children?: Snippet;
 }
 
@@ -309,7 +305,7 @@ export interface TooltipPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, TooltipPopupState>;
+	render?: RenderSnippet<HTMLDivElement, TooltipPopupState>;
 	children?: Snippet;
 }
 
@@ -328,7 +324,7 @@ export interface TooltipArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, TooltipArrowState>;
+	render?: RenderSnippet<HTMLDivElement, TooltipArrowState>;
 	children?: Snippet;
 }
 
@@ -349,6 +345,6 @@ export interface TooltipViewportProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, TooltipViewportState>;
+	render?: RenderSnippet<HTMLDivElement, TooltipViewportState>;
 	children?: Snippet;
 }

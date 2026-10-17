@@ -7,7 +7,7 @@ import type {
 	ReasonToEvent
 } from '@sveltery/utils';
 import type { FieldRootState } from '../field/types.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type Direction = -1 | 1;
 
@@ -54,10 +54,6 @@ export interface NumberFieldRootState extends FieldRootState {
 	/** Whether the user is currently scrubbing the field. */
 	scrubbing: boolean;
 }
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** The id of the input element. */
@@ -163,7 +159,7 @@ export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, NumberFieldRootState>;
+	render?: RenderSnippet<HTMLDivElement, NumberFieldRootState>;
 	children?: Snippet;
 }
 
@@ -176,7 +172,7 @@ export interface NumberFieldGroupProps extends Omit<HTMLAttributes<HTMLDivElemen
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, NumberFieldGroupState>;
+	render?: RenderSnippet<HTMLDivElement, NumberFieldGroupState>;
 	children?: Snippet;
 }
 
@@ -220,7 +216,7 @@ export interface NumberFieldStepperProps extends Omit<HTMLButtonAttributes, 'chi
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLButtonElement, NumberFieldStepperState>;
+	render?: RenderSnippet<HTMLButtonElement, NumberFieldStepperState>;
 	children?: Snippet;
 }
 
@@ -252,7 +248,7 @@ export interface NumberFieldScrubAreaProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, NumberFieldScrubAreaState>;
+	render?: RenderSnippet<HTMLSpanElement, NumberFieldScrubAreaState>;
 	children?: Snippet;
 }
 
@@ -268,7 +264,7 @@ export interface NumberFieldScrubAreaCursorProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, NumberFieldScrubAreaCursorState>;
+	render?: RenderSnippet<HTMLSpanElement, NumberFieldScrubAreaCursorState>;
 	children?: Snippet;
 }
 

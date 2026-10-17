@@ -5,6 +5,12 @@
 // MIT, see THIRD_PARTY_NOTICES.md.
 // Svelte children are a snippet, not an element prop, so they are not on `props`.
 import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
 
 /** Undefined when a render function should be free to show its own fallback. */
 export type RenderChildren = Snippet | undefined;
+
+/** A part's `render` snippet: the props to spread, the part's state, and its children. */
+export type RenderSnippet<Element extends EventTarget, State> = Snippet<
+	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
+>;

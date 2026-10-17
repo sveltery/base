@@ -13,7 +13,7 @@ import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type { Align, Side };
 
@@ -41,10 +41,6 @@ export interface NavigationMenuActions {
 	unmount: () => void;
 	close: () => void;
 }
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface NavigationMenuRootState {
 	/** Whether the popup is open. */
@@ -97,7 +93,7 @@ export interface NavigationMenuRootProps<Value = unknown> extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLElement, NavigationMenuRootState>;
+	render?: RenderSnippet<HTMLElement, NavigationMenuRootState>;
 	children?: Snippet;
 }
 
@@ -116,7 +112,7 @@ export interface NavigationMenuListProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLUListElement, NavigationMenuListState>;
+	render?: RenderSnippet<HTMLUListElement, NavigationMenuListState>;
 	children?: Snippet;
 }
 
@@ -135,7 +131,7 @@ export interface NavigationMenuItemProps extends Omit<HTMLLiAttributes, 'childre
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLLIElement, NavigationMenuItemState>;
+	render?: RenderSnippet<HTMLLIElement, NavigationMenuItemState>;
 	children?: Snippet;
 }
 
@@ -192,7 +188,7 @@ export interface NavigationMenuIconProps extends Omit<HTMLAttributes<HTMLSpanEle
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, NavigationMenuIconState>;
+	render?: RenderSnippet<HTMLSpanElement, NavigationMenuIconState>;
 	/** Replaces the default `▼` glyph. */
 	children?: Snippet;
 }
@@ -221,7 +217,7 @@ export interface NavigationMenuContentProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, NavigationMenuContentState>;
+	render?: RenderSnippet<HTMLDivElement, NavigationMenuContentState>;
 	children?: Snippet;
 }
 
@@ -414,7 +410,7 @@ export interface NavigationMenuPositionerProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, NavigationMenuPositionerState>;
+	render?: RenderSnippet<HTMLDivElement, NavigationMenuPositionerState>;
 	children?: Snippet;
 }
 
@@ -433,7 +429,7 @@ export interface NavigationMenuPopupProps extends Omit<HTMLAttributes<HTMLElemen
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLElement, NavigationMenuPopupState>;
+	render?: RenderSnippet<HTMLElement, NavigationMenuPopupState>;
 	children?: Snippet;
 }
 
@@ -451,7 +447,7 @@ export interface NavigationMenuArrowProps extends Omit<HTMLAttributes<HTMLDivEle
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, NavigationMenuArrowState>;
+	render?: RenderSnippet<HTMLDivElement, NavigationMenuArrowState>;
 	children?: Snippet;
 }
 
@@ -470,7 +466,7 @@ export interface NavigationMenuBackdropProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, NavigationMenuBackdropState>;
+	render?: RenderSnippet<HTMLDivElement, NavigationMenuBackdropState>;
 	children?: Snippet;
 }
 
@@ -486,6 +482,6 @@ export interface NavigationMenuViewportProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, NavigationMenuViewportState>;
+	render?: RenderSnippet<HTMLDivElement, NavigationMenuViewportState>;
 	children?: Snippet;
 }

@@ -10,10 +10,10 @@ Groups all parts of the scroll area. Renders a `<div>` element.
 
 **Root Props:**
 
-| Prop                  | Type                                                                                                           | Default | Description                                                                                                                                                                                                                             |
-| :-------------------- | :------------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| overflowEdgeThreshold | `OverflowEdgeThreshold`                                                                                        | `0`     | The threshold in pixels that must be passed before the overflow edge attributes are applied. Accepts a single number for all edges or an object to configure them individually.                                                         |
-| render                | `Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ScrollAreaRootState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop                  | Type                                                 | Default | Description                                                                                                                                                                                                                             |
+| :-------------------- | :--------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| overflowEdgeThreshold | `OverflowEdgeThreshold`                              | `0`     | The threshold in pixels that must be passed before the overflow edge attributes are applied. Accepts a single number for all edges or an object to configure them individually.                                                         |
+| render                | `RenderSnippet<HTMLDivElement, ScrollAreaRootState>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 **Root Data Attributes:**
 
@@ -67,9 +67,9 @@ A container for the content of the scroll area. Renders a `<div>` element.
 
 **Content Props:**
 
-| Prop   | Type                                                                                                              | Default | Description                                                                                                                                                                                                                             |
-| :----- | :---------------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| render | `Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ScrollAreaContentState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop   | Type                                                    | Default | Description                                                                                                                                                                                                                             |
+| :----- | :------------------------------------------------------ | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| render | `RenderSnippet<HTMLDivElement, ScrollAreaContentState>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 **Content Data Attributes:**
 
@@ -116,9 +116,9 @@ The actual scrollable container of the scroll area. Renders a `<div>` element.
 
 **Viewport Props:**
 
-| Prop   | Type                                                                                                               | Default | Description                                                                                                                                                                                                                             |
-| :----- | :----------------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| render | `Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ScrollAreaViewportState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop   | Type                                                     | Default | Description                                                                                                                                                                                                                             |
+| :----- | :------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| render | `RenderSnippet<HTMLDivElement, ScrollAreaViewportState>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 **Viewport Data Attributes:**
 
@@ -174,9 +174,9 @@ The draggable part of the scrollbar that indicates the current scroll position. 
 
 **Thumb Props:**
 
-| Prop   | Type                                                                                                            | Default | Description                                                                                                                                                                                                                             |
-| :----- | :-------------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| render | `Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ScrollAreaThumbState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop   | Type                                                  | Default | Description                                                                                                                                                                                                                             |
+| :----- | :---------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| render | `RenderSnippet<HTMLDivElement, ScrollAreaThumbState>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 **Thumb Data Attributes:**
 
@@ -206,11 +206,11 @@ A vertical or horizontal scrollbar for the scroll area. Renders a `<div>` elemen
 
 **Scrollbar Props:**
 
-| Prop        | Type                                                                                                                | Default      | Description                                                                                                                                                                                                                             |
-| :---------- | :------------------------------------------------------------------------------------------------------------------ | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| orientation | `ScrollAxis`                                                                                                        | `'vertical'` | Whether the scrollbar controls vertical or horizontal scroll.                                                                                                                                                                           |
-| keepMounted | `boolean`                                                                                                           | `false`      | Whether to keep the HTML element in the DOM when the viewport isn't scrollable.                                                                                                                                                         |
-| render      | `Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ScrollAreaScrollbarState, children: Snippet \| undefined]>` | -            | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop        | Type                                                      | Default      | Description                                                                                                                                                                                                                             |
+| :---------- | :-------------------------------------------------------- | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| orientation | `ScrollAxis`                                              | `'vertical'` | Whether the scrollbar controls vertical or horizontal scroll.                                                                                                                                                                           |
+| keepMounted | `boolean`                                                 | `false`      | Whether to keep the HTML element in the DOM when the viewport isn't scrollable.                                                                                                                                                         |
+| render      | `RenderSnippet<HTMLDivElement, ScrollAreaScrollbarState>` | -            | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 **Scrollbar Data Attributes:**
 
@@ -270,9 +270,9 @@ A small rectangular area that appears at the intersection of horizontal and vert
 
 **Corner Props:**
 
-| Prop   | Type                                                                                                             | Default | Description                                                                                                                                                                                                                             |
-| :----- | :--------------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| render | `Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ScrollAreaCornerState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop   | Type                                                   | Default | Description                                                                                                                                                                                                                             |
+| :----- | :----------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| render | `RenderSnippet<HTMLDivElement, ScrollAreaCornerState>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 ### Corner.Props
 

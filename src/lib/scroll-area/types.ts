@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderSnippet } from '../internal/render-children.js';
 
 export type ScrollAxis = 'vertical' | 'horizontal';
 export type TextDirection = 'ltr' | 'rtl';
@@ -83,10 +83,6 @@ export type ScrollAreaViewportState = ScrollAreaRootState;
 export type ScrollAreaContentState = ScrollAreaRootState;
 export type ScrollAreaCornerState = Record<string, never>;
 
-type PartRender<State> = Snippet<
-	[props: HTMLAttributes<HTMLDivElement>, state: State, children: RenderChildren]
->;
-
 export interface ScrollAreaRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
 	 * The threshold in pixels that must be passed before the overflow edge attributes are applied.
@@ -100,7 +96,7 @@ export interface ScrollAreaRootProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<ScrollAreaRootState>;
+	render?: RenderSnippet<HTMLDivElement, ScrollAreaRootState>;
 	children?: Snippet;
 }
 
@@ -111,7 +107,7 @@ export interface ScrollAreaViewportProps extends Omit<HTMLAttributes<HTMLDivElem
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<ScrollAreaViewportState>;
+	render?: RenderSnippet<HTMLDivElement, ScrollAreaViewportState>;
 	children?: Snippet;
 }
 
@@ -129,7 +125,7 @@ export interface ScrollAreaScrollbarProps extends Omit<HTMLAttributes<HTMLDivEle
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<ScrollAreaScrollbarState>;
+	render?: RenderSnippet<HTMLDivElement, ScrollAreaScrollbarState>;
 	children?: Snippet;
 }
 
@@ -140,7 +136,7 @@ export interface ScrollAreaThumbProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<ScrollAreaThumbState>;
+	render?: RenderSnippet<HTMLDivElement, ScrollAreaThumbState>;
 	children?: Snippet;
 }
 
@@ -151,7 +147,7 @@ export interface ScrollAreaContentProps extends Omit<HTMLAttributes<HTMLDivEleme
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<ScrollAreaContentState>;
+	render?: RenderSnippet<HTMLDivElement, ScrollAreaContentState>;
 	children?: Snippet;
 }
 
@@ -162,6 +158,6 @@ export interface ScrollAreaCornerProps extends Omit<HTMLAttributes<HTMLDivElemen
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<ScrollAreaCornerState>;
+	render?: RenderSnippet<HTMLDivElement, ScrollAreaCornerState>;
 	children?: Snippet;
 }

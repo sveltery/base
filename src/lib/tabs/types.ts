@@ -2,7 +2,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { TransitionStatus } from '../collapsible/types.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type TabsOrientation = 'horizontal' | 'vertical';
 export type TabsActivationDirection = 'left' | 'right' | 'up' | 'down' | 'none';
@@ -63,10 +63,6 @@ export type TabsRootChangeEventDetails = BaseUIChangeEventDetails<TabsRootChange
 	activationDirection: TabsActivationDirection;
 };
 
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
-
 export interface TabsRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
 	 * The value of the currently active `Tab`.
@@ -112,7 +108,7 @@ export interface TabsRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, TabsRootState>;
+	render?: RenderSnippet<HTMLDivElement, TabsRootState>;
 	children?: Snippet;
 }
 
@@ -134,7 +130,7 @@ export interface TabsListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, TabsListState>;
+	render?: RenderSnippet<HTMLDivElement, TabsListState>;
 	children?: Snippet;
 }
 
@@ -203,7 +199,7 @@ export interface TabsPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, TabsPanelState>;
+	render?: RenderSnippet<HTMLDivElement, TabsPanelState>;
 	children?: Snippet;
 }
 
@@ -220,6 +216,6 @@ export interface TabsIndicatorProps extends Omit<HTMLAttributes<HTMLSpanElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, TabsIndicatorState>;
+	render?: RenderSnippet<HTMLSpanElement, TabsIndicatorState>;
 	children?: Snippet;
 }
