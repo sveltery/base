@@ -448,9 +448,25 @@ export class AnchorPositioning {
 		};
 	}
 
+	resetAvailableSize() {
+		const {
+			[AVAILABLE_WIDTH_VAR]: _width,
+			[AVAILABLE_HEIGHT_VAR]: _height,
+			...rest
+		} = this.#measured;
+		this.#measured = rest;
+	}
+
 	get positionerStyles(): Record<string, string> {
 		if (!this.isPositioned) {
-			return { position: 'fixed', top: '0', left: '0', opacity: '0', ...this.#availableSize() };
+			return {
+				position: 'fixed',
+				top: '0',
+				left: '0',
+				opacity: '0',
+				...this.#measured,
+				...this.#availableSize()
+			};
 		}
 		const current = this.read();
 		const data = this.#position.data;
@@ -522,6 +538,7 @@ export class AnchorPositioning {
 				if (typeof stop === 'function') stop();
 				if (store.positionerElement === node) store.positionerElement = null;
 				if (store.floatingElement === node) store.floatingElement = null;
+				this.#measured = {};
 			};
 		}
 	};

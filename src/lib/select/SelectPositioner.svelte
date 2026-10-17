@@ -94,6 +94,10 @@
 		})
 	);
 
+	$effect.pre(() => {
+		if (!alignItemWithTriggerActive) untrack(() => positioning.resetAvailableSize());
+	});
+
 	const renderedSide = $derived(alignItemWithTriggerActive ? 'none' : positioning.side);
 
 	setSelectPositioner({
