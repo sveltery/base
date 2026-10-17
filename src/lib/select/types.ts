@@ -6,7 +6,7 @@ import type { FieldRootState } from '../field/types.js';
 import type { ItemsInput } from '../internal/listbox/resolveValueLabel.js';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, AnchorPositioningParameters, Side } from '../internal/popups/index.js';
-import type { RenderSnippet } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { SeparatorProps, SeparatorState } from '../separator/types.js';
 

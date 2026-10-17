@@ -1,7 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
-import type { RenderSnippet } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 /** Open/close motion phase. `undefined` is the settled closed phase. */
 export type TransitionStatus = 'starting' | 'ending' | 'idle' | undefined;

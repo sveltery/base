@@ -7,7 +7,7 @@ import type {
 	ReasonToEvent
 } from '@sveltery/utils';
 import type { FieldRootState } from '../field/types.js';
-import type { RenderSnippet } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type Direction = -1 | 1;
 

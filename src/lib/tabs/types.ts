@@ -2,7 +2,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { TransitionStatus } from '../collapsible/types.js';
-import type { RenderSnippet } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type TabsOrientation = 'horizontal' | 'vertical';
 export type TabsActivationDirection = 'left' | 'right' | 'up' | 'down' | 'none';

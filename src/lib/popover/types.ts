@@ -6,7 +6,7 @@ import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { PopoverHandle } from './handle.svelte.js';
-import type { RenderSnippet } from '../internal/render-children.js';
+import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type { Align, Side };
 
