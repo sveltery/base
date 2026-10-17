@@ -146,27 +146,27 @@
 		return contains(store.floatingElement, active) || active === doc.body || active == null;
 	}
 
-	// Functions rather than deriveds: the focus manager can call `returnFocus` after this popup
-	// unmounts, when its deriveds are gone.
-	const returnFocusDefault = () =>
+	const returnFocusDefault = $derived(
 		store.activeTriggerElement != null ||
-		parentType === undefined ||
-		parentType === 'context-menu' ||
-		// `returnFocus` drops this case after an outside press.
-		parentType === 'menubar';
+			parentType === undefined ||
+			parentType === 'context-menu' ||
+			// `returnFocus` drops this case after an outside press.
+			parentType === 'menubar'
+	);
 
-	const returnSpec = () => (finalFocus === undefined ? returnFocusDefault() : finalFocus);
+	const returnSpec = $derived(finalFocus === undefined ? returnFocusDefault : finalFocus);
 
 	/**
 	 * A submenu next to a filterable menu returns to the parent's input, or to the element a
 	 * filterable submenu returns to. These are internal defaults rather than consumer targets, so
 	 * focus that already moved out stays.
 	 */
-	const dynamicReturn = () =>
-		finalFocus === undefined && parentType === 'menu' && (store.submenu != null || handoff != null);
+	const dynamicReturn = $derived(
+		finalFocus === undefined && parentType === 'menu' && (store.submenu != null || handoff != null)
+	);
 
 	function dynamicReturnElement(): HTMLElement | null | undefined {
-		if (!dynamicReturn()) return undefined;
+		if (!dynamicReturn) return undefined;
 		return store.submenu ? store.submenu.getReturnElement() : handoff?.returnElement;
 	}
 
@@ -183,7 +183,7 @@
 		) {
 			return false;
 		}
-		const spec = returnSpec();
+		const spec = returnSpec;
 		if (typeof spec === 'function') return spec(closeType ?? '');
 		// The manager treats a function result as explicit, so `true` keeps its inside check here.
 		// A `null` spec does not move focus.
@@ -262,8 +262,8 @@
 	modal={parentType === 'context-menu'}
 	disabled={!store.mounted}
 	{initialFocus}
-	returnFocus={returnSpec() === false ? false : returnFocus}
-	explicitReturnFocus={dynamicReturn() ? false : undefined}
+	returnFocus={returnSpec === false ? false : returnFocus}
+	explicitReturnFocus={dynamicReturn ? false : undefined}
 	restoreFocus={true}
 	previousFocusableElement={store.activeTriggerElement instanceof HTMLElement
 		? store.activeTriggerElement

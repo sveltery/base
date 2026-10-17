@@ -760,8 +760,6 @@
 		// Taken here, as upstream does. The popup's attachment clears `floatingElement` before
 		// this teardown, and a popup portaled into an iframe needs that frame's document.
 		const doc = ownerDocument(floating);
-		// This component's own deriveds are gone by the teardown.
-		const leavingTree = untrack(() => tree);
 		return () => {
 			// A teardown reads the values from before this update, such as the reference the
 			// unmount clears. Focus is read here, as upstream's cleanup does, before a parent
@@ -781,7 +779,7 @@
 					active == null,
 				returnFocus,
 				explicitReturnFocus,
-				tree: leavingTree
+				tree
 			};
 			// A popup that closed in an earlier update resolves its target now, as upstream's cleanup
 			// does. A return function then reads the state from before the unmount, such as Menu's
