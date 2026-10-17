@@ -1,5 +1,6 @@
 // Each case runs against the Svelte Tabs and the React Base UI 1.9.0 reference.
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
+import { openBeforeHydration } from '../hold-hydration.js';
 import { openFixture } from '../open-fixture.js';
 
 function open(page: Page, scenario: string, reference: boolean) {
@@ -154,6 +155,12 @@ for (const reference of [false, true]) {
 			await expect(indicator).toHaveCSS('--active-tab-left', '0px');
 		});
 
+		test('renders no prehydration script once mounted', async ({ page }) => {
+			await open(page, 'prehydrate', reference);
+			await expect(page.getByTestId('indicator')).not.toHaveAttribute('hidden');
+			await expect(page.getByRole('tablist').locator('script')).toHaveCount(0);
+		});
+
 		test('loopFocus false stops on the first tab', async ({ page }) => {
 			await open(page, 'loop', reference);
 			const one = page.getByRole('tab', { name: 'One' });
@@ -188,7 +195,28 @@ async function prehydrationScript(request: APIRequestContext) {
 	return html.slice(start + '<script>'.length, html.indexOf('</script>', start));
 }
 
+function indicatorPosition(page: Page) {
+	return page.getByTestId('indicator').evaluate((indicator) => {
+		const style = getComputedStyle(indicator);
+		return ['left', 'top', 'width', 'height'].map((side) =>
+			style.getPropertyValue(`--active-tab-${side}`)
+		);
+	});
+}
+
 test.describe('svelte prehydration script', () => {
+	test('hydration keeps the indicator in place and drops the script', async ({ page }) => {
+		const { hydrate } = await openBeforeHydration(page, 'tabs', 'prehydrate');
+		const script = page.getByRole('tablist').locator('script');
+		await expect(script).toHaveCount(1);
+		await expect(page.getByTestId('indicator')).not.toHaveAttribute('hidden');
+		const before = await indicatorPosition(page);
+
+		await hydrate();
+		await expect(script).toHaveCount(0);
+		expect(await indicatorPosition(page)).toEqual(before);
+	});
+
 	test('SSR renders the script after the indicator only for renderBeforeHydration', async ({
 		request
 	}) => {

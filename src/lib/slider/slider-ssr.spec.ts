@@ -22,4 +22,19 @@ describe('Slider SSR prehydration script', () => {
 
 		expect(body).toContain('<script>!function(){');
 	});
+
+	it('renders the script only in the last thumb', () => {
+		const body = render(SliderSsrHarness, { props: { range: true } }).body;
+
+		expect(body.match(/<script/g)).toHaveLength(1);
+		expect(body.indexOf('<script')).toBeGreaterThan(body.indexOf('data-testid="thumb-1"'));
+	});
+
+	it('renders no script for center or edge-client-only alignment', () => {
+		for (const thumbAlignment of ['center', 'edge-client-only'] as const) {
+			const body = render(SliderSsrHarness, { props: { thumbAlignment } }).body;
+
+			expect(body).not.toContain('<script');
+		}
+	});
 });
