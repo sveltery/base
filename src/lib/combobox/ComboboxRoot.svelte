@@ -18,11 +18,15 @@
 		onValueChange,
 		inputValue = $bindable(),
 		open = $bindable(false),
+		defaultOpen,
 		multiple,
 		autocomplete,
 		autoHighlight = false,
 		...rest
 	}: ComboboxRootProps<Value, Multiple, Item> = $props();
+	// The fallback stands for an omitted `open`, so `defaultOpen` replaces it.
+	// svelte-ignore state_referenced_locally
+	if (open === false && defaultOpen !== undefined) open = defaultOpen;
 
 	let core: AriaCombobox;
 

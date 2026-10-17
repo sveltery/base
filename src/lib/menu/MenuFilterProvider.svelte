@@ -13,12 +13,16 @@
 
 	let {
 		value = $bindable(''),
+		defaultValue,
 		onValueChange,
 		filter,
 		autoHighlight = false,
 		locale,
 		children
 	}: MenuFilterProviderProps = $props();
+	// The `''` fallback stands for an omitted `value`, so `defaultValue` replaces it.
+	// svelte-ignore state_referenced_locally
+	if (value === '' && defaultValue !== undefined) value = defaultValue;
 
 	setMenuFilterProvider({
 		get filter() {

@@ -14,12 +14,18 @@
 
 	let {
 		open = $bindable(),
+		defaultOpen,
 		onOpenChange,
 		onOpenChangeComplete,
 		triggerId = $bindable(),
+		defaultTriggerId,
 		handle,
 		children
 	}: PreviewCardRootProps<Payload> = $props();
+	// svelte-ignore state_referenced_locally
+	if (open === undefined && defaultOpen !== undefined) open = defaultOpen;
+	// svelte-ignore state_referenced_locally
+	if (triggerId === undefined && defaultTriggerId !== undefined) triggerId = defaultTriggerId;
 
 	const uid = $props.id();
 	const nested = useFloatingParentNodeId() != null;

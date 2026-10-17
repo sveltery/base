@@ -54,7 +54,7 @@ export type ContextMenuRootChangeEventDetails = MenuChangeEventDetails;
  */
 export interface ContextMenuRootProps extends Omit<
 	MenuRootProps,
-	'handle' | 'triggerId' | 'modal' | 'closeParentOnEsc' | 'children'
+	'handle' | 'triggerId' | 'defaultTriggerId' | 'modal' | 'closeParentOnEsc' | 'children'
 > {
 	children?: Snippet;
 }

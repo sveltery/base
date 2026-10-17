@@ -2,8 +2,8 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // Not ported, React only: popupConformanceTests and popupListConformanceTests (React test-utils
 // suites), React.startTransition and ReactDOM.createPortal cases, render-count checks.
-// `actionsRef` is the root's exported `close()` and `unmount()`. `defaultOpen` is `open`
-// without a binding. Multiple values submit through one hidden `<select multiple>`, so those
+// `actionsRef` is the root's exported `close()` and `unmount()`. `defaultOpen` cases use `open`
+// without a binding, which also sets the initial state. Multiple values submit through one hidden `<select multiple>`, so those
 // cases read FormData instead of counting `<input>` elements.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';

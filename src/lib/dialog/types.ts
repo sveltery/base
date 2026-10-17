@@ -86,6 +86,13 @@ export interface DialogRootProps<Payload = unknown> {
 	 */
 	open?: boolean;
 	/**
+	 * Whether the dialog is initially open.
+	 *
+	 * To render a controlled dialog, use `bind:open` instead.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
+	/**
 	 * Determines if the dialog enters a modal state when open.
 	 * - `true`: user interaction is limited to just the dialog: focus is trapped, document page scroll is locked, and pointer interactions on outside elements are disabled.
 	 * - `false`: user interaction with the rest of the document is allowed.
@@ -119,6 +126,11 @@ export interface DialogRootProps<Payload = unknown> {
 	 * @default null
 	 */
 	triggerId?: string | null;
+	/**
+	 * ID of the trigger that the dialog is associated with.
+	 * This is useful in conjunction with the `defaultOpen` prop to create an initially open dialog.
+	 */
+	defaultTriggerId?: string | null;
 	children?: Snippet<[{ payload: Payload | undefined }]>;
 }
 

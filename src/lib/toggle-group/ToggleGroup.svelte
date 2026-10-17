@@ -17,6 +17,7 @@
 
 	let {
 		value = $bindable(),
+		defaultValue,
 		disabled: disabledProp,
 		loopFocus = true,
 		onValueChange,
@@ -26,6 +27,8 @@
 		children,
 		...elementProps
 	}: ToggleGroupProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (value === undefined && defaultValue !== undefined) value = defaultValue;
 	const toolbar = findToolbarRootContext();
 	const toolbarGroup = useToolbarGroupContext();
 	const disabled = $derived(

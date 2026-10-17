@@ -2,7 +2,9 @@
  * Lists every part and prop description the docs' API tables show beside the text Base UI's
  * `types.md` shows for it, and flags the ones that differ.
  *
- *   node scripts/compare-api-descriptions.ts <base-ui checkout at the pinned commit> [--all] [--json]
+ *   node scripts/compare-api-descriptions.ts <base-ui checkout at the pinned commit> [--all] [--json] [--defaults]
+ *
+ * `--defaults` lists only upstream's `default*` props, such as `defaultOpen`, with our status.
  *
  * Exits 1 when a description differs from upstream for a reason `explained` does not name.
  */
@@ -14,6 +16,7 @@ const [upstreamRoot, ...flags] = process.argv.slice(2);
 if (!upstreamRoot) throw new Error('usage: compare-api-descriptions.ts <base-ui checkout> [--all]');
 const showAll = flags.includes('--all');
 const json = flags.includes('--json');
+const defaultsOnly = flags.includes('--defaults');
 const lib = resolve(import.meta.dirname, '../src/lib');
 const docs = join(upstreamRoot, 'docs/src/app/(docs)/react');
 
@@ -36,24 +39,17 @@ const rewordings: Array<[RegExp, string, string]> = [
 		'`HTMLElement`: Move focus to that element.',
 		'Focus targets are elements, not ref objects.'
 	],
-	[/use the `(\w+)` prop instead/g, 'use `bind:$1` instead', '`bind:` controls the prop.'],
+	[
+		/use the `((?!default)\w+)` prop instead/g,
+		'use `bind:$1` instead',
+		'`bind:` controls the prop.'
+	],
 	[/\bReact\b/g, 'Svelte', 'Names Svelte, not React.'],
 	[
 		/\]\(https:\/\/base-ui\.com\/react\/components\//g,
 		'](https://base.sveltery.dev/components/',
 		'Links to our component page.'
-	],
-	...(
-		[
-			[/`defaultValue` is omitted/g, '`value` is omitted'],
-			[/an explicit `defaultValue`/g, 'an explicit initial `value`'],
-			[/`defaultValue` or `value` on/g, '`value` on']
-		] as const
-	).map(([pattern, replacement]): [RegExp, string, string] => [
-		pattern,
-		replacement,
-		'Tabs has no `defaultValue`. A `value` without `bind:` is the initial value.'
-	])
+	]
 ];
 
 const preventDefault =
@@ -117,7 +113,6 @@ type Status = 'same' | 'explained' | 'DIFF' | 'OURS ONLY' | 'UPSTREAM ONLY';
 const squash = (text: string) => text.replace(/\s+/g, ' ').trim();
 /** `types.md` drops list markers and line breaks inside a table cell, so compare without them. */
 const key = (text: string) => text.replace(/(^|\s)-\s+/g, ' ').replace(/\s+/g, '');
-const capitalize = (text: string) => text[0].toUpperCase() + text.slice(1);
 
 /** Parses the `### Part` sections of an upstream `types.md` into descriptions and prop rows. */
 function upstreamParts(file: string): Map<string, Text> {
@@ -159,15 +154,10 @@ function compare(
 	ours: string | undefined,
 	theirs: string | undefined,
 	keys: string[],
-	prop?: ApiProp,
-	siblings: ApiProp[] = []
+	prop?: ApiProp
 ): { status: Status; why?: string } {
 	const listed = keys.map((k) => explained[k]).find(Boolean);
 	if (ours === undefined) {
-		const bound = siblings.find(
-			(p) => p.bindable && keys[0].endsWith(` default${capitalize(p.name)}`)
-		);
-		if (bound) return { status: 'explained', why: `\`bind:${bound.name}\` replaces it.` };
 		const why = listed ?? reactOnly[keys[0].split(' ')[1]];
 		return why ? { status: 'explained', why } : { status: 'UPSTREAM ONLY' };
 	}
@@ -261,7 +251,7 @@ for (const folder of readdirSync(lib).sort()) {
 		}
 		for (const [prop, text] of upstream.props) {
 			if (seen.has(prop)) continue;
-			const result = compare(undefined, text, keys(prop), undefined, part.props);
+			const result = compare(undefined, text, keys(prop));
 			report({ ...where, prop }, `${label} ${prop}`, '', text, result);
 		}
 	}
@@ -273,6 +263,11 @@ for (const folder of readdirSync(lib).sort()) {
 	}
 }
 
-if (json) console.log(JSON.stringify(entries, null, '\t'));
+if (defaultsOnly) {
+	const rows = entries.filter((e): e is { status: Status; label: string; prop: string } =>
+		/^default[A-Z]/.test((e as { prop?: string }).prop ?? '')
+	);
+	for (const { status, label } of rows) console.log(`${status}\t${label}`);
+} else if (json) console.log(JSON.stringify(entries, null, '\t'));
 else console.log(`${lines.join('\n')}\n\n${unexplained} unexplained difference(s)`);
 process.exit(unexplained ? 1 : 0);

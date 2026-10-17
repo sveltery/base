@@ -27,15 +27,17 @@ Test: `src/lib/merge-props/merge-props.spec.ts`.
 
 Upstream pairs each stateful prop with a `default*` prop and switches between controlled and uncontrolled mode at mount.
 
-Local: each stateful prop is one `$bindable` prop. `bind:x` shares it, a one-way value sets it until the parent changes it, and `bind:x={get, set}` lets the parent reject a change. Change callbacks run in the event handler, before the value is written, and `eventDetails.cancel()` stops the write. A parent write calls a change callback only when Tabs has to move off a disabled or removed tab.
+Local: each stateful prop is one `$bindable` prop, and each `default*` prop upstream has is there beside it. `bind:x` shares it, a one-way value sets it until the parent changes it, and `bind:x={get, set}` lets the parent reject a change. Change callbacks run in the event handler, before the value is written, and `eventDetails.cancel()` stops the write. A parent write calls a change callback only when Tabs has to move off a disabled or removed tab.
 
-- `defaultValue` and `defaultChecked` exist only on the 8 form controls (Field.Control and Input, Checkbox, CheckboxGroup, Switch, RadioGroup, Slider, NumberField and OTPField). They are the value an empty binding starts from, as on an HTML input.
-- Toggle, ToggleGroup, Tabs, Accordion, Collapsible, Dialog and Popover have no `default*` prop. A `pressed`, `value` or `open` passed without `bind:` holds until the parent changes it. Dialog and Popover take an initial `triggerId` the same way.
+- A `default*` prop is the value an empty binding starts from, as on an HTML input. It is read once, at mount. A stateful prop that is set, bound or one-way, wins over it, except on the six parts below that keep a fallback.
+- On the form controls (Field.Control and Input, Checkbox, CheckboxGroup, Switch, RadioGroup, Slider, NumberField, OTPField, Select, Combobox and Autocomplete), `defaultValue` and `defaultChecked` are also the value a native form reset restores.
+- A `pressed`, `value`, `open` or `triggerId` passed without `bind:` also sets the initial state, and holds until the parent changes it.
+- `Menu.CheckboxItem` `checked`, `Menu.FilterProvider` `value`, `NavigationMenu.Root` `value`, and `open` on `Select.Root`, `Combobox.Root` and `Autocomplete.Root` keep their Svelte prop fallback (`false`, `''` or `null`). This follows from how Svelte props work, not React's controlled mode. Svelte cannot tell an omitted prop from one passed as its fallback, so the `default*` prop replaces a value equal to the fallback, and `checked={false}` beside `defaultChecked` starts ticked. React treats a passed `false` as controlled and keeps it. Without the fallback, Svelte 5 resets a locally changed prop to `undefined` when the parent spreads its props again, which would drop a typed filter query or a ticked item.
 - Tabs moves the selection to the first enabled tab when the selected tab is disabled or removed, whether or not the parent passed `value`. Upstream keeps a controlled value. A value passed at mount does not get the `initial` notice, and a tab it names stays selected while that tab is disabled or not yet rendered, until it has named an enabled tab once. Upstream holds only a disabled `defaultValue` tab.
 - A canceled `Field.Control` change puts the input back to the held value. Upstream keeps the typed text in an uncontrolled input.
 - `readonly`, `autocomplete` and `inputmode` use the HTML spelling. State keys such as `readOnly` keep upstream's camelCase.
 
-Test: `src/tests/controllable-root-cases.ts`, `src/lib/tabs/Tabs.svelte.spec.ts` (`moves a passed value to the first enabled tab when its tab becomes disabled`).
+Test: `src/tests/controllable-root-cases.ts`, `src/tests/default-props.svelte.spec.ts`, `src/lib/tabs/Tabs.svelte.spec.ts` (`moves a passed value to the first enabled tab when its tab becomes disabled`).
 
 ## Button behavior
 
@@ -176,7 +178,7 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`nested dialog count (Base UI v1.9
 
 | Upstream                                                             | Local                                                                                               |
 | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                            |
+| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`, and the same `defaultOpen` / `defaultTriggerId`                   |
 | `actionsRef`                                                         | `bind:this` on `Dialog.Root` (`close` and `unmount`)                                                |
 | `initialFocus` / `finalFocus` ref objects                            | element or function, called on open and close                                                       |
 | `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                                      |
@@ -269,7 +271,7 @@ Source: `packages/react/src/tooltip` at Base UI v1.9.0, commit `ad7ecda5296b0295
 
 | Upstream                                                 | Local                                                                                                    |
 | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId` | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                                 |
+| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId` | `$bindable` `open` / `triggerId`, and the same `defaultOpen` / `defaultTriggerId`                        |
 | `actionsRef`                                             | `bind:this` on `Tooltip.Root` (`close` and `unmount`)                                                    |
 | `Tooltip.createHandle()`                                 | `Tooltip.createHandle()`, and `createTooltipHandle` as a named export                                    |
 | `children` render function `{ payload }`                 | snippet argument `{ payload }`                                                                           |
@@ -295,7 +297,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 Upstream: `defaultOpen`, `defaultTriggerId`, and `actionsRef`. `PreviewCard.createHandle` is the only handle factory.
 
-Local: `open` and `triggerId` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`. The attribute names come from the shared state mappings. `createHandle` exists as `PreviewCard.createHandle` and `createPreviewCardHandle`. There is no top-level `createHandle`, because Popover already exports that name from the library barrel.
+Local: `open` and `triggerId` are `$bindable`, and `defaultOpen` and `defaultTriggerId` set their initial values. `close()` and `unmount()` are exports of the root, read through `bind:this`. The attribute names come from the shared state mappings. `createHandle` exists as `PreviewCard.createHandle` and `createPreviewCardHandle`. There is no top-level `createHandle`, because Popover already exports that name from the library barrel.
 
 ### Payload and close delay are read from the active trigger
 
@@ -341,7 +343,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 Upstream: `value` and `defaultValue`, and `actionsRef`.
 
-Local: `value` is `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of the root, read through `bind:this`.
+Local: `value` is `$bindable`, and `defaultValue` sets its initial value. `close()` and `unmount()` are exports of the root, read through `bind:this`.
 
 ### Content moves into the viewport by an attachment
 
@@ -389,7 +391,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 Upstream: `defaultOpen`, `defaultTriggerId`, `defaultChecked` on `Menu.CheckboxItem`, `defaultValue` on `Menu.RadioGroup` and `Menu.FilterProvider`, and `actionsRef`.
 
-Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem`, `value` on `Menu.RadioGroup` and `value` on `Menu.FilterProvider` are `$bindable`, so the first value is the default. `close()` and `unmount()` are exports of both roots, read through `bind:this`. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
+Local: `open` and `triggerId` on `Menu.Root`, `open` on `Menu.SubmenuRoot`, `checked` on `Menu.CheckboxItem`, `value` on `Menu.RadioGroup` and `value` on `Menu.FilterProvider` are `$bindable`, and each takes its upstream `default*` prop for the initial value. `close()` and `unmount()` are exports of both roots, read through `bind:this`. `Menu.createHandle` and `createMenuHandle` create handles. The `Menu.Root` children snippet receives `{ payload }`. A menu that is open when its only trigger mounts, with no `triggerId`, makes that trigger active and writes its id to `bind:triggerId`, as Popover does.
 
 ### Labels are trimmed
 
@@ -569,7 +571,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 Upstream: `value`/`defaultValue`/`onValueChange`, `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, and `ReactNode` labels in `items` and on `Select.Value`'s `placeholder`.
 
-Local: `value` and `open` are `$bindable`. `defaultValue` stays, because Select is a form control: it is the value an empty binding starts from and the value a native reset restores. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`, and `unmount()` does nothing while the popup is open. `inputRef` is not ported. The root takes `readonly`, the HTML spelling. Labels, `placeholder`, and what `itemToStringLabel` returns are strings, because a part renders them as text. A `Select.Value` `children` snippet receives the value in place of the children function.
+Local: `value` and `open` are `$bindable`. `defaultValue` stays, because Select is a form control: it is the value an empty binding starts from and the value a native reset restores. `defaultOpen` sets the initial open state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`, and `unmount()` does nothing while the popup is open. `inputRef` is not ported. The root takes `readonly`, the HTML spelling. Labels, `placeholder`, and what `itemToStringLabel` returns are strings, because a part renders them as text. A `Select.Value` `children` snippet receives the value in place of the children function.
 
 ### Multiple values submit through one hidden select
 
@@ -623,7 +625,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 Upstream: `value`/`defaultValue`/`onValueChange`, `inputValue`/`defaultInputValue`/`onInputValueChange`, `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, `autoComplete`, a `Combobox.List` children function, and `ReactNode` labels and placeholder.
 
-Local: `value`, `inputValue` and `open` are `$bindable`. `defaultValue` and `defaultInputValue` stay, because the combobox is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. `inputRef` is not ported. The root takes `readonly` and `autocomplete`, the HTML spellings. `Combobox.List` takes static children, and `Combobox.Collection` renders the filtered items through its `children` snippet. Labels, `placeholder`, and what `itemToStringLabel` returns are strings. A `Combobox.Value` `children` snippet receives the value in place of the children function. `useFilter` is a plain function, called in a `$derived` when its options change. `useFilteredItems` returns `{ current }`. `createItems` derives each item's value and label on first use.
+Local: `value`, `inputValue` and `open` are `$bindable`. `defaultValue` and `defaultInputValue` stay, because the combobox is a form control. `defaultOpen` sets the initial open state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. `inputRef` is not ported. The root takes `readonly` and `autocomplete`, the HTML spellings. `Combobox.List` takes static children, and `Combobox.Collection` renders the filtered items through its `children` snippet. Labels, `placeholder`, and what `itemToStringLabel` returns are strings. A `Combobox.Value` `children` snippet receives the value in place of the children function. `useFilter` is a plain function, called in a `$derived` when its options change. `useFilteredItems` returns `{ current }`. `createItems` derives each item's value and label on first use.
 
 ### One core for Combobox and Autocomplete
 
@@ -675,7 +677,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099` (Base UI v1.9.0), `packages/reac
 
 Upstream: `value`/`defaultValue`/`onValueChange` hold the input text, with `open`/`defaultOpen`/`onOpenChange`, `actionsRef`, `inputRef`, `readOnly`, a `ReactNode` or function `Autocomplete.Value` child, and the item type taken from the `ItemValue` type argument.
 
-Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. There is no `defaultOpen`: `open` without `bind:` is the initial state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef` is not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
+Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the autocomplete is a form control. `defaultOpen` sets the initial open state. `actionsRef` is the root's exported `close()` and `unmount()`, read through `bind:this`. The root takes `readonly`, the HTML spelling. An `Autocomplete.Value` `children` snippet receives the input text in place of the children function. The root infers the item type from `items`, flat or grouped, so `itemToStringValue` and `onItemHighlighted` take the item without a type argument. `inputRef` is not ported, as in Combobox. The parts Autocomplete shares with Combobox are the Combobox components, so their props are documented with Combobox types.
 
 Test: `src/lib/autocomplete/types.test-d.ts`, `src/lib/autocomplete/AutocompleteValue.svelte.spec.ts`.
 
@@ -745,8 +747,8 @@ Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `i
 | Dialog             | ref objects                                                                                                          |
 | AlertDialog        | ref objects                                                                                                          |
 | Tooltip            | refs                                                                                                                 |
-| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, refs                                                                |
-| NavigationMenu     | `defaultValue`, `actionsRef`, refs                                                                                   |
+| PreviewCard        | `actionsRef`, refs                                                                                                   |
+| NavigationMenu     | `actionsRef`, refs                                                                                                   |
 | Drawer             | ref objects                                                                                                          |
 | Menu               | `actionsRef`, refs                                                                                                   |
 | Menubar            | refs                                                                                                                 |

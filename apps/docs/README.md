@@ -52,7 +52,7 @@ To document a new component:
 
 ## Differences from Base UI
 
-Bind `open` with `bind:open`. There is no `defaultOpen` prop.
+`class` takes a Svelte class value, not a function of state.
 
 ## API reference
 
