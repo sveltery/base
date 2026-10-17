@@ -35,13 +35,14 @@ const LANGUAGES: Record<string, string> = {
 
 /**
  * The tab name of a file another one imports, as Base UI flattens it: `../../_index.module.css` and
- * `./index.module.css` are `index.module.css`, and `./button/index.ts` is `button.ts`.
+ * `./index.module.css` are `index.module.css`, `../../index.module.css` is `demos.module.css`, and
+ * `./button/index.ts` is `button.ts`.
  */
 function flatName(file: string, specifier: string) {
 	const name = basename(file);
 	if (name.startsWith('_index.')) return name.slice(1);
 	if (!name.startsWith('index.') || specifier === `./${name}`) return name;
-	return `${basename(dirname(file))}${extname(file)}`;
+	return `${basename(dirname(file))}${name.slice('index'.length)}`;
 }
 
 /** The import specifiers of a file. A Svelte component's markup is not read, only its scripts. */
@@ -74,25 +75,24 @@ export function readVariant(entry: string) {
 	const files: SourceFile[] = [];
 	const dependencies: Record<string, string> = {};
 	const visit = (path: string, specifier: string, depth: number): string => {
-		const name = files.length ? flatName(path, specifier) : basename(path);
+		let name = files.length ? flatName(path, specifier) : basename(path);
 		const known = files.find((file) => file.path === path);
 		if (known) return known.name;
-		if (files.some((file) => file.name === name))
-			throw new Error(`${entry}: two files of this demo are both named ${name}`);
+		const clash = files.find((file) => file.name === name);
+		// Base UI keeps the shallower file's name and prefixes the deeper one with its folder.
+		if (clash && clash.path.split(sep).length < path.split(sep).length)
+			name = `${basename(dirname(path))}/${name}`;
+		else if (clash) throw new Error(`${entry}: two files of this demo are both named ${name}`);
 		const file = { name, path, code: readFileSync(path, 'utf8') };
 		files.push(file);
+		const tabs = new Map<string, string>();
 		for (const specifier of specifiers(path, file.code)) {
 			if (specifier.startsWith('.')) {
 				if (depth === MAX_DEPTH)
 					throw new Error(`${path}: demo imports go ${MAX_DEPTH} files deep at most`);
 				const target = join(dirname(path), specifier);
 				if (!existsSync(target)) throw new Error(`${path}: ${specifier} does not exist`);
-				const tab = visit(target, specifier, depth + 1);
-				for (const quote of [`'`, `"`])
-					file.code = file.code.replaceAll(
-						`${quote}${specifier}${quote}`,
-						`${quote}./${tab}${quote}`
-					);
+				tabs.set(specifier, visit(target, specifier, depth + 1));
 			} else if (/^[#$]/.test(specifier) && !STACKBLITZ_PROVIDES.test(specifier)) {
 				throw new Error(
 					`${path}: a demo imports ${specifier}, which a StackBlitz project can't resolve. Import a file beside it.`
@@ -101,6 +101,9 @@ export function readVariant(entry: string) {
 				dependencies[packageName(specifier)] = version(packageName(specifier));
 			}
 		}
+		file.code = file.code.replace(SPECIFIER, (match, keyword, quote, specifier) =>
+			tabs.has(specifier) ? `${keyword}${quote}./${tabs.get(specifier)}${quote}` : match
+		);
 		return name;
 	};
 	visit(entry, '', 0);
