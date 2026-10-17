@@ -84,7 +84,7 @@ body {
 <div class="root">{@render children()}</div>
 `,
 		'src/routes/+page.svelte': `<script lang="ts">
-	import App from '$lib/App.svelte';
+	import App from '../lib/App.svelte';
 </script>
 
 <App />

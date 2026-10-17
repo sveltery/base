@@ -35,7 +35,8 @@ const LANGUAGES: Record<string, string> = {
 
 /** The tab name of a file another one imports, as Base UI flattens it: `_index.css` is `index.css`, `button/index.ts` is `button.ts`. */
 function flatName(file: string) {
-	const name = basename(file).replace(/^_index\./, 'index.');
+	const name = basename(file);
+	if (name.startsWith('_index.')) return name.slice(1);
 	return name.startsWith('index.') ? `${basename(dirname(file))}${extname(file)}` : name;
 }
 

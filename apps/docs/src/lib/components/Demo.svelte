@@ -14,7 +14,6 @@
 	import { ScrollArea } from '@sveltery/base/scroll-area';
 	import { Select } from '@sveltery/base/select';
 	import { Tabs } from '@sveltery/base/tabs';
-	import { page as currentPage } from '$app/state';
 	import type { DemoVariantData } from '#lib/docs/create-demo.ts';
 	import { openStackBlitz } from '#lib/docs/stackblitz.ts';
 	import { REPOSITORY } from '#lib/docs/links.ts';
@@ -39,6 +38,10 @@
 	);
 	const file = $derived(
 		variant.files.find((candidate) => candidate.name === fileName) ?? variant.files[0]
+	);
+	// Base UI names a demo after its folder: `hero` is "Hero".
+	const title = $derived(
+		slug.replace(/(^|-)(\w)/g, (_, dash, letter) => `${dash && ' '}${letter.toUpperCase()}`)
 	);
 	const fileSlug = (variantName: string, name: string) => `${slug}:${kebab(variantName)}:${name}`;
 
@@ -69,7 +72,8 @@
 	let trigger = $state<HTMLElement>();
 	let linkCopied = $state(false);
 	// A tab clicked with a modifier key opens its link in a new tab, and keeps this one selected.
-	let modifierKey = false;
+	const withModifier = (event: Event) =>
+		event instanceof MouseEvent && (event.ctrlKey || event.metaKey);
 
 	const sourceUrl = $derived(`${REPOSITORY}/tree/main/${variant.path}`);
 
@@ -90,8 +94,6 @@
 		linkCopied = true;
 		setTimeout(() => (linkCopied = false), 2000);
 	}
-
-	const title = $derived(currentPage.data.metadata?.title ?? 'Demo');
 </script>
 
 {#snippet caretSortIcon()}
@@ -114,43 +116,36 @@
 	<figure aria-label="Component demo code">
 		<div class="DemoToolbar">
 			{#if variant.files.length > 1}
-				<Tabs.Root
-					class="DemoTabsRoot"
-					value={file.name}
-					onValueChange={(value) => {
-						if (modifierKey) return;
-						fileName = String(value);
-						expanded = true;
-					}}
-				>
-					<Tabs.List class="DemoTabsList" aria-label="Files">
-						{#each variant.files as { name } (name)}
-							<Tabs.Tab
-								class="DemoTab"
-								value={name}
-								nativeButton={false}
-								onpointerdown={(event: PointerEvent) =>
-									(modifierKey = event.ctrlKey || event.metaKey)}
-							>
-								{#snippet render(props, _state, children)}
-									<a
-										{...props}
-										href="#{fileSlug(variant.name, name)}"
-										onclick={(event) => {
-											if (event.ctrlKey || event.metaKey) {
-												queueMicrotask(() => (modifierKey = false));
-											} else {
-												event.preventDefault();
-												modifierKey = false;
-											}
-										}}>{@render children?.()}</a
-									>
-								{/snippet}
-								<span>{name}</span>
-							</Tabs.Tab>
-						{/each}
-					</Tabs.List>
-				</Tabs.Root>
+				{#key variant.name}
+					<Tabs.Root
+						class="DemoTabsRoot"
+						value={file.name}
+						onValueChange={(value, details) => {
+							if (withModifier(details.event)) return details.cancel();
+							fileName = String(value);
+							expanded = true;
+						}}
+					>
+						<Tabs.List class="DemoTabsList" aria-label="Files">
+							{#each variant.files as { name } (name)}
+								<Tabs.Tab class="DemoTab" value={name} nativeButton={false}>
+									{#snippet render(props, _state, children)}
+										<a
+											{...props}
+											href="#{fileSlug(variant.name, name)}"
+											onclick={(event) => {
+												props.onclick?.(event);
+												// A plain click selects the tab, so the link must not jump to its anchor.
+												if (!withModifier(event)) event.preventDefault();
+											}}>{@render children?.()}</a
+										>
+									{/snippet}
+									<span>{name}</span>
+								</Tabs.Tab>
+							{/each}
+						</Tabs.List>
+					</Tabs.Root>
+				{/key}
 			{/if}
 			<div class="DemoToolbarActions">
 				{#if variants.length > 1}
