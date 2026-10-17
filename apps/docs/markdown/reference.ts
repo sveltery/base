@@ -1,5 +1,8 @@
 import type { ApiConstant, ApiPart, ApiProp } from './api.ts';
+import { highlightInline, toHast } from './code-inline.ts';
+import type { HastNode } from './headings.ts';
 import { highlightType } from './highlight.ts';
+import { codeLanguage } from './markdown-code.ts';
 
 /** One row of a reference table, with its type, default and description as HTML. */
 export type ReferenceRow = {
@@ -33,33 +36,80 @@ export type ReferencePart = {
 const escape = (value: string) =>
 	value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** Doc comments use paragraphs, `- ` lists, code spans and links, and nothing else. */
-export function inlineMarkdown(value: string): string {
-	return escape(value)
-		.replace(
-			/`([^`]+)`/g,
-			(_code, value: string) =>
-				`<code class="Code MdCode${/^&lt;\/?[a-z][a-z0-9-]*\s*\/?&gt;$/.test(value) ? ' MdTag' : ''}" data-inline>${value}</code>`
-		)
-		.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a class="Link" href="$2">$1</a>');
+const CODE = /`([^`]+)`/g;
+
+/** Inline markdown as HTML, with each code span written by `code`. */
+function inline(value: string, code: (source: string) => string): string {
+	const spans: string[] = [];
+	const text = value.replace(
+		CODE,
+		(_span, source: string) => `\0${spans.push(code(source)) - 1}\0`
+	);
+	return escape(text)
+		.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a class="Link" href="$2">$1</a>')
+		.replace(/\0(\d+)\0/g, (_span, index: string) => spans[Number(index)]);
+}
+
+/**
+ * Doc comments use paragraphs, `- ` lists, code spans and links, and nothing else. This keeps code
+ * spans plain, for the release notes, which render on the client.
+ */
+export const inlineMarkdown = (value: string) =>
+	inline(
+		value,
+		(source) =>
+			`<code class="Code MdCode${/^<\/?[a-z][a-z0-9-]*\s*\/?>$/.test(source) ? ' MdTag' : ''}" data-inline>${escape(source)}</code>`
+	);
+
+/** `codeInline`'s spans as HTML. They hold only text, wrapper classes and colors. */
+function toHtml(node: HastNode): string {
+	if (node.type === 'text') return node.value!;
+	const { className, style } = node.properties ?? {};
+	const attributes =
+		(className ? ` class="${(className as string[]).join(' ')}"` : '') +
+		(style ? ` style="${style}"` : '');
+	return `<span${attributes}>${node.children!.map(toHtml).join('')}</span>`;
+}
+
+/** A code span as `codeInline` highlights one in page prose. */
+async function highlightedCode(source: string): Promise<string> {
+	const { code, language } = codeLanguage(source);
+	const tokens = await highlightInline(code, language);
+	const open = `<code class="Code MdCode language-${language}"`;
+	return tokens
+		? `${open} data-inline>${toHast(tokens, escape).map(toHtml).join('')}</code>`
+		: `${open}>${escape(code)}</code>`;
+}
+
+/** Inline markdown with its code spans highlighted, as page prose is. */
+export async function highlightedMarkdown(value: string): Promise<string> {
+	const spans = await Promise.all(
+		[...value.matchAll(CODE)].map(([, source]) => highlightedCode(source))
+	);
+	return inline(value, () => spans.shift()!);
 }
 
 /** A description with its links reduced to their text, for meta tags and the search index. */
 export const plainText = (value: string) => value.replace(/\[([^\]]+)\]\([^)\s]+\)/g, '$1');
 
-function block(paragraph: string): string {
+async function block(paragraph: string): Promise<string> {
 	const lines = paragraph.split('\n');
 	const text = lines.filter((line) => !line.startsWith('- ')).join(' ');
-	const items = lines
-		.filter((line) => line.startsWith('- '))
-		.map((line) => `<li class="MdListItem">${inlineMarkdown(line.slice(2))}</li>`);
+	const items = await Promise.all(
+		lines
+			.filter((line) => line.startsWith('- '))
+			.map(
+				async (line) => `<li class="MdListItem">${await highlightedMarkdown(line.slice(2))}</li>`
+			)
+	);
 	return (
-		(text ? `<p class="MdP">${inlineMarkdown(text)}</p>` : '') +
+		(text ? `<p class="MdP">${await highlightedMarkdown(text)}</p>` : '') +
 		(items.length ? `<ul class="MdUl">${items.join('')}</ul>` : '')
 	);
 }
 
-const paragraphs = (value: string) => value.split('\n\n').filter(Boolean).map(block).join('');
+const paragraphs = async (value: string) =>
+	(await Promise.all(value.split('\n\n').filter(Boolean).map(block))).join('');
 
 /** Splits a type at its top-level `|`. */
 function unionMembers(type: string): string[] {
@@ -111,23 +161,23 @@ async function row(prop: ApiProp): Promise<ReferenceRow> {
 		type: await highlightType(prop.type),
 		default:
 			prop.default === undefined ? undefined : await highlightType(prop.default, { value: true }),
-		description: paragraphs(prop.description)
+		description: await paragraphs(prop.description)
 	};
 }
 
-const constant = ({ name, description }: ApiConstant): ReferenceConstant => ({
+const constant = async ({ name, description }: ApiConstant): Promise<ReferenceConstant> => ({
 	name,
-	description: inlineMarkdown(description)
+	description: await highlightedMarkdown(description)
 });
 
 export async function referencePart(part: ApiPart): Promise<ReferencePart> {
 	return {
 		name: part.name,
-		description: paragraphs(part.description),
+		description: await paragraphs(part.description),
 		props: await Promise.all(part.props.map(row)),
 		state: await Promise.all(part.state.map(row)),
-		dataAttributes: part.dataAttributes.map(constant),
-		cssVariables: part.cssVariables.map(constant),
+		dataAttributes: await Promise.all(part.dataAttributes.map(constant)),
+		cssVariables: await Promise.all(part.cssVariables.map(constant)),
 		empty: part.props.length
 			? undefined
 			: part.element

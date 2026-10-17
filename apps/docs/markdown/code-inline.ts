@@ -21,18 +21,21 @@ function tagClass(open: InlineToken, name: InlineToken | undefined) {
 	if (has(name, 'entity.name.tag')) return 'di-ht';
 }
 
-const span = (token: InlineToken): HastNode =>
-	token.color
-		? {
-				type: 'element',
-				tagName: 'span',
-				properties: { style: `color:${token.color}` },
-				children: [{ type: 'text', value: escape(token.content) }]
-			}
-		: { type: 'text', value: escape(token.content) };
+/**
+ * The tokens as hast, with each tag from its `<` to its `>` in one wrapper span. `text` escapes
+ * each token's content.
+ */
+export function toHast(tokens: InlineToken[], text = escape): HastNode[] {
+	const span = (token: InlineToken): HastNode =>
+		token.color
+			? {
+					type: 'element',
+					tagName: 'span',
+					properties: { style: `color:${token.color}` },
+					children: [{ type: 'text', value: text(token.content) }]
+				}
+			: { type: 'text', value: text(token.content) };
 
-/** The tokens as hast, with each tag from its `<` to its `>` in one wrapper span. */
-function toHast(tokens: InlineToken[]): HastNode[] {
 	const nodes: HastNode[] = [];
 	for (let index = 0; index < tokens.length; index++) {
 		const wrapper = tagClass(tokens[index], tokens[index + 1]);
@@ -68,7 +71,7 @@ function trim(tokens: InlineToken[], count: number, fromEnd = false) {
 	return fromEnd ? list.reverse() : list;
 }
 
-async function highlight(source: string, lang: string) {
+export async function highlightInline(source: string, lang: string) {
 	// A bare object such as `{ height: 400 }` reads as a block of labels, so it is highlighted as an expression.
 	const trimmed = source.trim();
 	const wrap = JS_LANGUAGES.has(lang) && trimmed.length >= 2 && /^\{[\s\S]*\}$/.test(trimmed);
@@ -96,7 +99,7 @@ export function codeInline() {
 				const properties = node.properties!;
 				const lang = /\blanguage-(\S+)/.exec(String(properties.class ?? ''))?.[1];
 				const source = decode((node.children ?? []).map((child) => child.value ?? '').join(''));
-				const tokens = lang && source && (await highlight(source, lang));
+				const tokens = lang && source && (await highlightInline(source, lang));
 				if (!tokens) return;
 				node.children = toHast(tokens);
 				properties['data-inline'] = '';
