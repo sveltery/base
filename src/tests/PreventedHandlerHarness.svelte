@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Field, NumberField, OTPField, Radio, RadioGroup, Tabs } from '#lib';
+	import { Checkbox, Field, NumberField, OTPField, Radio, RadioGroup, Switch, Tabs } from '#lib';
 
 	type Handler = (event: Event) => void;
 
@@ -11,7 +11,18 @@
 		onValueCommitted,
 		validationMode
 	}: {
-		part: 'field' | 'otp' | 'number' | 'radio' | 'tabs';
+		part:
+			| 'field'
+			| 'label'
+			| 'otp'
+			| 'number'
+			| 'scrub'
+			| 'checkbox'
+			| 'switch'
+			| 'radio'
+			| 'lone-radio'
+			| 'radio-group'
+			| 'tabs';
 		handlers?: Record<string, Handler>;
 		stepperHandlers?: Record<string, Handler>;
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any -- specs pass typed callbacks for the OTP and number roots
@@ -54,6 +65,63 @@
 			{...handlers}
 		/>
 	</RadioGroup>
+{:else if part === 'label'}
+	<Field.Root>
+		<Field.Label nativeLabel={false} {...handlers}>
+			{#snippet render(props)}
+				<span {...props}>Email</span>
+			{/snippet}
+		</Field.Label>
+		<Field.Control data-testid="control" />
+	</Field.Root>
+{:else if part === 'scrub'}
+	<NumberField.Root locale="en-US" defaultValue={0}>
+		<NumberField.ScrubArea
+			data-testid="scrub"
+			style="display: inline-block; width: 100px; height: 40px"
+			{...handlers}
+		/>
+		<NumberField.Input data-testid="control" />
+	</NumberField.Root>
+{:else if part === 'checkbox'}
+	<Field.Root data-testid="field">
+		<Checkbox.Root
+			aria-label="Check"
+			style="display: inline-block; width: 16px; height: 16px"
+			{...handlers}
+		/>
+	</Field.Root>
+	<button type="button">After</button>
+{:else if part === 'switch'}
+	<Field.Root data-testid="field">
+		<Switch.Root
+			aria-label="Toggle"
+			style="display: inline-block; width: 16px; height: 16px"
+			{...handlers}
+		/>
+	</Field.Root>
+	<button type="button">After</button>
+{:else if part === 'lone-radio'}
+	<Field.Root data-testid="field">
+		<Radio.Root
+			value="a"
+			aria-label="A"
+			style="display: inline-block; width: 16px; height: 16px"
+			{...handlers}
+		/>
+	</Field.Root>
+	<button type="button">After</button>
+{:else if part === 'radio-group'}
+	<Field.Root data-testid="field">
+		<RadioGroup defaultValue="a" {...handlers}>
+			<Radio.Root
+				value="a"
+				aria-label="A"
+				style="display: inline-block; width: 16px; height: 16px"
+			/>
+		</RadioGroup>
+	</Field.Root>
+	<button type="button">After</button>
 {:else if part === 'tabs'}
 	<Tabs.Root>
 		<Tabs.List activateOnFocus>

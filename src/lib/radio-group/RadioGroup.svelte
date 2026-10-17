@@ -15,6 +15,7 @@
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import { chain } from '../internal/mergeProps.js';
 	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
@@ -198,7 +199,6 @@
 	}
 
 	function handleFocusOut(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
-		onfocusout?.(event);
 		if (contains(event.currentTarget, event.relatedTarget)) return;
 		touched = false;
 		field.setTouched(true);
@@ -234,7 +234,7 @@
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 				...(describedBy ? { 'aria-describedby': describedBy } : {}),
 				...(field.valid === false && !disabled ? { 'aria-invalid': true as const } : {}),
-				onfocusout: handleFocusOut,
+				onfocusout: chain(handleFocusOut, onfocusout),
 				onkeydown: handleKeyDown,
 				onkeydowncapture: arrowsTouched,
 				[controlKey]: registration,

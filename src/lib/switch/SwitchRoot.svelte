@@ -10,6 +10,7 @@
 	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { dispatchClick } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
+	import { chain } from '../internal/mergeProps.js';
 	import {
 		createChangeEventDetails,
 		REASONS,
@@ -191,13 +192,11 @@
 		node?.focus();
 	}
 
-	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onfocus?.(event);
+	function handleFocus() {
 		focusOwner.set(true);
 	}
 
-	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onblur?.(event);
+	function handleBlur() {
 		const input = inputNode;
 		if (!input || disabled) return;
 		field.setTouched(true);
@@ -230,8 +229,8 @@
 			...(invalid ? { 'aria-invalid': true as const } : {}),
 			...elementProps,
 			onclick: handleClick,
-			onfocus: handleFocus,
-			onblur: handleBlur,
+			onfocus: chain(handleFocus, onfocus),
+			onblur: chain(handleBlur, onblur),
 			[rootKey]: registerRoot
 		}) as SwitchHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});

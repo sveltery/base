@@ -55,9 +55,9 @@
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
 		onclick?.(event);
-		if (closest(getTarget(event), 'button,input,select,textarea')) return;
-		if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
 		if (event.defaultPrevented) return;
+		if (closest(getTarget(event), 'button,input,select,textarea')) return;
+		if (event.detail > 1) event.preventDefault();
 		focusControl(event);
 	}
 
