@@ -12,7 +12,6 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
-	import { BoundControl, sourceNumber } from '../field/bound-control.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { clamp } from '../internal/clamp.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
@@ -23,14 +22,7 @@
 	import { asc } from './asc.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { setSliderContext } from './context.svelte.js';
-	import {
-		areArraysEqual,
-		ownerDocument,
-		activeElement,
-		contains,
-		error,
-		warn
-	} from '@sveltery/utils';
+	import { areArraysEqual, ownerDocument, activeElement, contains, warn } from '@sveltery/utils';
 	import { areValuesEqual } from './getSliderValue.js';
 	import { SliderRootModel } from './model.svelte.js';
 	import type { SliderRootProps, SliderRootState, SliderValue } from './types.js';
@@ -64,18 +56,9 @@
 	}: SliderRootProps = $props();
 
 	const field = useFieldContext();
-	// A bound Slider has one thumb. A source value that is not a number starts it at its default.
-	const bound = new BoundControl<SliderValue>(field, {
-		kind: 'range',
-		read: () => valueUnwrapped,
-		write: (next) => writeValue(next),
-		fromSource: (raw) => sourceNumber(raw) ?? defaultValue ?? min,
-		equals: areValuesEqual
-	});
-
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = bound.bound ? bound.initial(defaultValue ?? min) : defaultValue;
+	if (value === undefined) value = defaultValue;
 
 	const reading = useDirection();
 	const form = useFormContext();
@@ -88,7 +71,7 @@
 	);
 	const disabled = $derived(Boolean(field.disabled) || (disabledProp ?? false));
 	const name = $derived(field.name ?? nameProp ?? undefined);
-	const inputProps = $derived(bound.bound ? bound.inputProps() : name ? { name } : {});
+	const inputProps = $derived(name ? { name } : {});
 	const rootId = $derived(idProp || `base-ui-${uid}`);
 
 	function writeValue(next: SliderValue) {
@@ -147,14 +130,6 @@
 
 	onMount(() => {
 		model.hydrating = false;
-	});
-
-	$effect(() => {
-		if (!bound.bound || !Array.isArray(value)) return;
-		error(
-			'A Slider with several thumbs is inside a Field.Root bound to a form source.',
-			'A bound Slider submits one number, so give it a single value.'
-		);
 	});
 
 	$effect(() => {

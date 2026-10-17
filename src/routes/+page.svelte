@@ -58,9 +58,8 @@
 			SvelteKit and superforms integration, Svelte only:
 			<a href="/fixtures/form/remote">remote form</a>,
 			<a href="/fixtures/form/native">no SvelteKit</a>,
-			<a href="/fixtures/form/superforms">sveltekit-superforms</a>,
-			<a href="/fixtures/form/composite">composite controls</a>,
-			<a href="/fixtures/form/render">render snippet</a>
+			<a href="/fixtures/form/action">form action</a>,
+			<a href="/fixtures/form/superforms">sveltekit-superforms</a>
 		</li>
 		<li>
 			<a href="/fixtures/toggle-group">ToggleGroup</a> (add <code>&amp;reference</code> for React Base

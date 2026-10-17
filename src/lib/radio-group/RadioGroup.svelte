@@ -20,14 +20,12 @@
 	import { fieldValidityMapping } from '../field/attributes.js';
 	import { isEligibleInput } from '../field/validity.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
-	import { serializeValue } from '../internal/serializeValue.js';
 	import type { RadioRootChangeEventDetails } from '../radio/types.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
 
@@ -74,28 +72,9 @@
 		keydown: 'root'
 	});
 
-	/**
-	 * The radio whose serialized value a source holds, so a bound group keeps non-string values.
-	 * Before the radios register, the source's value is kept as is.
-	 */
-	function optionFor(raw: unknown): unknown {
-		for (const element of roving.elements) {
-			const option = roving.meta(element)?.value;
-			if (option !== undefined && serializeValue(option) === raw) return option;
-		}
-		return raw;
-	}
-
-	const bound = new BoundControl<unknown>(field, {
-		kind: 'radio',
-		read: () => checkedValue,
-		write: (next) => selection.set(next),
-		fromSource: optionFor
-	});
-
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = bound.initial(defaultValue);
+	if (value === undefined) value = defaultValue;
 
 	let touched = $state(false);
 

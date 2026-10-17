@@ -799,28 +799,20 @@ This should be an object with field names as keys, and an error string or array 
 </Form>
 ```
 
-When using [SvelteKit form actions](https://svelte.dev/docs/kit/form-actions) you can return server-side errors from `fail()` and pass the page's `form?.errors` to the `errors` prop. A complete example is available [here](/handbook/sveltekit#connect-a-form-action). A SvelteKit [remote form](/handbook/sveltekit#bind-a-sveltekit-remote-form) goes to the `form` prop of `<Form>` instead, and needs no `errors`.
+When using [SvelteKit form actions](https://svelte.dev/docs/kit/form-actions) you can return server-side errors from `fail()` and pass the page's `form?.errors` to the `errors` prop. [Connect a form action](/handbook/sveltekit#connect-a-form-action) has a complete example.
 
 ```svelte title="Returning errors from a form action"
 <!-- src/routes/login/+page.svelte -->
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { fromAction } from 'svelte/attachments';
-	import { Form, isSubmitBlocked } from '@sveltery/base/form';
+	import { Form } from '@sveltery/base/form';
 	import { Field } from '@sveltery/base/field';
 
 	// @highlight-text "form"
 	let { form } = $props();
 </script>
 
-<Form
-	method="POST"
-	// @highlight-text "form" "errors"
-	errors={form?.errors}
-	{@attach fromAction(enhance, () => ({ formElement, cancel }) => {
-		if (isSubmitBlocked(formElement)) cancel();
-	})}
->
+<!-- @highlight-text "form" "errors" -->
+<Form method="POST" errors={form?.errors}>
 	<Field.Root name="password">
 		<Field.Control />
 		<Field.Error />
@@ -1510,18 +1502,7 @@ Attach the `enhance` action to `<Form>` with `fromAction`, and handle the valida
 <Form {@attach fromAction(enhance)} />
 ```
 
-Without `SPA`, Superforms posts the form to your form action. It skips its own validation on submit, because `<Form>` sets `novalidate`, and it posts a submit that `<Form>` blocked. Cancel that submit in `onSubmit`:
-
-```ts
-import { isSubmitBlocked } from '@sveltery/base/form';
-
-const { form, errors, tainted, enhance } = superForm(data.form, {
-	validators: adapter,
-	onSubmit: ({ formElement, cancel }) => {
-		if (isSubmitBlocked(formElement)) cancel();
-	}
-});
-```
+Superforms does not check whether `<Form>` blocked the submit. With `SPA: true`, it runs `onUpdate` on every submit, and `form.valid` reflects only the schema. Put every rule in the schema, not in native constraints or a `validate` prop, so that the schema and `<Form>` block the same submits. Without `SPA`, Superforms skips its own validation, because `<Form>` sets `novalidate`. It then posts the form to your form action even when `<Form>` blocked the submit, so validate the data in the action with `superValidate`.
 
 ## TanStack Form
 

@@ -1,6 +1,5 @@
 // Form's submit gate and the events non-native controls fire on their named inputs.
-// Base UI blocks an invalid submit with `preventDefault()` in a bubble listener and its
-// composites fire no events on their hidden inputs, so these cases follow HTML instead.
+// Base UI's composites fire no events on their hidden inputs, so those cases follow HTML instead.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -29,45 +28,31 @@ function submits() {
 	return page.getByTestId('submits').element().textContent;
 }
 
-function blocked() {
-	return page.getByTestId('blocked').element().textContent;
-}
-
 describe('submit gate', () => {
-	it('prevents an invalid submit and still runs a later submit listener', async () => {
+	it('prevents an invalid submit before `onsubmit` runs', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
 		await page.getByRole('button', { name: 'Submit' }).click();
 		await expect.element(page.getByTestId('control')).toHaveFocus();
-		expect(submits()).toBe('[true]');
+		expect(submits()).toBe('[]');
 
 		await page.getByTestId('control').fill('a@b.c');
 		await page.getByRole('button', { name: 'Submit' }).click();
-		await expect.poll(submits).toBe('[true,false]');
-	});
-
-	it('lets a formnovalidate submitter skip validation', async () => {
-		render(FormEventsHarness, { scenario: 'gate' });
-		await page.getByRole('button', { name: 'Skip validation' }).click();
 		await expect.poll(submits).toBe('[false]');
-		await expect.element(page.getByTestId('control')).not.toHaveAttribute('data-invalid');
 	});
 
-	it('tells a later submit listener whether it blocked this submit', async () => {
+	it('validates when the submitter has formnovalidate, as upstream does', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
-		const submit = page.getByRole('button', { name: 'Submit' });
-		await submit.click();
-		await expect.poll(blocked).toBe('[true]');
-		await page.getByTestId('control').fill('a@b.c');
-		await submit.click();
-		await expect.poll(blocked).toBe('[true,false]');
-		await page.getByTestId('control').fill('');
-		await submit.click();
-		await expect.poll(blocked).toBe('[true,false,true]');
-		await page.getByRole('button', { name: 'Skip validation' }).click();
-		await expect.poll(blocked).toBe('[true,false,true,false]');
+		const form = page.getByTestId('form').element() as HTMLFormElement;
+		const skip = document.createElement('button');
+		skip.type = 'submit';
+		skip.formNoValidate = true;
+		form.append(skip);
+		skip.click();
+		await expect.element(page.getByTestId('control')).toHaveAttribute('data-invalid');
+		expect(submits()).toBe('[]');
 	});
 
-	it('sets novalidate once mounted', async () => {
+	it('renders novalidate', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
 		await expect.element(page.getByTestId('form')).toHaveAttribute('novalidate');
 	});

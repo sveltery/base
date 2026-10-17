@@ -21,7 +21,6 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
-	import { nativeType } from '../form/source.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
@@ -201,30 +200,7 @@
 		field.commit(event.currentTarget.value);
 	}
 
-	// A bound field's source supplies the encoded name, `type` and value. Base owns `aria-invalid`.
-	const bound = $derived.by(() => {
-		const binding = field.binding;
-		if (!binding) return undefined;
-		const props = binding.as(nativeType(field.controlType ?? 'text'), defaultValue ?? undefined);
-		// Copy the getters, not their values. Reading `aria-invalid` would track every issue, and
-		// `value` is written by `syncValue`.
-		const descriptors = Object.getOwnPropertyDescriptors(props);
-		delete descriptors['aria-invalid'];
-		delete descriptors.value;
-		return {
-			props: Object.defineProperties({}, descriptors) as Record<string, unknown>,
-			value: () => (props as Record<string, unknown>).value
-		};
-	});
-
-	/** The value the element shows: the source's when bound, else `value`. */
-	const shownValue = $derived.by(() => {
-		if (bound) {
-			const boundValue = bound.value();
-			return boundValue === undefined ? undefined : textValue(boundValue as string);
-		}
-		return value != null ? textValue(value) : undefined;
-	});
+	const shownValue = $derived(value != null ? textValue(value) : undefined);
 
 	// Assigning `value` makes the browser forget that the user typed it, which turns off
 	// `minlength` and `maxlength` checks, so the client writes it only when it differs, like
@@ -252,7 +228,6 @@
 			: {}),
 		...(defaultValue != null ? { defaultValue: textValue(defaultValue) } : {}),
 		...(!BROWSER && shownValue !== undefined ? { value: shownValue } : {}),
-		...bound?.props,
 		onfocus: chain(() => focusOwner.set(true), onfocus),
 		onblur: chain(handleBlur, onblur),
 		onkeydown: chain(handleKeyDown, onkeydown),

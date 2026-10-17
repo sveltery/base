@@ -22,7 +22,6 @@
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { BoundControl, sourceBoolean } from '../field/bound-control.svelte.js';
 	import {
 		AriaLabelledBy,
 		LabelableId,
@@ -63,18 +62,9 @@
 	const readOnly = $derived(readOnlyProp ?? false);
 	const required = $derived(requiredProp ?? false);
 
-	const bound = new BoundControl(field, {
-		kind: 'switch',
-		read: () => checked === true,
-		write: (next) => {
-			checked = next;
-		},
-		fromSource: sourceBoolean
-	});
-
 	// `defaultChecked` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (checked === undefined) checked = bound.initial(defaultChecked);
+	if (checked === undefined) checked = defaultChecked;
 
 	// Two ids: the root's generated id, and the control id on the hidden input
 	// (or on the root when nativeButton is set). An explicit id replaces the control id.
@@ -88,10 +78,8 @@
 	const rootId = $derived(nativeButton ? controlId.current : generatedRootId);
 	const disabled = $derived(field.disabled || (disabledProp ?? false));
 	const name = $derived(field.name ?? nameProp ?? undefined);
-	// Inside a bound Field the source encodes the name.
-	const boundProps = $derived(bound.inputProps());
-	const inputName = $derived(bound.bound ? boundProps.name : name);
-	const submittedValue = $derived(bound.bound ? boundProps : value !== undefined ? { value } : {});
+	const inputName = $derived(name);
+	const submittedValue = $derived(value !== undefined ? { value } : {});
 
 	const checkedState = $derived(checked === true);
 	const switchState: SwitchRootState = $derived({

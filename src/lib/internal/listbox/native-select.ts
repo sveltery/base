@@ -1,6 +1,6 @@
 // The hidden `<select multiple>` that submits a multiple select's values. No Base UI
 // equivalent: upstream renders one hidden input per value. A select stays in the form when no
-// value is selected, so a form source still hears the edit that cleared it.
+// value is selected, so a form library listening on the form still hears the edit that cleared it.
 // Shared by Select and Combobox.
 
 /** Whether two lists hold the same strings in the same order. */
