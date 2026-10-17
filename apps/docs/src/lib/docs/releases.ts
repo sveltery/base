@@ -1,6 +1,17 @@
 /** Sveltery Base releases, newest first. Highlights take code spans and links. */
 export const releases = [
 	{
+		version: 'v0.2.1',
+		date: '2026-10-17',
+		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.2.1',
+		highlights: [
+			'`ScrollArea` and `Select` insert one shared scrollbar-hiding `<style>` into the head, as Base UI does, instead of one inline copy per instance.',
+			'`Slider.Thumb` and `Tabs.Indicator` remove their prehydration script once mounted, so hydrated pages keep no `<script>` in them.',
+			'A closed positioner keeps its measured CSS variables, and `Select` clears only its aligned styles on close, as in Base UI.',
+			'A mouse press opens a popup after the press frame paints, so `Select` shows the selected item highlighted in its first painted frame.'
+		]
+	},
+	{
 		version: 'v0.2.0',
 		date: '2026-10-17',
 		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.2.0',
