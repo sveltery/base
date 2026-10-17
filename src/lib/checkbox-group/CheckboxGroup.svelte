@@ -14,7 +14,6 @@
 	import { fieldValidityMapping } from '../field/attributes.js';
 	import { isEligibleInput } from '../field/validity.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
@@ -46,19 +45,9 @@
 	const EMPTY: string[] = [];
 
 	const field = useFieldContext();
-	const bound = new BoundControl<string[]>(field, {
-		kind: 'checkbox',
-		read: () => currentValue(),
-		write: (next) => {
-			value = next;
-		},
-		fromSource: (raw) => (Array.isArray(raw) ? raw.map(String) : []),
-		equals: areArraysEqual
-	});
-
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = bound.bound ? bound.initial(defaultValue ?? []) : defaultValue;
+	if (value === undefined) value = defaultValue;
 	const formContext = useFormContext();
 	const labelable = useLabelableContext();
 	const disabled = $derived(field.disabled || (disabledProp ?? false));

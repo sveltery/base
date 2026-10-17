@@ -23,13 +23,13 @@
 	import { clamp } from '../internal/clamp.js';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
 	import { toCssStyle } from '../internal/css-style.js';
-	import { useCSPContext } from '../internal/csp-context.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { SCROLL_EDGE_TOLERANCE_PX } from '../internal/scrollEdges.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { DISABLE_SCROLLBAR_CLASS, DISABLE_SCROLLBAR_CSS } from '../internal/styles.js';
+	import DisableScrollbarStyle from '../internal/DisableScrollbarStyle.svelte';
+	import { DISABLE_SCROLLBAR_CLASS } from '../internal/styles.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
 	import { useSelectPositioner, useSelectRoot } from './context.svelte.js';
 	import {
@@ -50,7 +50,6 @@
 	const store = useSelectRoot();
 	const positioner = useSelectPositioner();
 	const direction = useDirection();
-	const csp = useCSPContext();
 	const bindKey = createAttachmentKey();
 	const scrollArrowFrame = new ScopedAnimationFrame();
 
@@ -158,7 +157,7 @@
 		if (store.open || positioner.alignItemWithTriggerActive) return;
 		initialPlaced = false;
 		reachedMaxHeight = false;
-		untrack(() => store.clearAlignedStyles());
+		untrack(() => store.clearAlignedPositionerStyles());
 	});
 
 	$effect(() => {
@@ -294,7 +293,7 @@
 			const isPinchZoomed = (win.visualViewport?.scale ?? 1) !== 1 && platform.engine.webkit;
 
 			if (fallbackToAlignPopupToTrigger || isPinchZoomed) {
-				store.clearAlignedStyles();
+				store.clearAlignedPositionerStyles();
 				positioner.disableAlignItemWithTrigger();
 				return;
 			}
@@ -356,6 +355,7 @@
 		store.popupElement = node;
 		return () => {
 			if (store.popupElement === node) store.popupElement = null;
+			store.alignedPopupStyle = {};
 		};
 	}
 
@@ -434,9 +434,7 @@
 	}
 </script>
 
-{#if csp.disableStyleElements !== true}
-	<svelte:element this={"style"} nonce={csp.nonce}>{DISABLE_SCROLLBAR_CSS}</svelte:element>
-{/if}
+<DisableScrollbarStyle node={store.popupElement} />
 <FloatingFocusManager
 	{store}
 	modal={false}

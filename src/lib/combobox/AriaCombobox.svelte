@@ -25,7 +25,6 @@
 		visuallyHiddenInput
 	} from '@sveltery/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
@@ -298,50 +297,20 @@
 		readInputProps: () => inputProps,
 		// The default value is what a native reset restores, before the restore phase runs.
 		readInputFormProps: () =>
-			inputOwnsFormValue
-				? { name: submitName, defaultValue: serializedDefault, ...boundProps }
-				: {},
+			inputOwnsFormValue ? { name: submitName, defaultValue: serializedDefault } : {},
 		readPopupProps: () => popupProps,
 		readListProps: () => listProps,
 		readItemProps: () => itemProps
 	});
 	setComboboxRoot(store);
 
-	/** The item value a source value names, so a bound combobox keeps non-string values. */
-	function optionFor(raw: unknown): unknown {
-		const key = serialize(raw);
-		return store.values.find((item) => serialize(item) === key) ?? raw;
-	}
-
-	// svelte-ignore state_referenced_locally
-	const bound = new BoundControl<unknown>(field, {
-		kind:
-			selectionMode === 'none'
-				? 'text'
-				: selectionMode === 'multiple'
-					? 'select multiple'
-					: 'select',
-		read: () => fieldRawValue,
-		write: (next) => {
-			if (selectionMode === 'none') inputValue = String(next ?? '');
-			else selection.set(next);
-		},
-		fromSource: (raw) => {
-			if (selectionMode === 'none') return raw == null ? '' : String(raw);
-			if (multiple) return Array.isArray(raw) ? raw.map(optionFor) : [];
-			return raw == null ? null : optionFor(raw);
-		},
-		equals: (a, b) => (Array.isArray(a) && Array.isArray(b) ? sameStrings(a, b) : Object.is(a, b))
-	});
-
 	// `defaultSelectedValue` is the initial value of an empty binding, as in HTML.
 	untrack(() => {
 		if (selectionMode === 'none') {
-			if (inputValue === undefined) inputValue = String(bound.initial(defaultInputValue ?? ''));
+			if (inputValue === undefined) inputValue = defaultInputValue ?? '';
 			return;
 		}
-		if (selectedValue === undefined)
-			selection.set(bound.initial(defaultSelectedValue ?? emptyValue()));
+		if (selectedValue === undefined) selection.set(defaultSelectedValue ?? emptyValue());
 		if (inputValue === undefined) {
 			inputValue = hasInputValue
 				? (defaultInputValue ?? '')
@@ -574,7 +543,6 @@
 		}
 	});
 
-	const boundProps = $derived(bound.inputProps());
 	// The server renders no popup input, so until the input registers, the rendered input owns
 	// the value and the server HTML names one control at most.
 	let hydrated = $state(false);
@@ -585,7 +553,7 @@
 	const inputOwnsFormValue = $derived(
 		selectionMode === 'none' && (inline || !hydrated || !store.inputInsidePopup)
 	);
-	const submitName = $derived(bound.bound ? boundProps.name : name);
+	const submitName = $derived(name);
 	const hiddenInputName = $derived(multiple || inputOwnsFormValue ? undefined : submitName);
 	const serializedValue = $derived(Array.isArray(fieldRawValue) ? '' : serialize(fieldRawValue));
 	const serializedDefault = $derived.by(() => {
@@ -672,7 +640,6 @@
 	aria-describedby={describedBy}
 	onfocus={focusControl}
 	oninput={handleAutofill}
-	{...multiple || inputOwnsFormValue ? {} : boundProps}
 />
 {#if multiple && submitName}
 	<select
@@ -684,7 +651,6 @@
 		name={submitName}
 		form={formId}
 		{disabled}
-		{...boundProps as Record<string | symbol, unknown>}
 	>
 		{#each submitOptions as serialized (serialized)}
 			<option value={serialized} selected={serializedDefaults.includes(serialized)}

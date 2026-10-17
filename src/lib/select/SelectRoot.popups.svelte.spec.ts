@@ -227,8 +227,9 @@ describe('Select.Root', () => {
 			const after = page.getByTestId('after').element() as HTMLElement;
 			element.focus();
 			flushSync(() => element.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })));
-			// The press opens on the next frame, and the item's focus is queued for the frame after.
+			// The press opens in a task after the next frame, and the item's focus is queued for the frame after.
 			await nextFrame();
+			await new Promise((resolve) => setTimeout(resolve));
 			expect(element.getAttribute('aria-expanded')).toBe('true');
 
 			after.focus();

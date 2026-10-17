@@ -14,6 +14,15 @@ function labelProps(props: FixtureProps<ComponentProps<typeof Slider.Label>>) {
 function valueProps(props: FixtureProps<ComponentProps<typeof Slider.Value>>) {
 	return props;
 }
+function trackProps(props: FixtureProps<ComponentProps<typeof Slider.Track>>) {
+	return props as ComponentProps<typeof Slider.Track>;
+}
+function indicatorProps(props: FixtureProps<ComponentProps<typeof Slider.Indicator>>) {
+	return props as ComponentProps<typeof Slider.Indicator>;
+}
+function thumbProps(props: FixtureProps<ComponentProps<typeof Slider.Thumb>>) {
+	return props as ComponentProps<typeof Slider.Thumb>;
+}
 function controlProps(props: FixtureProps<ComponentProps<typeof Slider.Control>>) {
 	return props as ComponentProps<typeof Slider.Control>;
 }
@@ -65,6 +74,24 @@ export function mountSliderReference(node: HTMLElement, scenario: SliderCase, on
 				Slider.Root,
 				rootProps({ locale: 'en-US', defaultValue: 30, disabled: true, 'data-testid': 'root' }),
 				h(Slider.Control, null, h(Slider.Thumb))
+			);
+		}
+		if (scenario === 'edge') {
+			const thumbStyle = { width: 20, height: 20 };
+			return h(
+				Slider.Root,
+				rootProps({ locale: 'en-US', defaultValue: [20, 70], thumbAlignment: 'edge' }),
+				h(
+					Slider.Control,
+					controlProps({ 'data-testid': 'control', style: { width: 200, height: 20 } }),
+					h(
+						Slider.Track,
+						trackProps({ style: { height: '100%' } }),
+						h(Slider.Indicator, indicatorProps({ 'data-testid': 'indicator' })),
+						h(Slider.Thumb, thumbProps({ index: 0, 'data-testid': 'thumb', style: thumbStyle })),
+						h(Slider.Thumb, thumbProps({ index: 1, 'data-testid': 'thumb', style: thumbStyle }))
+					)
+				)
 			);
 		}
 		return h(

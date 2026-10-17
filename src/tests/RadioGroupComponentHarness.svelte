@@ -14,6 +14,7 @@
 		| 'plain'
 		| 'initial'
 		| 'disabled'
+		| 'disabled-checked'
 		| 'readonly'
 		| 'required'
 		| 'cancel'
@@ -272,6 +273,11 @@
 			</form>
 		{:else if scenario === 'initial'}
 			<InitialColorGroup />
+		{:else if scenario === 'disabled-checked'}
+			<RadioGroup aria-label="Colors" defaultValue="b" disabled>
+				<Radio.Root value="a">A</Radio.Root>
+				<Radio.Root value="b">B</Radio.Root>
+			</RadioGroup>
 		{:else}
 			<RadioGroup
 				aria-label="Colors"

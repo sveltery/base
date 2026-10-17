@@ -1,6 +1,4 @@
 import { Form } from '@sveltery/base/form';
-import { createMultipleTypes } from '#lib/docs/create-types.ts';
+import { createTypes } from '#lib/docs/create-types.ts';
 
-const { types } = createMultipleTypes(import.meta.url, Form);
-
-export const TypesForm = types;
+export const TypesForm = createTypes(import.meta.url, Form);

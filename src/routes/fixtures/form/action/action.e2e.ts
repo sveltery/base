@@ -1,15 +1,16 @@
-// Scenario 2: a SvelteKit form action with `use:enhance`, wired as the Forms handbook shows.
+// Scenario 2: a SvelteKit form action posted natively, wired as the Forms handbook shows.
 import { expect, test, type Page } from '@playwright/test';
 import { control, countPosts, debug, error, field, open } from '../shared/helpers.js';
 
 const url = '/fixtures/form/action';
 const submit = (page: Page) => page.getByRole('button', { name: 'Sign up' });
 
-test('use:enhance sends no request for a submit Form blocked, then posts a valid one', async ({
+test('Form blocks an invalid native post, and shows the action errors from `errors`', async ({
 	page
 }) => {
 	const posts = countPosts(page);
 	const errors = await open(page, url);
+	await expect(page.locator('form')).toHaveAttribute('novalidate', '');
 	await submit(page).click();
 	await expect(control(page, 'email')).toBeFocused();
 	await expect(field(page, 'email')).toHaveAttribute('data-invalid', '');
@@ -20,9 +21,11 @@ test('use:enhance sends no request for a submit Form blocked, then posts a valid
 	await control(page, 'name').fill('A');
 	await submit(page).click();
 	await expect(error(page, 'name')).toHaveText('Use at least 2 characters');
-	await expect(control(page, 'name')).toBeFocused();
+	await expect(field(page, 'name')).toHaveAttribute('data-invalid', '');
+	await expect(control(page, 'email')).toHaveValue('ada@example.com');
 	expect(posts).toHaveLength(1);
 
+	// Base UI clears an `errors` entry once its field changes.
 	await control(page, 'name').fill('Ada');
 	await expect(error(page, 'name')).toHaveCount(0);
 	await submit(page).click();

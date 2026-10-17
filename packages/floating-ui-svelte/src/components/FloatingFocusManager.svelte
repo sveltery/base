@@ -200,10 +200,21 @@
 		(target ?? floating).focus();
 	}
 
+	let ownGuards = $state.raw<HTMLElement[]>([]);
+
+	function trackGuard(node: HTMLElement) {
+		ownGuards = [...untrack(() => ownGuards), node];
+		return () => {
+			ownGuards = untrack(() => ownGuards).filter((guard) => guard !== node);
+		};
+	}
+
 	function bindInsideGuard(key: 'beforeInside' | 'afterInside') {
 		return (node: HTMLElement) => {
 			if (portal) portal.guards[key] = node;
+			const untrackGuard = trackGuard(node);
 			return () => {
+				untrackGuard();
 				if (portal?.guards[key] === node) portal.guards[key] = null;
 			};
 		};
@@ -492,9 +503,7 @@
 		const nested = untrack(() =>
 			tree && store.nodeId ? getNodeChildren(tree.nodes, store.nodeId) : []
 		);
-		const inside = [floating, store.portalElement].filter(
-			(element): element is HTMLElement => !!element
-		);
+		const inside = [floating];
 		for (const node of nested) {
 			const context = node.context;
 			if (!context) continue;
@@ -509,11 +518,19 @@
 
 	// Marking does not read `closeOnFocusOut`. Changing it must not hide outside nodes again.
 	$effect(() => {
+		// A moved portal leaves the old marks on its new container.
+		void store.portalElement;
 		if (disabled || !store.isOpen()) return;
 		const floating = store.floatingElement;
 		if (!floating) return;
 		const inside = markedInside(floating);
-		const exposed = [...inside, ...insideElements()];
+		const outsideGuards = [portal?.guards.beforeOutside, portal?.guards.afterOutside];
+		const exposed = [
+			...inside,
+			...ownGuards,
+			...outsideGuards.filter((guard) => guard != null),
+			...insideElements()
+		];
 		if (untrappedCombobox && store.domReferenceElement) exposed.push(store.domReferenceElement);
 		const hideOutside =
 			modal || untrappedCombobox
@@ -763,6 +780,7 @@
 			const floating = store.floatingElement;
 			if (floating) focusEdge(floating, 'last');
 		}}
+		attach={trackGuard}
 	/>
 {/if}
 {#if portaled && !modal && guarded}
@@ -779,5 +797,6 @@
 			const floating = store.floatingElement;
 			if (floating) focusEdge(floating, 'first');
 		}}
+		attach={trackGuard}
 	/>
 {/if}

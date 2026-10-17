@@ -1,10 +1,10 @@
 <!--
 	Groups all parts of the field. Renders a `<div>` element.
-	Derived from Base UI v1.8.0 packages/react/src/field/root/FieldRoot.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.9.0 packages/react/src/field/root/FieldRoot.tsx
+	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	`validate` is an export. Bind the root with `bind:this`.
 -->
-<script lang="ts" generics="F extends FieldHandle = FieldHandle">
+<script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFormContext } from '../internal/form-context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
@@ -17,7 +17,6 @@
 		useLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
 	import { FieldRootModel } from './model.svelte.js';
-	import type { FieldHandle } from '../form/source.js';
 	import type { FieldRootProps, FieldRootState } from './types.js';
 
 	const uid = $props.id();
@@ -25,8 +24,6 @@
 	let {
 		disabled,
 		name,
-		field: fieldProp,
-		type,
 		validate: validateProp,
 		validationMode,
 		validationDebounceTime = 0,
@@ -36,7 +33,7 @@
 		render,
 		children,
 		...elementProps
-	}: FieldRootProps<F> = $props();
+	}: FieldRootProps = $props();
 
 	const form = useFormContext();
 	const fieldset = findFieldsetRootContext();
@@ -55,9 +52,7 @@
 		getTouchedProp: () => touched,
 		getValidationModeProp: () => validationMode,
 		getValidationDebounceTime: () => validationDebounceTime,
-		getValidate: () => validateProp,
-		getField: () => fieldProp,
-		getControlType: () => type
+		getValidate: () => validateProp
 	});
 	setFieldContext(field);
 

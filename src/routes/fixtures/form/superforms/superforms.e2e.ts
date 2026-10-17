@@ -1,6 +1,6 @@
 // Scenario 5: sveltekit-superforms owns values and errors, Base shows its state.
 import { expect, test } from '@playwright/test';
-import { control, countPosts, debug, error, field, open } from '../shared/helpers.js';
+import { control, debug, error, field, open } from '../shared/helpers.js';
 
 test('superforms errors reach the Fields, and a valid submit saves the values', async ({
 	page
@@ -62,31 +62,5 @@ test('superforms validates an Autocomplete input on blur, before any submit', as
 	await expect(error(page, 'city')).toHaveText('At least 3 characters');
 	await expect(control(page, 'city')).toHaveAttribute('aria-invalid', 'true');
 	await expect(error(page, 'username')).toHaveCount(0);
-	expect(errors).toEqual([]);
-});
-
-test('superforms with a form action sends no request for a submit Form blocked', async ({
-	page
-}) => {
-	const posts = countPosts(page);
-	const errors = await open(page, '/fixtures/form/superforms/server');
-	await page.getByRole('button', { name: 'Submit' }).click();
-	await expect(control(page, 'email')).toBeFocused();
-	await expect(field(page, 'email')).toHaveAttribute('data-invalid', '');
-	expect(posts).toEqual([]);
-
-	// Native validation passes, and Superforms' client validator marks the Field invalid on blur.
-	await control(page, 'email').fill('a@b');
-	await control(page, 'email').blur();
-	await expect(error(page, 'email')).toHaveText('Invalid email address');
-	await page.getByRole('button', { name: 'Submit' }).click();
-	await expect(control(page, 'email')).toBeFocused();
-	expect(posts).toEqual([]);
-
-	await control(page, 'email').fill('ok@example.com');
-	await expect(error(page, 'email')).toHaveCount(0);
-	await page.getByRole('button', { name: 'Submit' }).click();
-	await expect.poll(() => debug(page)).toEqual({ saved: { email: 'ok@example.com' } });
-	expect(posts).toHaveLength(1);
 	expect(errors).toEqual([]);
 });

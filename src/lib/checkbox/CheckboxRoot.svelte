@@ -27,12 +27,6 @@
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { useFieldItemContext } from '../field/item-context.js';
 	import {
-		BoundControl,
-		boundInputProps,
-		sourceBoolean,
-		type BoundInputProps
-	} from '../field/bound-control.svelte.js';
-	import {
 		AriaLabelledBy,
 		LabelableId,
 		useLabelableContext
@@ -79,21 +73,9 @@
 	const readOnly = $derived(readOnlyProp ?? false);
 	const required = $derived(requiredProp ?? false);
 
-	// In a group, the group binds the value.
-	const bound = group
-		? undefined
-		: new BoundControl(field, {
-				kind: 'checkbox',
-				read: () => checked === true,
-				write: (next) => {
-					checked = next;
-				},
-				fromSource: sourceBoolean
-			});
-
 	// `defaultChecked` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (checked === undefined) checked = bound?.initial(defaultChecked) ?? defaultChecked;
+	if (checked === undefined) checked = defaultChecked;
 
 	const generatedRootId = $derived('base-ui-' + uid);
 	const generatedControlId = $derived(`base-ui-${uid}-control`);
@@ -123,13 +105,7 @@
 	const isDisabled = $derived(
 		field.disabled || fieldItem.disabled || Boolean(group?.disabled) || disabled
 	);
-	// Inside a bound Field the source encodes the name, and a group item's value.
-	const boundProps: BoundInputProps = $derived.by(() => {
-		if (parent) return {};
-		if (!group) return bound?.inputProps() ?? {};
-		return identified === undefined ? {} : boundInputProps(field.binding, 'checkbox', identified);
-	});
-	const inputName = $derived(parent ? undefined : field.binding ? boundProps.name : name);
+	const inputName = $derived(parent ? undefined : name);
 
 	const checkboxState: CheckboxRootState = $derived({
 		...field.state,
@@ -214,8 +190,6 @@
 	);
 	let uncheckedNode = $state<HTMLInputElement | null>(null);
 	const submittedValue = $derived.by(() => {
-		// The binding's props carry the option value and any attachment the source adds.
-		if (field.binding) return boundProps;
 		if (value === undefined) return {};
 		// Inside a group an unticked checkbox submits an empty value attribute.
 		if (group) return { value: (isChecked && value) || '' };

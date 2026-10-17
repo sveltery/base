@@ -51,7 +51,9 @@ async function dialogs(count: number) {
 }
 
 function internalBackdrop() {
-	return document.querySelector('[data-base-ui-portal] [role="presentation"][data-base-ui-inert]');
+	return document.querySelector(
+		'[data-base-ui-portal] [role="presentation"][data-base-ui-inert]:not([data-open])'
+	);
 }
 
 async function openDialog() {
@@ -117,6 +119,17 @@ describe('Dialog', () => {
 		await expect.element(close).toHaveFocus();
 		await userEvent.keyboard('{Tab}');
 		await expect.element(inside).toHaveFocus();
+	});
+
+	it('hides and marks the backdrop of an open modal dialog', async () => {
+		render(DialogHarness);
+		await openDialog();
+		const backdrop = document.querySelector(
+			'[data-base-ui-portal] > [role="presentation"][data-open]'
+		);
+		if (!(backdrop instanceof HTMLElement)) throw new Error('missing backdrop');
+		expect(backdrop.getAttribute('aria-hidden')).toBe('true');
+		expect(backdrop.hasAttribute('data-base-ui-inert')).toBe(true);
 	});
 
 	it('closes a modal dialog on backdrop click and not on pointerdown', async () => {

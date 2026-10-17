@@ -51,9 +51,7 @@ export const DEFAULT_FIELD_ROOT_CONTEXT: FieldContext = {
 	registerInput: () => inert,
 	registeredInputs: new Map(),
 	change: inert,
-	commit: inert,
-	binding: undefined,
-	controlType: undefined
+	commit: inert
 };
 
 export const [useFieldContext, setFieldContext, needFieldContext] =

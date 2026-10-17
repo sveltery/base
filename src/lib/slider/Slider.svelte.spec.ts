@@ -570,17 +570,14 @@ describe('<Slider />', () => {
 			expect(first.style.zIndex).toBe('');
 		});
 
-		it('renders the prehydration script only for edge alignment on the last thumb', async () => {
+		it('marks the control for the prehydration script only for edge alignment', async () => {
 			render(SliderHarness, { defaultValue: [20, 40], thumbCount: 2, thumbAlignment: 'edge' });
 			expect(control().hasAttribute('data-base-ui-slider-control')).toBe(true);
-			expect(page.getByTestId('thumb-0').element().querySelector('script')).toBeNull();
-			expect(page.getByTestId('thumb-1').element().querySelector('script')).not.toBeNull();
 		});
 
-		it('omits the prehydration script for center and edge-client-only alignment', async () => {
+		it('leaves the control unmarked for edge-client-only alignment', async () => {
 			render(SliderHarness, { defaultValue: 20, thumbAlignment: 'edge-client-only' });
 			expect(control().hasAttribute('data-base-ui-slider-control')).toBe(false);
-			expect(page.getByTestId('thumb').element().querySelector('script')).toBeNull();
 		});
 	});
 

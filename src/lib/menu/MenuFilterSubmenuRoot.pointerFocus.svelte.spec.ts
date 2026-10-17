@@ -9,9 +9,11 @@ import MenuHarness from '../../tests/menu/MenuHarness.svelte';
 import { mouse, pointer } from '../../tests/menu/mouse.js';
 import { items } from '../../tests/menu/types.js';
 
+// A press opens in a task after the frame, so the frame also waits one task.
 async function frame() {
 	await tick();
 	await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
+	await new Promise((resolve) => setTimeout(resolve));
 	await tick();
 }
 

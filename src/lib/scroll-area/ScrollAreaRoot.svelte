@@ -2,18 +2,16 @@
 	Groups all parts of the scroll area. Renders a `<div>` element.
 	Derived from Base UI v1.9.0 packages/react/src/scroll-area/root/ScrollAreaRoot.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-	The scrollbar-hiding stylesheet is a DOM element, matching the upstream style tag.
-	Direction comes from `useDirection()`. The style tag takes the CSP nonce and is omitted when `disableStyleElements` is true.
+	Direction comes from `useDirection()`.
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { useCSPContext } from '../internal/csp-context.js';
 	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { scrollAreaStateAttributesMapping } from './attributes.js';
-	import { DISABLE_SCROLLBAR_CSS } from '../internal/styles.js';
+	import DisableScrollbarStyle from '../internal/DisableScrollbarStyle.svelte';
 	import { setScrollAreaContext } from './context.svelte.js';
 	import { scrollAreaCornerHeight, scrollAreaCornerWidth } from './css-vars.js';
 	import { ScrollAreaModel } from './model.svelte.js';
@@ -37,7 +35,6 @@
 	}: ScrollAreaRootProps = $props();
 
 	const reading = useDirection();
-	const csp = useCSPContext();
 	const model = new ScrollAreaModel(
 		() => overflowEdgeThreshold,
 		() => reading.direction,
@@ -93,9 +90,7 @@
 	});
 </script>
 
-{#if csp.disableStyleElements !== true}
-	<svelte:element this={"style"} nonce={csp.nonce}>{DISABLE_SCROLLBAR_CSS}</svelte:element>
-{/if}
+<DisableScrollbarStyle node={el} />
 {#if render}
 	{@render render(hostProps, partState, children)}
 {:else}

@@ -11,6 +11,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
+	import { ACTIVE_COMPOSITE_ITEM } from '../internal/composite-root.svelte.js';
 	import { dispatchClick } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import {
@@ -31,7 +32,6 @@
 	} from '../internal/labelable-provider.svelte.js';
 	import { chain } from '../internal/mergeProps.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
-	import { boundInputProps, type BoundInputProps } from '../field/bound-control.svelte.js';
 	import { serializeValue } from '../internal/serializeValue.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import type { RadioHostProps, RadioRootProps, RadioRootState } from './types.js';
@@ -80,11 +80,7 @@
 	const readOnly = $derived(Boolean(group?.readOnly) || (readOnlyProp ?? false));
 	const required = $derived(Boolean(group?.required) || (requiredProp ?? false));
 	const serialized = $derived(value !== undefined ? serializeValue(value) : undefined);
-	// Inside a bound Field the source encodes the name and the option value.
-	const boundProps: BoundInputProps = $derived(
-		group && serialized !== undefined ? boundInputProps(field.binding, 'radio', serialized) : {}
-	);
-	const fieldName = $derived(group && field.binding ? boundProps.name : group?.name);
+	const fieldName = $derived(group?.name);
 	const fieldForm = $derived(group?.form);
 
 	const radioState: RadioRootState = $derived({
@@ -249,7 +245,7 @@
 			id: rootId,
 			role: 'radio',
 			'aria-checked': checked,
-			...(checked ? { 'data-composite-item-active': '' } : {}),
+			...(checked ? { [ACTIVE_COMPOSITE_ITEM]: '' } : {}),
 			...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 			...(describedBy ? { 'aria-describedby': describedBy } : {}),
 			...(invalid ? { 'aria-invalid': true as const } : {}),
@@ -283,7 +279,6 @@
 	tabindex="-1"
 	aria-hidden="true"
 	{...serialized !== undefined ? { value: serialized } : {}}
-	{...boundProps}
 	onclick={handleInputClick}
 	onchange={handleInputChange}
 	onfocus={handleInputFocus}

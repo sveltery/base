@@ -112,6 +112,55 @@ describe('ClickInteraction', () => {
 			expect(component.store.open).toBe(false);
 			await expect.poll(() => component.store.open).toBe(true);
 		});
+
+		// React renders the open change in a later task, so the popup first paints in the next frame,
+		// after that frame's focus request.
+		it('opens after the frame that handles a mouse press', async () => {
+			const { component } = render(ClickHarness, { event: 'mousedown' });
+
+			press(false);
+			const openInFrame = await new Promise((resolve) =>
+				requestAnimationFrame(() => resolve(component.store.open))
+			);
+
+			expect(openInFrame).toBe(false);
+			await expect.poll(() => component.store.open).toBe(true);
+		});
+
+		it('does not open when the trigger unmounts after the press frame', async () => {
+			const { component, unmount } = render(ClickHarness, { event: 'mousedown' });
+			const { store } = component;
+
+			press(false);
+			await new Promise<void>((resolve) =>
+				requestAnimationFrame(() => {
+					unmount();
+					resolve();
+				})
+			);
+			await new Promise((resolve) => setTimeout(resolve, 50));
+
+			expect(store.open).toBe(false);
+		});
+
+		it('closes on a second press after the press frame, as if the first had committed', async () => {
+			const { component } = render(ClickHarness, { event: 'mousedown' });
+			const changes: boolean[] = [];
+			component.store.events.on('openchange', (data) =>
+				changes.push((data as { open: boolean }).open)
+			);
+
+			press(false);
+			await new Promise<void>((resolve) =>
+				requestAnimationFrame(() => {
+					press(false);
+					resolve();
+				})
+			);
+			await new Promise((resolve) => setTimeout(resolve, 100));
+
+			expect(changes).toEqual([true, false]);
+		});
 	});
 
 	it('reports the configured input-press reason in the open change', async () => {

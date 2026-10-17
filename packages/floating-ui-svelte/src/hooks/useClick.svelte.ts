@@ -32,6 +32,8 @@ type PointerKind = 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
 export class ClickInteraction {
 	readonly #frame = new ScopedAnimationFrame();
 	readonly #touchOpenTimeout = new ScopedTimeout();
+	readonly #frameCommitTimeout = new ScopedTimeout();
+	#frameCommit: (() => void) | null = null;
 	#pointerType: PointerKind;
 
 	constructor(
@@ -56,7 +58,8 @@ export class ClickInteraction {
 		nextOpen: boolean,
 		nativeEvent: MouseEvent,
 		target: HTMLElement,
-		method: OpenInteractionType
+		method: OpenInteractionType,
+		afterFrame = false
 	) {
 		const { store } = this;
 		const { reason, touchOpenDelay } = this.#options();
@@ -72,7 +75,21 @@ export class ClickInteraction {
 			this.#touchOpenTimeout.start(touchOpenDelay, commit);
 			return;
 		}
+		// React renders an update made in an animation frame in a later task, after that frame paints.
+		// Committing in a task here keeps the popup's first paint after its focus request, as upstream.
+		if (afterFrame) {
+			this.#frameCommit = commit;
+			this.#frameCommitTimeout.start(0, () => this.#flushFrameCommit());
+			return;
+		}
 		commit();
+	}
+
+	#flushFrameCommit() {
+		const commit = this.#frameCommit;
+		this.#frameCommit = null;
+		this.#frameCommitTimeout.clear();
+		commit?.();
 	}
 
 	#getNextOpen(
@@ -90,6 +107,7 @@ export class ClickInteraction {
 
 	readonly reference = {
 		onpointerdown: (event: PointerEvent) => {
+			this.#flushFrameCommit();
 			if (!this.#options().enabled) return;
 			this.#pointerType =
 				isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
@@ -102,6 +120,7 @@ export class ClickInteraction {
 				(platform.os.ios ? 'touch' : '')) as OpenInteractionType;
 		},
 		onmousedown: (event: MouseEvent) => {
+			this.#flushFrameCommit();
 			const { enabled, event: eventOption, ignoreMouse } = this.#options();
 			if (!enabled || event.button !== 0 || eventOption === 'click') return;
 			if (isMouseLikePointerType(this.#pointerType, true) && ignoreMouse) return;
@@ -127,10 +146,11 @@ export class ClickInteraction {
 				return;
 			}
 			this.#frame.request(() =>
-				this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method)
+				this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method, true)
 			);
 		},
 		onclick: (event: MouseEvent) => {
+			this.#flushFrameCommit();
 			const { enabled, event: eventOption, ignoreMouse } = this.#options();
 			if (!enabled) return;
 			const remembered = this.#pointerType;
@@ -154,6 +174,7 @@ export class ClickInteraction {
 			this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method);
 		},
 		onkeydown: () => {
+			this.#flushFrameCommit();
 			if (!this.#options().enabled) return;
 			this.#pointerType = undefined;
 		}

@@ -791,7 +791,7 @@ A component that provides labeling and validation for form controls.
     - Validity
 - Exports:
   - Field - Root
-    - Props: dirty, disabled, field, invalid, name, render, touched, type, validate, validationDebounceTime, validationMode
+    - Props: dirty, disabled, invalid, name, render, touched, validate, validationDebounceTime, validationMode
     - Data Attributes: data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-touched, data-valid
   - Field - Item
     - Props: disabled, render
@@ -856,13 +856,10 @@ A native form element with consolidated error handling.
     - Submit form values as a JavaScript object
     - Using with Zod
   - API reference
-    - Error
 - Exports:
-  - Form - Error
-    - Props: children, render, role
   - Form
-    - Props: enhance, errors, form, novalidate, onFocusInvalid, onFormSubmit, onsubmit, render, validationMode
-- Types: Form.Error.Props, Form.Error.State, Form.Props, Form.State
+    - Props: errors, novalidate, onFormSubmit, onsubmit, render, validationMode
+- Types: Form.Props, Form.State
 
 </details>
 

@@ -41,6 +41,16 @@
 			<Slider.Thumb />
 		</Slider.Control>
 	</Slider.Root>
+{:else if scenario === 'edge'}
+	<Slider.Root locale="en-US" defaultValue={[20, 70]} thumbAlignment="edge">
+		<Slider.Control data-testid="control" style="width: 200px; height: 20px;">
+			<Slider.Track style="height: 100%;">
+				<Slider.Indicator data-testid="indicator" />
+				<Slider.Thumb index={0} data-testid="thumb" style="width: 20px; height: 20px;" />
+				<Slider.Thumb index={1} data-testid="thumb" style="width: 20px; height: 20px;" />
+			</Slider.Track>
+		</Slider.Control>
+	</Slider.Root>
 {:else}
 	<Slider.Root locale="en-US" orientation="vertical" defaultValue={30}>
 		<Slider.Control>

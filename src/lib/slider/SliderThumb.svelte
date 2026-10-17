@@ -12,14 +12,13 @@
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
-	import { useCSPContext } from '../internal/csp-context.js';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { valueToPercent } from '../internal/valueToPercent.js';
 	import { visuallyHidden, ownerWindow } from '@sveltery/utils';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { prehydrationScriptElement } from '../internal/PrehydrationScript.js';
+	import PrehydrationScript from '../internal/PrehydrationScript.svelte';
 	import { prehydrationScript } from './prehydration.js';
 	import { dispatchingValueEvent } from '../internal/value-events.js';
 	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
@@ -64,7 +63,6 @@
 
 	const model = useSliderContext();
 	const field = useFieldContext();
-	const csp = useCSPContext();
 	const labelable = useLabelableContext();
 
 	let thumbEl: HTMLDivElement | null = $state(null);
@@ -287,12 +285,7 @@
 	{@render children?.()}
 	<input {...inputProps} bind:this={inputEl} />
 	{#if showScript}
-		<!-- Upstream's edge-alignment script. The body is static and the nonce is escaped. -->
-		<!-- The client script is empty and hydration keeps the server one. -->
-		<!-- eslint-disable-next-line svelte/no-unused-svelte-ignore -- a hydration-time warning -->
-		<!-- svelte-ignore hydration_html_changed -->
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html prehydrationScriptElement(prehydrationScript, csp.nonce)}
+		<PrehydrationScript script={prehydrationScript} />
 	{/if}
 {/snippet}
 

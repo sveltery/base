@@ -8,8 +8,6 @@ import { SvelteMap } from 'svelte/reactivity';
 import type { FormContextValue } from '../internal/form-context.js';
 import { onFormReset, ownerForm } from '../internal/form-reset.svelte.js';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
-import { resolveField, type ControlKind, type FieldHandle } from '../form/source.js';
-import { FieldIssues, handlePath } from '../form/issues.svelte.js';
 import { DEFAULT_VALIDITY_STATE, VALIDITY_KEYS } from '../internal/field-constants.js';
 import type { Labelable } from '../internal/labelable-provider.svelte.js';
 import type { FieldRootState, FieldValidate, FieldValidateResult } from './types.js';
@@ -65,10 +63,6 @@ export interface FieldContext {
 	readonly registeredInputs: ReadonlyMap<HTMLInputElement, RegisteredInput>;
 	change: (value: unknown, cancelPending?: boolean) => void;
 	commit: (value: unknown, revalidate?: boolean) => void;
-	/** The handle this Field is bound to through `field` or a `name` in a bound Form. */
-	readonly binding: FieldHandle | undefined;
-	/** The control kind Field.Root declares with `type`. Composites dev-check theirs against it. */
-	readonly controlType: ControlKind | undefined;
 }
 
 /** State of a field that has no provider. Slider and OTP share this one object. */
@@ -123,9 +117,6 @@ export interface FieldRootModelOptions {
 	getValidationModeProp: () => FormValidationMode | undefined;
 	getValidationDebounceTime: () => number;
 	getValidate: () => FieldValidate | undefined;
-	/** The handle passed as `field`. */
-	getField: () => FieldHandle | undefined;
-	getControlType: () => ControlKind | undefined;
 }
 
 /**
@@ -158,39 +149,9 @@ export class FieldRootModel implements FieldContext {
 	private readonly debounceTimer = new ScopedTimeout();
 	private readonly options: FieldRootModelOptions;
 	private readonly resetForm: HTMLFormElement | null;
-	/** The handle from `field`, or the one `name` resolves to through the Form's source. */
-	readonly binding: FieldHandle | undefined;
-	/** The path a bound field submits under, which is also its Base `name`. */
-	private readonly bindingPath: string | undefined;
-	private readonly issues: FieldIssues;
 
 	constructor(options: FieldRootModelOptions) {
 		this.options = options;
-		this.binding = $derived.by(() => {
-			const field = options.getField();
-			if (field) return field;
-			const name = options.getName();
-			const source = options.form.source;
-			return name && source ? resolveField(source.fields, name) : undefined;
-		});
-		this.bindingPath = $derived(this.binding ? handlePath(this.binding) : undefined);
-		this.issues = new FieldIssues(options.form.issues, {
-			binding: () => this.binding,
-			path: () => this.bindingPath ?? '',
-			validationMode: () => this.validationMode,
-			dirty: () => this.dirty,
-			touched: () => this.touched
-		});
-
-		// The Field shows its own path's issues and its `errors` entry, so Form.Error leaves them out.
-		$effect(() => {
-			const key = this.name;
-			const byName = this.binding !== undefined && !options.getField();
-			return options.form.issues.register(
-				this.issues,
-				key === undefined ? undefined : { key, byName }
-			);
-		});
 		this.resetForm = $derived(
 			ownerForm(this.registeredInputs.keys().next().value ?? this.inputElement) ??
 				options.form.element
@@ -217,16 +178,12 @@ export class FieldRootModel implements FieldContext {
 		});
 	}
 
-	get controlType(): ControlKind | undefined {
-		return this.options.getControlType();
-	}
-
 	get disabled() {
 		return this.options.getFieldsetDisabled() || this.options.getDisabledProp();
 	}
 
 	get name(): string | undefined {
-		return this.options.getName() ?? this.bindingPath ?? this.registeredFieldName;
+		return this.options.getName() ?? this.registeredFieldName;
 	}
 
 	get validationMode(): FormValidationMode {
@@ -237,14 +194,8 @@ export class FieldRootModel implements FieldContext {
 		return this.options.getInvalidProp() === true || this.hasFormError;
 	}
 
-	/** Visible source issues, else the Form `errors` entry for this field's name. */
+	/** The Form `errors` entry for this field's name. */
 	get formError(): string | string[] | null {
-		const issues = this.issues.visible;
-		if (issues.length > 0) return issues.length === 1 ? issues[0] : issues;
-		return this.errorsEntry;
-	}
-
-	private get errorsEntry(): string | string[] | null {
 		const name = this.name;
 		const errors = this.options.form.errors;
 		if (!name || !Object.hasOwn(errors, name)) return null;
@@ -279,9 +230,6 @@ export class FieldRootModel implements FieldContext {
 	}
 
 	setTouched(value: boolean) {
-		if (value && this.binding && this.validationMode === 'onBlur') {
-			this.options.form.issues.revalidate();
-		}
 		if (this.options.getTouchedProp() !== undefined) return;
 		this.touchedState = value;
 	}
@@ -365,7 +313,6 @@ export class FieldRootModel implements FieldContext {
 		this.dirtyState = false;
 		this.touchedState = false;
 		this.reportedInvalid = undefined;
-		this.issues.clear();
 		this.validityData = { ...EMPTY_VALIDITY(), initialValue: this.readRegisteredValue() };
 	}
 
@@ -373,12 +320,6 @@ export class FieldRootModel implements FieldContext {
 		this.clearTimer();
 		this.validationCommitId += 1;
 		if (cancelPending) return;
-		if (this.binding) {
-			this.issues.markChanged();
-			if (this.validationMode === 'onChange' || this.options.form.issues.submitted) {
-				this.options.form.issues.revalidate();
-			}
-		}
 
 		const validateOnChange = this.shouldValidateOnChange();
 		const debounce = this.options.getValidationDebounceTime();
@@ -607,13 +548,6 @@ export class FieldRootModel implements FieldContext {
 		return getCombinedFieldValidityData(this.validityData, invalid);
 	}
 
-	/** Invalid in a way the source cannot re-check. Source issues are left to the source. */
-	private blocksSubmit() {
-		if (this.validityData.state.valid === false) return true;
-		const external = this.options.getInvalidProp() === true || formErrorPresent(this.errorsEntry);
-		return this.reportedInvalid ?? external;
-	}
-
 	private ensureRegistry() {
 		const id = this.registeredId;
 		if (!id) return;
@@ -628,11 +562,7 @@ export class FieldRootModel implements FieldContext {
 			return formValue ? formValue() : this.readRegisteredValue();
 		};
 		const validate = () => this.validateField();
-		const blocksSubmit = () => this.blocksSubmit();
 		this.options.form.fields.set(id, {
-			get blocksSubmit() {
-				return blocksSubmit();
-			},
 			get name() {
 				return readName();
 			},

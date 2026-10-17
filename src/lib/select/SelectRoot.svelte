@@ -19,7 +19,6 @@
 		visuallyHidden,
 		visuallyHiddenInput
 	} from '@sveltery/utils';
-	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
@@ -77,14 +76,6 @@
 	const field = useFieldContext();
 	const formContext = useFormContext();
 	const labelable = useLabelableContext();
-
-	/** The item value a source value names, so a bound select keeps non-string values. */
-	function optionFor(raw: unknown): unknown {
-		const key = stringifyAsValue(raw, itemToStringValue as never);
-		return (
-			store.values.find((item) => stringifyAsValue(item, itemToStringValue as never) === key) ?? raw
-		);
-	}
 
 	// Svelte proxies an object or array written to the prop. Items compare the written one.
 	const selection = new WrittenReference<SelectValue | undefined>(
@@ -201,22 +192,9 @@
 		readPopupTypeahead: () => typeahead.floating,
 		readItemProps: () => itemProps
 	});
-	// The binding reads item values from the store, so it starts once the store exists.
-	// svelte-ignore state_referenced_locally
-	const bound: BoundControl<SelectValue> = new BoundControl<SelectValue>(field, {
-		kind: multipleProp === true ? 'select multiple' : 'select',
-		read: () => current,
-		write: (next) => selection.set(next),
-		fromSource: (raw) => {
-			if (multiple) return (Array.isArray(raw) ? raw.map(optionFor) : []) as SelectValue;
-			return (raw == null ? null : optionFor(raw)) as SelectValue;
-		},
-		equals: (a, b) => (Array.isArray(a) && Array.isArray(b) ? sameStrings(a, b) : Object.is(a, b))
-	});
-
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) selection.set(bound.initial(defaultValue ?? emptyValue()));
+	if (value === undefined) selection.set(defaultValue ?? emptyValue());
 
 	// svelte-ignore state_referenced_locally
 	store.initialValue = current;
@@ -309,8 +287,7 @@
 		}
 	});
 
-	const boundProps = $derived(bound.inputProps());
-	const submitName = $derived(bound.bound ? boundProps.name : name);
+	const submitName = $derived(name);
 	const hiddenInputName = $derived(multiple ? undefined : submitName);
 	const describedBy = $derived(labelable.describedBy(undefined));
 	const invalid = $derived(field.state.valid === false && !disabled);
@@ -380,7 +357,6 @@
 	aria-describedby={describedBy}
 	onfocus={focusTrigger}
 	oninput={handleAutofill}
-	{...multiple ? {} : boundProps}
 />
 {#if multiple && submitName}
 	<select
@@ -392,7 +368,6 @@
 		name={submitName}
 		form={formId}
 		{disabled}
-		{...boundProps as Record<string | symbol, unknown>}
 	>
 		{#each submitOptions as serialized (serialized)}
 			<option value={serialized} selected={serializedDefaults.includes(serialized)}

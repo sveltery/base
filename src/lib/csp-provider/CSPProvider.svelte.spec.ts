@@ -1,7 +1,7 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/csp-provider/CSPProvider.test.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// Upstream checks ScrollArea and Select style tags. ScrollArea covers its own tag.
-// These tests assert the context values. Select has no inline style tag in this port.
+// Upstream checks ScrollArea and Select style tags. src/lib/internal/disable-scrollbar-style.svelte.spec.ts covers them.
+// These tests assert the context values.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';

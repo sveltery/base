@@ -11,7 +11,6 @@
 	import { useFormContext } from '../internal/form-context.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
-	import { BoundControl, sourceNumber } from '../field/bound-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { dispatchingValueEvent } from '../internal/value-events.js';
@@ -58,17 +57,9 @@
 	const readOnly = $derived(readOnlyProp ?? false);
 
 	const field = useFieldContext();
-	// A source holds `undefined` for a cleared number input, and for one never set.
-	const bound = new BoundControl<number | null>(field, {
-		kind: 'number',
-		read: (): number | null => current,
-		write: (next) => writeValue(next),
-		fromSource: (raw) => sourceNumber(raw) ?? null
-	});
-
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = bound.initial(defaultValue);
+	if (value === undefined) value = defaultValue;
 
 	const form = useFormContext();
 	const labelable = useLabelableContext();
@@ -96,8 +87,7 @@
 	);
 	const disabled = $derived(Boolean(field.disabled) || (disabledProp ?? false));
 	const name = $derived(field.name ?? nameProp ?? undefined);
-	const boundProps = $derived(bound.inputProps());
-	const inputName = $derived(bound.bound ? boundProps.name : name);
+	const inputName = $derived(name);
 	const step = $derived(stepProp === 'any' ? 1 : stepProp);
 	const generatedId = $derived(`base-ui-${uid}`);
 	const controlId = new LabelableId(labelable, {
@@ -209,5 +199,4 @@
 	oninput={hiddenChanged}
 	onchange={hiddenChanged}
 	onfocus={hiddenFocused}
-	{...boundProps}
 />

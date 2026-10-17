@@ -22,11 +22,11 @@ Dialog and Popover render their popups in a portal, and a portal renders nothing
 
 ### Form validation
 
-Form turns off the browser's validation bubbles with `novalidate`, but only after it hydrates. The server HTML has no `novalidate` attribute, so before hydration, or with JavaScript off, the browser checks `required`, `type`, and the other constraints itself. A submit button with `formnovalidate` skips validation, as it does in HTML.
+Form renders `novalidate` on the server, as Base UI does. Before the page hydrates, or with JavaScript off, the browser does not check `required`, `type`, or the other constraints, and Form does not validate either. The form posts unchecked, so validate on the server. To keep the browser's checks, pass `novalidate={false}` to Form. The browser then checks the constraints after hydration too, and blocks an invalid submit before Form sees it.
 
-## Bind a SvelteKit remote form
+## Use a SvelteKit remote form
 
-Pass a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form) to the `form` prop of Form. Pass each of its fields to the `field` prop of a `Field.Root`. The remote form then owns the values and the issues. Field shows them, and Form sends the submit through the remote form. You do not add `use:enhance`, set `name` on the controls, or pass `errors`.
+Spread a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form) onto Form, and pass its issues to Form's `errors` prop once. Each field finds its issues through context, so `Field.Error` needs no wiring per field.
 
 Remote functions are experimental in SvelteKit. Turn them on with `experimental: { remoteFunctions: true }` in the `sveltekit()` options in `vite.config.ts`.
 
@@ -37,8 +37,7 @@ import * as v from 'valibot';
 
 export const signupSchema = v.object({
 	email: v.pipe(v.string(), v.email('Enter a valid email')),
-	name: v.pipe(v.string(), v.minLength(2, 'Use at least 2 characters')),
-	age: v.pipe(v.number('Enter your age'), v.minValue(18, 'You must be 18 or older'))
+	name: v.pipe(v.string(), v.minLength(2, 'Use at least 2 characters'))
 });
 ```
 
@@ -56,7 +55,7 @@ export const signup = form(signupSchema, async (data, issue) => {
 });
 ```
 
-On the page, `preflight` runs the same schema in the browser before each submit:
+On the page, spread the remote form onto Form, and each field's `as()` props onto its `Field.Control`. Convert the issues to `errors` once, keyed by each input's name:
 
 ```svelte title="src/routes/signup/+page.svelte"
 <script lang="ts">
@@ -66,144 +65,57 @@ On the page, `preflight` runs the same schema in the browser before each submit:
 	import { signup } from './signup.remote.js';
 
 	const f = signup.preflight(signupSchema);
+
+	const inputs = {
+		name: f.fields.name.as('text'),
+		email: f.fields.email.as('email')
+	};
+
+	// SvelteKit keys an issue by its path. Form keys `errors` by the input's name.
+	function errorsByName(issues: { path: (string | number)[]; message: string }[] = []) {
+		const errors: Record<string, string[]> = {};
+		for (const issue of issues) {
+			const input = inputs[issue.path.join('.') as keyof typeof inputs];
+			if (input) (errors[input.name] ??= []).push(issue.message);
+		}
+		return errors;
+	}
 </script>
 
-<Form form={f}>
-	<Form.Error />
-	<Field.Root field={f.fields.email} type="email">
-		<Field.Label>Email</Field.Label>
-		<Field.Control required />
-		<Field.Error />
-	</Field.Root>
-	<Field.Root field={f.fields.name}>
+<Form {...f} errors={errorsByName(f.fields.allIssues())}>
+	<Field.Root>
 		<Field.Label>Name</Field.Label>
-		<Field.Control />
+		<Field.Control {...inputs.name} required />
 		<Field.Error />
 	</Field.Root>
-	<Field.Root field={f.fields.age} type="number">
-		<Field.Label>Age</Field.Label>
-		<Field.Control />
+	<Field.Root>
+		<Field.Label>Email</Field.Label>
+		<Field.Control {...inputs.email} required />
 		<Field.Error />
 	</Field.Root>
-	<button disabled={f.pending > 0}>Sign up</button>
+	{#each f.fields.issues() ?? [] as issue (issue.message)}
+		<p>{issue.message}</p>
+	{/each}
+	<button type="submit" disabled={f.pending > 0}>Sign up</button>
 	{#if f.result}
 		<p>Welcome, {f.result.welcome}</p>
 	{/if}
 </Form>
 ```
 
-`Field.Control` takes its name and value from the field. The name carries SvelteKit's encoding, such as `n:age` for a number, so do not set `name` or `value` on the control. The field's issues show in `Field.Error`, and the field's `touched` and `dirty` state sets `data-touched` and `data-dirty`. `Form.Error` shows the issues on the whole form, such as `invalid('Signups are closed')`, and any issue on a path that no field binds.
+`{...f}` gives Form the `method`, the `action` and SvelteKit's submit handler. Leave `name` off `Field.Root`, because a `Field.Root` name replaces the name that `as()` gives the control. Each field shows its issues in `Field.Error` and sets `data-invalid`. An edit hides the field's issue. The native constraints, such as `required`, run through Form's own validation. `f.fields.issues()` holds the issues on the whole form, such as `invalid('Signups are closed')`. After a successful submit, `f.result` holds the handler's return value and SvelteKit resets the form.
 
-A submit runs these checks in order:
+`errorsByName` matches an issue to an input by its path joined with dots. List a nested field in `inputs` under that key, such as `'address.city'`.
 
-1. The native constraints, such as `required` and `type="email"`. A failed constraint blocks the request and focuses the field. The preflight schema still runs, so its issues show too.
-2. The preflight schema. Its issues show in the fields, and Form focuses the first one. No request is sent.
-3. The handler on the server. An issue from `invalid` shows in its field, and Form focuses that field.
+This example uses `Field.Control` for every field. Composite controls such as Checkbox and Number Field render their own native input, and this page does not cover wiring them to a remote form yet.
 
-When the handler returns, `f.result` holds its return value and the form resets. To keep the values or do something else after the submit, pass [`enhance`](#customize-the-submit).
+This setup has these limits:
 
-A server issue does not block the next submit, because only the server can clear it. It hides as soon as the user changes the field. After the first submit, each change validates the field again against the schema, with no request. Set `validationMode="onBlur"` or `validationMode="onChange"` on Form to show schema issues before the first submit.
-
-### Type the control
-
-The `type` on `Field.Root` is the input type of its control. TypeScript checks it against the type of the field's value:
-
-| Value      | Allowed `type`                                                                                           | Required               |
-| ---------- | -------------------------------------------------------------------------------------------------------- | ---------------------- |
-| `string`   | `text`, `email`, `password`, `url`, `tel`, `search`, the date and time types, `color`, `radio`, `select` | no, defaults to `text` |
-| `number`   | `number`, `range`                                                                                        | yes                    |
-| `boolean`  | `checkbox`, `switch`                                                                                     | yes                    |
-| `string[]` | `checkbox`, `select multiple`                                                                            | yes                    |
-
-So `<Field.Root field={f.fields.age}>` fails the type check, because `age` is a number. `<Field.Root field={f.fields.age} type="email">` fails too.
-
-### Bind a field by name
-
-Inside a Form with a `form` source, `<Field.Root name="email">` binds to `f.fields.email`. A path such as `items[0].name` works too. TypeScript does not check the name, and `type` accepts every input type. In development, Form warns when an issue has no field to show it while a field resolved its name through the form, because a misspelled `name` submits under the wrong key. Prefer `field`, which TypeScript checks.
-
-### Bind composite controls
-
-Checkbox, Switch, Radio Group, Checkbox Group, Number Field, Slider, and OTP Field bind through the `Field.Root` around them. Each one renders a native input with the source's name and value, so the source reads it like a plain input. Give `Field.Root` the `type` that the control submits as:
-
-| Control        | `type`     | Value                               |
-| -------------- | ---------- | ----------------------------------- |
-| Checkbox       | `checkbox` | `boolean`                           |
-| Switch         | `switch`   | `boolean`                           |
-| Radio Group    | `radio`    | `string`                            |
-| Checkbox Group | `checkbox` | `string[]`                          |
-| Number Field   | `number`   | `number`                            |
-| Slider         | `range`    | `number`, with one thumb            |
-| OTP Field      | `text`     | `string`, so `type` can be left out |
-
-```svelte
-<Form form={f}>
-	<Field.Root field={f.fields.plan} type="radio">
-		<Fieldset.Root>
-			<Fieldset.Legend>Plan</Fieldset.Legend>
-			<RadioGroup defaultValue="free">
-				<Radio.Root value="free">Free</Radio.Root>
-				<Radio.Root value="pro">Pro</Radio.Root>
-			</RadioGroup>
-		</Fieldset.Root>
-		<Field.Error />
-	</Field.Root>
-
-	<Field.Root field={f.fields.seats} type="number">
-		<Field.Label>Seats</Field.Label>
-		<NumberField.Root defaultValue={1} min={0}>
-			<NumberField.Group>
-				<NumberField.Decrement />
-				<NumberField.Input />
-				<NumberField.Increment />
-			</NumberField.Group>
-		</NumberField.Root>
-		<Field.Error />
-	</Field.Root>
-
-	<Field.Root field={f.fields.agree} type="checkbox">
-		<Field.Label><Checkbox.Root /> I accept the terms</Field.Label>
-		<Field.Error />
-	</Field.Root>
-
-	<Field.Root field={f.fields.newsletter} type="switch">
-		<Field.Label><Switch.Root /> Send me the newsletter</Field.Label>
-	</Field.Root>
-</Form>
-```
-
-The control starts from the source's value when the source has one, and from `defaultValue` when it does not. A form reset returns the control to `defaultValue` and hides the source's issues. When your code calls `set()` on the field, the control shows the new value, with no `onValueChange` call. In development, a control whose kind does not match the `type` on its `Field.Root` logs an error that names both.
-
-A checkbox sends nothing when it is unchecked, so every boolean in the schema must be optional, such as `v.optional(v.boolean(), false)`. SvelteKit rejects a remote form schema with a required boolean at the type level.
-
-### Customize the submit
-
-Without `enhance`, a source submit sends the request and resets the form when it succeeds. Pass a callback to `enhance` on Form to replace that step. It runs once the submit passes the native constraints and the preflight schema. Nothing is sent until it calls `submit()`, which resolves to `true` when the submit succeeds:
-
-```svelte
-<Form
-	form={f}
-	enhance={async ({ submit }) => {
-		if (await submit()) toast('Welcome aboard');
-	}}
->
-	…
-</Form>
-```
-
-This callback keeps the values after a successful submit. To reset the form yourself, call `reset()` on the instance's `element`. The instance is the source's own, so with a remote form it has SvelteKit's `submit().updates(...)`.
-
-Pass the callback to Form, not to the source's `enhance()` method. Form installs its own callback on the source, so that it can tell issues from the server apart from issues from the schema, and it calls yours from there. Do not combine `form` with `onFormSubmit`. In development, Form warns when you do.
-
-### Work without JavaScript
-
-A form bound to a remote form works before the page hydrates and with JavaScript off:
-
-- The server renders no `novalidate`, so the browser checks `required`, `type`, and the other constraints, and an empty required field never reaches the server.
-- The form posts to the server, and the page renders again with the issues in each `Field.Error` and the whole-form issues in `Form.Error`.
-- Each field shows the value the user submitted.
-- After a success, `f.result` holds the return value.
-
-Once the page hydrates, Form sets `novalidate` and shows every message in `Field.Error`.
+1. SvelteKit sends a submit that Form blocked. Form blocks an invalid submit with `preventDefault()` only, as Base UI does, and SvelteKit's submit handler does not check `defaultPrevented`. `preflight` stops the submit only when the schema has the same rules as the controls, so put every rule in the schema.
+2. Form does not focus a field when a server issue arrives. Form focuses the first invalid field when `errors` changes after a submit, and SvelteKit's preflight already changes `errors` before the server answers.
+3. An edit hides a server issue only until the next submit. SvelteKit keeps server issues through preflight, so the issue shows again while the request is in flight.
+4. The `aria-invalid` from `as()` stays on the input after an edit, until SvelteKit validates again.
+5. Without JavaScript, the form posts unchecked, because Form renders `novalidate`. The server's schema is the only check.
 
 ## Connect a form action
 
@@ -237,25 +149,17 @@ export const actions = {
 };
 ```
 
-On the page, pass `form?.errors` to `errors`, and each submitted value to the control's `defaultValue`. `use:enhance` is an action, so `fromAction` turns it into an attachment on Form. Its submit function cancels a submit that Form blocked:
+On the page, pass `form?.errors` to `errors`, and each submitted value to the control's `defaultValue`. The form posts natively:
 
 ```svelte title="src/routes/signup/+page.svelte"
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { fromAction } from 'svelte/attachments';
 	import { Field } from '@sveltery/base/field';
-	import { Form, isSubmitBlocked } from '@sveltery/base/form';
+	import { Form } from '@sveltery/base/form';
 
 	let { form } = $props();
 </script>
 
-<Form
-	method="POST"
-	errors={form?.errors}
-	{@attach fromAction(enhance, () => ({ formElement, cancel }) => {
-		if (isSubmitBlocked(formElement)) cancel();
-	})}
->
+<Form method="POST" errors={form?.errors}>
 	<Field.Root name="email">
 		<Field.Label>Email</Field.Label>
 		<Field.Control type="email" required defaultValue={form?.values?.email} />
@@ -273,7 +177,7 @@ On the page, pass `form?.errors` to `errors`, and each submitted value to the co
 </Form>
 ```
 
-Form validates each field before `use:enhance` sees the submit. When a field is invalid, Form calls `preventDefault()` and focuses the field. `use:enhance` does not check `defaultPrevented`, so without `cancel()` it posts the invalid values. `isSubmitBlocked(formElement)` returns `true` when Form blocked the current submit. Call it before any `await` in the submit function, because the next submit replaces the answer. A server error shows in its `Field.Error`, Form focuses the field, and the error clears as soon as the user changes the field. With JavaScript off, the browser validates, the form posts, and the page renders the errors and the submitted values.
+Form validates each field on submit. When a field is invalid, Form calls `preventDefault()`, so the browser does not post, and Form focuses the field. A server error shows in its `Field.Error`, and it clears as soon as the user changes the field. Do not add `use:enhance` to this form. Like a remote form, it does not check `defaultPrevented`, so it sends a submit that Form blocked.
 
 ## Prerendering
 
