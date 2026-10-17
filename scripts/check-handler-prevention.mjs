@@ -7,12 +7,15 @@
 
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = new URL('../src/lib/', import.meta.url).pathname;
+const root = fileURLToPath(new URL('../src/lib/', import.meta.url));
 
 // Handlers that may run after a prevented consumer handler, with the reason.
-// Key: `<file>:<function>`.
+// Key: `<file>:<function>`. An entry that matches no handler fails the check.
 const ALLOWED = {
+	'number-field/NumberFieldScrubArea.svelte:handleClickCapture':
+		'It records the native click. Skipped, the scrub area would send a second click.',
 	'form/Form.svelte:handleSubmit':
 		'Form.tsx calls the consumer onSubmit inside its own handler, after validation.',
 	'select/SelectLabel.svelte:handlePointerDown':
@@ -37,7 +40,8 @@ function* files(dir) {
 }
 
 // A consumer handler call: `onfocus?.(event)`, `props.onblur?.(event)`, `rest.onclick(event)`.
-const CALL = /(?<![\w.])((?:props|rest|elementProps|restProps)\.)?(on[a-z]+)\??\.?\(\s*event\b/g;
+const CALL =
+	/(?<![\w.])((?:props|rest|elementProps|restProps|handlers)\.)?(on[a-z]+)\??\.?\(\s*event\b/g;
 
 function enclosingBody(source, index) {
 	let depth = 0;
@@ -91,18 +95,18 @@ for (const path of files(root)) {
 		const after = stripComments(source.slice(match.index + match[0].length, body.end))
 			.replace(/^[^;\n]*[;\n]/, '')
 			.trim();
-		const before = stripComments(source.slice(body.start + 1, match.index));
 		const ownCode = after.replace(/[\s;}]/g, '').length > 0;
-		const checked = /defaultPrevented|isPrevented|prevented\b/.test(after);
+		// The check must be the next statement, so no part code runs before it.
+		const checked = /^if\s*\([^)]*(defaultPrevented|isPrevented|prevented\b)/.test(after);
 		const line = source.slice(0, match.index).split('\n').length;
 		const key = `${file}:${body.name}`;
 		const status = !ownCode ? 'last' : checked ? 'checked' : ALLOWED[key] ? 'allowed' : 'UNCHECKED';
 		rows.push({
 			status,
 			where: `${file}:${line}`,
+			key,
 			fn: body.name,
-			handler: match[2],
-			before: before.trim().length > 0
+			handler: match[2]
 		});
 	}
 }
@@ -111,8 +115,11 @@ const all = process.argv.includes('--all');
 const shown = all ? rows : rows.filter((row) => row.status === 'UNCHECKED');
 for (const row of shown)
 	console.log(`${row.status.padEnd(9)} ${row.where} ${row.fn} ${row.handler}`);
+const used = new Set(rows.filter((row) => row.status === 'allowed').map((row) => row.key));
+const stale = Object.keys(ALLOWED).filter((key) => !used.has(key));
+for (const key of stale) console.log(`STALE     ALLOWED entry ${key} matches no unchecked handler`);
 const unchecked = rows.filter((row) => row.status === 'UNCHECKED').length;
 console.log(
 	`\n${rows.length} consumer handler calls, ${unchecked} run part code without a prevention check.`
 );
-process.exit(unchecked ? 1 : 0);
+process.exit(unchecked || stale.length ? 1 : 0);

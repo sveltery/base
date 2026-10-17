@@ -270,6 +270,8 @@
 		commitValue(rawValue, REASONS.inputPaste, event);
 	}
 
+	const commitComposition = $derived(chain(handleCompositionEnd, oncompositionend));
+
 	const hostProps: HTMLInputAttributes = $derived({
 		...elementProps,
 		...getStateAttributesProps(inputState, inputStateAttributes),
@@ -298,7 +300,11 @@
 		onblur: chain((event) => model.handleInputBlur(event), onblur),
 		oninput: chain(handleInput, oninput),
 		oncompositionstart: chain(handleCompositionStart, oncompositionstart),
-		oncompositionend: chain(handleCompositionEnd, oncompositionend),
+		oncompositionend(event: CompositionEvent & { currentTarget: EventTarget & HTMLInputElement }) {
+			commitComposition(event);
+			// A prevented composition still ends, or the slot would keep buffering every input.
+			composingValue = null;
+		},
 		onkeydown: handleKeyDown,
 		onpaste: handlePaste,
 		[model.slots.attachmentKey]: remember

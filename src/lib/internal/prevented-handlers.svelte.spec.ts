@@ -76,7 +76,7 @@ describe('a consumer handler that calls preventDefault skips the part handler', 
 		expect(onValueChange.mock.lastCall?.[0]).toBe('1');
 	});
 
-	it('OTP input oncompositionend skips the composition commit', async () => {
+	it('OTP input oncompositionend skips the composition commit and ends it', async () => {
 		const onValueChange = vi.fn();
 		render(PreventedHandlerHarness, {
 			part: 'otp',
@@ -90,9 +90,12 @@ describe('a consumer handler that calls preventDefault skips the part handler', 
 		slot.dispatchEvent(new InputEvent('input', { bubbles: true, isComposing: true }));
 		slot.dispatchEvent(new CompositionEvent('compositionend', { bubbles: true, data: '1' }));
 		expect(onValueChange).not.toHaveBeenCalled();
+		slot.value = '2';
+		slot.dispatchEvent(new InputEvent('input', { bubbles: true }));
+		expect(onValueChange.mock.lastCall?.[0]).toBe('2');
 	});
 
-	it('scrub area onclickcapture lets the synthesized click follow the native one', async () => {
+	it('scrub area onclickcapture still records the native click, so no second click follows', async () => {
 		const onclick = vi.fn();
 		render(PreventedHandlerHarness, {
 			part: 'scrub',
@@ -107,6 +110,14 @@ describe('a consumer handler that calls preventDefault skips the part handler', 
 		area.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
 		// The synthesized click waits one task, and Firefox adds 20ms before it.
 		await new Promise((resolve) => setTimeout(resolve, 50));
-		expect(onclick).toHaveBeenCalledTimes(2);
+		expect(onclick).toHaveBeenCalledTimes(1);
+	});
+
+	it('composite item onfocus keeps the roving tab stop where it was', async () => {
+		render(PreventedHandlerHarness, { part: 'tabs', handlers: { onfocus: prevent } });
+		(page.getByRole('tab', { name: 'Two' }).element() as HTMLElement).focus();
+		await expect.element(page.getByRole('tab', { name: 'Two' })).toHaveFocus();
+		await expect.element(page.getByRole('tab', { name: 'Two' })).toHaveAttribute('tabindex', '-1');
+		await expect.element(page.getByRole('tab', { name: 'One' })).toHaveAttribute('tabindex', '0');
 	});
 });

@@ -19,7 +19,6 @@
 		getTarget
 	} from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { chain } from '../internal/mergeProps.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { ScrubAreaState, setScrubAreaContext, useNumberFieldContext } from './context.svelte.js';
 	import { on } from 'svelte/events';
@@ -246,7 +245,10 @@
 		}
 	}
 
-	function handleClickCapture() {
+	function handleClickCapture(
+		event: MouseEvent & { currentTarget: EventTarget & HTMLSpanElement }
+	) {
+		onclickcapture?.(event);
 		nativeClickReceived = true;
 	}
 
@@ -256,7 +258,7 @@
 		...getStateAttributesProps(scrubState, numberFieldStateAttributes),
 		...elementProps,
 		onpointerdown: handlePointerDown,
-		onclickcapture: chain(handleClickCapture, onclickcapture),
+		onclickcapture: handleClickCapture,
 		[elementKey]: remember
 	});
 </script>
