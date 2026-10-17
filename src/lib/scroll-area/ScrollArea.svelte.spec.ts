@@ -2,12 +2,11 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Cases from upstream commit 6d93516df follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance, refs, and className callbacks are not ported.
-// Direction comes from DirectionProvider. The scrollbar style tag reads the CSP provider.
+// Direction comes from DirectionProvider. src/lib/internal/disable-scrollbar-style.svelte.spec.ts covers the style tag.
 import { flushSync } from 'svelte';
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import ScrollAreaCSPHarness from '../../tests/ScrollAreaCSPHarness.svelte';
 import ScrollAreaHarness from '../../tests/ScrollAreaHarness.svelte';
 import { SCROLL_TIMEOUT } from './constants.js';
 
@@ -372,20 +371,6 @@ describe('<ScrollArea />', () => {
 		await expect.element(root()).toHaveAttribute('data-rendered', 'true');
 		await expect.element(root()).toHaveAttribute('data-overflow', 'yes');
 		expect(host(root()).tagName).toBe('DIV');
-	});
-
-	it('puts the CSP nonce on the scrollbar style and skips that element when asked', async () => {
-		const nonce = render(ScrollAreaCSPHarness, { nonce: 'area-nonce' });
-		await expect.element(root()).toBeInTheDocument();
-		const style = nonce.container.querySelector('style');
-		expect(style?.textContent).toContain('base-ui-disable-scrollbar');
-		expect(style?.nonce || style?.getAttribute('nonce')).toBe('area-nonce');
-		nonce.unmount();
-
-		const hidden = render(ScrollAreaCSPHarness, { disableStyleElements: true });
-		await expect.element(root()).toBeInTheDocument();
-		expect(hidden.container.querySelector('style')).toBeNull();
-		hidden.unmount();
 	});
 
 	it('throws when a part is rendered outside its parent', async () => {

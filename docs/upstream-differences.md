@@ -705,6 +705,14 @@ Test: `src/lib/autocomplete/AutocompleteRoot.svelte.spec.ts`, `src/lib/autocompl
 
 `describeConformance` (ref forwarding, render-prop cloning), the `React.startTransition` unmount case, and the `store.test.tsx` cases that observe React store transactions, `useStore` re-reads and ref callbacks during commit have no Svelte counterpart here. Upstream's click-open highlight case fires a click that neither focuses nor opens, so the local case asserts the highlight after a real click. The validation-ref case runs without its Switch, because each control registers its own input. The `onChange` and `onBlur` validation cases that upstream skips in a browser run here.
 
+## Scrollbar-hiding style
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/styles.tsx`. ScrollArea.Root and Select.Popup render `<style href precedence="base-ui:low">`. React 19 hoists it into the head of the root's document or shadow root, keyed by `href`, and never removes it. The server prints it once in the head.
+
+Local: on the client the port inserts the same `data-href` and `data-precedence` element into the same place, once, and never removes it. Svelte keeps no per-render state on the server, so each instance server-renders its own copy into the head through `<svelte:head>`. Each instance drops its copy once it mounts and the shared element exists. Until hydration, the copies sit wherever the app prints the server head, which can be after its stylesheets, rather than first in the head.
+
+Test: `src/lib/internal/disable-scrollbar-style.svelte.spec.ts`, `src/lib/internal/disable-scrollbar-style.spec.ts`, and `src/routes/fixtures/scroll-area/scroll-area.e2e.ts` (`the scrollbar-hiding style lives once in the head`).
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.

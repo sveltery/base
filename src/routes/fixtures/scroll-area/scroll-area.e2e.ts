@@ -29,6 +29,16 @@ for (const reference of [false, true]) {
 			expect(errors).toEqual([]);
 		});
 
+		test('the scrollbar-hiding style lives once in the head', async ({ page }) => {
+			await open(page, 'both', reference);
+			const parents = await page.evaluate(() =>
+				Array.from(document.querySelectorAll('style'))
+					.filter((style) => style.textContent?.includes('.base-ui-disable-scrollbar'))
+					.map((style) => style.parentElement?.tagName)
+			);
+			expect(parents).toEqual(['HEAD']);
+		});
+
 		test('content that fits leaves the viewport out of tab order', async ({ page }) => {
 			const { root, viewport, scrollbarY, corner } = await open(page, 'none', reference);
 			await expect(viewport).toHaveAttribute('tabindex', '-1');
@@ -60,4 +70,11 @@ test('svelte SSR renders the viewport before overflow is measured', async ({ req
 	expect(html).toContain('tabindex="-1"');
 	expect(html).toContain('-viewport');
 	expect(html).not.toContain('data-has-overflow-y');
+});
+
+test('svelte SSR renders the scrollbar-hiding style in the head', async ({ request }) => {
+	const html = await (await request.get('/fixtures/scroll-area?case=both')).text();
+	const [head, body] = html.split('</head>');
+	expect(head).toContain('.base-ui-disable-scrollbar{scrollbar-width:none}');
+	expect(body).not.toContain('<style');
 });

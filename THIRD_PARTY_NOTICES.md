@@ -265,7 +265,7 @@ Parts derive from Base UI v1.9.0, commit `ad7ecda5296b0295b41a51ecb01fce6204acd0
 - `src/lib/scroll-area/ScrollAreaContent.svelte` from `packages/react/src/scroll-area/content/ScrollAreaContent.tsx`
 - `src/lib/scroll-area/ScrollAreaCorner.svelte` from `packages/react/src/scroll-area/corner/ScrollAreaCorner.tsx`
 - `src/lib/internal/scrollEdges.ts` from `packages/react/src/utils/scrollEdges.ts`
-- `src/lib/internal/styles.ts` from `packages/react/src/utils/styles.tsx` (the disable-scrollbar class and CSS)
+- `src/lib/internal/styles.ts` and `src/lib/internal/DisableScrollbarStyle.svelte` from `packages/react/src/utils/styles.tsx` (the disable-scrollbar class, CSS, and style element), with the insertion order of React 19's hoisted `<style precedence>`
 - `src/lib/scroll-area/constants.ts` from `packages/react/src/scroll-area/constants.ts`
 - `src/lib/scroll-area/dom.ts` from `packages/react/src/scroll-area/utils/getOffset.ts`
 - `src/lib/slider/SliderIndicator.svelte` and `src/lib/slider/indicator-style.ts` from `packages/react/src/slider/indicator/SliderIndicator.tsx`
