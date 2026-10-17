@@ -3,7 +3,7 @@
 // Cases from upstream commit 7d93b487f follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance, ref, inputRef, and className callbacks are not ported.
 import { page, userEvent } from 'vitest/browser';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import NumberFieldHarness from '../../tests/NumberFieldHarness.svelte';
 import PreventedHandlerHarness from '../../tests/PreventedHandlerHarness.svelte';
@@ -433,7 +433,7 @@ describe('<NumberField />', () => {
 	// pointermove that scrubs the value. So each test fixes which side of the race it covers.
 	describe('scrub area click without scrubbing', () => {
 		async function clickScrubArea() {
-			const onScrubClick = vi.fn();
+			const onScrubClick = vi.fn<(event: MouseEvent) => void>();
 			render(NumberFieldHarness, { scenario: 'scrub-click', onScrubClick });
 			await userEvent.click(page.getByTestId('scrub'));
 			// The synthesized click waits one task, and Firefox adds 20ms before it.
@@ -445,11 +445,10 @@ describe('<NumberField />', () => {
 			const lock = vi
 				.spyOn(Element.prototype, 'requestPointerLock')
 				.mockRejectedValue(new DOMException('denied', 'NotAllowedError'));
-			try {
-				expect(await clickScrubArea()).toHaveBeenCalledTimes(1);
-			} finally {
-				lock.mockRestore();
-			}
+			onTestFinished(() => lock.mockRestore());
+			const onScrubClick = await clickScrubArea();
+			expect(onScrubClick).toHaveBeenCalledTimes(1);
+			expect(onScrubClick.mock.calls[0][0].isTrusted).toBe(true);
 		});
 
 		it('fires onclick once when the pointer lock takes the native click', async () => {
@@ -461,12 +460,13 @@ describe('<NumberField />', () => {
 				if (event.isTrusted) event.stopImmediatePropagation();
 			};
 			window.addEventListener('click', takeClick, true);
-			try {
-				expect(await clickScrubArea()).toHaveBeenCalledTimes(1);
-			} finally {
+			onTestFinished(() => {
 				window.removeEventListener('click', takeClick, true);
 				lock.mockRestore();
-			}
+			});
+			const onScrubClick = await clickScrubArea();
+			expect(onScrubClick).toHaveBeenCalledTimes(1);
+			expect(onScrubClick.mock.calls[0][0].isTrusted).toBe(false);
 		});
 	});
 
