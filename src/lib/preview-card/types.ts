@@ -5,7 +5,7 @@ import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderSnippet } from '../internal/render-children.js';
 import type { PreviewCardHandle } from './handle.svelte.js';
 
 export type { Align, Side };
@@ -32,10 +32,6 @@ export interface PreviewCardActions {
 }
 
 export type PreviewCardRootState = Record<string, never>;
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface PreviewCardRootProps<Payload = unknown> {
 	/**
@@ -259,7 +255,7 @@ export interface PreviewCardPositionerProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PreviewCardPositionerState>;
+	render?: RenderSnippet<HTMLDivElement, PreviewCardPositionerState>;
 	children?: Snippet;
 }
 
@@ -278,7 +274,7 @@ export interface PreviewCardPopupProps extends Omit<HTMLAttributes<HTMLDivElemen
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PreviewCardPopupState>;
+	render?: RenderSnippet<HTMLDivElement, PreviewCardPopupState>;
 	children?: Snippet;
 }
 
@@ -296,7 +292,7 @@ export interface PreviewCardArrowProps extends Omit<HTMLAttributes<HTMLDivElemen
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PreviewCardArrowState>;
+	render?: RenderSnippet<HTMLDivElement, PreviewCardArrowState>;
 	children?: Snippet;
 }
 
@@ -312,7 +308,7 @@ export interface PreviewCardBackdropProps extends Omit<HTMLAttributes<HTMLDivEle
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PreviewCardBackdropState>;
+	render?: RenderSnippet<HTMLDivElement, PreviewCardBackdropState>;
 	children?: Snippet;
 }
 
@@ -334,6 +330,6 @@ export interface PreviewCardViewportProps extends Omit<HTMLAttributes<HTMLDivEle
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, PreviewCardViewportState>;
+	render?: RenderSnippet<HTMLDivElement, PreviewCardViewportState>;
 	children?: Snippet;
 }

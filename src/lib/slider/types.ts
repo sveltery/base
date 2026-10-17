@@ -5,7 +5,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, BaseUIGenericEventDetails, REASONS } from '@sveltery/utils';
 import type { FieldRootState } from '../field/types.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderSnippet } from '../internal/render-children.js';
 
 export type SliderOrientation = 'horizontal' | 'vertical';
 export type SliderThumbAlignment = 'center' | 'edge' | 'edge-client-only';
@@ -56,10 +56,6 @@ export interface SliderRootState extends FieldRootState {
 	/** The raw number value of the slider. */
 	values: readonly number[];
 }
-
-type RenderSnippet<Element extends HTMLElement> = Snippet<
-	[props: HTMLAttributes<Element>, state: SliderRootState, children: RenderChildren]
->;
 
 export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
@@ -162,7 +158,7 @@ export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: RenderSnippet<HTMLDivElement>;
+	render?: RenderSnippet<HTMLDivElement, SliderRootState>;
 	children?: Snippet;
 }
 
@@ -173,7 +169,7 @@ export interface SliderControlProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: RenderSnippet<HTMLDivElement>;
+	render?: RenderSnippet<HTMLDivElement, SliderRootState>;
 	children?: Snippet;
 }
 
@@ -184,7 +180,7 @@ export interface SliderTrackProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: RenderSnippet<HTMLDivElement>;
+	render?: RenderSnippet<HTMLDivElement, SliderRootState>;
 	children?: Snippet;
 }
 
@@ -195,7 +191,7 @@ export interface SliderIndicatorProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: RenderSnippet<HTMLDivElement>;
+	render?: RenderSnippet<HTMLDivElement, SliderRootState>;
 	children?: Snippet;
 }
 
@@ -206,7 +202,7 @@ export interface SliderLabelProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: RenderSnippet<HTMLDivElement>;
+	render?: RenderSnippet<HTMLDivElement, SliderRootState>;
 	children?: Snippet;
 }
 
@@ -249,7 +245,7 @@ export interface SliderThumbProps extends Omit<
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: RenderSnippet<HTMLDivElement>;
+	render?: RenderSnippet<HTMLDivElement, SliderRootState>;
 	children?: Snippet;
 }
 
@@ -267,5 +263,5 @@ export interface SliderValueProps extends Omit<HTMLAttributes<HTMLOutputElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: RenderSnippet<HTMLOutputElement>;
+	render?: RenderSnippet<HTMLOutputElement, SliderRootState>;
 }

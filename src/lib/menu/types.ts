@@ -13,7 +13,7 @@ import type {
 } from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderSnippet } from '../internal/render-children.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type {
 	MenuFilterChangeEventDetails,
@@ -63,10 +63,6 @@ export type MenuInstant = 'dismiss' | 'click' | 'group' | 'trigger-change';
 
 type FocusTarget =
 	boolean | HTMLElement | null | ((interaction: string) => void | boolean | HTMLElement | null);
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface MenuActions {
 	unmount: () => void;
@@ -350,7 +346,7 @@ export interface MenuPositionerProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuPositionerState>;
+	render?: RenderSnippet<HTMLDivElement, MenuPositionerState>;
 	children?: Snippet;
 }
 
@@ -381,7 +377,7 @@ export interface MenuPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuPopupState>;
+	render?: RenderSnippet<HTMLDivElement, MenuPopupState>;
 	children?: Snippet;
 }
 
@@ -399,7 +395,7 @@ export interface MenuArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuArrowState>;
+	render?: RenderSnippet<HTMLDivElement, MenuArrowState>;
 	children?: Snippet;
 }
 
@@ -415,7 +411,7 @@ export interface MenuBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuBackdropState>;
+	render?: RenderSnippet<HTMLDivElement, MenuBackdropState>;
 	children?: Snippet;
 }
 
@@ -433,7 +429,7 @@ export interface MenuViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuViewportState>;
+	render?: RenderSnippet<HTMLDivElement, MenuViewportState>;
 	children?: Snippet;
 }
 
@@ -476,7 +472,7 @@ export interface MenuItemProps
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuItemState>;
+	render?: RenderSnippet<HTMLDivElement, MenuItemState>;
 	children?: Snippet;
 }
 
@@ -543,7 +539,7 @@ export interface MenuCheckboxItemProps
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuCheckboxItemState>;
+	render?: RenderSnippet<HTMLDivElement, MenuCheckboxItemState>;
 	children?: Snippet;
 }
 
@@ -569,7 +565,7 @@ export interface MenuItemIndicatorProps extends Omit<HTMLAttributes<HTMLSpanElem
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, MenuItemIndicatorState>;
+	render?: RenderSnippet<HTMLSpanElement, MenuItemIndicatorState>;
 	children?: Snippet;
 }
 
@@ -588,7 +584,7 @@ export interface MenuGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuGroupState>;
+	render?: RenderSnippet<HTMLDivElement, MenuGroupState>;
 	children?: Snippet;
 }
 
@@ -601,7 +597,7 @@ export interface MenuGroupLabelProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuGroupLabelState>;
+	render?: RenderSnippet<HTMLDivElement, MenuGroupLabelState>;
 	children?: Snippet;
 }
 
@@ -629,7 +625,7 @@ export interface MenuRadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuRadioGroupState>;
+	render?: RenderSnippet<HTMLDivElement, MenuRadioGroupState>;
 	children?: Snippet;
 }
 
@@ -669,7 +665,7 @@ export interface MenuRadioItemProps
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuRadioItemState>;
+	render?: RenderSnippet<HTMLDivElement, MenuRadioItemState>;
 	children?: Snippet;
 }
 
@@ -727,7 +723,7 @@ export interface MenuSubmenuTriggerProps
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuSubmenuTriggerState>;
+	render?: RenderSnippet<HTMLDivElement, MenuSubmenuTriggerState>;
 	children?: Snippet;
 }
 
@@ -826,7 +822,7 @@ export interface MenuEmptyProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuEmptyState>;
+	render?: RenderSnippet<HTMLDivElement, MenuEmptyState>;
 	children?: Snippet;
 }
 
@@ -839,6 +835,6 @@ export interface MenuListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MenuListState>;
+	render?: RenderSnippet<HTMLDivElement, MenuListState>;
 	children?: Snippet;
 }

@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { RenderSnippet } from '../internal/render-children.js';
 
 /** Upstream meter part state is an empty object: these parts do not project state attributes. */
 export type MeterRootState = Record<string, never>;
@@ -12,10 +12,6 @@ export type MeterIndicatorState = MeterRootState;
 export type MeterValueState = MeterRootState;
 
 export type MeterLabelState = MeterRootState;
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface MeterRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** Options to format the value. */
@@ -51,7 +47,7 @@ export interface MeterRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MeterRootState>;
+	render?: RenderSnippet<HTMLDivElement, MeterRootState>;
 	children?: Snippet;
 }
 
@@ -62,7 +58,7 @@ export interface MeterTrackProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MeterTrackState>;
+	render?: RenderSnippet<HTMLDivElement, MeterTrackState>;
 	children?: Snippet;
 }
 
@@ -73,7 +69,7 @@ export interface MeterIndicatorProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLDivElement, MeterIndicatorState>;
+	render?: RenderSnippet<HTMLDivElement, MeterIndicatorState>;
 	children?: Snippet;
 }
 
@@ -89,7 +85,7 @@ export interface MeterValueProps extends Omit<HTMLAttributes<HTMLSpanElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, MeterValueState>;
+	render?: RenderSnippet<HTMLSpanElement, MeterValueState>;
 }
 
 export interface MeterLabelProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
@@ -99,6 +95,6 @@ export interface MeterLabelProps extends Omit<HTMLAttributes<HTMLSpanElement>, '
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
 	 * and the children to render.
 	 */
-	render?: PartRender<HTMLSpanElement, MeterLabelState>;
+	render?: RenderSnippet<HTMLSpanElement, MeterLabelState>;
 	children?: Snippet;
 }
