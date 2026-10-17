@@ -21,9 +21,15 @@ export const CollapsibleTriggerDataAttributes = {
 } as const;
 
 export const CollapsiblePanelCssVariables = {
-	/** The collapsible panel's height. */
+	/**
+	 * The collapsible panel's height.
+	 * @type {number}
+	 */
 	collapsiblePanelHeight: '--collapsible-panel-height',
-	/** The collapsible panel's width. */
+	/**
+	 * The collapsible panel's width.
+	 * @type {number}
+	 */
 	collapsiblePanelWidth: '--collapsible-panel-width'
 } as const;
 

@@ -1,5 +1,5 @@
 <script module lang="ts">
-	export { checkIcon, copyIcon, externalLinkIcon, markdownIcon, moreVertIcon };
+	export { caretSortIcon, checkIcon, copyIcon, externalLinkIcon, markdownIcon, moreVertIcon };
 </script>
 
 {#snippet copyIcon()}
@@ -58,5 +58,11 @@
 		<path
 			d="M9.5 13c0 .8284-.67157 1.5-1.5 1.5s-1.5-.6716-1.5-1.5.67157-1.5 1.5-1.5 1.5.6716 1.5 1.5m0-5c0 .82843-.67157 1.5-1.5 1.5S6.5 8.82843 6.5 8 7.17157 6.5 8 6.5s1.5.67157 1.5 1.5m0-5c0 .82843-.67157 1.5-1.5 1.5S6.5 3.82843 6.5 3 7.17157 1.5 8 1.5s1.5.67157 1.5 1.5"
 		/>
+	</svg>
+{/snippet}
+
+{#snippet caretSortIcon()}
+	<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+		<path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
 	</svg>
 {/snippet}

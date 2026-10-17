@@ -152,10 +152,7 @@
 		}
 	}
 
-	function handleCompositionStart(
-		event: CompositionEvent & { currentTarget: EventTarget & HTMLInputElement }
-	) {
-		oncompositionstart?.(event);
+	function handleCompositionStart() {
 		// Some Android keyboards report all text as composing, so Android commits on `input`.
 		if (!platform.os.android) composingValue = slotValue;
 	}
@@ -163,7 +160,6 @@
 	function handleCompositionEnd(
 		event: CompositionEvent & { currentTarget: EventTarget & HTMLInputElement }
 	) {
-		oncompositionend?.(event);
 		if (composingValue == null) return;
 		composingValue = null;
 		if (!model.disabled && !model.readOnly) {
@@ -274,6 +270,8 @@
 		commitValue(rawValue, REASONS.inputPaste, event);
 	}
 
+	const commitComposition = $derived(chain(handleCompositionEnd, oncompositionend));
+
 	const hostProps: HTMLInputAttributes = $derived({
 		...elementProps,
 		...getStateAttributesProps(inputState, inputStateAttributes),
@@ -301,8 +299,12 @@
 		onfocus: chain(handleFocus, onfocus),
 		onblur: chain((event) => model.handleInputBlur(event), onblur),
 		oninput: chain(handleInput, oninput),
-		oncompositionstart: handleCompositionStart,
-		oncompositionend: handleCompositionEnd,
+		oncompositionstart: chain(handleCompositionStart, oncompositionstart),
+		oncompositionend(event: CompositionEvent & { currentTarget: EventTarget & HTMLInputElement }) {
+			commitComposition(event);
+			// A prevented composition still ends, or the slot would keep buffering every input.
+			composingValue = null;
+		},
 		onkeydown: handleKeyDown,
 		onpaste: handlePaste,
 		[model.slots.attachmentKey]: remember

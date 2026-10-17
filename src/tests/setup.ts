@@ -11,13 +11,15 @@ beforeEach(async () => {
 });
 
 // React Testing Library wraps each user action in `act`, which renders the work it scheduled.
-// A press can schedule its open commit in a task after the next frame, as React does, so each
-// action here waits one task before the test reads the DOM. The real timer keeps fake-timer specs moving.
+// A press schedules its open commit in a task after the next frame, as React does, and the click
+// can resolve before that frame paints. So each action here waits one frame and then one task
+// before the test reads the DOM. The real timers keep fake-timer specs moving.
+const realRequestAnimationFrame = globalThis.requestAnimationFrame;
 const realSetTimeout = globalThis.setTimeout;
 for (const name of ['click', 'dblClick', 'tripleClick'] as const) {
 	const action = userEvent[name] as (...args: unknown[]) => Promise<void>;
 	userEvent[name] = async (...args: unknown[]) => {
 		await action.apply(userEvent, args);
-		await new Promise((resolve) => realSetTimeout(resolve));
+		await new Promise((resolve) => realRequestAnimationFrame(() => realSetTimeout(resolve)));
 	};
 }

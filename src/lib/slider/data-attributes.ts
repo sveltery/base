@@ -5,7 +5,10 @@
 export const SliderRootDataAttributes = {
 	/** Present while the user is dragging. */
 	dragging: 'data-dragging',
-	/** Indicates the orientation of the slider. */
+	/**
+	 * Indicates the orientation of the slider.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: 'data-orientation',
 	/** Present when the slider is disabled. */
 	disabled: 'data-disabled',
@@ -24,7 +27,10 @@ export const SliderRootDataAttributes = {
 export const SliderValueDataAttributes = {
 	/** Present while the user is dragging. */
 	dragging: 'data-dragging',
-	/** Indicates the orientation of the slider. */
+	/**
+	 * Indicates the orientation of the slider.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: 'data-orientation',
 	/** Present when the slider is disabled. */
 	disabled: 'data-disabled',
@@ -43,7 +49,10 @@ export const SliderValueDataAttributes = {
 export const SliderControlDataAttributes = {
 	/** Present while the user is dragging. */
 	dragging: 'data-dragging',
-	/** Indicates the orientation of the slider. */
+	/**
+	 * Indicates the orientation of the slider.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: 'data-orientation',
 	/** Present when the slider is disabled. */
 	disabled: 'data-disabled',
@@ -62,7 +71,10 @@ export const SliderControlDataAttributes = {
 export const SliderTrackDataAttributes = {
 	/** Present while the user is dragging. */
 	dragging: 'data-dragging',
-	/** Indicates the orientation of the slider. */
+	/**
+	 * Indicates the orientation of the slider.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: 'data-orientation',
 	/** Present when the slider is disabled. */
 	disabled: 'data-disabled',
@@ -83,7 +95,10 @@ export const SliderThumbDataAttributes = {
 	index: 'data-index',
 	/** Present while the user is dragging. */
 	dragging: 'data-dragging',
-	/** Indicates the orientation of the slider. */
+	/**
+	 * Indicates the orientation of the slider.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: 'data-orientation',
 	/** Present when the slider is disabled. */
 	disabled: 'data-disabled',
@@ -102,7 +117,10 @@ export const SliderThumbDataAttributes = {
 export const SliderIndicatorDataAttributes = {
 	/** Present while the user is dragging. */
 	dragging: 'data-dragging',
-	/** Indicates the orientation of the slider. */
+	/**
+	 * Indicates the orientation of the slider.
+	 * @type {'horizontal' | 'vertical'}
+	 */
 	orientation: 'data-orientation',
 	/** Present when the slider is disabled. */
 	disabled: 'data-disabled',

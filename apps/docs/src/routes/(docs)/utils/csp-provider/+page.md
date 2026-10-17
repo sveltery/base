@@ -122,4 +122,8 @@ If your CSP blocks inline style _attributes_ in addition to _elements_, you have
 
 ## API reference
 
-<ApiPart name="csp-provider" part="CSPProvider" />
+<script>
+	import { TypesCSPProvider } from './types';
+</script>
+
+<TypesCSPProvider />

@@ -12,7 +12,10 @@ export const AccordionRootDataAttributes = {
 } as const;
 
 export const AccordionItemDataAttributes = {
-	/** Indicates the index of the accordion item. */
+	/**
+	 * Indicates the index of the accordion item.
+	 * @type {number}
+	 */
 	index: attributes.index,
 	/** Present when the accordion item is disabled. */
 	disabled: 'data-disabled',
@@ -21,7 +24,10 @@ export const AccordionItemDataAttributes = {
 } as const;
 
 export const AccordionHeaderDataAttributes = {
-	/** Indicates the index of the accordion item. */
+	/**
+	 * Indicates the index of the accordion item.
+	 * @type {number}
+	 */
 	index: attributes.index,
 	/** Present when the accordion item is disabled. */
 	disabled: 'data-disabled',
@@ -30,7 +36,10 @@ export const AccordionHeaderDataAttributes = {
 } as const;
 
 export const AccordionTriggerDataAttributes = {
-	/** Indicates the index of the accordion item. */
+	/**
+	 * Indicates the index of the accordion item.
+	 * @type {number}
+	 */
 	index: attributes.index,
 	/** Present when the accordion panel is open. */
 	panelOpen: 'data-panel-open',
@@ -39,14 +48,23 @@ export const AccordionTriggerDataAttributes = {
 } as const;
 
 export const AccordionPanelCssVariables = {
-	/** The accordion panel's height. */
+	/**
+	 * The accordion panel's height.
+	 * @type {number}
+	 */
 	accordionPanelHeight: '--accordion-panel-height',
-	/** The accordion panel's width. */
+	/**
+	 * The accordion panel's width.
+	 * @type {number}
+	 */
 	accordionPanelWidth: '--accordion-panel-width'
 } as const;
 
 export const AccordionPanelDataAttributes = {
-	/** Indicates the index of the accordion item. */
+	/**
+	 * Indicates the index of the accordion item.
+	 * @type {number}
+	 */
 	index: attributes.index,
 	/** Present when the accordion panel is open. */
 	open: 'data-open',
