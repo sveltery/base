@@ -6,28 +6,7 @@
 
 <Meta name="description" content="Enables RTL behavior for Sveltery Base components." />
 
-```svelte demo
-<script lang="ts">
-	import { DirectionProvider } from '@sveltery/base/direction-provider';
-	import { Slider } from '@sveltery/base/slider';
-</script>
-
-<div dir="rtl">
-	<DirectionProvider direction="rtl">
-		<Slider.Root defaultValue={25}>
-			<Slider.Control class="flex w-56 touch-none items-center py-3 select-none">
-				<Slider.Track class="h-1 w-full bg-neutral-200 select-none dark:bg-neutral-800">
-					<Slider.Indicator class="bg-neutral-950 select-none dark:bg-white" />
-					<Slider.Thumb
-						aria-label="Volume"
-						class="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:border-white dark:bg-neutral-950 dark:has-[:focus-visible]:outline-white"
-					/>
-				</Slider.Track>
-			</Slider.Control>
-		</Slider.Root>
-	</DirectionProvider>
-</div>
-```
+<DemoDirectionProviderHero />
 
 ## Anatomy
 
@@ -48,6 +27,7 @@ Import the component and wrap it around your app:
 ## API reference
 
 <script>
+	import { DemoDirectionProviderHero } from './demos/hero';
 	import { TypesDirectionProvider } from './types';
 </script>
 

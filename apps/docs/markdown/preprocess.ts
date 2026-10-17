@@ -1,5 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, relative, sep } from 'node:path';
+import { relative, sep } from 'node:path';
 import type { PreprocessorGroup } from 'svelte/compiler';
 import { highlight } from './highlight.ts';
 import { MEMBER_LABELS, memberTable } from './members.ts';
@@ -9,7 +8,6 @@ import { pageStub } from './types.ts';
 const GLOBAL_COMPONENTS = [
 	'Subtitle',
 	'CodeBlock',
-	'Demo',
 	'ReferenceTable',
 	'MemberTable',
 	'ReleaseTimeline',
@@ -41,20 +39,17 @@ export function fenceMeta(meta: string | null | undefined) {
 }
 
 /**
- * mdsvex `highlight.highlighter`. A `svelte demo` fence becomes a `<Demo>` that carries its code,
- * which `docsComponents` turns into a component file. Other fences become a `<CodeBlock>`.
+ * mdsvex `highlight.highlighter`. A fence becomes a `<CodeBlock>`. Demos live in `demos/<name>/`
+ * beside the page, so a `svelte demo` fence is a leftover.
  */
 export async function highlightCode(
 	code: string,
 	lang: string | null | undefined,
 	meta: string | null | undefined
 ) {
-	const html = await highlight(code, lang ?? 'text');
 	const { demo, title } = fenceMeta(meta);
-	if (lang === 'svelte' && demo) {
-		// base64 keeps the code out of the markdown and Svelte parsers until it is written out.
-		return `<Demo source="${Buffer.from(code).toString('base64')}" html={${literal(html)}} />`;
-	}
+	if (demo) throw new Error('A demo lives in demos/<name>/ beside its page, not in a fence.');
+	const html = await highlight(code, lang ?? 'text');
 	return `<CodeBlock html={${literal(html)}}${title === undefined ? '' : ` title={${literal(title)}}`} />`;
 }
 
@@ -126,16 +121,14 @@ function referenceSections(code: string): string {
 }
 
 /**
- * Runs after mdsvex on `.md` pages. It imports the demos and the docs components a page uses,
+ * Runs after mdsvex on `.md` pages. It imports the docs components a page uses,
  * and checks that the page renders a reference table for each part its `types.ts` documents.
  */
 export function docsComponents({
 	routes,
-	demos,
 	lib
 }: {
 	routes: string;
-	demos: string;
 	lib: string;
 }): PreprocessorGroup {
 	return {
@@ -144,26 +137,13 @@ export function docsComponents({
 			if (!filename?.endsWith('.md')) return;
 			const imports: string[] = [];
 
-			// Each demo is written to `<section>-<page>-<n>.svelte`, so an error names its page.
-			const source = relative(routes, filename).replaceAll(sep, '/');
-			const page = source.replace(/\/\+page\.md$/, '').replaceAll('/', '-');
-			let demoCount = 0;
-			let code = content.replace(/<Demo source="([A-Za-z0-9+/=]*)"/g, (_tag, encoded) => {
-				const raw = Buffer.from(encoded, 'base64').toString('utf8');
-				const id = `${page}-${++demoCount}`;
-				const file = join(demos, `${id}.svelte`);
-				mkdirSync(demos, { recursive: true });
-				if (!existsSync(file) || readFileSync(file, 'utf8') !== raw) writeFileSync(file, raw);
-				const name = `__demo${demoCount}`;
-				imports.push(`import ${name} from ${literal(relative(dirname(filename), file))};`);
-				return `<Demo id="${id}" page="${source}" component={${name}} raw={${literal(raw)}}`;
-			});
+			const [section, slug] = relative(routes, filename).split(sep);
 
 			// A commented-out tag is not documentation.
-			code = code.replace(/<!--[\s\S]*?-->/g, '');
+			let code = content.replace(/<!--[\s\S]*?-->/g, '');
 			// A page that documents a component documents every part of it.
 			const stub = pageStub(filename, lib);
-			if (page.startsWith('components-') && !stub) {
+			if (section === 'components' && slug !== '+page.md' && !stub) {
 				throw new Error(`${filename}: a component page needs a types.ts beside it`);
 			}
 			const missing = [...(stub?.tags.keys() ?? [])].filter(

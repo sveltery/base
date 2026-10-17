@@ -1,6 +1,6 @@
 <!--
-	The toast list the Forms page demos share. A demo is a single component, and
-	`getToastManager()` has to run in a component inside `Toast.Provider`, so the list lives here.
+	The toast list the Forms demos share. `getToastManager()` has to run in a component inside
+	`Toast.Provider`, so the list is a component of its own.
 -->
 <script lang="ts">
 	import { Toast } from '@sveltery/base/toast';
