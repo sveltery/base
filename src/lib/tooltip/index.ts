@@ -8,10 +8,11 @@ import TooltipTrigger from './TooltipTrigger.svelte';
 import TooltipViewport from './TooltipViewport.svelte';
 import { TooltipHandle, createTooltipHandle } from './handle.svelte.js';
 
+// A generic component needs `as typeof` so the emitted .d.ts can name its type.
 export const Tooltip = {
 	Provider: TooltipProvider,
-	Root: TooltipRoot,
-	Trigger: TooltipTrigger,
+	Root: TooltipRoot as typeof TooltipRoot,
+	Trigger: TooltipTrigger as typeof TooltipTrigger,
 	Portal: TooltipPortal,
 	Positioner: TooltipPositioner,
 	Popup: TooltipPopup,
