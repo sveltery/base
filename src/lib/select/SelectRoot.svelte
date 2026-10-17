@@ -46,8 +46,8 @@
 		value = $bindable(),
 		defaultValue,
 		onValueChange,
-		open = $bindable(),
-		defaultOpen = false,
+		open = $bindable(false),
+		defaultOpen,
 		onOpenChange,
 		onOpenChangeComplete,
 		name: nameProp,
@@ -66,8 +66,9 @@
 		isItemEqualToValue,
 		children
 	}: SelectRootProps<Value, Multiple> = $props();
+	// The fallback stands for an omitted `open`, so `defaultOpen` replaces it.
 	// svelte-ignore state_referenced_locally
-	if (open === undefined) open = defaultOpen;
+	if (open === false && defaultOpen !== undefined) open = defaultOpen;
 
 	type SelectValue = SelectValueOf<Value, Multiple>;
 
