@@ -30,13 +30,14 @@ export class PopupAutoResize {
 		readDirection: () => string,
 		private readonly onResize?: (previous: Size) => void
 	) {
+		// Derived so a position update that keeps the side does not restart the resize.
+		const side = $derived(readSide());
+		const textDirection = $derived(readDirection());
 		$effect(() => {
 			const content = store.payload;
 			const mounted = store.mounted;
 			const popup = store.popupElement;
 			const positioner = store.positionerElement;
-			const side = readSide();
-			const textDirection = readDirection();
 			if (!mounted || !popup || !positioner) {
 				this.committedSize = null;
 				store.positionerVars = {};
@@ -67,7 +68,7 @@ export class PopupAutoResize {
 		};
 		this.frame.request(() => {
 			if (signal.aborted || !popup.isConnected || !Object.is(mark, store.payload)) return;
-			const next = getCssDimensions(popup);
+			const next = measure(popup, store.positionerElement);
 			this.committedSize = next;
 			store.positionerVars = sizeVars('positioner', next);
 			if (!previous) {
@@ -90,6 +91,31 @@ export class PopupAutoResize {
 			});
 		});
 	}
+}
+
+// An anchored popup is absolute inside a max-content positioner, which then has no width
+// to give it, so the measurement lays the popup out in flow at its natural size.
+function measure(popup: HTMLElement, positioner: HTMLElement | null) {
+	const restore = [
+		override(popup, 'position', 'static'),
+		override(popup, 'transform', 'none'),
+		override(popup, 'scale', '1'),
+		...(positioner
+			? [
+					override(positioner, '--available-width', 'max-content'),
+					override(positioner, '--available-height', 'max-content')
+				]
+			: [])
+	];
+	const size = getCssDimensions(popup);
+	restore.forEach((undo) => undo());
+	return size;
+}
+
+function override(element: HTMLElement, property: string, value: string) {
+	const original = element.style.getPropertyValue(property);
+	element.style.setProperty(property, value);
+	return () => element.style.setProperty(property, original);
 }
 
 function anchoring(side: string | null, textDirection: string) {

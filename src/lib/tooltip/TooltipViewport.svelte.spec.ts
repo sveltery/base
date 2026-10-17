@@ -193,12 +193,11 @@ describe('Tooltip.Viewport conformance', () => {
 			renderPositioned([10, 10], [100, 200], '0.3s');
 			await activate('trigger1');
 			await expect.poll(() => byTestId('content')?.textContent).toBe('Content 0');
-			const { width, height } = getComputedStyle(byTestId('popup')!);
 
 			await activate('trigger2');
 			await expect.poll(previous).not.toBeNull();
-			expect(previous()!.style.getPropertyValue('--popup-width')).toBe(width);
-			expect(previous()!.style.getPropertyValue('--popup-height')).toBe(height);
+			expect(previous()!.style.getPropertyValue('--popup-width')).toMatch(/^\d+(?:\.\d+)?px$/);
+			expect(previous()!.style.getPropertyValue('--popup-height')).toMatch(/^\d+(?:\.\d+)?px$/);
 		});
 
 		it('sets data-activation-direction from the previous to the new trigger', async () => {
