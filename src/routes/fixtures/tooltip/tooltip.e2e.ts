@@ -61,12 +61,15 @@ for (const reference of [false, true]) {
 			await expect(popup).toBeVisible();
 			await trigger.click();
 			await expect(popup).toHaveCount(0);
-			// Base UI React also reports two trigger-press closes for one click.
-			expect(await recorded(page)).toEqual([
-				{ open: true, reason: 'trigger-hover', canceled: false },
-				{ open: false, reason: 'trigger-press', canceled: false },
-				{ open: false, reason: 'trigger-press', canceled: false }
-			]);
+			// Base UI React also reports two trigger-press closes for one click. The second can land
+			// after the popup unmounts.
+			await expect
+				.poll(() => recorded(page))
+				.toEqual([
+					{ open: true, reason: 'trigger-hover', canceled: false },
+					{ open: false, reason: 'trigger-press', canceled: false },
+					{ open: false, reason: 'trigger-press', canceled: false }
+				]);
 		});
 
 		test('closeOnClick false keeps the tooltip open on click', async ({ page }) => {

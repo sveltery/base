@@ -7,7 +7,7 @@ export default defineConfig({
 	testMatch: '**/*.e2e.{ts,js}',
 	outputDir: process.env.E2E_OUTPUT_DIR ?? 'test-results',
 	reporter: [['list']],
-	workers: 1,
+	fullyParallel: true,
 	retries: 0,
 	use: {
 		baseURL: `http://127.0.0.1:${port}`,
