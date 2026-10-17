@@ -151,11 +151,6 @@ export interface ComboboxSharedRootProps<Value = unknown, Item = Value> {
 	 */
 	openOnInputClick?: boolean;
 	/**
-	 * Whether the highlighted item should be preserved when the pointer leaves the list.
-	 * @default false
-	 */
-	keepHighlight?: boolean;
-	/**
 	 * Whether moving the pointer over items should highlight them.
 	 * Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.
 	 * @default true
@@ -251,11 +246,6 @@ export interface ComboboxSharedRootProps<Value = unknown, Item = Value> {
 	 * Defaults to the user's runtime locale.
 	 */
 	locale?: Intl.LocalesArgument;
-	/**
-	 * Whether clicking an item should submit the owning form.
-	 * @default false
-	 */
-	submitOnItemClick?: boolean;
 	children?: Snippet;
 }
 
@@ -328,6 +318,16 @@ export interface AriaComboboxProps<Value = unknown, Item = Value> extends Combob
 	fillInputOnItemPress?: boolean;
 	/** The query the list is filtered by, when it differs from the input value. */
 	filterQuery?: string;
+	/**
+	 * Whether the highlighted item should be preserved when the pointer leaves the list.
+	 * @default false
+	 */
+	keepHighlight?: boolean;
+	/**
+	 * Whether clicking an item should submit the owning form.
+	 * @default false
+	 */
+	submitOnItemClick?: boolean;
 }
 
 export type ComboboxLabelState = FieldRootState;
