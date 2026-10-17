@@ -133,23 +133,6 @@ export function readDemo(stub: string, code = readFileSync(stub, 'utf8')) {
 	return { slug: basename(dirname(stub)), variants, callEnd: call.index + call[0].length - 1 };
 }
 
-/**
- * The demos a page renders, such as `<DemoAccordionHero />`, from the stubs its script imports:
- * each tag and the files of its Tailwind variant, or of its only variant, with highlight markers removed.
- */
-export function pageDemos(page: string, source: string) {
-	const demos = new Map<string, SourceFile[]>();
-	for (const [, name, path] of source.matchAll(/import \{ (Demo\w+) \} from '(\.[^']+)';/g)) {
-		const { variants } = readDemo(join(dirname(page), path, 'index.ts'));
-		const { files } = (variants.find(([variant]) => variant === 'Tailwind') ?? variants[0])[1];
-		demos.set(
-			name,
-			files.map((file) => ({ ...file, code: readMarkers(file.code).code }))
-		);
-	}
-	return demos;
-}
-
 /** A file's code with its highlight markers removed, as the copy button and StackBlitz receive it. */
 const demoFile = async ({ name, code }: SourceFile): Promise<DemoFile> => ({
 	name,
