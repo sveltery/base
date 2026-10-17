@@ -281,4 +281,51 @@ describe('Tooltip.Viewport conformance', () => {
 			expect(current()?.hasAttribute('data-starting-style')).toBe(false);
 		});
 	});
+
+	describe('sizing', () => {
+		const lineCount = (element: HTMLElement) => {
+			const range = document.createRange();
+			range.selectNodeContents(element);
+			return new Set([...range.getClientRects()].map((rect) => Math.round(rect.top))).size;
+		};
+
+		it.each(['top', 'left', 'bottom'] as const)(
+			'sizes the popup to its content on side %s',
+			async (side) => {
+				injectStyle(`
+					[data-testid='popup'] { width: var(--popup-width, auto); height: var(--popup-height, auto); }
+					:has(> [data-testid='popup']) { width: var(--positioner-width); height: var(--positioner-height); max-width: var(--available-width); }
+				`);
+				render(TooltipViewportHarness, {
+					positionerProps: { side },
+					triggers: [
+						{
+							payload: 'one two three four',
+							testid: 'trigger1',
+							label: 'Trigger 1',
+							style: at(300, 300)
+						},
+						{
+							payload: 'five six seven eight',
+							testid: 'trigger2',
+							label: 'Trigger 2',
+							style: at(300, 420)
+						}
+					]
+				});
+				await activate('trigger1');
+				await expect.poll(() => current()?.textContent?.trim()).toBe('Content one two three four');
+				await frame();
+				await frame();
+				expect(lineCount(current()!)).toBe(1);
+				await activate('trigger2');
+				await expect
+					.poll(() => current()?.textContent?.trim())
+					.toBe('Content five six seven eight');
+				await frame();
+				await frame();
+				expect(lineCount(current()!)).toBe(1);
+			}
+		);
+	});
 });
