@@ -1,6 +1,9 @@
 import docs from '../../../package.json';
 import type { DemoVariant } from '../../../markdown/demos.ts';
 
+/** A demo variant under its key in `createDemoWithVariants`, such as `Tailwind`. */
+type NamedVariant = DemoVariant & { name: string };
+
 const version = (name: keyof typeof docs.devDependencies) => docs.devDependencies[name];
 
 /** Where the variant's entry file goes. The files it imports sit beside it, under their tab names. */
@@ -9,9 +12,11 @@ const ENTRY = 'src/lib/App.svelte';
 /**
  * A SvelteKit project that runs one demo variant, in the shape StackBlitz's `/run` endpoint takes.
  * SvelteKit, not plain Vite, because demos such as the Superforms one import `$app` modules.
+ * Only the `Tailwind` variant gets Tailwind, as in Base UI's `demoExportOptions`.
  */
-export function stackBlitzProject(title: string, variant: DemoVariant): Record<string, string> {
+export function stackBlitzProject(title: string, variant: NamedVariant): Record<string, string> {
 	const [entry, ...files] = variant.files;
+	const tailwind = variant.name === 'Tailwind';
 	return {
 		'package.json': JSON.stringify(
 			{
@@ -23,9 +28,9 @@ export function stackBlitzProject(title: string, variant: DemoVariant): Record<s
 				devDependencies: {
 					'@sveltejs/kit': version('@sveltejs/kit'),
 					'@sveltejs/vite-plugin-svelte': version('@sveltejs/vite-plugin-svelte'),
-					'@tailwindcss/vite': version('@tailwindcss/vite'),
+					...(tailwind && { '@tailwindcss/vite': version('@tailwindcss/vite') }),
 					svelte: version('svelte'),
-					tailwindcss: version('tailwindcss'),
+					...(tailwind && { tailwindcss: version('tailwindcss') }),
 					typescript: version('typescript'),
 					vite: version('vite')
 				}
@@ -33,11 +38,17 @@ export function stackBlitzProject(title: string, variant: DemoVariant): Record<s
 			null,
 			2
 		),
-		'vite.config.ts': `import { sveltekit } from '@sveltejs/kit/vite';
+		'vite.config.ts': tailwind
+			? `import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({ plugins: [tailwindcss(), sveltekit()] });
+`
+			: `import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({ plugins: [sveltekit()] });
 `,
 		'src/app.html': `<!doctype html>
 <html lang="en">
@@ -52,10 +63,8 @@ export default defineConfig({ plugins: [tailwindcss(), sveltekit()] });
 	</body>
 </html>
 `,
-		// Base UI's `demo.css`, with Tailwind.
-		'src/app.css': `@import 'tailwindcss';
-
-:root {
+		// Base UI's `demo.css`, with Tailwind for the Tailwind variant.
+		'src/app.css': `${tailwind ? `@import 'tailwindcss';\n\n` : ''}:root {
 	color-scheme: light dark;
 }
 
@@ -95,7 +104,7 @@ body {
 }
 
 /** Opens the demo variant in a new StackBlitz project, the way Base UI's demos do. */
-export function openStackBlitz(title: string, variant: DemoVariant) {
+export function openStackBlitz(title: string, variant: NamedVariant) {
 	const form = document.createElement('form');
 	form.method = 'POST';
 	form.target = '_blank';

@@ -31,7 +31,7 @@
 
 	// Base UI keeps the reader's styling method for every demo with the same set of variants.
 	const preferenceKey = $derived(
-		`variant:${variants
+		`_docs_variant_pref:${variants
 			.map((variant) => variant.name)
 			.sort()
 			.join(':')}`
@@ -50,7 +50,24 @@
 	);
 	const fileSlug = (variantName: string, name: string) => `${slug}:${kebab(variantName)}:${name}`;
 
+	/** The variant and file a `#<slug>:<variant>:<file>` link names, as Base UI reads it. */
+	function fromHash() {
+		const [hashSlug, hashVariant, hashFile] = decodeURIComponent(location.hash.slice(1)).split(':');
+		if (hashSlug !== slug) return;
+		return {
+			variant: variants.find((candidate) => kebab(candidate.name) === hashVariant?.toLowerCase()),
+			file: hashFile
+		};
+	}
+
+	// A link's variant comes before the stored one, and neither is stored until the reader picks one.
 	$effect(() => {
+		const linked = fromHash();
+		if (linked?.variant) {
+			variantName = linked.variant.name;
+			fileName = linked.file;
+			return;
+		}
 		if (variants.length < 2) return;
 		try {
 			const stored = localStorage.getItem(preferenceKey);
@@ -63,6 +80,7 @@
 	function selectVariant(name: string) {
 		variantName = name;
 		expanded = true;
+		if (fromHash()) history.replaceState(history.state, '', location.pathname + location.search);
 		try {
 			localStorage.setItem(preferenceKey, name);
 		} catch {
