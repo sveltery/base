@@ -1,5 +1,5 @@
 import { text, type MdNode } from './headings.ts';
-import { inlineMarkdown, plainText } from './reference.ts';
+import { highlightedMarkdown, plainText } from './reference.ts';
 
 /**
  * The headings below a page's title, nested by depth and keyed by slug. `titleMarkdown` keeps a
@@ -34,7 +34,10 @@ export const slugify = (value: string) =>
  * fails the build. The subtitle's inline markdown becomes HTML, as MDX parses it in upstream.
  */
 export function metadata() {
-	return (tree: MdNode, file: { filename?: string; data: { fm?: Record<string, unknown> } }) => {
+	return async (
+		tree: MdNode,
+		file: { filename?: string; data: { fm?: Record<string, unknown> } }
+	) => {
 		const nodes = tree.children ?? [];
 		const h1 = nodes.findIndex((node) => node.type === 'heading' && node.depth === 1);
 		if (h1 === -1) throw new Error(`${file.filename}: a page starts with a "# Title" heading`);
@@ -45,7 +48,7 @@ export function metadata() {
 		const wrapped = next?.type === 'html' ? SUBTITLE.exec(next.value!.trim()) : null;
 		if (wrapped) {
 			subtitle = wrapped[1].replace(/\s+/g, ' ').trim();
-			next.value = `<Subtitle>${inlineMarkdown(subtitle)}</Subtitle>`;
+			next.value = `<Subtitle>${await highlightedMarkdown(subtitle)}</Subtitle>`;
 		} else if (next?.type === 'paragraph') subtitle = text(next).replace(/\s+/g, ' ').trim();
 
 		let description: string | undefined;

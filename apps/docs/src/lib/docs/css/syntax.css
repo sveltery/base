@@ -260,7 +260,7 @@
 		padding: 0.05em 0.2em;
 	}
 
-	/* `reference.ts` marks a tag in API descriptions, which are not highlighted. */
+	/* `inlineMarkdown` marks a tag in the release notes, which are not highlighted. */
 	.MdCode.MdTag {
 		color: var(--color-docs-infra-syntax-html-tag);
 	}
