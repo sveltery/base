@@ -1,10 +1,9 @@
 <script module lang="ts">
-	const MANAGERS = [
-		{ value: 'pnpm', command: 'add' },
-		{ value: 'npm', command: 'i' },
-		{ value: 'yarn', command: 'add' },
-		{ value: 'bun', command: 'add' }
-	] as const;
+	import {
+		INSTALLATION_PACKAGE_MANAGERS as MANAGERS,
+		getInstallCommand
+	} from '#lib/docs/installation.ts';
+
 	const STORAGE_KEY = 'package-manager';
 </script>
 
@@ -47,7 +46,7 @@
 					</Tabs.Tab>
 				{/each}
 			</Tabs.List>
-			<CopyButton text={() => `${command.value} ${command.command} ${name}`} />
+			<CopyButton text={() => getInstallCommand(command, name)} />
 		</div>
 		{#each MANAGERS as manager (manager.value)}
 			<Tabs.Panel value={manager.value} class="InstallationBlockTabPanel">

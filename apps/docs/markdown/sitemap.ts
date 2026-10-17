@@ -39,6 +39,8 @@ const SCHEMA = Object.fromEntries(
 		'part',
 		'export',
 		'props',
+		'dataAttributes',
+		'cssVariables',
 		'types',
 		'section',
 		'subsection'
@@ -54,7 +56,7 @@ const stripMarkdown = (sections: Sections): SitemapSections =>
 	);
 
 /** Upstream's `loadServerPageIndex`: one section index as sitemap data, its prefix and title from its path. */
-function sectionData(routes: string, section: string): SitemapSectionData {
+export function sectionData(routes: string, section: string): SitemapSectionData {
 	const { pages } = parsePageIndex(readFileSync(join(routes, section, '+page.md'), 'utf8'));
 	return {
 		title: kebabToTitle(section),

@@ -1,3 +1,4 @@
+import type { ApiSummary } from '../../../../markdown/page-index.ts';
 import type {
 	Sitemap,
 	SitemapPage,
@@ -21,6 +22,8 @@ export type SearchDocument = {
 	part?: string;
 	export?: string;
 	props?: string;
+	dataAttributes?: string;
+	cssVariables?: string;
 	types?: string;
 	section?: string;
 	subsection?: string;
@@ -42,7 +45,9 @@ const BOOST = {
 	sectionTitle: 50,
 	section: 3,
 	subsection: 2.5,
-	props: 1.5
+	props: 1.5,
+	dataAttributes: 1.5,
+	cssVariables: 1.5
 };
 // Words that carry meaning in docs, such as the "for" of `htmlFor`, stay searchable.
 const KEPT_STOPWORDS = new Set(
@@ -74,6 +79,12 @@ function headingIds(sections: SitemapSections, page: string) {
 	visit(sections, 2);
 	return new Map(ids);
 }
+
+const apiFields = (api: ApiSummary) => ({
+	props: api.props?.join(' ') ?? '',
+	dataAttributes: api.dataAttributes?.join(' ') ?? '',
+	cssVariables: api.cssVariables?.join(' ') ?? ''
+});
 
 /**
  * Upstream's `defaultFlattenPage`, with `includeCategoryInGroup` and `excludeSections`: a page, its
@@ -107,7 +118,7 @@ function flattenPage(page: SitemapPage, section: SitemapSectionData): SearchDocu
 			export: `${page.slug}.${part}`,
 			slug: part.toLowerCase(),
 			title: `${title} ‣ ${part}`,
-			props: api.props?.join(' ') ?? '',
+			...apiFields(api),
 			url: `${href}#${idOf.get(part) ?? part.toLowerCase()}`
 		});
 	for (const [name, api] of Object.entries(page.exports ?? {})) {
@@ -119,7 +130,7 @@ function flattenPage(page: SitemapPage, section: SitemapSectionData): SearchDocu
 			export: id,
 			slug: page.slug,
 			title: name,
-			props: api.props?.join(' ') ?? '',
+			...apiFields(api),
 			url: `${href}#${id}`
 		});
 	}
@@ -179,7 +190,9 @@ async function build(): Promise<Index> {
 					'page',
 					'part',
 					'export',
-					'props'
+					'props',
+					'dataAttributes',
+					'cssVariables'
 				],
 				stopWords: stopwords.filter((word) => !KEPT_STOPWORDS.has(word))
 			}

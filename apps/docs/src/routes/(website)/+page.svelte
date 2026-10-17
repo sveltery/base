@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { Accordion } from '@sveltery/base/accordion';
 	import ArrowLink from '#lib/components/website/ArrowLink.svelte';
+	import PageMeta from '#lib/components/PageMeta.svelte';
 
 	const description = 'Unstyled UI components for building accessible web apps and design systems.';
 
@@ -23,10 +24,12 @@
 	];
 </script>
 
+<PageMeta
+	title="Unstyled UI components for accessible design systems · Sveltery Base"
+	{description}
+/>
+
 <svelte:head>
-	<title>Unstyled UI components for accessible design systems · Sveltery Base</title>
-	<meta name="description" content={description} />
-	<meta property="og:description" content={description} />
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -- Constant JSON built in this file. -->
 	{@html jsonLd}
 </svelte:head>

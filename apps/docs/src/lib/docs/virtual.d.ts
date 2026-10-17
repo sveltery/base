@@ -1,6 +1,6 @@
 declare module 'virtual:docs-markdown' {
-	const pages: Record<string, import('../../../markdown/llms.ts').MarkdownPage>;
-	export default pages;
+	export const pages: Record<string, string>;
+	export const files: import('../../../markdown/llms.ts').LlmsFiles;
 }
 
 declare module 'virtual:sitemap' {
