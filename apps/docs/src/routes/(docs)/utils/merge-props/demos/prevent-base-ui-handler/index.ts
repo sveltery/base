@@ -1,4 +1,4 @@
 import { createDemoWithVariants } from '#lib/docs/create-demo.ts';
-import Tailwind from './tailwind/index.svelte';
+import CssModules from './css-modules/index.svelte';
 
-export const DemoPreventBaseUIHandler = createDemoWithVariants(import.meta.url, { Tailwind });
+export const DemoPreventBaseUIHandler = createDemoWithVariants(import.meta.url, { CssModules });
