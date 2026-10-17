@@ -13,6 +13,9 @@
 		url: 'https://base.sveltery.dev'
 	})}</${'script'}>`;
 
+	// Svelte serializes a `true` prop it doesn't list as a boolean attribute as `itemscope="true"`.
+	const itemscope: Record<string, string> = { itemscope: '' };
+
 	const faq: { question: string; answer: Snippet }[] = [
 		{ question: 'What is Sveltery Base?', answer: whatIs },
 		{ question: 'Does Sveltery Base work with any styling library?', answer: styling },
@@ -137,14 +140,14 @@
 	<div class="col-start-1 col-end-9 md:col-start-3 xl:col-end-7">
 		<Accordion.Root
 			class="AccordionWebsiteRoot"
-			itemscope
+			{...itemscope}
 			itemtype="https://schema.org/FAQPage"
 			keepMounted
 		>
 			{#each faq as item (item.question)}
 				<Accordion.Item
 					class="AccordionWebsiteItem"
-					itemscope
+					{...itemscope}
 					itemprop="mainEntity"
 					itemtype="https://schema.org/Question"
 				>
@@ -157,7 +160,7 @@
 					</Accordion.Header>
 					<Accordion.Panel
 						class="AccordionWebsitePanel"
-						itemscope
+						{...itemscope}
 						itemprop="acceptedAnswer"
 						itemtype="https://schema.org/Answer"
 					>

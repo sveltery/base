@@ -54,7 +54,7 @@ jobs:
       # Fails when a section index page is stale. It runs first, because a build rewrites them.
       - run: pnpm docs:validate
       - run: pnpm --filter @sveltery/base-docs test
-      # Builds the site, then type-checks it and every demo.
+      # Builds the site, validates its prerendered HTML, then type-checks it and every demo.
       - run: pnpm --filter @sveltery/base-docs check
 
   # Both browser suites are CPU-bound on a 4-vCPU runner, so they split across runners.

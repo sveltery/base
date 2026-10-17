@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import adapter from '@sveltejs/adapter-auto';
@@ -46,6 +47,15 @@ export default defineConfig({
 					environment: 'node',
 					include: ['{src,packages/*/src}/**/*.{test,spec}.{js,ts}', 'eslint/**/*.spec.ts'],
 					exclude: ['{src,packages/*/src}/**/*.svelte.{test,spec}.{js,ts}']
+				}
+			},
+
+			{
+				test: {
+					name: 'docs',
+					root: fileURLToPath(new URL('./apps/docs', import.meta.url)),
+					environment: 'node',
+					include: ['**/*.test.ts']
 				}
 			}
 		]
