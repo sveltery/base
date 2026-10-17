@@ -1,6 +1,4 @@
-import assert from 'node:assert/strict';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { describe, it } from 'node:test';
+import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { docsOutputs, pageMarkdown } from './llms.ts';
 
@@ -11,16 +9,6 @@ const sections = {
 	Components: 'components',
 	Utils: 'utils'
 };
-
-function matchSnapshot(name: string, actual: string) {
-	const file = fileURLToPath(new URL(`__snapshots__/${name}`, import.meta.url));
-	if (process.env.UPDATE_SNAPSHOTS) {
-		mkdirSync(fileURLToPath(new URL('__snapshots__', import.meta.url)), { recursive: true });
-		writeFileSync(file, actual);
-	}
-	assert.ok(existsSync(file), `${name} has no snapshot. Run with UPDATE_SNAPSHOTS=1.`);
-	assert.equal(actual, readFileSync(file, 'utf8'));
-}
 
 const page = (body: string) =>
 	`# Page\n\n<Subtitle>\n  A subtitle.\n</Subtitle>\n\n<Meta name="description" content="A description." />\n\n${body}\n`;
@@ -35,22 +23,25 @@ const markdown = (body: string) =>
 describe('docsOutputs', async () => {
 	const outputs = await docsOutputs(routes, sections);
 
-	it('writes the Accordion twin', () => {
-		matchSnapshot('accordion.md', outputs.pages['/components/accordion']);
+	it('writes the Accordion twin', async () => {
+		await expect(outputs.pages['/components/accordion']).toMatchFileSnapshot(
+			'__snapshots__/accordion.md'
+		);
 	});
 
-	it('writes llms.txt', () => {
-		matchSnapshot('llms.txt', outputs.files['llms.txt']);
+	it('writes llms.txt', async () => {
+		await expect(outputs.files['llms.txt']).toMatchFileSnapshot('__snapshots__/llms.txt');
 	});
 
 	it('nests every page in llms-full.txt two heading levels down', () => {
-		assert.match(outputs.files['llms-full.txt'], /\n### Accordion\n\nA set of collapsible panels/);
-		assert.match(outputs.files['llms-full.txt'], /\n##### Root\.State\n/);
+		expect(outputs.files['llms-full.txt']).toMatch(
+			/\n### Accordion\n\nA set of collapsible panels/
+		);
+		expect(outputs.files['llms-full.txt']).toMatch(/\n##### Root\.State\n/);
 	});
 
 	it('links each page of index.md relative to the site root', () => {
-		assert.match(
-			outputs.files['index.md'],
+		expect(outputs.files['index.md']).toMatch(
 			/- \[Accordion\]\(\.\/components\/accordion\.md\): A set of collapsible panels/
 		);
 	});
@@ -59,25 +50,24 @@ describe('docsOutputs', async () => {
 describe('pageMarkdown', () => {
 	it('reads the title, subtitle and description from the head', () => {
 		const { title, subtitle, description, markdown: body } = markdown('Text.');
-		assert.deepEqual([title, subtitle, description], ['Page', 'A subtitle.', 'A description.']);
-		assert.equal(body, '# Page\n\nA description.\n\nText.\n');
+		expect([title, subtitle, description]).toEqual(['Page', 'A subtitle.', 'A description.']);
+		expect(body).toBe('# Page\n\nA description.\n\nText.\n');
 	});
 
 	it('fails on a component it has no markdown for', () => {
-		assert.throws(() => markdown('<Callout />'), /Unknown component: Callout/);
+		expect(() => markdown('<Callout />')).toThrow(/Unknown component: Callout/);
 	});
 
 	it('keeps the HTML tags GitHub renders', () => {
-		assert.match(markdown('Press <kbd>Esc</kbd>.').markdown, /Press <kbd>Esc<\/kbd>\./);
+		expect(markdown('Press <kbd>Esc</kbd>.').markdown).toMatch(/Press <kbd>Esc<\/kbd>\./);
 	});
 
 	it('escapes a heading tag', () => {
-		assert.match(markdown('## Filtering [Preview]').markdown, /## Filtering \\\[Preview]/);
+		expect(markdown('## Filtering [Preview]').markdown).toMatch(/## Filtering \\\[Preview]/);
 	});
 
 	it('points a link to another page at its twin', () => {
-		assert.match(
-			markdown('See [Dialog](/components/dialog).').markdown,
+		expect(markdown('See [Dialog](/components/dialog).').markdown).toMatch(
 			/\]\(\/components\/dialog\.md\)/
 		);
 	});

@@ -8,5 +8,5 @@
 			"@sveltery/base/*": ["../../src/lib/*"]
 		}
 	},
-	"include": ["src", "markdown", "vite.config.ts"]
+	"include": ["src", "markdown", "scripts/*.ts", "vite.config.ts"]
 }

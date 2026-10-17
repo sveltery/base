@@ -8,10 +8,12 @@
 		"build": "vite build",
 		"preview": "wrangler dev --port 4173",
 		"prepare": "svelte-kit sync || echo ''",
-		"check": "svelte-kit sync && vite build && svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-kit sync && vite build && pnpm validate:html && svelte-check --tsconfig ./tsconfig.json",
+		"validate:html": "node scripts/validate-html.ts",
+		"lint:css": "stylelint --reportInvalidScopeDisables --reportNeedlessDisables 'src/**/*.css'",
 		"docs:validate": "node markdown/validate.ts",
 		"og-image": "node scripts/og-image.ts",
-		"test": "node --test 'markdown/*.test.ts'"
+		"test": "vitest run --root ../.. --project docs"
 	},
 	"dependencies": {
 		"@sveltery/base": "workspace:*"
@@ -28,14 +30,19 @@
 		"@tanstack/svelte-virtual": "~3.13.46",
 		"@types/mdast": "^4.0.4",
 		"@types/node": "^24",
+		"html-validate": "^11.16.2",
 		"match-sorter": "^8.3.0",
 		"mdsvex": "^0.12.8",
+		"postcss-value-parser": "^4.2.0",
 		"prettier": "^3.9.9",
 		"remark-gfm": "^4.0.1",
 		"remark-parse": "^11.0.0",
 		"remark-stringify": "^11.0.0",
 		"remark-typography": "0.8.9",
 		"shiki": "^4.5.0",
+		"stylelint": "^17.16.0",
+		"stylelint-config-standard": "^40.0.0",
+		"stylelint-config-tailwindcss": "^1.0.1",
 		"svelte": "^5.57.1",
 		"svelte-check": "^4.6.0",
 		"sveltekit-superforms": "^3.0.0",
@@ -45,6 +52,7 @@
 		"unist-util-visit": "^5.1.0",
 		"valibot": "^1.5.0",
 		"vite": "^8.3.0",
+		"vitest": "^4.1.11",
 		"wrangler": "^4.149.0",
 		"zod": "^4.6.7"
 	},

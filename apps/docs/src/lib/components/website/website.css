@@ -1,3 +1,5 @@
+/* SvelteKit renders one `<body>` for every route group, so the website layout styles it from inside. */
+/* stylelint-disable-next-line selector-pseudo-class-disallowed-list */
 body:has(.Website) {
 	color: var(--gray-t2);
 	background-color: var(--gray-s1);

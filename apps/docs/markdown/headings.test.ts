@@ -1,5 +1,4 @@
-import assert from 'node:assert/strict';
-import { describe, it } from 'node:test';
+import { describe, it, expect } from 'vitest';
 import { excludeHeading } from './exclude-heading.ts';
 import { headingTags } from './heading-tags.ts';
 import { elements, headings } from './headings.ts';
@@ -14,8 +13,7 @@ describe('headings', () => {
 		const { html } = await page(
 			'# Menu\n\n## Examples\n\n### Filtering [Preview]\n\n#### Matching\n'
 		);
-		assert.equal(
-			html,
+		expect(html).toBe(
 			[
 				'<h1 class="MdH1" id="menu">Menu</h1>',
 				'<h2 class="MdH2" id="examples"><a href="#examples" class="HeadingLink">Examples</a></h2>',
@@ -29,7 +27,7 @@ describe('headings', () => {
 		const { data } = await page(
 			'# Menu\n\n## Examples\n\n### Filtering [Preview]\n\n#### Matching\n'
 		);
-		assert.deepEqual((data.fm as { toc: unknown }).toc, [
+		expect((data.fm as { toc: unknown }).toc).toEqual([
 			{ title: 'Examples', url: '#examples', depth: 2 },
 			{ title: 'Filtering', url: '#filtering', depth: 3 }
 		]);
@@ -39,7 +37,7 @@ describe('headings', () => {
 		const { data } = await page(
 			"# Dialog\n\n## API\n\n[//]: # '@exclude-table-of-contents'\n\n## Handle\n\n### open\n\n## Close\n"
 		);
-		assert.deepEqual((data.fm as { toc: unknown }).toc, [
+		expect((data.fm as { toc: unknown }).toc).toEqual([
 			{ title: 'API', url: '#api', depth: 2 },
 			{ title: 'Close', url: '#close', depth: 2 }
 		]);
@@ -47,8 +45,7 @@ describe('headings', () => {
 
 	it('does not nest a link in a heading that has one', async () => {
 		const { html } = await page('# T\n\n## See [Field](/field)\n');
-		assert.match(
-			html,
+		expect(html).toMatch(
 			/<h2 class="MdH2" id="see-field">See <a href="\/field" class="Link">Field<\/a><\/h2>/
 		);
 	});

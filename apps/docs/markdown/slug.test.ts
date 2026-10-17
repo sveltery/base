@@ -1,5 +1,4 @@
-import assert from 'node:assert/strict';
-import { describe, it } from 'node:test';
+import { describe, it, expect } from 'vitest';
 import type { HastNode } from './headings.ts';
 import { slug, stringToUrl } from './slug.ts';
 
@@ -18,11 +17,11 @@ function slugIds(children: HastNode[], options?: { prefix?: string }) {
 
 describe('slug', () => {
 	it('adds a slug id to a heading', () => {
-		assert.deepEqual(slugIds([heading(2, 'Getting started')]), ['getting-started']);
+		expect(slugIds([heading(2, 'Getting started')])).toEqual(['getting-started']);
 	});
 
 	it('suffixes repeated heading text so ids stay unique', () => {
-		assert.deepEqual(slugIds([heading(2, 'Props'), heading(3, 'Props'), heading(3, 'Props')]), [
+		expect(slugIds([heading(2, 'Props'), heading(3, 'Props'), heading(3, 'Props')])).toEqual([
 			'props',
 			'props-1',
 			'props-2'
@@ -30,7 +29,7 @@ describe('slug', () => {
 	});
 
 	it('does not collide when later heading text matches an already-suffixed slug', () => {
-		assert.deepEqual(slugIds([heading(2, 'Props'), heading(2, 'Props'), heading(2, 'Props 1')]), [
+		expect(slugIds([heading(2, 'Props'), heading(2, 'Props'), heading(2, 'Props 1')])).toEqual([
 			'props',
 			'props-1',
 			'props-1-1'
@@ -38,7 +37,7 @@ describe('slug', () => {
 	});
 
 	it('applies the prefix before deduplicating', () => {
-		assert.deepEqual(slugIds([heading(2, 'Props'), heading(2, 'Props')], { prefix: 'api-' }), [
+		expect(slugIds([heading(2, 'Props'), heading(2, 'Props')], { prefix: 'api-' })).toEqual([
 			'api-props',
 			'api-props-1'
 		]);
@@ -47,23 +46,23 @@ describe('slug', () => {
 	it('leaves a heading that already has an id untouched', () => {
 		const custom = heading(2, 'Props');
 		custom.properties!.id = 'custom-id';
-		assert.deepEqual(slugIds([custom]), ['custom-id']);
+		expect(slugIds([custom])).toEqual(['custom-id']);
 	});
 
 	it('suffixes a later heading that collides with a pre-existing id', () => {
 		const explicit = heading(2, 'Something');
 		explicit.properties!.id = 'props';
-		assert.deepEqual(slugIds([explicit, heading(2, 'Props')]), ['props', 'props-1']);
+		expect(slugIds([explicit, heading(2, 'Props')])).toEqual(['props', 'props-1']);
 	});
 
 	it('ignores non-heading elements', () => {
 		const paragraph: HastNode = { type: 'element', tagName: 'p', properties: {}, children: [] };
 		slug()({ type: 'root', children: [paragraph] });
-		assert.equal(paragraph.properties!.id, undefined);
+		expect(paragraph.properties!.id).toBe(undefined);
 	});
 
 	it('reads the text mdsvex escaped', () => {
-		assert.deepEqual(slugIds([heading(2, '&lt;Field.Root&gt; and &#123;value&#125;')]), [
+		expect(slugIds([heading(2, '&lt;Field.Root&gt; and &#123;value&#125;')])).toEqual([
 			'field-root-and-value'
 		]);
 	});
@@ -71,13 +70,12 @@ describe('slug', () => {
 
 describe('stringToUrl', () => {
 	it('kebab-cases and strips punctuation', () => {
-		assert.equal(
-			stringToUrl('1. Here’s a wicked example & more.'),
+		expect(stringToUrl('1. Here’s a wicked example & more.')).toBe(
 			'1-here-is-a-wicked-example-and-more'
 		);
 	});
 
 	it('expands common contractions', () => {
-		assert.equal(stringToUrl("you'll won't stop"), 'you-will-will-not-stop');
+		expect(stringToUrl("you'll won't stop")).toBe('you-will-will-not-stop');
 	});
 });
