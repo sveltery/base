@@ -14,6 +14,7 @@
 
 	let {
 		value = $bindable(),
+		defaultValue,
 		disabled,
 		hiddenUntilFound = false,
 		keepMounted,
@@ -25,7 +26,6 @@
 		children,
 		...elementProps
 	}: AccordionRootProps = $props();
-
 	const EMPTY: unknown[] = [];
 	const selection = new WrittenReference<unknown[] | undefined>(
 		() => value,
@@ -33,6 +33,9 @@
 			value = next;
 		}
 	);
+	// Written through `selection`, so object item values keep their identity.
+	// svelte-ignore state_referenced_locally
+	if (value === undefined && defaultValue !== undefined) selection.set(defaultValue);
 	const accordion = new AccordionRootModel(
 		() => selection.current ?? EMPTY,
 		() => disabled ?? false,

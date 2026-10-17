@@ -63,7 +63,7 @@ A set of collapsible panels with headings.
     - Panel
 - Exports:
   - Accordion - Root
-    - Props: disabled, hiddenUntilFound, keepMounted, loopFocus, multiple, onValueChange, orientation, render, value
+    - Props: defaultValue, disabled, hiddenUntilFound, keepMounted, loopFocus, multiple, onValueChange, orientation, render, value
     - Data Attributes: data-disabled, data-orientation
   - Accordion - Trigger
     - Props: disabled, nativeButton, onclick, render
@@ -114,7 +114,7 @@ A dialog that requires a user response to proceed.
     - Handle
 - Exports:
   - Alert Dialog - Root
-    - Props: children, handle, onOpenChange, onOpenChangeComplete, open, triggerId
+    - Props: children, defaultOpen, defaultTriggerId, handle, onOpenChange, onOpenChangeComplete, open, triggerId
   - Alert Dialog - Trigger
     - Props: handle, id, nativeButton, payload, render
     - Data Attributes: data-disabled, data-popup-open
@@ -192,7 +192,7 @@ An input that suggests options as you type.
   - useFilteredItems
 - Exports:
   - Autocomplete - Root
-    - Props: autoHighlight, defaultValue, disabled, filter, filteredItems, form, grid, highlightItemOnHover, id, inline, itemToStringValue, items, keepHighlight, limit, locale, loopFocus, modal, mode, name, onItemHighlighted, onOpenChange, onOpenChangeComplete, onValueChange, open, openOnInputClick, readonly, required, submitOnItemClick, value, virtualized
+    - Props: autoHighlight, defaultOpen, defaultValue, disabled, filter, filteredItems, form, grid, highlightItemOnHover, id, inline, itemToStringValue, items, keepHighlight, limit, locale, loopFocus, modal, mode, name, onItemHighlighted, onOpenChange, onOpenChangeComplete, onValueChange, open, openOnInputClick, readonly, required, submitOnItemClick, value, virtualized
   - Autocomplete - Trigger
     - Props: disabled, id, nativeButton, render
     - Data Attributes: data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-list-empty, data-popup-open, data-popup-side, data-pressed, data-readonly, data-required, data-touched, data-valid
@@ -385,7 +385,7 @@ A collapsible panel controlled by a button.
     - Panel
 - Exports:
   - Collapsible - Root
-    - Props: disabled, onOpenChange, open, render
+    - Props: defaultOpen, disabled, onOpenChange, open, render
     - Data Attributes: data-closed, data-ending-style, data-open, data-starting-style
   - Collapsible - Trigger
     - Props: disabled, nativeButton, onclick, render
@@ -456,7 +456,7 @@ An input combined with a list of predefined items to select.
   - createItems
 - Exports:
   - Combobox - Root
-    - Props: autoHighlight, autocomplete, defaultInputValue, defaultValue, disabled, filter, filteredItems, form, grid, highlightItemOnHover, id, inline, inputValue, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, limit, locale, loopFocus, modal, multiple, name, onInputValueChange, onItemHighlighted, onOpenChange, onOpenChangeComplete, onValueChange, open, openOnInputClick, readonly, required, value, virtualized
+    - Props: autoHighlight, autocomplete, defaultInputValue, defaultOpen, defaultValue, disabled, filter, filteredItems, form, grid, highlightItemOnHover, id, inline, inputValue, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, limit, locale, loopFocus, modal, multiple, name, onInputValueChange, onItemHighlighted, onOpenChange, onOpenChangeComplete, onValueChange, open, openOnInputClick, readonly, required, value, virtualized
   - Combobox - Trigger
     - Props: disabled, id, nativeButton, render
     - Data Attributes: data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-list-empty, data-placeholder, data-popup-open, data-popup-side, data-pressed, data-readonly, data-required, data-touched, data-valid
@@ -561,7 +561,7 @@ A menu that appears at the pointer on right click or long press.
     - Separator
 - Exports:
   - Context Menu - Root
-    - Props: disabled, highlightItemOnHover, loopFocus, onItemHighlighted, onOpenChange, onOpenChangeComplete, open, orientation
+    - Props: defaultOpen, disabled, highlightItemOnHover, loopFocus, onItemHighlighted, onOpenChange, onOpenChangeComplete, open, orientation
   - Context Menu - Trigger
     - Props: render
     - Data Attributes: data-popup-open, data-pressed
@@ -591,12 +591,12 @@ A menu that appears at the pointer on right click or long press.
     - Props: orientation, render
     - Data Attributes: data-orientation
   - Context Menu - SubmenuRoot
-    - Props: closeParentOnEsc, disabled, highlightItemOnHover, loopFocus, onItemHighlighted, onOpenChange, onOpenChangeComplete, open, orientation
+    - Props: closeParentOnEsc, defaultOpen, disabled, highlightItemOnHover, loopFocus, onItemHighlighted, onOpenChange, onOpenChangeComplete, open, orientation
   - Context Menu - SubmenuTrigger
     - Props: closeDelay, delay, disabled, id, label, nativeButton, openOnHover, render
     - Data Attributes: data-disabled, data-highlighted, data-popup-open
   - Context Menu - RadioGroup
-    - Props: disabled, onValueChange, render, value
+    - Props: defaultValue, disabled, onValueChange, render, value
   - Context Menu - RadioItem
     - Props: closeOnClick, disabled, id, label, nativeButton, render, value
     - Data Attributes: data-checked, data-disabled, data-highlighted, data-unchecked
@@ -604,7 +604,7 @@ A menu that appears at the pointer on right click or long press.
     - Props: keepMounted, render
     - Data Attributes: data-checked, data-disabled, data-ending-style, data-starting-style, data-unchecked
   - Context Menu - CheckboxItem
-    - Props: checked, closeOnClick, disabled, id, label, nativeButton, onCheckedChange, render
+    - Props: checked, closeOnClick, defaultChecked, disabled, id, label, nativeButton, onCheckedChange, render
     - Data Attributes: data-checked, data-disabled, data-highlighted, data-unchecked
   - Context Menu - CheckboxItemIndicator
     - Props: keepMounted, render
@@ -655,7 +655,7 @@ A popup that opens on top of the entire page.
     - Handle
 - Exports:
   - Dialog - Root
-    - Props: children, disablePointerDismissal, handle, modal, onOpenChange, onOpenChangeComplete, open, triggerId
+    - Props: children, defaultOpen, defaultTriggerId, disablePointerDismissal, handle, modal, onOpenChange, onOpenChangeComplete, open, triggerId
   - Dialog - Trigger
     - Props: handle, id, nativeButton, payload, render
     - Data Attributes: data-disabled, data-popup-open
@@ -729,7 +729,7 @@ A panel that slides in from the edge of the screen.
     - Handle
 - Exports:
   - Drawer - Root
-    - Props: children, defaultSnapPoint, disablePointerDismissal, handle, modal, onOpenChange, onOpenChangeComplete, onSnapPointChange, open, snapPoint, snapPoints, snapToSequentialPoints, swipeDirection, triggerId
+    - Props: children, defaultOpen, defaultSnapPoint, defaultTriggerId, disablePointerDismissal, handle, modal, onOpenChange, onOpenChangeComplete, onSnapPointChange, open, snapPoint, snapPoints, snapToSequentialPoints, swipeDirection, triggerId
   - Drawer - Provider
   - Drawer - Trigger
     - Props: handle, id, nativeButton, payload, render
@@ -951,7 +951,7 @@ A list of actions in a dropdown, enhanced with keyboard navigation.
     - Handle
 - Exports:
   - Menu - Root
-    - Props: children, closeParentOnEsc, disabled, handle, highlightItemOnHover, loopFocus, modal, onItemHighlighted, onOpenChange, onOpenChangeComplete, open, orientation, triggerId
+    - Props: children, closeParentOnEsc, defaultOpen, defaultTriggerId, disabled, handle, highlightItemOnHover, loopFocus, modal, onItemHighlighted, onOpenChange, onOpenChangeComplete, open, orientation, triggerId
   - Menu - Trigger
     - Props: closeDelay, delay, disabled, handle, id, nativeButton, openOnHover, payload, render
     - Data Attributes: data-disabled, data-popup-open, data-pressed
@@ -995,12 +995,12 @@ A list of actions in a dropdown, enhanced with keyboard navigation.
   - Menu - Empty
     - Props: render
   - Menu - SubmenuRoot
-    - Props: closeParentOnEsc, disabled, highlightItemOnHover, loopFocus, onItemHighlighted, onOpenChange, onOpenChangeComplete, open, orientation
+    - Props: closeParentOnEsc, defaultOpen, disabled, highlightItemOnHover, loopFocus, onItemHighlighted, onOpenChange, onOpenChangeComplete, open, orientation
   - Menu - SubmenuTrigger
     - Props: closeDelay, delay, disabled, id, label, nativeButton, openOnHover, render
     - Data Attributes: data-disabled, data-highlighted, data-popup-open
   - Menu - RadioGroup
-    - Props: disabled, onValueChange, render, value
+    - Props: defaultValue, disabled, onValueChange, render, value
   - Menu - RadioItem
     - Props: closeOnClick, disabled, id, label, nativeButton, render, value
     - Data Attributes: data-checked, data-disabled, data-highlighted, data-unchecked
@@ -1008,13 +1008,13 @@ A list of actions in a dropdown, enhanced with keyboard navigation.
     - Props: keepMounted, render
     - Data Attributes: data-checked, data-disabled, data-ending-style, data-starting-style, data-unchecked
   - Menu - CheckboxItem
-    - Props: checked, closeOnClick, disabled, id, label, nativeButton, onCheckedChange, render
+    - Props: checked, closeOnClick, defaultChecked, disabled, id, label, nativeButton, onCheckedChange, render
     - Data Attributes: data-checked, data-disabled, data-highlighted, data-unchecked
   - Menu - CheckboxItemIndicator
     - Props: keepMounted, render
     - Data Attributes: data-checked, data-disabled, data-ending-style, data-starting-style, data-unchecked
   - Menu - FilterProvider
-    - Props: autoHighlight, filter, locale, onValueChange, value
+    - Props: autoHighlight, defaultValue, filter, locale, onValueChange, value
   - Menu - LinkItem
     - Props: closeOnClick, id, label, render
     - Data Attributes: data-highlighted
@@ -1110,7 +1110,7 @@ A collection of links and menus for website navigation.
     - Arrow
 - Exports:
   - Navigation Menu - Root
-    - Props: closeDelay, delay, onOpenChangeComplete, onValueChange, orientation, render, value
+    - Props: closeDelay, defaultValue, delay, onOpenChangeComplete, onValueChange, orientation, render, value
   - Navigation Menu - Trigger
     - Props: disabled, nativeButton, render
     - Data Attributes: data-disabled, data-popup-open, data-pressed
@@ -1271,7 +1271,7 @@ An accessible popup anchored to a button.
     - Handle
 - Exports:
   - Popover - Root
-    - Props: children, handle, modal, onOpenChange, onOpenChangeComplete, open, triggerId
+    - Props: children, defaultOpen, defaultTriggerId, handle, modal, onOpenChange, onOpenChangeComplete, open, triggerId
   - Popover - Trigger
     - Props: closeDelay, delay, disabled, handle, id, nativeButton, openOnHover, payload, render
     - Data Attributes: data-disabled, data-popup-open, data-pressed
@@ -1338,7 +1338,7 @@ A link that shows a destination preview without interrupting keyboard or screen 
     - Handle
 - Exports:
   - Preview Card - Root
-    - Props: children, handle, onOpenChange, onOpenChangeComplete, open, triggerId
+    - Props: children, defaultOpen, defaultTriggerId, handle, onOpenChange, onOpenChangeComplete, open, triggerId
   - Preview Card - Trigger
     - Props: closeDelay, delay, handle, id, payload, render
     - Data Attributes: data-popup-open
@@ -1530,7 +1530,7 @@ A common form component for choosing a predefined value in a dropdown menu.
     - Separator
 - Exports:
   - Select - Root
-    - Props: autocomplete, defaultValue, disabled, form, highlightItemOnHover, id, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, modal, multiple, name, onOpenChange, onOpenChangeComplete, onValueChange, open, readonly, required, value
+    - Props: autocomplete, defaultOpen, defaultValue, disabled, form, highlightItemOnHover, id, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, modal, multiple, name, onOpenChange, onOpenChangeComplete, onValueChange, open, readonly, required, value
   - Select - Trigger
     - Props: disabled, id, nativeButton, render
     - Data Attributes: data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-placeholder, data-popup-open, data-popup-side, data-pressed, data-readonly, data-required, data-touched, data-valid
@@ -1713,7 +1713,7 @@ A component for toggling between related panels on the same page.
     - Panel
 - Exports:
   - Tabs - Root
-    - Props: onValueChange, orientation, render, value
+    - Props: defaultValue, onValueChange, orientation, render, value
     - Data Attributes: data-activation-direction, data-orientation
   - Tabs - List
     - Props: activateOnFocus, loopFocus, render
@@ -1827,7 +1827,7 @@ A two-state button that can be on or off.
   - API reference
 - Exports:
   - Toggle
-    - Props: disabled, nativeButton, onPressedChange, onclick, pressed, render, value
+    - Props: defaultPressed, disabled, nativeButton, onPressedChange, onclick, pressed, render, value
     - Data Attributes: data-disabled, data-pressed
 - Types: Toggle.Props, Toggle.State
 
@@ -1850,7 +1850,7 @@ Provides a shared state to a series of toggle buttons.
   - API reference
 - Exports:
   - ToggleGroup
-    - Props: disabled, loopFocus, multiple, onValueChange, orientation, render, value
+    - Props: defaultValue, disabled, loopFocus, multiple, onValueChange, orientation, render, value
     - Data Attributes: data-disabled, data-multiple, data-orientation
 - Types: ToggleGroup.Props, ToggleGroup.State
 
@@ -1940,7 +1940,7 @@ A popup that appears when an element is hovered or focused, showing a hint for s
     - Handle
 - Exports:
   - Tooltip - Root
-    - Props: children, disableHoverablePopup, disabled, handle, onOpenChange, onOpenChangeComplete, open, trackCursorAxis, triggerId
+    - Props: children, defaultOpen, defaultTriggerId, disableHoverablePopup, disabled, handle, onOpenChange, onOpenChangeComplete, open, trackCursorAxis, triggerId
   - Tooltip - Provider
     - Props: closeDelay, delay, timeout
   - Tooltip - Trigger

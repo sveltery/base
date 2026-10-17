@@ -17,6 +17,7 @@
 
 	let {
 		open = $bindable(),
+		defaultOpen,
 		onOpenChange,
 		onOpenChangeComplete,
 		onItemHighlighted,
@@ -28,6 +29,8 @@
 		children,
 		...unsupported
 	}: MenuSubmenuRootProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (open === undefined && defaultOpen !== undefined) open = defaultOpen;
 
 	// Throws when the submenu is not inside a menu.
 	const parent = useMenuRoot();

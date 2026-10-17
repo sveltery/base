@@ -1,8 +1,8 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/menu/root/MenuRoot.detached-triggers.test.tsx
 // and packages/react/test/detachedTriggersConformanceTests.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
-// Not ported: `defaultOpen` / `defaultTriggerId` (a root takes an initial `open` and `triggerId`
-// instead) and the JSDOM-only branches.
+// Not ported: the JSDOM-only branches. `src/tests/default-props.svelte.spec.ts` covers
+// `defaultOpen` and `defaultTriggerId`.
 import { page, userEvent } from 'vitest/browser';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';

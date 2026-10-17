@@ -14,6 +14,7 @@
 
 	let {
 		open = $bindable(),
+		defaultOpen,
 		onOpenChange,
 		onOpenChangeComplete,
 		onItemHighlighted,
@@ -23,6 +24,8 @@
 		disabled = false,
 		children
 	}: ContextMenuRootProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (open === undefined && defaultOpen !== undefined) open = defaultOpen;
 
 	const uid = $props.id();
 	const context = new ContextMenuRootContext(`base-ui-${uid}`);

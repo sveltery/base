@@ -54,6 +54,13 @@ export interface TooltipRootProps<Payload = unknown> {
 	 * @default false
 	 */
 	open?: boolean;
+	/**
+	 * Whether the tooltip is initially open.
+	 *
+	 * To render a controlled tooltip, use `bind:open` instead.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/** Event handler called when the tooltip is opened or closed. */
 	onOpenChange?: (open: boolean, details: TooltipChangeEventDetails) => void;
 	/** Event handler called after any animations complete when the tooltip is opened or closed. */
@@ -79,6 +86,11 @@ export interface TooltipRootProps<Payload = unknown> {
 	 * There's no need to specify this prop when the tooltip is uncontrolled (that is, when `open` is not bound).
 	 */
 	triggerId?: string | null;
+	/**
+	 * ID of the trigger that the tooltip is associated with.
+	 * This is useful in conjunction with the `defaultOpen` prop to create an initially open tooltip.
+	 */
+	defaultTriggerId?: string | null;
 	/**
 	 * A handle to associate the tooltip with a trigger.
 	 * If specified, allows external triggers to control the tooltip's open state.

@@ -49,6 +49,13 @@ export interface PopoverRootProps<Payload = unknown> {
 	 * @default false
 	 */
 	open?: boolean;
+	/**
+	 * Whether the popover is initially open.
+	 *
+	 * To render a controlled popover, use `bind:open` instead.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/** Event handler called when the popover is opened or closed. */
 	onOpenChange?: (open: boolean, details: PopoverChangeEventDetails) => void;
 	/** Event handler called after any animations complete when the popover is opened or closed. */
@@ -76,6 +83,11 @@ export interface PopoverRootProps<Payload = unknown> {
 	 * There's no need to specify this prop when the popover is uncontrolled (that is, when `open` is not bound).
 	 */
 	triggerId?: string | null;
+	/**
+	 * ID of the trigger that the popover is associated with.
+	 * This is useful in conjunction with the `defaultOpen` prop to create an initially open popover.
+	 */
+	defaultTriggerId?: string | null;
 	/**
 	 * A handle to associate the popover with a trigger.
 	 * If specified, allows external triggers to control the popover's open state.

@@ -30,10 +30,17 @@ export interface CollapsibleRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	/**
 	 * Whether the collapsible panel is currently open.
 	 *
-	 * To render an uncontrolled collapsible, pass `open` without `bind:`.
+	 * To render an uncontrolled collapsible, use the `defaultOpen` prop instead.
 	 * @default false
 	 */
 	open?: boolean;
+	/**
+	 * Whether the collapsible panel is initially open.
+	 *
+	 * To render a controlled collapsible, use `bind:open` instead.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/**
 	 * Whether the component should ignore user interaction.
 	 * @default false

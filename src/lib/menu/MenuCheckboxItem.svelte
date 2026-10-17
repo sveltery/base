@@ -17,6 +17,7 @@
 
 	let {
 		checked = $bindable(false),
+		defaultChecked,
 		onCheckedChange,
 		id,
 		label,
@@ -27,6 +28,9 @@
 		children,
 		...elementProps
 	}: MenuCheckboxItemProps = $props();
+	// The fallback stands for an omitted `checked`, so `defaultChecked` replaces it.
+	// svelte-ignore state_referenced_locally
+	if (checked === false && defaultChecked !== undefined) checked = defaultChecked;
 
 	const { store } = useMenuRoot();
 	const uid = $props.id();

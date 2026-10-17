@@ -68,10 +68,16 @@ export interface TabsRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
 	 * The value of the currently active `Tab`.
 	 * When the value is `null`, no Tab will be active.
 	 *
-	 * To render uncontrolled tabs, pass `value` without `bind:`.
+	 * To render uncontrolled tabs, use the `defaultValue` prop instead.
 	 * @default 0
 	 */
 	value?: TabsValue | null;
+	/**
+	 * The default value. Use when the component is not controlled.
+	 * When the value is `null`, no Tab will be active.
+	 * @default 0
+	 */
+	defaultValue?: TabsValue | null;
 	/**
 	 * The component orientation (layout flow direction).
 	 * @default 'horizontal'
@@ -82,11 +88,11 @@ export interface TabsRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
 	 *
 	 * The event `reason` is `'none'` for user-initiated changes, such as a click
 	 * or keyboard navigation; `'initial'` for the first automatic selection or
-	 * fallback in uncontrolled roots when `value` is omitted or
+	 * fallback in uncontrolled roots when `defaultValue` is omitted or
 	 * `undefined`, including when the implicit initial value is disabled or
 	 * missing; `'disabled'` for automatic fallback when the selected tab becomes
 	 * disabled in uncontrolled roots; or `'missing'` for automatic fallback when
-	 * the selected tab is removed, or when an explicit initial `value` never
+	 * the selected tab is removed, or when an explicit `defaultValue` never
 	 * matches a mounted tab in uncontrolled roots.
 	 *
 	 * For automatic changes, the selected value can be `null` when no enabled Tab
@@ -150,7 +156,7 @@ export interface TabsTabProps extends Omit<
 	 * Instead, the next enabled Tab will be selected.
 	 * However, it does not work like this during server-side rendering, as it is not known
 	 * during pre-rendering which Tabs are disabled.
-	 * To work around it, ensure that `value` on `<Tabs.Root>` is set to an enabled Tab's value.
+	 * To work around it, ensure that `defaultValue` or `value` on `<Tabs.Root>` is set to an enabled Tab's value.
 	 * @default false
 	 */
 	disabled?: boolean | null;

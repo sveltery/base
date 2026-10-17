@@ -24,10 +24,16 @@ export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
 	/**
 	 * Whether the toggle button is currently pressed.
 	 *
-	 * To render an uncontrolled toggle, pass `pressed` without `bind:`.
+	 * To render an uncontrolled toggle, use the `defaultPressed` prop instead.
 	 * @default false
 	 */
 	pressed?: boolean;
+	/**
+	 * Whether the toggle button is currently pressed.
+	 * This is the uncontrolled counterpart of `pressed`.
+	 * @default false
+	 */
+	defaultPressed?: boolean;
 	/**
 	 * Whether the component should ignore user interaction.
 	 * @default false

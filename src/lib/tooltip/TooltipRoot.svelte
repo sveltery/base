@@ -17,15 +17,21 @@
 
 	let {
 		open = $bindable(),
+		defaultOpen,
 		onOpenChange,
 		onOpenChangeComplete,
 		disabled = false,
 		disableHoverablePopup = false,
 		trackCursorAxis = 'none',
 		triggerId = $bindable(),
+		defaultTriggerId,
 		handle,
 		children
 	}: TooltipRootProps<Payload> = $props();
+	// svelte-ignore state_referenced_locally
+	if (open === undefined && defaultOpen !== undefined) open = defaultOpen;
+	// svelte-ignore state_referenced_locally
+	if (triggerId === undefined && defaultTriggerId !== undefined) triggerId = defaultTriggerId;
 
 	const uid = $props.id();
 	const nested = useFloatingParentNodeId() != null;

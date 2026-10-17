@@ -20,6 +20,7 @@
 
 	let {
 		pressed = $bindable(),
+		defaultPressed,
 		disabled = false,
 		value: valueProp,
 		nativeButton = true,
@@ -34,6 +35,8 @@
 		type: _type,
 		...elementProps
 	}: ToggleProps = $props();
+	// svelte-ignore state_referenced_locally
+	if (pressed === undefined && defaultPressed !== undefined) pressed = defaultPressed;
 
 	// "" is treated as omitted, matching useBaseUiId(valueProp || undefined).
 	const resolvedValue = $derived(valueProp ? valueProp : `base-ui-${uid}`);
