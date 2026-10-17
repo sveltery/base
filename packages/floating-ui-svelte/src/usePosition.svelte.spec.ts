@@ -28,4 +28,19 @@ describe('FloatingPosition', () => {
 		flushSync(() => component.show(null));
 		expect(coordinates(position)).toEqual({ x: 0, y: 0, isPositioned: false });
 	});
+
+	it('skips the middleware of a run that a close replaced', async () => {
+		let calls = 0;
+		const counter = { name: 'counter', fn: () => ((calls += 1), {}) };
+		const { component } = render(PositionHarness, { middleware: [counter] });
+		const { position } = component;
+		await expect.poll(() => coordinates(position).isPositioned).toBe(true);
+
+		calls = 0;
+		position.update();
+		flushSync(() => component.show(null));
+		await new Promise((resolve) => setTimeout(resolve, 50));
+		expect(calls).toBe(0);
+		expect(coordinates(position)).toEqual({ x: 0, y: 0, isPositioned: false });
+	});
 });

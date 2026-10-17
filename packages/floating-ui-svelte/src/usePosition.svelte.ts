@@ -120,7 +120,12 @@ export class FloatingPosition {
 		const node = this.#floating;
 		if (!reference || !node || !current.enabled || current.open === false) return;
 		const id = ++this.#version;
-		const middleware = activeMiddleware(current.middleware);
+		// `computePosition` runs each middleware in a later microtask. A run that a newer one or a
+		// teardown replaced skips the rest, so it never reads state from a destroyed owner.
+		const middleware = activeMiddleware(current.middleware).map((item): Middleware => ({
+			...item,
+			fn: (state) => (id === this.#version ? item.fn(state) : {})
+		}));
 		void computePosition(reference, node, {
 			placement: current.placement,
 			strategy: current.strategy,
