@@ -711,42 +711,42 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 
 Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `inputRef`. Given a `name`, each renders its native `<input>` elements in the DOM under that name (Radio items take the RadioGroup's), so reach them through the form with `form.elements.namedItem(name)`. That returns a `RadioNodeList` when several inputs share the name, as with radios, range thumbs or an `uncheckedValue`.
 
-| Component          | Not ported yet                                                                   |
-| ------------------ | -------------------------------------------------------------------------------- |
-| Accordion          | React.Activity animation resume, refs, roving focus (`orientation`, `loopFocus`) |
-| Button             | Composite and Toolbar integration                                                |
-| Collapsible        | React.Activity animation resume, refs                                            |
-| Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration              |
-| Field              | refs                                                                             |
-| Input              | refs                                                                             |
-| ToggleGroup        | grid composite                                                                   |
-| Separator          | React render-element cloning, `ref`                                              |
-| Meter              | React `ref`, numeric production error codes                                      |
-| Progress           | refs                                                                             |
-| Form               | `actionsRef`                                                                     |
-| Tabs               | refs                                                                             |
-| Toolbar            | overlay triggers                                                                 |
-| NumberField        | refs                                                                             |
-| ScrollArea         | refs                                                                             |
-| Slider             | refs                                                                             |
-| DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                       |
-| OTPField           | refs, React controlled lock                                                      |
-| CSPProvider        | Select renders no inline style                                                   |
-| Overlay foundation | Internal only. No public component                                               |
-| Popover            | `actionsRef`, refs                                                               |
-| Dialog             | ref objects                                                                      |
-| AlertDialog        | ref objects                                                                      |
-| Tooltip            | refs                                                                             |
-| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, refs                            |
-| NavigationMenu     | `defaultValue`, `actionsRef`, refs                                               |
-| Drawer             | ref objects                                                                      |
-| Menu               | `actionsRef`, refs                                                               |
-| Menubar            | refs                                                                             |
-| ContextMenu        | `actionsRef`, refs                                                               |
-| Toast              | refs, `className` and `style` callbacks                                          |
-| Select             | `inputRef`, `ReactNode` labels and placeholder                                   |
-| Combobox           | `inputRef`, `ReactNode` labels and placeholder                                   |
-| Autocomplete       | `inputRef`, `ReactNode` value children                                           |
+| Component          | Not ported yet                                                                                                       |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| Accordion          | React.Activity animation resume, refs, roving focus (`orientation`, `loopFocus`)                                     |
+| Button             | Composite and Toolbar integration                                                                                    |
+| Collapsible        | React.Activity animation resume, refs                                                                                |
+| Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                                                  |
+| Field              | refs                                                                                                                 |
+| Input              | refs                                                                                                                 |
+| ToggleGroup        | grid composite                                                                                                       |
+| Separator          | React render-element cloning, `ref`                                                                                  |
+| Meter              | React `ref`, numeric production error codes                                                                          |
+| Progress           | refs                                                                                                                 |
+| Form               | `actionsRef`                                                                                                         |
+| Tabs               | refs, a client-only mount renders an inert prehydration `<script>` until mount, because Svelte has no hydration flag |
+| Toolbar            | overlay triggers                                                                                                     |
+| NumberField        | refs                                                                                                                 |
+| ScrollArea         | refs                                                                                                                 |
+| Slider             | refs, a client-only mount renders an inert prehydration `<script>` until mount, because Svelte has no hydration flag |
+| DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                                           |
+| OTPField           | refs, React controlled lock                                                                                          |
+| CSPProvider        | Select renders no inline style                                                                                       |
+| Overlay foundation | Internal only. No public component                                                                                   |
+| Popover            | `actionsRef`, refs                                                                                                   |
+| Dialog             | ref objects                                                                                                          |
+| AlertDialog        | ref objects                                                                                                          |
+| Tooltip            | refs                                                                                                                 |
+| PreviewCard        | `defaultOpen`, `defaultTriggerId`, `actionsRef`, refs                                                                |
+| NavigationMenu     | `defaultValue`, `actionsRef`, refs                                                                                   |
+| Drawer             | ref objects                                                                                                          |
+| Menu               | `actionsRef`, refs                                                                                                   |
+| Menubar            | refs                                                                                                                 |
+| ContextMenu        | `actionsRef`, refs                                                                                                   |
+| Toast              | refs, `className` and `style` callbacks                                                                              |
+| Select             | `inputRef`, `ReactNode` labels and placeholder                                                                       |
+| Combobox           | `inputRef`, `ReactNode` labels and placeholder                                                                       |
+| Autocomplete       | `inputRef`, `ReactNode` value children                                                                               |
 
 ## Shared floating internals
 
