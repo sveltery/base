@@ -12,7 +12,6 @@ const sections = {
 	Utils: 'utils'
 };
 
-/** Compares with `__snapshots__/<name>`. `UPDATE_SNAPSHOTS=1` rewrites it. */
 function matchSnapshot(name: string, actual: string) {
 	const file = fileURLToPath(new URL(`__snapshots__/${name}`, import.meta.url));
 	if (process.env.UPDATE_SNAPSHOTS) {

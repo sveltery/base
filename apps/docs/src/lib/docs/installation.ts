@@ -1,4 +1,3 @@
-/** Base UI's `InstallationBlock/model.ts`: the tabs of an install command, in order. */
 export const INSTALLATION_PACKAGE_MANAGERS = [
 	{ value: 'pnpm', label: 'pnpm', command: 'add' },
 	{ value: 'npm', label: 'npm', command: 'i' },

@@ -80,7 +80,6 @@ function headingIds(sections: SitemapSections, page: string) {
 	return new Map(ids);
 }
 
-/** A part's or an export's props, data attributes and CSS variables, each as one searchable string. */
 const apiFields = (api: ApiSummary) => ({
 	props: api.props?.join(' ') ?? '',
 	dataAttributes: api.dataAttributes?.join(' ') ?? '',

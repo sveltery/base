@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, extname, join } from 'node:path';
-import type { Heading, Nodes, Parent, PhrasingContent, Root, RootContent } from 'mdast';
+import type { Heading, Parent, PhrasingContent, Root, RootContent } from 'mdast';
 import { format, resolveConfig } from 'prettier';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
@@ -9,6 +9,7 @@ import { unified } from 'unified';
 import { SKIP, visit } from 'unist-util-visit';
 import type { Plugin } from 'vite';
 import { readDemo } from './demos.ts';
+import { text as nodeText } from './headings.ts';
 import { pageFiles } from './pages.ts';
 import { relativePaths } from './relative-paths.ts';
 import { sectionData } from './sitemap.ts';
@@ -26,7 +27,6 @@ export type MarkdownPage = {
 	markdown: string;
 };
 
-/** The files `virtual:docs-markdown` serves beside the per-page twins. */
 export type LlmsFiles = Record<'llms.txt' | 'llms-full.txt' | 'index.md', string>;
 
 const MODULE = 'virtual:docs-markdown';
@@ -45,7 +45,6 @@ const PREAMBLE = [
 	''
 ];
 
-// The tags GitHub flavored markdown renders, which Base UI's twins keep as they are.
 const HTML_TAGS = new Set(
 	'a abbr b br code del em i img kbd mark s span strong sub sup time'.split(' ')
 );
@@ -82,21 +81,11 @@ const code = (value: string, lang: string) => ({ type: 'code' as const, lang, va
 
 const parse = (markdown: string) => unified().use(remarkParse).use(remarkGfm).parse(markdown);
 
-function textContent(node: Nodes): string {
-	if (node.type === 'text') return node.value;
-	return 'children' in node ? node.children.map(textContent).join('') : '';
-}
-
 const isAbsoluteUrl = (url: string) => URL.canParse(url);
 
-/** Base UI's `resolveUrl`: a URL against a base that may be a bare path. */
-function resolveUrl(url: string, base: string) {
-	if (isAbsoluteUrl(base)) return new URL(url, base).href;
-	const baseUrl = new URL(base, 'https://example.com');
-	return new URL(url, baseUrl).href.slice(baseUrl.origin.length);
-}
+/** Base UI's `resolveUrl`, with the site as the base. */
+const resolveUrl = (url: string) => new URL(url, SITE).href;
 
-/** A component tag as a page writes it, such as `<Meta name="description" content="..." />`. */
 function element(source: string) {
 	const match = /^<([A-Za-z][\w.]*)/.exec(source);
 	if (!match) return undefined;
@@ -114,14 +103,13 @@ function tagOf(node: RootContent): string | undefined {
 	return child.type === 'text' && /^<[A-Z][^>]*\/>$/.test(child.value) ? child.value : undefined;
 }
 
-/** The `import { Name } from './path'` lines of a page's `<script>`. */
 const imports = (script: string) =>
 	[...script.matchAll(/import\s*\{([^}]*)\}\s*from\s*'([^']+)'/g)].map(([, names, path]) => ({
 		names: names.split(',').map((name) => name.trim()),
 		path
 	}));
 
-/** Base UI's `processTypedoc`: the committed `types.md`, without its title, marker and heading. */
+/** Base UI's `processTypedoc`. */
 function typesNodes(file: string, path: string): RootContent[] {
 	const types = `${join(dirname(file), path)}.md`;
 	if (!existsSync(types)) {
@@ -130,11 +118,11 @@ function typesNodes(file: string, path: string): RootContent[] {
 	return parse(readFileSync(types, 'utf8')).children.slice(3);
 }
 
-// Base UI heads each file with a `/* name */` comment. Svelte markup takes an HTML comment instead.
+// Svelte markup can't hold Base UI's `/* name */` comment.
 const fileComment = (name: string, lang: string) =>
 	lang === 'svelte' ? `<!-- ${name} -->` : `/* ${name} */`;
 
-/** Base UI's `processDemo`: each variant's files as code, Tailwind first. */
+/** Base UI's `processDemo`. */
 function demoNodes(stub: string): RootContent[] {
 	const variants = new Map(readDemo(stub).variants);
 	for (const name of variants.keys()) {
@@ -188,10 +176,7 @@ function releaseNodes(): RootContent[] {
 	];
 }
 
-/**
- * Base UI's `transformJsx`: each component a page uses becomes markdown, or goes. A component
- * nothing handles fails the build, so a new one gets a markdown form before it ships.
- */
+/** Base UI's `transformJsx`. */
 function transformComponents(tree: Root, file: string) {
 	const demos = new Map<string, string>();
 	for (const node of tree.children) {
@@ -203,17 +188,16 @@ function transformComponents(tree: Root, file: string) {
 
 	const replace = (node: RootContent, parent: Parent): RootContent[] | undefined => {
 		const tag = tagOf(node);
-		if (tag === undefined || tag.startsWith('</') || tag.startsWith('<!--')) {
-			return tag?.startsWith('<!--') ? [] : undefined;
-		}
+		if (tag === undefined || tag.startsWith('</')) return undefined;
+		if (tag.startsWith('<!--')) return [];
 		if (tag.startsWith('<script')) {
 			const types = imports(tag).find(({ names }) => names.some((name) => name.startsWith('Type')));
 			if (!types) return [];
-			const start = parent.children.indexOf(node as never);
-			for (const next of parent.children.slice(start + 1)) {
-				if (next.type !== 'heading') continue;
-				if (next.depth < 3) break;
-				next.data = { ...next.data, remove: true } as never;
+			for (let at = parent.children.indexOf(node as never) + 1; at < parent.children.length;) {
+				const next = parent.children[at];
+				if (next.type !== 'heading') at++;
+				else if (next.depth < 3) break;
+				else parent.children.splice(at, 1);
 			}
 			return typesNodes(file, types.path);
 		}
@@ -249,10 +233,6 @@ function transformComponents(tree: Root, file: string) {
 
 	visit(tree, (node, index, parent) => {
 		if (!parent || index === undefined || node.type === 'root') return;
-		if (node.type === 'heading' && (node.data as { remove?: boolean } | undefined)?.remove) {
-			parent.children.splice(index, 1);
-			return [SKIP, index];
-		}
 		const replacement = replace(node as RootContent, parent);
 		if (!replacement) return;
 		parent.children.splice(index, 1, ...(replacement as never[]));
@@ -260,7 +240,7 @@ function transformComponents(tree: Root, file: string) {
 	});
 }
 
-/** Base UI's `resolveMdLinks`: a link to another page points at its twin. */
+/** Base UI's `resolveMdLinks`. */
 function resolveMdLinks(tree: Root, href: string, hrefs: Set<string>) {
 	visit(tree, 'link', (node) => {
 		if (!node.url || isAbsoluteUrl(node.url)) return;
@@ -269,10 +249,7 @@ function resolveMdLinks(tree: Root, href: string, hrefs: Set<string>) {
 	});
 }
 
-/**
- * Base UI's `mdxToMarkdown`: a page's source as plain markdown. Demos become their files, the
- * API reference its committed `types.md`, and the head its title, subtitle and description.
- */
+/** Base UI's `mdxToMarkdown`. */
 export function pageMarkdown(
 	source: string,
 	file: string,
@@ -281,10 +258,11 @@ export function pageMarkdown(
 	const tree = parse(source);
 	const page = { href, title: '', subtitle: '', description: '', markdown: '' };
 	visit(tree, (node) => {
-		if (node.type === 'heading' && node.depth === 1) page.title = textContent(node);
-		const found = node.type === 'html' ? element(node.value) : undefined;
+		if (node.type === 'heading' && node.depth === 1) page.title = nodeText(node as never);
+		const html = node.type === 'html' ? node.value : undefined;
+		const found = html === undefined ? undefined : element(html);
 		if (found?.name === 'Subtitle') {
-			page.subtitle = (node as { value: string }).value
+			page.subtitle = html!
 				.replace(/^<Subtitle>|<\/Subtitle>$/g, '')
 				.replace(/\s+/g, ' ')
 				.trim();
@@ -315,7 +293,6 @@ const prettierConfig = resolveConfig(join(import.meta.dirname, 'page.md'));
 const formatMarkdown = async (content: string) =>
 	format(content, { ...(await prettierConfig), parser: 'markdown' });
 
-/** A page's `.md` twin: frontmatter, the preamble, then its markdown, formatted. */
 export function twin(page: MarkdownPage): Promise<string> {
 	const frontmatter = [
 		'---',
@@ -327,7 +304,7 @@ export function twin(page: MarkdownPage): Promise<string> {
 	return formatMarkdown([...frontmatter, '', PAGE_PREAMBLE, '', page.markdown].join('\n'));
 }
 
-/** Base UI's `githubSlugify`, which `llms-full.txt` links a page's heading with. */
+/** Base UI's `githubSlugify`. */
 const githubSlugify = (value: string) =>
 	value
 		.trim()
@@ -337,13 +314,10 @@ const githubSlugify = (value: string) =>
 		.replace(/-+/g, '-')
 		.replace(/^-+|-+$/g, '');
 
-/** A tag in a description reads as code, as in Base UI's `inlineCodeHtmlTags`. */
+/** Base UI's `inlineCodeHtmlTags`. */
 const inlineCodeHtmlTags = (value: string) => value.replace(/<\/?[a-zA-Z][^>]*>/g, '`$&`');
 
-/**
- * Base UI's `prepareForInlineMarkdown`: a page nested two heading levels down, with each link to
- * another page pointing at that page's heading in the same file.
- */
+/** Base UI's `prepareForInlineMarkdown`. */
 function inlineMarkdown(page: MarkdownPage, titles: Map<string, string>) {
 	const tree = parse(page.markdown);
 	visit(tree, 'heading', (node) => {
@@ -352,14 +326,14 @@ function inlineMarkdown(page: MarkdownPage, titles: Map<string, string>) {
 	visit(tree, 'link', (node) => {
 		if (!node.url || isAbsoluteUrl(node.url)) return;
 		const title = titles.get(node.url.replace(/\.md$/, ''));
-		node.url = title ? `#${githubSlugify(title)}` : resolveUrl(node.url, SITE);
+		node.url = title ? `#${githubSlugify(title)}` : resolveUrl(node.url);
 	});
 	return unified().use(remarkGfm).use(remarkStringify).stringify(tree);
 }
 
 type Section = { title: string; pages: MarkdownPage[] };
 
-/** Base UI's `createFileContent`: the preamble, then each section's pages as `render` writes them. */
+/** Base UI's `createFileContent`. */
 async function fileContent(
 	sections: Section[],
 	render: (page: MarkdownPage) => string,
@@ -368,17 +342,17 @@ async function fileContent(
 	const lines = [...PREAMBLE];
 	for (const { title, pages } of sections.filter(({ pages }) => pages.length)) {
 		lines.push(`## ${title}`, '');
-		for (const [index, page] of pages.entries()) {
-			lines.push(formatPages ? (await formatMarkdown(render(page))).trimEnd() : render(page));
-			if (formatPages && index < pages.length - 1) lines.push('');
-		}
+		const rendered = formatPages
+			? await Promise.all(pages.map(async (page) => (await formatMarkdown(render(page))).trimEnd()))
+			: pages.map(render);
+		lines.push(...(formatPages ? rendered.flatMap((page) => ['', page]).slice(1) : rendered));
 		lines.push('');
 	}
 	const content = lines.join('\n');
 	return formatPages ? `${content.trim()}\n` : formatMarkdown(content);
 }
 
-/** Base UI's `generateLlmTxt` outputs: `llms.txt`, `llms-full.txt` and `index.md`. */
+/** Base UI's `generateLlmTxt`. */
 export async function llmsFiles(sections: Section[]): Promise<LlmsFiles> {
 	const titles = new Map(
 		sections.flatMap(({ pages }) => pages.map((page) => [page.href, page.title]))
@@ -386,18 +360,13 @@ export async function llmsFiles(sections: Section[]): Promise<LlmsFiles> {
 	const link = (url: string, page: MarkdownPage) =>
 		`- [${page.title}](${url}): ${inlineCodeHtmlTags(page.description)}`;
 	const [llms, full, index] = await Promise.all([
-		fileContent(sections, (page) => link(resolveUrl(`${page.href}.md`, SITE), page)),
+		fileContent(sections, (page) => link(resolveUrl(`${page.href}.md`), page)),
 		fileContent(sections, (page) => inlineMarkdown(page, titles), true),
 		fileContent(sections, (page) => link(`.${page.href}.md`, page))
 	]);
 	return { 'llms.txt': llms, 'llms-full.txt': full, 'index.md': index };
 }
 
-/**
- * Every page's `.md` twin, keyed by its path such as `/components/button`, and the llms files,
- * with sections in side nav order. `sections` maps each side nav heading to its folder under
- * `routes`, as the sitemap plugin's option does.
- */
 export async function docsOutputs(routes: string, sections: Record<string, string>) {
 	const files = pageFiles(routes);
 	const hrefs = new Set(files.map(({ href }) => href));
@@ -424,7 +393,6 @@ export async function docsOutputs(routes: string, sections: Record<string, strin
 	return { pages: twins, files: await llmsFiles(ordered) };
 }
 
-/** Serves `docsOutputs` as `virtual:docs-markdown`, for the `.md` and llms routes. */
 export function docsMarkdown({
 	routes,
 	sections

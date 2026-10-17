@@ -3,12 +3,11 @@
 	import WebsiteLayout from './(website)/+layout.svelte';
 </script>
 
-<!-- Base UI's `global-not-found.tsx`, inside the website layout. -->
 <svelte:head>
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-<WebsiteLayout data={{ nav: page.data.nav }}>
+<WebsiteLayout data={{ nav: page.data.nav ?? [] }}>
 	<section class="contents">
 		<h1 class="Text sz-3 md:sz-4 col-start-1 col-end-9 xl:col-end-5">
 			{page.status === 404 ? 'Page not found' : page.error?.message}

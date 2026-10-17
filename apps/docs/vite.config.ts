@@ -26,7 +26,6 @@ const path = (relative: string) => fileURLToPath(new URL(relative, import.meta.u
 const lib = path('../../src/lib');
 // Each docs page is `<section>/<slug>/+page.md` in this route group.
 const routes = path('./src/routes/(docs)');
-// Upstream's `app/sitemap/index.ts`: each side nav heading and its section index, in order.
 const sections = {
 	Overview: 'overview',
 	Handbook: 'handbook',

@@ -27,7 +27,6 @@
 <PageMeta
 	title="Unstyled UI components for accessible design systems · Sveltery Base"
 	{description}
-	group="website"
 />
 
 <svelte:head>

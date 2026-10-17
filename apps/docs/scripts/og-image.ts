@@ -1,5 +1,3 @@
-// Draws the Open Graph image of each route group, as Base UI's `(docs)` and `(website)` folders
-// each hold an `opengraph-image.png`. Run from apps/docs: node scripts/og-image.ts
 import { readFileSync } from 'node:fs';
 import { chromium } from '@playwright/test';
 

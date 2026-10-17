@@ -2,13 +2,9 @@
 	import { page } from '$app/state';
 	import { SITE } from '#lib/docs/links.ts';
 
-	// Base UI's `metadata` exports: the docs layout's article tags and the website's, each with its
-	// route group's Open Graph image.
-	let {
-		title,
-		description,
-		group
-	}: { title: string; description?: string; group: 'docs' | 'website' } = $props();
+	let { title, description }: { title: string; description?: string } = $props();
+
+	const group = $derived(page.route.id?.startsWith('/(docs)') ? 'docs' : 'website');
 
 	const url = $derived(`${SITE}${page.url.pathname === '/' ? '' : page.url.pathname}`);
 	const image = $derived(`${SITE}/og/${group}.png`);

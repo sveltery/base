@@ -14,7 +14,7 @@
 	}: { title: string; description: string; toc: TocItem[]; children: Snippet } = $props();
 </script>
 
-<PageMeta title="{title} · Sveltery Base" {description} group="docs" />
+<PageMeta title="{title} · Sveltery Base" {description} />
 
 <Toc {title} {toc} />
 <div class="QuickNavContent">
