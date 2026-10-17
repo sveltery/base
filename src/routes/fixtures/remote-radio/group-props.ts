@@ -1,6 +1,11 @@
+import type { HTMLAttributes } from 'svelte/elements';
+
 /** The part of Kit's remote form field that a radio group needs. */
 interface RadioField {
-	as(type: 'radio', value: string): { name: string; 'aria-invalid': 'true' | undefined };
+	as(
+		type: 'radio',
+		value: string
+	): { name: string; 'aria-invalid'?: HTMLAttributes<HTMLElement>['aria-invalid'] };
 	value(): unknown;
 }
 

@@ -33,8 +33,11 @@ export type RadioRootChangeEventDetails = BaseUIChangeEventDetails<RadioRootChan
 export type RadioHostProps = HTMLAttributes<HTMLElement>;
 
 export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
-	/** The unique identifying value of the radio in a group. */
-	value: unknown;
+	/**
+	 * The unique identifying value of the radio in a group.
+	 * Optional in the type only because Kit's `.as('radio', value)` types it so.
+	 */
+	value?: unknown;
 	/**
 	 * Identifies the field when a form is submitted.
 	 * A name on Field.Root or RadioGroup takes precedence.
