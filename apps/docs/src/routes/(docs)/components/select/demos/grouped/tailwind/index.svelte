@@ -37,8 +37,8 @@
 		class="cursor-default text-sm font-bold text-neutral-950 dark:text-white"
 		nativeLabel={false}
 	>
-		{#snippet render(props)}
-			<div {...props}></div>
+		{#snippet render(props, _state, children)}
+			<div {...props}>{@render children?.()}</div>
 		{/snippet}
 		Produce
 	</Field.Label>
