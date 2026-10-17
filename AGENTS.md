@@ -13,7 +13,7 @@ Sveltery Base is a Svelte 5 port of [Base UI](https://base-ui.com/), pinned to v
 
 ## Props and events
 
-- `$bindable` replaces each controlled and default pair. No binding is uncontrolled, `bind:x` is two-way, and `bind:x={get, set}` lets the parent reject a change. Commit the new value in the event handler, not in an effect.
+- Each stateful prop is one `$bindable` prop, which replaces upstream's controlled prop. No binding is uncontrolled, `bind:x` is two-way, and `bind:x={get, set}` lets the parent reject a change. Commit the new value in the event handler, not in an effect.
 - Each upstream `default*` prop exists beside its `$bindable` prop. It is the value an empty binding starts from, read once at mount. On form controls, `defaultValue` and `defaultChecked` also mean what HTML means: the value a form reset restores. `node scripts/compare-api-descriptions.ts <base-ui checkout>` fails when one is missing.
 - `event.preventDefault()` in a consumer handler is the one signal that skips a part's own handler.
 

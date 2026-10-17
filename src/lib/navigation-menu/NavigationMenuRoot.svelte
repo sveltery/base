@@ -14,6 +14,7 @@
 		useFloatingTree
 	} from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
+	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { CLOSE_DELAY, OPEN_DELAY } from './constants.js';
 	import { findNavigationMenuRoot, setNavigationMenuRoot } from './context.svelte.js';
@@ -36,9 +37,16 @@
 		children,
 		...elementProps
 	}: NavigationMenuRootProps<Value> = $props();
+	// An object item value is read back by reference, not as the proxy of the written one.
+	const selection = new WrittenReference<Value | null>(
+		() => value,
+		(next) => {
+			value = next;
+		}
+	);
 	// The fallback stands for an omitted `value`, so `defaultValue` replaces it.
 	// svelte-ignore state_referenced_locally
-	if (value === null && defaultValue !== undefined) value = defaultValue;
+	if (value === null && defaultValue !== undefined) selection.set(defaultValue);
 
 	const uid = $props.id();
 	const nested = useFloatingParentNodeId() != null;
@@ -47,10 +55,8 @@
 	const tree = useFloatingTree();
 
 	const root = new NavigationMenuRootStore({
-		readValue: () => value,
-		writeValue: (next) => {
-			value = next as Value | null;
-		},
+		readValue: () => selection.current,
+		writeValue: (next) => selection.set(next as Value | null),
 		onValueChange: () =>
 			onValueChange as
 				((value: unknown, details: NavigationMenuChangeEventDetails) => void) | undefined,

@@ -204,3 +204,36 @@ describe('default* props start uncontrolled state that a user change then moves'
 		await expect.element(input).toHaveValue('final');
 	});
 });
+
+describe('an object default* value keeps its identity', () => {
+	it('Tabs.Root defaultValue', async () => {
+		render(DefaultPropsHarness, { part: 'tabs-object' });
+		const tab = (name: string) => page.getByRole('tab', { name, exact: true });
+		await expect.element(tab('B')).toHaveAttribute('aria-selected', 'true');
+		(tab('A').element() as HTMLElement).click();
+		await expect.element(tab('A')).toHaveAttribute('aria-selected', 'true');
+	});
+
+	it('Accordion.Root defaultValue', async () => {
+		render(DefaultPropsHarness, { part: 'accordion-object' });
+		await expect.element(button('B')).toHaveAttribute('aria-expanded', 'true');
+		click('A');
+		await expect.element(button('A')).toHaveAttribute('aria-expanded', 'true');
+	});
+
+	it('Menu.RadioGroup defaultValue', async () => {
+		render(DefaultPropsHarness, { part: 'menu-radio-group-object' });
+		const item = (name: string) => page.getByRole('menuitemradio', { name, exact: true });
+		await expect.element(item('B')).toHaveAttribute('aria-checked', 'true');
+		(item('A').element() as HTMLElement).click();
+		await expect.element(item('A')).toHaveAttribute('aria-checked', 'true');
+		await expect.element(item('B')).toHaveAttribute('aria-checked', 'false');
+	});
+
+	it('NavigationMenu.Root defaultValue', async () => {
+		render(DefaultPropsHarness, { part: 'navigation-menu-object' });
+		await expect.element(button('B')).toHaveAttribute('aria-expanded', 'true');
+		click('B');
+		await expect.element(button('B')).toHaveAttribute('aria-expanded', 'false');
+	});
+});

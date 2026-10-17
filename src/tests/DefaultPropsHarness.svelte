@@ -29,7 +29,11 @@
 		| 'toggle-group'
 		| 'toolbar-input'
 		| 'tooltip'
-		| 'tooltip-trigger';
+		| 'tooltip-trigger'
+		| 'tabs-object'
+		| 'accordion-object'
+		| 'menu-radio-group-object'
+		| 'navigation-menu-object';
 </script>
 
 <script lang="ts">
@@ -57,6 +61,8 @@
 	let { part }: { part: DefaultPropsCase } = $props();
 
 	const items = ['Apple', 'Banana'];
+	const first = { id: 'first' };
+	const second = { id: 'second' };
 	const options = items.map((item) => ({ value: item, label: item }));
 </script>
 
@@ -310,4 +316,56 @@
 	<Toolbar.Root>
 		<Toolbar.Input aria-label="Search" defaultValue="draft" />
 	</Toolbar.Root>
+{:else if part === 'tabs-object'}
+	<Tabs.Root defaultValue={second}>
+		<Tabs.List>
+			<Tabs.Tab value={first}>A</Tabs.Tab>
+			<Tabs.Tab value={second}>B</Tabs.Tab>
+		</Tabs.List>
+	</Tabs.Root>
+{:else if part === 'accordion-object'}
+	<Accordion.Root defaultValue={[second]}>
+		<Accordion.Item value={first}>
+			<Accordion.Header><Accordion.Trigger>A</Accordion.Trigger></Accordion.Header>
+			<Accordion.Panel>Panel A</Accordion.Panel>
+		</Accordion.Item>
+		<Accordion.Item value={second}>
+			<Accordion.Header><Accordion.Trigger>B</Accordion.Trigger></Accordion.Header>
+			<Accordion.Panel>Panel B</Accordion.Panel>
+		</Accordion.Item>
+	</Accordion.Root>
+{:else if part === 'menu-radio-group-object'}
+	<Menu.Root defaultOpen>
+		<Menu.Trigger>Actions</Menu.Trigger>
+		<Menu.Portal>
+			<Menu.Positioner>
+				<Menu.Popup>
+					<Menu.RadioGroup defaultValue={second}>
+						<Menu.RadioItem value={first}>A</Menu.RadioItem>
+						<Menu.RadioItem value={second}>B</Menu.RadioItem>
+					</Menu.RadioGroup>
+				</Menu.Popup>
+			</Menu.Positioner>
+		</Menu.Portal>
+	</Menu.Root>
+{:else if part === 'navigation-menu-object'}
+	<NavigationMenu.Root defaultValue={second}>
+		<NavigationMenu.List>
+			<NavigationMenu.Item value={first}>
+				<NavigationMenu.Trigger>A</NavigationMenu.Trigger>
+				<NavigationMenu.Content>Panel A</NavigationMenu.Content>
+			</NavigationMenu.Item>
+			<NavigationMenu.Item value={second}>
+				<NavigationMenu.Trigger>B</NavigationMenu.Trigger>
+				<NavigationMenu.Content>Panel B</NavigationMenu.Content>
+			</NavigationMenu.Item>
+		</NavigationMenu.List>
+		<NavigationMenu.Portal>
+			<NavigationMenu.Positioner>
+				<NavigationMenu.Popup>
+					<NavigationMenu.Viewport />
+				</NavigationMenu.Popup>
+			</NavigationMenu.Positioner>
+		</NavigationMenu.Portal>
+	</NavigationMenu.Root>
 {/if}

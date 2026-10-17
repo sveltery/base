@@ -267,8 +267,7 @@ if (defaultsOnly) {
 	const rows = entries.filter((e): e is { status: Status; label: string; prop: string } =>
 		/^default[A-Z]/.test((e as { prop?: string }).prop ?? '')
 	);
-	for (const { status, label } of rows)
-		console.log(`${status === 'UPSTREAM ONLY' ? 'MISSING' : 'ok'}\t${label}`);
+	for (const { status, label } of rows) console.log(`${status}\t${label}`);
 } else if (json) console.log(JSON.stringify(entries, null, '\t'));
 else console.log(`${lines.join('\n')}\n\n${unexplained} unexplained difference(s)`);
 process.exit(unexplained ? 1 : 0);

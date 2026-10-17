@@ -20,15 +20,15 @@
 		children,
 		...elementProps
 	}: TabsRootProps = $props();
-	// svelte-ignore state_referenced_locally
-	if (value === undefined && defaultValue !== undefined) value = defaultValue;
-
 	const selection = new WrittenReference<TabsValue | null | undefined>(
 		() => value,
 		(next) => {
 			value = next;
 		}
 	);
+	// Written through `selection`, so an object `defaultValue` keeps its identity.
+	// svelte-ignore state_referenced_locally
+	if (value === undefined && defaultValue !== undefined) selection.set(defaultValue);
 	const tabs = new TabsRootModel(
 		() => selection.current,
 		(next) => selection.set(next),

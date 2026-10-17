@@ -5,6 +5,7 @@
 -->
 <script lang="ts">
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { findMenuRoot, setMenuGroup, setMenuRadioGroup } from './context.svelte.js';
 	import {
 		MenuFilterGroup,
@@ -24,8 +25,15 @@
 		children,
 		...elementProps
 	}: MenuRadioGroupProps = $props();
+	// An object radio value is read back by reference, not as the proxy of the written one.
+	const selection = new WrittenReference<unknown>(
+		() => value,
+		(next) => {
+			value = next;
+		}
+	);
 	// svelte-ignore state_referenced_locally
-	if (value === undefined && defaultValue !== undefined) value = defaultValue;
+	if (value === undefined && defaultValue !== undefined) selection.set(defaultValue);
 
 	// A filterable menu hides the group once the query filters out all its items.
 	const filter = findMenuRoot()?.store.filter;
@@ -44,14 +52,14 @@
 	const disabled = $derived(disabledProp ?? false);
 	setMenuRadioGroup({
 		get value() {
-			return value;
+			return selection.current;
 		},
 		get disabled() {
 			return disabled;
 		},
 		setValue(next, details) {
 			onValueChange?.(next, details);
-			if (!details.isCanceled) value = next;
+			if (!details.isCanceled) selection.set(next);
 		}
 	});
 
