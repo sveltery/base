@@ -6,23 +6,7 @@
 
 <Meta name="description" content="An easily stylable range input." />
 
-```svelte demo
-<script lang="ts">
-	import { Slider } from '@sveltery/base/slider';
-</script>
-
-<Slider.Root defaultValue={25}>
-	<Slider.Control class="flex w-56 touch-none items-center py-3 select-none">
-		<Slider.Track class="h-1 w-full bg-neutral-200 select-none dark:bg-neutral-800">
-			<Slider.Indicator class="bg-neutral-950 select-none dark:bg-white" />
-			<Slider.Thumb
-				aria-label="Volume"
-				class="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
-			/>
-		</Slider.Track>
-	</Slider.Control>
-</Slider.Root>
-```
+<DemoSliderHero />
 
 ## Usage guidelines
 
@@ -108,108 +92,19 @@ To create a range slider:
 
 Thumbs can be configured to behave differently when they collide during pointer interactions using the `thumbCollisionBehavior` prop on `<Slider.Root>`.
 
-```svelte demo
-<script lang="ts">
-	import { Slider } from '@sveltery/base/slider';
-</script>
-
-<Slider.Root defaultValue={[25, 45]}>
-	<Slider.Control class="flex w-56 touch-none items-center py-3 select-none">
-		<Slider.Track class="h-1 w-full bg-neutral-200 select-none dark:bg-neutral-800">
-			<Slider.Indicator class="bg-neutral-950 select-none dark:bg-white" />
-			<Slider.Thumb
-				index={0}
-				aria-label="Minimum value"
-				class="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
-			/>
-			<Slider.Thumb
-				index={1}
-				aria-label="Maximum value"
-				class="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
-			/>
-		</Slider.Track>
-	</Slider.Control>
-</Slider.Root>
-```
+<DemoSliderRangeSlider />
 
 ### Steps
 
 Use the `step` prop to snap the value to multiples of a given increment, and `largeStep` to control the increment when using Page Up/Page Down or Shift + Arrow Up/Arrow Down.
 
-```svelte demo
-<script lang="ts">
-	import { Slider } from '@sveltery/base/slider';
-</script>
-
-<Slider.Root
-	class="grid w-56 grid-cols-2"
-	defaultValue={400}
-	min={100}
-	max={900}
-	step={100}
-	largeStep={200}
->
-	<Slider.Label class="cursor-default text-sm text-neutral-950 dark:text-white">
-		Playback speed
-	</Slider.Label>
-	<Slider.Value class="text-end text-sm text-neutral-950 dark:text-white" />
-	<Slider.Control class="col-span-2 flex touch-none items-center py-3 select-none">
-		<Slider.Track class="h-1 w-full bg-neutral-200 select-none dark:bg-neutral-800">
-			<Slider.Indicator class="bg-neutral-950 select-none dark:bg-white" />
-			<Slider.Thumb
-				class="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
-			/>
-		</Slider.Track>
-	</Slider.Control>
-</Slider.Root>
-```
+<DemoSliderSteps />
 
 ### Marks
 
 Render your own tick marks, positioning each mark along the track as a percentage of the value range.
 
-```svelte demo
-<script lang="ts">
-	import { Slider } from '@sveltery/base/slider';
-
-	const MIN = 0;
-	const MAX = 100;
-	const MARKS = [0, 25, 50, 75, 100];
-
-	function valueToPercent(value: number) {
-		return ((value - MIN) / (MAX - MIN)) * 100;
-	}
-</script>
-
-<Slider.Root class="w-56" defaultValue={40} min={MIN} max={MAX}>
-	<Slider.Control class="flex touch-none items-center py-2.5 select-none">
-		<Slider.Track class="h-1 w-full bg-neutral-200 select-none dark:bg-neutral-800">
-			<Slider.Indicator class="bg-neutral-950 select-none dark:bg-white" />
-			{#each MARKS as mark (mark)}
-				<div
-					aria-hidden="true"
-					class="absolute top-1/2 h-2 w-px -translate-x-1/2 -translate-y-1/2 bg-neutral-950 dark:bg-white"
-					style:left="{valueToPercent(mark)}%"
-				></div>
-			{/each}
-			<Slider.Thumb
-				aria-label="Volume"
-				class="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
-			/>
-		</Slider.Track>
-	</Slider.Control>
-	<div class="relative h-4 select-none" aria-hidden="true">
-		{#each MARKS as mark (mark)}
-			<span
-				class="absolute -translate-x-1/2 text-xs whitespace-nowrap text-neutral-600 dark:text-neutral-400"
-				style:left="{valueToPercent(mark)}%"
-			>
-				{mark}
-			</span>
-		{/each}
-	</div>
-</Slider.Root>
-```
+<DemoSliderMarks />
 
 Marks are independent of the value's granularity—pair them with the [`step`](#steps) prop to snap the thumb to each mark.
 
@@ -219,49 +114,13 @@ Set `thumbAlignment="edge"` to inset the thumb such that its edge aligns with th
 
 A client-only alternative `thumbAlignment="edge-client-only"` can be used to reduce bundle size but only renders after Svelte hydration.
 
-```svelte demo
-<script lang="ts">
-	import { Slider } from '@sveltery/base/slider';
-</script>
-
-<Slider.Root thumbAlignment="edge" defaultValue={25}>
-	<Slider.Control class="flex w-56 touch-none items-center py-3 select-none">
-		<Slider.Track class="h-1 w-full bg-neutral-200 select-none dark:bg-neutral-800">
-			<Slider.Indicator class="bg-neutral-950 select-none dark:bg-white" />
-			<Slider.Thumb
-				aria-label="Volume"
-				class="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
-			/>
-		</Slider.Track>
-	</Slider.Control>
-</Slider.Root>
-```
+<DemoSliderEdgeAlignment />
 
 ### Vertical
 
 Set `orientation="vertical"` on `<Slider.Root>` to build a vertical slider.
 
-```svelte demo
-<script lang="ts">
-	import { Slider } from '@sveltery/base/slider';
-</script>
-
-<Slider.Root orientation="vertical" defaultValue={35}>
-	<Slider.Control
-		class="flex touch-none select-none data-[orientation=vertical]:h-32 data-[orientation=vertical]:px-3"
-	>
-		<Slider.Track
-			class="bg-neutral-200 select-none dark:bg-neutral-800 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1"
-		>
-			<Slider.Indicator class="bg-neutral-950 select-none dark:bg-white" />
-			<Slider.Thumb
-				aria-label="Volume"
-				class="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
-			/>
-		</Slider.Track>
-	</Slider.Control>
-</Slider.Root>
-```
+<DemoSliderVertical />
 
 ### Form integration
 
@@ -311,6 +170,12 @@ For grouped multi-thumb range sliders in forms, [Fieldset](/components/fieldset)
 ## API reference
 
 <script>
+	import { DemoSliderHero } from './demos/hero';
+	import { DemoSliderRangeSlider } from './demos/range-slider';
+	import { DemoSliderSteps } from './demos/steps';
+	import { DemoSliderMarks } from './demos/marks';
+	import { DemoSliderEdgeAlignment } from './demos/edge-alignment';
+	import { DemoSliderVertical } from './demos/vertical';
 	import { TypesSlider } from './types';
 </script>
 

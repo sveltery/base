@@ -6,6 +6,7 @@ import { mdsvex } from 'mdsvex';
 import { defineConfig } from 'vite';
 import { elements, headings } from './markdown/headings.ts';
 import { metadata } from './markdown/metadata.ts';
+import { docsDemos } from './markdown/demos.ts';
 import { docsMarkdown } from './markdown/llms.ts';
 import { docsComponents, highlightCode } from './markdown/preprocess.ts';
 import { relativePaths } from './markdown/relative-paths.ts';
@@ -18,15 +19,9 @@ const path = (relative: string) => fileURLToPath(new URL(relative, import.meta.u
 const lib = path('../../src/lib');
 // Each docs page is `<section>/<slug>/+page.md` in this route group.
 const routes = path('./src/routes/(docs)');
-// Generated demo components. The root ignore files skip `dist`, and svelte-check, unlike for
-// `.svelte-kit`, type-checks it.
-const demos = path('./dist/demos');
 
 export default defineConfig({
 	// tsconfig.json maps the same paths for type checking.
-	// Vite's dev watcher skips `build.outDir`, which defaults to `dist`. SvelteKit sets its own outDir
-	// for builds, so this only lets the dev server see demo edits.
-	build: { outDir: '.svelte-kit/output' },
 	resolve: { alias: [{ find: /^@sveltery\/base(?=\/|$)/, replacement: lib }] },
 	plugins: [
 		tailwindcss(),
@@ -43,6 +38,7 @@ export default defineConfig({
 			}
 		}),
 		docsTypes({ routes, lib }),
+		docsDemos({ routes }),
 		sveltekit({
 			adapter: adapter(),
 			extensions: ['.svelte', '.md'],
@@ -64,7 +60,7 @@ export default defineConfig({
 					layout: path('./src/lib/components/DocsPage.svelte'),
 					highlight: { highlighter: highlightCode }
 				}),
-				docsComponents({ routes, demos, lib })
+				docsComponents({ routes, lib })
 			],
 			prerender: { handleHttpError: 'fail', handleMissingId: 'fail' }
 		})

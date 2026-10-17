@@ -77,7 +77,7 @@
 		}
 	}
 
-	/* Demos here are one file, so the toolbar holds one file tab and the actions, pinned to its right edge. */
+	/* The actions sit at the toolbar's right edge, after the file tabs a demo with several files shows. */
 	.DemoToolbarActions {
 		display: flex;
 		align-items: center;
