@@ -37,7 +37,7 @@
 				<Menu.Item class={itemClass}>Move to folder</Menu.Item>
 				<Menu.Separator class="mx-1 my-1 h-px bg-neutral-950 dark:bg-white" />
 				<Menu.Item class={itemClass}>Archive</Menu.Item>
-				<Menu.Item class="{itemClass} text-red-500">Delete</Menu.Item>
+				<Menu.Item class="{itemClass} text-red-600">Delete</Menu.Item>
 			</Menu.Popup>
 		</Menu.Positioner>
 	</Menu.Portal>
