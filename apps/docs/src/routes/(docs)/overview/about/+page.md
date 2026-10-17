@@ -4,10 +4,9 @@
   An open-source Svelte component library for building accessible user interfaces.
 </Subtitle>
 
-<Meta name="description" content="An open-source Svelte component library for building accessible user interfaces." />
+<Meta name="description" content="An overview of Sveltery Base, providing information on its origins, credits, and goals." />
 
-Sveltery Base is an unstyled Svelte 5 component library for building accessible user interfaces.
-It is an unofficial port of [Base UI](https://base-ui.com), the React library from the creators of Radix, Material UI, and Floating UI, and follows Base UI v1.9.0.
+Sveltery Base is an unstyled Svelte component library for building accessible user interfaces, ported from [Base UI](https://base-ui.com) v1.9.0.
 Our focus is on accessibility, performance, and developer experience.
 Our goal is to bring Base UI's complete set of open-source UI components to Svelte, with the same behavior and a native Svelte developer experience.
 
@@ -17,13 +16,13 @@ Our goal is to bring Base UI's complete set of open-source UI components to Svel
 
 Sveltery Base components are unstyled, don't bundle CSS, and don't prescribe a styling solution.
 You retain complete control over your application's CSS layer.
-Sveltery Base is compatible with Tailwind, plain CSS, scoped Svelte styles, or any other styling engine you prefer.
+Sveltery Base is compatible with Tailwind, scoped Svelte styles, plain CSS, or any other styling engine you prefer.
 
 ### Accessible
 
 Poor accessibility can make your application difficult to navigate for all users, not just for users with disabilities.
 Accessibility is our primary focus.
-Sveltery Base ports Base UI's behavior, which adheres to [WAI-ARIA design patterns](https://www.w3.org/WAI/ARIA/apg/patterns/), and tests each component against the matching Base UI component.
+Sveltery Base components port Base UI's behavior, which adheres to [WAI-ARIA design patterns](https://www.w3.org/WAI/ARIA/apg/patterns/), and are tested against the matching Base UI components.
 
 ### Composable
 
@@ -37,7 +36,7 @@ Sveltery Base is not affiliated with or endorsed by MUI or Base UI.
 
 ## Browser support
 
-Sveltery Base ports Base UI's code, so it targets the same browsers: those that implement features marked as [Baseline Widely Available](https://web.dev/baseline) at the time of Base UI's last major version release.
+Sveltery Base supports the same browsers as Base UI: all modern browsers that implement features marked as [Baseline Widely Available](https://web.dev/baseline) at the time of Base UI's last major version release.
 This means the features we use have been supported across major browsers for at least 30 months, ensuring broad compatibility and stability.
 
 For the full list of supported browsers, refer to Base UI's [.browserslistrc](https://github.com/mui/base-ui/blob/master/.browserslistrc).
@@ -48,7 +47,7 @@ Sveltery Base supports Svelte 5.57.1 and newer versions.
 
 ## Bundler support
 
-Sveltery Base ships Svelte components, so it works with any bundler that compiles Svelte 5, such as Vite with SvelteKit.
+Sveltery Base ships Svelte components, so it works with any maintained bundler that compiles Svelte 5, such as Vite with SvelteKit or the Svelte plugin for Vite.
 
 ## Community
 
