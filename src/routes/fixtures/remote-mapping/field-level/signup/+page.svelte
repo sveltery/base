@@ -28,7 +28,7 @@ input), preflight (match on a preflighted form), validate (Field.Root `validate`
 					: undefined}
 			>
 				<Field.Label>{label}</Field.Label>
-				<Field.Control {type} defaultValue={field.value()} required />
+				<Field.Control {type} defaultValue={field.value()} />
 				{#if v === 'validate'}
 					<Field.Error data-testid="error" />
 				{:else}

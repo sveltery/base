@@ -28,6 +28,14 @@ test('signup, revalidate: shows, clears on edit, submits', async ({ page }) => {
 	expect(errors).toEqual([]);
 });
 
+test('signup, revalidate: the schema is the message source', async ({ page }) => {
+	const errors = await open(page, signup('revalidate'));
+	await page.getByRole('button', { name: 'Sign up' }).click();
+	await expect(error(page, 'name')).toHaveText('Use at least 2 characters');
+	await expect(error(page, 'email')).toHaveText('Enter a valid email');
+	expect(errors).toEqual([]);
+});
+
 test('plan, revalidate: shows, clears on edit, submits', async ({ page }) => {
 	const errors = await open(page, plan('revalidate'));
 	await page.getByText('free', { exact: true }).click();
