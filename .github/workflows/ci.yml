@@ -13,13 +13,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  static:
-    name: Lint and types
+  lint:
+    name: Lint
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - run: pnpm lint
+
+  types:
+    name: Types
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
       - run: pnpm check
 
   unit:
@@ -49,30 +56,39 @@ jobs:
       # Builds the site, then type-checks it and every demo.
       - run: pnpm --filter @sveltery/base-docs check
 
+  # Both browser suites are CPU-bound on a 4-vCPU runner, so they split across runners.
   component:
-    name: Component
+    name: Component (${{ matrix.shard }}/3)
     # Chromium's sandbox needs unprivileged user namespaces, which 24.04 runners restrict.
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           browser: true
-      - run: pnpm test:component
+      - run: pnpm test:component --shard=${{ matrix.shard }}/3
 
   e2e:
-    name: E2E
+    name: E2E (${{ matrix.shard }}/3)
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           browser: true
-      - run: pnpm test:e2e
+      - run: pnpm test:e2e --shard=${{ matrix.shard }}/3
       - name: Keep traces
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-traces
+          name: e2e-traces-${{ matrix.shard }}
           path: test-results/
           if-no-files-found: ignore
