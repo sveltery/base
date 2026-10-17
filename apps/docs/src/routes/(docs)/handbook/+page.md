@@ -163,12 +163,7 @@ Notes on server rendering, form actions, and remote form functions when you use 
     - Ids
     - Popups
     - Form validation
-  - Bind a SvelteKit remote form
-    - Type the control
-    - Bind a field by name
-    - Bind composite controls
-    - Customize the submit
-    - Work without JavaScript
+  - Use a SvelteKit remote form
   - Connect a form action
   - Prerendering
   - Without SvelteKit

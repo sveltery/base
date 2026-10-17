@@ -16,7 +16,6 @@
 		LabelableId,
 		useLabelableContext
 	} from '../internal/labelable-provider.svelte.js';
-	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
@@ -62,16 +61,9 @@
 	const readOnly = $derived(readOnlyProp ?? false);
 
 	const field = useFieldContext();
-	const bound = new BoundControl<string>(field, {
-		kind: 'text',
-		read: (): string => raw,
-		write: (next) => writeValue(next),
-		fromSource: (source) => (source == null ? '' : String(source))
-	});
-
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = bound.initial(defaultValue);
+	if (value === undefined) value = defaultValue;
 
 	const form = useFormContext();
 	const labelable = useLabelableContext();
@@ -84,8 +76,7 @@
 	});
 	const disabled = $derived(Boolean(field.disabled) || (disabledProp ?? false));
 	const name = $derived(field.name ?? nameProp ?? undefined);
-	const boundProps = $derived(bound.inputProps());
-	const inputName = $derived(bound.bound ? boundProps.name : name);
+	const inputName = $derived(name);
 
 	function writeValue(next: string) {
 		value = next;
@@ -220,6 +211,5 @@
 		bind:this={model.hiddenInput}
 		onfocus={hiddenFocused}
 		oninput={hiddenEdited}
-		{...boundProps}
 	/>
 {/if}

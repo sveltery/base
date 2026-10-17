@@ -34,7 +34,7 @@ Add a dependency only when a component uses it. `src/lib` must not import React 
 
 ## Forms
 
-Form and Field are a headless form library inside the components. Keep all four of its jobs: form state, validation, integration with form libraries through `Field.Root` overrides and `bind:value`, and native framework integration. In Svelte, native integration means SvelteKit form actions (`use:enhance`) and remote form functions, not React actions or `useActionState`.
+Form, Field and Fieldset follow Base UI's API exactly. Form libraries and frameworks integrate through Base UI's own entry points: Form `errors`, the Field.Root `invalid`, `dirty`, `touched` and `validate` props, `bind:value`, and native inputs. Do not add framework-specific props to `src/lib`. Any addition to this API needs the owner's sign-off and an entry in [docs/upstream-differences.md](docs/upstream-differences.md).
 
 ## Attribution
 

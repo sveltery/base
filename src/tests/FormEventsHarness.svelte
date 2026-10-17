@@ -1,11 +1,9 @@
 <script lang="ts">
-	import type { Attachment } from 'svelte/attachments';
 	import {
 		Checkbox,
 		CheckboxGroup,
 		Field,
 		Form,
-		isSubmitBlocked,
 		NumberField,
 		OTPField,
 		Radio,
@@ -30,10 +28,8 @@
 	const box = 'display: inline-block; width: 16px; height: 16px';
 
 	let log = $state<string[]>([]);
-	// `defaultPrevented` as each later submit listener call saw it.
+	// `defaultPrevented` as each `onsubmit` call saw it.
 	let submits = $state<boolean[]>([]);
-	// `isSubmitBlocked` as each later submit listener call read it.
-	let blocked = $state<boolean[]>([]);
 
 	function record(event: Event) {
 		const target = event.target;
@@ -43,26 +39,19 @@
 		log.push(`${event.type} ${target.name}=${value}`);
 	}
 
-	// A bubble-phase listener added after Form's own, as a form library's `enhance` is. It
-	// prevents the submit only after recording, so the page does not navigate.
-	const laterSubmitListener: Attachment<HTMLFormElement> = (node) => {
-		const listener = (event: SubmitEvent) => {
-			submits.push(event.defaultPrevented);
-			blocked.push(isSubmitBlocked(node));
-			event.preventDefault();
-		};
-		node.addEventListener('submit', listener);
-		return () => node.removeEventListener('submit', listener);
-	};
+	// Prevents the submit only after recording, so the page does not navigate.
+	function recordSubmit(event: SubmitEvent) {
+		submits.push(event.defaultPrevented);
+		event.preventDefault();
+	}
 </script>
 
 {#if scenario === 'gate'}
-	<Form data-testid="form" {@attach laterSubmitListener}>
+	<Form data-testid="form" onsubmit={recordSubmit}>
 		<Field.Root name="email">
 			<Field.Control data-testid="control" required />
 		</Field.Root>
 		<button type="submit">Submit</button>
-		<button type="submit" formnovalidate>Skip validation</button>
 	</Form>
 {:else}
 	<form data-testid="form" oninput={record} onchange={record}>
@@ -120,4 +109,3 @@
 {/if}
 <output data-testid="log">{JSON.stringify(log)}</output>
 <output data-testid="submits">{JSON.stringify(submits)}</output>
-<output data-testid="blocked">{JSON.stringify(blocked)}</output>

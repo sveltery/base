@@ -96,7 +96,7 @@ Form is composed together with [Field](/components/field). Import the components
 
 ### Submit with a Server Function
 
-Forms can be submitted with a [SvelteKit form action](https://svelte.dev/docs/kit/form-actions) instead of `onsubmit`. Return the action's errors from `fail()` and pass them to `errors`. The demo below mimics the action with `onFormSubmit`. [Connect a form action](/handbook/sveltekit#connect-a-form-action) shows the real `+page.server.ts` and `use:enhance`.
+Forms can be submitted with a [SvelteKit form action](https://svelte.dev/docs/kit/form-actions) instead of `onsubmit`. Return the action's errors from `fail()` and pass them to `errors`. The demo below mimics the action with `onFormSubmit`. [Connect a form action](/handbook/sveltekit#connect-a-form-action) shows the real `+page.server.ts`.
 
 ```svelte demo
 <script lang="ts">
@@ -259,12 +259,3 @@ When parsing the schema using `schema.safeParse()`, the `z.flattenError(result.e
 ## API reference
 
 <ApiPart name="form" part="Form" />
-
-### Error
-
-<ApiPart name="form" part="Error" />
-
-| Attribute             | Description                                 |
-| --------------------- | ------------------------------------------- |
-| `data-starting-style` | Present when the error begins animating in. |
-| `data-ending-style`   | Present when the error is animating out.    |

@@ -1,5 +1,5 @@
-// Derived from `comesBeforeInSameTree` in Base UI v1.8.0 packages/react/src/form/Form.tsx
-// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Derived from `comesBeforeInSameTree` in Base UI v1.9.0 packages/react/src/form/Form.tsx
+// (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 
 /**
  * True when `element` is before `reference` in the same tree.

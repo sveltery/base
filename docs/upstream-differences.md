@@ -255,21 +255,13 @@ Local: the controls follow `bind:value` and `bind:checked`. Each named input car
 
 Test: `src/lib/form/form-reset.svelte.spec.ts`.
 
-### Submit gate and named-input events
+### Submit and named-input events
 
-Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/form/Form.tsx`, `slider/root/SliderRoot.tsx`, `number-field/root/NumberFieldRoot.tsx` and `otp-field/root/OTPFieldRoot.tsx`. Form validates in its React `onSubmit` and blocks an invalid submit with `preventDefault()` only, so a later `submit` listener on the form still runs. It renders `noValidate` on the server and validates even when the submitter has `formnovalidate`. Slider, NumberField and OTPField update their named inputs through React state and fire no `input` or `change` event on them.
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/form/Form.tsx`, `slider/root/SliderRoot.tsx`, `number-field/root/NumberFieldRoot.tsx` and `otp-field/root/OTPFieldRoot.tsx`. Form validates in its React `onSubmit` and blocks an invalid submit with `preventDefault()` only. It renders `noValidate` on the server. Slider, NumberField and OTPField update their named inputs through React state and fire no `input` or `change` event on them.
 
-Local: Form validates in a capture-phase `submit` listener. As upstream, an invalid submit gets `preventDefault()` only, so a later `submit` listener on the form, such as superforms' `enhance`, still runs, while Form's `onsubmit` and `onFormSubmit` do not. A `form` source's own listener runs too, so a SvelteKit remote form still runs its preflight and shows its issues. Form's enhance callback returns without calling `submit()`, so the blocked submit sends no request. Kit calls that callback after its async preflight, and the callback cannot tell which submit it serves, so a second submit made before that preflight ends decides for the first one too. SvelteKit's `use:enhance` never checks `defaultPrevented` and gets no event, so `isSubmitBlocked(form)`, with no upstream counterpart, tells its submit function to call `cancel()`. A blocked submit also drops a source submit that the source left to the browser, so the blocked submit's own `pending` rise does not settle it. A submitter with `formnovalidate` skips that validation, as it skips native validation. `novalidate` is set by an attachment after hydration, so the server renders none and a page without JavaScript keeps the browser's validation. A user change fires a bubbling `input` event from the Slider thumb's range input and from the hidden NumberField and OTPField inputs, once the new value is in the DOM. `change` follows when the change is committed: a Slider key press or pointer release, a NumberField commit, or focus leaving the OTPField. As with a native input, `change` fires only when the value differs from the one at the previous `change`, so a NumberField whose owner keeps its value fires neither event. Checkbox, Switch and Radio already fire both through the click on their native input. A parent checkbox fires both on each child input it toggles. The controls ignore the events they fire themselves.
+Local: Form submits as upstream does. It validates in its `onsubmit` handler and blocks an invalid submit with `preventDefault()` only. It renders `novalidate` on the server, and `novalidate={false}` turns it off. A `submit` listener that does not check `defaultPrevented` still runs after a blocked submit. SvelteKit's `use:enhance` and remote forms are such listeners, so they send a submit that Form blocked. A user change fires a bubbling `input` event from the Slider thumb's range input and from the hidden NumberField and OTPField inputs, once the new value is in the DOM. `change` follows when the change is committed: a Slider key press or pointer release, a NumberField commit, or focus leaving the OTPField. As with a native input, `change` fires only when the value differs from the one at the previous `change`, so a NumberField whose owner keeps its value fires neither event. Checkbox, Switch and Radio already fire both through the click on their native input. A parent checkbox fires both on each child input it toggles. The controls ignore the events they fire themselves.
 
-Test: `src/lib/form/form-events.svelte.spec.ts`, `src/lib/form/form-source.svelte.spec.ts` (`submit gate`), `src/lib/form/form-ssr.spec.ts`, `src/routes/fixtures/form/remote/remote.e2e.ts`, `src/routes/fixtures/form/action/action.e2e.ts`, `src/routes/fixtures/form/superforms/superforms.e2e.ts` (`superforms with a form action sends no request for a submit Form blocked`) and `src/routes/fixtures/form/form.e2e.ts` (`svelte SSR leaves novalidate to hydration`).
-
-### Composite controls bound to a form source
-
-Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/field/root/FieldRoot.tsx` and the form controls. A Field has no form source. A form library wires each control by hand through `name`, `value` and `onValueChange`. Checkbox and Switch submit `value` or `uncheckedValue`, and a cleared NumberField reports `null`.
-
-Local: inside a Field bound to a form source, Checkbox, Switch, RadioGroup, CheckboxGroup, NumberField, Slider and OTPField read the source themselves, as described in [Composite form controls](porting.md#composite-form-controls). Their native input takes its `name`, its option `value` and any attachment from the field's `as()`, so a remote form decodes typed values (`n:` numbers, `b:` booleans, `[]` arrays). A bound Checkbox or Switch submits `on` when checked and ignores `value`, because a SvelteKit boolean field is `true` only for `on`. As upstream, an `uncheckedValue` is submitted under the bound name while unchecked, and Kit decodes it as `false`. A control starts from the source's value when the source has one and from `defaultValue` otherwise. A later source change, such as `fields.seats.set(3)`, updates the control without `onValueChange` or `onCheckedChange`. A source value of `undefined` empties a bound NumberField and returns a bound Slider to `defaultValue ?? min`. A bound Slider takes one value, and an array value logs a dev error. A control whose kind differs from the Field.Root `type` logs a dev error.
-
-Test: `src/lib/field/bound-control.svelte.spec.ts`.
+Test: `src/lib/form/form-events.svelte.spec.ts`, `src/lib/form/form-ssr.spec.ts` and `src/routes/fixtures/form/form.e2e.ts` (`svelte SSR renders novalidate as Base UI does`).
 
 ## Tooltip
 
@@ -583,15 +575,15 @@ Local: `value` and `open` are `$bindable`. `defaultValue` stays, because Select 
 
 Upstream: a `multiple` select renders one hidden `<input>` per value.
 
-Local: one hidden `<select multiple>` holds an `<option>` per current value and per `defaultValue` entry. The current values are the options' selectedness, set after Svelte renders them. The `selected` attribute marks the defaults, so a native reset restores them. `FormData` holds the same entries as upstream. The select stays in the form when nothing is selected, so a form source still hears the edit that cleared it. A user edit fires `input` and `change` from it once the options are written. The helper is `src/lib/internal/listbox/native-select.ts`.
+Local: one hidden `<select multiple>` holds an `<option>` per current value and per `defaultValue` entry. The current values are the options' selectedness, set after Svelte renders them. The `selected` attribute marks the defaults, so a native reset restores them. `FormData` holds the same entries as upstream. The select stays in the form when nothing is selected, so a listener on the form still hears the edit that cleared it. A user edit fires `input` and `change` from it once the options are written. The helper is `src/lib/internal/listbox/native-select.ts`.
 
-Test: `src/lib/select/SelectRoot.multiple.svelte.spec.ts`, the `bound Select` cases of `src/lib/field/bound-control.svelte.spec.ts`.
+Test: `src/lib/select/SelectRoot.multiple.svelte.spec.ts`.
 
-### Native reset and form sources
+### Native reset
 
 Upstream: nothing listens for `reset`, as described under [Form reset](#form-reset).
 
-Local: Select joins the other form controls. A native reset restores `defaultValue` through the binding and calls no `onValueChange`. Inside a `Field.Root` bound to a form source, Select is kind `select`, or `select multiple` with `multiple`, per [Composite controls bound to a form source](#composite-controls-bound-to-a-form-source). A source value names an item by its serialized value, so an object or number item stays selected after the source echoes a string.
+Local: Select joins the other form controls. A native reset restores `defaultValue` through the binding and calls no `onValueChange`.
 
 Test: `src/lib/select/SelectRoot.field.svelte.spec.ts`, `src/routes/fixtures/select/select.e2e.ts` (`restores the default value on a native form reset`).
 
@@ -637,7 +629,7 @@ Local: `value`, `inputValue` and `open` are `$bindable`. `defaultValue` and `def
 
 Upstream: `AriaCombobox` holds the behavior, and `selectionMode` (`single`, `multiple` or `none`) picks what a press commits.
 
-Local: `src/lib/combobox/AriaCombobox.svelte` holds the same behavior behind the same `selectionMode` prop. `Combobox.Root` passes `single` or `multiple`, and an Autocomplete root passes `none`, where the input text is the value and the bound control kind is `text`. `ComboboxStore` extends `PopupStore`, keeps the input text, indices and part elements in `$state`, and derives the filtered and flattened items from them.
+Local: `src/lib/combobox/AriaCombobox.svelte` holds the same behavior behind the same `selectionMode` prop. `Combobox.Root` passes `single` or `multiple`, and an Autocomplete root passes `none`, where the input text is the value. `ComboboxStore` extends `PopupStore`, keeps the input text, indices and part elements in `$state`, and derives the filtered and flattened items from them.
 
 ### Multiple values submit through one hidden select
 
@@ -645,13 +637,13 @@ Upstream: a `multiple` combobox renders one hidden `<input>` per value.
 
 Local: one hidden `<select multiple>` holds the values, as Select does. `FormData` holds the same entries. The helper now lives in `src/lib/internal/listbox/native-select.ts`, shared with Select.
 
-Test: `src/lib/combobox/ComboboxRoot.form.svelte.spec.ts`, the `bound Combobox` cases of `src/lib/field/bound-control.svelte.spec.ts`.
+Test: `src/lib/combobox/ComboboxRoot.form.svelte.spec.ts`.
 
-### Native reset and form sources
+### Native reset
 
 Upstream: nothing listens for `reset`, as described under [Form reset](#form-reset).
 
-Local: a native reset restores `defaultValue` and the input text that matches it, and calls no `onValueChange`. Inside a `Field.Root` bound to a form source, the combobox is kind `select`, or `select multiple` with `multiple`, per [Composite controls bound to a form source](#composite-controls-bound-to-a-form-source).
+Local: a native reset restores `defaultValue` and the input text that matches it, and calls no `onValueChange`.
 
 Test: `src/routes/fixtures/combobox/combobox.e2e.ts` (`restores the default value on a native form reset`).
 
@@ -687,13 +679,13 @@ Local: `value` and `open` are `$bindable`, and `defaultValue` stays because the 
 
 Test: `src/lib/autocomplete/types.test-d.ts`, `src/lib/autocomplete/AutocompleteValue.svelte.spec.ts`.
 
-### Native reset and form sources
+### Native reset
 
 Upstream: a native reset keeps the typed text, because React state does not follow the browser's reset of the input. See [Form reset](#form-reset).
 
-Local: a native reset restores `defaultValue` and calls no `onValueChange`. The input carries the name and the default as its `value` attribute, so a form source that reads the form after a reset sees the default. Inside a `Field.Root` bound to a form source, the autocomplete is kind `text`, per [Composite controls bound to a form source](#composite-controls-bound-to-a-form-source).
+Local: a native reset restores `defaultValue` and calls no `onValueChange`. The input carries the name and the default as its `value` attribute, so code that reads the form after a reset sees the default.
 
-Test: `src/routes/fixtures/autocomplete/autocomplete.e2e.ts` (`restores the default text on a native form reset`), the `bound Autocomplete` cases of `src/lib/field/bound-control.svelte.spec.ts`.
+Test: `src/routes/fixtures/autocomplete/autocomplete.e2e.ts` (`restores the default text on a native form reset`).
 
 ### Server rendering names one input
 

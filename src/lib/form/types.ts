@@ -1,9 +1,7 @@
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes, HTMLFormAttributes } from 'svelte/elements';
+import type { HTMLFormAttributes } from 'svelte/elements';
 import type { BaseUIGenericEventDetails, REASONS } from '@sveltery/utils';
 import type { RenderChildren } from '../internal/render-children.js';
-import type { EnhanceInstanceOf, FormSource } from './source.js';
-import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 
 export type FormValidationMode = 'onSubmit' | 'onBlur' | 'onChange';
 
@@ -46,21 +44,9 @@ export interface FormField {
 	 */
 	validate: () => void;
 	validityData: FieldValidityData;
-	/**
-	 * Whether the field stops a submit before it reaches the source: native constraints,
-	 * `validate`, `invalid` or `errors`. Source issues never do, because the source re-checks
-	 * its own schema and only the server can clear a server issue.
-	 */
-	readonly blocksSubmit: boolean;
 	/** Focusable control, or null when this field has none. Read when submitting. */
 	control: HTMLElement | null;
 	getValue: () => unknown;
-}
-
-/** The first invalid control in document order, and the field it belongs to. */
-export interface FormFocusInvalidDetail {
-	control: HTMLElement;
-	field: FormField;
 }
 
 /** Methods on the `Form` instance. Reach them with `bind:this`. */
@@ -76,19 +62,8 @@ export interface FormActions {
 export type FormState = Record<string, never>;
 
 export interface FormProps<
-	FormValues extends Record<string, unknown> = Record<string, unknown>,
-	S extends FormSource = FormSource
-> extends Omit<HTMLFormAttributes, 'children' | 'onsubmit' | 'novalidate'> {
-	/**
-	 * The external owner of form state, such as a SvelteKit remote form.
-	 * Its attributes and attachment go on the `<form>`. Fields bind to its `fields`.
-	 */
-	form?: S;
-	/**
-	 * Runs once the source has validated a submit, with the source's `enhance` contract.
-	 * Call `submit()` to send it. Without this prop, a successful submit resets the form.
-	 */
-	enhance?: (instance: EnhanceInstanceOf<S>) => unknown;
+	FormValues extends Record<string, unknown> = Record<string, unknown>
+> extends Omit<HTMLFormAttributes, 'children' | 'onsubmit'> {
 	/**
 	 * Determines when the form should be validated.
 	 * The `validationMode` prop on `<Field.Root>` takes precedence over this.
@@ -117,22 +92,11 @@ export interface FormProps<
 	 */
 	onFormSubmit?: (formValues: FormValues, eventDetails: FormSubmitEventDetails) => void;
 	/**
-	 * Called in place of focusing the first invalid control, after a blocked submit or once
-	 * errors or source issues arrive. Use it to reveal a control that is hidden, such as one on
-	 * an inactive step. Form waits for the returned promise and the next DOM update, then
-	 * focuses the control, also when the callback throws or rejects, unless focus moved while it
-	 * ran. Keep a hidden step mounted, because a field that is not rendered does not register.
-	 * With `novalidate={false}`, the browser handles a native constraint before Form sees the
-	 * submit, so this is not called for it.
-	 */
-	onFocusInvalid?: (detail: FormFocusInvalidDetail) => void | Promise<void>;
-	/**
-	 * When true (the default), the browser's built-in constraint validation is off.
-	 * Registered fields still validate through the form. It is set once the form is
-	 * hydrated, so a page that has not loaded JavaScript keeps the browser's validation.
+	 * Whether the browser's built-in constraint validation is off. Registered fields
+	 * validate through the form instead.
 	 * @default true
 	 */
-	novalidate?: boolean;
+	novalidate?: HTMLFormAttributes['novalidate'];
 	/**
 	 * Allows you to replace the component's HTML element
 	 * with a different tag, or compose it with another component.
@@ -140,30 +104,5 @@ export interface FormProps<
 	 * and the children to render.
 	 */
 	render?: Snippet<[props: HTMLFormAttributes, state: FormState, children: RenderChildren]>;
-	children?: Snippet;
-}
-
-export interface FormErrorState {
-	/** The transition status of the error message. */
-	transitionStatus: TransitionStatusValue;
-}
-
-export interface FormErrorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/**
-	 * The host's role. Focus moves to no field when only form-level messages fail a submit,
-	 * so the messages are announced.
-	 * @default 'alert'
-	 */
-	role?: HTMLAttributes<HTMLDivElement>['role'];
-	/**
-	 * Allows you to replace the component's HTML element
-	 * with a different tag, or compose it with another component.
-	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
-	 * and the children to render.
-	 */
-	render?: Snippet<
-		[props: HTMLAttributes<HTMLElement>, state: FormErrorState, children: RenderChildren]
-	>;
-	/** Replaces the messages. */
 	children?: Snippet;
 }
