@@ -425,7 +425,7 @@ An input combined with a list of predefined items to select.
   - createItems
 - Exports:
   - Combobox - Root
-    - Props: autoHighlight, autocomplete, defaultInputValue, defaultValue, disabled, filter, filteredItems, form, grid, highlightItemOnHover, id, inline, inputValue, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, keepHighlight, limit, locale, loopFocus, modal, multiple, name, onInputValueChange, onItemHighlighted, onOpenChange, onOpenChangeComplete, onValueChange, open, openOnInputClick, readonly, required, submitOnItemClick, value, virtualized
+    - Props: autoHighlight, autocomplete, defaultInputValue, defaultValue, disabled, filter, filteredItems, form, grid, highlightItemOnHover, id, inline, inputValue, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, limit, locale, loopFocus, modal, multiple, name, onInputValueChange, onItemHighlighted, onOpenChange, onOpenChangeComplete, onValueChange, open, openOnInputClick, readonly, required, value, virtualized
   - Combobox - Label
     - Props: render
   - Combobox - Value
