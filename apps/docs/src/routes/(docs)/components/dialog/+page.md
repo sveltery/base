@@ -310,7 +310,7 @@ Creates a new handle to connect a `Dialog.Root` with detached `Dialog.Trigger` c
 
 `Dialog.Handle<Payload>`
 
-<!-- @exclude-table-of-contents -->
+[//]: # '@exclude-table-of-contents'
 
 ### Handle
 

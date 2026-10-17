@@ -441,7 +441,7 @@ Creates a new handle to connect a `Drawer.Root` with detached `Drawer.Trigger` c
 
 `Drawer.Handle<Payload>`
 
-<!-- @exclude-table-of-contents -->
+[//]: # '@exclude-table-of-contents'
 
 ### Handle
 

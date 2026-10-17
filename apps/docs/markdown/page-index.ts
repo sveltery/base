@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { compile } from 'mdsvex';
+import { mdsvexPlugins } from './headings.ts';
 import { metadata, slugify, type Sections } from './metadata.ts';
 import { orderedParts, pageStub, shortName } from './types.ts';
 
@@ -295,7 +296,7 @@ async function childPages(dir: string, lib: string): Promise<IndexPage[]> {
 		const source = readFileSync(file, 'utf8');
 		const compiled = await compile(source, {
 			smartypants: false,
-			remarkPlugins: [metadata],
+			remarkPlugins: mdsvexPlugins(metadata),
 			highlight: { highlighter: async () => '' },
 			extensions: ['.md'],
 			filename: file

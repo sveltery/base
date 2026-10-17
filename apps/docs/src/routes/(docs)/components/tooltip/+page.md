@@ -253,7 +253,7 @@ Creates a new handle to connect a `Tooltip.Root` with detached `Tooltip.Trigger`
 
 `Tooltip.Handle<Payload>`
 
-<!-- @exclude-table-of-contents -->
+[//]: # '@exclude-table-of-contents'
 
 ### Handle
 

@@ -1,8 +1,14 @@
-import { bundledThemes, createHighlighter, type ThemeRegistration } from 'shiki';
+import {
+	bundledThemes,
+	createHighlighter,
+	type BundledLanguage,
+	type ThemeRegistration
+} from 'shiki';
 
 const langs = [
 	'svelte',
 	'ts',
+	'tsx',
 	'js',
 	'json',
 	'jsonc',
@@ -190,4 +196,31 @@ export async function highlightType(code: string, { value = false } = {}): Promi
 		offset += 1;
 	}
 	return html;
+}
+
+/** A token of an inline snippet. `color` is unset where the code's own color applies. */
+export type InlineToken = { content: string; color?: string; scopes: string[] };
+
+/**
+ * Splits a one-line snippet into colored tokens, with the scope names Base UI's
+ * `enhanceCodeInline` reads tags from. Returns undefined for a language Shiki has not loaded.
+ */
+export async function inlineTokens(code: string, lang: string): Promise<InlineToken[] | undefined> {
+	const shiki = await highlighter;
+	if (!shiki.getLoadedLanguages().includes(lang)) return undefined;
+	const lines = shiki.codeToTokensBase(code, {
+		lang: lang as BundledLanguage,
+		theme: await theme,
+		includeExplanation: 'scopeName'
+	});
+	return lines.flatMap((line, index) => [
+		...(index ? [{ content: '\n', scopes: [] }] : []),
+		...line.map((token) => ({
+			content: token.content,
+			color: token.color === 'var(--color-foreground)' ? undefined : token.color,
+			scopes: (token.explanation ?? []).flatMap((part) =>
+				part.scopes.map((scope) => scope.scopeName)
+			)
+		}))
+	]);
 }
