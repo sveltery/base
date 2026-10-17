@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import AnchoredPopupHarness from '../../tests/AnchoredPopupHarness.svelte';
 import AnchoredScrollLockHarness from '../../tests/AnchoredScrollLockHarness.svelte';
+import PopoverTriggersHarness from '../../tests/PopoverTriggersHarness.svelte';
 import TriggerFocusGuardHarness from '../../tests/TriggerFocusGuardHarness.svelte';
 
 function overflowLocked() {
@@ -298,5 +299,31 @@ describe('safe polygon', () => {
 				{ timeout: 250 }
 			)
 			.toBe('held');
+	});
+
+	it('keeps the measured CSS variables on a kept-mounted positioner after close', async () => {
+		render(PopoverTriggersHarness, {
+			triggers: [{ id: 't1', label: 'Open', payload: 1 }],
+			keepMounted: true
+		});
+		const trigger = page.getByRole('button', { name: 'Open' });
+		const positioner = page.getByTestId('positioner');
+		const style = () => (positioner.element() as HTMLElement).style;
+		const vars = () =>
+			[
+				'--anchor-width',
+				'--anchor-height',
+				'--available-width',
+				'--available-height',
+				'--transform-origin'
+			].map((name) => style().getPropertyValue(name));
+
+		await trigger.click();
+		await expect.poll(() => style().getPropertyValue('--transform-origin')).not.toBe('');
+		const open = vars();
+
+		await trigger.click();
+		await expect.element(positioner).toHaveAttribute('hidden');
+		expect(vars()).toEqual(open);
 	});
 });
