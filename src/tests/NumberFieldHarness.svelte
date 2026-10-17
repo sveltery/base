@@ -10,7 +10,7 @@
 		onScrubClick
 	}: {
 		scenario?: string;
-		onScrubClick?: () => void;
+		onScrubClick?: (event: MouseEvent) => void;
 		onValueChange?: (value: number | null, details: { cancel: () => void; reason: string }) => void;
 		onValueCommitted?: (value: number | null, details: { reason: string }) => void;
 	} = $props();
