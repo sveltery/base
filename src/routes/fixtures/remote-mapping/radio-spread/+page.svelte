@@ -28,7 +28,9 @@
 
 <FixturePage debug={{ result: f.result ?? null, kit: f.fields.value() }}>
 	<Form {...f} errors={errorsFor(name, f.fields.plan.issues())}>
-		<Field.Root data-field="plan">
+		<!-- The name goes on Field.Root too: a RadioGroup gives the field its name only once it
+		     mounts, so without it the server render cannot find the Form `errors` entry. -->
+		<Field.Root data-field="plan" {name}>
 			<Field.Label>Plan</Field.Label>
 			{#if v === 'spread-free'}
 				<RadioGroup data-testid="group" {...f.fields.plan.as('radio', 'free')}>

@@ -38,6 +38,7 @@ test.describe('with JS', () => {
 		await submit(page);
 		await expect(error(page, 'plan')).toHaveText('The free plan is full');
 		await expect(group(page)).toHaveAttribute('aria-invalid', 'true');
+		await expect(error(page, 'plan')).toHaveText('The free plan is full');
 		await expect(radio(page, 'free')).toBeChecked();
 		await page.getByTestId('radio-pro').click();
 		await expect(error(page, 'plan')).toHaveCount(0);
@@ -81,9 +82,8 @@ test.describe('without JS', () => {
 		await page.goto(url('spread-pro'));
 		await page.getByText('free', { exact: true }).click();
 		await submit(page);
-		// Kit's aria-invalid getter marks the group; Field.Error stays empty here, as it does
-		// for the name={...} pattern without JS.
 		await expect(group(page)).toHaveAttribute('aria-invalid', 'true');
+		await expect(error(page, 'plan')).toHaveText('The free plan is full');
 		await expect(radio(page, 'pro')).toBeChecked();
 		await expect(radio(page, 'free')).not.toBeChecked();
 	});
@@ -93,6 +93,7 @@ test.describe('without JS', () => {
 		await page.getByText('free', { exact: true }).click();
 		await submit(page);
 		await expect(group(page)).toHaveAttribute('aria-invalid', 'true');
+		await expect(error(page, 'plan')).toHaveText('The free plan is full');
 		await expect(radio(page, 'free')).toBeChecked();
 	});
 
