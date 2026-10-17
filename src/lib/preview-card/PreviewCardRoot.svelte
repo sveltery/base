@@ -5,7 +5,7 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	`close` and `unmount` are exports. Bind the root with `bind:this`.
 -->
-<script lang="ts">
+<script lang="ts" generics="Payload = unknown">
 	import { setFloatingTree, useFloatingParentNodeId } from '@sveltery/floating-ui-svelte';
 	import { setPreviewCardRoot } from './context.svelte.js';
 	import PreviewCardInteractions from './PreviewCardInteractions.svelte';
@@ -19,7 +19,7 @@
 		triggerId = $bindable(),
 		handle,
 		children
-	}: PreviewCardRootProps = $props();
+	}: PreviewCardRootProps<Payload> = $props();
 
 	const uid = $props.id();
 	const nested = useFloatingParentNodeId() != null;
@@ -60,4 +60,4 @@
 {#if store.open || store.mounted || handle != null}
 	<PreviewCardInteractions {store} />
 {/if}
-{@render children?.({ payload: store.payload })}
+{@render children?.({ payload: store.payload as Payload | undefined })}
