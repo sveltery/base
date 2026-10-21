@@ -7,6 +7,7 @@
 	form; docs/upstream-differences.md lists how this differs from Base UI.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { ScopedTimeout } from '@sveltery/utils';
 	import type { HTMLFormAttributes } from 'svelte/elements';
@@ -34,8 +35,9 @@
 	const fields: FormContextValue['fields'] = new Map();
 	let element = $state<HTMLFormElement | null>(null);
 	let submitCount = $state(0);
+	let settleCount = $state(0);
 	let plainSubmitted = $state(false);
-	// A plain flag. The focus effect reads it when errors change.
+	// A plain flag. The focus effects read it when the response arrives.
 	let awaitingResponse = false;
 
 	const formState: FormState = {};
@@ -63,10 +65,38 @@
 
 	let invalidPass = false;
 	let unhandledInvalid = false;
+	let firstCancelled: HTMLElement | null = null;
+	// Set while the user submits: a submit button's click, Enter in a control, or
+	// `requestSubmit()`. A `checkValidity()` call fires `invalid` without it and is left alone.
+	let submitIntent = false;
+	const intentTimer = new ScopedTimeout();
 	const invalidTimer = new ScopedTimeout();
+
+	/** Marks a submit attempt and refreshes every `validate` message before the browser checks. */
+	function startSubmit() {
+		submitIntent = true;
+		fields.forEach((field) => {
+			field.syncValidity();
+		});
+		// The browser checks the form in the same task as the click or key press.
+		intentTimer.start(0, () => {
+			submitIntent = false;
+		});
+	}
+
+	function isSubmitter(target: EventTarget | null, node: HTMLFormElement) {
+		const control = target instanceof Element ? target.closest('button, input') : null;
+		return (
+			(control instanceof HTMLButtonElement || control instanceof HTMLInputElement) &&
+			control.form === node &&
+			(control.type === 'submit' || control.type === 'image') &&
+			!control.formNoValidate
+		);
+	}
 
 	/** Cancels the browser's bubble for a control a Field shows messages for. */
 	function handleInvalid(event: Event) {
+		if (!submitIntent) return;
 		const target = event.target;
 		let owned = false;
 		for (const field of fields.values()) {
@@ -75,8 +105,10 @@
 				break;
 			}
 		}
-		if (owned) event.preventDefault();
-		else unhandledInvalid = true;
+		if (owned) {
+			event.preventDefault();
+			if (target instanceof HTMLElement) firstCancelled ??= target;
+		} else unhandledInvalid = true;
 
 		if (invalidPass) return;
 		invalidPass = true;
@@ -84,19 +116,50 @@
 		// A microtask would not do: it runs between the listeners of each `invalid` event.
 		invalidTimer.start(0, () => {
 			invalidPass = false;
+			submitIntent = false;
 			const browserReported = unhandledInvalid;
+			const cancelled = firstCancelled;
 			unhandledInvalid = false;
+			firstCancelled = null;
 			submitCount += 1;
 			fields.forEach((field) => {
 				field.validate();
 			});
-			if (!browserReported) focusFirstInvalid();
+			if (browserReported) return;
+			// A Field whose control the browser blocked may show nothing for it, such as a
+			// `required` input in a Field without Field.Error. Let the browser report it then.
+			if (!focusFirstInvalid() && cancelled && 'reportValidity' in cancelled) {
+				(cancelled as HTMLInputElement).reportValidity();
+			}
 		});
 	}
 
 	function rememberForm(node: HTMLFormElement) {
 		element = node;
 		node.addEventListener('invalid', handleInvalid, true);
+		const doc = node.ownerDocument;
+		// On the document, for a submit button outside the form that names it with `form`.
+		const onClick = (event: MouseEvent) => {
+			if (isSubmitter(event.target, node)) startSubmit();
+		};
+		const onKeydown = (event: KeyboardEvent) => {
+			// Enter in a control submits the form implicitly.
+			const target = event.target;
+			if (
+				event.key === 'Enter' &&
+				target instanceof Element &&
+				!(target instanceof HTMLTextAreaElement) &&
+				node.contains(target)
+			) {
+				startSubmit();
+			}
+		};
+		doc.addEventListener('click', onClick, true);
+		doc.addEventListener('keydown', onKeydown, true);
+		node.requestSubmit = function (submitter) {
+			if (!(submitter as HTMLButtonElement | null | undefined)?.formNoValidate) startSubmit();
+			HTMLFormElement.prototype.requestSubmit.call(this, submitter);
+		};
 		// A reset starts the form over: no external errors and no submit yet.
 		const stopReset = onFormReset(node, {
 			settle: () => {
@@ -109,11 +172,14 @@
 		return () => {
 			stopReset();
 			node.removeEventListener('invalid', handleInvalid, true);
+			doc.removeEventListener('click', onClick, true);
+			doc.removeEventListener('keydown', onKeydown, true);
+			delete (node as Partial<HTMLFormElement>).requestSubmit;
 			if (element === node) element = null;
 		};
 	}
 
-	/** Focuses the first invalid control by document position. */
+	/** Focuses the first invalid control by document position. Returns whether it found one. */
 	function focusFirstInvalid() {
 		// Registration order can diverge from DOM order. Disconnected trees keep registration order.
 		let firstControl: HTMLElement | null = null;
@@ -124,11 +190,12 @@
 				firstControl = control;
 			}
 		}
-		if (!firstControl) return;
+		if (!firstControl) return false;
 		firstControl.focus();
 		if (firstControl.tagName === 'INPUT') {
 			(firstControl as HTMLInputElement).select();
 		}
+		return true;
 	}
 
 	export function validate(fieldName?: string) {
@@ -176,6 +243,9 @@
 		get submitCount() {
 			return submitCount;
 		},
+		get settleCount() {
+			return settleCount;
+		},
 		get validationMode() {
 			return validationMode;
 		},
@@ -211,13 +281,26 @@
 	setFormContext(context);
 
 	// After a submit the browser let through, focus the first invalid control once the
-	// errors or issues it brought back arrive.
+	// response arrives: new `errors`, or the end of a remote submit.
 	$effect(() => {
 		void errors;
-		void remoteIssues;
-		if (!awaitingResponse) return;
+		if (remote || !awaitingResponse) return;
 		awaitingResponse = false;
 		focusFirstInvalid();
+	});
+
+	let wasPending = false;
+	$effect(() => {
+		const isPending = pending;
+		if (wasPending && !isPending) {
+			untrack(() => {
+				settleCount += 1;
+				if (!awaitingResponse) return;
+				awaitingResponse = false;
+				focusFirstInvalid();
+			});
+		}
+		wasPending = isPending;
 	});
 
 	const describedBy = $derived.by(() => {

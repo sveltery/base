@@ -28,7 +28,11 @@ for (const reference of [false, true]) {
 			const description = page.getByTestId('description');
 			const describedBy = await page.getByTestId('control').getAttribute('aria-describedby');
 			const id = await description.getAttribute('id');
-			expect(describedBy?.split(' ')).toEqual(['author', id]);
+			// The Svelte control also lists the reserved error id, so server HTML and hydration agree.
+			const expected = reference
+				? ['author', id]
+				: ['author', id, id!.replace(/-description$/, '-error')];
+			expect(describedBy?.split(' ')).toEqual(expected);
 		});
 
 		test('blocks submit and shows the required error', async ({ page }) => {

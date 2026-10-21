@@ -4,6 +4,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import FormEventsHarness from '../../tests/FormEventsHarness.svelte';
+import FormGateHarness from '../../tests/FormGateHarness.svelte';
 
 function log() {
 	return JSON.parse(page.getByTestId('log').element().textContent ?? '[]') as string[];
@@ -141,5 +142,55 @@ describe('events on named inputs', () => {
 		render(FormEventsHarness, { scenario: 'radio-group' });
 		await page.getByTestId('pro').click();
 		await expect.poll(log).toEqual(['input plan=true', 'change plan=true']);
+	});
+});
+
+describe('submit gate state', () => {
+	const gateSubmits = () => page.getByTestId('submits').element().textContent;
+
+	it('checks a cross-field `validate` against the values at submit time', async () => {
+		render(FormGateHarness, { scenario: 'cross' });
+		await page.getByTestId('password').fill('a');
+		await page.getByTestId('confirm').fill('a');
+		await page.getByTestId('password').fill('b');
+		await page.getByRole('button', { name: 'Submit' }).click();
+		await expect.element(page.getByTestId('error')).toHaveTextContent('Passwords differ');
+		expect(gateSubmits()).toBe('0');
+	});
+
+	it('keeps the `validate` gate after a reset', async () => {
+		render(FormGateHarness, { scenario: 'reset' });
+		await page.getByTestId('control').fill('x');
+		await page.getByRole('button', { name: 'Reset' }).click();
+		await expect.element(page.getByTestId('control')).toHaveValue('');
+		await page.getByRole('button', { name: 'Submit' }).click();
+		await expect.element(page.getByTestId('error')).toHaveTextContent('Enter a code');
+		expect(gateSubmits()).toBe('0');
+	});
+
+	it('leaves a `checkValidity()` call alone', async () => {
+		render(FormGateHarness, { scenario: 'reset' });
+		const form = page.getByTestId('form').element() as HTMLFormElement;
+		expect(form.checkValidity()).toBe(false);
+		await new Promise((resolve) => setTimeout(resolve, 20));
+		expect(page.getByTestId('error').query()).toBeNull();
+		expect(document.activeElement).toBe(document.body);
+	});
+
+	it('keeps dismissed remote issues hidden on a blocked submit until a submit settles', async () => {
+		const issues = [{ path: ['email'], message: 'Email already taken' }];
+		const screen = render(FormGateHarness, { scenario: 'remote', issues });
+		await expect.element(page.getByTestId('error')).toHaveTextContent('Email already taken');
+		await page.getByTestId('control').fill('x');
+		await page.getByTestId('control').fill('');
+		await expect.element(page.getByTestId('error')).not.toBeInTheDocument();
+
+		await page.getByRole('button', { name: 'Submit' }).click();
+		await expect.element(page.getByTestId('control')).toHaveFocus();
+		await expect.element(page.getByTestId('error')).not.toHaveTextContent('Email already taken');
+
+		await screen.rerender({ scenario: 'remote', issues, pending: 1 });
+		await screen.rerender({ scenario: 'remote', issues, pending: 0 });
+		await expect.element(page.getByTestId('error')).toHaveTextContent('Email already taken');
 	});
 });

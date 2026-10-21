@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { remoteSpreadPath } from '../field/spread-checks.svelte.js';
+import { remoteSpreadPath } from '../field/spread-checks.js';
 import { fieldPathKey, isWithinField, parseFieldPath, resolveFieldNode } from './remote-form.js';
 
 describe('field paths', () => {
 	it('parses and prints dotted and indexed paths', () => {
 		expect(parseFieldPath('members[0].email')).toEqual(['members', 0, 'email']);
 		expect(parseFieldPath('email')).toEqual(['email']);
+		expect(parseFieldPath('members.0.email')).toEqual(['members', 0, 'email']);
 		expect(fieldPathKey(['members', 0, 'email'])).toBe('members[0].email');
 		expect(fieldPathKey(['tags', 1])).toBe('tags[1]');
 	});

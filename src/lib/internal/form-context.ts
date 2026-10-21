@@ -10,6 +10,8 @@ export interface FormContextValue {
 	fields: Map<string, FormField>;
 	/** How many submits have reached field validation, blocked ones included. */
 	readonly submitCount: number;
+	/** How many remote submits have finished. A dismissed issue stays hidden until the next one. */
+	readonly settleCount: number;
 	readonly validationMode: FormValidationMode;
 	readonly validationDebounceTime: number | undefined;
 	readonly errors: FormErrors;
@@ -42,6 +44,7 @@ const DEFAULT_FORM_CONTEXT: FormContextValue = {
 	element: null,
 	fields: new Map(),
 	submitCount: 0,
+	settleCount: 0,
 	validationMode: 'onSubmit',
 	validationDebounceTime: undefined,
 	errors: EMPTY_ERRORS,

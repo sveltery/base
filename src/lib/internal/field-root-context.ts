@@ -33,6 +33,7 @@ export const DEFAULT_FIELD_ROOT_CONTEXT: FieldContext = {
 	invalid: false,
 	path: undefined,
 	issues: Object.freeze([]),
+	shownIssues: Object.freeze([]),
 	externalErrors: Object.freeze([]),
 	hasExternalErrors: false,
 	clearExternalErrors: inert,

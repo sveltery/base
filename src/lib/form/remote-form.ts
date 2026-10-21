@@ -32,12 +32,12 @@ export interface RemoteFieldNode {
 
 export type FieldPath = (string | number)[];
 
-/** Splits a path such as `members[0].email` into `['members', 0, 'email']`. */
+/** Splits a path such as `members[0].email` or `members.0.email` into `['members', 0, 'email']`. */
 export function parseFieldPath(name: string): FieldPath {
 	const path: FieldPath = [];
 	for (const match of name.matchAll(/([^.[\]]+)|\[(\d+)\]/g)) {
 		if (match[2] !== undefined) path.push(Number(match[2]));
-		else path.push(match[1]);
+		else path.push(/^\d+$/.test(match[1]) ? Number(match[1]) : match[1]);
 	}
 	return path;
 }

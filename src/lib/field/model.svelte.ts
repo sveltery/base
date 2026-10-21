@@ -55,6 +55,8 @@ export interface FieldContext {
 	readonly path: string | undefined;
 	/** In a remote form: the issues at this field's path and below, minus paths a nested Field owns. */
 	readonly issues: readonly RemoteFormIssue[];
+	/** The issues the field shows: `issues`, minus the ones the user's last edit dismissed. */
+	readonly shownIssues: readonly RemoteFormIssue[];
 	/** Messages from outside the field: its remote issues, or its Form `errors` entry, until an edit clears them. */
 	readonly externalErrors: readonly string[];
 	readonly hasExternalErrors: boolean;
@@ -160,11 +162,10 @@ export class FieldRootModel implements FieldContext {
 	/** Paths of nested Fields. Their issues are theirs, not this field's. */
 	readonly ownedPaths = new SvelteSet<string>();
 	/**
-	 * The issues the user's last edit dismissed, and the submit it followed. Kit hands out a new
-	 * issues array on every read, so the dismissal compares the issues, not the array.
+	 * The issues the user's last edit dismissed, and how many remote submits had settled then.
+	 * Kit hands out a new issues array on every read, so the dismissal compares the issues.
 	 */
-	private dismissedIssues = $state<{ key: string; submitCount: number } | null>(null);
-	private asyncValidator = false;
+	private dismissedIssues = $state<{ key: string; settleCount: number } | null>(null);
 	private ownedPath: string | undefined;
 
 	private markedDirty = false;
@@ -251,15 +252,14 @@ export class FieldRootModel implements FieldContext {
 
 	/**
 	 * The remote issues still shown. An edit hides them until they change or a later submit
-	 * settles, so a resubmit does not show the old issues while it waits for new ones.
+	 * settles, so neither a blocked submit nor a pending one shows the old issues again.
 	 */
-	private get shownIssues(): readonly RemoteFormIssue[] {
+	get shownIssues(): readonly RemoteFormIssue[] {
 		const dismissed = this.dismissedIssues;
-		const form = this.options.form;
 		if (
 			dismissed &&
-			dismissed.key === issuesKey(this.issues) &&
-			(dismissed.submitCount === form.submitCount || form.pending)
+			dismissed.settleCount === this.options.form.settleCount &&
+			dismissed.key === issuesKey(this.issues)
 		) {
 			return [];
 		}
@@ -282,7 +282,7 @@ export class FieldRootModel implements FieldContext {
 			if (this.issues.length > 0) {
 				this.dismissedIssues = {
 					key: issuesKey(this.issues),
-					submitCount: this.options.form.submitCount
+					settleCount: this.options.form.settleCount
 				};
 			}
 			return;
@@ -299,6 +299,10 @@ export class FieldRootModel implements FieldContext {
 	}
 
 	bindRemote(type: string, option?: unknown) {
+		// Kit's `.as()` needs the value of these types, and a control without a spread has none.
+		if (option === undefined && (type === 'radio' || type === 'submit' || type === 'hidden')) {
+			return undefined;
+		}
 		return this.remoteNode?.as?.(type, option);
 	}
 
@@ -458,7 +462,10 @@ export class FieldRootModel implements FieldContext {
 		this.dirtyState = false;
 		this.touchedState = false;
 		this.reportedInvalid = undefined;
-		this.validityData = { ...EMPTY_VALIDITY(), initialValue: this.readRegisteredValue() };
+		const value = this.readRegisteredValue();
+		this.validityData = { ...EMPTY_VALIDITY(), initialValue: value };
+		// The restored value still has to pass `validate` before the browser lets a submit through.
+		this.syncCustomValidity(value);
 	}
 
 	change(value: unknown, cancelPending = false) {
@@ -470,7 +477,9 @@ export class FieldRootModel implements FieldContext {
 		const debounce =
 			this.options.getValidationDebounceTime() ?? this.options.form.validationDebounceTime ?? 0;
 		if (validateOnChange && value !== '' && debounce) {
-			this.syncCustomValidity(value);
+			// The message stays hidden until the timer runs. Form syncs every field when the user
+			// submits, so a submit before then still checks this value.
+			this.clearCustomValidity();
 			this.debounceTimer.start(debounce, () => {
 				this.commit(value);
 			});
@@ -560,17 +569,17 @@ export class FieldRootModel implements FieldContext {
 	/**
 	 * Keeps a sync `validate` message in the control's custom validity whatever the
 	 * `validationMode`, so the browser's constraint check blocks the submit. Nothing shows
-	 * until the field publishes its validity. An async validator never runs here.
+	 * until the field publishes its validity. An `async` function never runs here, and the
+	 * promise of any other validator that returns one is ignored.
 	 */
 	private syncCustomValidity(value: unknown) {
 		const validate = this.options.getValidate();
-		if (!validate || this.asyncValidator) return;
+		if (!validate || validate.constructor.name === 'AsyncFunction') return;
 		const element = this.representative();
 		if (!isConstraintElement(element)) return;
 		this.clearCustomValidity();
 		const result = validate(value, this.formValues());
 		if (isPromise(result)) {
-			this.asyncValidator = true;
 			void result.catch(() => {});
 			return;
 		}
@@ -737,6 +746,7 @@ export class FieldRootModel implements FieldContext {
 			return formValue ? formValue() : this.readRegisteredValue();
 		};
 		const validate = () => this.validateField();
+		const syncValidity = () => this.syncCustomValidity(this.readRegisteredValue());
 		const owns = (element: Element) => this.owns(element);
 		const readInvalid = () => this.invalid;
 		this.options.form.fields.set(id, {
@@ -748,6 +758,7 @@ export class FieldRootModel implements FieldContext {
 				return readName();
 			},
 			validate,
+			syncValidity,
 			get validityData() {
 				return readValidity();
 			},

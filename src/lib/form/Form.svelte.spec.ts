@@ -147,17 +147,19 @@ describe('Form', () => {
 		it('cancels the browser bubble only for controls a Field owns', async () => {
 			render(FormRegistryHarness, { scenario: 'browser' });
 			const raw = page.getByTestId('raw').element() as HTMLInputElement;
-			const event = new Event('invalid', { cancelable: true });
-			raw.dispatchEvent(event);
-			expect(event.defaultPrevented).toBe(false);
+			let prevented: boolean | undefined;
+			raw.addEventListener('invalid', (event) => (prevented = event.defaultPrevented));
+			formElement().requestSubmit();
+			expect(prevented).toBe(false);
 		});
 
 		it('cancels the browser bubble for a Field control and shows the message in Field.Error', async () => {
 			render(FormRegistryHarness, { scenario: 'blocked' });
 			const custom = page.getByTestId('custom').element() as HTMLInputElement;
-			const event = new Event('invalid', { cancelable: true });
-			custom.dispatchEvent(event);
-			expect(event.defaultPrevented).toBe(true);
+			let prevented: boolean | undefined;
+			custom.addEventListener('invalid', (event) => (prevented = event.defaultPrevented));
+			formElement().requestSubmit();
+			expect(prevented).toBe(true);
 		});
 	});
 

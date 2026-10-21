@@ -31,6 +31,7 @@
 			return control;
 		},
 		invalid: false,
+		syncValidity() {},
 		get validityData() {
 			return {
 				state: {

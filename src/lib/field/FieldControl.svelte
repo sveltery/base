@@ -23,7 +23,7 @@
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { DEFAULT_FIELD_ROOT_CONTEXT, useFieldContext } from '../internal/field-root-context.js';
-	import { checkSpreadPath, watchSpread } from './spread-checks.svelte.js';
+	import { checkSpreadPath } from './spread-checks.js';
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
@@ -66,7 +66,12 @@
 
 	// Without a spread, a control in a named Field of a remote form names itself from the field.
 	const bound = $derived(nameProp === undefined ? field.bindRemote(typeProp ?? 'text') : undefined);
-	if (DEV) watchSpread(() => checkSpreadPath(field.path, nameProp));
+	if (DEV && form.remote) {
+		// During the render, so the server warns too, and again whenever the inputs change.
+		const checkSpread = () => checkSpreadPath(field.path, nameProp);
+		untrack(checkSpread);
+		$effect.pre(checkSpread);
+	}
 	const commitTimer = new ScopedTimeout();
 	const labelable = useLabelableContext();
 

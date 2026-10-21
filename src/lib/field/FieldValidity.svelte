@@ -27,7 +27,7 @@
 		value: combined.value ?? field.remoteValue ?? null,
 		initialValue: combined.initialValue,
 		validity: combined.state,
-		issues: [...field.issues],
+		issues: [...field.shownIssues],
 		submitted: form.submitted,
 		pending: form.pending,
 		transitionStatus: transition.transitionStatus
