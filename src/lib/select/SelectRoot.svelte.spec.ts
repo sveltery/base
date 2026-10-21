@@ -3,8 +3,9 @@
 // Not ported, React only: popupConformanceTests and popupListConformanceTests (React test-utils
 // suites), React.startTransition and ReactDOM.createPortal cases, render-count checks.
 // `actionsRef` is the root's exported `close()` and `unmount()`. `defaultOpen` cases use `open`
-// without a binding, which also sets the initial state. Multiple values submit through one hidden `<select multiple>`, so those
-// cases read FormData instead of counting `<input>` elements.
+// without a binding, which also sets the initial state. The value submits through one hidden
+// `<select>`, so those cases read its selected options instead of counting `<input>` elements.
+// `onValueChange` is not ported: the hidden select fires native `input` and `change` events.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
@@ -12,6 +13,7 @@ import { render } from 'vitest-browser-svelte';
 import { REASONS } from '@sveltery/utils';
 import SelectFieldHarness from '../../tests/SelectFieldHarness.svelte';
 import SelectHarness from '../../tests/SelectHarness.svelte';
+import { autofill, nativeSelect, selectedValues } from '../../tests/select-native.js';
 
 const ab = [{ value: 'a' }, { value: 'b' }];
 const countries = [
@@ -25,17 +27,10 @@ type Country = (typeof countries)[number];
 const trigger = () => page.getByTestId('trigger');
 const option = (name: string) => page.getByRole('option', { name, exact: true });
 const listbox = () => page.getByRole('listbox');
-const hiddenInput = () => document.querySelector<HTMLInputElement>('input[aria-hidden="true"]')!;
 
 async function openSelect() {
 	await userEvent.click(trigger());
 	await expect.element(listbox()).toBeVisible();
-}
-
-function autofill(value: string) {
-	const input = hiddenInput();
-	input.value = value;
-	input.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
 const flush = async () => {
@@ -300,26 +295,6 @@ describe('Select.Root', () => {
 			await expect.element(option('a')).not.toHaveAttribute('data-selected');
 		});
 
-		it('keeps the value when onValueChange cancels the change', async () => {
-			const onValueChange = vi.fn((_value: unknown, details: { cancel(): void }) =>
-				details.cancel()
-			);
-			render(SelectHarness, { value: 'a', root: { onValueChange }, items: ab });
-			await expect.element(trigger()).toHaveTextContent('a');
-
-			await openSelect();
-			await userEvent.click(option('b'));
-
-			expect(onValueChange).toHaveBeenCalledOnce();
-			expect(onValueChange.mock.calls[0][0]).toBe('b');
-			await expect.element(trigger()).toHaveTextContent('a');
-			await expect.element(listbox()).not.toBeInTheDocument();
-
-			await openSelect();
-			await expect.element(option('a')).toHaveAttribute('data-selected');
-			await expect.element(option('b')).not.toHaveAttribute('data-selected');
-		});
-
 		it('updates the Select.Value label when the value prop changes before the popup opens', async () => {
 			const view = render(SelectHarness, { value: 'b', items: ab });
 			await expect.element(trigger()).toHaveTextContent('b');
@@ -339,7 +314,7 @@ describe('Select.Root', () => {
 				},
 				items: countryItems
 			});
-			expect(hiddenInput().value).toBe('US');
+			expect(selectedValues()).toEqual(['US']);
 		});
 
 		it('uses itemToStringValue for multiple selection form submission', async () => {
@@ -399,21 +374,39 @@ describe('Select.Root', () => {
 		});
 	});
 
-	describe('prop: onValueChange', () => {
-		it('is called when an item is selected', async () => {
-			const onValueChange = vi.fn();
-			render(SelectHarness, { value: '', root: { onValueChange }, items: ab });
+	describe('native events', () => {
+		it('fires input and change once from the hidden select, after it holds the value', async () => {
+			const seen: string[] = [];
+			const record = (event: Event) =>
+				seen.push(`${event.type}:${(event.currentTarget as HTMLSelectElement).value}`);
+			render(SelectHarness, {
+				root: { name: 'letter', oninput: record, onchange: record },
+				items: ab
+			});
 			await openSelect();
 			await userEvent.click(option('b'));
-			expect(onValueChange.mock.calls[0][0]).toBe('b');
+			await expect.poll(() => seen).toEqual(['input:b', 'change:b']);
 		});
 
-		it('is not called twice on select', async () => {
-			const onValueChange = vi.fn();
-			render(SelectHarness, { root: { onValueChange }, items: ab });
+		it('bubbles to a listener on the form, which reads the new value', async () => {
+			const read: string[] = [];
+			render(SelectFieldHarness, {
+				form: { oninput: (event: Event) => read.push((event.target as HTMLSelectElement).value) },
+				field: { name: 'letter' },
+				select: { items: ab }
+			});
 			await openSelect();
-			await userEvent.click(option('b'));
-			expect(onValueChange).toHaveBeenCalledTimes(1);
+			await userEvent.click(option('a'));
+			await expect.poll(() => read).toEqual(['a']);
+		});
+
+		it('fires nothing when the selected item is chosen again', async () => {
+			const onchange = vi.fn();
+			render(SelectHarness, { root: { defaultValue: 'a', onchange }, items: ab });
+			await openSelect();
+			await userEvent.click(option('a'));
+			await flush();
+			expect(onchange).not.toHaveBeenCalled();
 		});
 	});
 
@@ -442,60 +435,44 @@ describe('Select.Root', () => {
 		});
 
 		it('selects an item and closes when clicked', async () => {
-			const onValueChange = vi.fn();
-			render(SelectHarness, { open: true, root: { onValueChange }, items: ab });
+			const onchange = vi.fn();
+			render(SelectHarness, { open: true, root: { onchange }, items: ab });
 			await expect.element(listbox()).toBeVisible();
 
 			await userEvent.hover(option('b'));
 			await userEvent.click(option('b'));
 
-			expect(onValueChange).toHaveBeenCalledTimes(1);
-			expect(onValueChange.mock.calls[0][0]).toBe('b');
+			await expect.poll(() => onchange.mock.calls.length).toBe(1);
+			expect(selectedValues()).toEqual(['b']);
 			await expect.element(listbox()).not.toBeInTheDocument();
 		});
 	});
 
 	describe('browser autofill', () => {
-		it('selects the item the hidden input names', async () => {
-			render(SelectHarness, { root: { name: 'select' }, items: ab });
-			expect(hiddenInput().getAttribute('name')).toBe('select');
+		it('selects the item whose option the browser selects', async () => {
+			render(SelectHarness, { root: { name: 'select', items: { a: 'a', b: 'b' } }, items: ab });
+			expect(nativeSelect().getAttribute('name')).toBe('select');
 			autofill('b');
 			await flush();
 			await openSelect();
 			await expect.element(option('b')).toHaveAttribute('data-selected', '');
 		});
 
-		it('is ignored in multiple mode', async () => {
-			const onValueChange = vi.fn();
-			render(SelectHarness, {
-				root: { multiple: true, name: 'select', onValueChange },
-				items: ab
-			});
-			// Autofill writes one scalar, which cannot apply to a multi-selection.
-			autofill('b');
-			await flush();
-			expect(onValueChange).not.toHaveBeenCalled();
+		it('selects every option the browser selects in multiple mode', async () => {
+			render(SelectHarness, { root: { multiple: true, name: 'select' }, items: ab });
+			await openSelect();
+			autofill('a', 'b');
+			await expect.element(option('a')).toHaveAttribute('data-selected', '');
+			await expect.element(option('b')).toHaveAttribute('data-selected', '');
 		});
 
-		it('leaves the value untouched when nothing matches', async () => {
-			const onValueChange = vi.fn();
-			render(SelectHarness, {
-				root: { name: 'select', defaultValue: 'a', onValueChange },
-				items: ab
-			});
-			autofill('not-an-option');
-			await flush();
-			expect(onValueChange).not.toHaveBeenCalled();
-			await expect.element(trigger()).toHaveTextContent('a');
-		});
-
-		it('redirects focus to the trigger when the hidden input is focused', async () => {
+		it('redirects focus to the trigger when the hidden select is focused', async () => {
 			render(SelectHarness, { root: { name: 'select' }, items: [{ value: 'a' }] });
-			hiddenInput().focus();
+			nativeSelect().focus();
 			await expect.element(trigger()).toHaveFocus();
 		});
 
-		it('passes autocomplete to the hidden input', async () => {
+		it('passes autocomplete to the hidden select', async () => {
 			render(SelectHarness, {
 				root: { name: 'country', autocomplete: 'country' },
 				items: [
@@ -503,8 +480,30 @@ describe('Select.Root', () => {
 					{ value: 'CA', text: 'Canada' }
 				]
 			});
-			expect(hiddenInput().getAttribute('name')).toBe('country');
-			expect(hiddenInput().getAttribute('autocomplete')).toBe('country');
+			expect(nativeSelect().getAttribute('name')).toBe('country');
+			expect(nativeSelect().getAttribute('autocomplete')).toBe('country');
+		});
+
+		it('offers each item as an option labelled like the item', async () => {
+			render(SelectHarness, {
+				root: {
+					name: 'country',
+					items: [
+						{ value: 'US', label: 'United States' },
+						{ value: 'CA', label: 'Canada' }
+					]
+				},
+				items: [
+					{ value: 'US', text: 'United States' },
+					{ value: 'CA', text: 'Canada' }
+				]
+			});
+			const options = Array.from(nativeSelect().options, (entry) => [entry.value, entry.label]);
+			expect(options).toEqual([
+				['', ''],
+				['US', 'United States'],
+				['CA', 'Canada']
+			]);
 		});
 
 		it('matches object values by their string value', async () => {
@@ -516,68 +515,8 @@ describe('Select.Root', () => {
 				},
 				items: countryItems.slice(0, 2)
 			});
+			await openSelect();
 			autofill('CA');
-			await flush();
-			await openSelect();
-			await expect.element(option('Canada')).toHaveAttribute('data-selected', '');
-		});
-
-		it('matches object values by their label', async () => {
-			// Browsers autofill the displayed text, not the value.
-			render(SelectHarness, {
-				root: {
-					name: 'country',
-					itemToStringLabel: (item) => (item as Country).country,
-					itemToStringValue: (item) => (item as Country).code
-				},
-				items: countryItems.slice(0, 2)
-			});
-			autofill('Canada');
-			await flush();
-			await openSelect();
-			await expect.element(option('Canada')).toHaveAttribute('data-selected', '');
-		});
-
-		it('matches the rendered label of a primitive value regardless of case', async () => {
-			render(SelectHarness, {
-				root: { name: 'country' },
-				items: [
-					{ value: 'US', text: 'United States' },
-					{ value: 'CA', text: 'Canada' }
-				]
-			});
-			autofill('canada');
-			await flush();
-			await openSelect();
-			await expect.element(option('Canada')).toHaveAttribute('data-selected', '');
-		});
-
-		it('matches the serialized value before an earlier rendered label', async () => {
-			render(SelectHarness, {
-				root: { name: 'country' },
-				items: [
-					{ value: 'CA', text: 'US' },
-					{ value: 'US', text: 'United States' }
-				]
-			});
-			autofill('US');
-			await flush();
-			await openSelect();
-			await expect.element(option('United States')).toHaveAttribute('data-selected', '');
-			await expect.element(option('US')).not.toHaveAttribute('data-selected');
-		});
-
-		it('matches when an earlier item has no rendered label', async () => {
-			render(SelectHarness, {
-				root: { name: 'country' },
-				items: [
-					{ value: 'US', text: '' },
-					{ value: 'CA', text: 'Canada' }
-				]
-			});
-			autofill('Canada');
-			await flush();
-			await openSelect();
 			await expect.element(option('Canada')).toHaveAttribute('data-selected', '');
 		});
 
@@ -586,7 +525,7 @@ describe('Select.Root', () => {
 			render(SelectFieldHarness, {
 				field: { validationMode: 'onChange', validate },
 				select: {
-					root: { name: 'country' },
+					root: { name: 'country', items: { US: 'United States', CA: 'Canada' } },
 					items: [
 						{ value: 'US', text: 'United States' },
 						{ value: 'CA', text: 'Canada' }
@@ -601,28 +540,6 @@ describe('Select.Root', () => {
 			await expect.element(trigger()).toHaveAttribute('data-dirty', '');
 		});
 
-		it('does not update field state when the change is canceled', async () => {
-			render(SelectFieldHarness, {
-				form: { errors: { country: 'server error' } },
-				field: { name: 'country' },
-				select: {
-					root: { onValueChange: (_value, details) => details.cancel() },
-					items: [
-						{ value: 'US', text: 'United States' },
-						{ value: 'CA', text: 'Canada' }
-					]
-				}
-			});
-			await expect.element(trigger()).not.toHaveAttribute('data-dirty');
-			await expect.element(page.getByTestId('error')).toHaveTextContent('server error');
-
-			autofill('CA');
-			await flush();
-
-			await expect.element(trigger()).not.toHaveAttribute('data-dirty');
-			await expect.element(page.getByTestId('error')).toHaveTextContent('server error');
-		});
-
 		it.each([
 			{ lockState: 'readonly', withField: true },
 			{ lockState: 'disabled', withField: true },
@@ -631,13 +548,12 @@ describe('Select.Root', () => {
 		] as const)(
 			'is ignored when $lockState (inside Field: $withField)',
 			async ({ lockState, withField }) => {
-				const onValueChange = vi.fn();
 				const select = {
 					root: {
 						name: withField ? undefined : 'select',
 						readonly: lockState === 'readonly',
 						disabled: lockState === 'disabled',
-						onValueChange
+						items: { a: 'a', b: 'b' }
 					},
 					items: ab
 				};
@@ -651,15 +567,15 @@ describe('Select.Root', () => {
 					render(SelectHarness, select);
 				}
 
-				expect(hiddenInput().getAttribute('name')).toBe('select');
+				expect(nativeSelect().getAttribute('name')).toBe('select');
 				const expectedError = withField ? 'test' : undefined;
 				expect(document.querySelector('[data-testid="error"]')?.textContent).toBe(expectedError);
 
 				autofill('b');
 				await flush();
 
-				expect(onValueChange).not.toHaveBeenCalled();
-				expect(hiddenInput().value).toBe('');
+				expect(selectedValues()).toEqual(['']);
+				await expect.element(trigger()).not.toHaveTextContent('b');
 				expect(document.querySelector('[data-testid="error"]')?.textContent).toBe(expectedError);
 			}
 		);
@@ -741,11 +657,11 @@ describe('Select.Root', () => {
 	it.each(['disabled', 'readonly'] as const)(
 		'does not commit item selection when root is %s and held open',
 		async (lockState) => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			render(SelectHarness, {
 				open: true,
 				root: {
-					onValueChange,
+					onchange,
 					disabled: lockState === 'disabled',
 					readonly: lockState === 'readonly'
 				},
@@ -755,7 +671,8 @@ describe('Select.Root', () => {
 			// A disabled item is `aria-disabled`, which Playwright would wait on.
 			await userEvent.click(option('b'), { force: true });
 
-			expect(onValueChange).not.toHaveBeenCalled();
+			await flush();
+			expect(onchange).not.toHaveBeenCalled();
 			await expect.element(option('b')).not.toHaveAttribute('data-selected');
 		}
 	);

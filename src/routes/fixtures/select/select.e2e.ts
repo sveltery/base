@@ -108,7 +108,7 @@ for (const reference of [false, true]) {
 
 		test('restores the default value on a native form reset', async ({ page }) => {
 			await open(page, 'reset', reference);
-			const hidden = page.locator('input[name="fruit"]');
+			const hidden = page.locator('[name="fruit"]');
 			await expect(hidden).toHaveValue('apple');
 
 			await page.getByTestId('control').click();
@@ -160,9 +160,11 @@ for (const reference of [false, true]) {
 	});
 }
 
-test('svelte SSR renders the closed trigger and the hidden input', async ({ request }) => {
+test('svelte SSR renders the closed trigger and the hidden select', async ({ request }) => {
 	const html = await (await request.get('/fixtures/select?case=reset')).text();
 	expect(html).toContain('data-hydrated="false"');
 	expect(html).toMatch(/<button\b[^>]*\srole="combobox"/);
-	expect(html).toMatch(/<input\b[^>]*\sname="fruit"[^>]*\svalue="apple"/);
+	const select = html.match(/<select\b[^>]*\sname="fruit"[^>]*>.*?<\/select>/s)?.[0] ?? '';
+	expect(select).toMatch(/<option value="apple"[^>]*\sselected/);
+	expect(select).not.toMatch(/<option value="banana"[^>]*\sselected/);
 });

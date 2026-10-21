@@ -6,6 +6,7 @@ import { page, userEvent } from 'vitest/browser';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { renderBound } from '../../tests/bound-render.svelte.js';
+import { selectedValues } from '../../tests/select-native.js';
 import SelectHarness, { type HarnessItem } from '../../tests/SelectHarness.svelte';
 
 const trigger = () => page.getByTestId('trigger');
@@ -92,10 +93,10 @@ describe('Select.Root', () => {
 		});
 
 		it('resets the value when the selected item is replaced and the item count is unchanged', async () => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			const props = live({
 				value: 'c',
-				root: { onValueChange },
+				root: { onchange },
 				items: named('a', 'b', 'c')
 			});
 			await expect.element(trigger()).toHaveTextContent('c');
@@ -103,29 +104,29 @@ describe('Select.Root', () => {
 			await openSelect();
 			await update(props, { items: named('a', 'b', 'd') });
 
-			await expect.poll(() => onValueChange.mock.lastCall?.[0]).toBe(null);
+			await expect.poll(() => selectedValues()).toEqual(['']);
 			await expect.element(trigger()).not.toHaveTextContent('c');
 		});
 
 		it('resets the value when every item is replaced and the item count is unchanged', async () => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			const props = live({
 				value: 'c',
-				root: { onValueChange },
+				root: { onchange },
 				items: named('a', 'b', 'c')
 			});
 
 			await openSelect();
 			await update(props, { items: named('x', 'y', 'z') });
 
-			await expect.poll(() => onValueChange.mock.lastCall?.[0]).toBe(null);
+			await expect.poll(() => selectedValues()).toEqual(['']);
 		});
 
 		it('keeps the value when the items are only reordered', async () => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			const props = live({
 				value: 'c',
-				root: { onValueChange },
+				root: { onchange },
 				items: named('a', 'b', 'c')
 			});
 
@@ -133,7 +134,8 @@ describe('Select.Root', () => {
 			await update(props, { items: named('c', 'a', 'b') });
 
 			await expect.element(option('c')).toHaveAttribute('data-selected', '');
-			expect(onValueChange).not.toHaveBeenCalled();
+			await tick();
+			expect(onchange).not.toHaveBeenCalled();
 			await expect.element(trigger()).toHaveTextContent('c');
 		});
 
@@ -155,7 +157,7 @@ describe('Select.Root', () => {
 			await expect.element(option('b')).toHaveAttribute('data-selected', '');
 		});
 
-		it('resets via onValueChange and does not break in controlled mode when the selected item is removed', async () => {
+		it('resets the value and does not break in controlled mode when the selected item is removed', async () => {
 			const props = live({ value: 'c', items: named('a', 'b', 'c') });
 			await expect.element(trigger()).toHaveTextContent('c');
 
@@ -294,10 +296,10 @@ describe('Select.Root', () => {
 
 		it('does not trigger selection when Space is pressed during text navigation', async () => {
 			const onclick = vi.fn();
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			render(SelectHarness, {
 				open: true,
-				root: { onValueChange },
+				root: { onchange },
 				items: [
 					{ value: 'one', text: 'Item One', props: { onclick } },
 					{ value: 'two', text: 'Item Two', props: { onclick } }
@@ -310,7 +312,8 @@ describe('Select.Root', () => {
 			await userEvent.keyboard('Item T');
 
 			expect(onclick).not.toHaveBeenCalled();
-			expect(onValueChange).not.toHaveBeenCalled();
+			await tick();
+			expect(onchange).not.toHaveBeenCalled();
 			await expect.element(option('Item Two')).toHaveFocus();
 		});
 

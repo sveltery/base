@@ -1516,6 +1516,8 @@ A common form component for choosing a predefined value in a dropdown menu.
     - Multiple selection
     - Object values
     - Grouped
+    - Native attributes and events
+    - Form integration
   - API reference
     - Root
     - Label
@@ -1538,7 +1540,7 @@ A common form component for choosing a predefined value in a dropdown menu.
     - Separator
 - Exports:
   - Select - Root
-    - Props: autocomplete, defaultOpen, defaultValue, disabled, form, highlightItemOnHover, id, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, modal, multiple, name, onOpenChange, onOpenChangeComplete, onValueChange, open, readonly, required, value
+    - Props: autocomplete, defaultOpen, defaultValue, disabled, form, highlightItemOnHover, id, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, modal, multiple, name, onOpenChange, onOpenChangeComplete, open, readonly, required, value
   - Select - Trigger
     - Props: disabled, id, nativeButton, render
     - Data Attributes: data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-placeholder, data-popup-open, data-popup-side, data-pressed, data-readonly, data-required, data-touched, data-valid

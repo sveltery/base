@@ -8,6 +8,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { renderBound } from '../../tests/bound-render.svelte.js';
+import { selectedValues } from '../../tests/select-native.js';
 import SelectHarness from '../../tests/SelectHarness.svelte';
 
 type HarnessProps = ComponentProps<typeof SelectHarness>;
@@ -165,8 +166,7 @@ describe('Select.Value', () => {
 			});
 
 			await expect.element(value()).toHaveTextContent('Canada');
-			const hidden = document.querySelector<HTMLInputElement>('input[aria-hidden="true"]')!;
-			expect(hidden.value).toBe('CA');
+			expect(selectedValues()).toEqual(['CA']);
 		});
 	});
 
