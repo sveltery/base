@@ -135,7 +135,7 @@ describe('Fieldset', () => {
 			await expect.element(custom).toHaveAttribute('aria-labelledby', id);
 		});
 
-		it('keeps the default value of a group rendered as the fieldset once the legend mounts', async () => {
+		it('keeps the default value of a group named by a legend once the legend mounts', async () => {
 			render(FieldsetControlHarness);
 
 			await expect.element(page.getByRole('radiogroup')).toHaveAccessibleName('Storage type');
@@ -145,9 +145,7 @@ describe('Fieldset', () => {
 			await expect
 				.element(page.getByRole('group', { name: 'Allowed network protocols' }))
 				.toBeVisible();
-			await expect
-				.element(page.getByRole('checkbox', { name: 'SSH' }))
-				.toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByRole('checkbox', { name: 'SSH' })).toBeChecked();
 
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect

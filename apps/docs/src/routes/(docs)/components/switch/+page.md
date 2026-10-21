@@ -41,39 +41,31 @@ An enclosing `<label>` is the simplest labeling pattern:
 </label>
 ```
 
-### Rendering as a native button
+### Using a sibling label
 
-By default, `<Switch.Root>` renders a `<span>` element to support enclosing labels. Prefer rendering the switch as a native button when using sibling labels (`for`/`id`).
+`<Switch.Root>` renders a real `<input type="checkbox" role="switch">` over its track, so a sibling `<label>` with `for` works as it does in HTML. Pass `id` to name the input:
 
-```svelte title="Sibling label pattern with a native button"
+```svelte title="Sibling label pattern"
 <div>
 	<label for="notifications-switch">Notifications</label>
-	<!-- @highlight-text "nativeButton" -->
-	<Switch.Root id="notifications-switch" nativeButton>
-		<!-- @highlight-start -->
-		{#snippet render(props, state, children)}
-			<button type="button" {...props}>{@render children?.()}</button>
-		{/snippet}
-		<!-- @highlight-end -->
+	<!-- @highlight-text "id" -->
+	<Switch.Root id="notifications-switch">
 		<Switch.Thumb />
 	</Switch.Root>
 </div>
 ```
 
-Native buttons with wrapping labels are supported by using the `render` snippet to avoid invalid HTML, so the hidden input is placed outside the label:
+### Native attributes and events
 
-```svelte title="Render snippet"
-<Switch.Root nativeButton>
-	<!-- @highlight-start -->
-	{#snippet render(props, state, children)}
-		<label>
-			<button type="button" {...props}>{@render children?.()}</button>
-			Notifications
-		</label>
-	{/snippet}
-	<!-- @highlight-end -->
+Native attributes and handlers go to the input, and `class`, `style` and `host` go to the track you see. Read `event.currentTarget.checked` in `onchange`:
+
+```svelte title="Reading the checked state"
+<Switch.Root name="notifications" onchange={(event) => console.log(event.currentTarget.checked)}>
+	<Switch.Thumb />
 </Switch.Root>
 ```
+
+Space toggles the switch, as it does a native checkbox. Enter submits the form.
 
 ### Form integration
 

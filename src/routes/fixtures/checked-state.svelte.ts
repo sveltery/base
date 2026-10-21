@@ -19,6 +19,24 @@ export class CheckedFixture {
 		if (this.scenario() === 'prevented') event.preventDefault();
 	};
 
+	/**
+	 * The Svelte controls are native inputs: a click handler that cancels stands in for
+	 * `onCheckedChange` with `cancel()`, and `change` reports a change that went through.
+	 */
+	clicked = (event: MouseEvent) => {
+		const scenario = this.scenario();
+		if (scenario === 'prevented') event.preventDefault();
+		if (scenario !== 'cancel') return;
+		const target = event.currentTarget as HTMLInputElement;
+		this.calls.push({ checked: target.checked, reason: 'none', canceled: true });
+		event.preventDefault();
+	};
+
+	inputChanged = (event: Event) => {
+		const target = event.currentTarget as HTMLInputElement;
+		this.calls.push({ checked: target.checked, reason: 'none', canceled: false });
+	};
+
 	submitted = (event: SubmitEvent) => {
 		event.preventDefault();
 		const form = event.currentTarget;

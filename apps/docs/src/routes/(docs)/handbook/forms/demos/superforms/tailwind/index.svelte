@@ -124,7 +124,7 @@
 	const stepper =
 		'flex h-full w-8 items-center justify-center rounded-none border border-neutral-950 bg-white bg-clip-padding text-neutral-950 outline-0 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
 	const choice =
-		'flex size-4 shrink-0 items-center justify-center border border-neutral-950 bg-white p-0 text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-checked:bg-neutral-950 data-checked:text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 dark:data-checked:bg-white dark:data-checked:text-neutral-950';
+		'flex size-4 shrink-0 items-center justify-center border border-neutral-950 bg-white p-0 text-white has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-neutral-950 dark:has-focus-visible:outline-white data-checked:bg-neutral-950 data-checked:text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 dark:data-checked:bg-white dark:data-checked:text-neutral-950';
 	const scrollArrow =
 		"z-1 flex h-4 w-full cursor-default items-center justify-center bg-white text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] dark:bg-neutral-950";
 </script>
@@ -472,7 +472,7 @@
 				Restart on failure
 				<Switch.Root
 					bind:checked={$form.restartOnFailure}
-					class="flex h-5 w-9 shrink-0 border border-neutral-950 bg-white p-0.5 transition-colors duration-150 ease-[ease] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-checked:bg-neutral-950 dark:border-white dark:bg-neutral-950 dark:data-checked:bg-white"
+					class="flex h-5 w-9 shrink-0 border border-neutral-950 bg-white p-0.5 transition-colors duration-150 ease-[ease] has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-neutral-950 dark:has-focus-visible:outline-white data-checked:bg-neutral-950 dark:border-white dark:bg-neutral-950 dark:data-checked:bg-white"
 				>
 					<Switch.Thumb
 						class="size-3.5 bg-neutral-950 transition-[translate,background-color] duration-150 ease-[ease] data-checked:translate-x-4 data-checked:bg-white dark:bg-white dark:data-checked:bg-neutral-950"
@@ -486,12 +486,12 @@
 			class={field}
 			dirty={isTainted($tainted?.allowedNetworkProtocols)}
 		>
-			<Fieldset.Root class="flex flex-col items-start gap-1">
+			<CheckboxGroup
+				bind:value={$form.allowedNetworkProtocols}
+				class="flex flex-col items-start gap-1"
+			>
 				<Fieldset.Legend class="mb-2 {label}">Allowed network protocols</Fieldset.Legend>
-				<CheckboxGroup
-					bind:value={$form.allowedNetworkProtocols}
-					class="flex gap-4 text-neutral-950 dark:text-white"
-				>
+				<div class="flex gap-4 text-neutral-950 dark:text-white">
 					{#each ['http', 'https', 'ssh'] as value (value)}
 						<Field.Item>
 							<Field.Label class={choiceLabel}>
@@ -504,8 +504,8 @@
 							</Field.Label>
 						</Field.Item>
 					{/each}
-				</CheckboxGroup>
-			</Fieldset.Root>
+				</div>
+			</CheckboxGroup>
 		</Field.Root>
 
 		<button

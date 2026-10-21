@@ -38,7 +38,7 @@ describe('form reset', () => {
 
 				await reset();
 				await expect.poll(state).toEqual({ checked: true });
-				await expect.element(control).toHaveAttribute('aria-checked', 'true');
+				await expect.element(control).toBeChecked();
 				expect(formData()).toEqual([['tos', 'on']]);
 			});
 
@@ -50,7 +50,7 @@ describe('form reset', () => {
 
 				await reset();
 				await expect.poll(state).toEqual({ checked: true });
-				await expect.element(control).toHaveAttribute('aria-checked', 'true');
+				await expect.element(control).toBeChecked();
 				expect(formData()).toEqual([['alerts', 'on']]);
 			});
 
@@ -74,7 +74,7 @@ describe('form reset', () => {
 
 				await reset();
 				await expect.poll(state).toEqual({ tags: ['svelte'] });
-				await expect.element(page.getByTestId('kit')).toHaveAttribute('aria-checked', 'false');
+				await expect.element(page.getByTestId('kit')).not.toBeChecked();
 				expect(formData()).toEqual([['tags', 'svelte']]);
 			});
 
@@ -172,7 +172,7 @@ describe('form reset', () => {
 				await expect.poll(state).toEqual({ picked: 'free', volume: 30, tags: ['svelte'] });
 				await expect.element(page.getByTestId('free')).toHaveAttribute('aria-checked', 'true');
 				await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '30');
-				await expect.element(page.getByTestId('kit')).toHaveAttribute('aria-checked', 'false');
+				await expect.element(page.getByTestId('kit')).not.toBeChecked();
 				expect(formData()).toEqual([
 					['plan', 'free'],
 					['volume', '30'],
@@ -263,7 +263,7 @@ describe('form reset', () => {
 		]);
 		await expect.poll(state).toEqual({ checked: true });
 		await expect.poll(extra).toEqual({ alerts: false });
-		await expect.element(page.getByTestId('control')).toHaveAttribute('aria-checked', 'true');
+		await expect.element(page.getByTestId('control')).toBeChecked();
 		expect(formData()).toEqual([
 			['news', 'on'],
 			['alerts', 'off']

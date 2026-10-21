@@ -69,6 +69,13 @@
 		else strings = copy.map(String);
 	}
 
+	/** The values of the ticked boxes in the group a `change` event came from. */
+	function groupValue(event: Event & { currentTarget: HTMLFieldSetElement }) {
+		return [...event.currentTarget.querySelectorAll<HTMLInputElement>('input:checked')].map(
+			(input) => input.value
+		);
+	}
+
 	function turn(on: boolean) {
 		if (part === 'switch' || part === 'checkbox') checked = on;
 		else if (part === 'toggle') pressed = on;
@@ -77,8 +84,9 @@
 		else strings = on ? ['a'] : [];
 	}
 
-	function confirmChecked(next: boolean, details: { cancel: () => void }) {
-		details.cancel();
+	function confirmChecked(event: MouseEvent & { currentTarget: HTMLInputElement }) {
+		const next = event.currentTarget.checked;
+		event.preventDefault();
 		prompts += 1;
 		confirmTimer.start(0, () => {
 			checked = next;
@@ -102,39 +110,49 @@
 
 {#if part === 'switch'}
 	{#if mode === 'bind'}
-		<Switch.Root bind:checked onCheckedChange={(next) => onChange?.(next)}
+		<Switch.Root bind:checked onchange={(event) => onChange?.(event.currentTarget.checked)}
 			>Notifications</Switch.Root
 		>
 	{:else if mode === 'parent'}
 		<button type="button" onclick={() => (checked = true)}>Set value</button>
-		<Switch.Root {checked} onCheckedChange={(next) => onChange?.(next)}>Notifications</Switch.Root>
+		<Switch.Root {checked} onchange={(event) => onChange?.(event.currentTarget.checked)}
+			>Notifications</Switch.Root
+		>
 	{:else if mode === 'journal'}
 		<button type="button" onclick={() => turn(true)}>Set value</button>
 		<button type="button" onclick={() => turn(false)}>Unset value</button>
-		<Switch.Root {checked} onCheckedChange={record}>Notifications</Switch.Root>
+		<Switch.Root
+			{checked}
+			onchange={(event) => record(event.currentTarget.checked, { reason: 'none' })}
+			>Notifications</Switch.Root
+		>
 	{:else if mode === 'confirm'}
-		<Switch.Root {checked} onCheckedChange={confirmChecked}>Notifications</Switch.Root>
+		<Switch.Root {checked} onclick={confirmChecked}>Notifications</Switch.Root>
 	{:else}
-		<Switch.Root defaultChecked onCheckedChange={(next) => onChange?.(next)}
+		<Switch.Root defaultChecked onchange={(event) => onChange?.(event.currentTarget.checked)}
 			>Notifications</Switch.Root
 		>
 	{/if}
 {:else if part === 'checkbox'}
 	{#if mode === 'bind'}
-		<Checkbox.Root bind:checked onCheckedChange={(next) => onChange?.(next)}
+		<Checkbox.Root bind:checked onchange={(event) => onChange?.(event.currentTarget.checked)}
 			>Notifications</Checkbox.Root
 		>
 	{:else if mode === 'parent'}
 		<button type="button" onclick={() => (checked = true)}>Set value</button>
-		<Checkbox.Root {checked} onCheckedChange={(next) => onChange?.(next)}
+		<Checkbox.Root {checked} onchange={(event) => onChange?.(event.currentTarget.checked)}
 			>Notifications</Checkbox.Root
 		>
 	{:else if mode === 'journal'}
 		<button type="button" onclick={() => turn(true)}>Set value</button>
 		<button type="button" onclick={() => turn(false)}>Unset value</button>
-		<Checkbox.Root {checked} onCheckedChange={record}>Notifications</Checkbox.Root>
+		<Checkbox.Root
+			{checked}
+			onchange={(event) => record(event.currentTarget.checked, { reason: 'none' })}
+			>Notifications</Checkbox.Root
+		>
 	{:else}
-		<Checkbox.Root defaultChecked onCheckedChange={(next) => onChange?.(next)}
+		<Checkbox.Root defaultChecked onchange={(event) => onChange?.(event.currentTarget.checked)}
 			>Notifications</Checkbox.Root
 		>
 	{/if}
@@ -246,28 +264,31 @@
 	{/if}
 {:else}
 	{#if mode === 'bind'}
-		<CheckboxGroup bind:value={strings} onValueChange={(next) => onChange?.(next)}>
-			<Checkbox.Root value="a">A</Checkbox.Root>
+		<CheckboxGroup bind:value={strings} onchange={(event) => onChange?.(groupValue(event))}>
+			<label><Checkbox.Root value="a" />A</label>
 		</CheckboxGroup>
 	{:else if mode === 'parent'}
 		<button type="button" onclick={() => (strings = ['a'])}>Set value</button>
-		<CheckboxGroup value={strings} onValueChange={(next) => onChange?.(next)}>
-			<Checkbox.Root value="a">A</Checkbox.Root>
+		<CheckboxGroup value={strings} onchange={(event) => onChange?.(groupValue(event))}>
+			<label><Checkbox.Root value="a" />A</label>
 		</CheckboxGroup>
 	{:else if mode === 'journal'}
 		<button type="button" onclick={() => turn(true)}>Set value</button>
 		<button type="button" onclick={() => turn(false)}>Unset value</button>
-		<CheckboxGroup value={strings} onValueChange={record}>
-			<Checkbox.Root value="a">A</Checkbox.Root>
+		<CheckboxGroup
+			value={strings}
+			onchange={(event) => record(groupValue(event), { reason: 'none' })}
+		>
+			<label><Checkbox.Root value="a" />A</label>
 		</CheckboxGroup>
 	{:else if mode === 'copy'}
 		<button type="button" onclick={() => (strings = ['a'])}>Set value</button>
-		<CheckboxGroup value={strings} onValueChange={(next) => rememberCopy(next)}>
-			<Checkbox.Root value="a">A</Checkbox.Root>
+		<CheckboxGroup value={strings} onchange={(event) => rememberCopy(groupValue(event))}>
+			<label><Checkbox.Root value="a" />A</label>
 		</CheckboxGroup>
 	{:else}
-		<CheckboxGroup defaultValue={['a']} onValueChange={(next) => onChange?.(next)}>
-			<Checkbox.Root value="a">A</Checkbox.Root>
+		<CheckboxGroup defaultValue={['a']} onchange={(event) => onChange?.(groupValue(event))}>
+			<label><Checkbox.Root value="a" />A</label>
 		</CheckboxGroup>
 	{/if}
 {/if}

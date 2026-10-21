@@ -4,7 +4,7 @@
 	let {
 		scenario = 'sibling'
 	}: {
-		scenario?: 'sibling' | 'checkbox-id' | 'wrap' | 'native' | 'readonly';
+		scenario?: 'sibling' | 'checkbox-id' | 'wrap' | 'readonly';
 	} = $props();
 
 	let id = $state('checkbox-input-a');
@@ -23,13 +23,6 @@
 		<Checkbox.Root />
 		Toggle
 	</label>
-{:else if scenario === 'native'}
-	<label data-testid="label" for="myCheckbox">Toggle</label>
-	<Checkbox.Root id="myCheckbox" nativeButton>
-		{#snippet render(props)}
-			<button {...props}>Toggle</button>
-		{/snippet}
-	</Checkbox.Root>
 {:else}
 	<label data-testid="label">
 		<Checkbox.Root readonly />

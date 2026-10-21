@@ -11,7 +11,8 @@ Read the current docs before you write form code:
 - **Wrap each control in `Field.Root`** with `Field.Label`, `Field.Description`, and `Field.Error`. Field links the `for`, `aria-labelledby`, and `aria-describedby` ids for you.
 - **Put `name` on `Field.Root`**, not on the control, so the value submits with the form. The name is a path, such as `address.city` or `members[0].email`.
 - **Label every control.** `Input`, `NumberField`, `OTPField`, `Autocomplete`, `Checkbox`, `Radio`, and `Switch` take `Field.Label` or a native `<label>`. `Select` uses `Select.Label`, `Slider` uses `Slider.Label`, and a `Combobox` whose input is inside the popup uses `Combobox.Label`.
-- **Group related controls with `Fieldset.Root` and `Fieldset.Legend`**, such as the radios in a `RadioGroup` or the boxes in a `CheckboxGroup`.
+- **Group related controls with `Fieldset.Root` and `Fieldset.Legend`**, such as the radios in a `RadioGroup`. A `CheckboxGroup` renders its own `<fieldset>`, so put the `Fieldset.Legend` inside it.
+- **Checkbox and Switch are real inputs.** Read `event.currentTarget.checked` in the native `onchange`, or use `bind:checked`. They have no `onCheckedChange`.
 - **Validate with the native constraint attributes** (`required`, `minlength`, `pattern`, ...) or the `validate` prop on `Field.Root`. `Field.Error` with `match` shows a message for one validity state.
 - **Pass a SvelteKit remote form to `Form`'s `form` prop**, as `<Form form={signup}>`. Each `Field.Root name` shows the issues at its path. Do not pass `errors`, `values`, or `onsubmit` with it.
 - **Pass form action errors to `Form`'s `errors` prop** and the submitted values to `values`, keyed by field `name`. Each `Field.Error` finds its message through context.

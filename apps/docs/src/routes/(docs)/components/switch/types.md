@@ -6,26 +6,27 @@
 
 ### Root
 
-Represents the switch itself. Renders a `<span>` element and a hidden `<input>` beside.
+Represents the switch itself. Renders a `<span>` box with a real `<input type="checkbox" role="switch">` laid over it.
 
 **Root Props:**
 
-| Prop            | Type                                                                                        | Default | Description                                                                                                                                                                                                                             |
-| :-------------- | :------------------------------------------------------------------------------------------ | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name            | `string \| null`                                                                            | -       | Identifies the field when a form is submitted.                                                                                                                                                                                          |
-| defaultChecked  | `boolean`                                                                                   | `false` | Whether the switch is initially active.&#xA;&#xA;To render a controlled switch, use `bind:checked` instead.                                                                                                                             |
-| checked         | `boolean`                                                                                   | `false` | Whether the switch is currently active.&#xA;&#xA;To render an uncontrolled switch, use the `defaultChecked` prop instead.                                                                                                               |
-| onCheckedChange | `(checked: boolean, eventDetails: SwitchRootChangeEventDetails) => void`                    | -       | Event handler called when the switch is activated or deactivated.                                                                                                                                                                       |
-| value           | `string`                                                                                    | -       | The value submitted with the form when the switch is on. By default, switch submits the "on" value, matching native checkbox behavior.                                                                                                  |
-| onclick         | `MouseEventHandler<HTMLElement> \| null`                                                    | -       | Runs before the switch's click handler. Call `event.preventDefault()` to skip it.                                                                                                                                                       |
-| form            | `string \| null`                                                                            | -       | Identifies the form that owns the hidden input. Useful when the switch is rendered outside the form.                                                                                                                                    |
-| nativeButton    | `boolean`                                                                                   | `false` | Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.                                                                            |
-| uncheckedValue  | `string`                                                                                    | -       | The value submitted with the form when the switch is off. By default, unchecked switches do not submit any value, matching native checkbox behavior.                                                                                    |
-| disabled        | `boolean \| null`                                                                           | `false` | Whether the component should ignore user interaction.                                                                                                                                                                                   |
-| readonly        | `boolean \| null`                                                                           | `false` | Whether the user should be unable to activate or deactivate the switch.                                                                                                                                                                 |
-| required        | `boolean \| null`                                                                           | `false` | Whether the user must activate the switch before submitting a form.                                                                                                                                                                     |
-| id              | `string \| null`                                                                            | -       | The id of the hidden input element.&#xA;&#xA;When `nativeButton` is `true`, the id is applied to the root element.                                                                                                                      |
-| render          | `Snippet<[props: SwitchHostProps, state: SwitchRootState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop           | Type                                                                                       | Default | Description                                                                                                                                                                                                                                                |
+| :------------- | :----------------------------------------------------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name           | `string \| null`                                                                           | -       | Identifies the field when a form is submitted.                                                                                                                                                                                                             |
+| defaultChecked | `boolean`                                                                                  | `false` | Whether the switch is initially active.&#xA;&#xA;To render a controlled switch, use `bind:checked` instead.                                                                                                                                                |
+| checked        | `boolean`                                                                                  | `false` | Whether the switch is currently active.&#xA;&#xA;To render an uncontrolled switch, use the `defaultChecked` prop instead.                                                                                                                                  |
+| value          | `string`                                                                                   | `"on"`  | The value submitted with the form when the switch is on.                                                                                                                                                                                                   |
+| form           | `string \| null`                                                                           | -       | Identifies the form that owns the input. Useful when the switch is rendered outside the form.                                                                                                                                                              |
+| host           | `HTMLAttributes<HTMLElement>`                                                              | -       | Attributes for the box, such as `data-*` attributes or handlers that belong on it.                                                                                                                                                                         |
+| type           | `'checkbox'`                                                                               | -       | A checkbox input. A remote form spread of another input kind is a type error.                                                                                                                                                                              |
+| uncheckedValue | `string`                                                                                   | -       | The value submitted with the form when the switch is off. By default, an off switch submits no value, matching native checkbox behavior.                                                                                                                   |
+| disabled       | `boolean \| null`                                                                          | `false` | Whether the component should ignore user interaction.                                                                                                                                                                                                      |
+| readonly       | `boolean \| null`                                                                          | `false` | Whether the user should be unable to activate or deactivate the switch.                                                                                                                                                                                    |
+| required       | `boolean \| null`                                                                          | `false` | Whether the user must activate the switch before submitting a form.                                                                                                                                                                                        |
+| id             | `string \| null`                                                                           | -       | The id of the input element.                                                                                                                                                                                                                               |
+| class          | `ClassValue \| null`                                                                       | -       | Classes for the box.                                                                                                                                                                                                                                       |
+| style          | `string \| null`                                                                           | -       | Styles for the box.                                                                                                                                                                                                                                        |
+| render         | `Snippet<[props: SwitchBoxProps, state: SwitchRootState, children: Snippet \| undefined]>` | -       | Allows you to replace the box's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render, which include the input. |
 
 **Root Data Attributes:**
 
@@ -129,32 +130,12 @@ type SwitchThumbState = {
 
 ## Additional Types
 
-### SwitchHostProps
+### SwitchBoxProps
 
-Props passed to a `render` snippet. Spread them onto the host element. The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
-
-```typescript
-type SwitchHostProps = {};
-```
-
-### SwitchRootChangeEventDetails
+Props for the box a `render` snippet draws. Spread them onto the element, with the children inside.
 
 ```typescript
-type SwitchRootChangeEventDetails = {
-	reason: Reason;
-	event: Event;
-	cancel: () => void;
-	allowPropagation: () => void;
-	isCanceled: boolean;
-	isPropagationAllowed: boolean;
-	trigger: Element | undefined;
-};
-```
-
-### SwitchRootChangeEventReason
-
-```typescript
-type SwitchRootChangeEventReason = typeof REASONS.none;
+type SwitchBoxProps = {};
 ```
 
 ### SwitchRootDataAttributes

@@ -43,7 +43,7 @@ Test: `src/tests/controllable-root-cases.ts`, `src/tests/default-props.svelte.sp
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`. `useButton` infers composite mode from a `CompositeRootContext`. In development it logs an error once after mount, and again when `nativeButton` changes, if the host tag does not match `nativeButton`. The message ends with React's owner stack. A disabled composite button that renders another button clears that inner button's `disabled` property.
 
-Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, Toggle, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, Checkbox, Switch, Radio, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack.
+Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, Toggle, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, Radio, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack.
 
 Test: `src/lib/internal/button.spec.ts`. `src/lib/button/Button.svelte.spec.ts` (`nativeButton mismatch`).
 
@@ -241,6 +241,21 @@ Local: the same registration, through `attachFieldControl`, `Field`'s `registerI
 
 Test: `src/lib/field/choice-controls.svelte.spec.ts`.
 
+### Checkbox, Switch and CheckboxGroup render real inputs
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/checkbox/root/CheckboxRoot.tsx`, `switch/root/SwitchRoot.tsx` and `checkbox-group/CheckboxGroup.tsx`. Checkbox and Switch render a `<span role="checkbox">` or `<span role="switch">` host, or a `<button>` with `nativeButton`, and a visually hidden `<input>` beside it. Rest props and handlers go to the host. `onCheckedChange` and CheckboxGroup's `onValueChange` are cancelable callbacks. Enter toggles a Switch. CheckboxGroup renders a `<div role="group">`.
+
+Local, signed off by the owner (2026-10-21):
+
+- Checkbox and Switch render a `<span>` box with a real `<input type="checkbox">` laid over it at `opacity: 0`. The Switch input carries `role="switch"`. The box carries `position: relative` inline so the input covers it. Native attributes, handlers and attachments go to the input. `class` and `style` go to the box, and `host` passes other attributes to it. A `render` snippet draws the box, and its `children` include the input.
+- The input is the focus target, so a sibling `<label for>` works, the browser handles Space, and focus styles use `:has(:focus-visible)` on the box. Enter submits the form and does not toggle a Switch, as on a native checkbox.
+- `onCheckedChange`, CheckboxGroup's `onValueChange` and `nativeButton` are removed. Use `bind:checked`, `bind:value`, or the native `input` and `change` events. To stop a change, call `preventDefault()` in `onclick`.
+- A box with no `value` submits `on`, as a native checkbox does.
+- CheckboxGroup renders a `<fieldset>`, so a `Fieldset.Legend` inside names it and `disabled` disables every box natively. `name` names every child checkbox in a plain form.
+- A parent checkbox toggles each child input first, so the children's `change` events fire before the parent's.
+
+Test: `src/lib/checkbox/Checkbox.svelte.spec.ts`, `src/lib/switch/Switch.svelte.spec.ts`, `src/lib/checkbox-group/CheckboxGroup.svelte.spec.ts` and `src/routes/fixtures/checkbox/checkbox.e2e.ts`, `switch/switch.e2e.ts` and `checkbox-group/checkbox-group.e2e.ts`.
+
 ### Slider fills its Field
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/slider/root/SliderRoot.tsx`. Slider never calls the Field's `setFilled`, so a Field around a Slider has no `data-filled`.
@@ -253,7 +268,7 @@ Test: `src/lib/slider/Slider.svelte.spec.ts` (`marks the Field filled, as a rang
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/form/Form.tsx`, `field/root/FieldRoot.tsx` and the form controls. Nothing listens for `reset`. A reset puts the native inputs back to their HTML defaults, while each control keeps its React state, so the control, its hidden input and `FormData` can disagree. Field dirty, touched and validity, and Form `errors`, stay as they were.
 
-Local: the controls follow `bind:value` and `bind:checked`. Each named input carries `defaultValue` or `defaultChecked`. A task after an uncanceled `reset`, Checkbox, Switch, RadioGroup, CheckboxGroup, Slider, NumberField, OTPField, Select, Combobox and Autocomplete write their `defaultChecked` or `defaultValue` back through the binding, and Field.Control and Input read the input's value back as `bind:value` does. No `onValueChange` or `onCheckedChange` is called, because a native reset fires no `input` or `change` event. Then each Field clears dirty, touched, validity and its custom validity message, and takes the restored value as its initial value. Form clears `errors` and its submit count. A control listens to the form its named input belongs to, so a control outside the `<form>` that joins it through `form` restores too. A Slider with no `defaultValue` returns each thumb to `min`, as its range inputs do. Checkbox and Switch submit `uncheckedValue` from a hidden checkbox that the browser resets together with the visible one, so `FormData` never holds both values. The visible state of a custom control (`aria-checked`, `data-checked`, the thumb position) catches up one task after a native reset, because the browser resets the inputs only after the `reset` listeners have run. The helper is `src/lib/internal/form-reset.svelte.ts`.
+Local: the controls follow `bind:value` and `bind:checked`. Each named input carries `defaultValue` or `defaultChecked`. A task after an uncanceled `reset`, Checkbox, Switch, RadioGroup, CheckboxGroup, Slider, NumberField, OTPField, Select, Combobox and Autocomplete write their `defaultChecked` or `defaultValue` back through the binding, and Field.Control and Input read the input's value back as `bind:value` does. No change callback is called, because a native reset fires no `input` or `change` event. Then each Field clears dirty, touched, validity and its custom validity message, and takes the restored value as its initial value. Form clears `errors` and its submit count. A control listens to the form its named input belongs to, so a control outside the `<form>` that joins it through `form` restores too. A Slider with no `defaultValue` returns each thumb to `min`, as its range inputs do. Checkbox and Switch submit `uncheckedValue` from a hidden checkbox that the browser resets together with the visible one, so `FormData` never holds both values. The visible state of a custom control (`data-checked`, the thumb position) catches up one task after a native reset, because the browser resets the inputs only after the `reset` listeners have run. The helper is `src/lib/internal/form-reset.svelte.ts`.
 
 Test: `src/lib/form/form-reset.svelte.spec.ts`.
 

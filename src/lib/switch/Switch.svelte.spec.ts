@@ -2,10 +2,10 @@
 // packages/react/src/switch/root/SwitchRoot.test.tsx and
 // packages/react/src/switch/thumb/SwitchThumb.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Cases from upstream commit d8afb3717 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// Sveltery: the switch is a real `<input type="checkbox" role="switch">` over a painted box,
+// so `checked`, `disabled` and `required` are the input's own, and native events replace
+// `onCheckedChange` (docs/upstream-differences.md).
 // Field and Form cases are in src/lib/field/choice-controls.svelte.spec.ts.
-// Form cases below use the hidden input with a native <form>.
-// Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -22,335 +22,218 @@ import {
 } from '../../tests/controllable-root-cases.js';
 import { Switch } from './index.js';
 
-function switchEl() {
-	return page.getByRole('switch');
+function input() {
+	const element = page.getByRole('switch').element();
+	if (!(element instanceof HTMLInputElement)) throw new Error('expected the switch input');
+	return element;
 }
 
-// An empty switch has no layout box, so Playwright will not pointer-click it.
-// HTMLElement.click() is the testing-library path the upstream tests use.
-function clickSwitch(init?: MouseEventInit) {
-	const element = switchEl().element() as HTMLElement;
-	if (init) {
-		element.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, ...init }));
-		return;
-	}
-	element.click();
-}
-
-function hiddenInput() {
-	const input = document.querySelector('input[type="checkbox"][aria-hidden="true"]');
-	if (!(input instanceof HTMLInputElement)) throw new Error('expected a hidden checkbox');
-	return input;
+function box() {
+	const element = input().parentElement;
+	if (!element) throw new Error('expected the switch box');
+	return element;
 }
 
 function values() {
 	return JSON.parse(page.getByTestId('values').element().textContent ?? '[]') as (string | null)[];
 }
 
+const checked = () => input().checked;
+
 describe('Switch', () => {
+	it('renders a checkbox input with the switch role inside its box', async () => {
+		render(Switch.Root, { 'aria-label': 'Notifications' });
+		expect(input().type).toBe('checkbox');
+		expect(input().getAttribute('role')).toBe('switch');
+		expect(box().tagName).toBe('SPAN');
+		await expect.element(page.getByRole('switch')).toHaveAccessibleName('Notifications');
+	});
+
 	describe('interactions', () => {
 		it('should change its state when clicked', async () => {
 			render(Switch.Root);
 
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			clickSwitch();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+			expect(checked()).toBe(false);
+			input().click();
+			await expect.poll(checked).toBe(true);
+			await expect.poll(() => box().hasAttribute('data-checked')).toBe(true);
 		});
 
 		it('should update its state when changed from outside', async () => {
 			render(SwitchBindHarness);
 			const owner = page.getByRole('checkbox', { name: 'Owner checked' });
 
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
 			await owner.click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+			await expect.poll(checked).toBe(true);
 			await owner.click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
+			await expect.poll(checked).toBe(false);
 		});
 
-		it('should update its state if the underlying input is toggled', async () => {
+		it('toggles with Space and leaves Enter to the form', async () => {
 			render(Switch.Root);
 
-			hiddenInput().click();
-
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+			input().focus();
+			await userEvent.keyboard('{Space}');
+			await expect.poll(checked).toBe(true);
+			await userEvent.keyboard('{Enter}');
+			expect(checked()).toBe(true);
 		});
 
-		it('ignores a hidden input click canceled before the handler runs', async () => {
-			const handleCheckedChange = vi.fn();
-			render(Switch.Root, { onCheckedChange: handleCheckedChange });
+		it('fires native input and change events', async () => {
+			const onchange = vi.fn((event: Event) => (event.currentTarget as HTMLInputElement).checked);
+			const oninput = vi.fn();
+			render(Switch.Root, { onchange, oninput });
 
-			const event = new MouseEvent('click', { bubbles: true, cancelable: true });
-			event.preventDefault();
-			hiddenInput().dispatchEvent(event);
+			input().click();
 
-			expect(handleCheckedChange).not.toHaveBeenCalled();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInput().checked).toBe(false);
+			expect(oninput).toHaveBeenCalledTimes(1);
+			expect(onchange).toHaveBeenCalledTimes(1);
+			expect(onchange.mock.results[0]?.value).toBe(true);
 		});
 
-		it.each(['Enter', 'Space'])('can be activated with %s key', async (key) => {
-			render(Switch.Root);
+		it('preventDefault in onclick keeps the switch off', async () => {
+			render(Switch.Root, { onclick: (event: MouseEvent) => event.preventDefault() });
 
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			(switchEl().element() as HTMLElement).focus();
-			await userEvent.keyboard(`{${key}}`);
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+			input().click();
+
+			expect(checked()).toBe(false);
+			await expect.poll(() => box().hasAttribute('data-unchecked')).toBe(true);
 		});
 	});
 
-	describe('extra props', () => {
-		it('should override the built-in attributes', async () => {
-			render(Switch.Root, { role: 'checkbox', 'data-testid': 'switch' });
-			await expect.element(page.getByTestId('switch')).toHaveAttribute('role', 'checkbox');
-		});
-
-		it('sets aria-labelledby from a sibling label associated with the hidden input', async () => {
-			render(SwitchLabelHarness, { scenario: 'sibling' });
-
-			const label = page.getByText('Label');
-			await expect.poll(() => label.element().id).not.toBe('');
-			await expect.element(switchEl()).toHaveAttribute('aria-labelledby', label.element().id);
-		});
-
-		it('updates fallback aria-labelledby when the hidden input id changes', async () => {
-			render(SwitchLabelHarness, { scenario: 'switch-id' });
-
-			const labelA = page.getByText('Label A');
-			await expect.poll(() => labelA.element().id).not.toBe('');
-			await expect.element(switchEl()).toHaveAttribute('aria-labelledby', labelA.element().id);
-
-			await page.getByRole('button', { name: 'Toggle' }).click();
-
-			const labelB = page.getByText('Label B');
-			await expect.poll(() => labelB.element().id).not.toBe('');
-			expect(labelA.element().id).not.toBe(labelB.element().id);
-			await expect.element(switchEl()).toHaveAttribute('aria-labelledby', labelB.element().id);
-		});
-	});
-
-	describe('prop: onCheckedChange', () => {
-		it('should call onCheckedChange when clicked', async () => {
-			const handleChange = vi.fn();
-			render(Switch.Root, { onCheckedChange: handleChange });
-
-			clickSwitch();
-
-			expect(handleChange).toHaveBeenCalledTimes(1);
-			expect(handleChange.mock.calls[0]?.[0]).toBe(true);
-		});
-
-		it('should report keyboard modifier event properties when calling onCheckedChange', async () => {
-			const handleChange = vi.fn();
-			render(Switch.Root, { onCheckedChange: handleChange });
-
-			clickSwitch({ shiftKey: true });
-
-			expect(handleChange).toHaveBeenCalledTimes(1);
-			expect(handleChange.mock.calls[0]?.[1].event.shiftKey).toBe(true);
-		});
-
-		it('does not change state when canceled via a root click', async () => {
+	describe('props', () => {
+		it('sends native attributes to the input, and class, style and host to the box', async () => {
 			render(Switch.Root, {
-				onCheckedChange: (_checked: boolean, eventDetails: { cancel: () => void }) =>
-					eventDetails.cancel()
+				'data-testid': 'input',
+				title: 'Tip',
+				class: 'box',
+				style: 'color: red',
+				host: { 'data-testid': 'box' }
 			});
 
-			clickSwitch();
-
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInput().checked).toBe(false);
+			expect(page.getByTestId('input').element()).toBe(input());
+			expect(input().title).toBe('Tip');
+			expect(page.getByTestId('box').element()).toBe(box());
+			expect(box().className).toBe('box');
+			expect(box().style.color).toBe('red');
 		});
 
-		it('does not change state when canceled via a hidden input click', async () => {
-			render(Switch.Root, {
-				onCheckedChange: (_checked: boolean, eventDetails: { cancel: () => void }) =>
-					eventDetails.cancel()
-			});
+		it('sets name and value on the input', async () => {
+			render(Switch.Root, { name: 'switch-name', value: '1' });
 
-			hiddenInput().click();
+			expect(input().name).toBe('switch-name');
+			expect(input().getAttribute('value')).toBe('1');
+			expect(box().hasAttribute('name')).toBe(false);
+		});
 
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInput().checked).toBe(false);
+		it('leaves the value attribute off by default', async () => {
+			render(Switch.Root);
+			expect(input().hasAttribute('value')).toBe(false);
 		});
 	});
 
 	describe('prop: onclick', () => {
-		it('should call onclick when clicked', async () => {
-			const handleClick = vi.fn();
-			render(Switch.Root, { onclick: handleClick });
-
-			clickSwitch();
-
-			expect(handleClick).toHaveBeenCalledTimes(1);
-		});
-
 		it('propagates a single click event to ancestors per user click', async () => {
 			render(SwitchClickHarness, { scenario: 'bubble' });
 
-			await switchEl().click();
+			await page.getByRole('switch').click();
 
 			await expect.element(page.getByTestId('parent-clicks')).toHaveTextContent('1');
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+			await expect.poll(checked).toBe(true);
 		});
 
 		it('does not propagate to ancestors when stopPropagation() is called', async () => {
 			render(SwitchClickHarness, { scenario: 'stop' });
 
-			await switchEl().click();
+			await page.getByRole('switch').click();
 
 			await expect.element(page.getByTestId('parent-clicks')).toHaveTextContent('0');
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
-		});
-
-		it('propagates a single click event to ancestors with a native button', async () => {
-			render(SwitchClickHarness, { scenario: 'native' });
-
-			await switchEl().click();
-
-			await expect.element(page.getByTestId('parent-clicks')).toHaveTextContent('1');
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
-		});
-
-		it('does not propagate to ancestors when stopPropagation() is called with a native button', async () => {
-			render(SwitchClickHarness, { scenario: 'native-stop' });
-
-			await switchEl().click();
-
-			await expect.element(page.getByTestId('parent-clicks')).toHaveTextContent('0');
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+			await expect.poll(checked).toBe(true);
 		});
 	});
 
 	describe('prop: disabled', () => {
-		it('uses aria-disabled instead of HTML disabled', async () => {
+		it('disables the input natively', async () => {
 			render(Switch.Root, { disabled: true });
-			await expect.element(switchEl()).not.toHaveAttribute('disabled');
-			await expect.element(switchEl()).toHaveAttribute('aria-disabled', 'true');
-		});
-
-		it('should not have the disabled attribute when disabled is not set', async () => {
-			render(Switch.Root);
-			await expect.element(switchEl()).not.toHaveAttribute('disabled');
+			expect(input().disabled).toBe(true);
+			expect(box().hasAttribute('data-disabled')).toBe(true);
 		});
 
 		it('should not change its state when clicked', async () => {
 			render(Switch.Root, { disabled: true });
-
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			(switchEl().element() as HTMLElement).click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
+			input().click();
+			expect(checked()).toBe(false);
 		});
 	});
 
 	describe('prop: readOnly', () => {
 		it('should have the aria-readonly attribute', async () => {
 			render(Switch.Root, { readonly: true });
-			await expect.element(switchEl()).toHaveAttribute('aria-readonly', 'true');
+			expect(input().getAttribute('aria-readonly')).toBe('true');
 		});
 
 		it('should not have the aria attribute when readOnly is not set', async () => {
 			render(Switch.Root);
-			await expect.element(switchEl()).not.toHaveAttribute('aria-readonly');
+			expect(input().hasAttribute('aria-readonly')).toBe(false);
 		});
 
 		it('should not change its state when clicked', async () => {
 			render(Switch.Root, { readonly: true });
-
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			clickSwitch();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
+			input().click();
+			expect(checked()).toBe(false);
 		});
 
 		it('should not change its state when its label is clicked', async () => {
 			render(SwitchLabelHarness, { scenario: 'readonly' });
-
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
 			(page.getByTestId('label').element() as HTMLElement).click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInput().checked).toBe(false);
+			expect(checked()).toBe(false);
 		});
 	});
 
 	describe('prop: required', () => {
-		it('should have the aria-required attribute', async () => {
+		it('makes the input required', async () => {
 			render(Switch.Root, { required: true });
-			await expect.element(switchEl()).toHaveAttribute('aria-required', 'true');
-		});
-
-		it('should not have the aria attribute when required is not set', async () => {
-			render(Switch.Root);
-			await expect.element(switchEl()).not.toHaveAttribute('aria-required');
+			expect(input().required).toBe(true);
 		});
 	});
 
-	it('should place the style hooks on the root and the thumb', async () => {
+	it('should place the style hooks on the box and the thumb', async () => {
 		render(SwitchStyleHarness);
 		const thumb = page.getByTestId('thumb');
 
-		await expect.element(switchEl()).toHaveAttribute('data-checked', '');
-		await expect.element(switchEl()).toHaveAttribute('data-disabled', '');
-		await expect.element(switchEl()).toHaveAttribute('data-readonly', '');
-		await expect.element(switchEl()).toHaveAttribute('data-required', '');
-		await expect.element(thumb).toHaveAttribute('data-checked', '');
-		await expect.element(thumb).toHaveAttribute('data-disabled', '');
-		await expect.element(thumb).toHaveAttribute('data-readonly', '');
-		await expect.element(thumb).toHaveAttribute('data-required', '');
+		for (const name of ['data-checked', 'data-disabled', 'data-readonly', 'data-required']) {
+			expect(box().hasAttribute(name)).toBe(true);
+			await expect.element(thumb).toHaveAttribute(name, '');
+		}
 
 		await page.getByRole('button', { name: 'Enable' }).click();
-		clickSwitch();
+		input().click();
 
-		await expect.element(switchEl()).toHaveAttribute('data-unchecked', '');
-		await expect.element(switchEl()).not.toHaveAttribute('data-checked');
+		await expect.poll(() => box().hasAttribute('data-unchecked')).toBe(true);
+		expect(box().hasAttribute('data-checked')).toBe(false);
 		await expect.element(thumb).toHaveAttribute('data-unchecked', '');
-		await expect.element(thumb).not.toHaveAttribute('data-checked');
-	});
-
-	it('should set the name attribute only on the input', async () => {
-		render(Switch.Root, { name: 'switch-name' });
-
-		expect(hiddenInput().getAttribute('name')).toBe('switch-name');
-		await expect.element(switchEl()).not.toHaveAttribute('name');
-	});
-
-	it('should not set the value attribute by default', async () => {
-		render(Switch.Root);
-		expect(hiddenInput().hasAttribute('value')).toBe(false);
-	});
-
-	it('should set the value attribute only on the input', async () => {
-		render(Switch.Root, { value: '1' });
-
-		expect(hiddenInput().getAttribute('value')).toBe('1');
-		await expect.element(switchEl()).not.toHaveAttribute('value');
 	});
 
 	describe('with native label', () => {
 		it('should toggle the switch when a wrapping label is clicked', async () => {
 			render(SwitchLabelHarness, { scenario: 'wrap' });
-
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			await page.getByTestId('label').click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByRole('switch')).toHaveAccessibleName('Toggle');
+			(page.getByTestId('label').element() as HTMLElement).click();
+			await expect.poll(checked).toBe(true);
 		});
 
 		it('should toggle the switch when an explicitly linked label is clicked', async () => {
 			render(SwitchLabelHarness, { scenario: 'sibling' });
-
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
+			await expect.element(page.getByRole('switch')).toHaveAccessibleName('Label');
 			await page.getByText('Label').click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+			await expect.poll(checked).toBe(true);
 		});
 
-		it('should associate id with the native button when nativeButton is true', async () => {
-			render(SwitchLabelHarness, { scenario: 'native' });
-
-			await expect.element(switchEl()).toHaveAttribute('id', 'mySwitch');
-			expect(hiddenInput().getAttribute('id')).not.toBe('mySwitch');
-
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-			await page.getByTestId('label').click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+		it('follows a changed id to the label that names it', async () => {
+			render(SwitchLabelHarness, { scenario: 'switch-id' });
+			await expect.element(page.getByRole('switch')).toHaveAccessibleName('Label A');
+			await page.getByRole('button', { name: 'Toggle' }).click();
+			await expect.element(page.getByRole('switch')).toHaveAccessibleName('Label B');
 		});
 	});
 
@@ -361,7 +244,7 @@ describe('Switch', () => {
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect.poll(() => values()).toEqual([null]);
 
-			clickSwitch();
+			input().click();
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect.poll(() => values()).toEqual([null, 'on']);
 		});
@@ -369,7 +252,7 @@ describe('Switch', () => {
 		it('submits to an external form when form is provided', async () => {
 			render(SwitchFormHarness, { scenario: 'external' });
 
-			clickSwitch();
+			input().click();
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect.poll(() => values()).toEqual(['on']);
 		});
@@ -392,9 +275,9 @@ describe('Switch', () => {
 			render(SwitchFormHarness, { scenario: 'cycle' });
 
 			await page.getByRole('button', { name: 'Submit' }).click();
-			clickSwitch();
+			input().click();
 			await page.getByRole('button', { name: 'Submit' }).click();
-			clickSwitch();
+			input().click();
 			await page.getByRole('button', { name: 'Submit' }).click();
 
 			await expect.poll(() => values()).toEqual(['no', 'yes', 'no']);
@@ -403,11 +286,11 @@ describe('Switch', () => {
 		it('triggers native HTML validation on submit', async () => {
 			render(SwitchFormHarness, { scenario: 'required' });
 
-			expect(hiddenInput().validity.valueMissing).toBe(true);
+			expect(input().validity.valueMissing).toBe(true);
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect.element(page.getByTestId('submitted')).toHaveTextContent('0');
 
-			clickSwitch();
+			input().click();
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect.element(page.getByTestId('submitted')).toHaveTextContent('1');
 			expect(values()).toEqual(['on']);
@@ -424,69 +307,34 @@ describe('Switch', () => {
 		});
 	});
 
-	it('can render a native button', async () => {
-		render(SwitchClickHarness, { scenario: 'native' });
-
-		expect(switchEl().element().tagName).toBe('BUTTON');
-		await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-		await expect.element(switchEl()).toHaveAttribute('type', 'button');
-
-		(switchEl().element() as HTMLElement).focus();
-		expect(document.activeElement).toBe(switchEl().element());
-
-		await userEvent.keyboard('{Enter}');
-		await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
-		await userEvent.keyboard('{Space}');
-		await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-		await switchEl().click();
-		await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
-	});
-
 	describe('native Svelte', () => {
 		it('one-way checked sets the value, clicks override it until the owner changes it', async () => {
 			render(SwitchBindHarness, { bound: false });
 			const owner = page.getByRole('checkbox', { name: 'Owner checked' });
 
 			await owner.click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
-			await switchEl().click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
+			await expect.poll(checked).toBe(true);
+			input().click();
+			await expect.poll(checked).toBe(false);
 			await expect.element(owner).toBeChecked();
 			await owner.click();
 			await owner.click();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'true');
+			await expect.poll(checked).toBe(true);
 		});
 
-		it('preventDefault in onclick skips the switch handler', async () => {
-			const handleChange = vi.fn();
-			render(Switch.Root, {
-				onclick: (event: MouseEvent) => event.preventDefault(),
-				onCheckedChange: handleChange
-			});
-
-			clickSwitch();
-
-			expect(handleChange).not.toHaveBeenCalled();
-			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
-		});
-
-		it('passes consumer attachments to the default host', async () => {
+		it('passes consumer attachments to the input', async () => {
 			render(SwitchAttachHarness);
-
-			await expect.element(page.getByTestId('host')).toHaveTextContent('default-host');
-			await switchEl().click();
-			await expect.element(page.getByTestId('host')).toHaveTextContent('default-host');
+			await expect.element(page.getByTestId('host')).toHaveTextContent('INPUT');
 		});
 
-		it('render snippet receives props, state and consumer attachments', async () => {
+		it('render snippet draws the box with the input inside', async () => {
 			render(SwitchAttachHarness, { custom: true });
-			const host = page.getByRole('switch', { name: 'Custom' });
+			const custom = document.querySelector('.custom-host');
 
-			await expect.element(host).toHaveAttribute('data-state', 'off');
-			await expect.element(page.getByTestId('host')).toHaveTextContent('custom-host');
-			await host.click();
-			await expect.element(host).toHaveAttribute('aria-checked', 'true');
-			await expect.element(host).toHaveAttribute('data-state', 'on');
+			expect(custom?.getAttribute('data-state')).toBe('off');
+			expect(input().parentElement).toBe(custom);
+			input().click();
+			await expect.poll(() => custom?.getAttribute('data-state')).toBe('on');
 		});
 	});
 });

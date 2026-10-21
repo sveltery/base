@@ -14,11 +14,13 @@
 
 {#if custom}
 	<Switch.Root {@attach capture}>
-		{#snippet render(props, state)}
-			<span {...props} class="custom-host" data-state={state.checked ? 'on' : 'off'}>Custom</span>
+		{#snippet render(props, state, children)}
+			<span {...props} class="custom-host" data-state={state.checked ? 'on' : 'off'}
+				>{@render children?.()}</span
+			>
 		{/snippet}
 	</Switch.Root>
 {:else}
 	<Switch.Root class="default-host" {@attach capture}>Notifications</Switch.Root>
 {/if}
-<output data-testid="host">{host?.className ?? 'none'}</output>
+<output data-testid="host">{host?.tagName ?? 'none'}</output>

@@ -6,18 +6,18 @@
 
 ### CheckboxGroup
 
-Provides a shared state to a series of checkboxes.
+Provides a shared state to a series of checkboxes. Renders a `<fieldset>` element, so a Fieldset.Legend inside names the group and `disabled` disables every box natively.
 
 **CheckboxGroup Props:**
 
-| Prop          | Type                                                                                                          | Default | Description                                                                                                                                                                                                                             |
-| :------------ | :------------------------------------------------------------------------------------------------------------ | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| defaultValue  | `string[]`                                                                                                    | `[]`    | Names of the checkboxes in the group that should be initially ticked.&#xA;&#xA;To render a controlled checkbox group, use `bind:value` instead.                                                                                         |
-| value         | `string[]`                                                                                                    | -       | Names of the checkboxes in the group that should be ticked.&#xA;&#xA;To render an uncontrolled checkbox group, use the `defaultValue` prop instead.                                                                                     |
-| onValueChange | `(value: string[], eventDetails: CheckboxGroupChangeEventDetails) => void`                                    | -       | Event handler called when a checkbox in the group is ticked or unticked. Provides the new value as an argument.                                                                                                                         |
-| allValues     | `string[]`                                                                                                    | -       | Names of all checkboxes in the group. Use this when creating a parent checkbox.                                                                                                                                                         |
-| disabled      | `boolean \| null`                                                                                             | `false` | Whether the component should ignore user interaction.                                                                                                                                                                                   |
-| render        | `Snippet<[props: HTMLAttributes<HTMLDivElement>, state: CheckboxGroupState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop         | Type                                                                                                  | Default | Description                                                                                                                                                                                                                             |
+| :----------- | :---------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name         | `string`                                                                                              | -       | The name every child checkbox submits under, as in an HTML checkbox group. Inside a named Field, the Field's name is used instead.                                                                                                      |
+| defaultValue | `string[]`                                                                                            | `[]`    | Names of the checkboxes in the group that should be initially ticked.&#xA;&#xA;To render a controlled checkbox group, use `bind:value` instead.                                                                                         |
+| value        | `string[]`                                                                                            | -       | Names of the checkboxes in the group that should be ticked.&#xA;&#xA;To render an uncontrolled checkbox group, use the `defaultValue` prop instead.                                                                                     |
+| allValues    | `string[]`                                                                                            | -       | Names of all checkboxes in the group. Use this when creating a parent checkbox.                                                                                                                                                         |
+| disabled     | `boolean \| null`                                                                                     | `false` | Whether the component should ignore user interaction.                                                                                                                                                                                   |
+| render       | `Snippet<[props: HTMLFieldsetAttributes, state: CheckboxGroupState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 **CheckboxGroup Data Attributes:**
 
@@ -49,26 +49,6 @@ type CheckboxGroupState = {
 ```
 
 ## Additional Types
-
-### CheckboxGroupChangeEventDetails
-
-```typescript
-type CheckboxGroupChangeEventDetails = {
-	reason: Reason;
-	event: Event;
-	cancel: () => void;
-	allowPropagation: () => void;
-	isCanceled: boolean;
-	isPropagationAllowed: boolean;
-	trigger: Element | undefined;
-};
-```
-
-### CheckboxGroupChangeEventReason
-
-```typescript
-type CheckboxGroupChangeEventReason = typeof REASONS.none;
-```
 
 ### CheckboxGroupDataAttributes
 

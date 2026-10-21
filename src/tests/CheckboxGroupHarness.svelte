@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { Checkbox, CheckboxGroup, type CheckboxGroupChangeEventDetails } from '#lib';
+	import { Checkbox, CheckboxGroup, Fieldset } from '#lib';
 
 	type Scenario =
 		| 'plain'
@@ -10,32 +10,28 @@
 		| 'disabled'
 		| 'disabled-override'
 		| 'enabled'
-		| 'cancel'
 		| 'parent'
 		| 'parent-initial'
-		| 'parent-cancel-child'
-		| 'parent-cancel-parent'
-		| 'parent-cancel-group'
-		| 'parent-cancel-snapshot'
+		| 'parent-prevent'
 		| 'parent-disabled-off'
 		| 'parent-disabled-on'
 		| 'isolated'
 		| 'aria'
-		| 'custom-id'
-		| 'rendered-id'
 		| 'input-id'
 		| 'constructor'
 		| 'unmount'
 		| 'shared'
 		| 'no-value'
 		| 'form'
+		| 'group-name'
 		| 'style'
 		| 'render'
 		| 'attach'
 		| 'override'
 		| 'controlled'
-		| 'ignore-checked'
+		| 'adopt-checked'
 		| 'label'
+		| 'legend'
 		| 'prevent'
 		| 'name-key';
 
@@ -46,46 +42,27 @@
 	let showB = $state(true);
 	let showSecond = $state(true);
 	let selection = $state<string[] | undefined>(untrack(() => initialSelection(scenario)));
-	let calls = $state<{ value: string[]; reason: string; canceled: boolean }[]>([]);
-	let checkedCalls = $state<{ checked: boolean; canceled: boolean }[]>([]);
-	let submitted = $state<(string | null)[]>([]);
+	/** The `value` of each input whose `change` event reached the group, in order. */
+	let changes = $state<string[]>([]);
+	let submitted = $state<(string | null)[] | null>(null);
 	let attached = $state('none');
 
 	function initialSelection(name: Scenario): string[] | undefined {
 		if (name === 'clear') return ['red'];
 		if (name === 'controlled') return ['b'];
 		if (name === 'empty') return [''];
-		if (name === 'initial' || name === 'style') return name === 'style' ? ['a'] : ['red'];
+		if (name === 'initial') return ['red'];
 		if (name === 'render') return ['b'];
-		if (
-			name === 'parent-initial' ||
-			name === 'parent-cancel-group' ||
-			name === 'parent-disabled-on'
-		) {
-			return ['a'];
-		}
-		if (name === 'parent-cancel-snapshot') return ['a', 'b', 'c'];
+		if (name === 'parent-initial' || name === 'parent-disabled-on') return ['a'];
 		return [];
 	}
 
-	function record(next: string[], details: CheckboxGroupChangeEventDetails) {
-		if (
-			scenario === 'cancel' ||
-			scenario === 'parent-cancel-group' ||
-			scenario === 'parent-cancel-snapshot'
-		) {
-			details.cancel();
-		}
-		calls = [...calls, { value: [...next], reason: details.reason, canceled: details.isCanceled }];
-	}
-
-	function recordChecked(next: boolean, details: { cancel: () => void; isCanceled: boolean }) {
-		if (scenario === 'parent-cancel-child' || scenario === 'parent-cancel-parent') details.cancel();
-		checkedCalls = [...checkedCalls, { checked: next, canceled: details.isCanceled }];
+	function record(event: Event) {
+		if (event.target instanceof HTMLInputElement) changes = [...changes, event.target.value];
 	}
 
 	function capture(node: HTMLElement) {
-		attached = node.getAttribute('role') ?? 'empty';
+		attached = node.tagName.toLowerCase();
 		return () => {
 			attached = 'none';
 		};
@@ -100,12 +77,15 @@
 			.map((entry) => (typeof entry === 'string' ? entry : null));
 	}
 
-	const childChecked = $derived(
-		scenario === 'parent' || scenario === 'parent-cancel-child' ? recordChecked : undefined
-	);
-	const parentChecked = $derived(scenario === 'parent-cancel-parent' ? recordChecked : undefined);
 	const groupDisabled = $derived(
 		scenario === 'disabled' || scenario === 'disabled-override' || scenario === 'style'
+	);
+	const parentScenario = $derived(
+		scenario === 'parent' ||
+			scenario === 'parent-initial' ||
+			scenario === 'parent-prevent' ||
+			scenario === 'parent-disabled-off' ||
+			scenario === 'parent-disabled-on'
 	);
 </script>
 
@@ -123,15 +103,24 @@
 
 	{#if scenario === 'form'}
 		<form {onsubmit}>
-			<CheckboxGroup allValues={['a', 'b']} bind:value={selection} onValueChange={record}>
-				<Checkbox.Root parent>All</Checkbox.Root>
-				<Checkbox.Root name="topping" value="a">A</Checkbox.Root>
-				<Checkbox.Root name="topping" value="b">B</Checkbox.Root>
+			<CheckboxGroup allValues={['a', 'b']} bind:value={selection} onchange={record}>
+				<Checkbox.Root parent data-testid="parent">All</Checkbox.Root>
+				<Checkbox.Root name="topping" value="a" data-testid="a">A</Checkbox.Root>
+				<Checkbox.Root name="topping" value="b" data-testid="b">B</Checkbox.Root>
+			</CheckboxGroup>
+			<button type="submit">Submit</button>
+		</form>
+	{:else if scenario === 'group-name'}
+		<form {onsubmit}>
+			<CheckboxGroup name="topping" defaultValue={['a', 'c']}>
+				<Checkbox.Root value="a" data-testid="a">A</Checkbox.Root>
+				<Checkbox.Root value="b" data-testid="b">B</Checkbox.Root>
+				<Checkbox.Root value="c" data-testid="c">C</Checkbox.Root>
 			</CheckboxGroup>
 			<button type="submit">Submit</button>
 		</form>
 	{:else if scenario === 'isolated'}
-		<CheckboxGroup allValues={['a-1', 'a-2']} bind:value={selection} onValueChange={record}>
+		<CheckboxGroup allValues={['a-1', 'a-2']} bind:value={selection}>
 			<Checkbox.Root parent data-testid="a-parent">A parent</Checkbox.Root>
 			<Checkbox.Root value="a-1" data-testid="a-1">A1</Checkbox.Root>
 			<Checkbox.Root value="a-2" data-testid="a-2">A2</Checkbox.Root>
@@ -149,24 +138,6 @@
 				<Checkbox.Root value="b" data-testid="b">B</Checkbox.Root>
 			{/if}
 			<Checkbox.Root value="c" data-testid="c">C</Checkbox.Root>
-		</CheckboxGroup>
-	{:else if scenario === 'custom-id'}
-		<CheckboxGroup allValues={['a']}>
-			<Checkbox.Root parent data-testid="parent">All</Checkbox.Root>
-			<Checkbox.Root id="custom" value="a" data-testid="a" nativeButton>
-				{#snippet render(props)}
-					<button {...props}>A</button>
-				{/snippet}
-			</Checkbox.Root>
-		</CheckboxGroup>
-	{:else if scenario === 'rendered-id'}
-		<CheckboxGroup allValues={['a']}>
-			<Checkbox.Root parent data-testid="parent">All</Checkbox.Root>
-			<Checkbox.Root value="a" nativeButton>
-				{#snippet render(props)}
-					<button {...props} id="rendered" data-testid="a">A</button>
-				{/snippet}
-			</Checkbox.Root>
 		</CheckboxGroup>
 	{:else if scenario === 'input-id'}
 		<CheckboxGroup allValues={['a']}>
@@ -204,14 +175,14 @@
 	{:else if scenario === 'render'}
 		<CheckboxGroup value={['b']}>
 			{#snippet render(props, groupState)}
-				<div
+				<fieldset
 					{...props}
 					data-testid="custom"
 					data-disabled-state={groupState.disabled ? 'yes' : 'no'}
 				>
-					<Checkbox.Root value="a">A</Checkbox.Root>
-					<Checkbox.Root value="b">B</Checkbox.Root>
-				</div>
+					<Checkbox.Root value="a" data-testid="a">A</Checkbox.Root>
+					<Checkbox.Root value="b" data-testid="b">B</Checkbox.Root>
+				</fieldset>
 			{/snippet}
 		</CheckboxGroup>
 	{:else if scenario === 'attach'}
@@ -219,29 +190,38 @@
 			<Checkbox.Root value="a">A</Checkbox.Root>
 		</CheckboxGroup>
 	{:else if scenario === 'override'}
-		<CheckboxGroup role="region" id="group-id" data-testid="root">
+		<CheckboxGroup id="group-id" data-testid="root">
+			<Checkbox.Root value="a">A</Checkbox.Root>
+		</CheckboxGroup>
+	{:else if scenario === 'legend'}
+		<CheckboxGroup data-testid="root">
+			<Fieldset.Legend>Toppings</Fieldset.Legend>
 			<Checkbox.Root value="a">A</Checkbox.Root>
 		</CheckboxGroup>
 	{:else if scenario === 'label'}
-		<CheckboxGroup bind:value={selection} onValueChange={record}>
+		<CheckboxGroup bind:value={selection} onchange={record}>
 			<label data-testid="label-a">
-				<Checkbox.Root value="a" />
+				<Checkbox.Root
+					value="a"
+					data-testid="a"
+					style="display: inline-block; width: 16px; height: 16px"
+				/>
 				Apple
 			</label>
 		</CheckboxGroup>
 	{:else if scenario === 'prevent'}
-		<CheckboxGroup bind:value={selection} onValueChange={record}>
+		<CheckboxGroup bind:value={selection} onchange={record}>
 			<Checkbox.Root value="a" data-testid="a" onclick={(event) => event.preventDefault()}>
 				A
 			</Checkbox.Root>
 		</CheckboxGroup>
-	{:else if scenario === 'name-key'}
-		<CheckboxGroup bind:value={selection} onValueChange={record}>
+	{:else if scenario === 'name-key' || scenario === 'initial'}
+		<CheckboxGroup bind:value={selection} onchange={record}>
 			<Checkbox.Root name="red" data-testid="red">Red</Checkbox.Root>
 			<Checkbox.Root name="green" data-testid="green">Green</Checkbox.Root>
 		</CheckboxGroup>
 	{:else if scenario === 'empty'}
-		<CheckboxGroup bind:value={selection} onValueChange={record}>
+		<CheckboxGroup bind:value={selection} onchange={record}>
 			<Checkbox.Root value="" data-testid="empty">Empty</Checkbox.Root>
 			<Checkbox.Root value="other" data-testid="other">Other</Checkbox.Root>
 		</CheckboxGroup>
@@ -249,17 +229,12 @@
 		<CheckboxGroup value={selection}>
 			<Checkbox.Root value="red" data-testid="red">Red</Checkbox.Root>
 		</CheckboxGroup>
-	{:else if scenario === 'initial'}
-		<CheckboxGroup bind:value={selection} onValueChange={record}>
-			<Checkbox.Root name="red" data-testid="red">Red</Checkbox.Root>
-			<Checkbox.Root name="green" data-testid="green">Green</Checkbox.Root>
-		</CheckboxGroup>
 	{:else if scenario === 'disabled' || scenario === 'disabled-override' || scenario === 'enabled'}
 		<CheckboxGroup
 			aria-label="Colors"
 			disabled={groupDisabled}
 			bind:value={selection}
-			onValueChange={record}
+			onchange={record}
 		>
 			<Checkbox.Root
 				name="red"
@@ -270,28 +245,23 @@
 			</Checkbox.Root>
 			<Checkbox.Root name="green" data-testid="green">Green</Checkbox.Root>
 		</CheckboxGroup>
-	{:else if scenario === 'cancel'}
-		<CheckboxGroup bind:value={selection} onValueChange={record}>
-			<Checkbox.Root value="red" data-testid="red">Red</Checkbox.Root>
-			<Checkbox.Root value="green" data-testid="green">Green</Checkbox.Root>
-		</CheckboxGroup>
-	{:else if scenario === 'ignore-checked'}
+	{:else if scenario === 'adopt-checked'}
 		<CheckboxGroup bind:value={selection}>
 			<Checkbox.Root value="a" checked data-testid="a">A</Checkbox.Root>
 		</CheckboxGroup>
 	{:else if scenario === 'controlled'}
-		<CheckboxGroup aria-label="Colors" value={selection} onValueChange={record}>
+		<CheckboxGroup aria-label="Colors" value={selection}>
 			<Checkbox.Root value="a" data-testid="a">A</Checkbox.Root>
-			<Checkbox.Root value="b">B</Checkbox.Root>
+			<Checkbox.Root value="b" data-testid="b">B</Checkbox.Root>
 		</CheckboxGroup>
-	{:else if scenario === 'parent' || scenario === 'parent-initial' || scenario === 'parent-cancel-child' || scenario === 'parent-cancel-parent' || scenario === 'parent-cancel-group' || scenario === 'parent-cancel-snapshot' || scenario === 'parent-disabled-off' || scenario === 'parent-disabled-on'}
-		<CheckboxGroup allValues={all} bind:value={selection} onValueChange={record}>
-			<Checkbox.Root parent data-testid="parent" onCheckedChange={parentChecked}>All</Checkbox.Root>
+	{:else if parentScenario}
+		<CheckboxGroup allValues={all} bind:value={selection} onchange={record}>
+			<Checkbox.Root parent data-testid="parent">All</Checkbox.Root>
 			<Checkbox.Root
 				value="a"
 				data-testid="a"
 				disabled={scenario === 'parent-disabled-off' || scenario === 'parent-disabled-on'}
-				onCheckedChange={childChecked}
+				onclick={scenario === 'parent-prevent' ? (event) => event.preventDefault() : undefined}
 			>
 				A
 			</Checkbox.Root>
@@ -299,7 +269,7 @@
 			<Checkbox.Root value="c" data-testid="c">C</Checkbox.Root>
 		</CheckboxGroup>
 	{:else}
-		<CheckboxGroup aria-label="Colors" bind:value={selection} onValueChange={record}>
+		<CheckboxGroup aria-label="Colors" bind:value={selection} onchange={record}>
 			<Checkbox.Root value="red" data-testid="red">Red</Checkbox.Root>
 			<Checkbox.Root value="green" data-testid="green">Green</Checkbox.Root>
 			<Checkbox.Root value="blue" data-testid="blue">Blue</Checkbox.Root>
@@ -307,7 +277,7 @@
 	{/if}
 </div>
 
-<output data-testid="calls">{JSON.stringify(calls)}</output>
-<output data-testid="checked-calls">{JSON.stringify(checkedCalls)}</output>
+<output data-testid="value">{JSON.stringify(selection ?? null)}</output>
+<output data-testid="changes">{JSON.stringify(changes)}</output>
 <output data-testid="values">{JSON.stringify(submitted)}</output>
 <output data-testid="attached">{attached}</output>

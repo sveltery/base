@@ -20,16 +20,11 @@
 		</Fieldset.Root>
 	</Field.Root>
 	<Field.Root name="protocols">
-		<Fieldset.Root>
-			{#snippet render(props, _state, children)}
-				<CheckboxGroup {...props as HTMLAttributes<HTMLDivElement>} defaultValue={['ssh']}
-					>{@render children?.()}</CheckboxGroup
-				>
-			{/snippet}
+		<CheckboxGroup defaultValue={['ssh']}>
 			<Fieldset.Legend>Allowed network protocols</Fieldset.Legend>
 			<Checkbox.Root value="http" aria-label="HTTP" />
 			<Checkbox.Root value="ssh" aria-label="SSH" />
-		</Fieldset.Root>
+		</CheckboxGroup>
 	</Field.Root>
 	<button type="submit">Submit</button>
 </Form>

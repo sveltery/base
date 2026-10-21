@@ -1,6 +1,5 @@
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes } from 'svelte/elements';
-import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
+import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
@@ -17,16 +16,34 @@ export interface SwitchRootState extends FieldRootState {
 
 export type SwitchThumbState = SwitchRootState;
 
-export type SwitchRootChangeEventReason = typeof REASONS.none;
-export type SwitchRootChangeEventDetails = BaseUIChangeEventDetails<SwitchRootChangeEventReason>;
+/** Props for the box a `render` snippet draws. Spread them onto the element, with the children inside. */
+export type SwitchBoxProps = HTMLAttributes<HTMLElement>;
 
 /**
- * Props passed to a `render` snippet. Spread them onto the host element.
- * The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
+ * Native input attributes Switch.Root takes. They go to the `<input type="checkbox" role="switch">`
+ * that submits. `class` and `style` go to the box, and `host` sends anything else there.
  */
-export type SwitchHostProps = HTMLAttributes<HTMLElement>;
+type SwitchInputAttributes = Omit<
+	HTMLInputAttributes,
+	| 'type'
+	| 'role'
+	| 'checked'
+	| 'defaultChecked'
+	| 'value'
+	| 'children'
+	| 'class'
+	| 'style'
+	| 'readonly'
+	| 'disabled'
+	| 'required'
+	| 'name'
+	| 'id'
+	| 'form'
+>;
 
-export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+export interface SwitchRootProps extends SwitchInputAttributes {
+	/** A checkbox input. A remote form spread of another input kind is a type error. */
+	type?: 'checkbox';
 	/**
 	 * Whether the switch is currently active.
 	 *
@@ -53,47 +70,32 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	 * @default false
 	 */
 	required?: boolean | null;
-	/**
-	 * Whether the component renders a native `<button>` element when replacing it
-	 * via the `render` prop.
-	 * Set to `true` if the rendered element is a native button.
-	 * @default false
-	 */
-	nativeButton?: boolean;
 	/** Identifies the field when a form is submitted. */
 	name?: string | null;
-	/**
-	 * The value submitted with the form when the switch is on.
-	 * By default, switch submits the "on" value, matching native checkbox behavior.
-	 */
+	/** The value submitted with the form when the switch is on. @default "on" */
 	value?: string;
 	/**
 	 * The value submitted with the form when the switch is off.
-	 * By default, unchecked switches do not submit any value, matching native checkbox behavior.
+	 * By default, an off switch submits no value, matching native checkbox behavior.
 	 */
 	uncheckedValue?: string;
-	/**
-	 * Identifies the form that owns the hidden input.
-	 * Useful when the switch is rendered outside the form.
-	 */
+	/** Identifies the form that owns the input. Useful when the switch is rendered outside the form. */
 	form?: string | null;
-	/**
-	 * The id of the hidden input element.
-	 *
-	 * When `nativeButton` is `true`, the id is applied to the root element.
-	 */
+	/** The id of the input element. */
 	id?: string | null;
-	/** Event handler called when the switch is activated or deactivated. */
-	onCheckedChange?: (checked: boolean, eventDetails: SwitchRootChangeEventDetails) => void;
-	/** Runs before the switch's click handler. Call `event.preventDefault()` to skip it. */
-	onclick?: HTMLAttributes<HTMLElement>['onclick'];
+	/** Classes for the box. */
+	class?: HTMLAttributes<HTMLElement>['class'];
+	/** Styles for the box. */
+	style?: HTMLAttributes<HTMLElement>['style'];
+	/** Attributes for the box, such as `data-*` attributes or handlers that belong on it. */
+	host?: HTMLAttributes<HTMLElement>;
 	/**
-	 * Allows you to replace the component's HTML element
+	 * Allows you to replace the box's HTML element
 	 * with a different tag, or compose it with another component.
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
-	 * and the children to render.
+	 * and the children to render, which include the input.
 	 */
-	render?: Snippet<[props: SwitchHostProps, state: SwitchRootState, children: RenderChildren]>;
+	render?: Snippet<[props: SwitchBoxProps, state: SwitchRootState, children: RenderChildren]>;
 	children?: Snippet;
 }
 

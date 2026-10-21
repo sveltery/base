@@ -4,7 +4,7 @@
 	let {
 		scenario = 'sibling'
 	}: {
-		scenario?: 'sibling' | 'switch-id' | 'wrap' | 'native' | 'readonly';
+		scenario?: 'sibling' | 'switch-id' | 'wrap' | 'readonly';
 	} = $props();
 
 	let id = $state('switch-input-a');
@@ -23,13 +23,6 @@
 		<Switch.Root />
 		Toggle
 	</label>
-{:else if scenario === 'native'}
-	<label data-testid="label" for="mySwitch">Toggle</label>
-	<Switch.Root id="mySwitch" nativeButton>
-		{#snippet render(props)}
-			<button {...props}>Toggle</button>
-		{/snippet}
-	</Switch.Root>
 {:else}
 	<label data-testid="label">
 		<Switch.Root readonly />

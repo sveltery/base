@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { HTMLAttributes } from 'svelte/elements';
 	import { Checkbox, CheckboxGroup, Field, Fieldset, Form, Radio, RadioGroup, Switch } from '#lib';
 	import { submitTo, takeForm } from '../routes/fixtures/form-log.js';
 
@@ -14,7 +13,7 @@
 			| 'radio-item'
 			| 'wrapping-labels'
 			| 'fieldset-items'
-			| 'fieldset-render';
+			| 'group-legend';
 	} = $props();
 
 	const box = 'display: inline-block; width: 16px; height: 16px';
@@ -101,17 +100,12 @@
 				</CheckboxGroup>
 			</Fieldset.Root>
 		</Field.Root>
-	{:else if scenario === 'fieldset-render'}
+	{:else if scenario === 'group-legend'}
 		<Field.Root name="protocols">
-			<Fieldset.Root>
-				{#snippet render(props, _state, children)}
-					<CheckboxGroup {...props as HTMLAttributes<HTMLDivElement>} data-testid="control"
-						>{@render children?.()}</CheckboxGroup
-					>
-				{/snippet}
+			<CheckboxGroup data-testid="control">
 				<Fieldset.Legend>Allowed network protocols</Fieldset.Legend>
 				<Checkbox.Root value="http" data-testid="http" style={box} />
-			</Fieldset.Root>
+			</CheckboxGroup>
 		</Field.Root>
 	{:else}
 		<Field.Root

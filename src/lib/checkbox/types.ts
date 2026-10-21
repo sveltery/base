@@ -1,6 +1,5 @@
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes } from 'svelte/elements';
-import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
+import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
@@ -28,17 +27,33 @@ export interface CheckboxIndicatorState extends CheckboxRootState {
 	transitionStatus: CheckboxIndicatorPhase;
 }
 
-export type CheckboxRootChangeEventReason = typeof REASONS.none;
-export type CheckboxRootChangeEventDetails =
-	BaseUIChangeEventDetails<CheckboxRootChangeEventReason>;
+/** Props for the box a `render` snippet draws. Spread them onto the element, with the children inside. */
+export type CheckboxBoxProps = HTMLAttributes<HTMLElement>;
 
 /**
- * Props passed to a `render` snippet. Spread them onto the host element.
- * The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
+ * Native input attributes Checkbox.Root takes. They go to the `<input type="checkbox">` that
+ * submits. `class` and `style` go to the box, and `host` sends anything else there.
  */
-export type CheckboxHostProps = HTMLAttributes<HTMLElement>;
+type CheckboxInputAttributes = Omit<
+	HTMLInputAttributes,
+	| 'type'
+	| 'checked'
+	| 'defaultChecked'
+	| 'value'
+	| 'children'
+	| 'class'
+	| 'style'
+	| 'readonly'
+	| 'disabled'
+	| 'required'
+	| 'name'
+	| 'id'
+	| 'form'
+>;
 
-export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+export interface CheckboxRootProps extends CheckboxInputAttributes {
+	/** A checkbox input. A remote form spread of another input kind is a type error. */
+	type?: 'checkbox';
 	/**
 	 * Whether the checkbox is currently ticked.
 	 *
@@ -77,13 +92,6 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	 * @default false
 	 */
 	parent?: boolean;
-	/**
-	 * Whether the component renders a native `<button>` element when replacing it
-	 * via the `render` prop.
-	 * Set to `true` if the rendered element is a native button.
-	 * @default false
-	 */
-	nativeButton?: boolean;
 	/** Identifies the field when a form is submitted. */
 	name?: string | null;
 	/**
@@ -97,23 +105,25 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	 */
 	uncheckedValue?: string;
 	/**
-	 * Identifies the form that owns the hidden input.
+	 * Identifies the form that owns the input.
 	 * Useful when the checkbox is rendered outside the form.
 	 */
 	form?: string | null;
 	/** The id of the input element. */
 	id?: string | null;
-	/** Event handler called when the checkbox is ticked or unticked. */
-	onCheckedChange?: (checked: boolean, eventDetails: CheckboxRootChangeEventDetails) => void;
-	/** Runs before the checkbox's click handler. Call `event.preventDefault()` to skip it. */
-	onclick?: HTMLAttributes<HTMLElement>['onclick'];
+	/** Classes for the box. */
+	class?: HTMLAttributes<HTMLElement>['class'];
+	/** Styles for the box. */
+	style?: HTMLAttributes<HTMLElement>['style'];
+	/** Attributes for the box, such as `data-*` attributes or handlers that belong on it. */
+	host?: HTMLAttributes<HTMLElement>;
 	/**
-	 * Allows you to replace the component's HTML element
+	 * Allows you to replace the box's HTML element
 	 * with a different tag, or compose it with another component.
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
-	 * and the children to render.
+	 * and the children to render, which include the input.
 	 */
-	render?: Snippet<[props: CheckboxHostProps, state: CheckboxRootState, children: RenderChildren]>;
+	render?: Snippet<[props: CheckboxBoxProps, state: CheckboxRootState, children: RenderChildren]>;
 	children?: Snippet;
 }
 

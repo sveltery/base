@@ -1,39 +1,26 @@
 <!--
 	Represents the switch itself.
-	Renders a `<span>` element and a hidden `<input>` beside.
+	Renders a `<span>` box with a real `<input type="checkbox" role="switch">` laid over it.
 	Derived from Base UI v1.9.0 packages/react/src/switch/root/SwitchRoot.tsx
-	and the native-label fallback of useAriaLabelledBy.ts
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+	Native input props and handlers go to the input, so it works without JavaScript and fires
+	real `input` and `change` events. `class`, `style` and `host` go to the box.
 -->
 <script lang="ts">
-	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { ButtonBehavior } from '../internal/button.svelte.js';
-	import { dispatchClick } from '../internal/click.js';
-	import { toCssStyle } from '../internal/css-style.js';
 	import { chain } from '../internal/mergeProps.js';
-	import {
-		createChangeEventDetails,
-		REASONS,
-		visuallyHidden,
-		visuallyHiddenInput
-	} from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { switchStateAttributesMapping } from './attributes.js';
 	import { setSwitchContext } from './context.js';
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
-	import {
-		AriaLabelledBy,
-		LabelableId,
-		useLabelableContext
-	} from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
-	import type { SwitchHostProps, SwitchRootProps, SwitchRootState } from './types.js';
+	import { overlayInputStyle } from '../internal/overlay-input.js';
+	import type { SwitchBoxProps, SwitchRootProps, SwitchRootState } from './types.js';
 
 	const uid = $props.id();
-	const rootKey = createAttachmentKey();
 	const field = useFieldContext();
 	const formContext = useFormContext();
 	const labelable = useLabelableContext();
@@ -44,13 +31,15 @@
 		disabled: disabledProp,
 		readonly: readOnlyProp,
 		required: requiredProp,
-		nativeButton = false,
 		name: nameProp,
 		value,
 		uncheckedValue,
 		form,
 		id,
-		onCheckedChange,
+		type: _type,
+		class: className,
+		style,
+		host,
 		onclick,
 		onfocus,
 		onblur,
@@ -58,29 +47,30 @@
 		'aria-describedby': ariaDescribedBy,
 		render,
 		children,
-		...elementProps
+		...inputProps
 	}: SwitchRootProps = $props();
 	const readOnly = $derived(readOnlyProp ?? false);
 	const required = $derived(requiredProp ?? false);
 
-	// `defaultChecked` is the initial value of an empty binding, as in HTML.
-	// svelte-ignore state_referenced_locally
-	if (checked === undefined) checked = defaultChecked;
+	// Without a spread, a switch in a named Field of a remote form names itself from the field.
+	const bound = $derived(nameProp === undefined ? field.bindRemote('checkbox') : undefined);
 
-	// Two ids: the root's generated id, and the control id on the hidden input
-	// (or on the root when nativeButton is set). An explicit id replaces the control id.
-	const generatedRootId = $derived(`base-ui-${uid}`);
-	const generatedControlId = $derived(`base-ui-${uid}` + '-control');
+	// `defaultChecked` is the initial value of an empty binding, as in HTML. A spread's `checked`
+	// is the remote form's value.
+	// svelte-ignore state_referenced_locally
+	if (checked === undefined) checked = (bound?.checked as boolean | undefined) ?? defaultChecked;
+
+	const generatedControlId = `base-ui-${uid}-control`;
 	const controlId = new LabelableId(labelable, {
 		id: () => id ?? undefined,
 		fallback: () => generatedControlId
 	});
-	const hiddenInputId = $derived(nativeButton ? undefined : controlId.current);
-	const rootId = $derived(nativeButton ? controlId.current : generatedRootId);
+	const inputId = $derived(id || controlId.current || generatedControlId);
 	const disabled = $derived(field.disabled || (disabledProp ?? false));
-	const name = $derived(field.name ?? nameProp ?? undefined);
-	const inputName = $derived(name);
-	const submittedValue = $derived(value !== undefined ? { value } : {});
+	// The control's own name wins: a remote form encodes the value type and its id in it.
+	const name = $derived(
+		nameProp ?? (bound?.name as string | undefined) ?? (formContext.remote ? undefined : field.name)
+	);
 
 	const checkedState = $derived(checked === true);
 	const switchState: SwitchRootState = $derived({
@@ -106,24 +96,20 @@
 		}
 	});
 
-	let rootNode = $state<HTMLElement | null>(null);
 	let inputNode = $state<HTMLInputElement | null>(null);
 	const focusOwner = new FieldFocusOwner(field, {
 		disabled: () => disabled,
-		target: () => rootNode
-	});
-	const ariaLabelledBy = new AriaLabelledBy(labelable, {
-		explicit: () => ariaLabelledByProp ?? undefined,
-		input: () => (nativeButton ? null : inputNode),
-		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined),
-		ariaLabel: () => elementProps['aria-label']
+		target: () => inputNode
 	});
 	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
 	const invalid = $derived(field.valid === false && !disabled);
+	const labelledBy = $derived(
+		ariaLabelledByProp ?? (inputProps['aria-label']?.trim() ? undefined : labelable.labelId)
+	);
 
 	const fieldControl = attachFieldControl(field, {
 		enabled: () => !disabled,
-		id: () => generatedRootId,
+		id: () => inputId,
 		name: () => nameProp ?? undefined,
 		getValue: () => checkedState
 	});
@@ -136,10 +122,11 @@
 
 	$effect(() => {
 		const input = inputNode;
-		const element = rootNode;
 		if (!input) return;
-		return field.registerInput(input, { element, value: undefined });
+		return field.registerInput(input, { element: input, value: undefined });
 	});
+
+	let uncheckedNode = $state<HTMLInputElement | null>(null);
 
 	restoreOnReset(() => inputNode, {
 		restore: () => {
@@ -152,129 +139,90 @@
 		}
 	});
 
-	function registerRoot(element: HTMLElement) {
-		rootNode = element;
+	function registerInput(element: HTMLElement) {
+		inputNode = element as HTMLInputElement;
 		const release = fieldControl(element);
 		return () => {
 			release?.();
-			if (rootNode === element) rootNode = null;
+			if (inputNode === element) inputNode = null;
 		};
 	}
 
-	// A named checkbox uses absolute positioning so it stays associated with its
-	// layout parent. An unnamed one uses the fixed visually-hidden style.
-	const inputStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
-	let uncheckedNode = $state<HTMLInputElement | null>(null);
-
-	// Chromium toggles a checkbox before dispatching click, then reverts the toggle
-	// if the click is canceled. That is the same signal as the pinned React workaround
-	// for https://github.com/react/react/issues/9023.
-	function handleInputClick(event: MouseEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		event.stopPropagation();
-		if (event.defaultPrevented || readOnly || disabled) {
-			if (!event.defaultPrevented) event.preventDefault();
-			return;
-		}
-
-		const nextChecked = event.currentTarget.checked;
-		const details = createChangeEventDetails(REASONS.none, event);
-		onCheckedChange?.(nextChecked, details);
-		if (details.isCanceled) {
+	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLInputElement }) {
+		onclick?.(event);
+		if (event.defaultPrevented) return;
+		if (readOnly || disabled) {
 			event.preventDefault();
 			return;
 		}
-
-		checked = nextChecked;
-	}
-
-	function handleInputFocus() {
-		const node = rootNode;
-		node?.focus();
+		checked = event.currentTarget.checked;
 	}
 
 	function handleFocus() {
 		focusOwner.set(true);
 	}
 
-	function handleBlur() {
-		const input = inputNode;
-		if (!input || disabled) return;
+	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (disabled) return;
 		field.setTouched(true);
 		focusOwner.set(false);
-		if (field.validationMode === 'onBlur') field.commit(input.checked);
+		if (field.validationMode === 'onBlur') field.commit(event.currentTarget.checked);
 	}
 
-	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
-
-	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onclick?.(event);
-		if (event.defaultPrevented || readOnly) return;
-
-		// Keep a wrapping <label> from activating the hidden input a second time.
-		event.preventDefault();
-		if (inputNode) dispatchClick(inputNode, event);
-	}
-
-	const hostProps: SwitchHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
-		const labelledBy = ariaLabelledBy.current;
-		return button.props({
-			...getStateAttributesProps(switchState, switchStateAttributesMapping),
-			id: rootId,
-			role: 'switch',
-			'aria-checked': checkedState,
-			...(readOnly ? { 'aria-readonly': true as const } : {}),
-			...(required ? { 'aria-required': true as const } : {}),
-			...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
-			...(describedBy ? { 'aria-describedby': describedBy } : {}),
-			...(invalid ? { 'aria-invalid': true as const } : {}),
-			...elementProps,
-			onclick: handleClick,
-			onfocus: chain(handleFocus, onfocus),
-			onblur: chain(handleBlur, onblur),
-			[rootKey]: registerRoot
-		}) as SwitchHostProps & Record<symbol, Attachment<HTMLElement>>;
+	const boxProps: SwitchBoxProps = $derived({
+		...getStateAttributesProps(switchState, switchStateAttributesMapping),
+		...host,
+		class: className,
+		style: style ? `position: relative; ${style}` : 'position: relative'
 	});
 </script>
 
-{#if render}
-	{@render render(hostProps, switchState, children)}
-{:else}
-	<span {...hostProps}>{@render children?.()}</span>
-{/if}
-<input
-	bind:this={inputNode}
-	type="checkbox"
-	checked={checkedState}
-	{defaultChecked}
-	{disabled}
-	{form}
-	id={hiddenInputId}
-	name={inputName}
-	{required}
-	style={inputStyle}
-	tabindex="-1"
-	aria-hidden="true"
-	aria-describedby={describedBy}
-	aria-invalid={invalid || undefined}
-	{...submittedValue}
-	onclick={handleInputClick}
-	onfocus={handleInputFocus}
-/>
-{#if inputName && uncheckedValue !== undefined}
-	<!-- Submits `uncheckedValue`. A native reset restores it with the checkbox above, so
-	FormData never holds both values. -->
+{#snippet content()}
 	<input
-		bind:this={uncheckedNode}
+		{...inputProps}
 		type="checkbox"
-		hidden
-		style="display: none !important"
-		checked={!checkedState}
-		defaultChecked={!defaultChecked}
+		role="switch"
+		id={inputId}
+		name={name ?? undefined}
+		{value}
+		checked={checkedState}
+		{defaultChecked}
 		{disabled}
 		{form}
-		name={inputName}
-		value={uncheckedValue}
-		tabindex="-1"
-		aria-hidden="true"
+		{required}
+		style={overlayInputStyle}
+		aria-readonly={readOnly || undefined}
+		aria-labelledby={labelledBy}
+		aria-describedby={describedBy}
+		aria-invalid={invalid || undefined}
+		onclick={handleClick}
+		onfocus={chain(handleFocus, onfocus)}
+		onblur={chain(handleBlur, onblur)}
+		{@attach registerInput}
 	/>
+	{#if name && uncheckedValue !== undefined}
+		<!-- Submits `uncheckedValue`. A native reset restores it with the switch above, so
+		FormData never holds both values. -->
+		<input
+			bind:this={uncheckedNode}
+			type="checkbox"
+			hidden
+			style="display: none !important"
+			checked={!checkedState}
+			defaultChecked={!defaultChecked}
+			{disabled}
+			{form}
+			{name}
+			value={uncheckedValue}
+			tabindex="-1"
+			aria-hidden="true"
+		/>
+	{/if}
+	{@render children?.()}
+{/snippet}
+
+{#if render}
+	{@render render(boxProps, switchState, content)}
+{:else}
+	<span {...boxProps}>{@render content()}</span>
 {/if}

@@ -1,6 +1,8 @@
 // Assertions follow Base UI v1.9.0 packages/react/src/checkbox-group/CheckboxGroup.test.tsx
 // ("Form values") and `getFormValue` in CheckboxGroup.tsx
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+// Sveltery: each checkbox is a real `<input type="checkbox">` that submits natively, and native
+// events replace `onValueChange`.
 // `createPortal` becomes an attachment that moves the checkbox out of the `<form>`.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page } from 'vitest/browser';
@@ -44,7 +46,9 @@ describe('CheckboxGroup in a Form', () => {
 		expect(output('values')).toBe('{"fruits":["apple"],"other":"value"}');
 
 		await toggle.click();
-		await expect.element(page.getByTestId('banana')).toHaveAttribute('aria-checked', 'true');
+		await expect
+			.poll(() => (page.getByTestId('banana').element() as HTMLInputElement).checked)
+			.toBe(true);
 
 		await submit();
 		expect(output('values')).toBe('{"fruits":["apple","banana"],"other":"value"}');

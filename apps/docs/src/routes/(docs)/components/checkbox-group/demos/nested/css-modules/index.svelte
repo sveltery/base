@@ -13,15 +13,17 @@
 
 <CheckboxGroup
 	aria-labelledby={id}
-	value={mainValue}
-	onValueChange={(value) => {
-		if (value.includes('manage-users')) {
-			managementValue = userManagementPermissions;
-		} else if (managementValue.length === userManagementPermissions.length) {
-			managementValue = [];
+	bind:value={
+		() => mainValue,
+		(value) => {
+			if (value.includes('manage-users')) {
+				managementValue = userManagementPermissions;
+			} else if (managementValue.length === userManagementPermissions.length) {
+				managementValue = [];
+			}
+			mainValue = value;
 		}
-		mainValue = value;
-	}}
+	}
 	allValues={mainPermissions}
 	class={styles.CheckboxGroup}
 	style="margin-left: 1rem"
@@ -69,15 +71,17 @@
 	<CheckboxGroup
 		aria-labelledby="manage-users-caption"
 		class={styles.CheckboxGroup}
-		value={managementValue}
-		onValueChange={(value) => {
-			if (value.length === userManagementPermissions.length) {
-				mainValue = Array.from(new Set([...mainValue, 'manage-users']));
-			} else {
-				mainValue = mainValue.filter((v) => v !== 'manage-users');
+		bind:value={
+			() => managementValue,
+			(value) => {
+				if (value.length === userManagementPermissions.length) {
+					mainValue = Array.from(new Set([...mainValue, 'manage-users']));
+				} else {
+					mainValue = mainValue.filter((v) => v !== 'manage-users');
+				}
+				managementValue = value;
 			}
-			managementValue = value;
-		}}
+		}
 		allValues={userManagementPermissions}
 		style="margin-left: 1rem"
 	>
