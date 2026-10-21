@@ -25,14 +25,15 @@ describe('Form', () => {
 	}
 
 	describe('prop: novalidate', () => {
-		it('disables native validation by default', async () => {
+		// Sveltery: the browser's constraint check is the submit gate, so it stays on by default.
+		it('leaves native validation on by default', async () => {
 			render(Form);
-			expect(formElement().hasAttribute('novalidate')).toBe(true);
+			expect(formElement().hasAttribute('novalidate')).toBe(false);
 		});
 
-		it('leaves native validation on when novalidate is false', async () => {
-			render(Form, { novalidate: false });
-			expect(formElement().hasAttribute('novalidate')).toBe(false);
+		it('turns native validation off when novalidate is true', async () => {
+			render(Form, { novalidate: true });
+			expect(formElement().hasAttribute('novalidate')).toBe(true);
 		});
 	});
 
@@ -77,22 +78,22 @@ describe('Form', () => {
 			await expect.element(page.getByTestId('b')).toHaveFocus();
 		});
 
-		it('keeps registration order when invalid controls are in different shadow roots', async () => {
+		// Sveltery: an input in another shadow root belongs to no form, so the browser's constraint
+		// check, which is the submit gate, never sees it.
+		it('submits past invalid controls in other shadow roots', async () => {
 			render(FormRegistryHarness, { scenario: 'shadow' });
 			await page.getByRole('button', { name: 'Submit' }).click();
 
-			const first = page.getByTestId('a').element();
-			expect(first.getRootNode()).not.toBe(document);
-			expect((first.getRootNode() as ShadowRoot).activeElement).toBe(first);
+			expect(page.getByTestId('a').element().getRootNode()).not.toBe(document);
+			expect(output('values')).toBe('{}');
 		});
 
-		it('submits named field values and marks the native event prevented', async () => {
+		it('validates every field before the submit listener reads the form data', async () => {
 			render(FormRegistryHarness, { scenario: 'values' });
 			await page.getByRole('button', { name: 'Submit' }).click();
 
-			expect(output('values')).toBe(JSON.stringify({ username: 'alice132', quantity: 5 }));
+			expect(output('values')).toBe(JSON.stringify({ username: 'alice132', quantity: '5' }));
 			expect(output('prevented')).toBe('true');
-			expect(output('reason')).toBe('none');
 			expect(output('calls')).toBe(JSON.stringify(['username', 'quantity']));
 		});
 
@@ -104,12 +105,12 @@ describe('Form', () => {
 			await expect.element(page.getByTestId('blank')).toHaveFocus();
 		});
 
-		it('blocks submit when the invalid field has no focusable control', async () => {
+		// Sveltery: the browser checks inputs, so a field with no control cannot block the submit.
+		it('submits when the invalid field has no control the browser can check', async () => {
 			render(FormRegistryHarness, { scenario: 'no-control' });
 			await page.getByRole('button', { name: 'Submit' }).click();
 
-			expect(output('values')).toBe('');
-			expect(document.activeElement).toBe(page.getByRole('button', { name: 'Submit' }).element());
+			expect(output('values')).toBe('{}');
 		});
 
 		it('submits while a validator is still pending', async () => {
@@ -141,6 +142,22 @@ describe('Form', () => {
 
 			expect(output('calls')).toBe(JSON.stringify([]));
 			expect(formElement().hasAttribute('novalidate')).toBe(false);
+		});
+
+		it('cancels the browser bubble only for controls a Field owns', async () => {
+			render(FormRegistryHarness, { scenario: 'browser' });
+			const raw = page.getByTestId('raw').element() as HTMLInputElement;
+			const event = new Event('invalid', { cancelable: true });
+			raw.dispatchEvent(event);
+			expect(event.defaultPrevented).toBe(false);
+		});
+
+		it('cancels the browser bubble for a Field control and shows the message in Field.Error', async () => {
+			render(FormRegistryHarness, { scenario: 'blocked' });
+			const custom = page.getByTestId('custom').element() as HTMLInputElement;
+			const event = new Event('invalid', { cancelable: true });
+			custom.dispatchEvent(event);
+			expect(event.defaultPrevented).toBe(true);
 		});
 	});
 
@@ -209,7 +226,7 @@ describe('Form', () => {
 	});
 
 	describe('disabled Fieldset', () => {
-		it('excludes disabled fieldset fields from validation and onFormSubmit values', async () => {
+		it('excludes disabled fieldset fields from validation and the submitted values', async () => {
 			render(FormFieldsetHarness, { scenario: 'static' });
 			await page.getByRole('button', { name: 'Submit' }).click();
 
@@ -276,14 +293,14 @@ describe('Form', () => {
 		it('passes a consumer attachment to the default form', async () => {
 			render(FormAttachHarness);
 			await expect.element(page.getByTestId('host')).toHaveTextContent('default-host');
-			expect(formElement().hasAttribute('novalidate')).toBe(true);
+			expect(formElement().hasAttribute('novalidate')).toBe(false);
 			expect(formElement().className).toBe('default-host');
 		});
 
 		it('passes a consumer attachment through the render snippet', async () => {
 			render(FormAttachHarness, { custom: true });
 			await expect.element(page.getByTestId('host')).toHaveTextContent('from-props');
-			expect(formElement().hasAttribute('novalidate')).toBe(true);
+			expect(formElement().hasAttribute('novalidate')).toBe(false);
 			expect(formElement().getAttribute('data-custom')).toBe('true');
 			await expect.element(page.getByText('Inside')).toBeVisible();
 		});

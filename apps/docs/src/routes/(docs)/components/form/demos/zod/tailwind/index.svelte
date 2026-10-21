@@ -29,7 +29,9 @@
 <Form
 	class="flex w-full max-w-64 flex-col gap-4"
 	bind:errors
-	onFormSubmit={async (formValues) => {
+	onsubmit={async (event) => {
+		event.preventDefault();
+		const formValues = Object.fromEntries(new FormData(event.currentTarget));
 		const response = await submitForm(formValues);
 		errors = response.errors;
 	}}

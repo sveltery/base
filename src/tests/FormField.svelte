@@ -30,6 +30,7 @@
 		get control() {
 			return control;
 		},
+		invalid: false,
 		get validityData() {
 			return {
 				state: {
@@ -56,8 +57,16 @@
 		},
 		getValue() {
 			return value;
+		},
+		owns(element) {
+			return element === control;
 		}
 	};
+
+	// The browser's constraint check is Form's submit gate, so an invalid entry is an invalid input.
+	$effect(() => {
+		control?.setCustomValidity(valid === false ? 'invalid' : '');
+	});
 
 	$effect(() => {
 		const fields = form.fields;
@@ -69,7 +78,7 @@
 </script>
 
 {#if tag === 'input'}
-	<input data-testid={id} bind:this={control} />
+	<input data-testid={id} {name} value={String(value)} bind:this={control} />
 {:else if tag === 'textarea'}
-	<textarea data-testid={id} bind:this={control}></textarea>
+	<textarea data-testid={id} {name} value={String(value)} bind:this={control}></textarea>
 {/if}

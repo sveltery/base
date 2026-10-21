@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Checkbox, CheckboxGroup, Field, Form } from '#lib';
+	import { submitTo } from '../routes/fixtures/form-log.js';
 	import { portalTo } from './portal.js';
 
 	let {
@@ -57,7 +58,10 @@
 		</CheckboxGroup>
 	</Field.Root>
 {:else}
-	<Form onFormSubmit={accept} id={scenario === 'portal-form-attr' ? 'current-form' : undefined}>
+	<Form
+		onsubmit={submitTo(accept, ['fruits', 'items', 'colors'])}
+		id={scenario === 'portal-form-attr' ? 'current-form' : undefined}
+	>
 		{#if scenario === 'mixed'}
 			<Field.Root name="colors" validate={validateGroup}>
 				<CheckboxGroup data-testid="group" defaultValue={['red', 'green', 'blue']}>

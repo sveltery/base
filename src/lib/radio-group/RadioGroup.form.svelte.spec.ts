@@ -25,13 +25,13 @@ function toggleDisabled() {
 }
 
 describe('RadioGroup in a Form', () => {
-	it('excludes a disabled selected radio from onFormSubmit to match native form data', async () => {
+	it('excludes a disabled selected radio from the submitted values, as native form data does', async () => {
 		render(RadioGroupFormHarness, { scenario: 'disable' });
 		await toggleDisabled();
 
 		expect(formData('test')).toEqual([]);
 		await submit();
-		expect(output('values')).toBe('{"test":null}');
+		expect(output('values')).toBe('{}');
 	});
 
 	it('includes a selected radio again when it is re-enabled before form submission', async () => {
@@ -46,12 +46,12 @@ describe('RadioGroup in a Form', () => {
 		expect(output('values')).toBe('{"test":"a"}');
 	});
 
-	it('excludes an initially disabled selected radio from onFormSubmit to match native form data', async () => {
+	it('excludes an initially disabled selected radio from the submitted values, as native form data does', async () => {
 		render(RadioGroupFormHarness, { scenario: 'initially-disabled' });
 
 		expect(formData('test')).toEqual([]);
 		await submit();
-		expect(output('values')).toBe('{"test":null}');
+		expect(output('values')).toBe('{}');
 	});
 
 	it('projects an enabled selected radio, matching native form data', async () => {
@@ -67,7 +67,7 @@ describe('RadioGroup in a Form', () => {
 
 		expect(formData('choice')).toEqual([]);
 		await submit();
-		expect(output('values')).toBe('{"choice":null}');
+		expect(output('values')).toBe('{}');
 	});
 
 	it('includes a selected radio after its ancestor fieldset is enabled', async () => {
@@ -86,31 +86,31 @@ describe('RadioGroup in a Form', () => {
 
 		expect(formData('choice')).toEqual([]);
 		await submit();
-		expect(output('values')).toBe('{"choice":null}');
+		expect(output('values')).toBe('{}');
 	});
 
-	it('includes a context-portaled radio without native form association in onFormSubmit', async () => {
+	it('leaves out a radio portaled outside the form element, as native form data does', async () => {
 		render(RadioGroupFormHarness, { scenario: 'portal-radio' });
 
 		expect(formData('choice')).toEqual([]);
 		await submit();
-		expect(output('values')).toBe('{"choice":"a"}');
+		expect(output('values')).toBe('{}');
 	});
 
-	it('includes a group fully portaled outside the form element in onFormSubmit', async () => {
+	it('leaves out a group portaled outside the form element, as native form data does', async () => {
 		render(RadioGroupFormHarness, { scenario: 'portal-group' });
 		await submit();
 
-		expect(output('values')).toBe('{"choice":"a"}');
+		expect(output('values')).toBe('{}');
 	});
 
-	it('submits null when the selected radio in a required group is disabled, matching native validity', async () => {
+	it('submits nothing when the selected radio in a required group is disabled, matching native validity', async () => {
 		render(RadioGroupFormHarness, { scenario: 'required-disabled' });
 
 		expect(formData('choice')).toEqual([]);
 		await submit();
 		await expect.element(page.getByTestId('error')).not.toBeInTheDocument();
-		expect(output('values')).toBe('{"choice":null}');
+		expect(output('values')).toBe('{}');
 	});
 
 	describe('native Svelte', () => {

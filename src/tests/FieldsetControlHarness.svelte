@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { Checkbox, CheckboxGroup, Field, Fieldset, Form, Radio, RadioGroup } from '#lib';
+	import { submitTo } from '../routes/fixtures/form-log.js';
 
 	let submitted = $state('');
 </script>
 
-<Form onFormSubmit={(values) => (submitted = JSON.stringify(values))}>
+<Form onsubmit={submitTo((values) => (submitted = JSON.stringify(values)))}>
 	<Field.Root name="storageType">
 		<Fieldset.Root>
 			{#snippet render(props, _state, children)}

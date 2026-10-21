@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Form } from '#lib';
+	import { submitTo } from './form-log.js';
 	import type { Snippet } from 'svelte';
 
 	let {
@@ -15,7 +16,7 @@
 	} = $props();
 </script>
 
-<Form onFormSubmit={accept}>
+<Form onsubmit={submitTo(accept)}>
 	{@render children()}
 	<button type="submit">Submit</button>
 </Form>

@@ -10,7 +10,8 @@ test('Form blocks an invalid native post, and shows the action errors from `erro
 }) => {
 	const posts = countPosts(page);
 	const errors = await open(page, url);
-	await expect(page.locator('form')).toHaveAttribute('novalidate', '');
+	// The browser's constraint check blocks the post; the Fields show the messages.
+	await expect(page.locator('form')).not.toHaveAttribute('novalidate');
 	await submit(page).click();
 	await expect(control(page, 'email')).toBeFocused();
 	await expect(field(page, 'email')).toHaveAttribute('data-invalid', '');

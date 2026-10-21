@@ -152,7 +152,7 @@ describe('Fieldset', () => {
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect
 				.element(page.getByTestId('submitted'))
-				.toHaveTextContent('{"storageType":"hdd","protocols":["ssh"]}');
+				.toHaveTextContent('{"storageType":"hdd","protocols":"ssh"}');
 		});
 
 		it('passes consumer attachments to the default fieldset', async () => {

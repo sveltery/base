@@ -50,11 +50,11 @@ describe('CheckboxGroup in a Form', () => {
 		expect(output('values')).toBe('{"fruits":["apple","banana"],"other":"value"}');
 	});
 
-	it('preserves the logical field-name value when Checkbox.Root has no value prop', async () => {
+	it('submits the native "on" when Checkbox.Root has no value prop', async () => {
 		render(CheckboxGroupFormHarness, { scenario: 'no-value' });
 		await submit();
 
-		expect(output('values')).toBe('{"fruits":["fruits"]}');
+		expect(output('values')).toBe('{"fruits":["on"]}');
 	});
 
 	it('updates duplicate-value registrations before submitting', async () => {
@@ -72,18 +72,18 @@ describe('CheckboxGroup in a Form', () => {
 		expect(output('values')).toBe('{"fruits":["apple"],"other":"value"}');
 	});
 
-	it('includes a context-portaled checkbox without native form association', async () => {
+	it('leaves out a checkbox portaled outside the form element, as native form data does', async () => {
 		render(CheckboxGroupFormHarness, { scenario: 'portal-checkbox' });
 		await submit();
 
-		expect(output('values')).toBe('{"fruits":["apple"]}');
+		expect(output('values')).toBe('{}');
 	});
 
-	it('includes a group fully portaled outside the form element', async () => {
+	it('leaves out a group portaled outside the form element, as native form data does', async () => {
 		render(CheckboxGroupFormHarness, { scenario: 'portal-group' });
 		await submit();
 
-		expect(output('values')).toBe('{"fruits":["apple"]}');
+		expect(output('values')).toBe('{}');
 	});
 
 	it('includes a portaled checkbox explicitly associated with the Form', async () => {
@@ -101,16 +101,8 @@ describe('CheckboxGroup in a Form', () => {
 		expect(output('values')).toBe('{"fruits":["apple"],"other":"value"}');
 	});
 
-	it('validates and focuses required portaled checkboxes within the form', async () => {
+	it('leaves a required checkbox portaled outside the form out of its constraint check', async () => {
 		render(CheckboxGroupFormHarness, { scenario: 'portal-required' });
-		const portaled = page.getByTestId('portaled');
-		await submit();
-
-		expect(output('submits')).toBe('0');
-		await expect.element(portaled).toHaveFocus();
-
-		(portaled.element() as HTMLElement).click();
-		await expect.element(portaled).toHaveAttribute('aria-checked', 'true');
 		await submit();
 
 		expect(output('submits')).toBe('1');

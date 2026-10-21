@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { flushSync } from 'svelte';
 	import { Field, Form, OTPField } from '#lib';
+	import { submitTo } from '../routes/fixtures/form-log.js';
 	import type { FieldRootActions } from '../lib/field/types.js';
 	import FieldRegisterProbe from './FieldRegisterProbe.svelte';
 
@@ -46,9 +47,9 @@
 	<button type="button" onclick={() => field?.validate()}>Read</button>
 {:else if scenario === 'otp-submit'}
 	<Form
-		onFormSubmit={(values) => {
+		onsubmit={submitTo((values) => {
 			submitted = JSON.stringify(values);
-		}}
+		})}
 	>
 		<Field.Root name="code" validate={record}>
 			<OTPField.Root bind:value={code} length={3}>
@@ -106,9 +107,9 @@
 	<p data-testid="calls">{JSON.stringify(calls)}</p>
 {:else if scenario === 'enter-flush'}
 	<Form
-		onFormSubmit={(values) => {
+		onsubmit={submitTo((values) => {
 			submitted = JSON.stringify(values);
-		}}
+		})}
 	>
 		<Field.Root name="email" validate={record}>
 			<Field.Control

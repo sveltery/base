@@ -402,6 +402,10 @@ function partFiles(source: ts.SourceFile, dir: string): PartFile[] {
 	return namespaces.length ? namespaces : named;
 }
 
+/** Whether a declaration is a `never` member that keeps a prop out of one branch of a union. */
+const excludes = (declaration: ts.Declaration) =>
+	ts.isPropertySignature(declaration) && declaration.type?.kind === ts.SyntaxKind.NeverKeyword;
+
 /** Props and state members declared in the library. Inherited HTML attributes are left out. */
 function members(
 	checker: ts.TypeChecker,
@@ -421,11 +425,22 @@ function members(
 			.filter((property) => !property.name.startsWith('__@'))
 			.filter((property) =>
 				property.declarations?.some(
-					(declaration) => !declaration.getSourceFile().fileName.includes('/node_modules/')
+					(declaration) =>
+						!declaration.getSourceFile().fileName.includes('/node_modules/') &&
+						!excludes(declaration)
 				)
 			)
 			.map((property): ApiProp => {
-				const declaration = property.declarations![0];
+				// In a union of props, such as Form's remote and plain props, a member typed `never`
+				// only excludes the prop from that branch. Document the branch that accepts it.
+				const declaration =
+					property.declarations!.find(
+						(candidate) =>
+							!excludes(candidate) && !candidate.getSourceFile().fileName.includes('/node_modules/')
+					) ?? property.declarations![0];
+				const declared =
+					ts.isPropertySignature(declaration) && checker.getSymbolAtLocation(declaration.name);
+				const documented = declared || property;
 				files.add(declaration.getSourceFile().fileName);
 				const typeNode =
 					ts.isPropertySignature(declaration) || ts.isPropertyDeclaration(declaration)
@@ -441,8 +456,8 @@ function members(
 							ts.TypeFormatFlags.NoTruncation
 						)
 						.replace(/ \| undefined$/, '');
-				const docs = ts.displayPartsToString(property.getDocumentationComment(checker));
-				const tagDefault = property.getJsDocTags(checker).find((tag) => tag.name === 'default');
+				const docs = ts.displayPartsToString(documented.getDocumentationComment(checker));
+				const tagDefault = documented.getJsDocTags(checker).find((tag) => tag.name === 'default');
 				const inlineDefault = docs.match(/@default\s+(\S+)/)?.[1];
 				const code = defaults.get(property.name);
 				return {

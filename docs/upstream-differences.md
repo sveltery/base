@@ -261,9 +261,34 @@ Test: `src/lib/form/form-reset.svelte.spec.ts`.
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/form/Form.tsx`, `slider/root/SliderRoot.tsx`, `number-field/root/NumberFieldRoot.tsx` and `otp-field/root/OTPFieldRoot.tsx`. Form validates in its React `onSubmit` and blocks an invalid submit with `preventDefault()` only. It renders `noValidate` on the server. Slider, NumberField and OTPField update their named inputs through React state and fire no `input` or `change` event on them.
 
-Local: Form submits as upstream does. It validates in its `onsubmit` handler and blocks an invalid submit with `preventDefault()` only. It renders `novalidate` on the server, and `novalidate={false}` turns it off. A `submit` listener that does not check `defaultPrevented` still runs after a blocked submit. SvelteKit's `use:enhance` and remote forms are such listeners, so they send a submit that Form blocked. A user change fires a bubbling `input` event from the Slider thumb's range input and from the hidden NumberField and OTPField inputs, once the new value is in the DOM. `change` follows when the change is committed: a Slider key press or pointer release, a NumberField commit, or focus leaving the OTPField. As with a native input, `change` fires only when the value differs from the one at the previous `change`, so a NumberField whose owner keeps its value fires neither event. Checkbox, Switch and Radio already fire both through the click on their native input. A parent checkbox fires both on each child input it toggles. The controls ignore the events they fire themselves.
+Local: the browser's constraint check blocks an invalid submit, as described under [The browser's constraint check is the submit gate](#the-browsers-constraint-check-is-the-submit-gate), so no `submit` event fires for it. A user change fires a bubbling `input` event from the Slider thumb's range input and from the hidden NumberField and OTPField inputs, once the new value is in the DOM. `change` follows when the change is committed: a Slider key press or pointer release, a NumberField commit, or focus leaving the OTPField. As with a native input, `change` fires only when the value differs from the one at the previous `change`, so a NumberField whose owner keeps its value fires neither event. Checkbox, Switch and Radio already fire both through the click on their native input. A parent checkbox fires both on each child input it toggles. The controls ignore the events they fire themselves.
 
-Test: `src/lib/form/form-events.svelte.spec.ts`, `src/lib/form/form-ssr.spec.ts` and `src/routes/fixtures/form/form.e2e.ts` (`svelte SSR renders novalidate as Base UI does`).
+Test: `src/lib/form/form-events.svelte.spec.ts`.
+
+### The browser's constraint check is the submit gate
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/form/Form.tsx` and `field/root/FieldRoot.tsx`. Form renders `noValidate`, validates every field in its React `onSubmit`, and blocks an invalid submit with `preventDefault()`. `onFormSubmit` receives the values as an object. A `submit` listener that does not check `defaultPrevented`, such as SvelteKit's `use:enhance` or a remote form, still sends a blocked submit, and with JavaScript off nothing is checked.
+
+Local, signed off by the owner (2026-10-21): Form leaves constraint validation on, and `novalidate` defaults to `false`. A capture `invalid` listener on the form cancels the browser's bubble for each control a Field owns, then shows each Field's message and focuses the first invalid control in document order. A control outside any Field keeps the bubble. Field keeps a sync `validate` result in the control's custom validity on mount and on every change, whatever the `validationMode`, so the browser blocks the submit while it fails. `validationMode` decides only when a message shows. An async `validate` never blocks the submit. `onFormSubmit` and Field.Control's and Input's `onValueChange` are removed: read the values from `FormData` in `onsubmit`, and use `bind:value` or the native `input` event. On submit, Form focuses a field that its `invalid` prop or external errors mark invalid, as Base UI does.
+
+Test: `src/routes/fixtures/form/engines/invalid.engines.e2e.ts` (Chromium, Firefox and WebKit), `src/lib/form/Form.svelte.spec.ts` and `src/lib/form/form-ssr.spec.ts`.
+
+### Remote forms, Form.Error and Field paths
+
+Pin: as above. Base UI has no framework integration, no form-level message part, and keys `errors` by name.
+
+Local, signed off by the owner (2026-10-21):
+
+- Form takes a SvelteKit remote form, a `for(id)` instance or the `enhance()` value in `form`, and then rejects `errors`, `values`, `onsubmit`, `method` and `action` in its types. It reads the form's `method`, `action`, attachment, `fields`, `pending` and `submitted`, and imports nothing from SvelteKit. The types are in `src/lib/form/remote-form.ts`.
+- `Field.Root name` is a path such as `members[0].email`. In a remote form, a Field shows the issues at its path and below, minus the paths that a nested Field names. An edit hides them until they change or a later submit settles. Field sets `aria-invalid` on the control in place of Kit's. A `Field.Control` without a `name` in a named Field binds itself through the field's `as()`. A control's own `name` wins over the Field's.
+- Form takes `values`, which repopulates controls by name after a failed form action.
+- `Form.Error` shows `errors['']` or the remote issues with an empty path. While it has messages, `<form>` lists its id in `aria-describedby`.
+- `Field.Error` and `Form.Error` children may be a snippet that receives the messages. A `Field.Error` outside any `Field.Root` renders nothing and warns in development, where Base UI throws.
+- The control's `aria-describedby` always lists `<id>-description` and `<id>-error`, the ids that `Field.Description` and `Field.Error` take by default, so the server HTML and the hydrated page agree.
+- In development, a control warns once when its remote spread names a field outside its `Field.Root name`, or when a spread of another input kind lands on it. The warnings are absent from a production build.
+- `Textarea` is a Sveltery addition: `Field.Control` rendering a `<textarea>`, with `type?: never`.
+
+Test: `src/routes/fixtures/form/remote/remote.e2e.ts` (with JavaScript on and off), `src/routes/fixtures/form/production-build/production-build.e2e.ts`, `src/lib/form/form-ssr.spec.ts`, `src/lib/form/remote-form.spec.ts` and `type-probes/form/`.
 
 ## Tooltip
 

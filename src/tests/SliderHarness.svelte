@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { DirectionProvider, Field, Form, Slider } from '#lib';
+	import { submitTo } from '../routes/fixtures/form-log.js';
 
 	let {
 		scenario = 'plain',
@@ -96,8 +97,8 @@
 	let showSliderLabel = $state(true);
 	let showFieldLabel = $state(false);
 
-	function accept(values: Record<string, unknown>, details: { reason: string }) {
-		submitted = JSON.stringify({ values, reason: details.reason });
+	function accept(values: Record<string, unknown>) {
+		submitted = JSON.stringify({ values });
 	}
 
 	function nativeSubmit(event: SubmitEvent) {
@@ -333,7 +334,7 @@
 			{@render fieldBody()}
 		</Field.Root>
 	{:else if scenario === 'form'}
-		<Form onFormSubmit={accept}>
+		<Form onsubmit={submitTo(accept)}>
 			<Field.Root name={fieldName ?? 'slider'} {validate} {validationMode}>
 				{@render slider()}
 				<Field.Error data-testid="error" />
@@ -350,7 +351,7 @@
 		</Form>
 		<output data-testid="errors">{JSON.stringify(errors)}</output>
 	{:else if scenario === 'form-errors'}
-		<Form bind:errors onFormSubmit={accept}>
+		<Form bind:errors onsubmit={submitTo(accept)}>
 			<Field.Root name="slider">
 				{@render slider()}
 			</Field.Root>

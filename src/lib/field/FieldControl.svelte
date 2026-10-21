@@ -10,19 +10,20 @@
 -->
 <script lang="ts">
 	import { flushSync, untrack } from 'svelte';
-	import { ScopedTimeout, createChangeEventDetails, REASONS } from '@sveltery/utils';
+	import { ScopedTimeout } from '@sveltery/utils';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
-	import { BROWSER } from 'esm-env';
+	import { BROWSER, DEV } from 'esm-env';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
-	import { useFormContext } from '../internal/form-context.js';
+	import { readFormValue, useFormContext } from '../internal/form-context.js';
 	import { chain } from '../internal/mergeProps.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { fieldValidityMapping } from './attributes.js';
-	import { useFieldContext } from '../internal/field-root-context.js';
+	import { DEFAULT_FIELD_ROOT_CONTEXT, useFieldContext } from '../internal/field-root-context.js';
+	import { checkSpreadPath, watchSpread } from './spread-checks.svelte.js';
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
@@ -36,10 +37,10 @@
 	let {
 		id: idProp,
 		name: nameProp,
+		type: typeProp,
 		value = $bindable<string | number | null | undefined>(),
 		defaultValue,
 		disabled: disabledProp = false,
-		onValueChange,
 		autofocus = false,
 		render,
 		children,
@@ -51,15 +52,21 @@
 		...elementProps
 	}: FieldControlProps = $props();
 
-	// `defaultValue` is the initial value of an empty binding, as in HTML.
-	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = defaultValue;
-
 	const form = useFormContext();
 	const fallbackId = `base-ui-${uid}`;
 	// Outside Field.Root these are the shared inert field and labelable scope. Registration
 	// and validation no-op, and the control keeps its own id.
 	const field = useFieldContext();
+	const inField = field !== DEFAULT_FIELD_ROOT_CONTEXT;
+
+	// `defaultValue` is the initial value of an empty binding, as in HTML. Form `values` wins
+	// over it, so a failed form action shows what was submitted.
+	// svelte-ignore state_referenced_locally
+	if (value === undefined) value = readFormValue(form, nameProp ?? field.name, defaultValue);
+
+	// Without a spread, a control in a named Field of a remote form names itself from the field.
+	const bound = $derived(nameProp === undefined ? field.bindRemote(typeProp ?? 'text') : undefined);
+	if (DEV) watchSpread(() => checkSpreadPath(field.path, nameProp));
 	const commitTimer = new ScopedTimeout();
 	const labelable = useLabelableContext();
 
@@ -69,7 +76,11 @@
 	);
 	const registeredValue = $derived(value != null ? textValue(value) : undefined);
 	const disabled = $derived(Boolean(field.disabled || disabledProp));
-	const name = $derived(field.name ?? nameProp ?? undefined);
+	// The control's own name wins: a remote form encodes the value type and its id in it.
+	const name = $derived(
+		nameProp ?? (bound?.name as string | undefined) ?? (form.remote ? undefined : field.name)
+	);
+	const type = $derived(typeProp ?? (bound?.type as string | undefined));
 	const controlId = new LabelableId(labelable, {
 		id: () => idProp ?? undefined,
 		fallback: () => fallbackId
@@ -78,7 +89,7 @@
 	let inputEl = $state<ValueElement | null>(null);
 
 	function notifyChanged(text: string) {
-		form.clearErrors(name);
+		field.clearExternalErrors();
 		field.setDirty(text !== String(field.validityData.initialValue ?? ''));
 		field.setFilled(text !== '');
 		field.change(text);
@@ -158,17 +169,7 @@
 	});
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		const inputValue = event.currentTarget.value;
-		const details = createChangeEventDetails(REASONS.none, event);
-		onValueChange?.(inputValue, details);
-
-		// The component holds one value, so a canceled change puts the input back to it.
-		if (details.isCanceled) {
-			event.currentTarget.value = textValue(value);
-			return;
-		}
-
-		value = inputValue;
+		value = event.currentTarget.value;
 	}
 
 	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -200,7 +201,11 @@
 		field.commit(event.currentTarget.value);
 	}
 
-	const shownValue = $derived(value != null ? textValue(value) : undefined);
+	const shownValue = $derived.by(() => {
+		if (value != null) return textValue(value);
+		const remoteValue = bound?.value;
+		return remoteValue != null ? textValue(remoteValue as string) : undefined;
+	});
 
 	// Assigning `value` makes the browser forget that the user typed it, which turns off
 	// `minlength` and `maxlength` checks, so the client writes it only when it differs, like
@@ -220,11 +225,16 @@
 		id: controlId.current,
 		disabled: disabled || undefined,
 		name,
+		type,
 		autofocus,
 		...(labelable.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
 		...(describedBy ? { 'aria-describedby': describedBy } : {}),
-		...(controlState.valid === false && !field.disabled && !disabled
-			? { 'aria-invalid': true as const }
+		// In a Field, the Field's verdict replaces the one a remote form spread carries.
+		...(inField
+			? {
+					'aria-invalid':
+						controlState.valid === false && !field.disabled && !disabled ? true : undefined
+				}
 			: {}),
 		...(defaultValue != null ? { defaultValue: textValue(defaultValue) } : {}),
 		...(!BROWSER && shownValue !== undefined ? { value: shownValue } : {}),

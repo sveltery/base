@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { Checkbox, CheckboxGroup, Field, Fieldset, Form, Radio, RadioGroup, Switch } from '#lib';
-	import { takeForm } from '../routes/fixtures/form-log.js';
+	import { submitTo, takeForm } from '../routes/fixtures/form-log.js';
 
 	let {
 		scenario
@@ -30,7 +30,7 @@
 	}
 </script>
 
-<Form onFormSubmit={accept}>
+<Form onsubmit={submitTo(accept)}>
 	{#if scenario === 'checkbox'}
 		<Field.Root name="tos" data-testid="field">
 			<Field.Label data-testid="label">Accept terms</Field.Label>

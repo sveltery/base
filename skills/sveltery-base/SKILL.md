@@ -123,7 +123,7 @@ Base UI docs are useful for intent, but the Svelte API differs. Translate React 
 
 Each name below is an entry point (`@sveltery/base/<name>`) and a docs page (`https://base.sveltery.dev/components/<name>.md`):
 
-accordion, alert-dialog, autocomplete, avatar, button, checkbox, checkbox-group, collapsible, combobox, context-menu, dialog, drawer, field, fieldset, form, input, menu, menubar, meter, navigation-menu, number-field, otp-field, popover, preview-card, progress, radio-group, scroll-area, select, separator, slider, switch, tabs, toast, toggle, toggle-group, toolbar, tooltip.
+accordion, alert-dialog, autocomplete, avatar, button, checkbox, checkbox-group, collapsible, combobox, context-menu, dialog, drawer, field, fieldset, form, input, menu, menubar, meter, navigation-menu, number-field, otp-field, popover, preview-card, progress, radio-group, scroll-area, select, separator, slider, switch, tabs, textarea, toast, toggle, toggle-group, toolbar, tooltip.
 
 `Radio` imports from `@sveltery/base/radio` and is documented on the radio-group page.
 

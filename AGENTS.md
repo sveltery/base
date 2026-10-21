@@ -34,7 +34,7 @@ Add a dependency only when a component uses it. `src/lib` must not import React 
 
 ## Forms
 
-Form, Field and Fieldset follow Base UI's API exactly. Form libraries and frameworks integrate through Base UI's own entry points: Form `errors`, the Field.Root `invalid`, `dirty`, `touched` and `validate` props, `bind:value`, and native inputs. Do not add framework-specific props to `src/lib`. Any addition to this API needs the owner's sign-off and an entry in [docs/upstream-differences.md](docs/upstream-differences.md).
+Form, Field and Fieldset follow Base UI's API, with the differences the owner signed off listed in [docs/upstream-differences.md](docs/upstream-differences.md#the-browsers-constraint-check-is-the-submit-gate): the browser's constraint check is the submit gate, Form takes a SvelteKit remote form in `form`, `Field.Root name` is a path, and `Form.Error` shows form-level messages. Form libraries integrate through Form `errors` and `values`, the Field.Root `invalid`, `dirty`, `touched` and `validate` props, `bind:value`, and native inputs. Do not import SvelteKit in `src/lib`. Any other addition to this API needs the owner's sign-off and an entry in docs/upstream-differences.md.
 
 ## Attribution
 

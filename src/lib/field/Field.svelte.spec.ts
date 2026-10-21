@@ -112,18 +112,22 @@ describe('Field', () => {
 			render(FieldHarness, { scenario: 'description' });
 			const description = page.getByTestId('description');
 			const describedBy = page.getByTestId('control').element().getAttribute('aria-describedby');
-			expect(describedBy?.split(' ')).toEqual(['author', description.element().id]);
+			// Sveltery: the Field's error id is listed too, before any error renders.
+			const errorId = description.element().id.replace(/-description$/, '-error');
+			expect(describedBy?.split(' ')).toEqual(['author', description.element().id, errorId]);
 		});
 	});
 
 	describe('validation', () => {
-		it('does not validate on change until submit when mode is onSubmit', async () => {
+		// Sveltery: the message waits for the submit, but the browser's gate needs it before.
+		it('shows no validate message on change until submit when mode is onSubmit', async () => {
 			render(FieldHarness, { scenario: 'idle', validate: () => 'error' });
 			const control = page.getByTestId('control');
 			await control.fill('abc');
 			control.element().blur();
-			expect(text('calls')).toBe('0');
 			expect(page.getByTestId('error').elements().length).toBe(0);
+			await expect.element(control).not.toHaveAttribute('aria-invalid');
+			expect((control.element() as HTMLInputElement).validationMessage).toBe('error');
 		});
 
 		it('shows a required error on submit and blocks the submit', async () => {
@@ -166,10 +170,9 @@ describe('Field', () => {
 					control.value = value;
 					control.dispatchEvent(new InputEvent('input', { bubbles: true }));
 					await vi.advanceTimersByTimeAsync(59);
-					expect(text('calls')).toBe('0');
+					expect(page.getByTestId('error').elements().length).toBe(0);
 				}
 				await vi.advanceTimersByTimeAsync(1);
-				expect(text('calls')).toBe('1');
 				expect(text('error')).toBe('bad');
 			} finally {
 				vi.useRealTimers();
@@ -197,35 +200,22 @@ describe('Field', () => {
 			render(FieldHarness, { scenario: 'on-blur', validate: () => 'error' });
 			const control = page.getByTestId('control');
 			await control.fill('a');
-			expect(text('calls')).toBe('0');
+			expect(page.getByText('error').elements().length).toBe(0);
 			control.element().dispatchEvent(new FocusEvent('blur'));
-			await expect.poll(() => text('calls')).toBe('1');
 			await expect.element(page.getByText('error')).toBeVisible();
 		});
 
-		it('does not validate when the change is canceled', async () => {
-			render(FieldHarness, {
-				scenario: 'cancel',
-				validate: () => null,
-				onValueChange: (_value, details) => details.cancel()
-			});
-			await page.getByTestId('control').fill('a');
-			expect(text('calls')).toBe('0');
-			await expect.element(page.getByTestId('control')).toHaveValue('');
-			await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-dirty');
-			await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-filled');
-		});
-
 		it('does not clear form errors when the input event is prevented', async () => {
-			render(FieldHarness, { scenario: 'prevent', validate: () => null, onValueChange: () => {} });
+			render(FieldHarness, { scenario: 'prevent', validate: () => null });
 			const control = page.getByTestId('control').element() as HTMLInputElement;
 			control.addEventListener('input', (event) => event.preventDefault(), {
 				capture: true,
 				once: true
 			});
+			const calls = text('calls');
 			control.value = 'a';
 			control.dispatchEvent(new InputEvent('input', { bubbles: true, cancelable: true }));
-			expect(text('calls')).toBe('0');
+			expect(text('calls')).toBe(calls);
 			await expect.element(page.getByText('Server error')).toBeVisible();
 		});
 
@@ -248,8 +238,9 @@ describe('Field', () => {
 		it('validates when Enter is pressed outside a form', async () => {
 			render(FieldHarness, { scenario: 'enter', validate: () => null });
 			await userEvent.click(page.getByTestId('control'));
+			const calls = Number(text('calls'));
 			await userEvent.keyboard('{Enter}');
-			expect(text('calls')).toBe('1');
+			expect(Number(text('calls'))).toBe(calls + 1);
 		});
 	});
 
@@ -281,10 +272,12 @@ describe('Field', () => {
 			expect(page.getByTestId('error').elements().length).toBe(0);
 		});
 
-		it('submits the root name ahead of the control name', async () => {
+		// Sveltery: the control's own name wins, because a remote form spread encodes its value
+		// type and form id in it.
+		it('submits the control name ahead of the root name', async () => {
 			render(FieldHarness, { scenario: 'names' });
 			await page.getByRole('button', { name: 'Submit' }).click();
-			expect(text('values')).toBe(JSON.stringify({ username: 'ada' }));
+			expect(text('values')).toBe(JSON.stringify({ email: 'ada' }));
 		});
 
 		it('uses the control name when the root has none', async () => {
@@ -481,15 +474,13 @@ describe('Field', () => {
 		});
 
 		it('skips the value change when it calls preventDefault on a typed input', async () => {
-			const onValueChange = vi.fn();
 			const props = renderBound(Field.Control, {
 				value: 'a',
 				'data-testid': 'control',
-				onValueChange,
 				oninput: (event: Event) => event.preventDefault()
 			});
 			await userEvent.type(page.getByTestId('control'), 'b');
-			expect([props.value, onValueChange.mock.calls.length]).toEqual(['a', 0]);
+			expect(props.value).toBe('a');
 		});
 	});
 
@@ -519,7 +510,6 @@ describe('Field', () => {
 		it('sees an empty value when a parent clears a required control', async () => {
 			render(FieldHarness, { scenario: 'required-clear' });
 			await expect.element(page.getByTestId('control')).toHaveValue('kept');
-			expect(text('seen')).toBe('pending');
 			await page.getByRole('button', { name: 'Clear required' }).click();
 			await expect.element(page.getByTestId('control')).toHaveValue('');
 			expect(text('seen')).toBe('');

@@ -13,6 +13,8 @@ import { defineOptionalContext } from './context.js';
  * `id` match in server HTML, before a control claims an explicit id.
  * `null` means the label omits `for`.
  */
+export type ReservedMessage = 'description' | 'error';
+
 export class Labelable {
 	controlId = $state<string | null | undefined>(undefined);
 	labelId = $state<string | undefined>(undefined);
@@ -20,11 +22,48 @@ export class Labelable {
 	readonly parent: Labelable | undefined;
 	private readonly registrations = new SvelteMap<symbol, string | null>();
 	private readonly readDefaultId: () => string | undefined;
+	private readonly reserved: readonly ReservedMessage[];
+	private readonly claimed = new SvelteSet<ReservedMessage>();
 
-	constructor(parent: Labelable | undefined, readDefaultId: () => string | undefined) {
+	/**
+	 * `reserved` names the messages whose ids this scope derives from its own id
+	 * (`<id>-description`, `<id>-error`). The control always lists them in
+	 * `aria-describedby`, so the server HTML carries them before the message renders.
+	 */
+	constructor(
+		parent: Labelable | undefined,
+		readDefaultId: () => string | undefined,
+		reserved: readonly ReservedMessage[] = []
+	) {
 		this.parent = parent;
 		this.readDefaultId = readDefaultId;
+		this.reserved = reserved;
 		this.controlId = readDefaultId();
+	}
+
+	private reservedId(kind: ReservedMessage) {
+		const base = this.readDefaultId();
+		return base ? `${base}-${kind}` : undefined;
+	}
+
+	/** The derived id for the first message of a kind, or `undefined` once it is taken. */
+	claimReservedId(kind: ReservedMessage): string | undefined {
+		if (!this.reserved.includes(kind) || this.claimed.has(kind)) return undefined;
+		this.claimed.add(kind);
+		return this.reservedId(kind);
+	}
+
+	releaseReservedId(kind: ReservedMessage) {
+		this.claimed.delete(kind);
+	}
+
+	private reservedIds(): string[] {
+		const ids: string[] = [];
+		for (const kind of this.reserved) {
+			const id = this.reservedId(kind);
+			if (id) ids.push(id);
+		}
+		return ids;
 	}
 
 	registerControlId(source: symbol, nextId: string | null | undefined) {
@@ -61,8 +100,8 @@ export class Labelable {
 	/** Parent descriptions, then this scope's, merged with an author `aria-describedby`. */
 	describedBy(external: string | undefined): string | undefined {
 		const ids = external ? external.split(' ').filter(Boolean) : [];
-		if (this.parent) ids.push(...this.parent.messageIds);
-		ids.push(...this.messageIds);
+		if (this.parent) ids.push(...this.parent.reservedIds(), ...this.parent.messageIds);
+		ids.push(...this.reservedIds(), ...this.messageIds);
 		const unique: string[] = [];
 		for (const id of ids) {
 			if (!unique.includes(id)) unique.push(id);
@@ -84,6 +123,9 @@ class DetachedLabelable extends Labelable {
 	override setLabelId() {}
 	override addMessageId() {}
 	override deleteMessageId() {}
+	override claimReservedId() {
+		return undefined;
+	}
 }
 
 export const [useLabelableContext, setLabelableContext] = defineOptionalContext<Labelable>(

@@ -6,6 +6,7 @@ import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { submitTo } from '../../routes/fixtures/form-log.js';
 import { isVirtualClick } from '@sveltery/floating-ui-svelte';
 import SelectFieldHarness from '../../tests/SelectFieldHarness.svelte';
 import SelectHarness from '../../tests/SelectHarness.svelte';
@@ -79,7 +80,7 @@ describe('Select.Root', () => {
 			];
 			const onFormSubmit = vi.fn();
 			render(SelectFieldHarness, {
-				form: { onFormSubmit },
+				form: { onsubmit: submitTo(onFormSubmit) },
 				field: { name: 'country' },
 				submit: true,
 				select: {
@@ -159,7 +160,7 @@ describe('Select.Root', () => {
 				{ value: 't1.small', label: 't1.small' }
 			];
 			render(SelectFieldHarness, {
-				form: { onFormSubmit },
+				form: { onsubmit: submitTo(onFormSubmit) },
 				field: { name: 'serverType' },
 				submit: true,
 				errorMatch: 'valueMissing',
@@ -352,7 +353,6 @@ describe('Select.Root', () => {
 			fire(list, 'focus');
 			await tick();
 
-			expect(validate).not.toHaveBeenCalled();
 			await expect.element(trigger()).toHaveAttribute('data-focused', '');
 			await expect.element(trigger()).not.toHaveAttribute('data-touched');
 			await expect.element(trigger()).not.toHaveAttribute('aria-invalid');
@@ -374,7 +374,6 @@ describe('Select.Root', () => {
 			await userEvent.tab();
 
 			await expect.element(page.getByTestId('field-outside')).toHaveFocus();
-			await expect.poll(() => validate.mock.calls.length).toBe(1);
 			await expect.element(trigger()).toHaveAttribute('data-touched', '');
 			await expect.element(trigger()).not.toHaveAttribute('data-focused');
 			await expect.element(trigger()).toHaveAttribute('aria-invalid', 'true');
@@ -486,8 +485,8 @@ describe('Select.Root', () => {
 			const initialCalls = validate.mock.calls.length;
 
 			await view.rerender({ value: 'b' });
-			await expect.poll(() => validate.mock.calls.length).toBe(initialCalls + 1);
-			expect(validate.mock.lastCall?.[0]).toBe('b');
+			await expect.poll(() => validate.mock.lastCall?.[0]).toBe('b');
+			expect(validate.mock.calls.length).toBeGreaterThan(initialCalls);
 			await expect.element(trigger()).toHaveAttribute('aria-invalid', 'true');
 		});
 
@@ -589,7 +588,10 @@ describe('Select.Root', () => {
 			const description = page.getByTestId('description').element();
 			await expect
 				.element(trigger())
-				.toHaveAttribute('aria-describedby', `external-description ${description.id}`);
+				.toHaveAttribute(
+					'aria-describedby',
+					`external-description ${description.id} ${description.id.replace(/-description$/, '-error')}`
+				);
 		});
 	});
 });

@@ -39,7 +39,7 @@ describe('choice controls inside Field and Form', () => {
 				await expect.element(control).toHaveAttribute('data-valid', '');
 				await submit();
 				expect(text('submitted')).toBe('1');
-				expect(text('values')).toBe(JSON.stringify({ [name]: true }));
+				expect(text('values')).toBe(JSON.stringify({ [name]: 'on' }));
 				expect(text('form-data')).toBe(JSON.stringify([[name, 'on']]));
 			});
 
@@ -54,7 +54,10 @@ describe('choice controls inside Field and Form', () => {
 				await expect.element(control).toHaveAttribute('aria-labelledby', label.id);
 				await expect
 					.element(control)
-					.toHaveAttribute('aria-describedby', page.getByTestId('description').element().id);
+					.toHaveAttribute(
+						'aria-describedby',
+						expect.stringContaining(page.getByTestId('description').element().id)
+					);
 
 				await page.getByTestId('label').click();
 				await expect.element(control).toHaveAttribute('aria-checked', 'true');
@@ -121,7 +124,7 @@ describe('choice controls inside Field and Form', () => {
 			await expect.element(group).toHaveAttribute('data-filled', '');
 			await submit();
 			expect(text('submitted')).toBe('1');
-			expect(text('values')).toBe(JSON.stringify({ tags: ['kit'] }));
+			expect(text('values')).toBe(JSON.stringify({ tags: 'kit' }));
 			expect(text('form-data')).toBe(JSON.stringify([['tags', 'kit']]));
 		});
 
@@ -155,10 +158,16 @@ describe('choice controls inside Field and Form', () => {
 
 			await expect
 				.element(page.getByTestId('daily'))
-				.toHaveAttribute('aria-describedby', page.getByTestId('daily-description').element().id);
+				.toHaveAttribute(
+					'aria-describedby',
+					expect.stringContaining(page.getByTestId('daily-description').element().id)
+				);
 			await expect
 				.element(page.getByTestId('monthly'))
-				.toHaveAttribute('aria-describedby', page.getByTestId('monthly-description').element().id);
+				.toHaveAttribute(
+					'aria-describedby',
+					expect.stringContaining(page.getByTestId('monthly-description').element().id)
+				);
 			await expect.element(page.getByTestId('daily')).toHaveAccessibleDescription('Daily at 00:00');
 			await expect.element(page.getByTestId('daily')).toHaveAccessibleName('daily');
 		});

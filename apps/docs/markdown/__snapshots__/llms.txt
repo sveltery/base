@@ -62,6 +62,7 @@ The Tailwind CSS examples are written for Tailwind CSS v4. If `package.json` use
 - [Toggle Group](https://base.sveltery.dev/components/toggle-group.md): Provides a shared state to a series of toggle buttons.
 - [Toolbar](https://base.sveltery.dev/components/toolbar.md): A container for grouping a set of buttons and controls.
 - [Tooltip](https://base.sveltery.dev/components/tooltip.md): A popup that appears when an element is hovered or focused, showing a hint for sighted users.
+- [Textarea](https://base.sveltery.dev/components/textarea.md): A native textarea element that automatically works with Field.
 
 ## Utils
 

@@ -5,12 +5,13 @@
 	`validate` is an export. Bind the root with `bind:this`.
 -->
 <script lang="ts">
+	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFormContext } from '../internal/form-context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
-	import { setFieldContext } from '../internal/field-root-context.js';
+	import { setFieldContext, useFieldContext } from '../internal/field-root-context.js';
 	import {
 		Labelable,
 		setLabelableContext,
@@ -20,13 +21,14 @@
 	import type { FieldRootProps, FieldRootState } from './types.js';
 
 	const uid = $props.id();
+	const elementKey = createAttachmentKey();
 
 	let {
 		disabled,
 		name,
 		validate: validateProp,
 		validationMode,
-		validationDebounceTime = 0,
+		validationDebounceTime,
 		invalid,
 		dirty,
 		touched,
@@ -36,14 +38,19 @@
 	}: FieldRootProps = $props();
 
 	const form = useFormContext();
+	const parentField = useFieldContext();
 	const fieldset = findFieldsetRootContext();
 	const parentLabelable = useLabelableContext();
-	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
+	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`, [
+		'description',
+		'error'
+	]);
 	setLabelableContext(labelable);
 
 	const field = new FieldRootModel({
 		form,
 		labelable,
+		parent: parentField instanceof FieldRootModel ? parentField : undefined,
 		getDisabledProp: () => disabled ?? false,
 		getFieldsetDisabled: () => Boolean(fieldset?.disabled),
 		getName: () => name ?? undefined,
@@ -61,9 +68,17 @@
 	}
 
 	const state: FieldRootState = $derived(field.state);
+	function remember(node: HTMLElement) {
+		field.rootElement = node;
+		return () => {
+			if (field.rootElement === node) field.rootElement = null;
+		};
+	}
+
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
 		...elementProps,
-		...getStateAttributesProps(state, fieldValidityMapping)
+		...getStateAttributesProps(state, fieldValidityMapping),
+		[elementKey]: remember
 	});
 </script>
 

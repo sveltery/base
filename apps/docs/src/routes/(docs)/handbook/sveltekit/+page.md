@@ -22,11 +22,11 @@ Dialog and Popover render their popups in a portal, and a portal renders nothing
 
 ### Form validation
 
-Form renders `novalidate` on the server, as Base UI does. Before the page hydrates, or with JavaScript off, the browser does not check `required`, `type`, or the other constraints, and Form does not validate either. The form posts unchecked, so validate on the server. To keep the browser's checks, pass `novalidate={false}` to Form. The browser then checks the constraints after hydration too, and blocks an invalid submit before Form sees it.
+Form leaves the browser's constraint validation on. Before the page hydrates, and with JavaScript off, the browser checks `required`, `type`, and the other constraints and shows its own message. After hydration, the browser still blocks an invalid submit, but each Field shows the message in its `Field.Error` instead of the browser's bubble, and Form focuses the first invalid control. A sync `validate` on `Field.Root` takes part in the same check. Pass `novalidate` to Form to turn the browser's check off.
 
 ## Use a SvelteKit remote form
 
-Spread a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form) onto Form, and pass its issues to Form's `errors` prop once. Each field finds its issues through context, so `Field.Error` needs no wiring per field.
+Pass a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form) to Form's `form` prop, and give each `Field.Root` the path of its field as `name`. Each Field reads its own issues from the remote form, so `Field.Error` needs no wiring.
 
 Remote functions are experimental in SvelteKit. Turn them on with `experimental: { remoteFunctions: true }` in the `sveltekit()` options in `vite.config.ts`.
 
@@ -55,7 +55,7 @@ export const signup = form(signupSchema, async (data, issue) => {
 });
 ```
 
-On the page, spread the remote form onto Form, and each field's `as()` props onto its `Field.Control`. Convert the issues to `errors` once, keyed by each input's name:
+On the page, pass the remote form to Form. A `Field.Control` in a named `Field.Root` names itself from the field. You can also spread a field's `as()` props onto the control, as the Name field does here:
 
 ```svelte title="src/routes/signup/+page.svelte"
 <script lang="ts">
@@ -65,37 +65,20 @@ On the page, spread the remote form onto Form, and each field's `as()` props ont
 	import { signup } from './signup.remote.js';
 
 	const f = signup.preflight(signupSchema);
-
-	const inputs = {
-		name: f.fields.name.as('text'),
-		email: f.fields.email.as('email')
-	};
-
-	// SvelteKit keys an issue by its path. Form keys `errors` by the input's name.
-	function errorsByName(issues: { path: (string | number)[]; message: string }[] = []) {
-		const errors: Record<string, string[]> = {};
-		for (const issue of issues) {
-			const input = inputs[issue.path.join('.') as keyof typeof inputs];
-			if (input) (errors[input.name] ??= []).push(issue.message);
-		}
-		return errors;
-	}
 </script>
 
-<Form {...f} errors={errorsByName(f.fields.allIssues())}>
-	<Field.Root>
+<Form form={f}>
+	<Form.Error />
+	<Field.Root name="name">
 		<Field.Label>Name</Field.Label>
-		<Field.Control {...inputs.name} required />
+		<Field.Control {...f.fields.name.as('text')} required />
 		<Field.Error />
 	</Field.Root>
-	<Field.Root>
+	<Field.Root name="email">
 		<Field.Label>Email</Field.Label>
-		<Field.Control {...inputs.email} required />
+		<Field.Control type="email" required />
 		<Field.Error />
 	</Field.Root>
-	{#each f.fields.issues() ?? [] as issue (issue.message)}
-		<p>{issue.message}</p>
-	{/each}
 	<button type="submit" disabled={f.pending > 0}>Sign up</button>
 	{#if f.result}
 		<p>Welcome, {f.result.welcome}</p>
@@ -103,23 +86,19 @@ On the page, spread the remote form onto Form, and each field's `as()` props ont
 </Form>
 ```
 
-`{...f}` gives Form the `method`, the `action` and SvelteKit's submit handler. Leave `name` off `Field.Root`, because a `Field.Root` name replaces the name that `as()` gives the control. Each field shows its issues in `Field.Error` and sets `data-invalid`. An edit hides the field's issue. The native constraints, such as `required`, run through Form's own validation. `f.fields.issues()` holds the issues on the whole form, such as `invalid('Signups are closed')`. After a successful submit, `f.result` holds the handler's return value and SvelteKit resets the form.
+Form takes the `method`, the `action`, and SvelteKit's submit handler from the remote form. It also accepts a `for(id)` instance and the value that `enhance()` returns.
 
-`errorsByName` matches an issue to an input by its path joined with dots. List a nested field in `inputs` under that key, such as `'address.city'`.
+- `Field.Root name` is a path, such as `email`, `address.city`, or `members[0].email`. The Field shows the issues at that path and below it, except the paths that a nested `Field.Root` names.
+- `Form.Error` shows the issues on the whole form, such as `invalid('Signups are closed')`. While it has messages, `<form>` lists its id in `aria-describedby`.
+- An edit hides the field's issues until the issues change or a later submit finishes.
+- Field sets `aria-invalid` on the control, in place of the one from `as()`.
+- With JavaScript off, the form posts natively, and the server renders the issues in each `Field.Error` and `Form.Error`.
 
-This example uses `Field.Control` for every field. Composite controls such as Checkbox and Number Field render their own native input, and this page does not cover wiring them to a remote form yet.
-
-This setup has these limits:
-
-1. SvelteKit sends a submit that Form blocked. Form blocks an invalid submit with `preventDefault()` only, as Base UI does, and SvelteKit's submit handler does not check `defaultPrevented`. `preflight` stops the submit only when the schema has the same rules as the controls, so put every rule in the schema.
-2. Form does not focus a field when a server issue arrives. Form focuses the first invalid field when `errors` changes after a submit, and SvelteKit's preflight already changes `errors` before the server answers.
-3. An edit hides a server issue only until the next submit. SvelteKit keeps server issues through preflight, so the issue shows again while the request is in flight.
-4. The `aria-invalid` from `as()` stays on the input after an edit, until SvelteKit validates again.
-5. Without JavaScript, the form posts unchecked, because Form renders `novalidate`. The server's schema is the only check.
+In development, Field warns in the console when a spread names a different field than its `Field.Root`, such as `as()` props for `email` inside `<Field.Root name="emial">`.
 
 ## Connect a form action
 
-A classic [form action](https://svelte.dev/docs/kit/form-actions) validates the request on the server and returns its errors. Form shows them through the `errors` prop, as in [Server-side validation](/handbook/forms#server-side-validation). Name each field with `name` on `Field.Root`, so the errors and the submitted values use the same keys.
+A classic [form action](https://svelte.dev/docs/kit/form-actions) validates the request on the server and returns its errors. Form shows them through the `errors` prop, as in [Server-side validation](/handbook/forms#server-side-validation). Name each field with `name` on `Field.Root`, so that the errors and the submitted values use the same keys.
 
 In the action, read the form data and validate it with your schema. Return `fail()` with the first message for each field, keyed by field name, and with the submitted values, so that the page can show them again:
 
@@ -149,7 +128,7 @@ export const actions = {
 };
 ```
 
-On the page, pass `form?.errors` to `errors`, and each submitted value to the control's `defaultValue`. The form posts natively:
+On the page, pass `form?.errors` to `errors` and `form?.values` to `values`. Each control starts from the value under its name. The form posts natively:
 
 ```svelte title="src/routes/signup/+page.svelte"
 <script lang="ts">
@@ -159,15 +138,15 @@ On the page, pass `form?.errors` to `errors`, and each submitted value to the co
 	let { form } = $props();
 </script>
 
-<Form method="POST" errors={form?.errors}>
+<Form method="POST" errors={form?.errors} values={form?.values}>
 	<Field.Root name="email">
 		<Field.Label>Email</Field.Label>
-		<Field.Control type="email" required defaultValue={form?.values?.email} />
+		<Field.Control type="email" required />
 		<Field.Error />
 	</Field.Root>
 	<Field.Root name="name">
 		<Field.Label>Name</Field.Label>
-		<Field.Control required defaultValue={form?.values?.name} />
+		<Field.Control required />
 		<Field.Error />
 	</Field.Root>
 	<button>Sign up</button>
@@ -177,7 +156,7 @@ On the page, pass `form?.errors` to `errors`, and each submitted value to the co
 </Form>
 ```
 
-Form validates each field on submit. When a field is invalid, Form calls `preventDefault()`, so the browser does not post, and Form focuses the field. A server error shows in its `Field.Error`, and it clears as soon as the user changes the field. Do not add `use:enhance` to this form. Like a remote form, it does not check `defaultPrevented`, so it sends a submit that Form blocked.
+The browser blocks an invalid submit, so the form does not post, and Form focuses the first invalid control. A server error shows in its `Field.Error`, and it clears as soon as the user changes the field. An `errors['']` entry shows in `Form.Error`. Because the browser's check blocks the submit itself, `use:enhance` works on this form too.
 
 ## Prerendering
 
@@ -185,4 +164,4 @@ Pages that use Sveltery Base prerender like any other page. The prerendered HTML
 
 ## Without SvelteKit
 
-Nothing in the library imports SvelteKit or `$app/*`. Lint rules in the repository keep it that way. Form, Field, and every other component work the same in a Svelte app built with Vite alone. Use `onFormSubmit` or `onsubmit` to send the values yourself, and pass the errors you get back to `errors`.
+Nothing in the library imports SvelteKit or `$app/*`. Lint rules in the repository keep it that way. Form, Field, and every other component work the same in a Svelte app built with Vite alone. Use `onsubmit` to send the values yourself, and pass the errors you get back to `errors`.

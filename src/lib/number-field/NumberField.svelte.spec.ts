@@ -2,6 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Cases from upstream commit 7d93b487f follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
 // describeConformance, ref, inputRef, and className callbacks are not ported.
+import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -32,6 +33,16 @@ function hiddenNumber(name = 'qty') {
 	return input;
 }
 
+/** How many times the harness's `validate` ran. */
+const calls = () => Number(page.getByTestId('calls').element().textContent);
+
+/** The count once the mount's constraint-gate runs are done. */
+async function settledCalls() {
+	await tick();
+	await new Promise((resolve) => setTimeout(resolve, 0));
+	return calls();
+}
+
 describe('<NumberField />', () => {
 	it('clears errors, revalidates, and marks dirty when the parent changes the value', async () => {
 		render(NumberFieldHarness, { scenario: 'parent' });
@@ -59,28 +70,32 @@ describe('<NumberField />', () => {
 
 	it('runs field validation once when autofill fires a change event', async () => {
 		render(NumberFieldHarness, { scenario: 'autofill' });
+		const before = await settledCalls();
 		const hidden = hiddenNumber();
 		hidden.value = '9';
 		hidden.dispatchEvent(new Event('input', { bubbles: true }));
 		hidden.dispatchEvent(new Event('change', { bubbles: true }));
-		await expect.poll(() => page.getByTestId('calls').element().textContent).toBe('1');
+		await expect.poll(calls).toBe(before + 1);
 	});
 
 	it('updates the value and validates when autofill fires only a change event', async () => {
 		render(NumberFieldHarness, { scenario: 'autofill' });
+		const before = await settledCalls();
 		const hidden = hiddenNumber();
 		hidden.value = '9';
 		hidden.dispatchEvent(new Event('change', { bubbles: true }));
 		await expect.element(control()).toHaveValue('9');
-		await expect.poll(() => page.getByTestId('calls').element().textContent).toBe('1');
+		await expect.poll(calls).toBe(before + 1);
 	});
 
 	it('does not validate when autofill repeats the current value', async () => {
 		render(NumberFieldHarness, { scenario: 'autofill' });
+		const before = await settledCalls();
 		const hidden = hiddenNumber();
 		expect(hidden.value).toBe('4');
 		hidden.dispatchEvent(new Event('change', { bubbles: true }));
-		await expect.poll(() => page.getByTestId('calls').element().textContent).toBe('0');
+		await tick();
+		expect(calls()).toBe(before);
 		expect(hidden.value).toBe('4');
 	});
 

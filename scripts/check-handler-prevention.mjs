@@ -16,8 +16,6 @@ const root = fileURLToPath(new URL('../src/lib/', import.meta.url));
 const ALLOWED = {
 	'number-field/NumberFieldScrubArea.svelte:handleClickCapture':
 		'It records the native click. Skipped, the scrub area would send a second click.',
-	'form/Form.svelte:handleSubmit':
-		'Form.tsx calls the consumer onSubmit inside its own handler, after validation.',
 	'select/SelectLabel.svelte:handlePointerDown':
 		'It only prevents the default, as the consumer did.',
 	'combobox/ComboboxLabel.svelte:handlePointerDown':

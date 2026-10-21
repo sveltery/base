@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Field, Form } from '#lib';
-	import { takeForm } from '../routes/fixtures/form-log.js';
+	import { submitTo, takeForm } from '../routes/fixtures/form-log.js';
 	import FieldReleaseProbe from './FieldReleaseProbe.svelte';
 	import InertFieldProbe from './InertFieldProbe.svelte';
 
@@ -21,7 +21,7 @@
 	<InertFieldProbe />
 	<Field.Control data-testid="control" />
 {:else if scenario === 'rename'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root>
 			<Field.Control name={controlName} defaultValue="x" data-testid="control" />
 		</Field.Root>
@@ -30,7 +30,7 @@
 	<button type="button" onclick={() => (controlName = 'b')}>Rename</button>
 	<output data-testid="values">{values}</output>
 {:else if scenario === 'initial'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root name="letter">
 			<Field.Control defaultValue="x" data-testid="control" />
 		</Field.Root>

@@ -1,11 +1,6 @@
 <script lang="ts">
-	import {
-		Field,
-		Form,
-		type FormActions,
-		type FormErrors,
-		type FormSubmitEventDetails
-	} from '#lib';
+	import { Field, Form, type FormActions, type FormErrors } from '#lib';
+	import { submitTo } from '../routes/fixtures/form-log.js';
 	import FormErrorControls from './FormErrorControls.svelte';
 	import FormField from './FormField.svelte';
 
@@ -18,7 +13,6 @@
 	let calls = $state<string[]>([]);
 	let values = $state('');
 	let prevented = $state<boolean | null>(null);
-	let reason = $state('');
 	let hostA = $state<HTMLDivElement | null>(null);
 	let hostB = $state<HTMLDivElement | null>(null);
 	let slotA = $state<HTMLDivElement | null>(null);
@@ -28,10 +22,9 @@
 		calls = [...calls, label];
 	}
 
-	function submitted(formValues: Record<string, unknown>, details: FormSubmitEventDetails) {
+	function submitted(formValues: Record<string, unknown>, details: { event: Event }) {
 		values = JSON.stringify(formValues);
 		prevented = details.event.defaultPrevented;
-		reason = details.reason;
 	}
 
 	function nativeSubmit(event: SubmitEvent) {
@@ -56,11 +49,10 @@
 <Form
 	bind:this={form}
 	bind:errors
-	novalidate={scenario !== 'browser'}
+	novalidate={scenario === 'unregistered'}
 	onsubmit={scenario === 'native' || scenario === 'unregistered' || scenario === 'browser'
 		? nativeSubmit
-		: undefined}
-	onFormSubmit={scenario === 'native' ? undefined : submitted}
+		: submitTo(submitted)}
 >
 	{#if scenario === 'blocked' || scenario === 'textarea'}
 		<FormField
@@ -143,5 +135,4 @@
 <output data-testid="calls">{JSON.stringify(calls)}</output>
 <output data-testid="values">{values}</output>
 <output data-testid="prevented">{prevented === null ? '' : String(prevented)}</output>
-<output data-testid="reason">{reason}</output>
 <output data-testid="errors">{JSON.stringify(errors ?? null)}</output>

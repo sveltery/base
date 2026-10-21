@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Field, Fieldset, Form } from '#lib';
+	import { submitTo } from '../routes/fixtures/form-log.js';
 
 	let { scenario }: { scenario: 'static' | 'toggle' } = $props();
 
@@ -13,7 +14,7 @@
 	}
 </script>
 
-<Form onFormSubmit={accept}>
+<Form onsubmit={submitTo(accept)}>
 	<Fieldset.Root {disabled}>
 		<Field.Root name="disabled">
 			<Field.Control required data-testid="control" />

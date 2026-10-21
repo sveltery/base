@@ -5,7 +5,8 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { onDestroy, untrack, type Snippet } from 'svelte';
+	import { DEV } from 'esm-env';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
@@ -13,10 +14,11 @@
 		transitionStatusMapping
 	} from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
-	import { useFieldContext } from '../internal/field-root-context.js';
+	import { DEFAULT_FIELD_ROOT_CONTEXT, useFieldContext } from '../internal/field-root-context.js';
 	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import type { FieldErrorProps, FieldErrorState } from './types.js';
+	import { getShownFieldValidityData } from './validity.js';
 
 	const uid = $props.id();
 	const elementKey = createAttachmentKey();
@@ -24,25 +26,33 @@
 	let { id: idProp, match, render, children, ...elementProps }: FieldErrorProps = $props();
 
 	const field = useFieldContext();
+	const detached = field === DEFAULT_FIELD_ROOT_CONTEXT;
+	if (DEV && detached) {
+		console.warn(
+			'Base UI: <Field.Error> must be placed within <Field.Root>. It renders nothing here. For messages that belong to the whole form, use <Form.Error>.'
+		);
+	}
 	const labelable = useLabelableContext();
-	const id = $derived(idProp ?? `base-ui-${uid}`);
+	// The control lists this id in `aria-describedby` before the error renders.
+	const reservedId = labelable.claimReservedId('error');
+	onDestroy(() => {
+		if (reservedId) labelable.releaseReservedId('error');
+	});
+	const id = $derived(idProp ?? reservedId ?? `base-ui-${uid}`);
 
-	const hasSpecificMatch = $derived(typeof match === 'string');
-	const formError = $derived(field.formError);
-	const hasFormError = $derived(field.hasFormError);
+	const shown = $derived(
+		getShownFieldValidityData(field.validityData, field.invalid, field.externalErrors)
+	);
 
 	const rendered = $derived.by(() => {
+		if (detached) return false;
 		if (match === true) return true;
 		if (field.state.disabled) return false;
-		if (hasSpecificMatch && match) return Boolean(field.validityData.state[match]);
-		return hasFormError || field.validityData.state.valid === false;
+		if (typeof match === 'string') return Boolean(shown.state[match]);
+		return field.hasExternalErrors || field.validityData.state.valid === false;
 	});
 
-	const message = $derived.by(() => {
-		if (!hasSpecificMatch && hasFormError) return formError;
-		if (field.validityData.errors.length > 1) return field.validityData.errors;
-		return field.validityData.error;
-	});
+	const message = $derived(shown.errors.length > 1 ? shown.errors : shown.error);
 
 	const transition = new TransitionStatus(() => rendered);
 
@@ -56,7 +66,7 @@
 	transition.unmountAfterExit(() => errorEl);
 
 	$effect(() => {
-		if (!rendered || !id) return;
+		if (!rendered || !id || id === reservedId) return;
 		const messageId = id;
 		labelable.addMessageId(messageId);
 		return () => {
@@ -84,6 +94,10 @@
 	});
 
 	const visibleMessage = $derived(rendered ? message : frozen);
+	const visibleMessages = $derived(
+		visibleMessage == null ? [] : ([] as string[]).concat(visibleMessage).filter(Boolean)
+	);
+	const content = $derived(children as Snippet<[string[]]> | undefined);
 </script>
 
 {#snippet body(content: string | string[] | null)}
@@ -103,7 +117,11 @@
 {/snippet}
 
 {#snippet messageText()}
-	{@render body(visibleMessage)}
+	{#if content}
+		{@render content(visibleMessages)}
+	{:else}
+		{@render body(visibleMessage)}
+	{/if}
 {/snippet}
 
 {#if transition.mounted}
@@ -111,15 +129,11 @@
 		{@render render(
 			hostProps as HTMLAttributes<HTMLElement>,
 			errorState,
-			children ?? (visibleMessage != null ? messageText : undefined)
+			content || visibleMessage != null ? messageText : undefined
 		)}
 	{:else}
 		<div {...hostProps}>
-			{#if children}
-				{@render children()}
-			{:else}
-				{@render messageText()}
-			{/if}
+			{@render messageText()}
 		</div>
 	{/if}
 {/if}

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { Field, Fieldset, Form, Slider } from '#lib';
+	import { submitTo } from '../routes/fixtures/form-log.js';
 
 	/** Renders the slider as the fieldset through `render`, as upstream's handbook does. */
 	let { rendered = false }: { rendered?: boolean } = $props();
@@ -21,7 +22,7 @@
 	</Slider.Control>
 {/snippet}
 
-<Form onFormSubmit={(values) => (submitted = JSON.stringify(values))}>
+<Form onsubmit={submitTo((values) => (submitted = JSON.stringify(values)))}>
 	<Field.Root name="scalingThreshold">
 		{#if rendered}
 			<Fieldset.Root>

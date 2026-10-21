@@ -2,6 +2,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { Field, Form, type FormValidationMode } from '#lib';
+	import { submitTo } from '../../form-log.js';
 	import { delay } from '../shared/delay.js';
 	import FixturePage from '../shared/FixturePage.svelte';
 
@@ -15,7 +16,7 @@
 </script>
 
 <FixturePage debug={{ submitted }}>
-	<Form validationMode={mode} onFormSubmit={(values) => (submitted = values)}>
+	<Form validationMode={mode} onsubmit={submitTo((values) => (submitted = values))}>
 		<Field.Root
 			name="username"
 			validate={available}

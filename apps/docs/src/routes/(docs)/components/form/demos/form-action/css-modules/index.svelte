@@ -37,7 +37,9 @@
 <Form
 	class={styles.Form}
 	bind:errors
-	onFormSubmit={async (formValues) => {
+	onsubmit={async (event) => {
+		event.preventDefault();
+		const formValues = Object.fromEntries(new FormData(event.currentTarget));
 		loading = true;
 		const result = await submitForm(formValues);
 		errors = result.serverErrors ?? {};

@@ -1,4 +1,4 @@
-// Form's submit gate and the events non-native controls fire on their named inputs.
+// Form's submit gate (the browser's constraint check) and the events non-native controls fire on their named inputs.
 // Base UI's composites fire no events on their hidden inputs, so those cases follow HTML instead.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
@@ -40,7 +40,8 @@ describe('submit gate', () => {
 		await expect.poll(submits).toBe('[false]');
 	});
 
-	it('validates when the submitter has formnovalidate, as upstream does', async () => {
+	// Sveltery: the browser's constraint check is the gate, so `formnovalidate` skips it, as in HTML.
+	it('submits when the submitter has formnovalidate', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
 		const form = page.getByTestId('form').element() as HTMLFormElement;
 		const skip = document.createElement('button');
@@ -48,13 +49,12 @@ describe('submit gate', () => {
 		skip.formNoValidate = true;
 		form.append(skip);
 		skip.click();
-		await expect.element(page.getByTestId('control')).toHaveAttribute('data-invalid');
-		expect(submits()).toBe('[]');
+		await expect.poll(submits).toBe('[false]');
 	});
 
-	it('renders novalidate', async () => {
+	it('leaves the browser constraint check on', async () => {
 		render(FormEventsHarness, { scenario: 'gate' });
-		await expect.element(page.getByTestId('form')).toHaveAttribute('novalidate');
+		await expect.element(page.getByTestId('form')).not.toHaveAttribute('novalidate');
 	});
 });
 

@@ -4,20 +4,49 @@
 
 ## API Reference
 
+### Error
+
+Messages that belong to the form and to no field, such as a remote form's `invalid('Too many attempts')` or a form action's `errors['']`. Renders a `<div>` element. Sveltery addition, with no Base UI counterpart.
+
+**Error Props:**
+
+| Prop     | Type                                                                                                   | Default | Description                                                                                                                                                                                                                             |
+| :------- | :----------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| match    | `boolean \| keyof ValidityState`                                                                       | -       | Determines whether to show the message. A form-level issue counts as `customError`. Specifying `true` always shows the element.                                                                                                         |
+| children | `Snippet \| Snippet<[messages: string[]]>`                                                             | -       | Static content, or a snippet that receives the messages.                                                                                                                                                                                |
+| render   | `Snippet<[props: HTMLAttributes<HTMLElement>, state: FormErrorState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+
+### Error.Props
+
+Re-export of [Error](#error) props.
+
+### Error.State
+
+```typescript
+type FormErrorState = {
+	/** The transition status of the error message. */
+	transitionStatus: 'starting' | 'ending' | 'idle' | undefined;
+};
+```
+
 ### Form
 
 A native form element with consolidated error handling. Renders a `<form>` element.
 
 **Form Props:**
 
-| Prop           | Type                                                                                     | Default      | Description                                                                                                                                                                                                                                                                                                                                                                     |
-| :------------- | :--------------------------------------------------------------------------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| errors         | `FormErrors`                                                                             | -            | Validation errors returned externally, typically after submission by a server or a form action. This should be an object where keys correspond to the `name` attribute on `<Field.Root>`, and values correspond to error(s) related to that field.                                                                                                                              |
-| novalidate     | `boolean \| null`                                                                        | `true`       | Whether the browser's built-in constraint validation is off. Registered fields validate through the form instead.                                                                                                                                                                                                                                                               |
-| onFormSubmit   | `(formValues: FormValues, eventDetails: FormSubmitEventDetails) => void`                 | -            | Event handler called when the form is submitted. `preventDefault()` is called on the native submit event when used.                                                                                                                                                                                                                                                             |
-| onsubmit       | `EventHandler<SubmitEvent, HTMLFormElement> \| null`                                     | -            | Native submit listener. Runs after fields validate and only when no invalid field blocks the submit. Call `event.preventDefault()` to keep the browser from navigating. This does not skip `onFormSubmit`.                                                                                                                                                                      |
-| validationMode | `FormValidationMode`                                                                     | `'onSubmit'` | Determines when the form should be validated. The `validationMode` prop on `<Field.Root>` takes precedence over this.&#xA;&#xA;- `onSubmit` (default): validates the field when the form is submitted, afterwards fields will re-validate on change.&#xA;- `onBlur`: validates a field when it loses focus.&#xA;- `onChange`: validates the field on every change to its value. |
-| render         | `Snippet<[props: HTMLFormAttributes, state: FormState, children: Snippet \| undefined]>` | -            | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render.                                                                                                                                         |
+| Prop                   | Type                                                                                     | Default      | Description                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :--------------------- | :--------------------------------------------------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| errors                 | `FormErrors`                                                                             | -            | Validation errors returned externally, typically after submission by a server or a form action. This should be an object where keys correspond to the `name` attribute on `<Field.Root>`, and values correspond to error(s) related to that field. The key `''` holds errors that belong to no field, which `<Form.Error>` shows.                                                                                                        |
+| action                 | `string \| null`                                                                         | -            | The URL of a native post. A remote form in `form` sets it instead.                                                                                                                                                                                                                                                                                                                                                                       |
+| form                   | `RemoteFormSource`                                                                       | -            | A SvelteKit remote form, an instance from its `for(id)`, or the value its `enhance()` returns. Form takes the form's `method`, `action` and submit handling from it, and Fields read their issues from it by their `name`.                                                                                                                                                                                                               |
+| method                 | `"dialog" \| "get" \| "post" \| "DIALOG" \| "GET" \| "POST" \| null`                     | -            | The HTTP method of a native post. A remote form in `form` sets it instead.                                                                                                                                                                                                                                                                                                                                                               |
+| novalidate             | `boolean \| null`                                                                        | `false`      | Whether the browser's built-in constraint validation is off. Leave it off: the browser's check is what keeps an invalid form from submitting, with and without JavaScript.                                                                                                                                                                                                                                                               |
+| onsubmit               | `EventHandler<SubmitEvent, HTMLFormElement> \| null`                                     | -            | Native submit listener. The browser fires it only when every control passes constraint validation.                                                                                                                                                                                                                                                                                                                                       |
+| values                 | `Record<string, unknown>`                                                                | -            | Values to put back into controls by name, typically after a form action failed. A value here wins over a control's `defaultValue`.                                                                                                                                                                                                                                                                                                       |
+| validationMode         | `FormValidationMode`                                                                     | `'onSubmit'` | Determines when Field shows native and `validate` messages. The `validationMode` prop on `<Field.Root>` takes precedence over this. It never asks a remote form to validate.&#xA;&#xA;- `onSubmit` (default): shows messages when the form is submitted, afterwards fields re-validate on change.&#xA;- `onBlur`: shows a field's messages when it loses focus.&#xA;- `onChange`: shows a field's messages on every change to its value. |
+| validationDebounceTime | `number`                                                                                 | `0`          | How long a Field waits between `validate` calls in `validationMode="onChange"`, in milliseconds. The `validationDebounceTime` prop on `<Field.Root>` takes precedence over this.                                                                                                                                                                                                                                                         |
+| render                 | `Snippet<[props: HTMLFormAttributes, state: FormState, children: Snippet \| undefined]>` | -            | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render.                                                                                                                                                                                                  |
 
 ### Form.Props
 
@@ -80,29 +109,43 @@ type FormField = {
 	/** After this returns, the registry entry reflects the latest synchronous validity verdict. Async validators do not block submit. */
 	validate: () => void;
 	validityData: FieldValidityData;
+	/** Whether the field shows as invalid through its `invalid` prop or external errors. */
+	invalid: boolean;
 	/** Focusable control, or null when this field has none. Read when submitting. */
 	control: HTMLElement | null;
 	getValue: () => unknown;
+	/** Whether the element is one of this field's controls, so its `invalid` event belongs to the field. */
+	owns: (element: Element) => boolean;
 };
-```
-
-### FormSubmitEventDetails
-
-```typescript
-type FormSubmitEventDetails = {
-	reason: Reason;
-	event: Event;
-};
-```
-
-### FormSubmitEventReason
-
-```typescript
-type FormSubmitEventReason = typeof REASONS.none;
 ```
 
 ### FormValidationMode
 
 ```typescript
 type FormValidationMode = 'onSubmit' | 'onBlur' | 'onChange';
+```
+
+### RemoteFormIssue
+
+One issue as a remote form reports it: a message and the path of the field it belongs to.
+
+```typescript
+type RemoteFormIssue = {
+	message: string;
+	path: (string | number)[];
+};
+```
+
+### RemoteFormSource
+
+A SvelteKit remote form, an instance from its `for(id)`, or the value its `enhance()` returns. Only `method`, `action` and the attachment are required, because the `enhance()` value carries nothing else during the server render.
+
+```typescript
+type RemoteFormSource = {
+	method: 'POST';
+	action: string;
+	fields?: unknown;
+	pending?: number;
+	submitted?: boolean;
+};
 ```
