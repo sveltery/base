@@ -1,6 +1,18 @@
 /** Sveltery Base releases, newest first. Highlights take code spans and links. */
 export const releases = [
 	{
+		version: 'v0.3.0',
+		date: '2026-10-21',
+		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.3.0',
+		highlights: [
+			'Breaking: `Combobox.Root` no longer takes `keepHighlight` or `submitOnItemClick`. As in Base UI, only `Autocomplete.Root` has them.',
+			'Every stateful part now takes its uncontrolled `default*` prop, such as `defaultOpen` on `Dialog` and `Popover` and `defaultValue` on `Tabs`, as in Base UI 1.9.0.',
+			'`Tooltip` and `PreviewCard` parts take a `Payload` generic typed from their handle, and `RenderSnippet` is exported from `@sveltery/base` and `@sveltery/base/types`.',
+			"A consumer handler that calls `event.preventDefault()` now skips the part's own handler, as in Base UI, and closing a popup no longer logs `derived_inert`.",
+			'`OTPField` ships its model `.d.ts`, and a viewport popup anchored by its side sizes to its content.'
+		]
+	},
+	{
 		version: 'v0.2.1',
 		date: '2026-10-17',
 		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.2.1',
