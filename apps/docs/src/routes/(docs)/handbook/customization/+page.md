@@ -10,6 +10,7 @@
 
 Change events such as `onOpenChange`, `onValueChange`, and `onPressedChange` are custom to Sveltery Base.
 They can be emitted by various different DOM events or by effects.
+Form controls that submit through a native input, such as Checkbox, Select, Slider, and NumberField, fire that input's `input` and `change` events instead.
 
 ```ts title="Sveltery Base event signatures"
 onOpenChange: (open, eventDetails) => void

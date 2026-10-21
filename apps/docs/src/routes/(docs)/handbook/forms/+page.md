@@ -241,7 +241,9 @@ Sveltery Base form components support native HTML validation attributes for many
 
 The browser's constraint check is the submit gate. When a submit fails it, each Field shows its message in `<Field.Error>` instead of the browser's bubble, and Form focuses the first invalid control. A control outside any Field keeps the browser's bubble. Pass `novalidate` to `<Form>` to turn the check off.
 
-Sveltery Base form components use a hidden input to participate in native form submission and validation. To anchor the hidden input near a control so the native validation bubble points to the correct area, ensure the component has been given a `name`, and wrap controls in a relatively positioned container for best results.
+Sveltery Base form components submit through native inputs. Select renders a hidden `<select>` after its parts, each Slider thumb renders an `<input type="range">`, and NumberField renders a hidden `<input type="number">` in its root. Native input props on the root, such as `required`, `form`, `oninput` and `onchange`, go to that input, and the input fires `input` and `change` as the value changes, so `FormData` and form listeners see the value. These controls have no `onValueChange`. Use `bind:value` or the native events.
+
+A named hidden input is positioned absolutely where it renders, so the native validation bubble of a control outside a Field points near the control. Wrap the control in a relatively positioned container so the input stays inside it.
 
 ```svelte title="Positioning hidden inputs"
 <script lang="ts">
@@ -250,12 +252,12 @@ Sveltery Base form components use a hidden input to participate in native form s
 </script>
 
 <Field.Root name="apple">
-	<Select.Root>
-		<Select.Label>Apple</Select.Label>
-		<div class="relative">
+	<div class="relative">
+		<Select.Root>
+			<Select.Label>Apple</Select.Label>
 			<Select.Trigger />
-		</div>
-	</Select.Root>
+		</Select.Root>
+	</div>
 </Field.Root>
 ```
 

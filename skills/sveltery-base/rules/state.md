@@ -73,7 +73,7 @@ Or leave the part uncontrolled and cancel the change in its callback (see below)
 
 ## Change callbacks receive `eventDetails`
 
-`onOpenChange`, `onValueChange`, `onPressedChange`, and the other change callbacks receive `(value, eventDetails)`.
+`onOpenChange`, `onValueChange`, `onPressedChange`, and the other change callbacks receive `(value, eventDetails)`. Checkbox, Switch, Select, Slider, and NumberField have none: they fire the native `input` and `change` events of the input they submit through.
 
 - `eventDetails.reason`: why it changed, such as `'trigger-press'`, `'outside-press'`, `'escape-key'`, or `'item-press'`. The component's `ChangeReason` type lists every value.
 - `eventDetails.event`: the DOM event behind the change.
