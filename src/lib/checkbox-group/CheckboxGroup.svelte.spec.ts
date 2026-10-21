@@ -2,6 +2,8 @@
 // packages/react/src/checkbox-group/CheckboxGroup.test.tsx and
 // packages/react/src/checkbox-group/useCheckboxGroupParent.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Sveltery: each checkbox is a real `<input type="checkbox">`, and native `change` events and
+// `bind:value` replace `onValueChange`.
 // Field cases are in src/lib/field/choice-controls.svelte.spec.ts. describeConformance is not ported.
 // Strict Mode isolation is covered without double-mounting.
 // Cases under "native Svelte" have no upstream counterpart.
@@ -11,115 +13,111 @@ import { render } from 'vitest-browser-svelte';
 import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import CheckboxGroupHarness from '../../tests/CheckboxGroupHarness.svelte';
 
-function box(name: string) {
-	return page.getByRole('checkbox', { name, exact: true });
+/** The checkbox input with this test id. */
+function input(id: string) {
+	const element = page.getByTestId(id).element();
+	if (!(element instanceof HTMLInputElement)) throw new Error(`expected input ${id}`);
+	return element;
 }
 
-function byId(id: string) {
-	return page.getByTestId(id);
+/** The painted box around the input with this test id. */
+function box(id: string) {
+	const element = input(id).parentElement;
+	if (!element) throw new Error(`expected the box around ${id}`);
+	return element;
 }
 
-function calls() {
-	return JSON.parse(page.getByTestId('calls').element().textContent ?? '[]') as {
-		value: string[];
-		reason: string;
-		canceled: boolean;
-	}[];
+function click(id: string) {
+	return page.getByTestId(id).click();
 }
 
-function checkedCalls() {
-	return JSON.parse(page.getByTestId('checked-calls').element().textContent ?? '[]') as {
-		checked: boolean;
-		canceled: boolean;
-	}[];
+const checked = (id: string) => () => input(id).checked;
+const mixed = (id: string) => () => input(id).indeterminate;
+
+function read<T>(id: string) {
+	return () => JSON.parse(page.getByTestId(id).element().textContent ?? 'null') as T;
 }
 
-function values() {
-	return JSON.parse(page.getByTestId('values').element().textContent ?? '[]') as (string | null)[];
-}
+const value = read<string[] | null>('value');
+const changes = read<string[]>('changes');
+const values = read<(string | null)[] | null>('values');
 
-function elementId(id: string) {
-	return (byId(id).element() as HTMLElement).id;
-}
+const controls = (id: string) => input(id).getAttribute('aria-controls');
 
 describe('CheckboxGroup', () => {
 	describe('props', () => {
-		it('forwards id and lets extra props override the role', async () => {
+		it('renders a fieldset and forwards id', async () => {
 			render(CheckboxGroupHarness, { scenario: 'override' });
-			const root = byId('root');
+			const root = page.getByTestId('root');
 			await expect.element(root).toHaveAttribute('id', 'group-id');
-			await expect.element(root).toHaveAttribute('role', 'region');
+			expect(root.element().tagName).toBe('FIELDSET');
+			await expect.element(page.getByRole('group')).toBeInTheDocument();
+		});
+
+		it('is named by a Fieldset.Legend inside it', async () => {
+			render(CheckboxGroupHarness, { scenario: 'legend' });
+			await expect.element(page.getByTestId('root')).toHaveAccessibleName('Toppings');
 		});
 
 		it('checks the box whose name is in the value', async () => {
 			render(CheckboxGroupHarness, { scenario: 'initial' });
-			await expect.element(byId('red')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('green')).toHaveAttribute('aria-checked', 'false');
-			await byId('green').click();
-			await expect.element(byId('red')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('green')).toHaveAttribute('aria-checked', 'true');
-			expect(calls().at(-1)?.value).toEqual(['red', 'green']);
+			await expect.poll(checked('red')).toBe(true);
+			expect(input('green').checked).toBe(false);
+			await click('green');
+			await expect.poll(checked('green')).toBe(true);
+			expect(input('red').checked).toBe(true);
+			await expect.poll(value).toEqual(['red', 'green']);
 		});
 	});
 
 	describe('prop: value', () => {
 		it('toggles each checkbox without clearing the others', async () => {
 			render(CheckboxGroupHarness, { scenario: 'plain' });
-			await byId('red').click();
-			await byId('green').click();
-			await byId('blue').click();
-			await expect.element(byId('red')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('green')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('blue')).toHaveAttribute('aria-checked', 'true');
-			expect(calls().map((call) => call.value)).toEqual([
-				['red'],
-				['red', 'green'],
-				['red', 'green', 'blue']
-			]);
+			await click('red');
+			await expect.poll(value).toEqual(['red']);
+			await click('green');
+			await expect.poll(value).toEqual(['red', 'green']);
+			await click('blue');
+			await expect.poll(value).toEqual(['red', 'green', 'blue']);
+			expect([checked('red')(), checked('green')(), checked('blue')()]).toEqual([true, true, true]);
 
-			await byId('green').click();
-			await expect.element(byId('green')).toHaveAttribute('aria-checked', 'false');
-			expect(calls().at(-1)?.value).toEqual(['red', 'blue']);
+			await click('green');
+			await expect.poll(checked('green')).toBe(false);
+			await expect.poll(value).toEqual(['red', 'blue']);
+		});
+
+		it('fires a native change event on the group for each tick', async () => {
+			render(CheckboxGroupHarness, { scenario: 'plain' });
+			await click('red');
+			await click('green');
+			await click('red');
+			await expect.poll(changes).toEqual(['red', 'green', 'red']);
 		});
 
 		it('supports an empty string item value', async () => {
 			render(CheckboxGroupHarness, { scenario: 'empty' });
-			await expect.element(byId('empty')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('other')).toHaveAttribute('aria-checked', 'false');
-			await byId('empty').click();
-			await expect.element(byId('empty')).toHaveAttribute('aria-checked', 'false');
-			expect(calls()[0]?.value).toEqual([]);
+			await expect.poll(checked('empty')).toBe(true);
+			expect(input('other').checked).toBe(false);
+			await click('empty');
+			await expect.poll(checked('empty')).toBe(false);
+			await expect.poll(value).toEqual([]);
 		});
 
 		it('treats a value that becomes undefined as an empty array', async () => {
 			render(CheckboxGroupHarness, { scenario: 'clear' });
-			await expect.element(byId('red')).toHaveAttribute('aria-checked', 'true');
+			await expect.poll(checked('red')).toBe(true);
 			await page.getByRole('button', { name: 'Clear' }).click();
-			await expect.element(byId('red')).toHaveAttribute('aria-checked', 'false');
+			await expect.poll(checked('red')).toBe(false);
 		});
 
 		it('uses name when value is omitted', async () => {
 			render(CheckboxGroupHarness, { scenario: 'name-key' });
-			await byId('red').click();
-			await byId('green').click();
-			await byId('red').click();
-			expect(calls().map((call) => call.value)).toEqual([['red'], ['red', 'green'], ['green']]);
-		});
-	});
-
-	describe('prop: onValueChange', () => {
-		it('reports reason none and does not update when canceled', async () => {
-			render(CheckboxGroupHarness, { scenario: 'cancel' });
-			await byId('red').click();
-			expect(calls()).toEqual([{ value: ['red'], reason: 'none', canceled: true }]);
-			await expect.element(byId('red')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(byId('green')).toHaveAttribute('aria-checked', 'false');
-		});
-
-		it('starts from an empty array when value is omitted', async () => {
-			render(CheckboxGroupHarness, { scenario: 'name-key' });
-			await byId('red').click();
-			expect(calls()[0]).toEqual({ value: ['red'], reason: 'none', canceled: false });
+			await click('red');
+			await expect.poll(value).toEqual(['red']);
+			await click('green');
+			await expect.poll(value).toEqual(['red', 'green']);
+			await click('red');
+			await expect.poll(value).toEqual(['green']);
 		});
 	});
 
@@ -128,296 +126,270 @@ describe('CheckboxGroup', () => {
 			render(CheckboxGroupHarness, { scenario: 'disabled' });
 			const group = page.getByRole('group', { name: 'Colors' });
 			await expect.element(group).toHaveAttribute('data-disabled', '');
-			await expect.element(byId('red')).toHaveAttribute('aria-disabled', 'true');
-			await expect.element(byId('green')).toHaveAttribute('aria-disabled', 'true');
-			(byId('red').element() as HTMLElement).click();
-			expect(calls()).toEqual([]);
-			await expect.element(byId('red')).toHaveAttribute('aria-checked', 'false');
+			await expect.element(group).toHaveAttribute('disabled');
+			expect(input('red').disabled).toBe(true);
+			expect(input('green').disabled).toBe(true);
+			input('red').click();
+			await expect.poll(checked('red')).toBe(false);
+			expect(value()).toEqual([]);
+			expect(changes()).toEqual([]);
 		});
 
 		it('does not disable checkboxes when disabled is false', async () => {
 			render(CheckboxGroupHarness, { scenario: 'enabled' });
-			await expect.element(byId('red')).not.toHaveAttribute('aria-disabled', 'true');
-			await expect
-				.element(page.getByRole('group', { name: 'Colors' }))
-				.not.toHaveAttribute('data-disabled');
+			expect(input('red').disabled).toBe(false);
+			const group = page.getByRole('group', { name: 'Colors' });
+			await expect.element(group).not.toHaveAttribute('data-disabled');
+			await expect.element(group).not.toHaveAttribute('disabled');
 		});
 
 		it('keeps a checkbox disabled when the group is disabled and the checkbox opts out', async () => {
 			render(CheckboxGroupHarness, { scenario: 'disabled-override' });
-			await expect.element(byId('red')).toHaveAttribute('aria-disabled', 'true');
-			await expect.element(byId('green')).toHaveAttribute('aria-disabled', 'true');
+			await expect.poll(() => input('red').disabled).toBe(true);
+			expect(input('green').disabled).toBe(true);
 		});
 	});
 
 	describe('parent', () => {
-		it('checks and clears every child from the parent without child callbacks', async () => {
+		it('checks and clears every child from the parent', async () => {
 			render(CheckboxGroupHarness, { scenario: 'parent' });
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(byId('parent')).toHaveAttribute('data-parent', '');
+			await expect.poll(checked('a')).toBe(false);
+			expect(box('parent').hasAttribute('data-parent')).toBe(true);
 
-			await byId('parent').click();
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('b')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('c')).toHaveAttribute('aria-checked', 'true');
-			expect(calls()).toEqual([{ value: ['a', 'b', 'c'], reason: 'none', canceled: false }]);
-			expect(checkedCalls()).toEqual([]);
+			await click('parent');
+			await expect.poll(checked('parent')).toBe(true);
+			expect(input('parent').indeterminate).toBe(false);
+			expect([checked('a')(), checked('b')(), checked('c')()]).toEqual([true, true, true]);
+			await expect.poll(value).toEqual(['a', 'b', 'c']);
 
-			await byId('parent').click();
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'false');
-			expect(calls()).toHaveLength(2);
-			expect(checkedCalls()).toEqual([]);
+			await click('parent');
+			await expect.poll(checked('parent')).toBe(false);
+			expect(input('a').checked).toBe(false);
+			await expect.poll(value).toEqual([]);
 		});
 
 		it('marks the parent mixed when one child is checked', async () => {
 			render(CheckboxGroupHarness, { scenario: 'parent' });
-			await byId('a').click();
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'mixed');
-			await expect.element(byId('parent')).toHaveAttribute('data-indeterminate', '');
-			expect(checkedCalls()).toEqual([{ checked: true, canceled: false }]);
-			expect(calls()).toEqual([{ value: ['a'], reason: 'none', canceled: false }]);
+			await click('a');
+			await expect.poll(mixed('parent')).toBe(true);
+			expect(input('parent').checked).toBe(false);
+			expect(box('parent').hasAttribute('data-indeterminate')).toBe(true);
+			await expect.poll(value).toEqual(['a']);
 		});
 
 		it('starts mixed when one value is set and becomes checked when the rest are ticked', async () => {
 			render(CheckboxGroupHarness, { scenario: 'parent-initial' });
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'mixed');
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'true');
-			await byId('b').click();
-			await byId('c').click();
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'true');
+			await expect.poll(mixed('parent')).toBe(true);
+			expect(input('a').checked).toBe(true);
+			await click('b');
+			await click('c');
+			await expect.poll(checked('parent')).toBe(true);
+			expect(input('parent').indeterminate).toBe(false);
 		});
 
 		it('returns to the partial snapshot after the parent cycles', async () => {
 			render(CheckboxGroupHarness, { scenario: 'parent' });
-			await byId('a').click();
-			await byId('parent').click();
-			await expect.element(byId('b')).toHaveAttribute('aria-checked', 'true');
-			await byId('parent').click();
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'false');
-			await byId('parent').click();
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'mixed');
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('b')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(byId('c')).toHaveAttribute('aria-checked', 'false');
+			await click('a');
+			await click('parent');
+			await expect.poll(checked('b')).toBe(true);
+			await click('parent');
+			await expect.poll(checked('a')).toBe(false);
+			await click('parent');
+			await expect.poll(mixed('parent')).toBe(true);
+			expect([checked('a')(), checked('b')(), checked('c')()]).toEqual([true, false, false]);
 		});
 
-		it('lets the parent checkbox cancel before the group hears the change', async () => {
-			render(CheckboxGroupHarness, { scenario: 'parent-cancel-parent' });
-			await byId('parent').click();
-			expect(checkedCalls()).toEqual([{ checked: true, canceled: true }]);
-			expect(calls()).toEqual([]);
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'false');
-		});
-
-		it('lets a child cancel before the group hears the change', async () => {
-			render(CheckboxGroupHarness, { scenario: 'parent-cancel-child' });
-			await byId('a').click();
-			expect(checkedCalls()).toEqual([{ checked: true, canceled: true }]);
-			expect(calls()).toEqual([]);
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'false');
-		});
-
-		it('retries the same parent transition when the group cancels', async () => {
-			render(CheckboxGroupHarness, { scenario: 'parent-cancel-group' });
-			await byId('parent').click();
-			await byId('parent').click();
-			expect(calls().map((call) => call.value)).toEqual([
-				['a', 'b', 'c'],
-				['a', 'b', 'c']
-			]);
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'mixed');
-		});
-
-		it('keeps the all-checked snapshot when a child change is canceled', async () => {
-			render(CheckboxGroupHarness, { scenario: 'parent-cancel-snapshot' });
-			await byId('a').click();
-			await byId('parent').click();
-			expect(calls().map((call) => call.value)).toEqual([['b', 'c'], []]);
+		it('leaves the group value unchanged when a child click is prevented', async () => {
+			render(CheckboxGroupHarness, { scenario: 'parent-prevent' });
+			await click('a');
+			await expect.poll(checked('a')).toBe(false);
+			expect(input('parent').checked).toBe(false);
+			expect(input('parent').indeterminate).toBe(false);
+			expect(value()).toEqual([]);
+			expect(changes()).toEqual([]);
 		});
 
 		it('leaves an unchecked disabled child out of the parent selection', async () => {
 			render(CheckboxGroupHarness, { scenario: 'parent-disabled-off' });
-			await byId('parent').click();
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'mixed');
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(byId('b')).toHaveAttribute('aria-checked', 'true');
+			await click('parent');
+			await expect.poll(mixed('parent')).toBe(true);
+			expect(input('a').checked).toBe(false);
+			expect(input('b').checked).toBe(true);
 		});
 
 		it('keeps a checked disabled child selected when the parent clears', async () => {
 			render(CheckboxGroupHarness, { scenario: 'parent-disabled-on' });
-			await byId('parent').click();
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('b')).toHaveAttribute('aria-checked', 'true');
-			await byId('parent').click();
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('b')).toHaveAttribute('aria-checked', 'false');
+			await click('parent');
+			await expect.poll(checked('b')).toBe(true);
+			expect(input('a').checked).toBe(true);
+			await click('parent');
+			await expect.poll(checked('b')).toBe(false);
+			expect(input('a').checked).toBe(true);
 		});
 
 		it('does not select a child that has no value', async () => {
 			render(CheckboxGroupHarness, { scenario: 'no-value' });
-			await byId('parent').click();
-			await expect.element(byId('parent')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('no-value')).toHaveAttribute('aria-checked', 'false');
-			const input = document.querySelector('input[type="checkbox"][id="standalone"]');
-			expect(input).not.toBeNull();
+			await click('parent');
+			await expect.poll(checked('parent')).toBe(true);
+			expect(input('a').checked).toBe(true);
+			expect(input('no-value').checked).toBe(false);
+			expect(input('no-value').id).toBe('standalone');
 		});
 
 		it('keeps two groups from sharing a parent click', async () => {
 			render(CheckboxGroupHarness, { scenario: 'isolated' });
-			await byId('a-1').click();
-			await expect.element(byId('a-parent')).toHaveAttribute('aria-checked', 'mixed');
-			await expect.element(byId('b-parent')).toHaveAttribute('aria-checked', 'false');
-			await byId('b-parent').click();
-			await expect.element(byId('b-1')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('b-2')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(byId('a-2')).toHaveAttribute('aria-checked', 'false');
+			await click('a-1');
+			await expect.poll(mixed('a-parent')).toBe(true);
+			expect(input('b-parent').checked).toBe(false);
+			expect(input('b-parent').indeterminate).toBe(false);
+			await click('b-parent');
+			await expect.poll(checked('b-1')).toBe(true);
+			expect(input('b-2').checked).toBe(true);
+			expect(input('a-2').checked).toBe(false);
 		});
 	});
 
 	describe('aria-controls', () => {
 		it('names each rendered child id', async () => {
 			render(CheckboxGroupHarness, { scenario: 'aria' });
-			await expect.element(byId('parent')).toBeVisible();
-			await expect.element(byId('c')).toBeVisible();
-			expect((byId('parent').element() as HTMLElement).getAttribute('aria-controls')).toBe(
-				`${elementId('a')} ${elementId('b')} ${elementId('c')}`
-			);
+			await expect
+				.poll(() => controls('parent'))
+				.toBe(`${input('a').id} ${input('b').id} ${input('c').id}`);
 		});
 
-		it('keeps a custom id placed on a native button', async () => {
-			render(CheckboxGroupHarness, { scenario: 'custom-id' });
-			await expect.element(byId('a')).toHaveAttribute('id', 'custom');
-			await expect.element(byId('parent')).toHaveAttribute('aria-controls', 'custom');
-		});
-
-		it('uses the id rendered on the child host', async () => {
-			render(CheckboxGroupHarness, { scenario: 'rendered-id' });
-			await expect.element(byId('parent')).toHaveAttribute('aria-controls', 'rendered');
-		});
-
-		it('names the exposed checkbox rather than the hidden input id', async () => {
+		it('uses a custom id given to the child', async () => {
 			render(CheckboxGroupHarness, { scenario: 'input-id' });
-			await expect.element(byId('a')).not.toHaveAttribute('id', 'custom');
-			expect(document.querySelector('input[type="checkbox"][id="custom"]')).not.toBeNull();
-			expect((byId('parent').element() as HTMLElement).getAttribute('aria-controls')).toBe(
-				elementId('a')
-			);
+			expect(input('a').id).toBe('custom');
+			await expect.poll(() => controls('parent')).toBe('custom');
 		});
 
 		it('does not read a constructor value off the prototype', async () => {
 			render(CheckboxGroupHarness, { scenario: 'constructor' });
-			expect((byId('parent').element() as HTMLElement).getAttribute('aria-controls')).toBe(
-				elementId('a')
-			);
+			await expect.poll(() => controls('parent')).toBe(input('a').id);
 		});
 
 		it('drops an unmounted child', async () => {
 			render(CheckboxGroupHarness, { scenario: 'unmount' });
-			await expect.element(byId('b')).toBeVisible();
-			const withB = `${elementId('a')} ${elementId('b')} ${elementId('c')}`;
-			expect((byId('parent').element() as HTMLElement).getAttribute('aria-controls')).toBe(withB);
+			await expect
+				.poll(() => controls('parent'))
+				.toBe(`${input('a').id} ${input('b').id} ${input('c').id}`);
 			await page.getByRole('button', { name: 'Hide B' }).click();
-			await expect.element(byId('b')).not.toBeInTheDocument();
-			expect((byId('parent').element() as HTMLElement).getAttribute('aria-controls')).toBe(
-				`${elementId('a')} ${elementId('c')}`
-			);
+			await expect.element(page.getByTestId('b')).not.toBeInTheDocument();
+			await expect.poll(() => controls('parent')).toBe(`${input('a').id} ${input('c').id}`);
 		});
 
 		it('keeps both ids for one value and retains the survivor', async () => {
 			render(CheckboxGroupHarness, { scenario: 'shared' });
-			await expect.element(byId('second-b')).toBeVisible();
-			expect((byId('parent').element() as HTMLElement).getAttribute('aria-controls')).toBe(
-				`${elementId('a')} ${elementId('b')} ${elementId('second-b')}`
-			);
+			await expect
+				.poll(() => controls('parent'))
+				.toBe(`${input('a').id} ${input('b').id} ${input('second-b').id}`);
 			await page.getByRole('button', { name: 'Hide second' }).click();
-			await expect.element(byId('second-b')).not.toBeInTheDocument();
-			expect((byId('parent').element() as HTMLElement).getAttribute('aria-controls')).toBe(
-				`${elementId('a')} ${elementId('b')}`
-			);
+			await expect.element(page.getByTestId('second-b')).not.toBeInTheDocument();
+			await expect.poll(() => controls('parent')).toBe(`${input('a').id} ${input('b').id}`);
 		});
 	});
 
 	describe('form', () => {
 		it('submits checked values and leaves the parent out', async () => {
 			render(CheckboxGroupHarness, { scenario: 'form' });
-			await box('A').click();
+			await click('a');
 			await page.getByRole('button', { name: 'Submit' }).click();
-			await expect.poll(() => values()).toEqual(['a']);
+			await expect.poll(values).toEqual(['a']);
 
-			await box('All').click();
+			await click('parent');
+			// The named children change from code and fire the change event a click on each would.
+			await expect.poll(changes).toEqual(['a', 'b', 'on']);
 			await page.getByRole('button', { name: 'Submit' }).click();
-			await expect.poll(() => values()).toEqual(['a', 'b']);
+			await expect.poll(values).toEqual(['a', 'b']);
+		});
+
+		it('names every child from the group name and submits nothing for unchecked ones', async () => {
+			render(CheckboxGroupHarness, { scenario: 'group-name' });
+			expect([input('a').name, input('b').name, input('c').name]).toEqual([
+				'topping',
+				'topping',
+				'topping'
+			]);
+			await page.getByRole('button', { name: 'Submit' }).click();
+			await expect.poll(values).toEqual(['a', 'c']);
+
+			await click('b');
+			await click('a');
+			await page.getByRole('button', { name: 'Submit' }).click();
+			await expect.poll(values).toEqual(['b', 'c']);
 		});
 	});
 
 	describe('keyboard and label', () => {
 		it('toggles with Space and ignores Enter', async () => {
 			render(CheckboxGroupHarness, { scenario: 'plain' });
-			(byId('red').element() as HTMLElement).focus();
+			input('red').focus();
 			await userEvent.keyboard('{Enter}');
-			await expect.element(byId('red')).toHaveAttribute('aria-checked', 'false');
+			expect(input('red').checked).toBe(false);
 			await userEvent.keyboard('{Space}');
-			await expect.element(byId('red')).toHaveAttribute('aria-checked', 'true');
+			await expect.poll(checked('red')).toBe(true);
+			await expect.poll(value).toEqual(['red']);
 		});
 
 		it('toggles from an implicit label', async () => {
 			render(CheckboxGroupHarness, { scenario: 'label' });
+			await expect.element(page.getByRole('checkbox', { name: 'Apple' })).toBeInTheDocument();
 			await page.getByTestId('label-a').click();
-			await expect.element(box('Apple')).toHaveAttribute('aria-checked', 'true');
-			expect(calls()[0]?.value).toEqual(['a']);
+			await expect.poll(checked('a')).toBe(true);
+			await expect.poll(value).toEqual(['a']);
 		});
 
 		it('preventDefault on the checkbox skips the group update', async () => {
 			render(CheckboxGroupHarness, { scenario: 'prevent' });
-			await byId('a').click();
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'false');
-			expect(calls()).toEqual([]);
+			await click('a');
+			await expect.poll(checked('a')).toBe(false);
+			expect(value()).toEqual([]);
+			expect(changes()).toEqual([]);
 		});
 	});
 
 	describe('native Svelte', () => {
-		it('ignores a checked prop inside the group, then follows the click', async () => {
-			render(CheckboxGroupHarness, { scenario: 'ignore-checked' });
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'false');
-			await byId('a').click();
-			await expect.element(byId('a')).toHaveAttribute('aria-checked', 'true');
+		it('adds a box ticked by its own checked prop to the group, then follows the click', async () => {
+			render(CheckboxGroupHarness, { scenario: 'adopt-checked' });
+			await expect.poll(checked('a')).toBe(true);
+			await expect.poll(value).toEqual(['a']);
+			await click('a');
+			await expect.poll(checked('a')).toBe(false);
+			await expect.poll(value).toEqual([]);
 		});
 
 		it('follows a one-way value, including undefined', async () => {
 			render(CheckboxGroupHarness, { scenario: 'controlled' });
-			await expect.element(box('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.poll(checked('b')).toBe(true);
 			await page.getByRole('button', { name: 'Set A' }).click();
-			await expect.element(box('A')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(box('B')).toHaveAttribute('aria-checked', 'false');
+			await expect.poll(checked('a')).toBe(true);
+			expect(input('b').checked).toBe(false);
 			await page.getByRole('button', { name: 'Clear' }).click();
-			await expect.element(box('A')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(box('B')).toHaveAttribute('aria-checked', 'false');
+			await expect.poll(checked('a')).toBe(false);
+			expect(input('b').checked).toBe(false);
 		});
 
-		it('places style hooks on the group, the checkbox, and the indicator', async () => {
+		it('places style hooks on the group, the checkbox box, and the indicator', async () => {
 			render(CheckboxGroupHarness, { scenario: 'style' });
 			await expect.element(page.getByRole('group')).toHaveAttribute('data-disabled', '');
-			await expect.element(byId('on')).toHaveAttribute('data-checked', '');
-			await expect.element(byId('on')).toHaveAttribute('data-disabled', '');
-			await expect.element(byId('off')).toHaveAttribute('data-unchecked', '');
-			await expect.element(byId('indicator')).toBeInTheDocument();
+			await expect.element(page.getByTestId('indicator')).toBeInTheDocument();
+			expect(box('on').hasAttribute('data-checked')).toBe(true);
+			expect(box('on').hasAttribute('data-disabled')).toBe(true);
+			expect(box('off').hasAttribute('data-unchecked')).toBe(true);
 		});
 
 		it('renders through a snippet', async () => {
 			render(CheckboxGroupHarness, { scenario: 'render' });
-			await expect.element(byId('custom')).toHaveAttribute('role', 'group');
-			await expect.element(byId('custom')).toHaveAttribute('data-disabled-state', 'no');
-			await expect.element(box('B')).toHaveAttribute('aria-checked', 'true');
+			const custom = page.getByTestId('custom');
+			await expect.element(custom).toHaveAttribute('data-disabled-state', 'no');
+			expect(custom.element().tagName).toBe('FIELDSET');
+			await expect.poll(checked('b')).toBe(true);
+			expect(input('a').checked).toBe(false);
 		});
 
 		it('passes a consumer attachment to the host', async () => {
 			render(CheckboxGroupHarness, { scenario: 'attach' });
-			await expect.element(page.getByTestId('attached')).toHaveTextContent('group');
+			await expect.element(page.getByTestId('attached')).toHaveTextContent('fieldset');
 		});
 	});
 });

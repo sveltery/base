@@ -6,10 +6,10 @@ import NullIdFieldHarness from '../../tests/NullIdFieldHarness.svelte';
 
 type Scenario = ComponentProps<typeof NullIdFieldHarness>['scenario'];
 
-/** The element Field.Label points at: the hidden input of a switch or radio, else the control. */
+/** The element Field.Label points at: the hidden input of a radio, else the control. */
 function labelledElement(scenario: Scenario) {
 	const control = page.getByTestId('control').element();
-	if (scenario !== 'switch' && scenario !== 'radio') return control;
+	if (scenario !== 'radio') return control;
 	const input = control.nextElementSibling;
 	if (!(input instanceof HTMLInputElement)) throw new Error('expected a hidden input');
 	return input;
@@ -39,7 +39,10 @@ describe('id={null} on a Field control', () => {
 		it(`${scenario} is checked by a click on Field.Label`, async () => {
 			render(NullIdFieldHarness, { scenario });
 			await page.getByTestId('label').click();
-			await expect.element(page.getByTestId('control')).toHaveAttribute('aria-checked', 'true');
+			const control = page.getByTestId('control').element();
+			if (control instanceof HTMLInputElement) await expect.poll(() => control.checked).toBe(true);
+			else
+				await expect.element(page.getByTestId('control')).toHaveAttribute('aria-checked', 'true');
 		});
 	}
 

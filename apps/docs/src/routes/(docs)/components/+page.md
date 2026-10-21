@@ -322,14 +322,15 @@ An easily stylable checkbox component.
   - Anatomy
   - Examples
     - Labeling a checkbox
-    - Rendering as a native button
+    - Using a sibling label
+    - Native attributes and events
     - Form integration
   - API reference
     - Root
     - Indicator
 - Exports:
   - Checkbox - Root
-    - Props: checked, defaultChecked, disabled, form, id, indeterminate, name, nativeButton, onCheckedChange, onclick, parent, readonly, render, required, uncheckedValue, value
+    - Props: checked, class, defaultChecked, disabled, form, host, id, indeterminate, name, parent, readonly, render, required, style, type, uncheckedValue, value
     - Data Attributes: data-checked, data-dirty, data-disabled, data-filled, data-focused, data-indeterminate, data-invalid, data-readonly, data-required, data-touched, data-unchecked, data-valid
   - Checkbox - Indicator
     - Props: keepMounted, render
@@ -353,14 +354,15 @@ Provides shared state to a series of checkboxes.
   - Anatomy
   - Examples
     - Labeling a checkbox group
-    - Rendering as a native button
+    - Using sibling labels
+    - Submitting a plain form
     - Form integration
     - Parent checkbox
     - Nested parent checkbox
   - API reference
 - Exports:
   - CheckboxGroup
-    - Props: allValues, defaultValue, disabled, onValueChange, render, value
+    - Props: allValues, defaultValue, disabled, name, render, value
     - Data Attributes: data-disabled
 - Types: CheckboxGroup.Props, CheckboxGroup.State
 
@@ -1678,14 +1680,15 @@ A control that indicates whether a setting is on or off.
   - Anatomy
   - Examples
     - Labeling a switch
-    - Rendering as a native button
+    - Using a sibling label
+    - Native attributes and events
     - Form integration
   - API reference
     - Root
     - Thumb
 - Exports:
   - Switch - Root
-    - Props: checked, defaultChecked, disabled, form, id, name, nativeButton, onCheckedChange, onclick, readonly, render, required, uncheckedValue, value
+    - Props: checked, class, defaultChecked, disabled, form, host, id, name, readonly, render, required, style, type, uncheckedValue, value
     - Data Attributes: data-checked, data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-readonly, data-required, data-touched, data-unchecked, data-valid
   - Switch - Thumb
     - Props: render

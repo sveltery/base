@@ -1,5 +1,6 @@
 <!--
-	Provides a shared state to a series of checkboxes.
+	Provides a shared state to a series of checkboxes. Renders a `<fieldset>` element, so a
+	Fieldset.Legend inside names the group and `disabled` disables every box natively.
 	Derived from Base UI v1.8.0 packages/react/src/checkbox-group/CheckboxGroup.tsx
 	and packages/react/src/checkbox-group/useCheckboxGroupParent.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
@@ -7,7 +8,7 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLFieldsetAttributes } from 'svelte/elements';
 	import { SvelteSet } from 'svelte/reactivity';
 	import { areArraysEqual } from '@sveltery/utils';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
@@ -19,12 +20,14 @@
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import {
+		FieldsetRootContextValue,
+		findFieldsetRootContext,
+		setFieldsetRootContext
+	} from '../fieldset/context.svelte.js';
+	import type { CheckboxGroupChangeDetails } from '../checkbox/group-context.js';
 	import { CheckboxGroupParent } from './parent.svelte.js';
-	import type {
-		CheckboxGroupChangeEventDetails,
-		CheckboxGroupProps,
-		CheckboxGroupState
-	} from './types.js';
+	import type { CheckboxGroupProps, CheckboxGroupState } from './types.js';
 
 	const uid = $props.id();
 	const controlKey = createAttachmentKey();
@@ -34,8 +37,8 @@
 		value = $bindable(),
 		defaultValue,
 		allValues,
+		name: nameProp,
 		disabled: disabledProp,
-		onValueChange,
 		'aria-describedby': ariaDescribedBy,
 		render,
 		children,
@@ -70,11 +73,15 @@
 		return currentValue().filter((item) => successful.includes(item));
 	}
 
-	function setValue(next: string[], details: CheckboxGroupChangeEventDetails) {
-		onValueChange?.(next, details);
+	function setValue(next: string[], details: CheckboxGroupChangeDetails) {
 		if (details.isCanceled) return;
 		value = next;
 	}
+
+	const fieldset = new FieldsetRootContextValue(findFieldsetRootContext(), () =>
+		Boolean(disabledProp)
+	);
+	setFieldsetRootContext(fieldset);
 
 	const parentModel = new CheckboxGroupParent({
 		readValue: () => currentValue(),
@@ -124,6 +131,9 @@
 		get disabled() {
 			return disabled;
 		},
+		get name() {
+			return nameProp;
+		},
 		get parent() {
 			return allValues === undefined ? undefined : parentModel;
 		},
@@ -133,7 +143,10 @@
 			inputs.add(input);
 			return () => inputs.delete(input);
 		},
-		setValue
+		setValue,
+		adopt(item) {
+			if (!currentValue().includes(item)) value = [...currentValue(), item];
+		}
 	});
 
 	const groupState: CheckboxGroupState = $derived({
@@ -141,23 +154,25 @@
 		disabled
 	});
 
-	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLElement>> =
-		$derived.by(() => {
+	const hostProps: HTMLFieldsetAttributes & Record<symbol, Attachment<HTMLElement>> = $derived.by(
+		() => {
 			const describedBy = labelable.describedBy(ariaDescribedBy ?? undefined);
+			const labelledBy = fieldset.legendId ?? labelable.labelId;
 			return {
 				...getStateAttributesProps(groupState, fieldValidityMapping),
-				role: 'group',
-				...(labelable.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
+				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 				...elementProps,
+				disabled: disabledProp || undefined,
 				...(describedBy ? { 'aria-describedby': describedBy } : {}),
 				[controlKey]: registration,
 				[rootKey]: rememberRoot
 			};
-		});
+		}
+	);
 </script>
 
 {#if render}
 	{@render render(hostProps, groupState, children)}
 {:else}
-	<div {...hostProps}>{@render children?.()}</div>
+	<fieldset {...hostProps}>{@render children?.()}</fieldset>
 {/if}

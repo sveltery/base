@@ -65,7 +65,10 @@
 	{:else if scenario === 'switch'}
 		<Toolbar.Button data-testid="button" {disabled} {onclick}>
 			{#snippet render(props)}
-				<Switch.Root {...props} {onCheckedChange} />
+				<Switch.Root
+					{...props}
+					onchange={(event) => onCheckedChange?.(event.currentTarget.checked)}
+				/>
 			{/snippet}
 		</Toolbar.Button>
 	{:else if scenario === 'toggles'}

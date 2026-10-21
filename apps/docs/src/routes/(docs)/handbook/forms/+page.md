@@ -153,25 +153,23 @@ Compose `<Fieldset>` when a single label applies to multiple controls, such as a
 </script>
 
 <Field.Root>
-	<Fieldset.Root>
+	<CheckboxGroup>
 		<Fieldset.Legend>Backup schedule</Fieldset.Legend>
-		<CheckboxGroup>
+		<!-- @highlight -->
+		<Field.Item>
+			<Checkbox.Root value="daily" />
+			<Field.Label>Daily</Field.Label>
+			<Field.Description>Daily at 00:00</Field.Description>
+			<!-- @highlight-start -->
+		</Field.Item>
+		<Field.Item>
+			<!-- @highlight-end -->
+			<Checkbox.Root value="monthly" />
+			<Field.Label>Monthly</Field.Label>
+			<Field.Description>On the 5th of every month at 23:59</Field.Description>
 			<!-- @highlight -->
-			<Field.Item>
-				<Checkbox.Root value="daily" />
-				<Field.Label>Daily</Field.Label>
-				<Field.Description>Daily at 00:00</Field.Description>
-				<!-- @highlight-start -->
-			</Field.Item>
-			<Field.Item>
-				<!-- @highlight-end -->
-				<Checkbox.Root value="monthly" />
-				<Field.Label>Monthly</Field.Label>
-				<Field.Description>On the 5th of every month at 23:59</Field.Description>
-				<!-- @highlight -->
-			</Field.Item>
-		</CheckboxGroup>
-	</Fieldset.Root>
+		</Field.Item>
+	</CheckboxGroup>
 </Field.Root>
 ```
 

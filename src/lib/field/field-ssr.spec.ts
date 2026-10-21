@@ -37,9 +37,9 @@ describe('Field SSR outside Field.Root', () => {
 		const body = html(
 			render(Checkbox.Root, { props: { id: 'cb', 'aria-describedby': 'hint' } }).body
 		);
-		expect(body).toContain(
-			'<span role="checkbox" tabindex="0" data-unchecked="" id="base-ui-s1" aria-checked="false" aria-describedby="hint">'
-		);
+		const input = body.match(/<input[^>]*>/)?.[0] ?? '';
+		expect(input).toContain('id="cb"');
+		expect(input).toContain('aria-describedby="hint"');
 	});
 
 	it('renders nothing for a Field.Error with no Field.Root, and warns', () => {

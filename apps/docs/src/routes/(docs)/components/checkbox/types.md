@@ -6,28 +6,29 @@
 
 ### Root
 
-Represents the checkbox itself. Renders a `<span>` element and a hidden `<input>` beside.
+Represents the checkbox itself. Renders a `<span>` box with a real `<input type="checkbox">` laid over it.
 
 **Root Props:**
 
-| Prop            | Type                                                                                            | Default | Description                                                                                                                                                                                                                                                  |
-| :-------------- | :---------------------------------------------------------------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name            | `string \| null`                                                                                | -       | Identifies the field when a form is submitted.                                                                                                                                                                                                               |
-| defaultChecked  | `boolean`                                                                                       | `false` | Whether the checkbox is initially ticked.&#xA;&#xA;To render a controlled checkbox, use `bind:checked` instead.                                                                                                                                              |
-| checked         | `boolean`                                                                                       | `false` | Whether the checkbox is currently ticked.&#xA;&#xA;To render an uncontrolled checkbox, use the `defaultChecked` prop instead.                                                                                                                                |
-| onCheckedChange | `(checked: boolean, eventDetails: CheckboxRootChangeEventDetails) => void`                      | -       | Event handler called when the checkbox is ticked or unticked.                                                                                                                                                                                                |
-| indeterminate   | `boolean`                                                                                       | `false` | Whether the checkbox is in a mixed state: neither ticked, nor unticked.                                                                                                                                                                                      |
-| value           | `string`                                                                                        | -       | The checkbox's value. Identifies it within a [Checkbox Group](https://base.sveltery.dev/components/checkbox-group), falling back to `name` when omitted. When submitting a form, a checked box submits `value`; with no `value`, it submits the native "on". |
-| onclick         | `MouseEventHandler<HTMLElement> \| null`                                                        | -       | Runs before the checkbox's click handler. Call `event.preventDefault()` to skip it.                                                                                                                                                                          |
-| form            | `string \| null`                                                                                | -       | Identifies the form that owns the hidden input. Useful when the checkbox is rendered outside the form.                                                                                                                                                       |
-| nativeButton    | `boolean`                                                                                       | `false` | Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.                                                                                                 |
-| parent          | `boolean`                                                                                       | `false` | Whether the checkbox controls a group of child checkboxes.&#xA;&#xA;Must be used in a [Checkbox Group](https://base.sveltery.dev/components/checkbox-group).                                                                                                 |
-| uncheckedValue  | `string`                                                                                        | -       | The value submitted with the form when the checkbox is unchecked. By default, unchecked checkboxes do not submit any value, matching native checkbox behavior.                                                                                               |
-| disabled        | `boolean \| null`                                                                               | `false` | Whether the component should ignore user interaction.                                                                                                                                                                                                        |
-| readonly        | `boolean \| null`                                                                               | `false` | Whether the user should be unable to tick or untick the checkbox.                                                                                                                                                                                            |
-| required        | `boolean \| null`                                                                               | `false` | Whether the user must tick the checkbox before submitting a form.                                                                                                                                                                                            |
-| id              | `string \| null`                                                                                | -       | The id of the input element.                                                                                                                                                                                                                                 |
-| render          | `Snippet<[props: CheckboxHostProps, state: CheckboxRootState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render.                      |
+| Prop           | Type                                                                                           | Default | Description                                                                                                                                                                                                                                                  |
+| :------------- | :--------------------------------------------------------------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name           | `string \| null`                                                                               | -       | Identifies the field when a form is submitted.                                                                                                                                                                                                               |
+| defaultChecked | `boolean`                                                                                      | `false` | Whether the checkbox is initially ticked.&#xA;&#xA;To render a controlled checkbox, use `bind:checked` instead.                                                                                                                                              |
+| checked        | `boolean`                                                                                      | `false` | Whether the checkbox is currently ticked.&#xA;&#xA;To render an uncontrolled checkbox, use the `defaultChecked` prop instead.                                                                                                                                |
+| indeterminate  | `boolean`                                                                                      | `false` | Whether the checkbox is in a mixed state: neither ticked, nor unticked.                                                                                                                                                                                      |
+| value          | `string`                                                                                       | -       | The checkbox's value. Identifies it within a [Checkbox Group](https://base.sveltery.dev/components/checkbox-group), falling back to `name` when omitted. When submitting a form, a checked box submits `value`; with no `value`, it submits the native "on". |
+| form           | `string \| null`                                                                               | -       | Identifies the form that owns the input. Useful when the checkbox is rendered outside the form.                                                                                                                                                              |
+| host           | `HTMLAttributes<HTMLElement>`                                                                  | -       | Attributes for the box, such as `data-*` attributes or handlers that belong on it.                                                                                                                                                                           |
+| parent         | `boolean`                                                                                      | `false` | Whether the checkbox controls a group of child checkboxes.&#xA;&#xA;Must be used in a [Checkbox Group](https://base.sveltery.dev/components/checkbox-group).                                                                                                 |
+| type           | `'checkbox'`                                                                                   | -       | A checkbox input. A remote form spread of another input kind is a type error.                                                                                                                                                                                |
+| uncheckedValue | `string`                                                                                       | -       | The value submitted with the form when the checkbox is unchecked. By default, unchecked checkboxes do not submit any value, matching native checkbox behavior.                                                                                               |
+| disabled       | `boolean \| null`                                                                              | `false` | Whether the component should ignore user interaction.                                                                                                                                                                                                        |
+| readonly       | `boolean \| null`                                                                              | `false` | Whether the user should be unable to tick or untick the checkbox.                                                                                                                                                                                            |
+| required       | `boolean \| null`                                                                              | `false` | Whether the user must tick the checkbox before submitting a form.                                                                                                                                                                                            |
+| id             | `string \| null`                                                                               | -       | The id of the input element.                                                                                                                                                                                                                                 |
+| class          | `ClassValue \| null`                                                                           | -       | Classes for the box.                                                                                                                                                                                                                                         |
+| style          | `string \| null`                                                                               | -       | Styles for the box.                                                                                                                                                                                                                                          |
+| render         | `Snippet<[props: CheckboxBoxProps, state: CheckboxRootState, children: Snippet \| undefined]>` | -       | Allows you to replace the box's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render, which include the input.   |
 
 **Root Data Attributes:**
 
@@ -142,12 +143,12 @@ type CheckboxIndicatorState = {
 
 ## Additional Types
 
-### CheckboxHostProps
+### CheckboxBoxProps
 
-Props passed to a `render` snippet. Spread them onto the host element. The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
+Props for the box a `render` snippet draws. Spread them onto the element, with the children inside.
 
 ```typescript
-type CheckboxHostProps = {};
+type CheckboxBoxProps = {};
 ```
 
 ### CheckboxIndicatorDataAttributes
@@ -193,26 +194,6 @@ Indicator motion phase. `undefined` is the settled phase.
 
 ```typescript
 type CheckboxIndicatorPhase = 'starting' | 'ending' | 'idle' | undefined;
-```
-
-### CheckboxRootChangeEventDetails
-
-```typescript
-type CheckboxRootChangeEventDetails = {
-	reason: Reason;
-	event: Event;
-	cancel: () => void;
-	allowPropagation: () => void;
-	isCanceled: boolean;
-	isPropagationAllowed: boolean;
-	trigger: Element | undefined;
-};
-```
-
-### CheckboxRootChangeEventReason
-
-```typescript
-type CheckboxRootChangeEventReason = typeof REASONS.none;
 ```
 
 ### CheckboxRootDataAttributes

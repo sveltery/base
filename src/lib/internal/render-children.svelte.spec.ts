@@ -18,7 +18,6 @@ const passthrough = [
 	'accordion-header',
 	'accordion-trigger',
 	'accordion-panel',
-	'checkbox-root',
 	'checkbox-indicator',
 	'checkbox-group',
 	'collapsible-root',
@@ -77,7 +76,6 @@ const passthrough = [
 	'slider-control',
 	'slider-track',
 	'slider-indicator',
-	'switch-root',
 	'switch-thumb',
 	'tabs-root',
 	'tabs-list',
@@ -94,6 +92,8 @@ const passthrough = [
 
 /** Parts that add their own nodes, so `children` stays a snippet with an empty slot. */
 const owned = [
+	'checkbox-root',
+	'switch-root',
 	'meter-root',
 	'meter-value',
 	'progress-root',
@@ -162,7 +162,7 @@ describe('render children', () => {
 				if (part === 'meter-root' || part === 'progress-root') {
 					expect(node.textContent).toContain('x');
 				}
-				if (part === 'slider-thumb') {
+				if (part === 'slider-thumb' || part === 'checkbox-root' || part === 'switch-root') {
 					expect(node.querySelector('input')).toBeTruthy();
 				}
 				if (part === 'popover-viewport') {

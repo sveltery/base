@@ -22,8 +22,8 @@ const targets: Record<
 		wrote: string;
 	}
 > = {
-	switch: { role: 'switch', attribute: 'aria-checked', on: 'true', wrote: 'true' },
-	checkbox: { role: 'checkbox', attribute: 'aria-checked', on: 'true', wrote: 'true' },
+	switch: { role: 'switch', attribute: 'checked', on: 'true', wrote: 'true' },
+	checkbox: { role: 'checkbox', attribute: 'checked', on: 'true', wrote: 'true' },
 	toggle: { role: 'button', name: 'Bold', attribute: 'aria-pressed', on: 'true', wrote: 'true' },
 	collapsible: {
 		role: 'button',
@@ -43,7 +43,7 @@ const targets: Record<
 	'checkbox-group': {
 		role: 'checkbox',
 		name: 'A',
-		attribute: 'aria-checked',
+		attribute: 'checked',
 		on: 'true',
 		wrote: 'a'
 	}
@@ -54,6 +54,21 @@ function control(part: Part) {
 	return target.name
 		? page.getByRole(target.role, { name: target.name, exact: true })
 		: page.getByRole(target.role);
+}
+
+/**
+ * Waits until the control shows `value`. Checkbox and Switch are native inputs, so `checked`
+ * is their `checked` property. The other parts carry an ARIA attribute.
+ */
+async function expectState(part: Part, value: string) {
+	const target = targets[part];
+	if (target.attribute === 'checked') {
+		await expect
+			.poll(() => String((control(part).element() as HTMLInputElement).checked))
+			.toBe(value);
+		return;
+	}
+	await expect.element(control(part)).toHaveAttribute(target.attribute, value);
 }
 
 /** Three cases that fail when a root keeps its own `$bindable` instead of the helper. */
@@ -72,9 +87,9 @@ export function controllableRootCases(part: Part) {
 	it('a parent write updates the control and does not notify', async () => {
 		const onChange = vi.fn();
 		render(ControllableRootsHarness, { part, mode: 'parent', onChange });
-		await expect.element(control(part)).toHaveAttribute(target.attribute, 'false');
+		await expectState(part, 'false');
 		(page.getByRole('button', { name: 'Set value' }).element() as HTMLElement).click();
-		await expect.element(control(part)).toHaveAttribute(target.attribute, target.on);
+		await expectState(part, target.on);
 		expect(onChange).not.toHaveBeenCalled();
 	});
 
@@ -88,22 +103,22 @@ export function controllableRootCases(part: Part) {
 					: part === 'toggle-group' || part === 'checkbox-group'
 						? 'a:none'
 						: 'true:none';
-		await expect.element(control(part)).toHaveAttribute(target.attribute, 'false');
+		await expectState(part, 'false');
 		(page.getByRole('button', { name: 'Set value', exact: true }).element() as HTMLElement).click();
-		await expect.element(control(part)).toHaveAttribute(target.attribute, target.on);
+		await expectState(part, target.on);
 		(
 			page.getByRole('button', { name: 'Unset value', exact: true }).element() as HTMLElement
 		).click();
-		await expect.element(control(part)).toHaveAttribute(target.attribute, 'false');
+		await expectState(part, 'false');
 		(control(part).element() as HTMLElement).click();
-		await expect.element(control(part)).toHaveAttribute(target.attribute, target.on);
+		await expectState(part, target.on);
 		expect(page.getByTestId('log').element().textContent).toBe(clickLog);
 	});
 
 	it('a default-only render shows the default and does not notify', async () => {
 		const onChange = vi.fn();
 		render(ControllableRootsHarness, { part, mode: 'default', onChange });
-		await expect.element(control(part)).toHaveAttribute(target.attribute, target.on);
+		await expectState(part, target.on);
 		expect(onChange).not.toHaveBeenCalled();
 	});
 }
@@ -131,16 +146,14 @@ export function controllableCopyCases() {
 	it('a CheckboxGroup parent write that stores a copy calls onValueChange zero times', async () => {
 		render(ControllableRootsHarness, { part: 'checkbox-group', mode: 'copy' });
 		(page.getByRole('button', { name: 'Set value' }).element() as HTMLElement).click();
-		await expect
-			.element(page.getByRole('checkbox', { name: 'A', exact: true }))
-			.toHaveAttribute('aria-checked', 'true');
+		await expectState('checkbox-group', 'true');
 		expect(page.getByTestId('copies').element().textContent).toBe('0');
 	});
 
 	it('a confirm pattern prompts once', async () => {
 		render(ControllableRootsHarness, { part: 'switch', mode: 'confirm' });
 		(page.getByRole('switch').element() as HTMLElement).click();
-		await expect.element(page.getByRole('switch')).toHaveAttribute('aria-checked', 'true');
+		await expectState('switch', 'true');
 		expect(page.getByTestId('prompts').element().textContent).toBe('1');
 	});
 }

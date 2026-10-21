@@ -14,11 +14,13 @@
 
 {#if custom}
 	<Checkbox.Root {@attach capture}>
-		{#snippet render(props, state: CheckboxRootState)}
-			<span {...props} class="custom-host" data-state={state.checked ? 'on' : 'off'}>Custom</span>
+		{#snippet render(props, state: CheckboxRootState, children)}
+			<span {...props} class="custom-host" data-state={state.checked ? 'on' : 'off'}
+				>{@render children?.()}</span
+			>
 		{/snippet}
 	</Checkbox.Root>
 {:else}
 	<Checkbox.Root class="default-host" {@attach capture}>Notifications</Checkbox.Root>
 {/if}
-<output data-testid="host">{host?.className ?? 'none'}</output>
+<output data-testid="host">{host?.tagName ?? 'none'}</output>

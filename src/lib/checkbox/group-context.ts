@@ -29,6 +29,8 @@ export interface CheckboxGroupContextValue {
 	/** The value a form reset returns to. */
 	readonly defaultValue: readonly string[] | undefined;
 	readonly disabled: boolean;
+	/** The name each child checkbox submits under, from the group's `name`. */
+	readonly name: string | undefined;
 	readonly parent: CheckboxGroupParentApi | undefined;
 	/** The labelable scope the group names itself from. Checkboxes in it leave the control id alone. */
 	readonly labelable: Labelable;
@@ -36,6 +38,8 @@ export interface CheckboxGroupContextValue {
 	readonly inputs: ReadonlySet<HTMLInputElement>;
 	registerInput(input: HTMLInputElement): () => void;
 	setValue(value: string[], details: CheckboxGroupChangeDetails): void;
+	/** Adds a value a child checkbox starts ticked with, such as one a remote form spread ticks. */
+	adopt(value: string): void;
 }
 
 export const [useCheckboxGroupContext, setCheckboxGroupContext] = defineOptionalContext<

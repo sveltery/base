@@ -41,38 +41,31 @@ An enclosing `<label>` is the simplest labeling pattern:
 </label>
 ```
 
-### Rendering as a native button
+### Using a sibling label
 
-By default, `<Checkbox.Root>` renders a `<span>` element to support enclosing labels. Prefer rendering the checkbox as a native button when using sibling labels (`for`/`id`). Set `nativeButton` and render a `<button>` with the `render` snippet.
+`<Checkbox.Root>` renders a real `<input type="checkbox">` over its box, so a sibling `<label>` with `for` works as it does in HTML. Pass `id` to name the input:
 
-```svelte title="Sibling label pattern with a native button"
+```svelte title="Sibling label pattern"
 <div>
 	<label for="notifications-checkbox">Enable notifications</label>
-	<!-- @highlight-text "nativeButton" -->
-	<Checkbox.Root id="notifications-checkbox" nativeButton>
-		<!-- @highlight-text "render" -->
-		{#snippet render(props, _state, children)}
-			<button type="button" {...props}>{@render children?.()}</button>
-		{/snippet}
+	<!-- @highlight-text "id" -->
+	<Checkbox.Root id="notifications-checkbox">
 		<Checkbox.Indicator />
 	</Checkbox.Root>
 </div>
 ```
 
-Native buttons with wrapping labels are supported by using the `render` snippet to avoid invalid HTML, so the hidden input is placed outside the label:
+### Native attributes and events
 
-```svelte title="Render callback"
-<Checkbox.Root nativeButton>
-	<!-- @highlight-start -->
-	{#snippet render(props, _state, children)}
-		<label>
-			<button type="button" {...props}>{@render children?.()}</button>
-			Enable notifications
-		</label>
-	{/snippet}
-	<!-- @highlight-end -->
+Native attributes and handlers such as `name`, `oninput`, `onchange` and `aria-*` go to the input. `class` and `style` go to the box you see, and `host` takes any other attribute for the box. The input submits with the form and fires real `input` and `change` events, so read `event.currentTarget.checked` instead of a change callback:
+
+```svelte title="Reading the checked state"
+<Checkbox.Root name="notifications" onchange={(event) => console.log(event.currentTarget.checked)}>
+	<Checkbox.Indicator />
 </Checkbox.Root>
 ```
+
+To stop a change, call `event.preventDefault()` in `onclick`, as with a native checkbox.
 
 ### Form integration
 
