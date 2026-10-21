@@ -3,12 +3,15 @@
 // packages/react/src/radio/indicator/RadioIndicator.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Cases from upstream commit d8afb3717 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// Sveltery: the radio is a real `<input type="radio">` over a painted box, so `checked`,
+// `disabled` and `required` are the input's own, a radio without a group follows its own
+// `checked`, and native events replace `onValueChange` (docs/upstream-differences.md).
 // Field cases are in src/lib/field/choice-controls.svelte.spec.ts. Group cases below set the context Radio.Root already reads,
 // without RadioGroup's roving tabindex. Arrow keys are covered by RadioGroup.
 // Cases under "native Svelte" have no upstream counterpart.
 import { flushSync } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { ariaLabelPreferenceCases } from '../../tests/aria-label-preference-cases.js';
 import RadioAttachHarness from '../../tests/RadioAttachHarness.svelte';
@@ -36,28 +39,42 @@ function radioEl(name?: string) {
 	return name ? page.getByRole('radio', { name }) : page.getByRole('radio');
 }
 
-function clickRadio(name?: string) {
-	(radioEl(name).element() as HTMLElement).click();
-}
-
-function hiddenInputs() {
-	return [...document.querySelectorAll('input[type="radio"][aria-hidden="true"]')].filter(
+/** Every Base radio input: the ones inside a box. */
+function inputs() {
+	return [...document.querySelectorAll('span > input[type="radio"]')].filter(
 		(node): node is HTMLInputElement => node instanceof HTMLInputElement
 	);
 }
 
-function hiddenInput() {
-	const input = hiddenInputs()[0];
-	if (!input) throw new Error('expected a hidden radio');
-	return input;
+function input() {
+	const element = inputs()[0];
+	if (!element) throw new Error('expected the radio input');
+	return element;
 }
 
+function box() {
+	const element = input().parentElement;
+	if (!element) throw new Error('expected the radio box');
+	return element;
+}
+
+function boxOf(testId: string) {
+	const element = page.getByTestId(testId).element().parentElement;
+	if (!element) throw new Error('expected the radio box');
+	return element;
+}
+
+function checkedOf(testId: string) {
+	return (page.getByTestId(testId).element() as HTMLInputElement).checked;
+}
+
+function clickRadio(name?: string) {
+	(radioEl(name).element() as HTMLElement).click();
+}
+
+/** Each value the group context was asked to select, as JSON. */
 function calls() {
-	return JSON.parse(page.getByTestId('calls').element().textContent ?? '[]') as {
-		value: string;
-		reason: string;
-		canceled: boolean;
-	}[];
+	return JSON.parse(page.getByTestId('calls').element().textContent ?? '[]') as string[];
 }
 
 function groupValue() {
@@ -70,75 +87,81 @@ function indicatorCount() {
 
 describe('Radio', () => {
 	describe('without a group', () => {
-		it('is checked only when value is the empty string', async () => {
+		it('is checked by defaultChecked, not by its value', async () => {
+			render(Radio.Root, { value: '', defaultChecked: true });
+
+			await expect.poll(() => input().checked).toBe(true);
+			expect(box().hasAttribute('data-checked')).toBe(true);
+			expect(input().value).toBe('');
+		});
+
+		it('starts unchecked for an empty value', async () => {
 			render(Radio.Root, { value: '' });
 
-			await expect.element(radioEl()).toHaveAttribute('aria-checked', 'true');
-			await expect.element(radioEl()).toHaveAttribute('data-checked', '');
-			await expect.element(radioEl()).toHaveAttribute('data-composite-item-active', '');
-			expect(hiddenInput().checked).toBe(true);
-			expect(hiddenInput().value).toBe('');
+			expect(input().checked).toBe(false);
+			expect(box().hasAttribute('data-unchecked')).toBe(true);
 		});
 
-		it('stays unchecked for any other value, including after click and Space', async () => {
+		it('selects on click, as a native radio does, and stays selected', async () => {
 			render(Radio.Root, { value: 'blue' });
 
-			await expect.element(radioEl()).toHaveAttribute('aria-checked', 'false');
-			await expect.element(radioEl()).toHaveAttribute('data-unchecked', '');
-			await expect.element(radioEl()).not.toHaveAttribute('data-checked');
-			await expect.element(radioEl()).not.toHaveAttribute('value');
-			expect(hiddenInput().checked).toBe(false);
-			expect(hiddenInput().value).toBe('blue');
+			expect(box().hasAttribute('data-unchecked')).toBe(true);
+			expect(box().hasAttribute('data-checked')).toBe(false);
+			expect(box().hasAttribute('value')).toBe(false);
+			expect(input().value).toBe('blue');
 
-			clickRadio();
-			await expect.element(radioEl()).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInput().checked).toBe(false);
-
-			(radioEl().element() as HTMLElement).focus();
-			await userEvent.keyboard('{Space}');
-			await expect.element(radioEl()).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInput().checked).toBe(false);
+			input().click();
+			await expect.poll(() => box().hasAttribute('data-checked')).toBe(true);
+			input().click();
+			expect(input().checked).toBe(true);
 		});
 
-		it('does not activate with Enter and does not submit the form', async () => {
+		it('selects with Space', async () => {
+			render(Radio.Root, { value: 'blue' });
+
+			input().focus();
+			await userEvent.keyboard('{Space}');
+			await expect.poll(() => input().checked).toBe(true);
+		});
+
+		it('submits the form on Enter without selecting', async () => {
 			render(RadioFormHarness, { scenario: 'enter' });
 
-			await expect.element(radioEl()).toHaveAttribute('aria-checked', 'false');
-			(radioEl().element() as HTMLElement).focus();
+			input().focus();
 			await userEvent.keyboard('{Enter}');
-			await expect.element(radioEl()).toHaveAttribute('aria-checked', 'false');
-			await expect.element(page.getByTestId('submitted')).toHaveTextContent('0');
+			await expect.element(page.getByTestId('submitted')).toHaveTextContent('1');
+			expect(input().checked).toBe(false);
 		});
 
 		it('serializes null as an empty input value without selecting the radio', async () => {
 			render(Radio.Root, { value: null });
 
-			await expect.element(radioEl()).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInput().value).toBe('');
-			expect(hiddenInput().checked).toBe(false);
+			expect(input().value).toBe('');
+			expect(input().checked).toBe(false);
 		});
 
-		it('serializes numbers and objects onto the hidden input only', async () => {
+		it('serializes numbers and objects onto the input only', async () => {
 			render(Radio.Root, { value: { id: 1 } });
 
-			expect(hiddenInput().value).toBe('{"id":1}');
-			await expect.element(radioEl()).not.toHaveAttribute('value');
+			expect(input().value).toBe('{"id":1}');
+			expect(box().hasAttribute('value')).toBe(false);
 		});
 	});
 
 	describe('in a group', () => {
-		it('sets checked and unchecked data attributes', async () => {
+		it('sets checked and unchecked data attributes on the box', async () => {
 			render(RadioGroupHarness, { scenario: 'select' });
 
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('data-checked', '');
-			await expect.element(page.getByTestId('radio-a')).not.toHaveAttribute('data-unchecked');
-			await expect.element(page.getByTestId('radio-b')).toHaveAttribute('data-unchecked', '');
-			await expect.element(page.getByTestId('radio-b')).not.toHaveAttribute('data-checked');
+			expect(boxOf('radio-a').hasAttribute('data-checked')).toBe(true);
+			expect(boxOf('radio-a').hasAttribute('data-unchecked')).toBe(false);
+			expect(boxOf('radio-b').hasAttribute('data-unchecked')).toBe(true);
+			expect(boxOf('radio-b').hasAttribute('data-checked')).toBe(false);
 		});
 
-		it('does not forward the value prop', async () => {
+		it('puts the value on the input, not the box', async () => {
 			render(RadioGroupHarness, { scenario: 'select' });
-			await expect.element(page.getByTestId('radio-a')).not.toHaveAttribute('value');
+			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('value', 'a');
+			expect(boxOf('radio-a').hasAttribute('value')).toBe(false);
 		});
 
 		it('selects the clicked radio and clears the previous one', async () => {
@@ -146,75 +169,43 @@ describe('Radio', () => {
 
 			clickRadio('B');
 
-			await expect.element(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInputs().map((input) => input.checked)).toEqual([false, true]);
+			await expect.element(page.getByTestId('radio-b')).toBeChecked();
+			await expect.element(page.getByTestId('radio-a')).not.toBeChecked();
+			expect(inputs().map((element) => element.checked)).toEqual([false, true]);
 			expect(groupValue()).toBe('"b"');
-			expect(calls()).toEqual([{ value: '"b"', reason: 'none', canceled: false }]);
+			expect(calls()).toEqual(['"b"']);
 		});
 
 		it('allows a null value', async () => {
 			render(RadioGroupHarness, { scenario: 'null' });
 
 			clickRadio('None');
-			await expect.element(page.getByTestId('radio-null')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('radio-null')).toBeChecked();
 			expect(groupValue()).toBe('null');
 
 			clickRadio('A');
-			await expect.element(page.getByTestId('radio-null')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
-		});
-
-		it('keeps the previous value when the change is canceled', async () => {
-			render(RadioGroupHarness, { scenario: 'cancel' });
-
-			clickRadio('B');
-
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInputs()[1]?.checked).toBe(false);
-			expect(calls()).toEqual([{ value: '"b"', reason: 'none', canceled: true }]);
+			await expect.element(page.getByTestId('radio-null')).not.toBeChecked();
+			await expect.element(page.getByTestId('radio-a')).toBeChecked();
 		});
 
 		it('selects by the value reference passed to the group', async () => {
 			render(RadioGroupHarness, { scenario: 'object' });
 
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'false');
+			await expect.element(page.getByTestId('radio-a')).not.toBeChecked();
 			clickRadio('One');
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
-			expect(hiddenInputs()[0]?.value).toBe('{"id":1}');
+			await expect.element(page.getByTestId('radio-a')).toBeChecked();
+			expect(inputs()[0]?.value).toBe('{"id":1}');
 
 			clickRadio('Two');
-			await expect.element(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'false');
-		});
-
-		it('selects the hidden input that was clicked', async () => {
-			render(RadioGroupHarness, { scenario: 'select' });
-
-			hiddenInputs()[1]?.click();
-
-			await expect.element(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'true');
-		});
-
-		it('associates id with the native button when nativeButton is true', async () => {
-			render(RadioGroupHarness, { scenario: 'native' });
-
-			const radioA = page.getByTestId('radio-a');
-			await expect.element(radioA).toHaveAttribute('id', 'myRadio');
-			expect(hiddenInputs()[0]?.id).not.toBe('myRadio');
-			expect(radioA.element().tagName).toBe('BUTTON');
-
-			await expect.element(radioA).toHaveAttribute('aria-checked', 'false');
-			await page.getByTestId('label').click();
-			await expect.element(radioA).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('radio-b')).toBeChecked();
+			await expect.element(page.getByTestId('radio-a')).not.toBeChecked();
 		});
 
 		it('selects a radio when its wrapping label is clicked', async () => {
 			render(RadioGroupHarness, { scenario: 'label' });
 
 			await page.getByText('Pick A').click();
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('radio-a')).toBeChecked();
 			expect(calls()).toHaveLength(1);
 		});
 
@@ -223,7 +214,7 @@ describe('Radio', () => {
 
 			(page.getByTestId('radio-b').element() as HTMLElement).focus();
 
-			await expect.element(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('radio-b')).toBeChecked();
 			await expect.element(page.getByTestId('touched')).toHaveTextContent('no');
 		});
 
@@ -238,15 +229,15 @@ describe('Radio', () => {
 			await expect
 				.poll(() => page.getByTestId('values').element().textContent)
 				.toContain('["a","b"]');
-			expect(hiddenInputs().every((input) => input.name === 'color')).toBe(true);
+			expect(inputs().every((element) => element.name === 'color')).toBe(true);
 		});
 
 		it('blocks submit until a required group has a selection', async () => {
 			render(RadioGroupHarness, { scenario: 'required' });
 
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('data-required', '');
+			expect(boxOf('radio-a').hasAttribute('data-required')).toBe(true);
 			await expect.element(page.getByTestId('radio-a')).not.toHaveAttribute('aria-required');
-			expect(hiddenInputs()[0]?.validity.valueMissing).toBe(true);
+			expect(inputs()[0]?.validity.valueMissing).toBe(true);
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect.element(page.getByTestId('submitted')).toHaveTextContent('0');
 
@@ -257,33 +248,57 @@ describe('Radio', () => {
 		});
 	});
 
-	describe('extra props', () => {
-		it('should override the built-in attributes', async () => {
-			render(Radio.Root, { value: 'a', role: 'checkbox', 'data-testid': 'radio' });
-			await expect.element(page.getByTestId('radio')).toHaveAttribute('role', 'checkbox');
+	describe('native attributes', () => {
+		it('sends native attributes to the input, and class, style and host to the box', async () => {
+			render(Radio.Root, {
+				value: 'a',
+				'data-testid': 'input',
+				title: 'Tip',
+				class: 'box',
+				style: 'color: red',
+				host: { 'data-testid': 'box' }
+			});
+
+			expect(page.getByTestId('input').element()).toBe(input());
+			expect(input().title).toBe('Tip');
+			expect(page.getByTestId('box').element()).toBe(box());
+			expect(box().className).toBe('box');
+			expect(box().style.color).toBe('red');
 		});
 
-		it('sets aria-labelledby from a sibling label associated with the hidden input', async () => {
+		it('is named and selected by a sibling label that points at its id', async () => {
 			render(RadioLabelHarness, { scenario: 'sibling' });
 
-			const label = page.getByText('Label');
-			await expect.poll(() => label.element().id).not.toBe('');
-			await expect.element(radioEl()).toHaveAttribute('aria-labelledby', label.element().id);
+			await expect.element(radioEl()).toHaveAccessibleName('Label');
+			await page.getByText('Label').click();
+			await expect.poll(() => input().checked).toBe(true);
 		});
 
-		it('updates fallback aria-labelledby when the hidden input id changes', async () => {
+		it('follows the label that points at its current id', async () => {
 			render(RadioLabelHarness, { scenario: 'radio-id' });
 
-			const labelA = page.getByText('Label A');
-			await expect.poll(() => labelA.element().id).not.toBe('');
-			await expect.element(radioEl()).toHaveAttribute('aria-labelledby', labelA.element().id);
-
+			await expect.element(radioEl()).toHaveAccessibleName('Label A');
 			await page.getByRole('button', { name: 'Toggle' }).click();
+			await expect.element(radioEl()).toHaveAccessibleName('Label B');
+		});
 
-			const labelB = page.getByText('Label B');
-			await expect.poll(() => labelB.element().id).not.toBe('');
-			expect(labelA.element().id).not.toBe(labelB.element().id);
-			await expect.element(radioEl()).toHaveAttribute('aria-labelledby', labelB.element().id);
+		it('is selected when a wrapping label is clicked', async () => {
+			render(RadioLabelHarness, { scenario: 'wrap' });
+
+			await expect.element(radioEl()).toHaveAccessibleName('Toggle');
+			(page.getByTestId('label').element() as HTMLElement).click();
+			await expect.poll(() => input().checked).toBe(true);
+		});
+
+		it('fires native input and change events', async () => {
+			const onchange = vi.fn((event: Event) => (event.currentTarget as HTMLInputElement).checked);
+			const oninput = vi.fn();
+			render(Radio.Root, { value: 'a', onchange, oninput });
+
+			input().click();
+
+			expect(oninput).toHaveBeenCalledTimes(1);
+			expect(onchange.mock.results[0]?.value).toBe(true);
 		});
 	});
 
@@ -294,7 +309,7 @@ describe('Radio', () => {
 			await page.getByTestId('radio-a').click();
 
 			await expect.element(page.getByTestId('parent-clicks')).toHaveTextContent('1');
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('radio-a')).toBeChecked();
 		});
 
 		it('does not propagate to ancestors when stopPropagation() is called', async () => {
@@ -303,44 +318,24 @@ describe('Radio', () => {
 			clickRadio('A');
 
 			await expect.element(page.getByTestId('parent-clicks')).toHaveTextContent('0');
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('radio-a')).toBeChecked();
 		});
 
-		it('propagates a single click event to ancestors with a native button', async () => {
-			render(RadioGroupHarness, { scenario: 'native-bubble' });
-
-			await page.getByTestId('radio-a').click();
-
-			await expect.element(page.getByTestId('parent-clicks')).toHaveTextContent('1');
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
-		});
-
-		it('does not propagate to ancestors when stopPropagation() is called with a native button', async () => {
-			render(RadioGroupHarness, { scenario: 'native-stop' });
-
-			clickRadio('A');
-
-			await expect.element(page.getByTestId('parent-clicks')).toHaveTextContent('0');
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
-		});
-
-		it('propagates one click and does not select a radio that has no group', async () => {
+		it('propagates one click and selects a radio that has no group', async () => {
 			render(RadioClickHarness, { scenario: 'bubble' });
 
 			await page.getByRole('radio').click();
 
 			await expect.element(page.getByTestId('parent-clicks')).toHaveTextContent('1');
-			await expect.element(radioEl()).toHaveAttribute('aria-checked', 'false');
+			await expect.element(radioEl()).toBeChecked();
 		});
 	});
 
 	describe('prop: disabled', () => {
-		it('uses aria-disabled instead of HTML disabled', async () => {
+		it('disables the input natively', async () => {
 			render(Radio.Root, { value: 'a', disabled: true });
-			await expect.element(radioEl()).not.toHaveAttribute('disabled');
-			await expect.element(radioEl()).toHaveAttribute('aria-disabled', 'true');
-			await expect.element(radioEl()).toHaveAttribute('data-disabled', '');
-			expect(hiddenInput().disabled).toBe(true);
+			await expect.element(radioEl()).toBeDisabled();
+			expect(box().hasAttribute('data-disabled')).toBe(true);
 		});
 
 		it('does not change a grouped radio when clicked', async () => {
@@ -348,83 +343,88 @@ describe('Radio', () => {
 
 			clickRadio('B');
 
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('radio-a')).toBeChecked();
 			expect(calls()).toEqual([]);
-			expect(hiddenInputs().every((input) => input.disabled)).toBe(true);
+			expect(inputs().every((element) => element.disabled)).toBe(true);
 		});
 	});
 
 	describe('prop: readOnly', () => {
-		it('sets data-readonly and the hidden input without aria-readonly', async () => {
+		it('sets data-readonly on the box without aria-readonly on the input', async () => {
 			render(Radio.Root, { value: 'a', readonly: true });
 			await expect.element(radioEl()).not.toHaveAttribute('aria-readonly');
-			await expect.element(radioEl()).toHaveAttribute('data-readonly', '');
-			expect(hiddenInput().readOnly).toBe(true);
+			expect(box().hasAttribute('data-readonly')).toBe(true);
 		});
 
 		it('should not have the readonly hook when readOnly is not set', async () => {
 			render(Radio.Root, { value: 'a' });
-			await expect.element(radioEl()).not.toHaveAttribute('data-readonly');
-			expect(hiddenInput().readOnly).toBe(false);
+			expect(box().hasAttribute('data-readonly')).toBe(false);
 		});
 
 		it('does not change a grouped radio when clicked', async () => {
 			render(RadioGroupHarness, { scenario: 'readonly' });
 
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('radio-a')).toBeChecked();
 			clickRadio('B');
-			await expect.element(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'false');
+			await expect.element(page.getByTestId('radio-b')).not.toBeChecked();
 			expect(calls()).toEqual([]);
-			expect(hiddenInputs()[1]?.checked).toBe(false);
+			expect(checkedOf('radio-a')).toBe(true);
+		});
+
+		it('does not select a radio without a group when its label is clicked', async () => {
+			render(RadioLabelHarness, { scenario: 'readonly' });
+
+			(page.getByTestId('label').element() as HTMLElement).click();
+			await expect.element(radioEl()).not.toBeChecked();
 		});
 	});
 
 	describe('prop: required', () => {
-		it('sets data-required and the hidden input without aria-required', async () => {
+		it('requires the input natively and sets data-required on the box', async () => {
 			render(Radio.Root, { value: 'a', required: true });
 			await expect.element(radioEl()).not.toHaveAttribute('aria-required');
-			await expect.element(radioEl()).toHaveAttribute('data-required', '');
-			expect(hiddenInput().required).toBe(true);
+			expect(box().hasAttribute('data-required')).toBe(true);
+			expect(input().required).toBe(true);
 		});
 
 		it('should not have the required hook when required is not set', async () => {
 			render(Radio.Root, { value: 'a' });
-			await expect.element(radioEl()).not.toHaveAttribute('data-required');
+			expect(box().hasAttribute('data-required')).toBe(false);
 		});
 
 		it('does not block submit for a required radio that has no name', async () => {
 			render(RadioFormHarness, { scenario: 'required' });
 
-			expect(hiddenInput().required).toBe(true);
-			expect(hiddenInput().validity.valueMissing).toBe(false);
+			expect(input().required).toBe(true);
+			expect(input().validity.valueMissing).toBe(false);
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect.element(page.getByTestId('submitted')).toHaveTextContent('1');
 		});
 
-		it('submits a standalone required radio whose value is empty', async () => {
+		it('submits a standalone required radio that starts checked', async () => {
 			render(RadioFormHarness, { scenario: 'required-checked' });
 
-			expect(hiddenInput().validity.valueMissing).toBe(false);
+			expect(input().validity.valueMissing).toBe(false);
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect.element(page.getByTestId('submitted')).toHaveTextContent('1');
 		});
 	});
 
-	it('should place the style hooks on the root and the indicator', async () => {
+	it('should place the style hooks on the box and the indicator', async () => {
 		render(RadioStyleHarness);
 		const indicator = page.getByTestId('indicator');
 
-		await expect.element(radioEl()).toHaveAttribute('data-checked', '');
-		await expect.element(radioEl()).toHaveAttribute('data-disabled', '');
-		await expect.element(radioEl()).toHaveAttribute('data-readonly', '');
-		await expect.element(radioEl()).toHaveAttribute('data-required', '');
+		expect(box().hasAttribute('data-checked')).toBe(true);
+		expect(box().hasAttribute('data-disabled')).toBe(true);
+		expect(box().hasAttribute('data-readonly')).toBe(true);
+		expect(box().hasAttribute('data-required')).toBe(true);
 		await expect.element(indicator).toHaveAttribute('data-checked', '');
 		await expect.element(indicator).toHaveAttribute('data-disabled', '');
 
 		await page.getByRole('button', { name: 'Enable' }).click();
 
-		await expect.element(radioEl()).toHaveAttribute('data-unchecked', '');
-		await expect.element(radioEl()).not.toHaveAttribute('data-checked');
+		await expect.poll(() => box().hasAttribute('data-unchecked')).toBe(true);
+		expect(box().hasAttribute('data-checked')).toBe(false);
 		await expect.poll(() => indicatorCount()).toBe(0);
 	});
 
@@ -591,26 +591,24 @@ describe('Radio', () => {
 
 			clickRadio('B');
 
-			await expect.element(page.getByTestId('radio-a')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(page.getByTestId('radio-b')).toHaveAttribute('aria-checked', 'false');
+			await expect.element(page.getByTestId('radio-a')).toBeChecked();
+			await expect.element(page.getByTestId('radio-b')).not.toBeChecked();
 			expect(calls()).toEqual([]);
 		});
 
-		it('passes consumer attachments to the default host', async () => {
+		it('passes consumer attachments to the input', async () => {
 			render(RadioAttachHarness);
-
-			await expect.element(page.getByTestId('host')).toHaveTextContent('default-host');
-			await radioEl().click();
-			await expect.element(page.getByTestId('host')).toHaveTextContent('default-host');
+			await expect.element(page.getByTestId('host')).toHaveTextContent('INPUT');
 		});
 
-		it('render snippet receives props, state and consumer attachments', async () => {
+		it('render snippet draws the box with the input inside', async () => {
 			render(RadioAttachHarness, { custom: true });
-			const host = page.getByRole('radio', { name: 'Custom' });
+			const custom = document.querySelector('.custom-host');
 
-			await expect.element(host).toHaveAttribute('data-state', 'on');
-			await expect.element(page.getByTestId('host')).toHaveTextContent('custom-host');
-			await expect.element(host).toHaveAttribute('aria-checked', 'true');
+			expect(custom?.getAttribute('data-state')).toBe('off');
+			expect(input().parentElement).toBe(custom);
+			input().click();
+			await expect.poll(() => custom?.getAttribute('data-state')).toBe('on');
 		});
 	});
 });
@@ -628,11 +626,7 @@ describe('Radio.Root consumer preventDefault', () => {
 		await userEvent.click(page.getByRole('radio', { name: 'A' }));
 		await userEvent.keyboard('{ArrowDown}');
 		await expect.element(page.getByRole('radio', { name: 'B' })).toHaveFocus();
-		await expect
-			.element(page.getByRole('radio', { name: 'B' }))
-			.toHaveAttribute('aria-checked', 'false');
-		await expect
-			.element(page.getByRole('radio', { name: 'A' }))
-			.toHaveAttribute('aria-checked', 'true');
+		await expect.element(page.getByRole('radio', { name: 'B' })).not.toBeChecked();
+		await expect.element(page.getByRole('radio', { name: 'A' })).toBeChecked();
 	});
 });

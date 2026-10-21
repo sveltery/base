@@ -62,8 +62,8 @@ describe('form reset', () => {
 
 				await reset();
 				await expect.poll(state).toEqual({ picked: 'free' });
-				await expect.element(page.getByTestId('free')).toHaveAttribute('aria-checked', 'true');
-				await expect.element(page.getByTestId('pro')).toHaveAttribute('aria-checked', 'false');
+				await expect.element(page.getByTestId('free')).toBeChecked();
+				await expect.element(page.getByTestId('pro')).not.toBeChecked();
 				expect(formData()).toEqual([['plan', 'free']]);
 			});
 
@@ -170,7 +170,7 @@ describe('form reset', () => {
 
 				await reset();
 				await expect.poll(state).toEqual({ picked: 'free', volume: 30, tags: ['svelte'] });
-				await expect.element(page.getByTestId('free')).toHaveAttribute('aria-checked', 'true');
+				await expect.element(page.getByTestId('free')).toBeChecked();
 				await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '30');
 				await expect.element(page.getByTestId('kit')).not.toBeChecked();
 				expect(formData()).toEqual([

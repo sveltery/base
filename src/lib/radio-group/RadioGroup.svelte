@@ -1,6 +1,6 @@
 <!--
-	Provides shared state to a series of radio buttons.
-	Renders a `<div>` element.
+	Provides shared state to a series of radio buttons. Renders a `<fieldset>` element, so a
+	Fieldset.Legend inside names the group and `disabled` disables every radio natively.
 	Derived from Base UI v1.9.0 packages/react/src/radio-group/RadioGroup.tsx
 	and the linear composite path it mounts
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
@@ -8,10 +8,9 @@
 	The radios are the existing Radio parts.
 -->
 <script lang="ts">
-	import { SvelteSet } from 'svelte/reactivity';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { contains, ownerDocument } from '@sveltery/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { HTMLFieldsetAttributes } from 'svelte/elements';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -25,9 +24,12 @@
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
-	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
+	import {
+		FieldsetRootContextValue,
+		findFieldsetRootContext,
+		setFieldsetRootContext
+	} from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
-	import type { RadioRootChangeEventDetails } from '../radio/types.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
 
 	const uid = $props.id();
@@ -42,7 +44,6 @@
 		required: requiredProp,
 		name: nameProp,
 		form: formProp,
-		onValueChange,
 		onfocusout,
 		onkeydown,
 		'aria-describedby': ariaDescribedBy,
@@ -81,10 +82,21 @@
 
 	const reading = useDirection();
 	const formContext = useFormContext();
-	const fieldset = findFieldsetRootContext();
 	const labelable = useLabelableContext();
 	const disabled = $derived(field.disabled || (disabledProp ?? false));
 	const name = $derived(field.name ?? nameProp ?? undefined);
+	// Radios that share a name get single selection and arrow keys from the browser, also
+	// without JavaScript. A remote form throws on a named input it does not know, so an unnamed
+	// group there keeps no name and relies on this group's roving focus.
+	const generatedName = `base-ui-${uid}-radio`;
+	const radioName = $derived(
+		formContext.remote ? (nameProp ?? undefined) : (name ?? generatedName)
+	);
+
+	const fieldset = new FieldsetRootContextValue(findFieldsetRootContext(), () =>
+		Boolean(disabledProp)
+	);
+	setFieldsetRootContext(fieldset);
 
 	// The group takes its name from `aria-labelledby`, so Field.Label must not point `for`
 	// at one radio inside it.
@@ -142,15 +154,6 @@
 		};
 	}
 
-	const inputSyncs = new SvelteSet<() => void>();
-
-	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
-		onValueChange?.(next, details);
-		if (details.isCanceled) return;
-		if (Object.is(next, checkedValue)) return;
-		selection.set(next);
-	}
-
 	setRadioGroupContext({
 		roving,
 		get disabled() {
@@ -163,7 +166,7 @@
 			return required;
 		},
 		get name() {
-			return name;
+			return radioName;
 		},
 		get form() {
 			return form;
@@ -178,16 +181,11 @@
 			return touched;
 		},
 		labelable,
-		setCheckedValue,
+		setCheckedValue(next) {
+			if (!Object.is(next, checkedValue)) selection.set(next);
+		},
 		setTouched(next) {
 			touched = next;
-		},
-		registerInputSync(sync) {
-			inputSyncs.add(sync);
-			return () => inputSyncs.delete(sync);
-		},
-		syncInputs() {
-			for (const sync of inputSyncs) sync();
 		}
 	});
 
@@ -198,7 +196,9 @@
 		touched = !(event.altKey || event.ctrlKey || event.metaKey);
 	}
 
-	function handleFocusOut(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+	function handleFocusOut(
+		event: FocusEvent & { currentTarget: EventTarget & HTMLFieldSetElement }
+	) {
 		if (contains(event.currentTarget, event.relatedTarget)) return;
 		touched = false;
 		field.setTouched(true);
@@ -206,7 +206,9 @@
 		if (field.validationMode === 'onBlur') field.commit(checkedValue);
 	}
 
-	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+	function handleKeyDown(
+		event: KeyboardEvent & { currentTarget: EventTarget & HTMLFieldSetElement }
+	) {
 		onkeydown?.(event);
 		if (event.defaultPrevented) return;
 		roving.keydown(event);
@@ -219,19 +221,18 @@
 		required
 	});
 
-	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLElement>> =
-		$derived.by(() => {
-			const explicitLabel = elementProps['aria-labelledby'];
-			const labelledBy = explicitLabel ?? labelable.labelId ?? fieldset?.legendId;
+	const hostProps: HTMLFieldsetAttributes & Record<symbol, Attachment<HTMLElement>> = $derived.by(
+		() => {
+			const labelledBy = fieldset.legendId ?? labelable.labelId;
 			const describedBy = labelable.describedBy(ariaDescribedBy ?? undefined);
 			return {
 				...getStateAttributesProps(groupState, fieldValidityMapping),
 				role: 'radiogroup',
-				...(disabled ? { 'aria-disabled': true as const } : {}),
 				...(readOnly ? { 'aria-readonly': true as const } : {}),
 				...(required ? { 'aria-required': true as const } : {}),
-				...elementProps,
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
+				...elementProps,
+				disabled: disabledProp || undefined,
 				...(describedBy ? { 'aria-describedby': describedBy } : {}),
 				...(field.valid === false && !disabled ? { 'aria-invalid': true as const } : {}),
 				onfocusout: chain(handleFocusOut, onfocusout),
@@ -241,11 +242,12 @@
 				[rootKey]: rememberRoot,
 				...roving.rootProps
 			};
-		});
+		}
+	);
 </script>
 
 {#if render}
 	{@render render(hostProps, groupState, children)}
 {:else}
-	<div {...hostProps}>{@render children?.()}</div>
+	<fieldset {...hostProps}>{@render children?.()}</fieldset>
 {/if}

@@ -3,11 +3,11 @@
 
 	let {
 		disableSecond = false,
-		onValueChange
-	}: { disableSecond?: boolean; onValueChange?: (value: unknown) => void } = $props();
+		onchange
+	}: { disableSecond?: boolean; onchange?: (event: Event) => void } = $props();
 </script>
 
-<RadioGroup {onValueChange}>
+<RadioGroup {onchange}>
 	<Radio.Root value="a" aria-label="A" />
 	<Radio.Root value="b" aria-label="B" disabled={disableSecond} />
 </RadioGroup>

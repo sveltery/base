@@ -3,10 +3,11 @@
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // `createPortal` becomes an attachment that moves the radio out of the `<form>`.
 // Cases under "native Svelte" have no upstream counterpart.
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import RadioGroupFormHarness from '../../tests/RadioGroupFormHarness.svelte';
+import RemoteRadioHarness from '../../tests/RemoteRadioHarness.svelte';
 
 function output(name: string) {
 	return page.getByTestId(name).element().textContent ?? '';
@@ -119,6 +120,39 @@ describe('RadioGroup in a Form', () => {
 			await page.getByTestId('other-control').fill('x');
 
 			await expect.poll(() => output('other')).toBe('"a"');
+		});
+	});
+
+	describe('remote form', () => {
+		const radio = (name: string) => page.getByRole('radio', { name, exact: true });
+
+		it('names each bare radio from its Field and selects the remote value', async () => {
+			render(RemoteRadioHarness, { scenario: 'bare' });
+
+			await expect.element(radio('Free')).toHaveAttribute('name', 'plan');
+			await expect.element(radio('Pro')).toHaveAttribute('name', 'plan');
+			await expect.element(radio('Pro')).toBeChecked();
+			await expect.element(radio('Free')).not.toBeChecked();
+		});
+
+		it("lets a radio's own name win over the field's", async () => {
+			render(RemoteRadioHarness, { scenario: 'own-name' });
+
+			await expect.element(radio('Free')).toHaveAttribute('name', 'plan');
+			await expect.element(radio('Pro')).toHaveAttribute('name', 'other');
+		});
+
+		it('leaves an unnamed group unnamed and keeps one radio selected and arrow keys', async () => {
+			render(RemoteRadioHarness, { scenario: 'unnamed' });
+
+			await expect.element(radio('Free')).not.toHaveAttribute('name');
+			await expect.element(radio('Pro')).not.toHaveAttribute('name');
+			await radio('Free').click();
+			await expect.element(radio('Free')).toBeChecked();
+			await userEvent.keyboard('{ArrowDown}');
+			await expect.element(radio('Pro')).toHaveFocus();
+			await expect.element(radio('Pro')).toBeChecked();
+			await expect.element(radio('Free')).not.toBeChecked();
 		});
 	});
 });

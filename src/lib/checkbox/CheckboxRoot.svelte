@@ -22,7 +22,7 @@
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
-	import { overlayInputStyle } from '../internal/overlay-input.js';
+	import { forwardBoxClick, overlayInputStyle } from '../internal/overlay-input.js';
 	import type { CheckboxBoxProps, CheckboxRootProps, CheckboxRootState } from './types.js';
 
 	const uid = $props.id();
@@ -293,6 +293,7 @@
 		...checkboxRootAttributes(checkboxState),
 		...(parent ? { 'data-parent': '' } : {}),
 		...host,
+		onclick: chain(forwardBoxClick(inputNode), host?.onclick),
 		class: className,
 		style: style ? `position: relative; ${style}` : 'position: relative'
 	});
@@ -315,7 +316,7 @@
 		aria-readonly={readOnly || undefined}
 		aria-labelledby={labelledBy}
 		aria-describedby={describedBy}
-		aria-invalid={invalid || undefined}
+		aria-invalid={inputProps['aria-invalid'] ?? (invalid || undefined)}
 		aria-controls={controls}
 		onclick={handleClick}
 		onfocus={chain(handleFocus, onfocus)}

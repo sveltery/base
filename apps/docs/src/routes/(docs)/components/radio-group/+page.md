@@ -10,7 +10,7 @@
 
 ## Usage guidelines
 
-- **Form controls must have an accessible name**: It can be created using `<label>` elements, or the `Field` and `Fieldset` components. See [Labeling a radio group](#labeling-a-radio-group) and the [forms guide](/handbook/forms).
+- **Form controls must have an accessible name**: It can be created using `<label>` elements, a `Fieldset.Legend` inside the group, or the `Field` component. See [Labeling a radio group](#labeling-a-radio-group) and the [forms guide](/handbook/forms).
 
 ## Anatomy
 
@@ -33,11 +33,12 @@ Import the component and assemble its parts:
 
 ### Labeling a radio group
 
-Label the group with `aria-labelledby` and a sibling label element:
+`<RadioGroup>` renders a `<fieldset>` with the `radiogroup` role. Name it with a [Fieldset.Legend](/components/fieldset) inside:
 
-```svelte title="Using aria-labelledby to label a radio group"
-<div id="storage-type-label">Storage type</div>
-<RadioGroup aria-labelledby="storage-type-label">
+```svelte title="Using a legend to label a radio group"
+<RadioGroup>
+	<!-- @highlight -->
+	<Fieldset.Legend>Storage type</Fieldset.Legend>
 	<!-- ... -->
 </RadioGroup>
 ```
@@ -53,75 +54,86 @@ An enclosing `<label>` is the simplest labeling pattern for each radio:
 </label>
 ```
 
-### Rendering as a native button
+### Using sibling labels
 
-By default, `<Radio.Root>` renders a `<span>` element to support enclosing labels. Prefer rendering each radio as a native button when using sibling labels (`for`/`id`).
+Each `<Radio.Root>` renders a real `<input type="radio">` over its box, so a sibling `<label>` with `for` works as it does in HTML. Pass `id` to name the input:
 
-```svelte title="Sibling label pattern with a native button"
-<div id="storage-type">Storage type</div>
-<RadioGroup defaultValue="ssd" aria-labelledby="storage-type">
+```svelte title="Sibling label pattern"
+<RadioGroup defaultValue="ssd">
+	<Fieldset.Legend>Storage type</Fieldset.Legend>
 	<div>
 		<label for="storage-type-ssd">SSD</label>
-		<!-- @highlight-text "nativeButton" -->
-		<Radio.Root value="ssd" id="storage-type-ssd" nativeButton>
-			<!-- @highlight-start -->
-			{#snippet render(props, state, children)}
-				<button type="button" {...props}>{@render children?.()}</button>
-			{/snippet}
-			<!-- @highlight-end -->
+		<!-- @highlight-text "id" -->
+		<Radio.Root value="ssd" id="storage-type-ssd">
 			<Radio.Indicator />
 		</Radio.Root>
 	</div>
 </RadioGroup>
 ```
 
-Native buttons with wrapping labels are supported by using the `render` snippet to avoid invalid HTML, so the hidden input is placed outside the label:
+### Native attributes and events
 
-```svelte title="Render snippet"
-<div id="storage-type">Storage type</div>
-<RadioGroup defaultValue="ssd" aria-labelledby="storage-type">
-	<Radio.Root value="ssd" nativeButton>
-		<!-- @highlight-start -->
-		{#snippet render(props, state, children)}
-			<label>
-				<button type="button" {...props}>{@render children?.()}</button>
-				SSD
-			</label>
-		{/snippet}
-		<!-- @highlight-end -->
-	</Radio.Root>
+Native attributes and handlers such as `oninput`, `onchange` and `aria-*` go to each radio's input. `class` and `style` go to the box you see, and `host` takes any other attribute for the box. The inputs fire real `input` and `change` events that bubble through the group, so read the radio that changed from `event.target` instead of a change callback:
+
+```svelte title="Reading the selected value"
+<RadioGroup
+	bind:value
+	onchange={(event) => console.log((event.target as HTMLInputElement).value)}
+>
+	<Fieldset.Legend>Storage type</Fieldset.Legend>
+	<label><Radio.Root value="ssd" /> SSD</label>
+	<label><Radio.Root value="hdd" /> HDD</label>
 </RadioGroup>
 ```
 
+To stop a change, call `event.preventDefault()` in a radio's `onclick`, as with a native radio.
+
+### Submitting a plain form
+
+`name` on the group names every radio, as an HTML radio group does. The selected radio submits its own `value`:
+
+```svelte title="A named group in a plain form"
+<form method="POST">
+	<!-- @highlight-text "name" -->
+	<RadioGroup name="storageType" defaultValue="ssd">
+		<Fieldset.Legend>Storage type</Fieldset.Legend>
+		<label><Radio.Root value="ssd" /> SSD</label>
+		<label><Radio.Root value="hdd" /> HDD</label>
+	</RadioGroup>
+</form>
+```
+
+Radios that share a name get single selection and arrow keys from the browser, also before JavaScript runs. A group without a `name` generates one, so it behaves the same. Inside a remote form, an unnamed group stays unnamed, because SvelteKit rejects a named input it does not know.
+
 ### Form integration
 
-Use [Field](/components/field) and [Fieldset](/components/fieldset) for group labeling and form integration:
+Use [Field](/components/field) for form integration. Field.Root's `name` names every radio in the group, and one Field.Error shows the group's issues. With a remote form, spread each option on its radio:
 
 ```svelte title="Using Radio Group in a form"
-<Form>
+<Form form={settings}>
 	<!-- @highlight -->
 	<Field.Root name="storageType">
-		<Fieldset.Root>
-			{#snippet render(props, state, children)}
-				<RadioGroup {...props}>{@render children?.()}</RadioGroup>
-			{/snippet}
+		<RadioGroup>
 			<Fieldset.Legend>Storage type</Fieldset.Legend>
 			<Field.Item>
 				<Field.Label>
-					<Radio.Root value="ssd" />
+					<Radio.Root {...settings.fields.storageType.as('radio', 'ssd')} />
 					SSD
 				</Field.Label>
 			</Field.Item>
 			<Field.Item>
 				<Field.Label>
-					<Radio.Root value="hdd" />
+					<Radio.Root {...settings.fields.storageType.as('radio', 'hdd')} />
 					HDD
 				</Field.Label>
 			</Field.Item>
-		</Fieldset.Root>
+		</RadioGroup>
+		<Field.Error />
 	</Field.Root>
 </Form>
 ```
+
+Without a remote form, use the same markup with `<Radio.Root value="ssd" />` in place of each spread.
 
 ## API reference
 

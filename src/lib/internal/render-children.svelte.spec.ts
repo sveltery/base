@@ -62,7 +62,6 @@ const passthrough = [
 	'progress-indicator',
 	'progress-label',
 	'progress-value-indeterminate',
-	'radio-root',
 	'radio-indicator',
 	'radio-group',
 	'scroll-root',
@@ -94,6 +93,7 @@ const passthrough = [
 const owned = [
 	'checkbox-root',
 	'switch-root',
+	'radio-root',
 	'meter-root',
 	'meter-value',
 	'progress-root',
@@ -162,7 +162,12 @@ describe('render children', () => {
 				if (part === 'meter-root' || part === 'progress-root') {
 					expect(node.textContent).toContain('x');
 				}
-				if (part === 'slider-thumb' || part === 'checkbox-root' || part === 'switch-root') {
+				if (
+					part === 'slider-thumb' ||
+					part === 'checkbox-root' ||
+					part === 'switch-root' ||
+					part === 'radio-root'
+				) {
 					expect(node.querySelector('input')).toBeTruthy();
 				}
 				if (part === 'popover-viewport') {

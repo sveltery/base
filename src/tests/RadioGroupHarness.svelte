@@ -3,23 +3,18 @@
 	import { Radio } from '#lib';
 	import { useLabelableContext } from '#lib/internal/labelable-provider.svelte.js';
 	import { setRadioGroupContext } from '#lib/radio/group-context.js';
-	import type { RadioRootChangeEventDetails } from '#lib/radio/types.js';
 
 	let {
 		scenario = 'select'
 	}: {
 		scenario?:
 			| 'select'
-			| 'cancel'
 			| 'null'
 			| 'disabled'
 			| 'readonly'
 			| 'required'
 			| 'bubble'
 			| 'stop'
-			| 'native-bubble'
-			| 'native-stop'
-			| 'native'
 			| 'label'
 			| 'touched'
 			| 'form'
@@ -27,6 +22,8 @@
 			| 'prevented';
 	} = $props();
 
+	// The boxes have no content of their own, so the harness gives them a size to click.
+	const box = 'display: inline-block; width: 16px; height: 16px';
 	const first = { id: 1 };
 	const second = { id: 2 };
 	const initial = untrack(() => scenario);
@@ -35,16 +32,13 @@
 		initial === 'null' ||
 		initial === 'object' ||
 		initial === 'bubble' ||
-		initial === 'stop' ||
-		initial === 'native-bubble' ||
-		initial === 'native-stop';
+		initial === 'stop';
 
 	// Raw state keeps the radio's value reference. Proxied $state would break ===.
-	let checkedValue = $state.raw<unknown>(
-		open ? undefined : initial === 'native' || initial === 'label' ? 'b' : 'a'
-	);
+	let checkedValue = $state.raw<unknown>(open ? undefined : initial === 'label' ? 'b' : 'a');
 	let touched = $state(initial === 'touched');
-	let calls = $state<{ value: string; reason: string; canceled: boolean }[]>([]);
+	/** Each value the group selected, as JSON. */
+	let calls = $state<string[]>([]);
 	let values = $state<(string | null)[]>([]);
 	let submitted = $state(0);
 	let parentClicks = $state(0);
@@ -74,14 +68,9 @@
 		get touched() {
 			return touched;
 		},
-		setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
-			if (scenario === 'cancel') details.cancel();
-			calls.push({
-				value: JSON.stringify(next),
-				reason: details.reason,
-				canceled: details.isCanceled
-			});
-			if (!details.isCanceled) checkedValue = next;
+		setCheckedValue(next: unknown) {
+			calls.push(JSON.stringify(next));
+			checkedValue = next;
 		},
 		setTouched(next: boolean) {
 			touched = next;
@@ -89,7 +78,7 @@
 	});
 
 	function clicked(event: MouseEvent) {
-		if (scenario === 'stop' || scenario === 'native-stop') event.stopPropagation();
+		if (scenario === 'stop') event.stopPropagation();
 	}
 
 	function onsubmit(event: SubmitEvent) {
@@ -103,53 +92,41 @@
 </script>
 
 {#if scenario === 'null'}
-	<Radio.Root value={null} data-testid="radio-null">None</Radio.Root>
-	<Radio.Root value="a" data-testid="radio-a">A</Radio.Root>
+	<Radio.Root value={null} data-testid="radio-null" aria-label="None" style={box} />
+	<Radio.Root value="a" data-testid="radio-a" aria-label="A" style={box} />
 {:else if scenario === 'object'}
-	<Radio.Root value={first} data-testid="radio-a">One</Radio.Root>
-	<Radio.Root value={second} data-testid="radio-b">Two</Radio.Root>
-{:else if scenario === 'native'}
-	<label data-testid="label" for="myRadio">A</label>
-	<Radio.Root value="a" id="myRadio" nativeButton data-testid="radio-a">
-		{#snippet render(props)}
-			<button {...props}>A</button>
-		{/snippet}
-	</Radio.Root>
-	<Radio.Root value="b" data-testid="radio-b">B</Radio.Root>
+	<Radio.Root value={first} data-testid="radio-a" aria-label="One" style={box} />
+	<Radio.Root value={second} data-testid="radio-b" aria-label="Two" style={box} />
 {:else if scenario === 'label'}
 	<label data-testid="label">
 		<span>Pick A</span>
-		<Radio.Root value="a" data-testid="radio-a">A</Radio.Root>
+		<Radio.Root value="a" data-testid="radio-a" aria-label="A" style={box} />
 	</label>
-	<Radio.Root value="b" data-testid="radio-b">B</Radio.Root>
-{:else if scenario === 'bubble' || scenario === 'stop' || scenario === 'native-bubble' || scenario === 'native-stop'}
+	<Radio.Root value="b" data-testid="radio-b" aria-label="B" style={box} />
+{:else if scenario === 'bubble' || scenario === 'stop'}
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div data-testid="parent" onclick={() => (parentClicks += 1)}>
-		{#if scenario === 'native-bubble' || scenario === 'native-stop'}
-			<Radio.Root value="a" nativeButton data-testid="radio-a" onclick={clicked}>
-				{#snippet render(props)}
-					<button {...props}>A</button>
-				{/snippet}
-			</Radio.Root>
-		{:else}
-			<Radio.Root value="a" data-testid="radio-a" onclick={clicked}>A</Radio.Root>
-		{/if}
+		<Radio.Root value="a" data-testid="radio-a" onclick={clicked} aria-label="A" style={box} />
 	</div>
 {:else if scenario === 'prevented'}
-	<Radio.Root value="a" data-testid="radio-a">A</Radio.Root>
-	<Radio.Root value="b" data-testid="radio-b" onclick={(event) => event.preventDefault()}
-		>B</Radio.Root
-	>
+	<Radio.Root value="a" data-testid="radio-a" aria-label="A" style={box} />
+	<Radio.Root
+		value="b"
+		data-testid="radio-b"
+		aria-label="B"
+		style={box}
+		onclick={(event) => event.preventDefault()}
+	/>
 {:else if scenario === 'form' || scenario === 'required'}
 	<form {onsubmit}>
-		<Radio.Root value="a" data-testid="radio-a">A</Radio.Root>
-		<Radio.Root value="b" data-testid="radio-b">B</Radio.Root>
+		<Radio.Root value="a" data-testid="radio-a" aria-label="A" style={box} />
+		<Radio.Root value="b" data-testid="radio-b" aria-label="B" style={box} />
 		<button type="submit">Submit</button>
 	</form>
 {:else}
-	<Radio.Root value="a" data-testid="radio-a">A</Radio.Root>
-	<Radio.Root value="b" data-testid="radio-b">B</Radio.Root>
+	<Radio.Root value="a" data-testid="radio-a" aria-label="A" style={box} />
+	<Radio.Root value="b" data-testid="radio-b" aria-label="B" style={box} />
 {/if}
 <output data-testid="calls">{JSON.stringify(calls)}</output>
 <output data-testid="value"

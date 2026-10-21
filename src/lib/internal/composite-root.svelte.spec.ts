@@ -79,17 +79,11 @@ describe('composite root', () => {
 		});
 	});
 
-	it('keeps the activation click when the value write is flushed', async () => {
+	it('keeps the selection when a change handler flushes the value write', async () => {
 		render(CompositeRootHarness, { scenario: 'radio-flush' });
-		await userEvent.keyboard('{Shift>}');
 		await userEvent.click(page.getByRole('radio', { name: 'A' }).element());
-		await userEvent.keyboard('{/Shift}');
-		await expect
-			.element(page.getByRole('radio', { name: 'A' }))
-			.toHaveAttribute('aria-checked', 'true');
-		expect(JSON.parse(page.getByTestId('flush').element().textContent ?? '[]')).toEqual([
-			{ value: 'a', shiftKey: true }
-		]);
+		await expect.element(page.getByRole('radio', { name: 'A' })).toBeChecked();
+		expect(JSON.parse(page.getByTestId('flush').element().textContent ?? '[]')).toEqual(['a']);
 	});
 });
 
@@ -136,9 +130,7 @@ describe('composite root scroll into view', () => {
 			await expect
 				.element(page.getByRole('tab', { name: '9' }))
 				.toHaveAttribute('aria-selected', 'true');
-			await expect
-				.element(page.getByRole('radio', { name: '9' }))
-				.toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByRole('radio', { name: '9' })).toBeChecked();
 			await expect
 				.element(page.getByRole('button', { name: '9' }))
 				.toHaveAttribute('aria-pressed', 'true');

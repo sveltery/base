@@ -1,8 +1,8 @@
 // Assertions follow the Field cases of Base UI v1.8.0 packages/react/src/checkbox/root/CheckboxRoot.test.tsx,
 // switch/root/SwitchRoot.test.tsx, radio-group/RadioGroup.test.tsx and checkbox-group/CheckboxGroup.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Sveltery: Checkbox and Switch boxes are real `<input type="checkbox">` elements carrying the test
-// id, Field state attributes sit on the box around them, and native events replace `onValueChange`.
+// Sveltery: Checkbox, Switch and Radio boxes hold real `<input>` elements carrying the test id,
+// Field state attributes sit on the box around them, and native events replace `onValueChange`.
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -12,13 +12,7 @@ function text(name: string) {
 	return page.getByTestId(name).element().textContent ?? '';
 }
 
-function hiddenInput(testId: string) {
-	const input = page.getByTestId(testId).element().nextElementSibling;
-	if (!(input instanceof HTMLInputElement)) throw new Error('expected a hidden input');
-	return input;
-}
-
-/** The Checkbox or Switch input with this test id. */
+/** The Checkbox, Switch or Radio input with this test id. */
 function input(testId: string) {
 	const element = page.getByTestId(testId).element();
 	if (!(element instanceof HTMLInputElement)) throw new Error(`expected input ${testId}`);
@@ -95,7 +89,7 @@ describe('choice controls inside Field and Form', () => {
 			expect(text('submitted')).toBe('0');
 			await expect.element(group).toHaveAttribute('aria-invalid', 'true');
 			await expect.element(group).toHaveAttribute('data-invalid', '');
-			await expect.element(page.getByTestId('free')).toHaveAttribute('data-invalid', '');
+			expect(box('free').hasAttribute('data-invalid')).toBe(true);
 			await expect.element(page.getByTestId('free')).toHaveFocus();
 
 			await page.getByTestId('pro').click();
@@ -113,17 +107,17 @@ describe('choice controls inside Field and Form', () => {
 			await expect
 				.element(page.getByTestId('control'))
 				.toHaveAttribute('aria-labelledby', label.id);
-			expect(hiddenInput('free').id).not.toBe(hiddenInput('pro').id);
+			expect(input('free').id).not.toBe(input('pro').id);
 		});
 
 		it('lets a Field.Item label point at its own radio', async () => {
 			render(ChoiceFieldHarness, { scenario: 'radio-item' });
 			const label = page.getByTestId('label').element() as HTMLLabelElement;
 
-			expect(label.htmlFor).toBe(hiddenInput('free').id);
-			await expect.element(page.getByTestId('free')).toHaveAttribute('aria-labelledby', label.id);
+			expect(label.htmlFor).toBe(input('free').id);
+			await expect.element(page.getByTestId('free')).toHaveAccessibleName('Free');
 			await page.getByTestId('label').click();
-			await expect.element(page.getByTestId('free')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('free')).toBeChecked();
 		});
 	});
 
@@ -172,7 +166,7 @@ describe('choice controls inside Field and Form', () => {
 			await expect.element(page.getByTestId('hdd')).toHaveAccessibleName('HDD');
 
 			await page.getByText('HDD').click();
-			await expect.element(page.getByTestId('hdd')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('hdd')).toBeChecked();
 		});
 
 		it('describes each checkbox by the Field.Description in its Field.Item', async () => {

@@ -8,6 +8,7 @@
 	} = $props();
 
 	let submitted = $state(0);
+	const box = 'display: inline-block; width: 16px; height: 16px';
 
 	function onsubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -17,11 +18,11 @@
 
 <form {onsubmit}>
 	{#if scenario === 'required-checked'}
-		<Radio.Root value="" required>Checked</Radio.Root>
+		<Radio.Root value="" required defaultChecked aria-label="Checked" style={box} />
 	{:else if scenario === 'required'}
-		<Radio.Root value="blue" required>Blue</Radio.Root>
+		<Radio.Root value="blue" required aria-label="Blue" style={box} />
 	{:else}
-		<Radio.Root value="blue">Blue</Radio.Root>
+		<Radio.Root value="blue" aria-label="Blue" style={box} />
 	{/if}
 	<button type="submit">Submit</button>
 </form>

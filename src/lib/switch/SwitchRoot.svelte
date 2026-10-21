@@ -17,7 +17,7 @@
 	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { useFormContext } from '../internal/form-context.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
-	import { overlayInputStyle } from '../internal/overlay-input.js';
+	import { forwardBoxClick, overlayInputStyle } from '../internal/overlay-input.js';
 	import type { SwitchBoxProps, SwitchRootProps, SwitchRootState } from './types.js';
 
 	const uid = $props.id();
@@ -172,6 +172,7 @@
 	const boxProps: SwitchBoxProps = $derived({
 		...getStateAttributesProps(switchState, switchStateAttributesMapping),
 		...host,
+		onclick: chain(forwardBoxClick(inputNode), host?.onclick),
 		class: className,
 		style: style ? `position: relative; ${style}` : 'position: relative'
 	});
@@ -194,7 +195,7 @@
 		aria-readonly={readOnly || undefined}
 		aria-labelledby={labelledBy}
 		aria-describedby={describedBy}
-		aria-invalid={invalid || undefined}
+		aria-invalid={inputProps['aria-invalid'] ?? (invalid || undefined)}
 		onclick={handleClick}
 		onfocus={chain(handleFocus, onfocus)}
 		onblur={chain(handleBlur, onblur)}

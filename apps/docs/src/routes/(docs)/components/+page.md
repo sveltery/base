@@ -1424,7 +1424,9 @@ Provides shared state to a series of radio buttons.
   - Anatomy
   - Examples
     - Labeling a radio group
-    - Rendering as a native button
+    - Using sibling labels
+    - Native attributes and events
+    - Submitting a plain form
     - Form integration
   - API reference
     - RadioGroup
@@ -1432,13 +1434,13 @@ Provides shared state to a series of radio buttons.
     - Indicator
 - Exports:
   - Radio Group - Root
-    - Props: disabled, id, nativeButton, onclick, readonly, render, required, value
+    - Props: checked, class, defaultChecked, disabled, form, host, id, name, readonly, render, required, style, type, value
     - Data Attributes: data-checked, data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-readonly, data-required, data-touched, data-unchecked, data-valid
   - Radio Group - Indicator
     - Props: keepMounted, render
     - Data Attributes: data-checked, data-dirty, data-disabled, data-ending-style, data-filled, data-focused, data-invalid, data-readonly, data-required, data-starting-style, data-touched, data-unchecked, data-valid
   - RadioGroup
-    - Props: defaultValue, disabled, form, name, onValueChange, readonly, render, required, value
+    - Props: defaultValue, disabled, form, name, readonly, render, required, value
     - Data Attributes: data-disabled
 - Types: Radio.Indicator.Props, Radio.Indicator.State, Radio.Root.Props, Radio.Root.State, RadioGroup.Props, RadioGroup.State
 

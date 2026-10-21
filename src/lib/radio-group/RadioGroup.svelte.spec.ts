@@ -1,6 +1,9 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/radio-group/RadioGroup.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Cases from upstream commit e6d1d4050 follow v1.9.0 (commit ad7ecda5296b0295b41a51ecb01fce6204acd099).
+// Sveltery: the group is a `<fieldset>` and each radio a real `<input type="radio">` over a
+// painted box, so `checked` and `disabled` are the input's own, and native events replace
+// `onValueChange` (docs/upstream-differences.md).
 // Field cases are in src/lib/field/choice-controls.svelte.spec.ts. inputRef and
 // describeConformance are not ported.
 // Cases under "native Svelte" have no upstream counterpart.
@@ -14,24 +17,26 @@ function radio(name: string) {
 	return page.getByRole('radio', { name, exact: true });
 }
 
+function input(name: string) {
+	const element = radio(name).element();
+	if (!(element instanceof HTMLInputElement)) throw new Error('expected a radio input');
+	return element;
+}
+
+/** The painted box around a radio's input, which carries the state attributes. */
+function box(name: string) {
+	const element = input(name).parentElement;
+	if (!element) throw new Error('expected the radio box');
+	return element;
+}
+
 function group() {
 	return page.getByRole('radiogroup');
 }
 
-function calls() {
-	return JSON.parse(page.getByTestId('calls').element().textContent ?? '[]') as {
-		value: string;
-		reason: string;
-		canceled: boolean;
-		shiftKey: boolean;
-	}[];
-}
-
-function hiddenInput(name: string) {
-	const root = radio(name).element();
-	const input = root.nextElementSibling;
-	if (!(input instanceof HTMLInputElement)) throw new Error('expected a hidden radio');
-	return input;
+/** The `value` of each input whose `change` event reached the group. */
+function changes() {
+	return JSON.parse(page.getByTestId('changes').element().textContent ?? '[]') as string[];
 }
 
 describe('RadioGroup', () => {
@@ -44,82 +49,83 @@ describe('RadioGroup', () => {
 			await expect.element(root).not.toHaveAttribute('value');
 		});
 
+		it('renders a fieldset with the radiogroup role', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'plain' });
+			expect(group().element().tagName).toBe('FIELDSET');
+			await expect.element(group()).toHaveAccessibleName('Colors');
+		});
+
 		it('selects defaultValue when value is omitted', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'default' });
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
+			await expect.element(radio('B')).toBeChecked();
+			await expect.element(radio('A')).not.toBeChecked();
 		});
 
 		it('selects the radio whose value was passed and gives it the tab stop', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'initial' });
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
+			await expect.element(radio('A')).not.toBeChecked();
 			await expect.element(radio('A')).toHaveAttribute('tabindex', '-1');
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('B')).toBeChecked();
 			await expect.element(radio('B')).toHaveAttribute('tabindex', '0');
-			await expect.element(radio('B')).toHaveAttribute('data-checked', '');
+			expect(box('B').hasAttribute('data-checked')).toBe(true);
 		});
 
-		it('puts the group name on each hidden input', async () => {
+		it('puts the group name and each value on the inputs', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'name' });
-			await expect.element(radio('A')).toBeVisible();
-			const input = hiddenInput('A');
-			expect(input).toHaveAttribute('name', 'radio-group');
-			expect(input).toHaveAttribute('value', 'a');
+			await expect.element(radio('A')).toHaveAttribute('name', 'radio-group');
+			await expect.element(radio('A')).toHaveAttribute('value', 'a');
+		});
+
+		it('names an unnamed group, so the browser keeps one radio checked', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'plain' });
+			const name = input('A').name;
+			expect(name).not.toBe('');
+			expect(input('B').name).toBe(name);
 		});
 	});
 
-	describe('prop: onValueChange', () => {
-		it('selects the clicked radio and reports the value', async () => {
+	describe('native events', () => {
+		it('selects the clicked radio and fires change through the group', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'plain' });
 			await radio('A').click();
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'false');
-			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: false, shiftKey: false }]);
+			await expect.element(radio('A')).toBeChecked();
+			await expect.element(radio('B')).not.toBeChecked();
+			expect(changes()).toEqual(['a']);
 
 			await radio('B').click();
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
-			expect(calls()[1]).toEqual({ value: 'b', reason: 'none', canceled: false, shiftKey: false });
-		});
-
-		it('reports shift from the activation click', async () => {
-			render(RadioGroupComponentHarness, { scenario: 'plain' });
-			await userEvent.keyboard('{Shift>}');
-			await userEvent.click(radio('A').element());
-			await userEvent.keyboard('{/Shift}');
-			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: false, shiftKey: true }]);
+			await expect.element(radio('A')).not.toBeChecked();
+			await expect.element(radio('B')).toBeChecked();
+			expect(changes()).toEqual(['a', 'b']);
 		});
 
 		it('selects with Space on keyup and ignores Enter', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'plain' });
-			radio('A').element().focus();
+			input('A').focus();
 			await userEvent.keyboard('{Enter}');
-			expect(calls()).toEqual([]);
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
+			expect(changes()).toEqual([]);
+			await expect.element(radio('A')).not.toBeChecked();
 
 			await userEvent.keyboard('{Space>}');
-			expect(calls()).toEqual([]);
+			expect(changes()).toEqual([]);
 			await userEvent.keyboard('{/Space}');
-			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: false, shiftKey: false }]);
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'true');
+			expect(changes()).toEqual(['a']);
+			await expect.element(radio('A')).toBeChecked();
 		});
 
-		it('keeps the previous value when the change is canceled', async () => {
+		it('keeps the previous value when onclick calls preventDefault', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'cancel' });
 			await radio('A').click();
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
-			expect(hiddenInput('A').checked).toBe(false);
-			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: true, shiftKey: false }]);
+			await expect.element(radio('A')).not.toBeChecked();
+			expect(changes()).toEqual([]);
 		});
 
-		it('keeps the selected named radio checked when a change to another is canceled', async () => {
+		it('keeps the selected named radio checked when a click on another is prevented', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'cancel-selected' });
-			expect(hiddenInput('B').checked).toBe(true);
+			await expect.element(radio('B')).toBeChecked();
 			await radio('A').click();
-			expect(calls()).toEqual([{ value: 'a', reason: 'none', canceled: true, shiftKey: false }]);
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
-			expect(hiddenInput('A').checked).toBe(false);
-			expect(hiddenInput('B').checked).toBe(true);
+			expect(changes()).toEqual([]);
+			await expect.element(radio('B')).toBeChecked();
+			await expect.element(radio('A')).not.toBeChecked();
 		});
 
 		it('keeps submitting the selected value when a read-only radio is clicked through its label', async () => {
@@ -129,28 +135,26 @@ describe('RadioGroup', () => {
 			expect(new FormData(form).getAll('color')).toEqual(['b']);
 		});
 
-		it('moves focus on an arrow key without selecting when the change is canceled', async () => {
+		it('moves focus on an arrow key without selecting when the click is prevented', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'cancel' });
-			radio('A').element().focus();
+			input('A').focus();
 			await userEvent.keyboard('{ArrowDown}');
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
-			expect(document.activeElement).toBe(radio('B').element());
-			expect(hiddenInput('B').checked).toBe(false);
+			await expect.element(radio('B')).not.toBeChecked();
+			await expect.element(radio('A')).not.toBeChecked();
+			expect(document.activeElement).toBe(input('B'));
 		});
 	});
 
 	describe('prop: disabled', () => {
-		it('sets aria-disabled and ignores clicks', async () => {
+		it('disables the fieldset natively and ignores clicks', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'disabled' });
-			await expect.element(group()).toHaveAttribute('aria-disabled', 'true');
+			expect((group().element() as HTMLFieldSetElement).disabled).toBe(true);
 			await expect.element(group()).toHaveAttribute('data-disabled', '');
-			await expect.element(radio('A')).toHaveAttribute('aria-disabled', 'true');
-			await expect.element(radio('A')).toHaveAttribute('data-disabled', '');
-			expect(hiddenInput('A').disabled).toBe(true);
-			(radio('A').element() as HTMLElement).click();
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
-			expect(calls()).toEqual([]);
+			await expect.element(radio('A')).toBeDisabled();
+			expect(box('A').hasAttribute('data-disabled')).toBe(true);
+			input('A').click();
+			await expect.element(radio('A')).not.toBeChecked();
+			expect(changes()).toEqual([]);
 		});
 
 		it('keeps the first radio as the tab stop when every radio is disabled', async () => {
@@ -165,9 +169,9 @@ describe('RadioGroup', () => {
 			await expect.element(radio('A')).toHaveAttribute('tabindex', '-1');
 		});
 
-		it('omits aria-disabled when the group is enabled', async () => {
+		it('leaves the fieldset enabled when the group is enabled', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'plain' });
-			await expect.element(group()).not.toHaveAttribute('aria-disabled');
+			expect((group().element() as HTMLFieldSetElement).disabled).toBe(false);
 		});
 	});
 
@@ -177,8 +181,8 @@ describe('RadioGroup', () => {
 			await expect.element(group()).toHaveAttribute('aria-readonly', 'true');
 			await expect.element(group()).toHaveAttribute('data-readonly', '');
 			await radio('A').click();
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
-			expect(calls()).toEqual([]);
+			await expect.element(radio('A')).not.toBeChecked();
+			expect(changes()).toEqual([]);
 		});
 
 		it('omits aria-readonly when the group is editable', async () => {
@@ -187,13 +191,7 @@ describe('RadioGroup', () => {
 		});
 	});
 
-	it('selects when the hidden input is clicked', async () => {
-		render(RadioGroupComponentHarness, { scenario: 'plain' });
-		hiddenInput('A').click();
-		await expect.element(radio('A')).toHaveAttribute('aria-checked', 'true');
-	});
-
-	it('places style hooks on the group, the radio, and the indicator', async () => {
+	it('places style hooks on the group, the radio box, and the indicator', async () => {
 		render(RadioGroupComponentHarness, { scenario: 'style' });
 		const root = group();
 		const item = page.getByTestId('item');
@@ -219,12 +217,12 @@ describe('RadioGroup', () => {
 			const c = radio('C');
 			a.element().focus();
 			await userEvent.keyboard('{ArrowDown}');
-			await expect.element(b).toHaveAttribute('aria-checked', 'true');
+			await expect.element(b).toBeChecked();
 			expect(document.activeElement).toBe(b.element());
 
 			await userEvent.keyboard('{ArrowRight}');
 			expect(document.activeElement).toBe(c.element());
-			await expect.element(c).toHaveAttribute('aria-checked', 'true');
+			await expect.element(c).toBeChecked();
 
 			await userEvent.keyboard('{ArrowDown}');
 			expect(document.activeElement).toBe(a.element());
@@ -239,8 +237,8 @@ describe('RadioGroup', () => {
 		it.each(['Meta', 'Control', 'Alt', 'single'])(
 			'does not select on refocus after an ignored arrow (%s)',
 			async (scenario) => {
-				const onValueChange = vi.fn();
-				render(RadioIgnoredArrowHarness, { disableSecond: scenario === 'single', onValueChange });
+				const onchange = vi.fn();
+				render(RadioIgnoredArrowHarness, { disableSecond: scenario === 'single', onchange });
 				const a = page.getByRole('radio', { name: 'A' });
 				(a.element() as HTMLElement).focus();
 
@@ -248,7 +246,7 @@ describe('RadioGroup', () => {
 					scenario === 'single' ? '{ArrowDown}' : `{${scenario}>}{ArrowDown}{/${scenario}}`
 				);
 				expect(document.activeElement).toBe(a.element());
-				await expect.element(a).toHaveAttribute('aria-checked', 'false');
+				await expect.element(a).not.toBeChecked();
 
 				await userEvent.tab();
 				expect(document.activeElement).toBe(
@@ -257,23 +255,23 @@ describe('RadioGroup', () => {
 
 				await userEvent.tab({ shift: true });
 				expect(document.activeElement).toBe(a.element());
-				await expect.element(a).toHaveAttribute('aria-checked', 'false');
-				expect(onValueChange).not.toHaveBeenCalled();
+				await expect.element(a).not.toBeChecked();
+				expect(onchange).not.toHaveBeenCalled();
 			}
 		);
 
 		it('still moves and selects when Shift is held', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'keys' });
-			radio('A').element().focus();
+			input('A').focus();
 			await userEvent.keyboard('{Shift>}{ArrowRight}{/Shift}');
 			expect(document.activeElement).toBe(radio('B').element());
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
+			await expect.element(radio('B')).toBeChecked();
+			await expect.element(radio('A')).not.toBeChecked();
 		});
 
 		it('does not move on Home or End', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'keys' });
-			radio('A').element().focus();
+			input('A').focus();
 			await userEvent.keyboard('{Home}');
 			expect(document.activeElement).toBe(radio('A').element());
 			await userEvent.keyboard('{End}');
@@ -282,7 +280,7 @@ describe('RadioGroup', () => {
 
 		it('swaps horizontal arrows in RTL and keeps vertical arrows', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'keys', dir: 'rtl' });
-			radio('A').element().focus();
+			input('A').focus();
 			await userEvent.keyboard('{ArrowLeft}');
 			expect(document.activeElement).toBe(radio('B').element());
 			await userEvent.keyboard('{ArrowRight}');
@@ -291,7 +289,8 @@ describe('RadioGroup', () => {
 			expect(document.activeElement).toBe(radio('B').element());
 		});
 
-		it('steps to the next radio when the focused stop was disabled after mount', async () => {
+		// Sveltery: a natively disabled input cannot hold focus, so the arrow starts from B.
+		it('moves the tab stop off a radio disabled after mount and skips it', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'late-disable' });
 			const a = radio('A');
 			const b = radio('B');
@@ -299,19 +298,19 @@ describe('RadioGroup', () => {
 			await page.getByRole('button', { name: 'Disable A' }).click();
 			await expect.element(a).toHaveAttribute('tabindex', '-1');
 			await expect.element(b).toHaveAttribute('tabindex', '0');
-			a.element().focus();
-			await userEvent.keyboard('{ArrowRight}');
-			expect(document.activeElement).toBe(b.element());
+			input('B').focus();
+			await userEvent.keyboard('{ArrowLeft}');
+			expect(document.activeElement).toBe(input('C'));
 		});
 
 		it('skips a disabled radio', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'disabled-item' });
 			await expect.element(radio('A')).toHaveAttribute('tabindex', '0');
 			await expect.element(radio('B')).toHaveAttribute('tabindex', '-1');
-			radio('A').element().focus();
+			input('A').focus();
 			await userEvent.keyboard('{ArrowDown}');
 			expect(document.activeElement).toBe(radio('C').element());
-			await expect.element(radio('C')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('C')).toBeChecked();
 			await userEvent.keyboard('{ArrowDown}');
 			expect(document.activeElement).toBe(radio('A').element());
 		});
@@ -320,10 +319,10 @@ describe('RadioGroup', () => {
 	describe('item removal', () => {
 		it('moves the tab stop to the checked radio when the highlighted radio is removed', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'removal' });
-			radio('B').element().focus();
+			input('B').focus();
 			await userEvent.keyboard('{ArrowDown}');
 			await expect.element(page.getByTestId('c')).toHaveAttribute('tabindex', '0');
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('B')).toBeChecked();
 
 			await page.getByRole('button', { name: 'Hide' }).click();
 			await expect.element(page.getByTestId('a')).toHaveAttribute('tabindex', '-1');
@@ -335,12 +334,12 @@ describe('RadioGroup', () => {
 		it('selects from an implicit label and an explicit label', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'labels' });
 			await page.getByTestId('label-a').click();
-			await expect.element(radio('Apple')).toHaveAttribute('aria-checked', 'true');
-			expect(calls()[0]?.value).toBe('a');
+			await expect.element(radio('Apple')).toBeChecked();
+			expect(changes()).toEqual(['a']);
 
 			await page.getByTestId('label-b').click();
-			await expect.element(radio('Banana')).toHaveAttribute('aria-checked', 'true');
-			expect(calls()[1]?.value).toBe('b');
+			await expect.element(radio('Banana')).toBeChecked();
+			expect(changes()).toEqual(['a', 'b']);
 		});
 	});
 
@@ -397,36 +396,37 @@ describe('RadioGroup', () => {
 			render(RadioGroupComponentHarness, { scenario: 'pick' });
 			await expect.element(page.getByTestId('picked')).toHaveTextContent('none');
 			await radio('B').click();
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('B')).toBeChecked();
 			await expect.element(page.getByTestId('picked')).toHaveTextContent('b');
 			await expect.element(page.getByRole('checkbox', { name: 'Owner B' })).toBeChecked();
 		});
 
 		it('one-way value follows the parent, then the click, then the parent again', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'controlled' });
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('B')).toBeChecked();
 			await radio('A').click();
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('A')).toBeChecked();
 			await page.getByRole('button', { name: 'Clear' }).click();
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'false');
+			await expect.element(radio('A')).not.toBeChecked();
+			await expect.element(radio('B')).not.toBeChecked();
 			await page.getByRole('button', { name: 'Set B' }).click();
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('B')).toBeChecked();
 		});
 
 		it('selects an object value by reference', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'object' });
 			await radio('B').click();
-			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
-			expect(calls()[0]?.value).toBe('{"id":2}');
+			await expect.element(radio('B')).toBeChecked();
+			await expect.element(radio('A')).not.toBeChecked();
+			expect(changes()).toEqual(['{"id":2}']);
 		});
 
 		it('selects a null value', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'nullish' });
 			await radio('A').click();
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'true');
-			expect(calls()[0]?.value).toBe('null');
+			await expect.element(radio('A')).toBeChecked();
+			// The input submits a null value as the empty string.
+			expect(changes()).toEqual(['']);
 		});
 
 		it('renders through a snippet with the checked tab stop', async () => {
@@ -440,7 +440,7 @@ describe('RadioGroup', () => {
 
 		it('passes a consumer attachment to the host', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'attach' });
-			await expect.element(page.getByTestId('attached')).toHaveTextContent('radiogroup');
+			await expect.element(page.getByTestId('attached')).toHaveTextContent('fieldset');
 		});
 
 		it('preventDefault on keydown skips the arrow move', async () => {
@@ -450,10 +450,10 @@ describe('RadioGroup', () => {
 				.addEventListener('keydown', (event) => {
 					event.preventDefault();
 				});
-			radio('A').element().focus();
+			input('A').focus();
 			await userEvent.keyboard('{ArrowDown}');
 			expect(document.activeElement).toBe(radio('A').element());
-			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
+			await expect.element(radio('A')).not.toBeChecked();
 		});
 	});
 });

@@ -164,7 +164,7 @@ A composite control draws its own markup and submits through a native input it r
 
 1. **A real native input carries the value.** Its `name` is the `Field.Root` `name` when there is one, and the control's own `name` otherwise. It carries `defaultValue` or `defaultChecked`, so a native reset restores the default.
 2. **The DOM is the write path.** A user edit changes the native input and fires `input`, then `change` when the edit is committed. A native click does this for checkboxes and radios. Other controls call `queueValueEvent` from `src/lib/internal/value-events.ts`.
-3. **The focusable element is the focus target.** For Checkbox and Switch that is the native input itself. Register it through `attachFieldControl` or `watchFieldControl` in `src/lib/internal/field-register-control.svelte.ts`, and mark the Field touched on blur, so `onBlur` validation and focus after a failed submit work.
+3. **The focusable element is the focus target.** For Checkbox, Switch and Radio that is the native input itself. Register it through `attachFieldControl` or `watchFieldControl` in `src/lib/internal/field-register-control.svelte.ts`, and mark the Field touched on blur, so `onBlur` validation and focus after a failed submit work.
 
 ## Gotchas
 

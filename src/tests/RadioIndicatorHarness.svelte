@@ -16,15 +16,15 @@
 		initiallyChecked?: boolean;
 	} = $props();
 
-	let value = $state(untrack(() => (initiallyChecked ? '' : 'off')));
+	let checked = $state(untrack(() => initiallyChecked));
 </script>
 
 {#if css}
 	<svelte:element this={"style"}>{css}</svelte:element>
 {/if}
-<button type="button" onclick={() => (value = value === '' ? 'off' : '')}>Toggle</button>
+<button type="button" onclick={() => (checked = !checked)}>Toggle</button>
 {#each Array.from({ length: count }, (_, index) => index) as index (index)}
-	<Radio.Root {value}>
+	<Radio.Root value="a" {checked}>
 		<Radio.Indicator
 			data-testid={count === 1 ? 'indicator' : `indicator-${index}`}
 			class={indicatorClass}

@@ -2,7 +2,6 @@
 // packages/react/src/radio-group/RadioGroupContext.ts
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 // RadioGroup sets this context. A test harness can set it without roving focus.
-import type { RadioRootChangeEventDetails } from './types.js';
 import type { RenderClaim } from '../internal/composite-root.svelte.js';
 import type { Labelable } from '../internal/labelable-provider.svelte.js';
 import { defineOptionalContext } from '../internal/context.js';
@@ -10,7 +9,7 @@ import { defineOptionalContext } from '../internal/context.js';
 /**
  * Roving tabindex owned by RadioGroup.
  * Arrow keys are handled on the group. Each radio claims a render-order index
- * for SSR, then registers its host. A selected radio is the tab stop. With
+ * for SSR, then registers its input. A selected radio is the tab stop. With
  * nothing selected, the first rendered radio is the stop until registration.
  */
 export interface RadioGroupRovingFocus {
@@ -33,6 +32,7 @@ export interface RadioGroupContextValue {
 	readonly readOnly: boolean | undefined;
 	readonly required: boolean | undefined;
 	readonly form: string | undefined;
+	/** The name every radio submits under, unless the radio has its own. */
 	readonly name: string | undefined;
 	/**
 	 * The selected value. Compare it to a radio's `value` with `===`.
@@ -46,14 +46,9 @@ export interface RadioGroupContextValue {
 	readonly labelable: Labelable;
 	/** Present when the real RadioGroup owns keyboard navigation. */
 	readonly roving?: RadioGroupRovingFocus;
-	setCheckedValue: (value: unknown, eventDetails: RadioRootChangeEventDetails) => void;
+	/** Selects a value. A radio a remote form spread checks also selects its value this way. */
+	setCheckedValue: (value: unknown) => void;
 	setTouched: (touched: boolean) => void;
-	/**
-	 * Checking one named native radio unchecks its siblings, so a change the group
-	 * did not take resyncs every radio's input, not only the clicked one.
-	 */
-	registerInputSync?: (sync: () => void) => () => void;
-	syncInputs?: () => void;
 }
 
 export const [useRadioGroupContext, setRadioGroupContext] = defineOptionalContext<

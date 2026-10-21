@@ -2,20 +2,16 @@
 	import { Radio } from '#lib';
 	import ClickParent from './ClickParent.svelte';
 
-	let { scenario = 'bubble' }: { scenario?: 'bubble' | 'stop' | 'native' | 'native-stop' } =
-		$props();
+	let { scenario = 'bubble' }: { scenario?: 'bubble' | 'stop' } = $props();
 </script>
 
 <ClickParent {scenario}>
-	{#snippet children(clicked, native)}
-		{#if native}
-			<Radio.Root value="a" nativeButton onclick={clicked}>
-				{#snippet render(props)}
-					<button {...props}>Radio</button>
-				{/snippet}
-			</Radio.Root>
-		{:else}
-			<Radio.Root value="a" onclick={clicked}>Radio</Radio.Root>
-		{/if}
+	{#snippet children(clicked)}
+		<Radio.Root
+			value="a"
+			aria-label="Radio"
+			style="display: inline-block; width: 16px; height: 16px"
+			onclick={clicked}
+		/>
 	{/snippet}
 </ClickParent>

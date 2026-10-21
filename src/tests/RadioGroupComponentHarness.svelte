@@ -1,13 +1,5 @@
 <script lang="ts">
-	import {
-		DirectionProvider,
-		Field,
-		Fieldset,
-		Form,
-		Radio,
-		RadioGroup,
-		type RadioGroupChangeEventDetails
-	} from '#lib';
+	import { DirectionProvider, Field, Fieldset, Form, Radio, RadioGroup } from '#lib';
 	import InitialColorGroup from '../routes/fixtures/radio-group/InitialColorGroup.svelte';
 
 	type Scenario =
@@ -48,6 +40,8 @@
 		dir?: 'ltr' | 'rtl';
 	} = $props();
 
+	// The boxes have no content of their own, so the harness gives them a size to click.
+	const box = 'display: inline-block; width: 16px; height: 16px';
 	const first = { id: 1 };
 	const second = { id: 2 };
 
@@ -57,32 +51,25 @@
 	let owner = $state<string | undefined>('b');
 	let picked = $state<string | undefined>();
 	let errors = $state<Record<string, string>>({ color: 'Pick one' });
-	let calls = $state<{ value: string; reason: string; canceled: boolean; shiftKey: boolean }[]>([]);
+	/** The `value` of each input whose `change` event reached the group, in order. */
+	let changes = $state<string[]>([]);
 	let submitted = $state(0);
 	let externalValue = $state<string | null>(null);
 	let attached = $state('none');
 
-	function shiftKeyOf(event: Event) {
-		return 'shiftKey' in event && Boolean((event as KeyboardEvent).shiftKey);
+	function record(event: Event) {
+		if (event.target instanceof HTMLInputElement) changes = [...changes, event.target.value];
 	}
 
-	function record(next: unknown, details: RadioGroupChangeEventDetails) {
-		if (scenario === 'cancel' || scenario === 'cancel-selected' || scenario === 'removal') {
-			details.cancel();
-		}
-		calls = [
-			...calls,
-			{
-				value: typeof next === 'string' ? next : JSON.stringify(next),
-				reason: details.reason,
-				canceled: details.isCanceled,
-				shiftKey: shiftKeyOf(details.event)
-			}
-		];
-	}
+	// A canceled click keeps the selection, as `onValueChange` with `cancel()` did upstream.
+	const prevent = $derived(
+		scenario === 'cancel' || scenario === 'cancel-selected' || scenario === 'removal'
+			? (event: MouseEvent) => event.preventDefault()
+			: undefined
+	);
 
 	function capture(node: HTMLElement) {
-		attached = node.getAttribute('role') ?? 'empty';
+		attached = node.tagName.toLowerCase();
 		return () => {
 			attached = 'none';
 		};
@@ -114,9 +101,9 @@
 
 		{#if scenario === 'required'}
 			<form {onsubmit}>
-				<RadioGroup aria-label="Colors" name="color" required onValueChange={record}>
-					<Radio.Root value="a">A</Radio.Root>
-					<Radio.Root value="b">B</Radio.Root>
+				<RadioGroup aria-label="Colors" name="color" required onchange={record}>
+					<Radio.Root style={box} value="a" aria-label="A" />
+					<Radio.Root style={box} value="b" aria-label="B" />
 				</RadioGroup>
 				<button type="submit">Submit</button>
 			</form>
@@ -125,8 +112,8 @@
 				<button type="submit">Submit</button>
 			</form>
 			<RadioGroup aria-label="Colors" name="color" form="external-form" value="b">
-				<Radio.Root value="a">A</Radio.Root>
-				<Radio.Root value="b">B</Radio.Root>
+				<Radio.Root style={box} value="a" aria-label="A" />
+				<Radio.Root style={box} value="b" aria-label="B" />
 			</RadioGroup>
 		{:else if scenario === 'parent'}
 			<Form bind:errors>
@@ -137,8 +124,8 @@
 					validate={(next) => (next === 'a' ? 'nope' : null)}
 				>
 					<RadioGroup aria-label="Colors" name="color" value={owner}>
-						<Radio.Root value="a">A</Radio.Root>
-						<Radio.Root value="b">B</Radio.Root>
+						<Radio.Root style={box} value="a" aria-label="A" />
+						<Radio.Root style={box} value="b" aria-label="B" />
 					</RadioGroup>
 					<Field.Error data-testid="error" />
 				</Field.Root>
@@ -147,152 +134,149 @@
 		{:else if scenario === 'errors'}
 			<Form bind:errors>
 				<RadioGroup aria-label="Colors" name="color">
-					<Radio.Root value="a">A</Radio.Root>
-					<Radio.Root value="b">B</Radio.Root>
+					<Radio.Root style={box} value="a" aria-label="A" />
+					<Radio.Root style={box} value="b" aria-label="B" />
 				</RadioGroup>
 			</Form>
 		{:else if scenario === 'legend'}
 			<span id="explicit-label">Explicit</span>
-			<Fieldset.Root>
+			<RadioGroup {...explicit ? { 'aria-labelledby': 'explicit-label' } : {}}>
 				<Fieldset.Legend data-testid="legend">Legend</Fieldset.Legend>
-				<RadioGroup {...explicit ? { 'aria-labelledby': 'explicit-label' } : {}}>
-					<Radio.Root value="a">A</Radio.Root>
-				</RadioGroup>
-			</Fieldset.Root>
+				<Radio.Root style={box} value="a" aria-label="A" />
+			</RadioGroup>
 		{:else if scenario === 'labels'}
-			<RadioGroup aria-label="Colors" onValueChange={record}>
+			<RadioGroup aria-label="Colors" onchange={record}>
 				<label data-testid="label-a">
-					<Radio.Root value="a" />
+					<Radio.Root style={box} value="a" />
 					Apple
 				</label>
 				<div>
 					<label for="radio-b" data-testid="label-b">Banana</label>
-					<Radio.Root value="b" id="radio-b" />
+					<Radio.Root style={box} value="b" id="radio-b" />
 				</div>
 			</RadioGroup>
 		{:else if scenario === 'style'}
 			<RadioGroup aria-label="Colors" value="a" disabled readonly required>
-				<Radio.Root value="a" data-testid="item">
+				<Radio.Root style={box} value="a" aria-label="A" host={{ 'data-testid': 'item' }}>
 					<Radio.Indicator data-testid="indicator" />
-					A
 				</Radio.Root>
 			</RadioGroup>
 		{:else if scenario === 'object'}
-			<RadioGroup aria-label="Colors" onValueChange={record}>
-				<Radio.Root value={first}>A</Radio.Root>
-				<Radio.Root value={second}>B</Radio.Root>
+			<RadioGroup aria-label="Colors" onchange={record}>
+				<Radio.Root style={box} value={first} aria-label="A" />
+				<Radio.Root style={box} value={second} aria-label="B" />
 			</RadioGroup>
 		{:else if scenario === 'nullish'}
-			<RadioGroup aria-label="Colors" onValueChange={record}>
-				<Radio.Root value={null}>A</Radio.Root>
-				<Radio.Root value="b">B</Radio.Root>
+			<RadioGroup aria-label="Colors" onchange={record}>
+				<Radio.Root style={box} value={null} aria-label="A" />
+				<Radio.Root style={box} value="b" aria-label="B" />
 			</RadioGroup>
 		{:else if scenario === 'render'}
 			<RadioGroup value="b">
 				{#snippet render(props, groupState)}
-					<div
+					<fieldset
 						{...props}
 						data-testid="custom"
 						data-readonly-state={groupState.readOnly ? 'yes' : 'no'}
 					>
-						<Radio.Root value="a">A</Radio.Root>
-						<Radio.Root value="b">B</Radio.Root>
-					</div>
+						<Radio.Root style={box} value="a" aria-label="A" />
+						<Radio.Root style={box} value="b" aria-label="B" />
+					</fieldset>
 				{/snippet}
 			</RadioGroup>
 		{:else if scenario === 'attach'}
 			<RadioGroup aria-label="Colors" {@attach capture}>
-				<Radio.Root value="a">A</Radio.Root>
+				<Radio.Root style={box} value="a" aria-label="A" />
 			</RadioGroup>
 		{:else if scenario === 'override'}
 			<RadioGroup role="group" id="group-id" data-testid="root" value="hidden">
-				<Radio.Root value="a">A</Radio.Root>
+				<Radio.Root style={box} value="a" aria-label="A" />
 			</RadioGroup>
 		{:else if scenario === 'name'}
 			<RadioGroup aria-label="Colors" name="radio-group">
-				<Radio.Root value="a" data-testid="radio">A</Radio.Root>
+				<Radio.Root style={box} value="a" data-testid="radio" aria-label="A" />
 			</RadioGroup>
 		{:else if scenario === 'removal'}
-			<RadioGroup aria-label="Colors" value="b" onValueChange={record}>
-				<Radio.Root value="a" data-testid="a">A</Radio.Root>
-				<Radio.Root value="b" data-testid="b">B</Radio.Root>
+			<RadioGroup aria-label="Colors" value="b" onchange={record}>
+				<Radio.Root style={box} value="a" data-testid="a" aria-label="A" onclick={prevent} />
+				<Radio.Root style={box} value="b" data-testid="b" aria-label="B" onclick={prevent} />
 				{#if showLast}
-					<Radio.Root value="c" data-testid="c">C</Radio.Root>
+					<Radio.Root style={box} value="c" data-testid="c" aria-label="C" onclick={prevent} />
 				{/if}
 			</RadioGroup>
 		{:else if scenario === 'late-disable'}
 			<RadioGroup aria-label="Colors">
-				<Radio.Root value="a" disabled={disableFirst}>A</Radio.Root>
-				<Radio.Root value="b">B</Radio.Root>
-				<Radio.Root value="c">C</Radio.Root>
+				<Radio.Root style={box} value="a" disabled={disableFirst} aria-label="A" />
+				<Radio.Root style={box} value="b" aria-label="B" />
+				<Radio.Root style={box} value="c" aria-label="C" />
 			</RadioGroup>
 			<button type="button" onclick={() => (disableFirst = true)}>Disable A</button>
 		{:else if scenario === 'disabled-item'}
 			<RadioGroup aria-label="Colors">
-				<Radio.Root value="a">A</Radio.Root>
-				<Radio.Root value="b" disabled>B</Radio.Root>
-				<Radio.Root value="c">C</Radio.Root>
+				<Radio.Root style={box} value="a" aria-label="A" />
+				<Radio.Root style={box} value="b" disabled aria-label="B" />
+				<Radio.Root style={box} value="c" aria-label="C" />
 			</RadioGroup>
 		{:else if scenario === 'keys'}
-			<RadioGroup aria-label="Colors" onValueChange={record}>
-				<Radio.Root value="a" data-testid="a">A</Radio.Root>
-				<Radio.Root value="b" data-testid="b">B</Radio.Root>
-				<Radio.Root value="c" data-testid="c">C</Radio.Root>
+			<RadioGroup aria-label="Colors" onchange={record}>
+				<Radio.Root style={box} value="a" data-testid="a" aria-label="A" />
+				<Radio.Root style={box} value="b" data-testid="b" aria-label="B" />
+				<Radio.Root style={box} value="c" data-testid="c" aria-label="C" />
 			</RadioGroup>
 		{:else if scenario === 'pick'}
 			<input type="checkbox" aria-label="Owner B" checked={picked === 'b'} />
 			<RadioGroup aria-label="Colors" bind:value={picked}>
-				<Radio.Root value="a">A</Radio.Root>
-				<Radio.Root value="b">B</Radio.Root>
+				<Radio.Root style={box} value="a" aria-label="A" />
+				<Radio.Root style={box} value="b" aria-label="B" />
 			</RadioGroup>
 			<output data-testid="picked">{picked ?? 'none'}</output>
 		{:else if scenario === 'controlled'}
-			<RadioGroup aria-label="Colors" value={owner} onValueChange={record}>
-				<Radio.Root value="a">A</Radio.Root>
-				<Radio.Root value="b">B</Radio.Root>
+			<RadioGroup aria-label="Colors" value={owner} onchange={record}>
+				<Radio.Root style={box} value="a" aria-label="A" />
+				<Radio.Root style={box} value="b" aria-label="B" />
 			</RadioGroup>
 		{:else if scenario === 'default'}
 			<RadioGroup aria-label="Colors" defaultValue="b">
-				<Radio.Root value="a" data-testid="a">A</Radio.Root>
-				<Radio.Root value="b" data-testid="b">B</Radio.Root>
+				<Radio.Root style={box} value="a" data-testid="a" aria-label="A" />
+				<Radio.Root style={box} value="b" data-testid="b" aria-label="B" />
 			</RadioGroup>
 		{:else if scenario === 'cancel-selected'}
-			<RadioGroup aria-label="Colors" name="color" defaultValue="b" onValueChange={record}>
-				<Radio.Root value="a">A</Radio.Root>
-				<Radio.Root value="b">B</Radio.Root>
+			<RadioGroup aria-label="Colors" name="color" defaultValue="b" onchange={record}>
+				<Radio.Root style={box} value="a" aria-label="A" onclick={prevent} />
+				<Radio.Root style={box} value="b" aria-label="B" onclick={prevent} />
 			</RadioGroup>
 		{:else if scenario === 'readonly-label'}
 			<form data-testid="form">
 				<RadioGroup aria-label="Colors" name="color" defaultValue="b" readonly>
 					<label>
-						<Radio.Root value="a" />
+						<Radio.Root style={box} value="a" />
 						Label A
 					</label>
-					<Radio.Root value="b">B</Radio.Root>
+					<Radio.Root style={box} value="b" aria-label="B" />
 				</RadioGroup>
 			</form>
 		{:else if scenario === 'initial'}
 			<InitialColorGroup />
 		{:else if scenario === 'disabled-checked'}
 			<RadioGroup aria-label="Colors" defaultValue="b" disabled>
-				<Radio.Root value="a">A</Radio.Root>
-				<Radio.Root value="b">B</Radio.Root>
+				<Radio.Root style={box} value="a" aria-label="A" />
+				<Radio.Root style={box} value="b" aria-label="B" />
 			</RadioGroup>
 		{:else}
 			<RadioGroup
 				aria-label="Colors"
 				disabled={scenario === 'disabled'}
 				readonly={scenario === 'readonly'}
-				onValueChange={record}
+				onchange={record}
 			>
-				<Radio.Root value="a" data-testid="a">A</Radio.Root>
-				<Radio.Root value="b" data-testid="b">B</Radio.Root>
+				<Radio.Root style={box} value="a" data-testid="a" aria-label="A" onclick={prevent} />
+				<Radio.Root style={box} value="b" data-testid="b" aria-label="B" onclick={prevent} />
 			</RadioGroup>
 		{/if}
 	</div>
 </DirectionProvider>
 
-<output data-testid="calls">{JSON.stringify(calls)}</output>
+<output data-testid="changes">{JSON.stringify(changes)}</output>
 <output data-testid="submitted">{submitted}</output>
 <output data-testid="external">{externalValue ?? 'none'}</output>
 <output data-testid="errors">{JSON.stringify(errors)}</output>

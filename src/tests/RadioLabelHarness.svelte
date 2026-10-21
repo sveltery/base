@@ -4,7 +4,7 @@
 	let {
 		scenario = 'sibling'
 	}: {
-		scenario?: 'sibling' | 'radio-id' | 'wrap' | 'native';
+		scenario?: 'sibling' | 'radio-id' | 'wrap' | 'readonly';
 	} = $props();
 
 	let id = $state('radio-input-a');
@@ -24,10 +24,8 @@
 		Toggle
 	</label>
 {:else}
-	<label data-testid="label" for="myRadio">Toggle</label>
-	<Radio.Root id="myRadio" value="a" nativeButton>
-		{#snippet render(props)}
-			<button {...props}>Toggle</button>
-		{/snippet}
-	</Radio.Root>
+	<label data-testid="label">
+		<Radio.Root value="a" readonly />
+		Toggle
+	</label>
 {/if}
