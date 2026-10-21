@@ -22,7 +22,7 @@
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { serializeValue } from '../internal/serializeValue.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
-	import { overlayInputStyle } from '../internal/overlay-input.js';
+	import { forwardBoxClick, overlayInputStyle } from '../internal/overlay-input.js';
 	import type { RadioBoxProps, RadioRootProps, RadioRootState } from './types.js';
 
 	const uid = $props.id();
@@ -211,6 +211,7 @@
 	const boxProps: RadioBoxProps = $derived({
 		...radioRootAttributes(radioState),
 		...host,
+		onclick: chain(forwardBoxClick(inputNode), host?.onclick),
 		class: className,
 		style: style ? `position: relative; ${style}` : 'position: relative'
 	});

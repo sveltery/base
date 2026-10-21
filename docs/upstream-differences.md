@@ -247,7 +247,7 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/checkbox/ro
 
 Local, signed off by the owner (2026-10-21):
 
-- Checkbox and Switch render a `<span>` box with a real `<input type="checkbox">` laid over it at `opacity: 0`. The Switch input carries `role="switch"`. The box carries `position: relative` inline so the input covers it. Native attributes, handlers and attachments go to the input. `class` and `style` go to the box, and `host` passes other attributes to it. A `render` snippet draws the box, and its `children` include the input.
+- Checkbox and Switch render a `<span>` box with a real `<input type="checkbox">` laid over it at `opacity: 0`. The Switch input carries `role="switch"`. The box carries `position: relative` inline so the input covers it, and the input sits at `z-index: 1`, above the box's own pseudo-elements. A click on the box outside the input, such as on an enlarged `::after` hit area, activates the input unless a `<label>` wraps the box. A caller's `aria-invalid` wins over the Field's. Native attributes, handlers and attachments go to the input. `class` and `style` go to the box, and `host` passes other attributes to it. A `render` snippet draws the box, and its `children` include the input.
 - The input is the focus target, so a sibling `<label for>` works, the browser handles Space, and focus styles use `:has(:focus-visible)` on the box. Enter submits the form and does not toggle a Switch, as on a native checkbox.
 - `onCheckedChange`, CheckboxGroup's `onValueChange` and `nativeButton` are removed. Use `bind:checked`, `bind:value`, or the native `input` and `change` events. To stop a change, call `preventDefault()` in `onclick`.
 - A box with no `value` submits `on`, as a native checkbox does.
