@@ -1635,6 +1635,7 @@ An easily stylable range input.
     - Marks
     - Thumb alignment
     - Vertical
+    - Native attributes and events
     - Form integration
   - API reference
     - Root
@@ -1646,7 +1647,7 @@ An easily stylable range input.
     - Thumb
 - Exports:
   - Slider - Root
-    - Props: defaultValue, disabled, form, format, largeStep, locale, max, min, minStepsBetweenValues, name, onValueChange, onValueCommitted, orientation, render, step, thumbAlignment, thumbCollisionBehavior, value
+    - Props: aria-labelledby, class, defaultValue, disabled, form, format, host, id, largeStep, locale, max, min, minStepsBetweenValues, name, orientation, render, required, step, style, thumbAlignment, thumbCollisionBehavior, type, value
     - Data Attributes: data-dirty, data-disabled, data-dragging, data-focused, data-invalid, data-orientation, data-touched, data-valid
   - Slider - Value
     - Props: aria-live, children, render
@@ -1658,7 +1659,7 @@ An easily stylable range input.
     - Props: render
     - Data Attributes: data-dirty, data-disabled, data-dragging, data-focused, data-invalid, data-orientation, data-touched, data-valid
   - Slider - Thumb
-    - Props: aria-valuetext, disabled, getAriaLabel, getAriaValueText, index, onblur, onfocus, onkeydown, render
+    - Props: class, defaultValue, disabled, form, getAriaLabel, getAriaValueText, host, id, index, name, render, style, type, value
     - Data Attributes: data-dirty, data-disabled, data-dragging, data-focused, data-index, data-invalid, data-orientation, data-touched, data-valid
   - Slider - Control
     - Props: render

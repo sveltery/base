@@ -27,8 +27,8 @@
 		getAriaLabel,
 		getAriaValueText,
 		ariaValueText,
-		onValueChange,
-		onValueCommitted,
+		oninput,
+		onchange,
 		onkeydown,
 		onBubble,
 		validate,
@@ -64,14 +64,8 @@
 		getAriaLabel?: (index: number) => string;
 		getAriaValueText?: (formattedValue: string, value: number, index: number) => string;
 		ariaValueText?: string;
-		onValueChange?: (
-			value: number | readonly number[],
-			details: { cancel: () => void; reason: string; activeThumbIndex: number; event: Event }
-		) => void;
-		onValueCommitted?: (
-			value: number | readonly number[],
-			details: { reason: string; event: Event }
-		) => void;
+		oninput?: (event: Event & { currentTarget: EventTarget & HTMLInputElement }) => void;
+		onchange?: (event: Event & { currentTarget: EventTarget & HTMLInputElement }) => void;
 		onkeydown?: (event: KeyboardEvent) => void;
 		onBubble?: (event: KeyboardEvent) => void;
 		validate?: (value: unknown, formValues: Record<string, unknown>) => string | string[] | null;
@@ -85,8 +79,6 @@
 		controlPointerDown?: (event: PointerEvent) => void;
 	} = $props();
 
-	let changeTracked = $state<boolean | undefined>();
-	let commitTracked = $state<boolean | undefined>();
 	let fresh = $state<number | undefined>();
 	let cleared = $state<number | undefined>(40);
 	let bound = $state<number | readonly number[]>(
@@ -138,7 +130,7 @@
 				{getAriaValueText}
 				aria-valuetext={ariaValueText}
 				{onkeydown}
-				data-testid={thumbCount > 1 ? `thumb-${index}` : 'thumb'}
+				host={{ 'data-testid': thumbCount > 1 ? `thumb-${index}` : 'thumb' }}
 			>
 				{#if knob}<span data-testid="knob">knob</span>{/if}
 			</Slider.Thumb>
@@ -165,8 +157,8 @@
 			{locale}
 			{id}
 			aria-labelledby={ariaLabelledBy}
-			{onValueChange}
-			{onValueCommitted}
+			{oninput}
+			{onchange}
 		>
 			{#snippet render(props, state, children)}
 				<div {...props} data-testid="root" data-custom="" data-active={state.activeThumbIndex}>
@@ -184,7 +176,7 @@
 			{max}
 			{step}
 			{locale}
-			data-testid="root"
+			host={{ 'data-testid': 'root' }}
 		>
 			<Slider.Control data-testid="control">
 				<Slider.Track>
@@ -200,7 +192,7 @@
 			min={0}
 			max={100}
 			locale="en-US"
-			data-testid="root"
+			host={{ 'data-testid': 'root' }}
 		>
 			<Slider.Control data-testid="control">
 				<Slider.Track>
@@ -218,9 +210,9 @@
 			{largeStep}
 			{orientation}
 			{locale}
-			data-testid="root"
-			{onValueChange}
-			{onValueCommitted}
+			host={{ 'data-testid': 'root' }}
+			{oninput}
+			{onchange}
 		>
 			{@render valuePart()}
 			{@render trackedControl()}
@@ -251,9 +243,9 @@
 			{locale}
 			{id}
 			aria-labelledby={ariaLabelledBy}
-			data-testid="root"
-			{onValueChange}
-			{onValueCommitted}
+			host={{ 'data-testid': 'root' }}
+			{oninput}
+			{onchange}
 		>
 			{#if scenario === 'label' || scenario === 'field-label'}
 				<Slider.Label data-testid="label">Volume</Slider.Label>
@@ -281,31 +273,9 @@
 {/snippet}
 
 <DirectionProvider direction={dir ?? 'ltr'}>
-	{#if scenario === 'tracking'}
-		<Slider.Root
-			{defaultValue}
-			{min}
-			{max}
-			{step}
-			data-testid="root"
-			onValueChange={() => {
-				changeTracked = $effect.tracking();
-			}}
-			onValueCommitted={() => {
-				commitTracked = $effect.tracking();
-			}}
-		>
-			<Slider.Control data-testid="control">
-				<Slider.Track>
-					<Slider.Thumb />
-				</Slider.Track>
-			</Slider.Control>
-		</Slider.Root>
-		<output data-testid="change-tracking">{String(changeTracked)}</output>
-		<output data-testid="commit-tracking">{String(commitTracked)}</output>
-	{:else if scenario === 'labels'}
+	{#if scenario === 'labels'}
 		<Field.Root>
-			<Slider.Root {defaultValue} data-testid="root">
+			<Slider.Root {defaultValue} host={{ 'data-testid': 'root' }}>
 				{#if showSliderLabel}
 					<Slider.Label data-testid="slider-label">Volume</Slider.Label>
 				{/if}

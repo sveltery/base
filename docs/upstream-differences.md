@@ -284,6 +284,22 @@ Local, signed off by the owner (2026-10-21):
 
 Test: `src/lib/select/select-ssr.spec.ts`, `src/lib/select/SelectRoot.svelte.spec.ts` (`native events`, `browser autofill`) and `src/routes/fixtures/form/remote-controls/remote-controls.e2e.ts`.
 
+### Slider props reach the thumb inputs
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/slider/root/SliderRoot.tsx` and `thumb/SliderThumb.tsx`. Rest props on Slider.Root go to the root element, and on Slider.Thumb to the thumb element. The thumb input takes only `name`, `form`, `min`, `max`, `step`, `disabled` and the value. `onValueChange` is a cancelable callback, and `onValueCommitted` reports the commit. `value` and `defaultValue` are numbers. `Field.Root name` beats the root's own `name`. A range thumb without `index` renders no value on the server.
+
+Local, signed off by the owner (2026-10-21):
+
+- Native input attributes and handlers on Slider.Root go to every thumb's `<input type="range">`, `required` included. Those on Slider.Thumb go to that thumb's input and win over the root's. `class` and `style` go to the element you see, and `host` sends other attributes there. Root `id` and Thumb `id` stay on their elements.
+- `onValueChange` and `onValueCommitted` are removed. The thumb input fires `input` while the value moves and `change` when it settles, once the input holds the new value, so a listener on the form, such as SvelteKit's, reads it. Use `bind:value` or those events.
+- `value` and `defaultValue` accept a string, as a SvelteKit remote form's `.as('range')` spread carries, and an empty string means no value. So a spread renders on the server.
+- A Slider.Thumb takes its own `value`, `defaultValue` and `name`, as a per-index spread such as `.as('range', 0)` on `price[0]` carries. The thumb moves to its `value` whenever it changes, and a form reset returns it to its `defaultValue`.
+- Inside a remote form, thumbs with no name bind themselves to the field `Field.Root name` resolves. The root's `value` or `defaultValue` decides the shape: a number binds the field, and an array binds `field[0]`, `field[1]` and so on in render order, with each item's default. A bare slider starts at the value the form holds, so the echo after a failed submit wins over the default.
+- The root's own `name`, including one from a spread, beats `Field.Root name`. `type?: 'range'` makes a spread of another input kind a type error.
+- A range thumb without `index` takes its render order until it mounts, so the server renders its value.
+
+Test: `src/lib/slider/slider-ssr.spec.ts`, `src/lib/slider/Slider.svelte.spec.ts` (`in a remote form`) and `src/routes/fixtures/form/remote-controls/remote-controls.e2e.ts`.
+
 ### Form reset
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/form/Form.tsx`, `field/root/FieldRoot.tsx` and the form controls. Nothing listens for `reset`. A reset puts the native inputs back to their HTML defaults, while each control keeps its React state, so the control, its hidden input and `FormData` can disagree. Field dirty, touched and validity, and Form `errors`, stay as they were.

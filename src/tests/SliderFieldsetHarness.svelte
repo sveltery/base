@@ -28,14 +28,13 @@
 			<Fieldset.Root>
 				{#snippet render(props, _state, children)}
 					<Slider.Root
-						{...props as HTMLAttributes<HTMLDivElement>}
+						host={{ ...(props as HTMLAttributes<HTMLDivElement>), 'data-testid': 'fieldset' }}
 						defaultValue={[0.2, 0.8]}
 						min={0}
 						max={1}
 						step={0.01}
 						{format}
 						locale="en-US"
-						data-testid="fieldset"
 					>
 						{@render children?.()}
 					</Slider.Root>

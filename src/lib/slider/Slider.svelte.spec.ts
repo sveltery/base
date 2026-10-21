@@ -5,8 +5,10 @@
 import { cdp, page } from 'vitest/browser';
 import { describe, expect, it, onTestFinished, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import RemoteControlHarness from '../../tests/RemoteControlHarness.svelte';
 import SliderFieldsetHarness from '../../tests/SliderFieldsetHarness.svelte';
 import SliderHarness from '../../tests/SliderHarness.svelte';
+import { kitFields } from '../../tests/kit-fields.js';
 
 function click(node: Element) {
 	if (node instanceof HTMLElement) node.click();
@@ -82,6 +84,30 @@ function mockControlRect(width = 100, height = 10) {
 
 async function valueNow(input: HTMLInputElement, expected: string) {
 	await expect.poll(() => input.getAttribute('aria-valuenow')).toBe(expected);
+}
+
+/** Lets the queued `input` and `change` events fire. */
+function settle() {
+	return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
+/**
+ * A native `input` or `change` handler that records the slider's value at each event: the
+ * thumb's number, or every thumb's for a range.
+ */
+function valueEvents() {
+	const values: (number | number[])[] = [];
+	const spy = vi.fn(() => {
+		const all = inputs().map((input) => input.valueAsNumber);
+		values.push(all.length === 1 ? all[0] : all);
+	});
+	return Object.assign(spy, {
+		values,
+		clear() {
+			spy.mockClear();
+			values.length = 0;
+		}
+	});
 }
 
 describe('<Slider />', () => {
@@ -264,15 +290,16 @@ describe('<Slider />', () => {
 
 	describe('keyboard', () => {
 		it('steps, jumps by largeStep, and stops at the ends', async () => {
-			const onValueChange = vi.fn();
-			const onValueCommitted = vi.fn();
-			render(SliderHarness, { defaultValue: 40, onValueChange, onValueCommitted });
+			const oninput = valueEvents();
+			const onchange = valueEvents();
+			render(SliderHarness, { defaultValue: 40, oninput, onchange });
 			const input = slider();
 			input.focus();
 			key(input, 'ArrowRight');
 			await valueNow(input, '41');
-			expect(onValueChange.mock.lastCall?.[1].reason).toBe('keyboard');
-			expect(onValueCommitted.mock.lastCall?.[1].reason).toBe('keyboard');
+			await settle();
+			expect(oninput.values).toEqual([41]);
+			expect(onchange.values).toEqual([41]);
 			key(input, 'ArrowLeft');
 			await valueNow(input, '40');
 			key(input, 'ArrowUp', { shiftKey: true });
@@ -283,11 +310,12 @@ describe('<Slider />', () => {
 			await valueNow(input, '0');
 			key(input, 'End');
 			await valueNow(input, '100');
-			onValueChange.mockClear();
-			onValueCommitted.mockClear();
+			oninput.clear();
+			onchange.clear();
 			key(input, 'ArrowRight');
-			expect(onValueChange).not.toHaveBeenCalled();
-			expect(onValueCommitted).not.toHaveBeenCalled();
+			await settle();
+			expect(oninput).not.toHaveBeenCalled();
+			expect(onchange).not.toHaveBeenCalled();
 		});
 
 		it('reverses the horizontal arrows in RTL', async () => {
@@ -347,18 +375,25 @@ describe('<Slider />', () => {
 			await valueNow(end, '10');
 		});
 
-		it('does not commit a canceled change', async () => {
-			const onValueCommitted = vi.fn();
-			render(SliderHarness, {
-				defaultValue: 40,
-				onValueChange: (_value, details) => details.cancel(),
-				onValueCommitted
+		it('fires bubbling input and change events once the input holds the new value', async () => {
+			const seen: string[] = [];
+			const listen = (event: Event) => {
+				if (event.target instanceof HTMLInputElement && event.target.type === 'range') {
+					seen.push(`${event.type}:${event.target.value}`);
+				}
+			};
+			document.addEventListener('input', listen);
+			document.addEventListener('change', listen);
+			onTestFinished(() => {
+				document.removeEventListener('input', listen);
+				document.removeEventListener('change', listen);
 			});
+			render(SliderHarness, { defaultValue: 40 });
 			const input = slider();
 			input.focus();
 			key(input, 'ArrowRight');
-			await valueNow(input, '40');
-			expect(onValueCommitted).not.toHaveBeenCalled();
+			await valueNow(input, '41');
+			await expect.poll(() => seen).toEqual(['input:41', 'change:41']);
 		});
 
 		it('lets preventDefault skip the value change and stops composite keys', async () => {
@@ -396,60 +431,62 @@ describe('<Slider />', () => {
 
 	describe('pointer', () => {
 		it('changes the value when the track is pressed and commits on release', async () => {
-			const onValueChange = vi.fn();
-			const onValueCommitted = vi.fn();
-			render(SliderHarness, { defaultValue: 50, onValueChange, onValueCommitted });
+			const oninput = valueEvents();
+			const onchange = valueEvents();
+			render(SliderHarness, { defaultValue: 50, oninput, onchange });
 			mockControlRect();
 			const node = control();
 			pointer(node, 'pointerdown', 41);
-			expect(onValueChange).toHaveBeenCalledTimes(1);
-			expect(onValueChange.mock.lastCall?.[0]).toBe(41);
-			expect(onValueChange.mock.lastCall?.[1].reason).toBe('track-press');
+			await settle();
+			expect(oninput.values).toEqual([41]);
+			expect(onchange).not.toHaveBeenCalled();
 			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(true);
 			pointer(node, 'pointerup', 41);
-			expect(onValueCommitted).toHaveBeenCalledTimes(1);
-			expect(onValueCommitted.mock.lastCall?.[0]).toBe(41);
-			expect(onValueCommitted.mock.lastCall?.[1].reason).toBe('track-press');
+			await settle();
+			expect(onchange.values).toEqual([41]);
 			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(false);
 		});
 
 		it('does not change the value when the press starts on the thumb', async () => {
-			const onValueChange = vi.fn();
-			render(SliderHarness, { defaultValue: 50, onValueChange });
+			const oninput = valueEvents();
+			render(SliderHarness, { defaultValue: 50, oninput });
 			mockControlRect();
 			pointer(page.getByTestId('thumb').element(), 'pointerdown', 51);
-			expect(onValueChange).not.toHaveBeenCalled();
+			await settle();
+			expect(oninput).not.toHaveBeenCalled();
 		});
 
 		it('ignores a right click', async () => {
-			const onValueChange = vi.fn();
-			render(SliderHarness, { defaultValue: 50, onValueChange });
+			const oninput = valueEvents();
+			render(SliderHarness, { defaultValue: 50, oninput });
 			mockControlRect();
 			pointer(control(), 'pointerdown', 41, { button: 2, buttons: 2 });
-			expect(onValueChange).not.toHaveBeenCalled();
+			await settle();
+			expect(oninput).not.toHaveBeenCalled();
 		});
 
 		it('does not drag a disabled thumb', async () => {
-			const onValueChange = vi.fn();
-			render(SliderHarness, { defaultValue: 50, disabledThumbs: [0], onValueChange });
+			const oninput = valueEvents();
+			render(SliderHarness, { defaultValue: 50, disabledThumbs: [0], oninput });
 			mockControlRect();
 			pointer(page.getByTestId('thumb').element(), 'pointerdown', 10);
 			pointer(control(), 'pointerdown', 80);
-			expect(onValueChange).not.toHaveBeenCalled();
+			await settle();
+			expect(oninput).not.toHaveBeenCalled();
 			await valueNow(slider(), '50');
 		});
 
 		it('reads an RTL track from the right edge', async () => {
-			const onValueChange = vi.fn();
-			render(SliderHarness, { defaultValue: 30, dir: 'rtl', onValueChange });
+			const oninput = valueEvents();
+			render(SliderHarness, { defaultValue: 30, dir: 'rtl', oninput });
 			const thumb = page.getByTestId('thumb').element() as HTMLElement;
 			expect(thumb.style.insetInlineStart).toBe('30%');
 			mockControlRect();
 			touch(control(), 'touchstart', 20);
+			await settle();
 			touch(document.body, 'touchmove', 22);
-			expect(onValueChange).toHaveBeenCalledTimes(2);
-			expect(onValueChange.mock.calls[0][0]).toBe(80);
-			expect(onValueChange.mock.calls[1][0]).toBe(78);
+			await settle();
+			expect(oninput.values).toEqual([80, 78]);
 		});
 
 		it('sets data-dragging only after the touch has moved enough', async () => {
@@ -495,25 +532,28 @@ describe('<Slider />', () => {
 		});
 
 		it('updates from an input event without a change event', async () => {
-			const onValueChange = vi.fn();
-			render(SliderHarness, { defaultValue: 30, onValueChange });
+			const oninput = valueEvents();
+			render(SliderHarness, { defaultValue: 30, oninput });
 			const input = slider();
 			inputOnly(input, '35');
-			expect(onValueChange).toHaveBeenCalledTimes(1);
-			expect(onValueChange.mock.lastCall?.[0]).toBe(35);
 			await valueNow(input, '35');
+			await settle();
+			expect(oninput.values).toEqual([35]);
 		});
 
-		it('reports input-change on the original input event', async () => {
-			const onValueChange = vi.fn();
-			render(SliderHarness, { defaultValue: 30, name: 'volume', onValueChange });
+		it('passes an edit of the input itself through once, as the original event', async () => {
+			const events: Event[] = [];
+			render(SliderHarness, {
+				defaultValue: 30,
+				name: 'volume',
+				oninput: (event) => events.push(event)
+			});
 			const input = slider();
 			change(input, '35');
-			expect(onValueChange).toHaveBeenCalledTimes(1);
-			expect(onValueChange.mock.lastCall?.[0]).toBe(35);
-			expect(onValueChange.mock.lastCall?.[1].reason).toBe('input-change');
-			expect(onValueChange.mock.lastCall?.[1].activeThumbIndex).toBe(0);
-			expect(onValueChange.mock.lastCall?.[1].event.target).toBe(input);
+			await valueNow(input, '35');
+			await settle();
+			expect(events).toHaveLength(1);
+			expect(events[0].target).toBe(input);
 			expect(input.name).toBe('volume');
 		});
 	});
@@ -624,11 +664,20 @@ describe('<Slider />', () => {
 			render(SliderHarness, {
 				scenario: 'form',
 				defaultValue: [25, 50],
-				thumbCount: 2,
-				name: 'ignored'
+				thumbCount: 2
 			});
 			click(page.getByRole('button', { name: 'Submit' }).element());
 			await expect.element(page.getByTestId('submitted')).toHaveTextContent('"slider":["25","50"]');
+		});
+
+		it("puts the slider's own name on every thumb input, over Field.Root's", async () => {
+			render(SliderHarness, {
+				scenario: 'form',
+				defaultValue: [25, 50],
+				thumbCount: 2,
+				name: 'price'
+			});
+			expect(inputs().map((input) => input.name)).toEqual(['price', 'price']);
 		});
 
 		for (const rendered of [false, true]) {
@@ -824,41 +873,22 @@ describe('<Slider />', () => {
 		input.dispatchEvent(new Event('change', { bubbles: true }));
 		await expect.poll(() => input.getAttribute('aria-valuenow')).toBe('40');
 	});
-
-	it('calls onValueChange and onValueCommitted outside effect tracking', async () => {
-		render(SliderHarness, { scenario: 'tracking', defaultValue: 30 });
-		change(slider(), '40');
-		await expect
-			.poll(() => page.getByTestId('change-tracking').element().textContent)
-			.toBe('false');
-		await expect
-			.poll(() => page.getByTestId('commit-tracking').element().textContent)
-			.toBe('false');
-
-		mockControlRect();
-		pointer(control(), 'pointerdown', 55);
-		pointer(control(), 'pointerup', 55);
-		await expect
-			.poll(() => page.getByTestId('change-tracking').element().textContent)
-			.toBe('false');
-		await expect
-			.poll(() => page.getByTestId('commit-tracking').element().textContent)
-			.toBe('false');
-	});
 });
 
 describe('single-element array value', () => {
 	it('stays an array on track press', async () => {
-		const onValueChange = vi.fn();
-		const onValueCommitted = vi.fn();
-		render(SliderHarness, { defaultValue: [25], onValueChange, onValueCommitted });
+		const oninput = valueEvents();
+		const onchange = valueEvents();
+		render(SliderHarness, { defaultValue: [25], oninput, onchange });
 		mockControlRect();
 
 		pointer(control(), 'pointerdown', 50);
 		pointer(document.body, 'pointerup', 50);
+		await settle();
 
-		expect(onValueChange.mock.calls[0][0]).toEqual([50]);
-		expect(onValueCommitted.mock.calls[0][0]).toEqual([50]);
+		expect(oninput.values).toEqual([50]);
+		expect(onchange.values).toEqual([50]);
+		expect(page.getByTestId('value').element().textContent).toBe('50');
 	});
 
 	it('stays an array when validated on blur', async () => {
@@ -881,8 +911,8 @@ describe('single-element array value', () => {
 
 describe('touch and pen gestures', () => {
 	it.each(['touch', 'pen'])('commits a %s track tap', async (pointerType) => {
-		const onValueCommitted = vi.fn();
-		render(SliderHarness, { defaultValue: 0, onValueCommitted });
+		const onchange = valueEvents();
+		render(SliderHarness, { defaultValue: 0, onchange });
 		mockControlRect();
 
 		// Browsers fire pointer events before the compatibility touch events, Apple Pencil too.
@@ -890,16 +920,17 @@ describe('touch and pen gestures', () => {
 		touch(control(), 'touchstart', 50);
 		pointer(control(), 'pointerup', 50, { pointerType });
 		touch(document.body, 'touchend', 50);
+		await settle();
 
-		expect(onValueCommitted.mock.calls.map((call) => call[0])).toEqual([50]);
+		expect(onchange.values).toEqual([50]);
 	});
 
 	it('commits a real touch track tap', async () => {
-		const onValueCommitted = vi.fn();
+		const onchange = valueEvents();
 		const style = document.head.appendChild(document.createElement('style'));
 		style.textContent = '[data-testid="control"] { width: 200px; height: 20px; }';
 		onTestFinished(() => style.remove());
-		render(SliderHarness, { defaultValue: 0, onValueCommitted });
+		render(SliderHarness, { defaultValue: 0, onchange });
 		const rect = control().getBoundingClientRect();
 		// The tester runs in a scaled iframe, and CDP takes top-level page coordinates.
 		const frameRect = window.frameElement?.getBoundingClientRect() ?? new DOMRect();
@@ -915,13 +946,12 @@ describe('touch and pen gestures', () => {
 		await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints });
 		await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
 
-		await expect.poll(() => onValueCommitted.mock.calls.length).toBe(1);
-		expect(onValueCommitted.mock.calls[0][0]).toBe(50);
+		await expect.poll(() => onchange.values).toEqual([50]);
 	});
 
 	it('keeps tracking a touch drag with touch listeners after the browser cancels the pointer', async () => {
-		const onValueCommitted = vi.fn();
-		render(SliderHarness, { defaultValue: 0, onValueCommitted });
+		const onchange = valueEvents();
+		render(SliderHarness, { defaultValue: 0, onchange });
 		mockControlRect();
 
 		pointer(control(), 'pointerdown', 50, { pointerType: 'touch' });
@@ -930,20 +960,21 @@ describe('touch and pen gestures', () => {
 		pointer(control(), 'pointercancel', 50, { pointerType: 'touch' });
 		touch(document.body, 'touchmove', 70);
 		touch(document.body, 'touchend', 70);
+		await settle();
 
-		expect(onValueCommitted.mock.calls.map((call) => call[0])).toEqual([70]);
+		expect(onchange.values).toEqual([70]);
 	});
 
 	it.each(['mouse', 'pen', 'touch'])(
 		'handles a touch press normally after a cancelled %s gesture',
 		async (pointerType) => {
-			const onValueChange = vi.fn();
-			const onValueCommitted = vi.fn();
+			const oninput = valueEvents();
+			const onchange = valueEvents();
 			let preventPointerDown = false;
 			render(SliderHarness, {
 				defaultValue: 0,
-				onValueChange,
-				onValueCommitted,
+				oninput,
+				onchange,
 				controlPointerDown: (event) => {
 					if (preventPointerDown) event.preventDefault();
 				}
@@ -952,28 +983,32 @@ describe('touch and pen gestures', () => {
 
 			pointer(control(), 'pointerdown', 50, { pointerType });
 			if (pointerType === 'touch') touch(control(), 'touchstart', 50);
-			expect(onValueChange.mock.lastCall?.[0]).toBe(50);
+			await settle();
+			expect(oninput.values.at(-1)).toBe(50);
 			pointer(control(), 'pointercancel', 50, { pointerType });
 			if (pointerType === 'touch') touch(document.body, 'touchcancel', 50);
-			onValueCommitted.mockClear();
+			await settle();
+			onchange.clear();
 
 			// A prevented pointerdown leaves the press to the touch handler.
 			preventPointerDown = true;
 			pointer(control(), 'pointerdown', 30, { pointerType: 'touch', pointerId: 2 });
 			touch(control(), 'touchstart', 30, 2);
-			expect(onValueChange.mock.lastCall?.[0]).toBe(30);
+			await settle();
+			expect(oninput.values.at(-1)).toBe(30);
 
 			pointer(control(), 'pointerup', 30, { pointerType: 'touch', pointerId: 2 });
 			touch(document.body, 'touchend', 30, 2);
-			expect(onValueCommitted.mock.calls.map((call) => call[0])).toEqual([30]);
+			await settle();
+			expect(onchange.values).toEqual([30]);
 		}
 	);
 
 	it.each(['touch', 'pen'])(
 		'does not change the value on a %s tap on the thumb',
 		async (pointerType) => {
-			const onValueChange = vi.fn();
-			render(SliderHarness, { defaultValue: 100, step: 3, onValueChange });
+			const oninput = valueEvents();
+			render(SliderHarness, { defaultValue: 100, step: 3, oninput });
 			mockControlRect();
 			const thumb = page.getByTestId('thumb').element();
 			vi.spyOn(thumb, 'getBoundingClientRect').mockImplementation(() => new DOMRect(95, 0, 10, 10));
@@ -982,27 +1017,30 @@ describe('touch and pen gestures', () => {
 			touch(thumb, 'touchstart', 100);
 			pointer(thumb, 'pointerup', 100, { pointerType });
 			touch(document.body, 'touchend', 100);
+			await settle();
 
-			expect(onValueChange).not.toHaveBeenCalled();
+			expect(oninput).not.toHaveBeenCalled();
 		}
 	);
 });
 
 describe('cancelled gestures', () => {
 	function setup() {
-		const onValueChange = vi.fn();
-		const onValueCommitted = vi.fn();
-		const view = render(SliderHarness, { defaultValue: 20, onValueChange, onValueCommitted });
+		const oninput = valueEvents();
+		const onchange = valueEvents();
+		const view = render(SliderHarness, { defaultValue: 20, oninput, onchange });
 		mockControlRect();
-		const committed = () =>
-			onValueCommitted.mock.calls.map(([value, details]) => [value, details.reason]);
-		return { view, onValueChange, committed };
+		const committed = async () => {
+			await settle();
+			return onchange.values;
+		};
+		return { view, oninput, committed };
 	}
 
 	it.each(['touchend', 'touchcancel'])(
 		'ignores %s from another finger during a touch drag',
 		async (type) => {
-			const { onValueChange, committed } = setup();
+			const { oninput, committed } = setup();
 
 			pointer(control(), 'pointerdown', 40, { pointerType: 'touch' });
 			touch(control(), 'touchstart', 40);
@@ -1010,14 +1048,15 @@ describe('cancelled gestures', () => {
 			touch(document.body, 'touchstart', 90, 2);
 			touch(document.body, type, 90, 2);
 
-			expect(committed()).toEqual([]);
+			expect(await committed()).toEqual([]);
 			await expect.poll(() => control().hasAttribute('data-dragging')).toBe(true);
 
 			touch(document.body, 'touchmove', 80);
-			expect(onValueChange.mock.lastCall?.[0]).toBe(80);
+			await settle();
+			expect(oninput.values.at(-1)).toBe(80);
 
 			touch(document.body, 'touchcancel', 80);
-			expect(committed()).toEqual([[80, 'drag']]);
+			expect(await committed()).toEqual([80]);
 			await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
 		}
 	);
@@ -1025,7 +1064,7 @@ describe('cancelled gestures', () => {
 	it.each(['mouse', 'pen'])(
 		'ends a cancelled %s drag after disabling and re-enabling during a touch drag',
 		async (pointerType) => {
-			const { view, onValueChange, committed } = setup();
+			const { view, oninput, committed } = setup();
 
 			pointer(control(), 'pointerdown', 40, { pointerType: 'touch' });
 			touch(control(), 'touchstart', 40);
@@ -1038,19 +1077,20 @@ describe('cancelled gestures', () => {
 			pointer(document.body, 'pointermove', 70, init);
 			pointer(document.body, 'pointercancel', 70, init);
 
-			expect(committed()).toEqual([[70, 'drag']]);
+			expect(await committed()).toEqual([70]);
 			await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
 
-			onValueChange.mockClear();
+			oninput.clear();
 			pointer(document.body, 'pointermove', 90, init);
 			pointer(document.body, 'pointerup', 90, init);
-			expect(onValueChange).not.toHaveBeenCalled();
-			expect(committed()).toHaveLength(1);
+			await settle();
+			expect(oninput).not.toHaveBeenCalled();
+			expect(await committed()).toHaveLength(1);
 		}
 	);
 
 	it.each(['mouse', 'pen'])('commits and ends a %s drag on pointercancel', async (pointerType) => {
-		const { onValueChange, committed } = setup();
+		const { oninput, committed } = setup();
 		const init = { pointerType, pointerId: 7 };
 
 		pointer(control(), 'pointerdown', 40, init);
@@ -1059,38 +1099,144 @@ describe('cancelled gestures', () => {
 
 		pointer(document.body, 'pointercancel', 70, init);
 
-		expect(committed()).toEqual([[70, 'drag']]);
+		expect(await committed()).toEqual([70]);
 		await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
 
-		onValueChange.mockClear();
+		oninput.clear();
 		pointer(document.body, 'pointerdown', 90, init);
 		pointer(document.body, 'pointermove', 90, init);
 		pointer(document.body, 'pointerup', 90, init);
-		expect(onValueChange).not.toHaveBeenCalled();
-		expect(committed()).toHaveLength(1);
+		await settle();
+		expect(oninput).not.toHaveBeenCalled();
+		expect(await committed()).toHaveLength(1);
 	});
 
 	it('keeps a touch drag going after pointercancel and ends it on touchcancel', async () => {
-		const { onValueChange, committed } = setup();
+		const { oninput, committed } = setup();
 
 		pointer(control(), 'pointerdown', 40, { pointerType: 'touch' });
 		touch(control(), 'touchstart', 40);
 		// Without `touch-action: none`, the browser cancels the pointer once it starts panning.
 		pointer(document.body, 'pointercancel', 40, { pointerType: 'touch' });
 		touch(document.body, 'touchmove', 70);
-		expect(onValueChange.mock.lastCall?.[0]).toBe(70);
+		await settle();
+		expect(oninput.values.at(-1)).toBe(70);
 
 		touch(document.body, 'touchcancel', 70);
-		expect(committed()).toEqual([[70, 'drag']]);
+		expect(await committed()).toEqual([70]);
 		await expect.poll(() => control().hasAttribute('data-dragging')).toBe(false);
 
-		onValueChange.mockClear();
+		oninput.clear();
 		pointer(document.body, 'pointerdown', 90, { pointerType: 'touch', pointerId: 2 });
 		touch(document.body, 'touchstart', 90, 2);
 		touch(document.body, 'touchmove', 90, 2);
 		pointer(document.body, 'pointerup', 90, { pointerType: 'touch', pointerId: 2 });
 		touch(document.body, 'touchend', 90, 2);
-		expect(onValueChange).not.toHaveBeenCalled();
-		expect(committed()).toHaveLength(1);
+		await settle();
+		expect(oninput).not.toHaveBeenCalled();
+		expect(await committed()).toHaveLength(1);
+	});
+});
+
+describe('in a remote form', () => {
+	function thumbInputs() {
+		return [
+			...page.getByTestId('slider').element().querySelectorAll('input[type="range"]')
+		] as HTMLInputElement[];
+	}
+
+	it('moves to the string value of a root spread whenever the form changes it', async () => {
+		const input = $state<Record<string, unknown>>({ volume: 40 });
+		const fields = kitFields(input);
+		render(RemoteControlHarness, {
+			props: {
+				fields,
+				name: 'volume',
+				control: 'range',
+				spread: fields.volume.as('range')
+			}
+		});
+		const [thumb] = thumbInputs();
+		expect(thumb.name).toBe('n:volume/form');
+		await valueNow(thumb, '40');
+
+		thumb.focus();
+		key(thumb, 'ArrowRight');
+		await valueNow(thumb, '41');
+
+		input.volume = 55;
+		await valueNow(thumb, '55');
+	});
+
+	it('moves each thumb to its own spread and keeps edits between changes', async () => {
+		const input = $state<Record<string, unknown>>({});
+		const fields = kitFields(input);
+		render(RemoteControlHarness, {
+			props: {
+				fields,
+				name: 'price',
+				control: 'range',
+				props: { min: 0, max: 1000, step: 10 },
+				thumbs: [fields.price[0].as('range', 0), fields.price[1].as('range', 1000)]
+			}
+		});
+		const [start, end] = thumbInputs();
+		expect([start.name, end.name]).toEqual(['n:price[0]/form', 'n:price[1]/form']);
+		await valueNow(start, '0');
+		await valueNow(end, '1000');
+
+		start.focus();
+		key(start, 'ArrowRight');
+		await valueNow(start, '10');
+		await valueNow(end, '1000');
+
+		input.price = [200, 800];
+		await valueNow(start, '200');
+		await valueNow(end, '800');
+		await expect.element(page.getByTestId('value')).toHaveTextContent('200 – 800');
+	});
+
+	it('binds bare thumbs to the items of the field, in render order', async () => {
+		const input = $state<Record<string, unknown>>({});
+		render(RemoteControlHarness, {
+			props: {
+				fields: kitFields(input),
+				name: 'price',
+				control: 'range',
+				props: { defaultValue: [10, 90] },
+				thumbs: [undefined, undefined]
+			}
+		});
+		const [start, end] = thumbInputs();
+		expect([start.name, end.name]).toEqual(['n:price[0]/form', 'n:price[1]/form']);
+		await valueNow(start, '10');
+		await valueNow(end, '90');
+
+		input.price = [30, 60];
+		await valueNow(start, '30');
+		await valueNow(end, '60');
+	});
+
+	it('fires input on the moved thumb after its input holds the value, for a form listener', async () => {
+		const read: string[] = [];
+		const listen = (event: Event) => {
+			if (event.target instanceof HTMLInputElement)
+				read.push(`${event.target.name}=${event.target.value}`);
+		};
+		document.addEventListener('input', listen);
+		onTestFinished(() => document.removeEventListener('input', listen));
+		render(RemoteControlHarness, {
+			props: {
+				fields: kitFields({}),
+				name: 'price',
+				control: 'range',
+				props: { defaultValue: [10, 90] },
+				thumbs: [undefined, undefined]
+			}
+		});
+		const [, end] = thumbInputs();
+		end.focus();
+		key(end, 'ArrowLeft');
+		await expect.poll(() => read).toEqual(['n:price[1]/form=89']);
 	});
 });

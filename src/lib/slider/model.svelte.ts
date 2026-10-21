@@ -7,11 +7,9 @@
 // Text direction is `useDirection()`, read through `getDirection`.
 
 import { untrack } from 'svelte';
+import type { HTMLInputAttributes } from 'svelte/elements';
 import {
 	ScopedAnimationFrame,
-	createChangeEventDetails,
-	createGenericEventDetails,
-	REASONS,
 	ownerDocument,
 	ownerWindow,
 	activeElement,
@@ -44,9 +42,6 @@ import {
 import { getDecimalPrecision, roundValueToStep } from './roundValueToStep.js';
 import { resolveThumbCollision } from './resolveThumbCollision.js';
 import type {
-	SliderChangeEventDetails,
-	SliderChangeEventReason,
-	SliderCommitEventDetails,
 	SliderOrientation,
 	SliderRootState,
 	SliderThumbAlignment,
@@ -73,9 +68,13 @@ export interface SliderThumbRecord {
 	input: HTMLInputElement | null;
 	inputId: string | undefined;
 	index: number;
+	/** The value the thumb's own `defaultValue` gives it, which a form reset returns to. */
+	defaultValue: number | undefined;
 }
 
 export interface SliderModelOptions {
+	/** The root's value, read as numbers. `undefined` when it has none. */
+	getValue: () => SliderValue | undefined;
 	getValueUnwrapped: () => SliderValue;
 	getDefaultValue: () => SliderValue | undefined;
 	writeValue: (next: SliderValue) => void;
@@ -86,8 +85,10 @@ export interface SliderModelOptions {
 	getMinSteps: () => number;
 	getOrientation: () => SliderOrientation;
 	getDisabled: () => boolean;
-	/** The thumb input's `name`. */
-	getInputProps: () => { name?: string };
+	/** The root's native input attributes, `name` among them, which every thumb input takes. */
+	getInputAttributes: () => HTMLInputAttributes;
+	/** Props that bind a thumb without a name to a remote form's field, by thumb index. */
+	bindThumb: (index: number) => Record<string, unknown> | undefined;
 	getFormId: () => string | undefined;
 	getRootId: () => string;
 	getFormat: () => Intl.NumberFormatOptions | undefined;
@@ -96,10 +97,6 @@ export interface SliderModelOptions {
 	getCollision: () => SliderThumbCollisionBehavior;
 	getAriaLabelledBy: () => string | undefined;
 	getFieldLabelId: () => string | undefined;
-	getOnValueChange: () =>
-		((value: SliderValue, eventDetails: SliderChangeEventDetails) => void) | undefined;
-	getOnValueCommitted: () =>
-		((value: SliderValue, eventDetails: SliderCommitEventDetails) => void) | undefined;
 	getField: () => FieldContext;
 	getFormContext: () => FormContextValue;
 	getDirection: () => 'ltr' | 'rtl';
@@ -180,7 +177,6 @@ export class SliderRootModel {
 	pressedThumbIndex = -1;
 	pressedThumbCenterOffset: number | null = null;
 	pressedValues: readonly number[] | null = null;
-	lastChangeReason: SliderChangeEventReason = REASONS.none;
 	restoringFocusVisible = false;
 
 	private touchId: number | null = null;
@@ -204,11 +200,25 @@ export class SliderRootModel {
 			const raw = options.getValueUnwrapped();
 			return Array.isArray(raw) ? raw.length : 1;
 		});
-		this.defaultValues = $derived(
-			this.normalize(
-				options.getDefaultValue() ?? Array.from({ length: thumbCount }, () => options.getMin())
-			)
-		);
+		this.defaultValues = $derived.by(() => {
+			const base = options.getDefaultValue();
+			if (base !== undefined && !this.thumbs.some((thumb) => thumb.defaultValue !== undefined)) {
+				return this.normalize(base);
+			}
+			const min = options.getMin();
+			const list = Array.isArray(base)
+				? [...base]
+				: base === undefined
+					? Array.from({ length: thumbCount }, () => min)
+					: [base];
+			// A thumb's own default, as a remote form spread carries, wins at its index.
+			for (const thumb of this.thumbs) {
+				if (thumb.defaultValue === undefined || thumb.index < 0) continue;
+				while (list.length < thumb.index) list.push(min);
+				list[thumb.index] = thumb.defaultValue;
+			}
+			return this.normalize(list);
+		});
 	}
 
 	/** True when the bound value is an array, one entry per thumb. */
@@ -284,8 +294,12 @@ export class SliderRootModel {
 		return this.options.getFormId();
 	}
 
-	get inputProps() {
-		return this.options.getInputProps();
+	get inputAttributes() {
+		return this.options.getInputAttributes();
+	}
+
+	bindThumb(index: number) {
+		return this.options.bindThumb(index);
 	}
 
 	get fieldValue(): SliderValue {
@@ -348,24 +362,37 @@ export class SliderRootModel {
 	}
 
 	/**
-	 * Applies a value through `onValueChange`. Returns false when the value is
-	 * NaN, unchanged, or the change was canceled.
+	 * Writes a value and fires `input` from the thumb input that moved. Returns false when the
+	 * value is NaN or unchanged. `fromInput` marks an edit of the input itself, which already
+	 * fired its own events.
 	 */
-	setValue(newValue: number | number[], details: SliderChangeEventDetails) {
+	setValue(newValue: number | number[], activeThumbIndex: number, fromInput = false) {
 		const current = this.options.getValueUnwrapped();
 		if (Number.isNaN(newValue) || areValuesEqual(newValue, current)) return false;
 
-		this.options.getOnValueChange()?.(newValue, details);
-		if (details.isCanceled) return false;
-
-		this.lastChangeReason = details.reason;
 		this.options.writeValue(newValue);
-		// A change from the range input itself already fired its own events.
-		if (details.reason !== REASONS.inputChange) {
-			this.changedInput = this.thumbAt(details.activeThumbIndex)?.input ?? null;
+		if (!fromInput) {
+			this.changedInput = this.thumbAt(activeThumbIndex)?.input ?? null;
 			queueValueEvent(this.changedInput, 'input');
 		}
 		return true;
+	}
+
+	/**
+	 * Moves one thumb to the value its own `value` prop gives, as a remote form spread does.
+	 * The first thumb holds a number until a second thumb gives its value.
+	 */
+	setThumbValue(index: number, next: number) {
+		const current = untrack(() => this.options.getValue());
+		if (index === 0 && !Array.isArray(current)) {
+			if (current !== next) this.options.writeValue(next);
+			return;
+		}
+		const list = Array.isArray(current) ? [...current] : current === undefined ? [] : [current];
+		if (list[index] === next) return;
+		while (list.length < index) list.push(this.min);
+		list[index] = next;
+		this.options.writeValue(list);
 	}
 
 	handleInputChange(valueInput: number, index: number, event: Event) {
@@ -375,16 +402,10 @@ export class SliderRootModel {
 		const newValue = getSliderValue(valueInput, index, this.min, this.max, this.range, this.values);
 		if (!validateMinimumDistance(newValue, this.step, this.minSteps)) return;
 
-		const reason = 'key' in event ? REASONS.keyboard : REASONS.inputChange;
-		const applied = this.setValue(
-			newValue,
-			createChangeEventDetails(reason, event, undefined, { activeThumbIndex: index })
-		);
+		const fromInput = !('key' in event);
+		const applied = this.setValue(newValue, index, fromInput);
 		this.options.getField().setTouched(true);
-		if (applied) {
-			this.options.getOnValueCommitted()?.(newValue, createGenericEventDetails(reason, event));
-			if (reason !== REASONS.inputChange) queueValueEvent(this.changedInput, 'change');
-		}
+		if (applied && !fromInput) queueValueEvent(this.changedInput, 'change');
 	}
 
 	/**
@@ -529,7 +550,7 @@ export class SliderRootModel {
 
 		this.dragging = true;
 		const pressedOnAnyThumb = this.pressedThumbCenterOffset != null;
-		if (!pressedOnAnyThumb) this.setValueFromPointer(finger, REASONS.trackPress, event);
+		if (!pressedOnAnyThumb) this.setValueFromPointer(finger);
 
 		if (event.pointerId) {
 			try {
@@ -584,7 +605,7 @@ export class SliderRootModel {
 		if (finger == null) return;
 
 		this.focusThumb(finger.thumbIndex);
-		this.setValueFromPointer(finger, REASONS.trackPress, event);
+		this.setValueFromPointer(finger);
 		this.moveCount = 0;
 		this.listen(doc, true);
 	}
@@ -753,17 +774,8 @@ export class SliderRootModel {
 		);
 	}
 
-	private setValueFromPointer(
-		finger: FingerState,
-		reason: typeof REASONS.trackPress | typeof REASONS.drag,
-		nativeEvent: TouchEvent | PointerEvent
-	) {
-		const applied = this.setValue(
-			finger.value,
-			createChangeEventDetails(reason, nativeEvent, undefined, {
-				activeThumbIndex: finger.thumbIndex
-			})
-		);
+	private setValueFromPointer(finger: FingerState) {
+		const applied = this.setValue(finger.value, finger.thumbIndex);
 		if (!applied) return false;
 
 		this.currentInteractionValue = finger.value;
@@ -790,7 +802,7 @@ export class SliderRootModel {
 		if (!validateMinimumDistance(finger.value, this.step, this.minSteps)) return;
 
 		if (!this.dragging && this.moveCount > INTENTIONAL_DRAG_COUNT_THRESHOLD) this.dragging = true;
-		this.setValueFromPointer(finger, REASONS.drag, nativeEvent);
+		this.setValueFromPointer(finger);
 	}
 
 	private handleEnd(nativeEvent: TouchEvent | PointerEvent) {
@@ -805,13 +817,7 @@ export class SliderRootModel {
 			this.currentInteractionValue = null;
 		}
 
-		if (this.currentInteractionValue != null) {
-			this.options.getOnValueCommitted()?.(
-				this.currentInteractionValue,
-				createGenericEventDetails(this.lastChangeReason, nativeEvent)
-			);
-			queueValueEvent(this.changedInput, 'change');
-		}
+		if (this.currentInteractionValue != null) queueValueEvent(this.changedInput, 'change');
 
 		const control = this.control;
 		if (control && 'pointerType' in nativeEvent && typeof nativeEvent.pointerId === 'number') {

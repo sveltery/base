@@ -4,12 +4,20 @@
 	Derived from Base UI v1.9.0 packages/react/src/slider/thumb/SliderThumb.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	There is no inputRef. The input is in the DOM. Pass `{@attach}` to this part for the thumb.
+	Native input props and handlers go to the `<input type="range">`, after the root's.
+	`class`, `style` and `host` go to the thumb element. A remote form spread names the input,
+	and its `value` moves the thumb whenever it changes.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../internal/field-root-context.js';
+	import { useFormContext } from '../internal/form-context.js';
+	import { watchSpreadPath } from '../field/watch-spread-path.svelte.js';
+	import { mergeProps } from '../internal/mergeProps.js';
+	import { readThumbValue } from './read-value.js';
 	import { useLabelableContext } from '../internal/labelable-provider.svelte.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { formatNumber } from '../internal/formatNumber.js';
@@ -46,24 +54,33 @@
 		getAriaValueText,
 		index: indexProp,
 		id: idProp,
+		type: _type,
+		value: valueProp,
+		defaultValue: defaultValueProp,
+		name: nameProp,
+		form: formProp,
+		class: className,
+		style,
+		host,
 		render,
 		children,
-		style,
 		onblur,
 		onfocus,
 		onkeydown,
-		onpointerdown,
 		'aria-describedby': ariaDescribedByProp,
 		'aria-label': ariaLabelProp,
 		'aria-labelledby': ariaLabelledByProp,
 		'aria-valuetext': ariaValueTextProp,
 		tabindex,
-		...elementProps
+		...inputProps
 	}: SliderThumbProps = $props();
 
 	const model = useSliderContext();
 	const field = useFieldContext();
+	const formContext = useFormContext();
 	const labelable = useLabelableContext();
+	watchSpreadPath(field, formContext, () => nameProp);
+	const renderOrder = model.thumbList.claimIndex();
 
 	let thumbEl: HTMLDivElement | null = $state(null);
 	let inputEl: HTMLInputElement | null = $state(null);
@@ -75,7 +92,31 @@
 	);
 	const thumbId = $derived(idProp || `base-ui-${uid}-thumb`);
 	const position = $derived(model.positionOf(thumbEl));
-	const index = $derived(!model.range ? 0 : (indexProp ?? position));
+	// Before the thumb mounts, as on the server, render order stands in for its position.
+	const ownIndex = $derived(indexProp ?? (position >= 0 ? position : renderOrder));
+	const index = $derived(!model.range ? 0 : ownIndex);
+
+	// Without a spread, a thumb in a named Field of a remote form binds itself to the field.
+	const bound = $derived(nameProp === undefined ? model.bindThumb(ownIndex) : undefined);
+	const ownValue = $derived(readThumbValue(valueProp ?? bound?.value));
+	const ownDefault = $derived(readThumbValue(defaultValueProp ?? bound?.defaultValue));
+	const name = $derived(
+		nameProp ?? (bound?.name as string | undefined) ?? model.inputAttributes.name ?? undefined
+	);
+
+	// The thumb's own value moves it each time it changes, so a remote form's echo and the
+	// value Kit reads back from the input both land. Edits in between stay.
+	let supplied: number | undefined;
+	function supply(next: number | undefined) {
+		if (next === supplied) return;
+		supplied = next;
+		if (next !== undefined) model.setThumbValue(ownIndex, next);
+	}
+	untrack(() => supply(ownValue));
+	$effect.pre(() => {
+		const next = ownValue;
+		untrack(() => supply(next));
+	});
 	const values = $derived(model.values);
 	const last = $derived(index >= 0 && index === values.length - 1);
 	const thumbValue = $derived(values[index]);
@@ -99,7 +140,13 @@
 	$effect(() => {
 		const element = thumbEl;
 		if (!element) return;
-		return model.thumbList.register(element, () => ({ element, input: inputEl, inputId, index }));
+		return model.thumbList.register(element, () => ({
+			element,
+			input: inputEl,
+			inputId,
+			index,
+			defaultValue: ownDefault
+		}));
 	});
 
 	$effect(() => {
@@ -232,12 +279,10 @@
 	function handlePointerDown(
 		event: PointerEvent & { currentTarget: EventTarget & HTMLDivElement }
 	) {
-		onpointerdown?.(event);
-		if (event.defaultPrevented) return;
 		model.onThumbPointerDown(event, index);
 	}
 
-	const inputProps: HTMLInputAttributes = $derived({
+	const ownInputProps: HTMLInputAttributes = $derived({
 		...(ariaLabel != null ? { 'aria-label': ariaLabel } : {}),
 		...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 		...(describedBy ? { 'aria-describedby': describedBy } : {}),
@@ -245,45 +290,61 @@
 		...(Number.isFinite(thumbValue) ? { 'aria-valuenow': thumbValue } : {}),
 		...(ariaValueText != null ? { 'aria-valuetext': ariaValueText } : {}),
 		disabled,
-		...(model.formId ? { form: model.formId } : {}),
+		form: formProp ?? model.formId,
 		id: inputId,
 		max: model.max,
 		min: model.min,
-		...model.inputProps,
+		name,
 		step: model.step,
 		style: inputStyle,
-		tabindex,
+		...(tabindex !== undefined ? { tabindex } : {}),
 		type: 'range',
 		value: Number.isFinite(thumbValue) ? thumbValue : '',
 		// After `value`, so setting it leaves the current value alone.
-		defaultValue: String(model.defaultValues[index] ?? ''),
-		oninput: handleInput,
-		onchange: handleInput,
-		onfocus: handleFocus,
-		onblur: handleBlur,
-		onkeydown: handleKeyDown,
+		defaultValue: String(ownDefault ?? model.defaultValues[index] ?? ''),
 		...(partState.valid === false && !field.disabled && !disabled
 			? { 'aria-invalid': true as const }
 			: {})
 	});
 
+	// The consumer's handlers run first, the root's before the thumb's own.
+	const inputBag: HTMLInputAttributes = $derived(
+		mergeProps(
+			{
+				oninput: handleInput,
+				onchange: handleInput,
+				onfocus: handleFocus,
+				onblur: handleBlur,
+				onkeydown: handleKeyDown
+			},
+			model.inputAttributes,
+			inputProps,
+			ownInputProps
+		)
+	);
+
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>> =
-		$derived({
-			...elementProps,
-			...getStateAttributesProps(partState, sliderStateAttributes),
-			id: thumbId,
-			...(index >= 0 ? { 'data-index': String(index) } : {}),
-			style: mergeCssStyle(thumbStyle, style),
-			onpointerdown: handlePointerDown,
-			[elementKey]: remember
-		});
+		$derived(
+			mergeProps(
+				{ onpointerdown: handlePointerDown },
+				host,
+				{ class: className },
+				{
+					...getStateAttributesProps(partState, sliderStateAttributes),
+					id: thumbId,
+					...(index >= 0 ? { 'data-index': String(index) } : {}),
+					style: mergeCssStyle(thumbStyle, style),
+					[elementKey]: remember
+				}
+			)
+		);
 
 	const showScript = $derived(model.inset && model.renderBeforeHydration && last);
 </script>
 
 {#snippet content()}
 	{@render children?.()}
-	<input {...inputProps} bind:this={inputEl} />
+	<input {...inputBag} bind:this={inputEl} />
 	{#if showScript}
 		<PrehydrationScript script={prehydrationScript} />
 	{/if}

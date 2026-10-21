@@ -1,25 +1,29 @@
 <!--
 	One control in a named Field of a remote form on Kit's own `fields` proxy. With `spread`, the
 	control takes it, as `{...f.fields.x.as(kind)}`. Without one, the control binds itself.
+	A slider renders one thumb per `thumbs` entry, each with that entry as its spread.
 -->
 <script lang="ts">
-	import { Field, Form, Select } from '#lib';
+	import { Field, Form, Select, Slider } from '#lib';
 
 	let {
 		fields,
 		name,
 		control,
 		spread,
-		props = {}
+		props = {},
+		thumbs = [undefined]
 	}: {
 		/** Kit's `fields` proxy. */
 		fields: unknown;
 		/** Field.Root's path. */
 		name: string;
-		control: 'select' | 'select multiple';
+		control: 'select' | 'select multiple' | 'range';
 		spread?: Record<string, unknown>;
 		/** More props for the control's root. */
 		props?: Record<string, unknown>;
+		/** A slider's thumbs, each with its own spread or none. */
+		thumbs?: (Record<string, unknown> | undefined)[];
 	} = $props();
 
 	const remote = $derived({
@@ -58,6 +62,18 @@
 					</Select.Positioner>
 				</Select.Portal>
 			</Select.Root>
+		{:else if control === 'range'}
+			<Slider.Root {...spread} {...props} host={{ 'data-testid': 'slider' }}>
+				<Slider.Control>
+					<Slider.Track>
+						<Slider.Indicator data-testid="indicator" />
+						{#each thumbs as thumb, index (index)}
+							<Slider.Thumb {...thumb} aria-label={`Thumb ${index}`} />
+						{/each}
+					</Slider.Track>
+				</Slider.Control>
+				<Slider.Value data-testid="value" />
+			</Slider.Root>
 		{/if}
 		<Field.Error data-testid="error" />
 	</Field.Root>

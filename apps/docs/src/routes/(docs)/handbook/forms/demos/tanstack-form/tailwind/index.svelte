@@ -481,7 +481,6 @@
 					<Fieldset.Root class="w-full">
 						<Slider.Root
 							bind:value={() => field.state.value, (value) => field.handleChange(value)}
-							onValueCommitted={(value) => field.handleChange(value as number[])}
 							thumbAlignment="edge"
 							min={0}
 							max={1}
