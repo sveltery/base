@@ -34,13 +34,13 @@ describe('overlay input', () => {
 		});
 	}
 
-	for (const [name, Root] of [
-		['checkbox', Checkbox.Root],
-		['switch', Switch.Root]
-	] as const) {
-		it(`${name} keeps a caller's aria-invalid outside an invalid Field`, async () => {
-			render(Root, { 'aria-label': 'Control', 'aria-invalid': 'true' });
-			expect(control().getAttribute('aria-invalid')).toBe('true');
-		});
-	}
+	it("checkbox keeps a caller's aria-invalid outside an invalid Field", async () => {
+		render(Checkbox.Root, { 'aria-label': 'Control', 'aria-invalid': 'true' });
+		expect(control().getAttribute('aria-invalid')).toBe('true');
+	});
+
+	it("switch keeps a caller's aria-invalid outside an invalid Field", async () => {
+		render(Switch.Root, { 'aria-label': 'Control', 'aria-invalid': 'true' });
+		expect(control().getAttribute('aria-invalid')).toBe('true');
+	});
 });
