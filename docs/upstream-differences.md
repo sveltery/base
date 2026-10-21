@@ -300,6 +300,22 @@ Local, signed off by the owner (2026-10-21):
 
 Test: `src/lib/slider/slider-ssr.spec.ts`, `src/lib/slider/Slider.svelte.spec.ts` (`in a remote form`) and `src/routes/fixtures/form/remote-controls/remote-controls.e2e.ts`.
 
+### NumberField props reach the hidden input
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/number-field/root/NumberFieldRoot.tsx` and `input/NumberFieldInput.tsx`. Rest props on NumberField.Root go to the root element. The hidden input takes only `name`, `form`, `min`, `max`, `step`, `disabled`, `readOnly`, `required` and the value. `onValueChange` is a cancelable callback, and `onValueCommitted` reports the commit. `value` and `defaultValue` are numbers. `Field.Root name` beats the root's own `name`. The visible input carries `readOnly`.
+
+Local, signed off by the owner (2026-10-21):
+
+- Native input attributes and handlers on NumberField.Root go to the hidden `<input type="number">`. `class` and `style` go to the root element, and `host` sends other attributes there.
+- `onValueChange` and `onValueCommitted` are removed. The hidden input fires `input` when the value changes and `change` when it is committed, once the input holds the new value, so a listener on the form, such as SvelteKit's, reads it. Use `bind:value` or those events.
+- `value` and `defaultValue` accept a string, as a SvelteKit remote form's `.as('number')` spread carries, and an empty string means no value. So a spread renders on the server.
+- Inside a remote form, a number field with no name binds itself to the field `Field.Root name` resolves, and starts at the value the form holds.
+- The root's own name, including one from a spread, beats `Field.Root name`. `type?: 'number'` makes a spread of another input kind a type error.
+- The hidden input gets `required` only in the browser. Without JavaScript nobody can type into the field, so a required empty field would block the submit with no way to fill it.
+- The visible input carries `aria-readonly` instead of `readonly`, and reverts typing while read-only, so it stays in constraint validation.
+
+Test: `src/lib/number-field/number-field-ssr.spec.ts`, `src/lib/number-field/NumberField.svelte.spec.ts` (`in a remote form`, `reverts typing in a read-only input`) and `src/routes/fixtures/form/remote-controls/remote-controls.e2e.ts`.
+
 ### Form reset
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/form/Form.tsx`, `field/root/FieldRoot.tsx` and the form controls. Nothing listens for `reset`. A reset puts the native inputs back to their HTML defaults, while each control keeps its React state, so the control, its hidden input and `FormData` can disagree. Field dirty, touched and validity, and Form `errors`, stay as they were.

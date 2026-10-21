@@ -3,6 +3,8 @@
 	Derived from Base UI v1.9.0 packages/react/src/number-field/input/NumberFieldInput.tsx
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 	This is not Field.Control. Upstream renders its own text input and registers it with Field.
+	A read-only field marks this input `aria-readonly`, not `readonly`, so it stays in
+	constraint validation. Edits are reverted instead.
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
@@ -67,6 +69,10 @@
 	}
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (state.readOnly) {
+			event.currentTarget.value = model.inputValue;
+			return;
+		}
 		const accepted = model.applyInputText(event.currentTarget.value, event);
 		if (!accepted) event.currentTarget.value = model.inputValue;
 	}
@@ -89,7 +95,7 @@
 		id: model.options.getId(),
 		required: state.required || undefined,
 		disabled: state.disabled || undefined,
-		readonly: state.readOnly || undefined,
+		'aria-readonly': state.readOnly || undefined,
 		inputmode: model.inputMode,
 		value: model.inputValue,
 		type: 'text',

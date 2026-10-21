@@ -72,11 +72,7 @@
 				</NumberField.Group>
 			</NumberField.Root>
 		{:else if scenario === 'kept-number-field'}
-			<NumberField.Root
-				name="seats"
-				bind:value={() => 5, () => {}}
-				onValueCommitted={(next) => log.push(`committed ${next}`)}
-			>
+			<NumberField.Root name="seats" bind:value={() => 5, (next) => log.push(`wrote ${next}`)}>
 				<NumberField.Group>
 					<NumberField.Input data-testid="control" />
 					<NumberField.Increment>+</NumberField.Increment>

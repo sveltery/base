@@ -1,10 +1,11 @@
 <!--
 	One control in a named Field of a remote form on Kit's own `fields` proxy. With `spread`, the
 	control takes it, as `{...f.fields.x.as(kind)}`. Without one, the control binds itself.
-	A slider renders one thumb per `thumbs` entry, each with that entry as its spread.
+	A slider renders one thumb per `thumbs` entry, each with that entry as its spread. A number
+	field renders its input between a decrement and an increment button.
 -->
 <script lang="ts">
-	import { Field, Form, Select, Slider } from '#lib';
+	import { Field, Form, NumberField, Select, Slider } from '#lib';
 
 	let {
 		fields,
@@ -18,7 +19,7 @@
 		fields: unknown;
 		/** Field.Root's path. */
 		name: string;
-		control: 'select' | 'select multiple' | 'range';
+		control: 'select' | 'select multiple' | 'range' | 'number';
 		spread?: Record<string, unknown>;
 		/** More props for the control's root. */
 		props?: Record<string, unknown>;
@@ -74,6 +75,14 @@
 				</Slider.Control>
 				<Slider.Value data-testid="value" />
 			</Slider.Root>
+		{:else if control === 'number'}
+			<NumberField.Root {...spread} {...props} host={{ 'data-testid': 'number-field' }}>
+				<NumberField.Group>
+					<NumberField.Decrement data-testid="decrement" />
+					<NumberField.Input data-testid="input" />
+					<NumberField.Increment data-testid="increment" />
+				</NumberField.Group>
+			</NumberField.Root>
 		{/if}
 		<Field.Error data-testid="error" />
 	</Field.Root>

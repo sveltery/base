@@ -8,7 +8,8 @@
 		handlers = {},
 		stepperHandlers = {},
 		onValueChange,
-		onValueCommitted,
+		oninput,
+		onchange,
 		validationMode
 	}: {
 		part:
@@ -25,9 +26,11 @@
 			| 'tabs';
 		handlers?: Record<string, Handler>;
 		stepperHandlers?: Record<string, Handler>;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any -- specs pass typed callbacks for the OTP and number roots
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any -- specs pass typed callbacks for the OTP root
 		onValueChange?: (...args: any[]) => void;
-		onValueCommitted?: (value: number | null) => void;
+		/** The number field's hidden input handlers. */
+		oninput?: Handler;
+		onchange?: Handler;
 		validationMode?: 'onBlur' | 'onChange' | 'onSubmit';
 	} = $props();
 </script>
@@ -49,7 +52,7 @@
 	<button type="button">After</button>
 {:else if part === 'number'}
 	<Field.Root data-testid="field">
-		<NumberField.Root locale="en-US" name="qty" {onValueChange} {onValueCommitted}>
+		<NumberField.Root locale="en-US" name="qty" {oninput} {onchange}>
 			<NumberField.Input data-testid="control" {...handlers} />
 			<NumberField.Increment {...stepperHandlers} />
 		</NumberField.Root>

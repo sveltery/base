@@ -1,44 +1,10 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes, HTMLInputAttributes } from 'svelte/elements';
-import type {
-	BaseUIChangeEventDetails,
-	BaseUIGenericEventDetails,
-	REASONS,
-	ReasonToEvent
-} from '@sveltery/utils';
+import type { REASONS, ReasonToEvent } from '@sveltery/utils';
 import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren, RenderSnippet } from '../internal/render-children.js';
 
 export type Direction = -1 | 1;
-
-export type NumberFieldChangeEventReason =
-	| typeof REASONS.inputChange
-	| typeof REASONS.inputClear
-	| typeof REASONS.inputBlur
-	| typeof REASONS.inputPaste
-	| typeof REASONS.keyboard
-	| typeof REASONS.incrementPress
-	| typeof REASONS.decrementPress
-	| typeof REASONS.wheel
-	| typeof REASONS.scrub
-	| typeof REASONS.none;
-
-export type NumberFieldChangeEventDetails =
-	BaseUIChangeEventDetails<NumberFieldChangeEventReason> & {
-		direction?: Direction;
-	};
-
-export type NumberFieldCommitEventReason =
-	| typeof REASONS.inputBlur
-	| typeof REASONS.inputClear
-	| typeof REASONS.keyboard
-	| typeof REASONS.incrementPress
-	| typeof REASONS.decrementPress
-	| typeof REASONS.wheel
-	| typeof REASONS.scrub
-	| typeof REASONS.none;
-
-export type NumberFieldCommitEventDetails = BaseUIGenericEventDetails<NumberFieldCommitEventReason>;
 
 export interface NumberFieldRootState extends FieldRootState {
 	/** The raw numeric value of the field. */
@@ -55,8 +21,35 @@ export interface NumberFieldRootState extends FieldRootState {
 	scrubbing: boolean;
 }
 
-export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** The id of the input element. */
+/**
+ * Native input attributes NumberField.Root takes. They go to the hidden `<input type="number">`
+ * that submits. `class` and `style` go to the root element, and `host` sends anything else there.
+ */
+type NumberFieldHiddenInputAttributes = Omit<
+	HTMLInputAttributes,
+	| 'type'
+	| 'value'
+	| 'defaultValue'
+	| 'defaultvalue'
+	| 'bind:value'
+	| 'children'
+	| 'class'
+	| 'style'
+	| 'id'
+	| 'name'
+	| 'form'
+	| 'min'
+	| 'max'
+	| 'step'
+	| 'required'
+	| 'disabled'
+	| 'readonly'
+>;
+
+export interface NumberFieldRootProps extends NumberFieldHiddenInputAttributes {
+	/** A number input. A remote form spread of another input kind is a type error. */
+	type?: 'number';
+	/** The id of the visible input element. */
 	id?: string | null;
 	/** The minimum value of the input element. */
 	min?: number;
@@ -88,11 +81,20 @@ export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * @default 10
 	 */
 	largeStep?: number;
-	/** Whether the user must enter a value before submitting a form. @default false */
+	/**
+	 * Whether the user must enter a value before submitting a form.
+	 * The hidden input gets `required` only once the page is interactive, because typing
+	 * reaches it only through JavaScript.
+	 * @default false
+	 */
 	required?: boolean | null;
 	/** Whether the component should ignore user interaction. @default false */
 	disabled?: boolean | null;
-	/** Whether the user should be unable to change the field value. @default false */
+	/**
+	 * Whether the user should be unable to change the field value.
+	 * The visible input carries it as `aria-readonly`, so it stays in constraint validation.
+	 * @default false
+	 */
 	readonly?: boolean | null;
 	/** Identifies the field when a form is submitted. */
 	name?: string | null;
@@ -101,14 +103,17 @@ export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	 * Useful when the number field is rendered outside the form.
 	 */
 	form?: string | null;
-	/** The raw numeric value of the field. */
-	value?: number | null;
+	/**
+	 * The raw numeric value of the field.
+	 * A string, as a remote form spread carries, is read as a number, and `''` as no value.
+	 */
+	value?: number | string | null;
 	/**
 	 * The uncontrolled value of the field when it's initially rendered.
 	 *
 	 * To render a controlled number field, use `bind:value` instead.
 	 */
-	defaultValue?: number | null;
+	defaultValue?: number | string | null;
 	/**
 	 * Whether to allow the user to scrub the input value with the mouse wheel while focused and
 	 * hovering over the input.
@@ -123,36 +128,16 @@ export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	/** Options to format the input value. */
 	format?: Intl.NumberFormatOptions;
 	/**
-	 * Callback fired when the number value changes.
-	 *
-	 * The `eventDetails.reason` indicates what triggered the change:
-	 * - `'input-change'` for parseable typing or programmatic text updates
-	 * - `'input-clear'` when the field becomes empty
-	 * - `'input-blur'` when formatting (and clamping, if enabled) occurs on blur
-	 * - `'input-paste'` for paste interactions
-	 * - `'keyboard'` for arrow-key/Home/End stepping (typing digits uses `'input-change'`/`'input-clear'`)
-	 * - `'increment-press'` / `'decrement-press'` for button presses on the increment and decrement controls
-	 * - `'wheel'` for wheel-based scrubbing
-	 * - `'scrub'` for scrub area drags
-	 */
-	onValueChange?: (value: number | null, eventDetails: NumberFieldChangeEventDetails) => void;
-	/**
-	 * Callback function that is fired when the value is committed.
-	 * It runs later than `onValueChange`, when:
-	 * - The input is blurred after typing a value.
-	 * - The pointer is released after scrubbing or pressing the increment/decrement buttons.
-	 *
-	 * It runs simultaneously with `onValueChange` when interacting with the keyboard or the
-	 * mouse wheel.
-	 *
-	 * **Warning**: This is a generic event not a change event.
-	 */
-	onValueCommitted?: (value: number | null, eventDetails: NumberFieldCommitEventDetails) => void;
-	/**
 	 * The locale of the input element.
 	 * Defaults to the user's runtime locale.
 	 */
 	locale?: Intl.LocalesArgument;
+	/** Classes for the root element. */
+	class?: HTMLAttributes<HTMLDivElement>['class'];
+	/** Styles for the root element. */
+	style?: HTMLAttributes<HTMLDivElement>['style'];
+	/** Attributes for the root element, such as `data-*` attributes or handlers that belong on it. */
+	host?: HTMLAttributes<HTMLDivElement>;
 	/**
 	 * Allows you to replace the component's HTML element
 	 * with a different tag, or compose it with another component.

@@ -10,7 +10,6 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
-		createGenericEventDetails,
 		REASONS,
 		ownerDocument,
 		ownerWindow,
@@ -117,10 +116,7 @@
 		} finally {
 			scrubbingActive = false;
 			onScrubbingChange(false, event);
-			model.commit(
-				model.lastChangedValue ?? model.baseValue,
-				createGenericEventDetails(REASONS.scrub, event)
-			);
+			model.commit();
 			// A locked pointer sends its click to the lock element, so dispatch one here. Without a
 			// lock (WebKit, or a denied request) the native click follows pointerup in the same task,
 			// so wait one task and dispatch only if it never reached the scrub area.

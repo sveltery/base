@@ -88,7 +88,7 @@ describe('events on named inputs', () => {
 	it('fires no change from a NumberField whose owner keeps its value', async () => {
 		render(FormEventsHarness, { scenario: 'kept-number-field' });
 		await page.getByRole('button', { name: 'Increase' }).click();
-		await expect.poll(log).toEqual(['committed 6']);
+		await expect.poll(log).toEqual(['wrote 6']);
 		await expect.element(page.getByTestId('control')).toHaveValue('5');
 	});
 

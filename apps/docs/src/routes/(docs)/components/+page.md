@@ -1168,6 +1168,9 @@ A numeric input element with increment and decrement buttons, and a scrub area.
 - Sections:
   - Usage guidelines
   - Anatomy
+  - Examples
+    - Native attributes and events
+    - Form integration
   - API reference
     - Root
     - ScrubArea
@@ -1178,7 +1181,7 @@ A numeric input element with increment and decrement buttons, and a scrub area.
     - Increment
 - Exports:
   - Number Field - Root
-    - Props: allowOutOfRange, allowWheelScrub, defaultValue, disabled, form, format, id, largeStep, locale, max, min, name, onValueChange, onValueCommitted, readonly, render, required, smallStep, snapOnStep, step, value
+    - Props: allowOutOfRange, allowWheelScrub, class, defaultValue, disabled, form, format, host, id, largeStep, locale, max, min, name, readonly, render, required, smallStep, snapOnStep, step, style, type, value
     - Data Attributes: data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-readonly, data-required, data-scrubbing, data-touched, data-valid
   - Number Field - Input
     - Props: aria-roledescription, render
