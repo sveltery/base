@@ -108,6 +108,8 @@ type FormField = {
 	name: string | undefined;
 	/** After this returns, the registry entry reflects the latest synchronous validity verdict. Async validators do not block submit. */
 	validate: () => void;
+	/** Puts the current `validate` message in the control's custom validity, so the browser's check sees it. */
+	syncValidity: () => void;
 	validityData: FieldValidityData;
 	/** Whether the field shows as invalid through its `invalid` prop or external errors. */
 	invalid: boolean;
