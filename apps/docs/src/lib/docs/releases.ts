@@ -8,7 +8,7 @@ export const releases = [
 			'Breaking: `Combobox.Root` no longer takes `keepHighlight` or `submitOnItemClick`. As in Base UI, only `Autocomplete.Root` has them.',
 			'Every stateful part now takes its uncontrolled `default*` prop, such as `defaultOpen` on `Dialog` and `Popover` and `defaultValue` on `Tabs`, as in Base UI 1.9.0.',
 			'`Tooltip` and `PreviewCard` parts take a `Payload` generic typed from their handle, and `RenderSnippet` is exported from `@sveltery/base` and `@sveltery/base/types`.',
-			'A consumer handler that calls `event.preventDefault()` now skips the part\'s own handler, as in Base UI, and closing a popup no longer logs `derived_inert`.',
+			"A consumer handler that calls `event.preventDefault()` now skips the part's own handler, as in Base UI, and closing a popup no longer logs `derived_inert`.",
 			'`OTPField` ships its model `.d.ts`, and a viewport popup anchored by its side sizes to its content.'
 		]
 	},
