@@ -13,12 +13,14 @@
 </script>
 
 {#if custom}
-	<Radio.Root value="" {@attach capture}>
-		{#snippet render(props, state: RadioRootState)}
-			<span {...props} class="custom-host" data-state={state.checked ? 'on' : 'off'}>Custom</span>
+	<Radio.Root value="a" aria-label="Custom" {@attach capture}>
+		{#snippet render(props, state: RadioRootState, children)}
+			<span {...props} class="custom-host" data-state={state.checked ? 'on' : 'off'}
+				>{@render children?.()}</span
+			>
 		{/snippet}
 	</Radio.Root>
 {:else}
-	<Radio.Root value="a" class="default-host" {@attach capture}>Notifications</Radio.Root>
+	<Radio.Root value="a" aria-label="Notifications" class="default-host" {@attach capture} />
 {/if}
-<output data-testid="host">{host?.className ?? 'none'}</output>
+<output data-testid="host">{host?.tagName ?? 'none'}</output>

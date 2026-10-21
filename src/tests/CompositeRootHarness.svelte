@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { flushSync } from 'svelte';
 	import { Radio, RadioGroup, Tabs, Toggle, ToggleGroup, Toolbar } from '#lib';
-	import type { RadioGroupChangeEventDetails } from '#lib/radio-group/types.js';
 	import TabsRegisterProbe from './TabsRegisterProbe.svelte';
 
 	type Scenario =
@@ -25,20 +24,17 @@
 	let registrations = $state(0);
 	let linkClicks = $state(0);
 	let flushed = $state<string | undefined>(undefined);
-	let flushCalls = $state<{ value: string; shiftKey: boolean }[]>([]);
+	let flushCalls = $state<string[]>([]);
+	// The boxes have no content of their own, so the harness gives them a size to click.
+	const box = 'display: inline-block; width: 16px; height: 16px';
 
-	function recordFlush(next: unknown, details: RadioGroupChangeEventDetails) {
+	function recordFlush(event: Event) {
+		if (!(event.target instanceof HTMLInputElement)) return;
+		const next = event.target.value;
 		flushSync(() => {
-			flushed = typeof next === 'string' ? next : undefined;
+			flushed = next;
 		});
-		const event = details.event;
-		flushCalls = [
-			...flushCalls,
-			{
-				value: typeof next === 'string' ? next : String(next),
-				shiftKey: 'shiftKey' in event && Boolean(event.shiftKey)
-			}
-		];
+		flushCalls = [...flushCalls, next];
 	}
 </script>
 
@@ -54,8 +50,8 @@
 	</Toolbar.Root>
 {:else if scenario === 'radio-disabled'}
 	<RadioGroup aria-label="Colors">
-		<Radio.Root value="a" disabled>A</Radio.Root>
-		<Radio.Root value="b">B</Radio.Root>
+		<Radio.Root value="a" disabled aria-label="A" style={box} />
+		<Radio.Root value="b" aria-label="B" style={box} />
 	</RadioGroup>
 {:else if scenario === 'tabs-default'}
 	<Tabs.Root value="b">
@@ -75,8 +71,8 @@
 {:else if scenario === 'radio-external'}
 	<button type="button" onclick={() => (selected = 'b')}>Set B</button>
 	<RadioGroup aria-label="Colors" bind:value={selected}>
-		<Radio.Root value="a">A</Radio.Root>
-		<Radio.Root value="b">B</Radio.Root>
+		<Radio.Root value="a" aria-label="A" style={box} />
+		<Radio.Root value="b" aria-label="B" style={box} />
 	</RadioGroup>
 {:else if scenario === 'tabs-remount'}
 	<Tabs.Root value="b">
@@ -113,9 +109,9 @@
 	</Toolbar.Root>
 	<p data-testid="clicks">{linkClicks}</p>
 {:else if scenario === 'radio-flush'}
-	<RadioGroup aria-label="Colors" value={flushed} onValueChange={recordFlush}>
-		<Radio.Root value="a">A</Radio.Root>
-		<Radio.Root value="b">B</Radio.Root>
+	<RadioGroup aria-label="Colors" value={flushed} onchange={recordFlush}>
+		<Radio.Root value="a" aria-label="A" style={box} />
+		<Radio.Root value="b" aria-label="B" style={box} />
 	</RadioGroup>
 	<p data-testid="flush">{JSON.stringify(flushCalls)}</p>
 {/if}

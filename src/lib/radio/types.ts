@@ -1,6 +1,5 @@
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes } from 'svelte/elements';
-import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
+import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
@@ -23,18 +22,57 @@ export interface RadioIndicatorState extends RadioRootState {
 	transitionStatus: RadioIndicatorPhase;
 }
 
-export type RadioRootChangeEventReason = typeof REASONS.none;
-export type RadioRootChangeEventDetails = BaseUIChangeEventDetails<RadioRootChangeEventReason>;
+/** Props for the box a `render` snippet draws. Spread them onto the element, with the children inside. */
+export type RadioBoxProps = HTMLAttributes<HTMLElement>;
 
 /**
- * Props passed to a `render` snippet. Spread them onto the host element.
- * The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
+ * Native input attributes Radio.Root takes. They go to the `<input type="radio">` that
+ * submits. `class` and `style` go to the box, and `host` sends anything else there.
  */
-export type RadioHostProps = HTMLAttributes<HTMLElement>;
+type RadioInputAttributes = Omit<
+	HTMLInputAttributes,
+	| 'type'
+	| 'checked'
+	| 'defaultChecked'
+	| 'value'
+	| 'children'
+	| 'class'
+	| 'style'
+	| 'readonly'
+	| 'disabled'
+	| 'required'
+	| 'name'
+	| 'id'
+	| 'form'
+>;
 
-export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
-	/** The unique identifying value of the radio in a group. */
-	value: unknown;
+export interface RadioRootProps extends RadioInputAttributes {
+	/** A radio input. A remote form spread of another input kind is a type error. */
+	type?: 'radio';
+	/**
+	 * The unique identifying value of the radio in a group.
+	 * The input submits it, serialized to a string when it is not one.
+	 */
+	value?: unknown;
+	/**
+	 * Whether a radio outside a group is selected. In a group, `true` selects this radio's
+	 * value when it mounts, as a remote form spread does.
+	 *
+	 * To render an uncontrolled radio, use the `defaultChecked` prop instead.
+	 */
+	checked?: boolean;
+	/**
+	 * Whether a radio outside a group is initially selected.
+	 *
+	 * To render a controlled radio, use `bind:checked` instead.
+	 * @default false
+	 */
+	defaultChecked?: boolean;
+	/**
+	 * Identifies the field when a form is submitted.
+	 * In a group, it replaces the group's name for this radio.
+	 */
+	name?: string | null;
 	/** Whether the component should ignore user interaction. @default false */
 	disabled?: boolean | null;
 	/**
@@ -48,26 +86,25 @@ export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'child
 	 */
 	required?: boolean | null;
 	/**
-	 * Whether the component renders a native `<button>` element when replacing it
-	 * via the `render` prop.
-	 * Set to `true` if the rendered element is a native button.
-	 * @default false
+	 * Identifies the form that owns the input.
+	 * Useful when the radio is rendered outside the form.
 	 */
-	nativeButton?: boolean;
-	/**
-	 * The id of the hidden input.
-	 * When `nativeButton` is true, the id is applied to the root element instead.
-	 */
+	form?: string | null;
+	/** The id of the input element. */
 	id?: string | null;
-	/** Runs before the radio's click handler. Call `event.preventDefault()` to skip it. */
-	onclick?: HTMLAttributes<HTMLElement>['onclick'];
+	/** Classes for the box. */
+	class?: HTMLAttributes<HTMLElement>['class'];
+	/** Styles for the box. */
+	style?: HTMLAttributes<HTMLElement>['style'];
+	/** Attributes for the box, such as `data-*` attributes or handlers that belong on it. */
+	host?: HTMLAttributes<HTMLElement>;
 	/**
-	 * Allows you to replace the component's HTML element
+	 * Allows you to replace the box's HTML element
 	 * with a different tag, or compose it with another component.
 	 * Accepts a snippet that receives the props to spread onto the element, the component's state,
-	 * and the children to render.
+	 * and the children to render, which include the input.
 	 */
-	render?: Snippet<[props: RadioHostProps, state: RadioRootState, children: RenderChildren]>;
+	render?: Snippet<[props: RadioBoxProps, state: RadioRootState, children: RenderChildren]>;
 	children?: Snippet;
 }
 

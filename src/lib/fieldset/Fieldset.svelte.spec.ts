@@ -139,9 +139,7 @@ describe('Fieldset', () => {
 			render(FieldsetControlHarness);
 
 			await expect.element(page.getByRole('radiogroup')).toHaveAccessibleName('Storage type');
-			await expect
-				.element(page.getByRole('radio', { name: 'HDD' }))
-				.toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByRole('radio', { name: 'HDD' })).toBeChecked();
 			await expect
 				.element(page.getByRole('group', { name: 'Allowed network protocols' }))
 				.toBeVisible();

@@ -76,7 +76,7 @@ describe('composite SSR render order', () => {
 
 	it('does not put the server tab stop on a disabled first radio', () => {
 		expect(
-			hosts(html(CompositeRootHarness, 'radio-disabled'), /<[^>]*\brole="radio"[^>]*>/g)
+			hosts(html(CompositeRootHarness, 'radio-disabled'), /<input\b[^>]*\btype="radio"[^>]*>/g)
 		).toEqual(['-1', '0']);
 	});
 

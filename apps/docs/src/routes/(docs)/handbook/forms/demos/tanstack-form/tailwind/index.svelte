@@ -524,12 +524,12 @@
 					touched={field.state.meta.isTouched}
 					class={fieldRoot}
 				>
-					<Fieldset.Root class="flex w-full flex-row items-start gap-4">
+					<RadioGroup
+						bind:value={() => field.state.value, (value) => field.handleChange(value)}
+						class="flex w-full flex-row items-start gap-4"
+					>
 						<Fieldset.Legend class="-mt-px {label}">Storage type</Fieldset.Legend>
-						<RadioGroup
-							bind:value={() => field.state.value, (value) => field.handleChange(value)}
-							class="flex flex-row items-start gap-4 text-neutral-950 dark:text-white"
-						>
+						<div class="flex flex-row items-start gap-4 text-neutral-950 dark:text-white">
 							{#each ['ssd', 'hdd'] as value (value)}
 								<Field.Item>
 									<Field.Label class={choiceLabel}>
@@ -542,8 +542,8 @@
 									</Field.Label>
 								</Field.Item>
 							{/each}
-						</RadioGroup>
-					</Fieldset.Root>
+						</div>
+					</RadioGroup>
 					<Field.Error match={!field.state.meta.isValid} class={error}
 						>{field.state.meta.errors.join(',')}</Field.Error
 					>

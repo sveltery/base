@@ -67,7 +67,7 @@ Base UI docs are useful for intent, but the Svelte API differs. Translate React 
 
 - **Wrap each control in `Field.Root`** with `Field.Label`, `Field.Description`, and `Field.Error`.
 - **Put `name` on `Field.Root`**, so the control's value submits with the form.
-- **Put a `Fieldset.Legend` inside a `CheckboxGroup` to label it.** The group renders its own `<fieldset>`. Use `Fieldset.Root` and `Fieldset.Legend` to label a `RadioGroup`, or several separate fields under one legend.
+- **Put a `Fieldset.Legend` inside a `CheckboxGroup` or `RadioGroup` to label it.** The group renders its own `<fieldset>`. Use `Fieldset.Root` and `Fieldset.Legend` to put several separate fields under one legend.
 
 ## Key patterns
 

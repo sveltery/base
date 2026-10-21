@@ -68,13 +68,13 @@
 		{
 			"id": 6,
 			"prompt": "Build a signup form with Sveltery Base: email (required), password (min 8 characters), and a 'Plan' radio group with Free and Pro. Show validation errors under each field and show errors returned by my server.",
-			"expected_output": "A Form with Field.Root name=... wrapping each control, Field.Label/Field.Error, a Fieldset with Fieldset.Legend around the RadioGroup, native constraints, and server errors passed to Form's errors prop.",
+			"expected_output": "A Form with Field.Root name=... wrapping each control, Field.Label/Field.Error, a Fieldset.Legend inside the RadioGroup, native constraints, and server errors passed to Form's errors prop.",
 			"files": [],
 			"expectations": [
 				"Wraps each control in `Field.Root` with `Field.Label` and `Field.Error`",
 				"Puts `name` on `Field.Root`",
 				"Uses native constraints (`required`, `minlength`) or `Field.Root`'s `validate` prop",
-				"Labels the radio group with `Fieldset.Root` and `Fieldset.Legend`",
+				"Labels the radio group with a `Fieldset.Legend` inside `RadioGroup`, with no wrapping `Fieldset.Root`",
 				"Passes server errors to the `errors` prop of `Form`"
 			]
 		}

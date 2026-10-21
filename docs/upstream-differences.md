@@ -43,7 +43,7 @@ Test: `src/tests/controllable-root-cases.ts`, `src/tests/default-props.svelte.sp
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`. `useButton` infers composite mode from a `CompositeRootContext`. In development it logs an error once after mount, and again when `nativeButton` changes, if the host tag does not match `nativeButton`. The message ends with React's owner stack. A disabled composite button that renders another button clears that inner button's `disabled` property.
 
-Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, Toggle, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, Radio, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack.
+Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, Toggle, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack.
 
 Test: `src/lib/internal/button.spec.ts`. `src/lib/button/Button.svelte.spec.ts` (`nativeButton mismatch`).
 
@@ -241,9 +241,9 @@ Local: the same registration, through `attachFieldControl`, `Field`'s `registerI
 
 Test: `src/lib/field/choice-controls.svelte.spec.ts`.
 
-### Checkbox, Switch and CheckboxGroup render real inputs
+### Checkbox, Switch, Radio and their groups render real inputs
 
-Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/checkbox/root/CheckboxRoot.tsx`, `switch/root/SwitchRoot.tsx` and `checkbox-group/CheckboxGroup.tsx`. Checkbox and Switch render a `<span role="checkbox">` or `<span role="switch">` host, or a `<button>` with `nativeButton`, and a visually hidden `<input>` beside it. Rest props and handlers go to the host. `onCheckedChange` and CheckboxGroup's `onValueChange` are cancelable callbacks. Enter toggles a Switch. CheckboxGroup renders a `<div role="group">`.
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/checkbox/root/CheckboxRoot.tsx`, `switch/root/SwitchRoot.tsx`, `checkbox-group/CheckboxGroup.tsx`, `radio/root/RadioRoot.tsx` and `radio-group/RadioGroup.tsx`. Checkbox, Switch and Radio render a `<span role="checkbox">`, `<span role="switch">` or `<span role="radio">` host, or a `<button>` with `nativeButton`, and a visually hidden `<input>` beside it. Rest props and handlers go to the host. `onCheckedChange` and the groups' `onValueChange` are cancelable callbacks. Enter toggles a Switch. CheckboxGroup renders a `<div role="group">` and RadioGroup a `<div role="radiogroup">`. A Radio without a group selects only when its `value` is the empty string.
 
 Local, signed off by the owner (2026-10-21):
 
@@ -254,7 +254,12 @@ Local, signed off by the owner (2026-10-21):
 - CheckboxGroup renders a `<fieldset>`, so a `Fieldset.Legend` inside names it and `disabled` disables every box natively. `name` names every child checkbox in a plain form.
 - A parent checkbox toggles each child input first, so the children's `change` events fire before the parent's.
 
-Test: `src/lib/checkbox/Checkbox.svelte.spec.ts`, `src/lib/switch/Switch.svelte.spec.ts`, `src/lib/checkbox-group/CheckboxGroup.svelte.spec.ts` and `src/routes/fixtures/checkbox/checkbox.e2e.ts`, `switch/switch.e2e.ts` and `checkbox-group/checkbox-group.e2e.ts`.
+- Radio renders the same `<span>` box over a real `<input type="radio">`. It takes `checked`, `defaultChecked` and `name`, and `value` is optional. A Radio without a group follows its own `checked` state, as a native radio does. Inside a group, `checked` or `defaultChecked` selects the radio's value when it mounts.
+- RadioGroup renders a `<fieldset role="radiogroup">`, so a `Fieldset.Legend` inside names it and `disabled` disables every radio natively. Its `onValueChange` and Radio's `nativeButton` are removed. Use `bind:value` or the native `input` and `change` events, and call `preventDefault()` in a Radio's `onclick` to stop a change.
+- The radios of a group share one `name`: the Field's, the group's own `name`, or a generated one when neither is set. A Radio's own `name` wins. In a remote `Form`, a Radio with a `value` takes the name and checked state from `field.as('radio', value)`, and an unnamed group stays unnamed.
+- The group keeps its roving focus and arrow-key selection, so arrows follow the text direction and skip disabled radios whether the radios share a name or not. Enter on a radio submits the form, as on a native radio.
+
+Test: `src/lib/checkbox/Checkbox.svelte.spec.ts`, `src/lib/switch/Switch.svelte.spec.ts`, `src/lib/checkbox-group/CheckboxGroup.svelte.spec.ts`, `src/lib/radio/Radio.svelte.spec.ts`, `src/lib/radio-group/RadioGroup.svelte.spec.ts`, `src/lib/radio-group/RadioGroup.form.svelte.spec.ts` and `src/routes/fixtures/checkbox/checkbox.e2e.ts`, `switch/switch.e2e.ts`, `checkbox-group/checkbox-group.e2e.ts`, `radio/radio.e2e.ts` and `radio-group/radio-group.e2e.ts`.
 
 ### Slider fills its Field
 
@@ -759,7 +764,7 @@ Test: `src/lib/internal/disable-scrollbar-style.svelte.spec.ts`, `src/lib/intern
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
 
-Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `inputRef`. Given a `name`, each renders its native `<input>` elements in the DOM under that name (Radio items take the RadioGroup's), so reach them through the form with `form.elements.namedItem(name)`. That returns a `RadioNodeList` when several inputs share the name, as with radios, range thumbs or an `uncheckedValue`.
+Checkbox, Switch, Radio, RadioGroup, NumberField, Slider and OTPField take no `inputRef`. Given a `name`, each renders its native `<input>` elements in the DOM under that name (a Radio takes its own `name` or its RadioGroup's), so reach them through the form with `form.elements.namedItem(name)`. That returns a `RadioNodeList` when several inputs share the name, as with radios, range thumbs or an `uncheckedValue`.
 
 | Component          | Not ported yet                                                                                                       |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------- |

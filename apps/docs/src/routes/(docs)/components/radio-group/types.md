@@ -6,20 +6,26 @@
 
 ### Root
 
-Represents the radio button itself. Renders a `<span>` element and a hidden `<input>` beside.
+Represents the radio button itself. Renders a `<span>` box with a real `<input type="radio">` laid over it.
 
 **Root Props:**
 
-| Prop         | Type                                                                                      | Default | Description                                                                                                                                                                                                                             |
-| :----------- | :---------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| value        | `unknown`                                                                                 | -       | The unique identifying value of the radio in a group.                                                                                                                                                                                   |
-| onclick      | `MouseEventHandler<HTMLElement> \| null`                                                  | -       | Runs before the radio's click handler. Call `event.preventDefault()` to skip it.                                                                                                                                                        |
-| nativeButton | `boolean`                                                                                 | `false` | Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.                                                                            |
-| disabled     | `boolean \| null`                                                                         | `false` | Whether the component should ignore user interaction.                                                                                                                                                                                   |
-| readonly     | `boolean \| null`                                                                         | `false` | Whether the user should be unable to select the radio button.                                                                                                                                                                           |
-| required     | `boolean \| null`                                                                         | `false` | Whether the user must choose a value before submitting a form.                                                                                                                                                                          |
-| id           | `string \| null`                                                                          | -       | The id of the hidden input. When `nativeButton` is true, the id is applied to the root element instead.                                                                                                                                 |
-| render       | `Snippet<[props: RadioHostProps, state: RadioRootState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop           | Type                                                                                     | Default | Description                                                                                                                                                                                                                                                |
+| :------------- | :--------------------------------------------------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name           | `string \| null`                                                                         | -       | Identifies the field when a form is submitted. In a group, it replaces the group's name for this radio.                                                                                                                                                    |
+| defaultChecked | `boolean`                                                                                | `false` | Whether a radio outside a group is initially selected.&#xA;&#xA;To render a controlled radio, use `bind:checked` instead.                                                                                                                                  |
+| checked        | `boolean`                                                                                | -       | Whether a radio outside a group is selected. In a group, `true` selects this radio's value when it mounts, as a remote form spread does.&#xA;&#xA;To render an uncontrolled radio, use the `defaultChecked` prop instead.                                  |
+| value          | `unknown`                                                                                | -       | The unique identifying value of the radio in a group. The input submits it, serialized to a string when it is not one.                                                                                                                                     |
+| form           | `string \| null`                                                                         | -       | Identifies the form that owns the input. Useful when the radio is rendered outside the form.                                                                                                                                                               |
+| host           | `HTMLAttributes<HTMLElement>`                                                            | -       | Attributes for the box, such as `data-*` attributes or handlers that belong on it.                                                                                                                                                                         |
+| type           | `'radio'`                                                                                | -       | A radio input. A remote form spread of another input kind is a type error.                                                                                                                                                                                 |
+| disabled       | `boolean \| null`                                                                        | `false` | Whether the component should ignore user interaction.                                                                                                                                                                                                      |
+| readonly       | `boolean \| null`                                                                        | `false` | Whether the user should be unable to select the radio button.                                                                                                                                                                                              |
+| required       | `boolean \| null`                                                                        | `false` | Whether the user must choose a value before submitting a form.                                                                                                                                                                                             |
+| id             | `string \| null`                                                                         | -       | The id of the input element.                                                                                                                                                                                                                               |
+| class          | `ClassValue \| null`                                                                     | -       | Classes for the box.                                                                                                                                                                                                                                       |
+| style          | `string \| null`                                                                         | -       | Styles for the box.                                                                                                                                                                                                                                        |
+| render         | `Snippet<[props: RadioBoxProps, state: RadioRootState, children: Snippet \| undefined]>` | -       | Allows you to replace the box's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render, which include the input. |
 
 **Root Data Attributes:**
 
@@ -128,21 +134,20 @@ type RadioIndicatorState = {
 
 ### RadioGroup
 
-Provides shared state to a series of radio buttons. Renders a `<div>` element.
+Provides shared state to a series of radio buttons. Renders a `<fieldset>` element, so a Fieldset.Legend inside names the group and `disabled` disables every radio natively.
 
 **RadioGroup Props:**
 
-| Prop          | Type                                                                                                       | Default     | Description                                                                                                                                                                                                                             |
-| :------------ | :--------------------------------------------------------------------------------------------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name          | `string \| null`                                                                                           | -           | Identifies the field when a form is submitted.                                                                                                                                                                                          |
-| defaultValue  | `Value`                                                                                                    | `undefined` | The uncontrolled value of the radio button that should be initially selected.&#xA;&#xA;To render a controlled radio group, use `bind:value` instead.                                                                                    |
-| value         | `Value`                                                                                                    | -           | The controlled value of the radio item that should be currently selected.&#xA;&#xA;To render an uncontrolled radio group, use the `defaultValue` prop instead.                                                                          |
-| onValueChange | `(value: Value, eventDetails: RadioGroupChangeEventDetails) => void`                                       | -           | Callback fired when the value changes.                                                                                                                                                                                                  |
-| form          | `string \| null`                                                                                           | -           | Identifies the form that owns the radio inputs. Useful when the radio group is rendered outside the form.                                                                                                                               |
-| disabled      | `boolean \| null`                                                                                          | `false`     | Whether the component should ignore user interaction.                                                                                                                                                                                   |
-| readonly      | `boolean \| null`                                                                                          | `false`     | Whether the user should be unable to select a different radio button in the group.                                                                                                                                                      |
-| required      | `boolean \| null`                                                                                          | `false`     | Whether the user must choose a value before submitting a form.                                                                                                                                                                          |
-| render        | `Snippet<[props: HTMLAttributes<HTMLDivElement>, state: RadioGroupState, children: Snippet \| undefined]>` | -           | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop         | Type                                                                                               | Default     | Description                                                                                                                                                                                                                             |
+| :----------- | :------------------------------------------------------------------------------------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name         | `string \| null`                                                                                   | -           | The name every radio submits under, as in an HTML radio group. Inside a named Field, the Field's name is used instead. Outside a remote form, an unnamed group generates one, so the browser keeps one radio selected.                  |
+| defaultValue | `Value`                                                                                            | `undefined` | The value of the radio that should be initially selected.&#xA;&#xA;To render a controlled radio group, use `bind:value` instead.                                                                                                        |
+| value        | `Value`                                                                                            | -           | The value of the radio that should be currently selected.&#xA;&#xA;To render an uncontrolled radio group, use the `defaultValue` prop instead.                                                                                          |
+| form         | `string \| null`                                                                                   | -           | Identifies the form that owns the radio inputs. Useful when the radio group is rendered outside the form.                                                                                                                               |
+| disabled     | `boolean \| null`                                                                                  | `false`     | Whether the component should ignore user interaction. Disables the `<fieldset>`, and every radio in it, natively.                                                                                                                       |
+| readonly     | `boolean \| null`                                                                                  | `false`     | Whether the user should be unable to select a different radio button in the group.                                                                                                                                                      |
+| required     | `boolean \| null`                                                                                  | `false`     | Whether the user must choose a value before submitting a form.                                                                                                                                                                          |
+| render       | `Snippet<[props: HTMLFieldsetAttributes, state: RadioGroupState, children: Snippet \| undefined]>` | -           | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 **RadioGroup Data Attributes:**
 
@@ -179,24 +184,12 @@ type RadioGroupState = {
 
 ## Additional Types
 
-### RadioGroupChangeEventDetails
+### RadioBoxProps
+
+Props for the box a `render` snippet draws. Spread them onto the element, with the children inside.
 
 ```typescript
-type RadioGroupChangeEventDetails = {
-	reason: Reason;
-	event: Event;
-	cancel: () => void;
-	allowPropagation: () => void;
-	isCanceled: boolean;
-	isPropagationAllowed: boolean;
-	trigger: Element | undefined;
-};
-```
-
-### RadioGroupChangeEventReason
-
-```typescript
-type RadioGroupChangeEventReason = typeof REASONS.none;
+type RadioBoxProps = {};
 ```
 
 ### RadioGroupDataAttributes
@@ -208,14 +201,6 @@ declare namespace RadioGroupDataAttributes {
 	/** Present when the radio group is disabled. */
 	const disabled: 'data-disabled';
 }
-```
-
-### RadioHostProps
-
-Props passed to a `render` snippet. Spread them onto the host element. The default host is a `<span>`. A native `<button>` host sets `nativeButton`.
-
-```typescript
-type RadioHostProps = {};
 ```
 
 ### RadioIndicatorDataAttributes
@@ -259,26 +244,6 @@ Indicator motion phase. `undefined` is the settled phase.
 
 ```typescript
 type RadioIndicatorPhase = 'starting' | 'ending' | 'idle' | undefined;
-```
-
-### RadioRootChangeEventDetails
-
-```typescript
-type RadioRootChangeEventDetails = {
-	reason: Reason;
-	event: Event;
-	cancel: () => void;
-	allowPropagation: () => void;
-	isCanceled: boolean;
-	isPropagationAllowed: boolean;
-	trigger: Element | undefined;
-};
-```
-
-### RadioRootChangeEventReason
-
-```typescript
-type RadioRootChangeEventReason = typeof REASONS.none;
 ```
 
 ### RadioRootDataAttributes

@@ -3,7 +3,7 @@
 // number-field, otp-field and slider root tests
 // (commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 import { tick } from 'svelte';
-import { page, userEvent } from 'vitest/browser';
+import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import FieldFocusHarness from '../../tests/FieldFocusHarness.svelte';
@@ -184,11 +184,12 @@ describe('Field focused state', () => {
 	});
 
 	describe('Radio without a group', () => {
+		// Sveltery: the radio is a natively disabled input, which cannot take focus.
 		it('does not acquire the focused state when a disabled radio is focused', async () => {
 			render(FieldFocusHarness, { control: 'radio', firstDisabled: true });
 			await focus('first-radio');
 
-			expect(document.activeElement).toBe(page.getByTestId('first-radio').element());
+			expect(document.activeElement).not.toBe(page.getByTestId('first-radio').element());
 			expect(root().element()).not.toHaveAttribute('data-focused');
 		});
 
@@ -246,41 +247,38 @@ describe('Field focused state', () => {
 			await expect.element(root()).not.toHaveAttribute('data-focused');
 		});
 
+		// Sveltery: each radio is a natively disabled input, which cannot keep or take focus.
 		it('is not acquired when focus lands on a disabled radio', async () => {
 			render(FieldFocusHarness, { control: 'radios', firstDisabled: true });
 			await focus('first-radio');
 
-			expect(document.activeElement).toBe(page.getByTestId('first-radio').element());
+			expect(document.activeElement).not.toBe(page.getByTestId('first-radio').element());
 			expect(root().element()).not.toHaveAttribute('data-focused');
 		});
 
-		it('is not reacquired when a radio disabled while focused is refocused', async () => {
+		it('is removed when the focused radio becomes disabled', async () => {
 			const view = render(FieldFocusHarness, { control: 'radios' });
-			const first = page.getByTestId('first-radio').element() as HTMLElement;
 			await focus('first-radio');
 			await expect.element(root()).toHaveAttribute('data-focused', '');
 
 			await view.rerender({ firstDisabled: true });
 			await expect.element(root()).not.toHaveAttribute('data-focused');
 
-			first.blur();
-			first.focus();
-			await tick();
-
-			expect(document.activeElement).toBe(first);
+			await focus('first-radio');
 			expect(root().element()).not.toHaveAttribute('data-focused');
 		});
 
-		it('is reacquired when a radio that kept focus while disabled is re-enabled', async () => {
+		it('can be re-acquired after the radio is re-enabled', async () => {
 			const view = render(FieldFocusHarness, { control: 'radios' });
-			const first = page.getByTestId('first-radio').element();
 			await focus('first-radio');
 
 			await view.rerender({ firstDisabled: true });
-			expect(document.activeElement).toBe(first);
 			await expect.element(root()).not.toHaveAttribute('data-focused');
+			// Chromium moves focus off a disabled control only at its next rendering update.
+			await focus('outside');
 
 			await view.rerender({ firstDisabled: false });
+			await focus('first-radio');
 			await expect.element(root()).toHaveAttribute('data-focused', '');
 		});
 
@@ -289,20 +287,6 @@ describe('Field focused state', () => {
 			await focus('first-radio');
 
 			expect(root().element()).not.toHaveAttribute('data-focused');
-		});
-
-		it('is reacquired when an arrow key moves focus from a disabled radio to an enabled sibling', async () => {
-			const view = render(FieldFocusHarness, { control: 'radios' });
-			await focus('first-radio');
-			await expect.element(root()).toHaveAttribute('data-focused', '');
-
-			await view.rerender({ firstDisabled: true });
-			await expect.element(root()).not.toHaveAttribute('data-focused');
-
-			await userEvent.keyboard('{ArrowDown}');
-
-			await expect.element(page.getByTestId('second-radio')).toHaveFocus();
-			await expect.element(root()).toHaveAttribute('data-focused', '');
 		});
 	});
 });

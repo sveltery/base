@@ -1,18 +1,11 @@
-import type { ComponentProps } from 'svelte';
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import NullIdFieldHarness from '../../tests/NullIdFieldHarness.svelte';
 
-type Scenario = ComponentProps<typeof NullIdFieldHarness>['scenario'];
-
-/** The element Field.Label points at: the hidden input of a radio, else the control. */
-function labelledElement(scenario: Scenario) {
-	const control = page.getByTestId('control').element();
-	if (scenario !== 'radio') return control;
-	const input = control.nextElementSibling;
-	if (!(input instanceof HTMLInputElement)) throw new Error('expected a hidden input');
-	return input;
+/** The element Field.Label points at. A radio's test id is on its input. */
+function labelledElement() {
+	return page.getByTestId('control').element();
 }
 
 describe('id={null} on a Field control', () => {
@@ -28,7 +21,7 @@ describe('id={null} on a Field control', () => {
 		it(`${scenario} keeps Field.Label pointing at its control`, async () => {
 			render(NullIdFieldHarness, { scenario });
 			const label = page.getByTestId('label').element() as HTMLLabelElement;
-			const id = labelledElement(scenario).id;
+			const id = labelledElement().id;
 
 			expect(id.startsWith('base-ui-')).toBe(true);
 			expect(label.getAttribute('for')).toBe(id);
@@ -39,10 +32,7 @@ describe('id={null} on a Field control', () => {
 		it(`${scenario} is checked by a click on Field.Label`, async () => {
 			render(NullIdFieldHarness, { scenario });
 			await page.getByTestId('label').click();
-			const control = page.getByTestId('control').element();
-			if (control instanceof HTMLInputElement) await expect.poll(() => control.checked).toBe(true);
-			else
-				await expect.element(page.getByTestId('control')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('control')).toBeChecked();
 		});
 	}
 

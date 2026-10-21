@@ -46,8 +46,8 @@
 		<Field.Root name="plan" data-testid="field">
 			<Field.Label data-testid="label">Plan</Field.Label>
 			<RadioGroup required data-testid="control">
-				<Radio.Root value="free" data-testid="free">Free</Radio.Root>
-				<Radio.Root value="pro" data-testid="pro">Pro</Radio.Root>
+				<Radio.Root value="free" data-testid="free" aria-label="Free" style={box} />
+				<Radio.Root value="pro" data-testid="pro" aria-label="Pro" style={box} />
 			</RadioGroup>
 			<Field.Description data-testid="description">Required</Field.Description>
 		</Field.Root>

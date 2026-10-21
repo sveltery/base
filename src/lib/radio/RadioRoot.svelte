@@ -1,91 +1,104 @@
 <!--
 	Represents the radio button itself.
-	Renders a `<span>` element and a hidden `<input>` beside.
+	Renders a `<span>` box with a real `<input type="radio">` laid over it.
 	Derived from Base UI v1.9.0 packages/react/src/radio/root/RadioRoot.tsx
-	and the native-label fallback of useAriaLabelledBy.ts
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
+	Native input props and handlers go to the input, so it works without JavaScript and fires
+	real `input` and `change` events. `class`, `style` and `host` go to the box.
 	An optional group context supplies the shared value. When that context includes
-	roving focus, this root registers as a composite item.
+	roving focus, the input registers as a composite item.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { ACTIVE_COMPOSITE_ITEM } from '../internal/composite-root.svelte.js';
-	import { dispatchClick } from '../internal/click.js';
-	import { toCssStyle } from '../internal/css-style.js';
-	import {
-		createChangeEventDetails,
-		REASONS,
-		visuallyHidden,
-		visuallyHiddenInput
-	} from '@sveltery/utils';
 	import { radioRootAttributes } from './attributes.js';
 	import { setRadioContext } from './context.js';
 	import { useRadioGroupContext } from './group-context.js';
 	import { useFieldContext } from '../internal/field-root-context.js';
 	import { useFieldItemContext } from '../field/item-context.js';
-	import {
-		AriaLabelledBy,
-		LabelableId,
-		useLabelableContext
-	} from '../internal/labelable-provider.svelte.js';
+	import { LabelableId, useLabelableContext } from '../internal/labelable-provider.svelte.js';
+	import { useFormContext } from '../internal/form-context.js';
 	import { chain } from '../internal/mergeProps.js';
 	import { FieldFocusOwner } from '../internal/useSetFieldFocused.svelte.js';
 	import { serializeValue } from '../internal/serializeValue.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
-	import type { RadioHostProps, RadioRootProps, RadioRootState } from './types.js';
+	import { overlayInputStyle } from '../internal/overlay-input.js';
+	import type { RadioBoxProps, RadioRootProps, RadioRootState } from './types.js';
 
 	const uid = $props.id();
-	const rootKey = createAttachmentKey();
 	const group = useRadioGroupContext();
 	const field = useFieldContext();
 	const fieldItem = useFieldItemContext();
+	const formContext = useFormContext();
 	const labelable = useLabelableContext();
 
 	let {
+		checked = $bindable(),
+		defaultChecked = false,
 		value,
+		name: nameProp,
 		disabled: disabledProp,
 		readonly: readOnlyProp,
 		required: requiredProp,
-		nativeButton = false,
+		form: formProp,
 		id,
+		type: _type,
+		class: className,
+		style,
+		host,
 		onclick,
-		onkeydown,
 		onfocus,
 		onblur,
 		'aria-labelledby': ariaLabelledByProp,
 		'aria-describedby': ariaDescribedBy,
 		render,
 		children,
-		...elementProps
+		...inputProps
 	}: RadioRootProps = $props();
 
-	const generatedRootId = $derived(`base-ui-${uid}`);
-	const generatedControlId = $derived(`base-ui-${uid}-control`);
+	const serialized = $derived(value !== undefined ? serializeValue(value) : undefined);
+	// Without a spread, a radio in a named Field of a remote form names itself from the field.
+	const bound = $derived(
+		nameProp === undefined && serialized !== undefined
+			? field.bindRemote('radio', serialized)
+			: undefined
+	);
+
+	// `defaultChecked` is the initial value of an empty binding, as in HTML. A spread's `checked`
+	// is the remote form's value.
+	// svelte-ignore state_referenced_locally
+	if (checked === undefined) checked = (bound?.checked as boolean | undefined) ?? defaultChecked;
+	// In a group, a radio that starts checked selects its value, as a remote form spread does.
+	// svelte-ignore state_referenced_locally
+	if (group && checked && value !== undefined) group.setCheckedValue(value);
+
+	const generatedControlId = `base-ui-${uid}-control`;
 	// Radios that share their group's labelable scope leave the Field's id to the group.
 	const controlId = new LabelableId(labelable, {
-		id: () => id ?? undefined,
+		id: () => id || undefined,
 		fallback: () => generatedControlId,
 		enabled: () => !group || group.labelable !== labelable
 	});
-	const hiddenInputId = $derived(nativeButton ? undefined : controlId.current);
-	const rootId = $derived(nativeButton ? controlId.current : generatedRootId);
+	const inputId = $derived(id || controlId.current || generatedControlId);
 
-	const checked = $derived(group !== undefined ? group.checkedValue === value : value === '');
+	const isChecked = $derived(group ? group.checkedValue === value : checked === true);
 	const disabled = $derived(
 		field.disabled || fieldItem.disabled || Boolean(group?.disabled) || (disabledProp ?? false)
 	);
 	const renderClaim = group?.roving?.claim(untrack(() => disabled));
 	const readOnly = $derived(Boolean(group?.readOnly) || (readOnlyProp ?? false));
 	const required = $derived(Boolean(group?.required) || (requiredProp ?? false));
-	const serialized = $derived(value !== undefined ? serializeValue(value) : undefined);
-	const fieldName = $derived(group?.name);
-	const fieldForm = $derived(group?.form);
+	// The control's own name wins: a remote form encodes the value type and its id in it.
+	const name = $derived(
+		nameProp ??
+			(bound?.name as string | undefined) ??
+			(group ? group.name : formContext.remote ? undefined : field.name)
+	);
+	const form = $derived(formProp ?? group?.form);
 
 	const radioState: RadioRootState = $derived({
 		...field.state,
-		checked,
+		checked: isChecked,
 		disabled,
 		readOnly,
 		required
@@ -93,7 +106,7 @@
 
 	setRadioContext({
 		get checked() {
-			return checked;
+			return isChecked;
 		},
 		get disabled() {
 			return disabled;
@@ -106,114 +119,76 @@
 		}
 	});
 
-	let rootNode = $state<HTMLElement | null>(null);
 	let inputNode = $state<HTMLInputElement | null>(null);
 	const focusOwner = new FieldFocusOwner(field, {
 		disabled: () => disabled,
-		target: () => rootNode
-	});
-	const ariaLabelledBy = new AriaLabelledBy(labelable, {
-		explicit: () => ariaLabelledByProp ?? undefined,
-		input: () => (nativeButton ? null : inputNode),
-		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined),
-		ariaLabel: () => elementProps['aria-label']
+		target: () => inputNode
 	});
 	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
-	const invalid = $derived(group !== undefined && field.valid === false && !disabled);
+	const labelledBy = $derived(
+		ariaLabelledByProp ?? (inputProps['aria-label']?.trim() ? undefined : labelable.labelId)
+	);
 
 	// The group is the field's control. Each radio input joins its validity.
 	$effect(() => {
 		const input = inputNode;
-		const element = rootNode;
 		if (!input || !group) return;
-		return field.registerInput(input, { element, value: undefined });
+		return field.registerInput(input, { element: input, value: undefined });
 	});
-	// The click that checks the input. React's radio `onChange` is that click,
-	// so modifier keys on the activation are visible to `onValueChange`.
-	let activationEvent: Event | undefined;
 
-	function registerRoot(element: HTMLElement) {
-		rootNode = element;
+	function registerInput(element: HTMLElement) {
+		inputNode = element as HTMLInputElement;
 		const remove = group?.roving?.register(element, () => ({ value, disabled }), renderClaim);
 		return () => {
 			remove?.();
-			if (rootNode === element) rootNode = null;
+			if (inputNode === element) inputNode = null;
 		};
 	}
 
-	const inputStyle = $derived(toCssStyle(fieldName ? visuallyHiddenInput : visuallyHidden));
-	function selectedNow() {
-		return group !== undefined ? group.checkedValue === value : value === '';
-	}
-
 	function syncInput() {
-		const input = inputNode;
-		if (!input) return;
-		const next = selectedNow();
-		if (input.checked !== next) input.checked = next;
+		if (inputNode && inputNode.checked !== isChecked) inputNode.checked = isChecked;
 	}
 
-	$effect(() => {
-		const input = inputNode;
-		const next = checked;
-		if (!input) return;
-		input.checked = next;
-	});
-
-	$effect(() => group?.registerInputSync?.(syncInput));
-
-	function syncGroupInputs() {
-		if (group?.syncInputs) group.syncInputs();
-		else syncInput();
-	}
+	// The browser checks the clicked radio and, in a named group, unchecks the others.
+	// Keep every input on the selected value, also when nothing in the browser changed it.
+	$effect(syncInput);
 
 	// The group restores its value. This catches a selection the owner kept.
-	restoreOnReset(() => inputNode, { settle: syncInput });
+	restoreOnReset(() => inputNode, {
+		restore: group
+			? undefined
+			: () => {
+					if (checked !== defaultChecked) checked = defaultChecked;
+				},
+		settle: syncInput
+	});
 
-	function handleInputClick(event: MouseEvent) {
-		// Clicks dispatched on the input from the root and from focus are an
-		// implementation detail and must not reach ancestors.
-		event.stopPropagation();
-		activationEvent = event;
-	}
-
-	function handleInputChange(event: Event) {
-		const source = activationEvent ?? event;
-		activationEvent = undefined;
-		if (event.defaultPrevented || disabled || readOnly || value === undefined) {
-			syncGroupInputs();
+	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLInputElement }) {
+		onclick?.(event);
+		if (event.defaultPrevented) return;
+		// A canceled click puts back the checked state the browser changed.
+		if (readOnly || disabled || (group && value === undefined)) {
+			event.preventDefault();
 			return;
 		}
-
-		const details = createChangeEventDetails(REASONS.none, source);
-		group?.setCheckedValue(value, details);
-		if (!details.isCanceled) field.setTouched(true);
-		syncGroupInputs();
+		if (!group) {
+			checked = true;
+			return;
+		}
+		// A click on the checked radio changes nothing, as a native radio fires no change for it.
+		if (Object.is(group.checkedValue, value)) return;
+		group.setCheckedValue(value);
+		field.setTouched(true);
 	}
 
-	function handleInputFocus() {
-		rootNode?.focus();
-	}
-
-	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
-
-	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onclick?.(event);
-		if (event.defaultPrevented || readOnly) return;
-
-		event.preventDefault();
-		if (!inputNode) return;
-		dispatchClick(inputNode, event);
-	}
-
-	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
+	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		focusOwner.set(true);
-		if (event.currentTarget instanceof HTMLElement) group?.roving?.highlight(event.currentTarget);
+		group?.roving?.highlight(event.currentTarget);
 		// Read the group's touched flag live. Arrow keys set it in the capture
 		// phase of this same turn, before a derived value would refresh.
 		if (disabled || readOnly || !group?.touched) return;
-		inputNode?.click();
-		group?.setTouched(false);
+		event.currentTarget.click();
+		group.setTouched(false);
 	}
 
 	function handleBlur() {
@@ -222,62 +197,52 @@
 		if (!group) focusOwner.set(false);
 	}
 
-	function handleKeyDown(event: KeyboardEvent) {
-		// Radio only activates with Space. Enter never becomes a click.
-		if (event.key === 'Enter') event.preventDefault();
-	}
+	const tabIndex = $derived(
+		group?.roving && renderClaim
+			? group.roving.tabIndex(inputNode, renderClaim, {
+					disabled,
+					selected: isChecked,
+					hasSelection: group.checkedValue !== undefined
+				})
+			: inputProps.tabindex
+	);
+	const activeItem = $derived(isChecked ? { [ACTIVE_COMPOSITE_ITEM]: '' } : {});
 
-	const hostProps: RadioHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
-		const labelledBy = ariaLabelledBy.current;
-		return button.props({
-			...radioRootAttributes(radioState),
-			...(group?.roving && renderClaim
-				? {
-						tabindex: group.roving.tabIndex(rootNode, renderClaim, {
-							disabled,
-							selected: checked,
-							hasSelection: group.checkedValue !== undefined
-						})
-					}
-				: {}),
-			id: rootId,
-			role: 'radio',
-			'aria-checked': checked,
-			...(checked ? { [ACTIVE_COMPOSITE_ITEM]: '' } : {}),
-			...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
-			...(describedBy ? { 'aria-describedby': describedBy } : {}),
-			...(invalid ? { 'aria-invalid': true as const } : {}),
-			...elementProps,
-			onclick: handleClick,
-			onkeydown: chain(handleKeyDown, onkeydown),
-			onfocus: chain(handleFocus, onfocus),
-			onblur: chain(handleBlur, onblur),
-			[rootKey]: registerRoot
-		}) as RadioHostProps & Record<symbol, Attachment<HTMLElement>>;
+	const boxProps: RadioBoxProps = $derived({
+		...radioRootAttributes(radioState),
+		...host,
+		class: className,
+		style: style ? `position: relative; ${style}` : 'position: relative'
 	});
 </script>
 
+{#snippet content()}
+	<input
+		{...inputProps}
+		{...activeItem}
+		type="radio"
+		id={inputId}
+		{name}
+		value={serialized}
+		checked={isChecked}
+		defaultChecked={group ? value !== undefined && group.defaultValue === value : defaultChecked}
+		{disabled}
+		{form}
+		{required}
+		style={overlayInputStyle}
+		tabindex={tabIndex}
+		aria-labelledby={labelledBy}
+		aria-describedby={describedBy}
+		onclick={handleClick}
+		onfocus={chain(handleFocus, onfocus)}
+		onblur={chain(handleBlur, onblur)}
+		{@attach registerInput}
+	/>
+	{@render children?.()}
+{/snippet}
+
 {#if render}
-	{@render render(hostProps, radioState, children)}
+	{@render render(boxProps, radioState, content)}
 {:else}
-	<span {...hostProps}>{@render children?.()}</span>
+	<span {...boxProps}>{@render content()}</span>
 {/if}
-<input
-	bind:this={inputNode}
-	type="radio"
-	{checked}
-	defaultChecked={group !== undefined && value !== undefined && group.defaultValue === value}
-	{disabled}
-	form={fieldForm}
-	id={hiddenInputId}
-	name={fieldName}
-	readonly={readOnly}
-	{required}
-	style={inputStyle}
-	tabindex="-1"
-	aria-hidden="true"
-	{...serialized !== undefined ? { value: serialized } : {}}
-	onclick={handleInputClick}
-	onchange={handleInputChange}
-	onfocus={handleInputFocus}
-/>

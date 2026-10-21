@@ -1,6 +1,5 @@
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes } from 'svelte/elements';
-import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
+import type { HTMLFieldsetAttributes } from 'svelte/elements';
 import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
@@ -13,21 +12,18 @@ export interface RadioGroupState extends FieldRootState {
 	required: boolean;
 }
 
-export type RadioGroupChangeEventReason = typeof REASONS.none;
-export type RadioGroupChangeEventDetails = BaseUIChangeEventDetails<RadioGroupChangeEventReason>;
-
 export interface RadioGroupProps<Value = unknown> extends Omit<
-	HTMLAttributes<HTMLDivElement>,
-	'children'
+	HTMLFieldsetAttributes,
+	'children' | 'name' | 'form' | 'disabled'
 > {
 	/**
-	 * The controlled value of the radio item that should be currently selected.
+	 * The value of the radio that should be currently selected.
 	 *
 	 * To render an uncontrolled radio group, use the `defaultValue` prop instead.
 	 */
 	value?: Value;
 	/**
-	 * The uncontrolled value of the radio button that should be initially selected.
+	 * The value of the radio that should be initially selected.
 	 *
 	 * To render a controlled radio group, use `bind:value` instead.
 	 * @default undefined
@@ -35,6 +31,7 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	defaultValue?: Value;
 	/**
 	 * Whether the component should ignore user interaction.
+	 * Disables the `<fieldset>`, and every radio in it, natively.
 	 * @default false
 	 */
 	disabled?: boolean | null;
@@ -48,15 +45,17 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	 * @default false
 	 */
 	required?: boolean | null;
-	/** Identifies the field when a form is submitted. */
+	/**
+	 * The name every radio submits under, as in an HTML radio group.
+	 * Inside a named Field, the Field's name is used instead.
+	 * Outside a remote form, an unnamed group generates one, so the browser keeps one radio selected.
+	 */
 	name?: string | null;
 	/**
 	 * Identifies the form that owns the radio inputs.
 	 * Useful when the radio group is rendered outside the form.
 	 */
 	form?: string | null;
-	/** Callback fired when the value changes. */
-	onValueChange?: (value: Value, eventDetails: RadioGroupChangeEventDetails) => void;
 	/**
 	 * Allows you to replace the component's HTML element
 	 * with a different tag, or compose it with another component.
@@ -64,7 +63,7 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	 * and the children to render.
 	 */
 	render?: Snippet<
-		[props: HTMLAttributes<HTMLDivElement>, state: RadioGroupState, children: RenderChildren]
+		[props: HTMLFieldsetAttributes, state: RadioGroupState, children: RenderChildren]
 	>;
 	children?: Snippet;
 }

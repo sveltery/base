@@ -97,9 +97,9 @@ If no visible label is rendered, provide `aria-label` on the actual form control
 
 ### Labeling control groups
 
-Compose `<Fieldset>` when a single label applies to multiple controls, such as a range slider with multiple thumbs or a section that combines several inputs. For checkbox and radio groups, keep the group label in `<Fieldset.Legend>` and wrap each option with `<Field.Item>`:
+Compose `<Fieldset>` when a single label applies to multiple controls, such as a range slider with multiple thumbs or a section that combines several inputs. Checkbox and radio groups render their own `<fieldset>`, so put the `<Fieldset.Legend>` inside the group and wrap each option with `<Field.Item>`:
 
-```svelte title="Composing range slider and radio group with fieldset"
+```svelte title="Labeling a range slider and a radio group with a legend"
 <script lang="ts">
 	import { Form } from '@sveltery/base/form';
 	import { Field } from '@sveltery/base/field';
@@ -128,16 +128,12 @@ Compose `<Fieldset>` when a single label applies to multiple controls, such as a
 	</Field.Root>
 
 	<Field.Root>
-		<!-- @highlight-start -->
-		<Fieldset.Root>
-			<Fieldset.Legend>Storage type</Fieldset.Legend>
-			<!-- @highlight-end -->
-			<RadioGroup>
-				<Radio.Root value="ssd" />
-				<Radio.Root value="hdd" />
-			</RadioGroup>
+		<RadioGroup>
 			<!-- @highlight -->
-		</Fieldset.Root>
+			<Fieldset.Legend>Storage type</Fieldset.Legend>
+			<Radio.Root value="ssd" aria-label="SSD" />
+			<Radio.Root value="hdd" aria-label="HDD" />
+		</RadioGroup>
 	</Field.Root>
 </Form>
 ```

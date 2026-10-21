@@ -1,5 +1,8 @@
 // Each case runs against the Svelte RadioGroup and the React Base UI 1.9.0 reference.
-import { expect, test, type Page } from '@playwright/test';
+// Sveltery renders the group as a `<fieldset>` and each radio as a real input over its box, so
+// the checks read the checked state, and the box's data attributes sit on the input's parent.
+import { expect, test, type Locator, type Page } from '@playwright/test';
+import { forEachFramework } from '../framework-loop.js';
 import { openFixture } from '../open-fixture.js';
 
 function open(page: Page, scenario: string, reference: boolean) {
@@ -10,6 +13,11 @@ function radio(page: Page, name: string) {
 	return page.getByRole('radio', { name, exact: true });
 }
 
+/** The element that carries a radio's state attributes: the input's box in Svelte. */
+function boxOf(control: Locator, reference: boolean) {
+	return reference ? control : control.locator('..');
+}
+
 async function calls(page: Page) {
 	return JSON.parse(await page.getByTestId('calls').innerText()) as {
 		value: string;
@@ -18,9 +26,7 @@ async function calls(page: Page) {
 	}[];
 }
 
-for (const reference of [false, true]) {
-	const framework = reference ? 'react' : 'svelte';
-
+forEachFramework((reference, framework) => {
 	test.describe(framework, () => {
 		test('a click selects one radio and releases the other', async ({ page }) => {
 			const { errors } = await open(page, 'select', reference);
@@ -29,26 +35,26 @@ for (const reference of [false, true]) {
 			const b = radio(page, 'B');
 
 			await expect(group).toHaveAttribute('role', 'radiogroup');
-			await expect(a).toHaveAttribute('aria-checked', 'false');
+			await expect(a).not.toBeChecked();
 			await expect(a).toHaveAttribute('tabindex', '0');
 			await expect(b).toHaveAttribute('tabindex', '-1');
 
 			await a.click();
-			await expect(a).toHaveAttribute('aria-checked', 'true');
-			await expect(a).toHaveAttribute('data-checked', '');
-			await expect(b).toHaveAttribute('aria-checked', 'false');
+			await expect(a).toBeChecked();
+			await expect(boxOf(a, reference)).toHaveAttribute('data-checked', '');
+			await expect(b).not.toBeChecked();
 			expect(await calls(page)).toEqual([{ value: 'a', reason: 'none', canceled: false }]);
 
 			await b.click();
-			await expect(a).toHaveAttribute('aria-checked', 'false');
-			await expect(b).toHaveAttribute('aria-checked', 'true');
+			await expect(a).not.toBeChecked();
+			await expect(b).toBeChecked();
 			expect(errors).toEqual([]);
 		});
 
 		test('the selected radio starts as the tab stop', async ({ page }) => {
 			await open(page, 'initial', reference);
 			await expect(radio(page, 'A')).toHaveAttribute('tabindex', '-1');
-			await expect(radio(page, 'B')).toHaveAttribute('aria-checked', 'true');
+			await expect(radio(page, 'B')).toBeChecked();
 			await expect(radio(page, 'B')).toHaveAttribute('tabindex', '0');
 		});
 
@@ -60,7 +66,7 @@ for (const reference of [false, true]) {
 			await a.focus();
 			await page.keyboard.press('ArrowDown');
 			await expect(b).toBeFocused();
-			await expect(b).toHaveAttribute('aria-checked', 'true');
+			await expect(b).toBeChecked();
 			await page.keyboard.press('ArrowRight');
 			await expect(c).toBeFocused();
 			await page.keyboard.press('ArrowDown');
@@ -75,9 +81,9 @@ for (const reference of [false, true]) {
 			await expect(b).toBeFocused();
 			await a.focus();
 			await page.keyboard.press('Enter');
-			await expect(a).toHaveAttribute('aria-checked', 'false');
+			await expect(a).not.toBeChecked();
 			await page.keyboard.press('Space');
-			await expect(a).toHaveAttribute('aria-checked', 'true');
+			await expect(a).toBeChecked();
 		});
 
 		test('rtl horizontal arrows are mirrored', async ({ page }) => {
@@ -87,7 +93,7 @@ for (const reference of [false, true]) {
 			await a.focus();
 			await page.keyboard.press('ArrowLeft');
 			await expect(b).toBeFocused();
-			await expect(b).toHaveAttribute('aria-checked', 'true');
+			await expect(b).toBeChecked();
 			await page.keyboard.press('ArrowRight');
 			await expect(a).toBeFocused();
 			await page.keyboard.press('ArrowDown');
@@ -98,10 +104,12 @@ for (const reference of [false, true]) {
 			await open(page, 'disabled', reference);
 			const group = page.getByRole('radiogroup', { name: 'Colors' });
 			const a = radio(page, 'A');
-			await expect(group).toHaveAttribute('aria-disabled', 'true');
+			// Sveltery disables the fieldset natively. Base UI sets aria-disabled.
+			if (reference) await expect(group).toHaveAttribute('aria-disabled', 'true');
+			else await expect(group).toHaveAttribute('disabled');
 			await expect(group).toHaveAttribute('data-disabled', '');
 			await a.click({ force: true });
-			await expect(a).toHaveAttribute('aria-checked', 'false');
+			await expect(a).not.toBeChecked();
 			expect(await calls(page)).toEqual([]);
 		});
 
@@ -111,7 +119,7 @@ for (const reference of [false, true]) {
 			const a = radio(page, 'A');
 			await expect(group).toHaveAttribute('aria-readonly', 'true');
 			await a.click();
-			await expect(a).toHaveAttribute('aria-checked', 'false');
+			await expect(a).not.toBeChecked();
 			expect(await calls(page)).toEqual([]);
 		});
 
@@ -119,7 +127,7 @@ for (const reference of [false, true]) {
 			await open(page, 'cancel', reference);
 			const a = radio(page, 'A');
 			await a.click();
-			await expect(a).toHaveAttribute('aria-checked', 'false');
+			await expect(a).not.toBeChecked();
 			expect(await calls(page)).toEqual([{ value: 'a', reason: 'none', canceled: true }]);
 		});
 
@@ -127,7 +135,7 @@ for (const reference of [false, true]) {
 			await open(page, 'bound', reference);
 			await expect(page.getByTestId('value')).toHaveText('none');
 			await radio(page, 'B').click();
-			await expect(radio(page, 'B')).toHaveAttribute('aria-checked', 'true');
+			await expect(radio(page, 'B')).toBeChecked();
 			await expect(page.getByTestId('value')).toHaveText('b');
 			await expect(page.getByRole('checkbox', { name: 'Owner B' })).toBeChecked();
 		});
@@ -138,13 +146,13 @@ for (const reference of [false, true]) {
 			const a = radio(page, 'A');
 			const b = radio(page, 'B');
 			await owner.click();
-			await expect(b).toHaveAttribute('aria-checked', 'true');
+			await expect(b).toBeChecked();
 			await a.click();
-			await expect(a).toHaveAttribute('aria-checked', 'true');
+			await expect(a).toBeChecked();
 			await expect(owner).not.toBeChecked();
 			await owner.click();
-			await expect(b).toHaveAttribute('aria-checked', 'true');
-			await expect(a).toHaveAttribute('aria-checked', 'false');
+			await expect(b).toBeChecked();
+			await expect(a).not.toBeChecked();
 		});
 
 		test('required blocks submit until a radio is selected', async ({ page }) => {
@@ -169,25 +177,27 @@ for (const reference of [false, true]) {
 			);
 		});
 	});
-}
+});
 
 test('svelte SSR renders a tab stop when nothing is selected', async ({ request }) => {
 	const html = await (await request.get('/fixtures/radio-group?case=select')).text();
 	expect(html).toContain('data-hydrated="false"');
-	expect(html).toContain('role="radiogroup"');
+	expect(html).toMatch(/<fieldset[^>]*role="radiogroup"/);
 	expect(html).toContain('tabindex="0"');
 	expect(html).toContain('tabindex="-1"');
-	expect(html).not.toContain('aria-checked="true"');
+	expect(html).not.toMatch(/<input[^>]*type="radio"[^>]*\schecked/);
 });
 
 test('svelte SSR renders the selected radio tab stop before hydration', async ({ request }) => {
 	const html = await (await request.get('/fixtures/radio-group?case=initial')).text();
 	expect(html).toContain('data-hydrated="false"');
-	expect(html).toContain('role="radiogroup"');
-	expect(html).toContain('aria-checked="true"');
-	expect(html).toContain('aria-checked="false"');
-	expect(html).toContain('tabindex="0"');
-	expect(html).toContain('tabindex="-1"');
+	expect(html).toMatch(/<fieldset[^>]*role="radiogroup"/);
+	const b = html.match(/<input[^>]*aria-label="B"[^>]*>/)?.[0] ?? '';
+	const a = html.match(/<input[^>]*aria-label="A"[^>]*>/)?.[0] ?? '';
+	expect(b).toContain('type="radio"');
+	expect(b).toMatch(/\schecked/);
+	expect(b).toContain('tabindex="0"');
+	expect(a).not.toMatch(/\schecked/);
+	expect(a).toContain('tabindex="-1"');
 	expect(html).toContain('data-checked');
-	expect(html).toContain('type="radio"');
 });

@@ -531,12 +531,12 @@
 	</Progress.Root>
 {:else if part === 'radio-root'}
 	{#if label}
-		<Radio.Root value="" render={probe}>{label}</Radio.Root>
+		<Radio.Root value="a" checked render={probe}>{label}</Radio.Root>
 	{:else}
-		<Radio.Root value="" render={probe} />
+		<Radio.Root value="a" checked render={probe} />
 	{/if}
 {:else if part === 'radio-indicator'}
-	<Radio.Root value="">
+	<Radio.Root value="a" checked>
 		{#if label}
 			<Radio.Indicator render={probe}>{label}</Radio.Indicator>
 		{:else}

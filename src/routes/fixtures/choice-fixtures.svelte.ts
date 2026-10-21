@@ -28,9 +28,21 @@ export class RadioGroupFixtureModel {
 		return scenario === 'keyboard' || scenario === 'rtl' ? 3 : 2;
 	}
 
-	onValueChange = (next: unknown, details: ChangeDetails) => {
-		const text = typeof next === 'string' ? next : '';
-		this.calls = remember(this.calls, text, details, this.scenario() === 'cancel');
+	/**
+	 * The Svelte radios are native inputs: a click handler that cancels stands in for
+	 * `onValueChange` with `cancel()`, and `change` reports a change that went through.
+	 */
+	clicked = (event: MouseEvent) => {
+		if (this.scenario() !== 'cancel') return;
+		const target = event.currentTarget as HTMLInputElement;
+		this.calls = [...this.calls, { value: target.value, reason: 'none', canceled: true }];
+		event.preventDefault();
+	};
+
+	changed = (event: Event) => {
+		if (!(event.target instanceof HTMLInputElement)) return;
+		const call = { value: event.target.value, reason: 'none', canceled: false };
+		this.calls = [...this.calls, call];
 	};
 
 	toggleOwner = () => {

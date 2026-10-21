@@ -1,5 +1,8 @@
 .RadioGroup {
 	display: flex;
+	margin: 0;
+	border: 0;
+	padding: 0;
 	flex-direction: column;
 	align-items: start;
 	gap: 0.25rem;
@@ -56,7 +59,7 @@
 		}
 	}
 
-	&:focus-visible {
+	&:has(:focus-visible) {
 		outline: 2px solid oklch(14.5% 0 0deg);
 		outline-offset: 2px;
 
