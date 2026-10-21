@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Field, Form, Radio, RadioGroup } from '#lib';
+	import { submitTo } from '../routes/fixtures/form-log.js';
 	import { portalTo } from './portal.js';
 
 	let {
@@ -47,7 +48,7 @@
 		<Field.Control data-testid="other-control" />
 	</Field.Root>
 {:else}
-	<Form onFormSubmit={accept} data-testid="form">
+	<Form onsubmit={submitTo(accept)} data-testid="form">
 		{#if scenario === 'disable' || scenario === 'initially-disabled'}
 			<Field.Root name="test">
 				<RadioGroup name="group" defaultValue="a">{@render radios()}</RadioGroup>

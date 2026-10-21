@@ -6,23 +6,30 @@
 -->
 <script lang="ts">
 	import { needFieldContext } from '../internal/field-root-context.js';
+	import { useFormContext } from '../internal/form-context.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import type { FieldValidityProps, FieldValidityState } from './types.js';
-	import { getCombinedFieldValidityData } from './validity.js';
+	import { getShownFieldValidityData } from './validity.js';
 
 	let { children }: FieldValidityProps = $props();
 
 	const field = needFieldContext();
-	const combined = $derived(getCombinedFieldValidityData(field.validityData, field.invalid));
+	const form = useFormContext();
+	const combined = $derived(
+		getShownFieldValidityData(field.validityData, field.invalid, field.externalErrors)
+	);
 	const invalid = $derived(combined.state.valid === false);
 	const transition = new TransitionStatus(() => invalid);
 
 	const validityState: FieldValidityState = $derived({
 		error: combined.error,
 		errors: combined.errors,
-		value: combined.value,
+		value: combined.value ?? field.remoteValue ?? null,
 		initialValue: combined.initialValue,
 		validity: combined.state,
+		issues: [...field.shownIssues],
+		submitted: form.submitted,
+		pending: form.pending,
 		transitionStatus: transition.transitionStatus
 	});
 </script>

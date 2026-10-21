@@ -1,6 +1,6 @@
 // Field parts rendered on the server outside `<Field.Root>`, against upstream's default LabelableContext.
 import { render } from 'svelte/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { Checkbox } from '../checkbox/index.js';
 import FieldHarness from '../../tests/FieldHarness.svelte';
 import { Field } from './index.js';
@@ -42,9 +42,10 @@ describe('Field SSR outside Field.Root', () => {
 		);
 	});
 
-	it('renders a standalone Field.Error with match', () => {
-		expect(html(render(Field.Error, { props: { match: true, id: 'err' } }).body)).toBe(
-			'<div id="err"></div>'
-		);
+	it('renders nothing for a Field.Error with no Field.Root, and warns', () => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+		expect(html(render(Field.Error, { props: { match: true, id: 'err' } }).body)).toBe('');
+		expect(warn).toHaveBeenCalledWith(expect.stringContaining('Form.Error'));
+		warn.mockRestore();
 	});
 });

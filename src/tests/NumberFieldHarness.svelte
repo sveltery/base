@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Field, Form, NumberField } from '#lib';
 	import NumberRequired from '../routes/fixtures/number-field/NumberRequired.svelte';
-	import { takeForm } from '../routes/fixtures/form-log.js';
+	import { submitTo, takeForm } from '../routes/fixtures/form-log.js';
 
 	let {
 		scenario = 'plain',
@@ -234,7 +234,7 @@
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 	<output data-testid="seen">{seen}</output>
 {:else if scenario === 'submit-changed'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root
 			name="qty"
 			validate={(value, formValues) => {

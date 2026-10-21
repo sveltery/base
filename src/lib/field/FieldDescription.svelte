@@ -5,6 +5,7 @@
 	(commit ad7ecda5296b0295b41a51ecb01fce6204acd099). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { onDestroy } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
@@ -20,7 +21,12 @@
 	const field = useFieldContext();
 	const item = useFieldItemContext();
 	const labelable = useLabelableContext();
-	const id = $derived(idProp ?? `base-ui-${uid}`);
+	// The first description takes the id the control already lists, so the server HTML pairs them.
+	const reservedId = labelable.claimReservedId('description');
+	onDestroy(() => {
+		if (reservedId) labelable.releaseReservedId('description');
+	});
+	const id = $derived(idProp ?? reservedId ?? `base-ui-${uid}`);
 
 	const state: FieldDescriptionState = $derived({
 		...field.state,
@@ -29,7 +35,7 @@
 
 	$effect(() => {
 		const messageId = id;
-		if (!messageId) return;
+		if (!messageId || messageId === reservedId) return;
 		labelable.addMessageId(messageId);
 		return () => {
 			labelable.deleteMessageId(messageId);

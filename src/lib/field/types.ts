@@ -1,7 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLInputAttributes, HTMLLabelAttributes } from 'svelte/elements';
-import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
-import type { FieldValidityData, FormValidationMode } from '../form/types.js';
+import type { FieldValidityData, FormValidationMode, RemoteFormIssue } from '../form/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
 export type { FieldValidityData };
@@ -44,8 +43,11 @@ export interface FieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 */
 	disabled?: boolean | null;
 	/**
-	 * Identifies the field when a form is submitted.
-	 * Takes precedence over the `name` prop on the `<Field.Control>` component.
+	 * The field's path, such as `email`, `address.city` or `price[0]`.
+	 * In a plain form it is the name the control submits under, unless the control has its own
+	 * `name`, and the key into Form `errors` and `values`.
+	 * In a remote form it is the path the Field reads its issues from. It is never written to an
+	 * input there: the control's `.as()` spread names it.
 	 */
 	name?: string | null;
 	/**
@@ -101,10 +103,6 @@ export interface FieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 
 export type FieldControlState = FieldRootState;
 
-export type FieldControlChangeEventReason = typeof REASONS.none;
-export type FieldControlChangeEventDetails =
-	BaseUIChangeEventDetails<FieldControlChangeEventReason>;
-
 export interface FieldControlProps extends Omit<
 	HTMLInputAttributes,
 	'children' | 'value' | 'defaultValue'
@@ -113,8 +111,6 @@ export interface FieldControlProps extends Omit<
 	value?: string | number | null;
 	/** The default value of the input. Use when uncontrolled. */
 	defaultValue?: string | number | null;
-	/** Callback fired when the `value` changes. Use when controlled. */
-	onValueChange?: (value: string, eventDetails: FieldControlChangeEventDetails) => void;
 	/**
 	 * Allows you to replace the component's HTML element
 	 * with a different tag, or compose it with another component.
@@ -190,7 +186,8 @@ export interface FieldErrorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FieldErrorState, children: RenderChildren]
 	>;
-	children?: Snippet;
+	/** Static content, or a snippet that receives the messages. */
+	children?: Snippet | Snippet<[messages: string[]]>;
 }
 
 export type FieldItemState = FieldRootState;
@@ -215,8 +212,14 @@ export interface FieldItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 }
 
 export interface FieldValidityState extends Omit<FieldValidityData, 'state'> {
-	/** The validity state. */
+	/** The validity state. `customError` is true while remote issues or Form `errors` show. */
 	validity: FieldValidityData['state'];
+	/** The remote form's issues for this field. Empty in a plain form. */
+	issues: RemoteFormIssue[];
+	/** Whether the Form was submitted. */
+	submitted: boolean;
+	/** Whether the Form's remote submission is in flight. */
+	pending: boolean;
 	/** The transition status of the invalid state. */
 	transitionStatus: FieldTransitionStatus;
 }

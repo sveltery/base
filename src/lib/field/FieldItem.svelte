@@ -23,7 +23,7 @@
 
 	const field = needFieldContext();
 	const parentLabelable = useLabelableContext();
-	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
+	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`, ['description']);
 	setLabelableContext(labelable);
 
 	const disabled = $derived(field.disabled || (disabledProp ?? false));

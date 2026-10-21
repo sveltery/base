@@ -20,6 +20,26 @@ export function getCombinedFieldValidityData(
 	};
 }
 
+/**
+ * The validity a Field shows: its own, with external messages (remote issues or Form
+ * `errors`) counted as a `customError` and listed first.
+ */
+export function getShownFieldValidityData(
+	validityData: FieldValidityData,
+	invalid: boolean,
+	externalErrors: readonly string[]
+): FieldValidityData {
+	const combined = getCombinedFieldValidityData(validityData, invalid);
+	if (externalErrors.length === 0) return combined;
+	const errors = [...externalErrors, ...combined.errors];
+	return {
+		...combined,
+		state: { ...combined.state, customError: true },
+		error: errors[0] ?? '',
+		errors
+	};
+}
+
 /** An input that can carry a native ValidityState. */
 export function isConstraintElement(
 	element: HTMLElement | null

@@ -10,12 +10,11 @@ A native input element that automatically works with [Field](https://base.svelte
 
 **Input Props:**
 
-| Prop          | Type                                                                                                      | Default | Description                                                                                                                                                                                                                             |
-| :------------ | :-------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| defaultValue  | `string \| number \| null`                                                                                | -       | The default value of the input. Use when uncontrolled.                                                                                                                                                                                  |
-| value         | `string \| number \| null`                                                                                | -       | The value of the input.                                                                                                                                                                                                                 |
-| onValueChange | `(value: string, eventDetails: FieldControlChangeEventDetails) => void`                                   | -       | Callback fired when the `value` changes. Use when controlled.                                                                                                                                                                           |
-| render        | `Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldControlState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop         | Type                                                                                                      | Default | Description                                                                                                                                                                                                                             |
+| :----------- | :-------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| defaultValue | `string \| number \| null`                                                                                | -       | The default value of the input. Use when uncontrolled.                                                                                                                                                                                  |
+| value        | `string \| number \| null`                                                                                | -       | The value of the input.                                                                                                                                                                                                                 |
+| render       | `Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldControlState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 **Input Data Attributes:**
 
@@ -53,26 +52,6 @@ type InputState = {
 ```
 
 ## Additional Types
-
-### InputChangeEventDetails
-
-```typescript
-type InputChangeEventDetails = {
-	reason: Reason;
-	event: Event;
-	cancel: () => void;
-	allowPropagation: () => void;
-	isCanceled: boolean;
-	isPropagationAllowed: boolean;
-	trigger: Element | undefined;
-};
-```
-
-### InputChangeEventReason
-
-```typescript
-type InputChangeEventReason = FieldControlChangeEventReason;
-```
 
 ### InputDataAttributes
 

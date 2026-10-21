@@ -7,15 +7,15 @@
 </script>
 
 <FixturePage debug={{ welcome: form?.welcome ?? null }}>
-	<Form method="POST" errors={form?.errors}>
+	<Form method="POST" errors={form?.errors} values={form?.values}>
 		<Field.Root name="email" data-field="email">
 			<Field.Label>Email</Field.Label>
-			<Field.Control type="email" required defaultValue={form?.values?.email} />
+			<Field.Control type="email" required />
 			<Field.Error data-testid="error" />
 		</Field.Root>
 		<Field.Root name="name" data-field="name">
 			<Field.Label>Name</Field.Label>
-			<Field.Control required defaultValue={form?.values?.name} />
+			<Field.Control required />
 			<Field.Error data-testid="error" />
 		</Field.Root>
 		<button>Sign up</button>

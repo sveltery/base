@@ -93,3 +93,22 @@ jobs:
           name: e2e-traces-${{ matrix.shard }}
           path: test-results/
           if-no-files-found: ignore
+
+  # Browser behavior the components rely on, checked in Firefox and WebKit too.
+  engines:
+    name: Engines
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          browser: true
+          browsers: firefox webkit
+      - run: pnpm test:e2e:engines
+      - name: Keep traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: engines-traces
+          path: test-results/
+          if-no-files-found: ignore

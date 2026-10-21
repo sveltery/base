@@ -1,6 +1,13 @@
-// Each case runs against the Svelte Form and the React Base UI 1.9.0 reference.
-import { expect, test, type Page } from '@playwright/test';
+// Each case runs against the Svelte Form and the React Base UI 1.9.0 reference. Base UI renders
+// `novalidate` by default; the Svelte Form leaves the browser's constraint check on unless asked.
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import { openFixture } from '../open-fixture.js';
+
+/** A form with no `novalidate` prop: Base UI adds it, the Svelte Form does not. */
+async function expectDefaultNovalidate(form: Locator, reference: boolean) {
+	if (reference) await expect(form).toHaveAttribute('novalidate');
+	else await expect(form).not.toHaveAttribute('novalidate');
+}
 
 async function open(page: Page, scenario: string, reference: boolean) {
 	const opened = await openFixture(page, 'form', scenario, reference);
@@ -45,12 +52,12 @@ for (const reference of [false, true]) {
 			const { values } = await open(page, 'values', reference);
 			await page.getByRole('button', { name: 'Submit' }).click();
 			await expect(values).toHaveText('{}');
-			await expect(page.locator('#tested-form')).toHaveAttribute('novalidate');
+			await expectDefaultNovalidate(page.locator('#tested-form'), reference);
 		});
 
 		test('a custom render host keeps the form contract and its children', async ({ page }) => {
 			const { form, submitted } = await open(page, 'render', reference);
-			await expect(form).toHaveAttribute('novalidate');
+			await expectDefaultNovalidate(form, reference);
 			await expect(form).toHaveAttribute('data-custom', 'true');
 			await expect(form.getByText('Inside')).toBeVisible();
 			await page.getByRole('button', { name: 'Submit' }).click();
@@ -59,7 +66,7 @@ for (const reference of [false, true]) {
 	});
 }
 
-test('svelte SSR renders novalidate as Base UI does', async ({ request }) => {
+test('svelte SSR renders novalidate only when asked', async ({ request }) => {
 	for (const [scenario, novalidate] of [
 		['default', true],
 		['browser', false]

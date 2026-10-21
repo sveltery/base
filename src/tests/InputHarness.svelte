@@ -1,15 +1,9 @@
 <script lang="ts">
 	import { Field, Form, Input } from '#lib';
 	import FormSubmit from '../routes/fixtures/FormSubmit.svelte';
-	import { takeForm } from '../routes/fixtures/form-log.js';
+	import { submitTo, takeForm } from '../routes/fixtures/form-log.js';
 
-	let {
-		scenario = 'plain',
-		onValueChange
-	}: {
-		scenario?: string;
-		onValueChange?: (value: string, details: { cancel: () => void; reason: string }) => void;
-	} = $props();
+	let { scenario = 'plain' }: { scenario?: string } = $props();
 
 	let bound = $state('a');
 	let host = $state<HTMLElement | null>(null);
@@ -93,9 +87,9 @@
 	<output data-testid="value">{bound}</output>
 {:else if scenario === 'form-required'}
 	<Form
-		onFormSubmit={(formValues) => {
+		onsubmit={submitTo((formValues) => {
 			values = JSON.stringify(formValues);
-		}}
+		})}
 	>
 		<Input required name="q" data-testid="control" />
 		<button type="submit">Submit</button>
@@ -103,9 +97,9 @@
 	<output data-testid="values">{values}</output>
 {:else if scenario === 'form-named'}
 	<Form
-		onFormSubmit={(formValues) => {
+		onsubmit={submitTo((formValues) => {
 			values = JSON.stringify(formValues);
-		}}
+		})}
 	>
 		<Input name="q" defaultValue="z" data-testid="control" />
 		<button type="submit">Submit</button>
@@ -118,7 +112,7 @@
 	<Input data-testid="control" />
 {:else if scenario === 'bound'}
 	<Field.Root data-testid="field">
-		<Input bind:value={bound} data-testid="control" {onValueChange} />
+		<Input bind:value={bound} data-testid="control" />
 	</Field.Root>
 	<output data-testid="value">{bound}</output>
 	<button type="button" onclick={() => (bound = 'program')}>Set</button>

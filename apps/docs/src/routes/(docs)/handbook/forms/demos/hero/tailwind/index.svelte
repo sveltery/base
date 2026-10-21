@@ -147,7 +147,15 @@
 	<Form
 		aria-label="Launch new cloud server"
 		class="flex w-full max-w-3xs flex-col gap-5 sm:max-w-[20rem]"
-		onFormSubmit={(values) => {
+		onsubmit={(event) => {
+			event.preventDefault();
+			const data = new FormData(event.currentTarget);
+			const values = Object.fromEntries(
+				[...new Set(data.keys())].map((key) => {
+					const all = data.getAll(key);
+					return [key, all.length > 1 ? all : all[0]];
+				})
+			);
 			toastManager.add({
 				title: 'Form submitted',
 				description: 'The form contains these values:',

@@ -199,7 +199,7 @@ Pass the `name` prop to `<Field.Root>` to include the wrapped control's value wh
 
 ## Submitting data
 
-You can take over form submission using the native `onsubmit`, or custom `onFormSubmit` props:
+You can take over form submission with the native `onsubmit`. It runs only after the browser's constraint check passes:
 
 ```svelte title="Native submission using onsubmit"
 <script lang="ts">
@@ -223,28 +223,7 @@ You can take over form submission using the native `onsubmit`, or custom `onForm
 />
 ```
 
-When using `onFormSubmit`, you receive form values as a JavaScript object, with `eventDetails` provided as a second argument. Additionally, `preventDefault()` is automatically called on the native submit event:
-
-```svelte title="Submission using onFormSubmit"
-<script lang="ts">
-	import { Form } from '@sveltery/base/form';
-</script>
-
-<Form
-	// @highlight-start
-	onFormSubmit={async (formValues) => {
-		const payload = {
-			product_id: formValues.id,
-			order_quantity: formValues.quantity
-		};
-		await fetch('https://api.example.com', {
-			// @highlight-end
-			method: 'POST',
-			body: JSON.stringify(payload)
-		});
-	}}
-/>
-```
+To post the form without JavaScript, leave `onsubmit` off and give Form a `method` and an `action`, or a SvelteKit remote form through the `form` prop. [SvelteKit](/handbook/sveltekit) shows both.
 
 ## Constraint validation
 
@@ -266,6 +245,8 @@ Sveltery Base form components support native HTML validation attributes for many
 </Field.Root>
 ```
 
+The browser's constraint check is the submit gate. When a submit fails it, each Field shows its message in `<Field.Error>` instead of the browser's bubble, and Form focuses the first invalid control. A control outside any Field keeps the browser's bubble. Pass `novalidate` to `<Form>` to turn the check off.
+
 Sveltery Base form components use a hidden input to participate in native form submission and validation. To anchor the hidden input near a control so the native validation bubble points to the correct area, ensure the component has been given a `name`, and wrap controls in a relatively positioned container for best results.
 
 ```svelte title="Positioning hidden inputs"
@@ -286,7 +267,7 @@ Sveltery Base form components use a hidden input to participate in native form s
 
 ## Custom validation
 
-You can add custom validation logic by passing a synchronous or asynchronous validation function to the `validate` prop, which runs after native validations have passed.
+You can add custom validation logic by passing a synchronous or asynchronous validation function to the `validate` prop, which runs after native validations have passed. Field keeps a synchronous message in the control's custom validity whatever the `validationMode`, so the browser blocks the submit while it fails. An asynchronous `validate` does not block the submit.
 
 Use the `validationMode` prop to configure when validation is performed:
 
@@ -366,6 +347,8 @@ This should be an object with field names as keys, and an error string or array 
 </Form>
 ```
 
+With a SvelteKit [remote form](https://svelte.dev/docs/kit/remote-functions#form), pass it to `<Form form={...}>` instead, and each `<Field.Root name>` reads its own issues. [Use a SvelteKit remote form](/handbook/sveltekit#use-a-sveltekit-remote-form) has a complete example.
+
 When using [SvelteKit form actions](https://svelte.dev/docs/kit/form-actions) you can return server-side errors from `fail()` and pass the page's `form?.errors` to the `errors` prop. [Connect a form action](/handbook/sveltekit#connect-a-form-action) has a complete example.
 
 ```svelte title="Returning errors from a form action"
@@ -415,6 +398,18 @@ Use `<Field.Error>` without `children` to automatically display the field's nati
 ```svelte title="Customizing error message for a required field"
 <Field.Error match="valueMissing">You must create a username</Field.Error>
 ```
+
+A `children` snippet receives the messages, so you can format them yourself:
+
+```svelte title="Listing every message"
+<Field.Error>
+	{#snippet children(messages)}
+		{#each messages as message (message)}<p>{message}</p>{/each}
+	{/snippet}
+</Field.Error>
+```
+
+Use `<Form.Error>` for messages that belong to the whole form and to no field: `errors['']`, or the issues a SvelteKit remote form holds with an empty path. A `<Field.Error>` outside any `<Field.Root>` renders nothing and warns in development.
 
 ## Superforms
 
@@ -518,7 +513,7 @@ Specify the validation rules in the schema, pass the schema's adapter to `valida
 </Field.Root>
 ```
 
-Keep `validators` when you also validate on the server. Superforms then clears a message as the user edits. Without them, a message from the server stays in `$errors`, and `invalid` blocks every later submit.
+Keep `validators` when you also validate on the server. Superforms then clears a message as the user edits. Without them, a message from the server stays in `$errors` until the next submit.
 
 ### Submitting data
 
@@ -544,7 +539,7 @@ Attach the `enhance` action to `<Form>` with `fromAction`, and handle the valida
 <Form {@attach fromAction(enhance)} />
 ```
 
-Superforms does not check whether `<Form>` blocked the submit. With `SPA: true`, it runs `onUpdate` on every submit, and `form.valid` reflects only the schema. Put every rule in the schema, not in native constraints or a `validate` prop, so that the schema and `<Form>` block the same submits. Without `SPA`, Superforms skips its own validation, because `<Form>` sets `novalidate`. It then posts the form to your form action even when `<Form>` blocked the submit, so validate the data in the action with `superValidate`.
+The browser's constraint check runs before Superforms sees the submit, so a control that fails `required` or a sync `validate` never reaches `onUpdate`. With `SPA: true`, Superforms validates the rest with the schema, and `form.valid` reflects only the schema. Without `SPA`, Superforms posts the form to your form action, so validate the data in the action with `superValidate`.
 
 ## TanStack Form
 

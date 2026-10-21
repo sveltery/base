@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Form } from '#lib';
+	import { submitTo } from '../form-log.js';
 	import type { FormCase } from './cases.js';
 
 	let { scenario }: { scenario: FormCase } = $props();
@@ -24,9 +25,9 @@
 {:else if scenario === 'values'}
 	<Form
 		id="tested-form"
-		onFormSubmit={(formValues) => {
+		onsubmit={submitTo((formValues) => {
 			values = JSON.stringify(formValues);
-		}}
+		})}
 	>
 		<button type="submit">Submit</button>
 	</Form>

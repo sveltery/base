@@ -133,17 +133,6 @@ describe('<Input />', () => {
 			await expect.element(input).toHaveValue('typed');
 		});
 
-		it('keeps the controlled value when onValueChange cancels', async () => {
-			render(InputHarness, {
-				scenario: 'bound',
-				onValueChange: (_value, details) => details.cancel()
-			});
-			await control().fill('nope');
-			await expect.element(control()).toHaveValue('a');
-			await expect.element(page.getByTestId('value')).toHaveTextContent('a');
-			expect(page.getByTestId('value').element().textContent).toBe('a');
-		});
-
 		it('submits the field name and the input value', async () => {
 			render(InputHarness, { scenario: 'form' });
 			await page.getByRole('button', { name: 'Submit' }).click();
@@ -162,19 +151,26 @@ describe('<Input />', () => {
 			await expect.element(page.getByTestId('value')).toHaveTextContent('typed');
 		});
 
-		it('submits nothing for a required named input outside Field.Root', async () => {
+		// Sveltery: Form leaves the browser's constraint check on, and only a Field takes over its bubble.
+		it('leaves a required named input outside Field.Root to the browser', async () => {
 			render(InputHarness, { scenario: 'form-required' });
 			const input = control();
+			const invalid = new Promise<boolean>((resolve) => {
+				input.element().addEventListener('invalid', (event) => resolve(event.defaultPrevented), {
+					once: true
+				});
+			});
 			await page.getByRole('button', { name: 'Submit' }).click();
-			await expect.element(page.getByTestId('values')).toHaveTextContent('{}');
+			expect(await invalid).toBe(false);
+			expect(page.getByTestId('values').element().textContent).toBe('');
 			expect(input.element().hasAttribute('data-invalid')).toBe(false);
 			expect(input.element().getAttribute('aria-invalid')).toBeNull();
 		});
 
-		it('leaves a named default value out of the form submission', async () => {
+		it('submits a named input outside Field.Root, as the form data has it', async () => {
 			render(InputHarness, { scenario: 'form-named' });
 			await page.getByRole('button', { name: 'Submit' }).click();
-			await expect.element(page.getByTestId('values')).toHaveTextContent('{}');
+			await expect.element(page.getByTestId('values')).toHaveTextContent('{"q":"z"}');
 		});
 
 		it('does not register standalone inputs on the shared form map', async () => {

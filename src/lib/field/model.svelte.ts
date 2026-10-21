@@ -4,8 +4,16 @@
 
 import { untrack } from 'svelte';
 import { ScopedTimeout } from '@sveltery/utils';
-import { SvelteMap } from 'svelte/reactivity';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import type { FormContextValue } from '../internal/form-context.js';
+import {
+	fieldPathKey,
+	isWithinField,
+	parseFieldPath,
+	resolveFieldNode,
+	type RemoteFieldNode,
+	type RemoteFormIssue
+} from '../form/remote-form.js';
 import { onFormReset, ownerForm } from '../internal/form-reset.svelte.js';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
 import { DEFAULT_VALIDITY_STATE, VALIDITY_KEYS } from '../internal/field-constants.js';
@@ -40,8 +48,27 @@ export interface FieldContext {
 	readonly name: string | undefined;
 	readonly validationMode: FormValidationMode;
 	readonly invalid: boolean;
-	readonly formError: string | string[] | null;
-	readonly hasFormError: boolean;
+	/**
+	 * The field's path in the form's data, such as `address.city`, from Field.Root's `name`.
+	 * `undefined` without a name.
+	 */
+	readonly path: string | undefined;
+	/** In a remote form: the issues at this field's path and below, minus paths a nested Field owns. */
+	readonly issues: readonly RemoteFormIssue[];
+	/** The issues the field shows: `issues`, minus the ones the user's last edit dismissed. */
+	readonly shownIssues: readonly RemoteFormIssue[];
+	/** Messages from outside the field: its remote issues, or its Form `errors` entry, until an edit clears them. */
+	readonly externalErrors: readonly string[];
+	readonly hasExternalErrors: boolean;
+	/** Hides the external errors until new ones arrive. Controls call it when the user edits them. */
+	clearExternalErrors: () => void;
+	/**
+	 * Props for a control that has no spread, from the remote form's `.as()` at this field's
+	 * path. `undefined` outside a remote form or without a name.
+	 */
+	bindRemote: (type: string, option?: unknown) => Record<string, unknown> | undefined;
+	/** In a remote form: the field's value as the form holds it, which the server render echoes back. */
+	readonly remoteValue: unknown;
 	readonly dirty: boolean;
 	readonly touched: boolean;
 	readonly valid: boolean | null;
@@ -83,10 +110,6 @@ export const EMPTY_VALIDITY = (): FieldValidityData => ({
 	initialValue: null
 });
 
-function formErrorPresent(formError: string | string[] | null) {
-	return !!(Array.isArray(formError) ? formError.length : formError);
-}
-
 function isPromise(value: unknown): value is Promise<unknown> {
 	return (
 		typeof value === 'object' &&
@@ -108,6 +131,8 @@ function nativeErrors(element: HTMLElement | null): string[] {
 export interface FieldRootModelOptions {
 	form: FormContextValue;
 	labelable: Labelable;
+	/** The enclosing Field, which leaves the paths this field owns to it. */
+	parent: FieldRootModel | undefined;
 	getDisabledProp: () => boolean;
 	getFieldsetDisabled: () => boolean;
 	getName: () => string | undefined;
@@ -115,7 +140,7 @@ export interface FieldRootModelOptions {
 	getDirtyProp: () => boolean | undefined;
 	getTouchedProp: () => boolean | undefined;
 	getValidationModeProp: () => FormValidationMode | undefined;
-	getValidationDebounceTime: () => number;
+	getValidationDebounceTime: () => number | undefined;
 	getValidate: () => FieldValidate | undefined;
 }
 
@@ -132,6 +157,16 @@ export class FieldRootModel implements FieldContext {
 	focused = $state(false);
 	focusOwner: unknown = undefined;
 	inputElement = $state<HTMLElement | null>(null);
+	/** The Field.Root element. Form asks it which `invalid` events belong to this field. */
+	rootElement: HTMLElement | null = null;
+	/** Paths of nested Fields. Their issues are theirs, not this field's. */
+	readonly ownedPaths = new SvelteSet<string>();
+	/**
+	 * The issues the user's last edit dismissed, and how many remote submits had settled then.
+	 * Kit hands out a new issues array on every read, so the dismissal compares the issues.
+	 */
+	private dismissedIssues = $state<{ key: string; settleCount: number } | null>(null);
+	private ownedPath: string | undefined;
 
 	private markedDirty = false;
 	private registeredFieldName = $state<string | undefined>(undefined);
@@ -152,6 +187,31 @@ export class FieldRootModel implements FieldContext {
 
 	constructor(options: FieldRootModelOptions) {
 		this.options = options;
+		this.path = $derived.by(() => {
+			const name = options.getName();
+			return name ? fieldPathKey(parseFieldPath(name)) : undefined;
+		});
+		this.issues = $derived.by(() => {
+			const path = this.path;
+			if (path === undefined || !options.form.remote) return [];
+			const owned = [...this.ownedPaths];
+			return options.form.remoteIssues.filter((issue) => {
+				const key = fieldPathKey(issue.path);
+				return (
+					issue.path.length > 0 &&
+					isWithinField(key, path) &&
+					!owned.some((nested) => isWithinField(key, nested))
+				);
+			});
+		});
+
+		// Registered while rendering, so an outer Field.Error that comes after this Field
+		// leaves these issues out in the server HTML too.
+		untrack(() => this.claimPath(this.path));
+		$effect.pre(() => {
+			const path = this.path;
+			untrack(() => this.claimPath(path));
+		});
 		this.resetForm = $derived(
 			ownerForm(this.registeredInputs.keys().next().value ?? this.inputElement) ??
 				options.form.element
@@ -172,10 +232,88 @@ export class FieldRootModel implements FieldContext {
 		$effect(() => {
 			return () => {
 				this.clearTimer();
+				this.claimPath(undefined);
 				const id = this.registryId;
 				if (id) this.options.form.fields.delete(id);
 			};
 		});
+	}
+
+	readonly path: string | undefined;
+	readonly issues: readonly RemoteFormIssue[];
+
+	private claimPath(path: string | undefined) {
+		const parent = this.options.parent;
+		if (!parent || path === this.ownedPath) return;
+		if (this.ownedPath !== undefined) parent.ownedPaths.delete(this.ownedPath);
+		this.ownedPath = path;
+		if (path !== undefined) parent.ownedPaths.add(path);
+	}
+
+	/**
+	 * The remote issues still shown. An edit hides them until they change or a later submit
+	 * settles, so neither a blocked submit nor a pending one shows the old issues again.
+	 */
+	get shownIssues(): readonly RemoteFormIssue[] {
+		const dismissed = this.dismissedIssues;
+		if (
+			dismissed &&
+			dismissed.settleCount === this.options.form.settleCount &&
+			dismissed.key === issuesKey(this.issues)
+		) {
+			return [];
+		}
+		return this.issues;
+	}
+
+	get externalErrors(): readonly string[] {
+		if (this.options.form.remote) return this.shownIssues.map((issue) => issue.message);
+		const formError = this.formError;
+		if (formError === null) return [];
+		return ([] as string[]).concat(formError).filter(Boolean);
+	}
+
+	get hasExternalErrors() {
+		return this.externalErrors.length > 0;
+	}
+
+	clearExternalErrors() {
+		if (this.options.form.remote) {
+			if (this.issues.length > 0) {
+				this.dismissedIssues = {
+					key: issuesKey(this.issues),
+					settleCount: this.options.form.settleCount
+				};
+			}
+			return;
+		}
+		this.options.form.clearErrors(this.name);
+	}
+
+	/** The node of the remote form's `fields` at this field's path. Never cached: Kit builds a new proxy per access. */
+	private get remoteNode(): RemoteFieldNode | undefined {
+		const name = this.options.getName();
+		const fields = this.options.form.remote?.fields;
+		if (!name || !fields) return undefined;
+		return resolveFieldNode(fields, parseFieldPath(name));
+	}
+
+	bindRemote(type: string, option?: unknown) {
+		// Kit's `.as()` needs the value of these types, and a control without a spread has none.
+		if (option === undefined && (type === 'radio' || type === 'submit' || type === 'hidden')) {
+			return undefined;
+		}
+		return this.remoteNode?.as?.(type, option);
+	}
+
+	get remoteValue(): unknown {
+		return this.remoteNode?.value?.();
+	}
+
+	owns(element: Element) {
+		if (element === this.inputElement) return true;
+		if (element instanceof HTMLInputElement && this.registeredInputs.has(element)) return true;
+		return Boolean(this.rootElement?.contains(element));
 	}
 
 	get disabled() {
@@ -191,7 +329,7 @@ export class FieldRootModel implements FieldContext {
 	}
 
 	get invalid() {
-		return this.options.getInvalidProp() === true || this.hasFormError;
+		return this.options.getInvalidProp() === true || this.hasExternalErrors;
 	}
 
 	/** The Form `errors` entry for this field's name. */
@@ -200,10 +338,6 @@ export class FieldRootModel implements FieldContext {
 		const errors = this.options.form.errors;
 		if (!name || !Object.hasOwn(errors, name)) return null;
 		return errors[name] ?? null;
-	}
-
-	get hasFormError() {
-		return formErrorPresent(this.formError);
 	}
 
 	get dirty() {
@@ -291,6 +425,7 @@ export class FieldRootModel implements FieldContext {
 		if (previousId && previousId !== registration.id) this.deleteRegistration(previousId);
 		this.captureInitial(registration);
 		this.ensureRegistry();
+		this.syncCustomValidity(this.readRegisteredValue(registration));
 	}
 
 	/**
@@ -299,9 +434,23 @@ export class FieldRootModel implements FieldContext {
 	 */
 	registerInput(element: HTMLInputElement, registration: RegisteredInput) {
 		this.registeredInputs.set(element, registration);
+		this.scheduleSync();
 		return () => {
 			this.registeredInputs.delete(element);
 		};
+	}
+
+	private syncScheduled = false;
+
+	/** Puts the `validate` message on a group's inputs once they have registered. */
+	private scheduleSync() {
+		if (this.syncScheduled) return;
+		this.syncScheduled = true;
+		queueMicrotask(() => {
+			this.syncScheduled = false;
+			if (this.customValidity) return;
+			this.syncCustomValidity(this.readRegisteredValue());
+		});
 	}
 
 	/** Returns the field to its state before any interaction, with the current value as the start. */
@@ -313,7 +462,10 @@ export class FieldRootModel implements FieldContext {
 		this.dirtyState = false;
 		this.touchedState = false;
 		this.reportedInvalid = undefined;
-		this.validityData = { ...EMPTY_VALIDITY(), initialValue: this.readRegisteredValue() };
+		const value = this.readRegisteredValue();
+		this.validityData = { ...EMPTY_VALIDITY(), initialValue: value };
+		// The restored value still has to pass `validate` before the browser lets a submit through.
+		this.syncCustomValidity(value);
 	}
 
 	change(value: unknown, cancelPending = false) {
@@ -322,14 +474,20 @@ export class FieldRootModel implements FieldContext {
 		if (cancelPending) return;
 
 		const validateOnChange = this.shouldValidateOnChange();
-		const debounce = this.options.getValidationDebounceTime();
+		const debounce =
+			this.options.getValidationDebounceTime() ?? this.options.form.validationDebounceTime ?? 0;
 		if (validateOnChange && value !== '' && debounce) {
+			// The message stays hidden until the timer runs. Form syncs every field when the user
+			// submits, so a submit before then still checks this value.
+			this.clearCustomValidity();
 			this.debounceTimer.start(debounce, () => {
 				this.commit(value);
 			});
 			return;
 		}
 		this.commit(value, !validateOnChange);
+		// A commit that validates sets the custom validity itself. A revalidation may clear it.
+		if (!validateOnChange) this.syncCustomValidity(value);
 	}
 
 	commit(value: unknown, revalidate = false) {
@@ -378,13 +536,8 @@ export class FieldRootModel implements FieldContext {
 		const validatingOnChange = this.shouldValidateOnChange();
 
 		if (validationErrors.length === 0 || validatingOnChange) {
-			const formValues: Record<string, unknown> = {};
-			for (const field of this.options.form.fields.values()) {
-				if (field.name) formValues[field.name] = field.getValue();
-			}
-
 			const validate = this.options.getValidate() ?? (() => null);
-			const resultOrPromise = validate(value, formValues);
+			const resultOrPromise = validate(value, this.formValues());
 
 			if (isPromise(resultOrPromise)) {
 				if (nextState.valid === false) {
@@ -411,6 +564,37 @@ export class FieldRootModel implements FieldContext {
 		}
 
 		this.publishValidity(value, nextState, validationErrors);
+	}
+
+	/**
+	 * Keeps a sync `validate` message in the control's custom validity whatever the
+	 * `validationMode`, so the browser's constraint check blocks the submit. Nothing shows
+	 * until the field publishes its validity. An `async` function never runs here, and the
+	 * promise of any other validator that returns one is ignored.
+	 */
+	private syncCustomValidity(value: unknown) {
+		const validate = this.options.getValidate();
+		if (!validate || validate.constructor.name === 'AsyncFunction') return;
+		const element = this.representative();
+		if (!isConstraintElement(element)) return;
+		this.clearCustomValidity();
+		const result = validate(value, this.formValues());
+		if (isPromise(result)) {
+			void result.catch(() => {});
+			return;
+		}
+		const messages = result ? ([] as string[]).concat(result).filter(Boolean) : [];
+		if (messages.length > 0 && element.willValidate) {
+			this.installCustomValidity(element, messages.join('\n'));
+		}
+	}
+
+	private formValues() {
+		const formValues: Record<string, unknown> = {};
+		for (const field of this.options.form.fields.values()) {
+			if (field.name) formValues[field.name] = field.getValue();
+		}
+		return formValues;
 	}
 
 	private publishValidity(
@@ -562,11 +746,19 @@ export class FieldRootModel implements FieldContext {
 			return formValue ? formValue() : this.readRegisteredValue();
 		};
 		const validate = () => this.validateField();
+		const syncValidity = () => this.syncCustomValidity(this.readRegisteredValue());
+		const owns = (element: Element) => this.owns(element);
+		const readInvalid = () => this.invalid;
 		this.options.form.fields.set(id, {
+			owns,
+			get invalid() {
+				return readInvalid();
+			},
 			get name() {
 				return readName();
 			},
 			validate,
+			syncValidity,
 			get validityData() {
 				return readValidity();
 			},
@@ -586,4 +778,8 @@ export class FieldRootModel implements FieldContext {
 	private clearTimer() {
 		this.debounceTimer.clear();
 	}
+}
+
+function issuesKey(issues: readonly RemoteFormIssue[]) {
+	return JSON.stringify(issues.map((issue) => [issue.path, issue.message]));
 }

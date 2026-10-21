@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { Field, Form, Fieldset, type FieldRootActions, type FieldValidate } from '#lib';
-	import { takeForm } from '../routes/fixtures/form-log.js';
+	import { submitTo, takeForm } from '../routes/fixtures/form-log.js';
 	import FieldHelpCases from '../routes/fixtures/field/FieldHelpCases.svelte';
 
 	let {
 		scenario = 'label',
-		validate,
-		onValueChange
+		validate
 	}: {
 		scenario?: string;
 		validate?: FieldValidate;
-		onValueChange?: (value: string, details: { cancel: () => void }) => void;
 	} = $props();
 
 	let submitted = $state(0);
@@ -120,7 +118,7 @@
 {:else if scenario === 'description' || scenario === 'required'}
 	<FieldHelpCases {scenario} {accept} {submitted} />
 {:else if scenario === 'match'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root validate={(value) => (value === 'ab' ? 'custom error' : null)}>
 			<Field.Control required data-testid="control" />
 			<Field.Error match="valueMissing">value missing</Field.Error>
@@ -182,7 +180,7 @@
 	</Field.Root>
 	<output data-testid="calls">{calls}</output>
 {:else if scenario === 'empty-validate'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root name="field" validationMode="onChange" {validate}>
 			<Field.Control data-testid="control" />
 			<Field.Error data-testid="error" />
@@ -191,7 +189,7 @@
 	</Form>
 	<output data-testid="submitted">{submitted}</output>
 {:else if scenario === 'async'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root name="username" validationMode="onChange" {validate}>
 			<Field.Control data-testid="control" />
 			<Field.Error data-testid="error" />
@@ -223,7 +221,7 @@
 	<button type="button" onclick={() => (dirty = false)}>Clean</button>
 	<button type="button" onclick={() => field?.validate()}>Validate</button>
 {:else if scenario === 'controlled-dirty-submit'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root name="q" dirty={false} data-testid="field">
 			<Field.Control required data-testid="control" />
 		</Field.Root>
@@ -247,7 +245,7 @@
 	</Field.Root>
 	<button type="button" onclick={() => field?.validate()}>Validate</button>
 {:else if scenario === 'names'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root name="username">
 			<Field.Control name="email" defaultValue="ada" data-testid="control" />
 		</Field.Root>
@@ -255,7 +253,7 @@
 	</Form>
 	<output data-testid="values">{values}</output>
 {:else if scenario === 'name-fallback'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root>
 			<Field.Control name="email" defaultValue="ada" data-testid="control" />
 		</Field.Root>
@@ -271,7 +269,7 @@
 		</Field.Item>
 	</Field.Root>
 {:else if scenario === 'validity'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root validationMode="onBlur" {validate}>
 			<Field.Control data-testid="control" />
 			<Field.Validity>
@@ -287,7 +285,7 @@
 		<button type="submit">Submit</button>
 	</Form>
 {:else if scenario === 'textarea'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root
 			name="note"
 			validationMode="onSubmit"
@@ -346,15 +344,10 @@
 		<Field.Control defaultValue="a" data-testid="control" />
 	</Field.Root>
 	<output data-testid="calls">{calls}</output>
-{:else if scenario === 'cancel'}
-	<Field.Root validationMode="onChange" validate={countedValidate} data-testid="field">
-		<Field.Control data-testid="control" {onValueChange} />
-	</Field.Root>
-	<output data-testid="calls">{calls}</output>
 {:else if scenario === 'prevent'}
 	<Form errors={{ message: 'Server error' }}>
 		<Field.Root name="message" validationMode="onChange" validate={countedValidate}>
-			<Field.Control data-testid="control" {onValueChange} />
+			<Field.Control data-testid="control" />
 			<Field.Error data-testid="error" />
 		</Field.Root>
 	</Form>
@@ -375,7 +368,7 @@
 	<button type="button" onclick={() => (controlled = 'next')}>Set next</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 {:else if scenario === 'late'}
-	<Form bind:errors={parentErrors} onFormSubmit={accept}>
+	<Form bind:errors={parentErrors} onsubmit={submitTo(accept)}>
 		<Field.Root name="email" validationMode="onChange" data-testid="field" validate={() => null}>
 			<Field.Control value={late} data-testid="control" />
 			<Field.Error data-testid="error" />
@@ -419,7 +412,7 @@
 	<button type="button" onclick={() => (emptyParent = undefined)}>Unset</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 {:else if scenario === 'reset'}
-	<Form onFormSubmit={accept} data-testid="form">
+	<Form onsubmit={submitTo(accept)} data-testid="form">
 		<Field.Root
 			name="email"
 			validationMode="onSubmit"
@@ -437,7 +430,7 @@
 	<output data-testid="seen">{seen}</output>
 	<output data-testid="values">{values}</output>
 {:else if scenario === 'length' || scenario === 'length-bound'}
-	<Form onFormSubmit={accept}>
+	<Form onsubmit={submitTo(accept)}>
 		<Field.Root name="username">
 			{#if scenario === 'length'}
 				<Field.Control minlength={3} data-testid="control" />
@@ -456,7 +449,7 @@
 	<output data-testid="typed">{typed ?? 'none'}</output>
 {:else if scenario === 'controlled'}
 	<Field.Root validationMode="onChange" validate={countedValidate} data-testid="field">
-		<Field.Control bind:value={controlled} data-testid="control" {onValueChange} />
+		<Field.Control bind:value={controlled} data-testid="control" />
 	</Field.Root>
 	<output data-testid="value">{controlled}</output>
 	<output data-testid="calls">{calls}</output>

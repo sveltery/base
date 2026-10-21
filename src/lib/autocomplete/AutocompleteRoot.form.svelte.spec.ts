@@ -580,10 +580,11 @@ describe('Autocomplete.Root', () => {
 
 		it('Field.Description', async () => {
 			render(AutocompleteHarness, { field: {}, description: 'Help', popupLess: true });
+			const { id } = page.getByTestId('description').element();
 
 			await expect
 				.element(input())
-				.toHaveAttribute('aria-describedby', page.getByTestId('description').element().id);
+				.toHaveAttribute('aria-describedby', `${id} ${id.replace(/-description$/, '-error')}`);
 		});
 	});
 });

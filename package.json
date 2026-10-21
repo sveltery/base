@@ -29,8 +29,9 @@
 		"format": "prettier --write .",
 		"test:unit": "vitest run --project server",
 		"test:component": "vitest run --project client",
-		"test:e2e": "playwright test",
-		"test": "vitest run && playwright test",
+		"test:e2e": "playwright test --project=chromium",
+		"test:e2e:engines": "playwright test --project=firefox --project=webkit",
+		"test": "vitest run && playwright test --project=chromium",
 		"verify": "bash scripts/verify.sh",
 		"verify:component": "bash scripts/verify-component.sh",
 		"docs:validate": "pnpm --filter @sveltery/base-docs docs:validate"
@@ -232,6 +233,11 @@
 			"types": "./dist/tabs/index.d.ts",
 			"svelte": "./dist/tabs/index.js",
 			"default": "./dist/tabs/index.js"
+		},
+		"./textarea": {
+			"types": "./dist/textarea/index.d.ts",
+			"svelte": "./dist/textarea/index.js",
+			"default": "./dist/textarea/index.js"
 		},
 		"./toast": {
 			"types": "./dist/toast/index.d.ts",

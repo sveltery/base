@@ -12,7 +12,7 @@ Groups all parts of the field. Renders a `<div>` element.
 
 | Prop                   | Type                                                                                                   | Default      | Description                                                                                                                                                                                                                                                                                                                                                                        |
 | :--------------------- | :----------------------------------------------------------------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                   | `string \| null`                                                                                       | -            | Identifies the field when a form is submitted. Takes precedence over the `name` prop on the `<Field.Control>` component.                                                                                                                                                                                                                                                           |
+| name                   | `string \| null`                                                                                       | -            | The field's path, such as `email`, `address.city` or `price[0]`. In a plain form it is the name the control submits under, unless the control has its own `name`, and the key into Form `errors` and `values`. In a remote form it is the path the Field reads its issues from. It is never written to an input there: the control's `.as()` spread names it.                      |
 | dirty                  | `boolean`                                                                                              | -            | Whether the field's value has been changed from its initial value. Useful when the field state is controlled by an external library.                                                                                                                                                                                                                                               |
 | touched                | `boolean`                                                                                              | -            | Whether the field has been touched. Useful when the field state is controlled by an external library.                                                                                                                                                                                                                                                                              |
 | disabled               | `boolean \| null`                                                                                      | `false`      | Whether the component should ignore user interaction. Takes precedence over the `disabled` prop on the `<Field.Control>` component.                                                                                                                                                                                                                                                |
@@ -156,12 +156,11 @@ You can omit this part and use any Base UI input component instead. For example,
 
 **Control Props:**
 
-| Prop          | Type                                                                                                      | Default | Description                                                                                                                                                                                                                             |
-| :------------ | :-------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| defaultValue  | `string \| number \| null`                                                                                | -       | The default value of the input. Use when uncontrolled.                                                                                                                                                                                  |
-| value         | `string \| number \| null`                                                                                | -       | The value of the input.                                                                                                                                                                                                                 |
-| onValueChange | `(value: string, eventDetails: FieldControlChangeEventDetails) => void`                                   | -       | Callback fired when the `value` changes. Use when controlled.                                                                                                                                                                           |
-| render        | `Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldControlState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
+| Prop         | Type                                                                                                      | Default | Description                                                                                                                                                                                                                             |
+| :----------- | :-------------------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| defaultValue | `string \| number \| null`                                                                                | -       | The default value of the input. Use when uncontrolled.                                                                                                                                                                                  |
+| value        | `string \| number \| null`                                                                                | -       | The value of the input.                                                                                                                                                                                                                 |
+| render       | `Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldControlState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render. |
 
 **Control Data Attributes:**
 
@@ -250,10 +249,11 @@ An error message displayed if the field control fails validation. Renders a `<di
 
 **Error Props:**
 
-| Prop   | Type                                                                                                    | Default | Description                                                                                                                                                                                                                                                      |
-| :----- | :------------------------------------------------------------------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| match  | `boolean \| keyof ValidityState`                                                                        | -       | Determines whether to show the error message according to the field's [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState). Specifying `true` will always show the error message, and lets external libraries control the visibility. |
-| render | `Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldErrorState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render.                          |
+| Prop     | Type                                                                                                    | Default | Description                                                                                                                                                                                                                                                      |
+| :------- | :------------------------------------------------------------------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| match    | `boolean \| keyof ValidityState`                                                                        | -       | Determines whether to show the error message according to the field's [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState). Specifying `true` will always show the error message, and lets external libraries control the visibility. |
+| children | `Snippet \| Snippet<[messages: string[]]>`                                                              | -       | Static content, or a snippet that receives the messages.                                                                                                                                                                                                         |
+| render   | `Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldErrorState, children: Snippet \| undefined]>` | -       | Allows you to replace the component's HTML element with a different tag, or compose it with another component. Accepts a snippet that receives the props to spread onto the element, the component's state, and the children to render.                          |
 
 **Error Data Attributes:**
 
@@ -312,7 +312,7 @@ Re-export of [Validity](#validity) props.
 
 ```typescript
 type FieldValidityState = {
-	/** The validity state. */
+	/** The validity state. `customError` is true while remote issues or Form `errors` show. */
 	validity: {
 		badInput: boolean;
 		customError: boolean;
@@ -326,6 +326,12 @@ type FieldValidityState = {
 		valueMissing: boolean;
 		valid: boolean | null;
 	};
+	/** The remote form's issues for this field. Empty in a plain form. */
+	issues: RemoteFormIssue[];
+	/** Whether the Form was submitted. */
+	submitted: boolean;
+	/** Whether the Form's remote submission is in flight. */
+	pending: boolean;
 	/** The transition status of the invalid state. */
 	transitionStatus: FieldTransitionStatus;
 	value: unknown;
@@ -336,26 +342,6 @@ type FieldValidityState = {
 ```
 
 ## Additional Types
-
-### FieldControlChangeEventDetails
-
-```typescript
-type FieldControlChangeEventDetails = {
-	reason: Reason;
-	event: Event;
-	cancel: () => void;
-	allowPropagation: () => void;
-	isCanceled: boolean;
-	isPropagationAllowed: boolean;
-	trigger: Element | undefined;
-};
-```
-
-### FieldControlChangeEventReason
-
-```typescript
-type FieldControlChangeEventReason = typeof REASONS.none;
-```
 
 ### FieldControlDataAttributes
 

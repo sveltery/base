@@ -261,7 +261,9 @@ describe('<OTPField />', () => {
 		expect(label).toHaveAttribute('for', first.id);
 		const group = page.getByRole('group', { name: 'Verification code' }).element();
 		expect(group).toHaveAttribute('aria-labelledby', label.id);
-		expect(group.getAttribute('aria-describedby')).toBe(`external-description ${description.id}`);
+		expect(group.getAttribute('aria-describedby')).toBe(
+			`external-description ${description.id} ${description.id.replace(/-description$/, '-error')}`
+		);
 		for (const input of inputs()) {
 			expect(input.getAttribute('aria-labelledby')).toBe(label.id);
 		}
@@ -307,15 +309,18 @@ describe('<OTPField />', () => {
 		const slots = inputs();
 		slots[0].focus();
 		await setInput(slots[0], '1');
+		// The constraint gate has run `validate` for the mount and the edit.
+		const counts = () => Number(page.getByTestId('counts').element().textContent);
+		const before = counts();
 		slots[1].dispatchEvent(new FocusEvent('blur', { bubbles: true, relatedTarget: slots[2] }));
-		expect(page.getByTestId('counts').element().textContent).toBe('0');
+		expect(counts()).toBe(before);
 		slots[1].dispatchEvent(
 			new FocusEvent('blur', {
 				bubbles: true,
 				relatedTarget: page.getByRole('button', { name: 'Outside' }).element()
 			})
 		);
-		await expect.element(page.getByTestId('counts')).toHaveTextContent('1');
+		await expect.poll(counts).toBe(before + 1);
 	});
 
 	it('uses the hidden input for native form validity', async () => {

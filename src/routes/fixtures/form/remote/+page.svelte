@@ -1,4 +1,7 @@
-<!-- Scenario 1: a remote form on Base's Form, its issues passed once as `errors`, as the SvelteKit handbook shows. -->
+<!--
+	Scenario 1: a remote form on Base's Form. Each Field.Root takes the path its issues sit at.
+	Name spreads Kit's props; Email lets Field.Control bind itself to `email`.
+-->
 <script lang="ts">
 	import { Field, Form } from '#lib';
 	import FixturePage from '../shared/FixturePage.svelte';
@@ -6,34 +9,19 @@
 	import { signupSchema } from '../shared/schemas.js';
 
 	const f = signup.preflight(signupSchema);
-
-	// Kit names each input itself (`email/<form id>`), so the inputs take Kit's props, and the
-	// issues go to Base UI's `errors` under those names.
-	const inputs = {
-		name: f.fields.name.as('text'),
-		email: f.fields.email.as('email')
-	};
-
-	function errorsByName(issues: { path: (string | number)[]; message: string }[] = []) {
-		const errors: Record<string, string[]> = {};
-		for (const issue of issues) {
-			const input = inputs[issue.path.join('.') as keyof typeof inputs];
-			if (input) (errors[input.name] ??= []).push(issue.message);
-		}
-		return errors;
-	}
 </script>
 
 <FixturePage debug={{ result: f.result ?? null }}>
-	<Form {...f} errors={errorsByName(f.fields.allIssues())}>
-		<Field.Root data-field="name">
+	<Form form={f}>
+		<Form.Error data-testid="form-error" />
+		<Field.Root name="name" data-field="name">
 			<Field.Label>Name</Field.Label>
-			<Field.Control {...inputs.name} required autocomplete="off" />
+			<Field.Control {...f.fields.name.as('text')} required autocomplete="off" />
 			<Field.Error data-testid="error" />
 		</Field.Root>
-		<Field.Root data-field="email">
+		<Field.Root name="email" data-field="email">
 			<Field.Label>Email</Field.Label>
-			<Field.Control {...inputs.email} required autocomplete="off" />
+			<Field.Control type="email" required autocomplete="off" />
 			<Field.Description>Try taken@example.com to see an issue from the server.</Field.Description>
 			<Field.Error data-testid="error" />
 		</Field.Root>

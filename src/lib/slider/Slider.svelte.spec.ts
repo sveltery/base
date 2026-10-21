@@ -617,11 +617,10 @@ describe('<Slider />', () => {
 		it('submits the clamped value and a range array', async () => {
 			render(SliderHarness, { scenario: 'form', defaultValue: 5, min: 20, max: 40 });
 			click(page.getByRole('button', { name: 'Submit' }).element());
-			await expect.element(page.getByTestId('submitted')).toHaveTextContent('"slider":20');
-			expect(page.getByTestId('submitted').element().textContent).toContain('"reason":"none"');
+			await expect.element(page.getByTestId('submitted')).toHaveTextContent('"slider":"20"');
 		});
 
-		it('submits a range through onFormSubmit and through an external form', async () => {
+		it('submits a range as one value per thumb', async () => {
 			render(SliderHarness, {
 				scenario: 'form',
 				defaultValue: [25, 50],
@@ -629,7 +628,7 @@ describe('<Slider />', () => {
 				name: 'ignored'
 			});
 			click(page.getByRole('button', { name: 'Submit' }).element());
-			await expect.element(page.getByTestId('submitted')).toHaveTextContent('"slider":[25,50]');
+			await expect.element(page.getByTestId('submitted')).toHaveTextContent('"slider":["25","50"]');
 		});
 
 		for (const rendered of [false, true]) {
@@ -650,7 +649,7 @@ describe('<Slider />', () => {
 				click(page.getByRole('button', { name: 'Submit' }).element());
 				await expect
 					.element(page.getByTestId('submitted'))
-					.toHaveTextContent('{"scalingThreshold":[0.2,0.8]}');
+					.toHaveTextContent('{"scalingThreshold":["0.2","0.8"]}');
 			});
 		}
 
@@ -769,7 +768,7 @@ describe('<Slider />', () => {
 			change(input, '40');
 			await expect.poll(() => input.getAttribute('aria-valuenow')).toBe('40');
 			click(page.getByRole('button', { name: 'Submit' }).element());
-			await expect.element(page.getByTestId('submitted')).toHaveTextContent('"slider":40');
+			await expect.element(page.getByTestId('submitted')).toHaveTextContent('"slider":"40"');
 			expect(seen).toBe(40);
 		});
 
@@ -870,11 +869,13 @@ describe('single-element array value', () => {
 			defaultValue: [25],
 			validate
 		});
+		// The constraint gate runs validate once at mount.
+		await expect.poll(() => validate.mock.calls.length).toBe(1);
 
 		slider().dispatchEvent(new FocusEvent('blur', { bubbles: true }));
 
-		await expect.poll(() => validate.mock.calls.length).toBe(1);
-		expect(validate.mock.calls[0]).toEqual([[25], expect.anything()]);
+		await expect.poll(() => validate.mock.calls.length).toBe(2);
+		expect(validate.mock.calls[1]).toEqual([[25], expect.anything()]);
 	});
 });
 
