@@ -1,0 +1,82 @@
+{
+	"skill_name": "sveltery-base",
+	"evals": [
+		{
+			"id": 1,
+			"prompt": "My SvelteKit app uses @sveltery/base. Build a settings menu: a button labelled 'Options' opens a dropdown with 'Rename', 'Duplicate' and 'Delete'. Style it with Tailwind CSS v4, highlight the item under the pointer, and fade the popup in and out.",
+			"expected_output": "A Svelte 5 component that imports Menu from @sveltery/base/menu, assembles Root, Trigger, Portal, Positioner and Popup, styles state with data-* variants, and animates with data-starting-style and data-ending-style.",
+			"files": [],
+			"expectations": [
+				"Imports `Menu` from `@sveltery/base/menu`, not from `@base-ui/react` or a made-up path",
+				"Assembles Menu.Root, Menu.Trigger, Menu.Portal, Menu.Positioner, Menu.Popup and Menu.Item",
+				"Uses `class`, not `className`",
+				"Styles the highlighted item with the `data-highlighted` attribute (for example `data-highlighted:bg-neutral-100`) instead of tracking hover state in a variable",
+				"Animates the popup with `data-starting-style` and `data-ending-style` (or `data-open` / `data-closed`)",
+				"Uses Svelte 5 syntax (`$state`, `onclick`), not Svelte 4 (`export let`, `on:click`)"
+			]
+		},
+		{
+			"id": 2,
+			"prompt": "Using Sveltery Base, make a dialog that opens 3 seconds after the page loads (there is no trigger button) and that I can also close from a button outside the dialog. The dialog needs a title and a close button.",
+			"expected_output": "A component that controls Dialog.Root with bind:open and $state, includes Dialog.Title and Dialog.Close, and portals the popup.",
+			"files": [],
+			"expectations": [
+				"Controls the dialog with `bind:open` on `Dialog.Root`, not with `open={...}` plus `onOpenChange` that copies the value",
+				"Starts the timer in `$effect` (or `onMount`) and clears it on cleanup",
+				"Renders `Dialog.Title` inside `Dialog.Popup`",
+				"Renders `Dialog.Close` for the close button",
+				"Renders the popup inside `Dialog.Portal`"
+			]
+		},
+		{
+			"id": 3,
+			"prompt": "I have a design-system Button.svelte component. I want the trigger of a Sveltery Base Popover to be my Button instead of the default button element, and to show a different icon when the popover is open. How do I wire it up?",
+			"expected_output": "A Popover.Trigger with a render snippet that spreads props onto the custom Button, reads state.open, and renders children; plus a Button component that spreads rest props onto its button element.",
+			"files": [],
+			"expectations": [
+				"Uses `{#snippet render(props, state, children)}` inside `Popover.Trigger`, not `render={Button}` or `asChild`",
+				"Spreads `props` onto the custom Button (`<Button {...props}>`)",
+				"Reads `state.open` to choose the icon",
+				"Renders children with `{@render children?.()}`",
+				"Explains or shows that Button.svelte must spread its rest props onto the underlying `<button>`"
+			]
+		},
+		{
+			"id": 4,
+			"prompt": "In a Svelte component using @sveltery/base, I have a Select of plans. Users must not be able to switch to the 'enterprise' plan from the dropdown; it should just stay on the current value. Also log every change with the reason it happened.",
+			"expected_output": "A Select that rejects 'enterprise' with a function binding or eventDetails.cancel(), and logs eventDetails.reason in onValueChange.",
+			"files": [],
+			"expectations": [
+				"Rejects the change with a function binding (`bind:value={() => value, (next) => ...}`) or with `eventDetails.cancel()` in `onValueChange`",
+				"Reads `eventDetails.reason` in `onValueChange` for the log",
+				"Does not use a nonexistent prop such as `preventBaseUIHandler` or `onChange`",
+				"Assembles the Select parts (Root, Trigger, Value, Portal, Positioner, Popup, List or Item) from `@sveltery/base/select`"
+			]
+		},
+		{
+			"id": 5,
+			"prompt": "Style a Sveltery Base Switch with a plain <style> block in the same .svelte file (no Tailwind). Green when on, grey when off, and the thumb should slide.",
+			"expected_output": "A Switch.Root and Switch.Thumb with classes, styled through :global(...) selectors that target data-checked and data-unchecked.",
+			"files": [],
+			"expectations": [
+				"Wraps the part selectors in `:global(...)` so the scoped styles reach the library's elements",
+				"Targets `[data-checked]` (and optionally `[data-unchecked]`) instead of toggling a class from a bound variable",
+				"Does not pass a function to `class`",
+				"Uses a CSS transition on the thumb"
+			]
+		},
+		{
+			"id": 6,
+			"prompt": "Build a signup form with Sveltery Base: email (required), password (min 8 characters), and a 'Plan' radio group with Free and Pro. Show validation errors under each field and show errors returned by my server.",
+			"expected_output": "A Form with Field.Root name=... wrapping each control, Field.Label/Field.Error, a Fieldset with Fieldset.Legend around the RadioGroup, native constraints, and server errors passed to Form's errors prop.",
+			"files": [],
+			"expectations": [
+				"Wraps each control in `Field.Root` with `Field.Label` and `Field.Error`",
+				"Puts `name` on `Field.Root`",
+				"Uses native constraints (`required`, `minlength`) or `Field.Root`'s `validate` prop",
+				"Labels the radio group with `Fieldset.Root` and `Fieldset.Legend`",
+				"Passes server errors to the `errors` prop of `Form`"
+			]
+		}
+	]
+}
