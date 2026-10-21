@@ -17,7 +17,7 @@
 		type,
 		onclick,
 		onpointerdown,
-		onValueChange
+		oninput
 	}: {
 		scenario: 'separator' | 'input' | 'input-after' | 'number';
 		orientation?: ToolbarOrientation;
@@ -27,7 +27,8 @@
 		type?: string;
 		onclick?: (event: MouseEvent) => void;
 		onpointerdown?: (event: PointerEvent) => void;
-		onValueChange?: (value: number | null) => void;
+		/** The number field's hidden input handler. */
+		oninput?: (event: Event & { currentTarget: EventTarget & HTMLInputElement }) => void;
 	} = $props();
 </script>
 
@@ -57,7 +58,7 @@
 	</div>
 {:else}
 	<Toolbar.Root>
-		<NumberField.Root min={1} max={10} value={5} {onValueChange}>
+		<NumberField.Root min={1} max={10} value={5} {oninput}>
 			<NumberField.Group>
 				<NumberField.Decrement />
 				<Toolbar.Input {disabled}>

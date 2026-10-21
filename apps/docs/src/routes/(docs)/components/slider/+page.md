@@ -88,7 +88,7 @@ For a multi-thumb range slider with a visible label, add `aria-label` on each `<
 To create a range slider:
 
 1. Pass an array of values and place a `<Slider.Thumb>` for each value in the array
-2. Additionally for server-side rendering, specify a numeric `index` for each thumb that corresponds to the index of its value in the value array
+2. Thumbs take their index in the value array from the order they render. Specify a numeric `index` for a thumb that renders out of order
 
 Thumbs can be configured to behave differently when they collide during pointer interactions using the `thumbCollisionBehavior` prop on `<Slider.Root>`.
 
@@ -122,6 +122,23 @@ Set `orientation="vertical"` on `<Slider.Root>` to build a vertical slider.
 
 <DemoSliderVertical />
 
+### Native attributes and events
+
+Each `<Slider.Thumb>` renders an `<input type="range">` that submits its value. Native input attributes and handlers on `<Slider.Root>`, such as `name`, `form`, `required`, `oninput` and `onchange`, go to every thumb's input, and the ones on `<Slider.Thumb>` go to that thumb's input. `class` and `style` stay on the element you see, and `host` sends any other attribute there:
+
+```svelte title="Reading the value"
+<Slider.Root
+	name="volume"
+	bind:value={volume}
+	onchange={(event) => save(event.currentTarget.valueAsNumber)}
+	host={{ 'data-section': 'audio' }}
+>
+	<!-- ... -->
+</Slider.Root>
+```
+
+The input fires `input` while the value moves, and `change` when it settles: on release, or after a key press, as a native range input does.
+
 ### Form integration
 
 To use a slider in a form, pass the slider `name` to `<Slider.Root>`:
@@ -148,7 +165,7 @@ For grouped multi-thumb range sliders in forms, [Fieldset](/components/fieldset)
 	<!-- @highlight-start -->
 	<Fieldset.Root>
 		{#snippet render(props, state, children)}
-			<Slider.Root {...props} defaultValue={[25, 75]}>
+			<Slider.Root host={props} defaultValue={[25, 75]}>
 				{@render children?.()}
 			</Slider.Root>
 		{/snippet}
@@ -166,6 +183,38 @@ For grouped multi-thumb range sliders in forms, [Fieldset](/components/fieldset)
 	</Fieldset.Root>
 </Field.Root>
 ```
+
+The fieldset's props go through `host`, because props spread on `<Slider.Root>` go to the thumb inputs.
+
+With a SvelteKit remote form, spread the field's `range` props. One thumb takes the spread on `<Slider.Root>`. A range takes one spread per thumb, because a tuple field has no `.as()` of its own. Each spread names its input and holds its value, which moves the thumb whenever the form changes it, as after a failed submit. A spread of another input kind is a type error:
+
+```svelte title="Using Slider in a remote form"
+<Form form={search}>
+	<Field.Root name="volume">
+		<Field.Label>Volume</Field.Label>
+		<!-- @highlight -->
+		<Slider.Root {...search.fields.volume.as('range', 50)}>
+			<!-- ... -->
+		</Slider.Root>
+	</Field.Root>
+	<Field.Root name="price">
+		<Slider.Root min={0} max={1000} defaultValue={[0, 1000]}>
+			<Slider.Control>
+				<Slider.Track>
+					<Slider.Indicator />
+					<!-- @highlight-start -->
+					<Slider.Thumb {...search.fields.price[0].as('range', 0)} aria-label="Minimum price" />
+					<Slider.Thumb {...search.fields.price[1].as('range', 1000)} aria-label="Maximum price" />
+					<!-- @highlight-end -->
+				</Slider.Track>
+			</Slider.Control>
+		</Slider.Root>
+		<Field.Error />
+	</Field.Root>
+</Form>
+```
+
+The thumbs' spreads come after the root renders, so give `<Slider.Root>` the same `defaultValue` for the server HTML to paint the indicator before the first submit. After a failed submit, the root reads the field's values and paints it. Without a spread, thumbs in a named Field bind themselves to the field: a number `defaultValue` binds the field, and an array binds `price[0]`, `price[1]` and so on.
 
 ## API reference
 

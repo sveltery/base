@@ -9,7 +9,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
-	import { createGenericEventDetails, REASONS } from '@sveltery/utils';
+	import { REASONS } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { useNumberFieldContext } from './context.svelte.js';
@@ -67,11 +67,8 @@
 				reason: pressReason
 			});
 		},
-		onStop(nativeEvent) {
-			model.commit(
-				model.lastChangedValue ?? model.baseValue,
-				createGenericEventDetails(pressReason, nativeEvent)
-			);
+		onStop() {
+			model.commit();
 		}
 	});
 
@@ -86,9 +83,7 @@
 			reason: pressReason
 		});
 		const committed = model.lastChangedValue ?? model.baseValue;
-		if (committed !== previous) {
-			model.commit(committed, createGenericEventDetails(pressReason, event));
-		}
+		if (committed !== previous) model.commit();
 	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {

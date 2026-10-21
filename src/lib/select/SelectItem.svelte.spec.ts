@@ -9,6 +9,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { renderBound } from '../../tests/bound-render.svelte.js';
 import { wait } from '../../tests/select-events.js';
+import { selectedValues } from '../../tests/select-native.js';
 import SelectHarness, { type HarnessItem } from '../../tests/SelectHarness.svelte';
 
 const trigger = () => page.getByTestId('trigger');
@@ -43,10 +44,10 @@ function dragOver(item: Element, movementY: number, times = 1) {
 
 describe('Select.Item', () => {
 	it('treats a null value as an empty selection in multiple mode', async () => {
-		const onValueChange = vi.fn();
+		const onchange = vi.fn();
 		render(SelectHarness, {
 			value: null,
-			root: { multiple: true, onValueChange },
+			root: { multiple: true, onchange },
 			items: named('one', 'two')
 		});
 
@@ -55,7 +56,7 @@ describe('Select.Item', () => {
 
 		await userEvent.click(option('one'));
 
-		expect(onValueChange).toHaveBeenCalledWith(['one'], expect.anything());
+		await expect.poll(() => selectedValues()).toEqual(['one']);
 	});
 
 	it('keeps the selection while grouped items are reordered and inserted', async () => {
@@ -131,24 +132,25 @@ describe('Select.Item', () => {
 	});
 
 	it('should not select disabled item', async () => {
-		const onValueChange = vi.fn();
+		const onchange = vi.fn();
 		render(SelectHarness, {
-			root: { onValueChange },
+			root: { onchange },
 			items: [{ value: 'one' }, { value: 'two', disabled: true }]
 		});
 
 		await userEvent.click(trigger());
 		await userEvent.click(option('two'), { force: true });
 
-		expect(onValueChange).not.toHaveBeenCalled();
+		await tick();
+		expect(onchange).not.toHaveBeenCalled();
 		expect(valueText()).toBe('');
 		await expect.element(listbox()).toBeVisible();
 	});
 
 	it('should not select disabled item when Enter is pressed', async () => {
-		const onValueChange = vi.fn();
+		const onchange = vi.fn();
 		render(SelectHarness, {
-			root: { onValueChange },
+			root: { onchange },
 			items: [{ value: 'one' }, { value: 'two', disabled: true }]
 		});
 
@@ -160,7 +162,8 @@ describe('Select.Item', () => {
 
 		await userEvent.keyboard('{Enter}');
 
-		expect(onValueChange).not.toHaveBeenCalled();
+		await tick();
+		expect(onchange).not.toHaveBeenCalled();
 		expect(valueText()).toBe('');
 	});
 
@@ -210,8 +213,8 @@ describe('Select.Item', () => {
 	});
 
 	it('should highlight a hovered item and commit it with a mouse click', async () => {
-		const onValueChange = vi.fn();
-		render(SelectHarness, { root: { onValueChange }, items: named('one', 'two', 'three') });
+		const onchange = vi.fn();
+		render(SelectHarness, { root: { onchange }, items: named('one', 'two', 'three') });
 
 		const button = el(trigger());
 		fire(button, 'pointerdown', { pointerType: 'mouse' });
@@ -232,7 +235,8 @@ describe('Select.Item', () => {
 		fire(item, 'mouseup');
 		fire(item, 'click');
 
-		expect(onValueChange).toHaveBeenCalledExactlyOnceWith('two', expect.anything());
+		await expect.poll(() => onchange.mock.calls.length).toBe(1);
+		expect(selectedValues()).toEqual(['two']);
 		await expect.element(value()).toHaveTextContent('two');
 	});
 
@@ -372,9 +376,9 @@ describe('Select.Item', () => {
 		});
 
 		it('should not select a disabled item via drag-to-select', async () => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			render(SelectHarness, {
-				root: { onValueChange },
+				root: { onchange },
 				valueProps: { placeholder: 'Select font' },
 				items: [{ value: 'one', disabled: true }, { value: 'two' }]
 			});
@@ -386,14 +390,15 @@ describe('Select.Item', () => {
 			fire(item, 'mouseup');
 			await tick();
 
-			expect(onValueChange).not.toHaveBeenCalled();
+			await tick();
+			expect(onchange).not.toHaveBeenCalled();
 			expect(valueText()).toBe('Select font');
 		});
 
 		it('should not select on mouseup that follows a touch interaction', async () => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			render(SelectHarness, {
-				root: { onValueChange },
+				root: { onchange },
 				valueProps: { placeholder: 'Select font' },
 				items: named('one', 'two')
 			});
@@ -405,7 +410,8 @@ describe('Select.Item', () => {
 			fire(item, 'mouseup');
 			await tick();
 
-			expect(onValueChange).not.toHaveBeenCalled();
+			await tick();
+			expect(onchange).not.toHaveBeenCalled();
 			expect(valueText()).toBe('Select font');
 		});
 

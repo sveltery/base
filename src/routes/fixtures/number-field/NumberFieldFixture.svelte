@@ -46,7 +46,7 @@
 		</NumberField.Root>
 	</Field.Root>
 {:else if scenario === 'disabled'}
-	<NumberField.Root locale="en-US" defaultValue={4} disabled data-testid="root">
+	<NumberField.Root locale="en-US" defaultValue={4} disabled host={{ 'data-testid': 'root' }}>
 		<NumberField.Input data-testid="control" />
 		<NumberField.Increment />
 	</NumberField.Root>

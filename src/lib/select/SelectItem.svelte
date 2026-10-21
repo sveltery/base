@@ -120,9 +120,9 @@
 			const next = selected
 				? removeItem(current, itemValue, isItemEqualToValue)
 				: [...current, itemValue];
-			store.setValue(next, createChangeEventDetails(REASONS.itemPress, event));
+			store.setValue(next);
 		} else {
-			store.setValue(itemValue, createChangeEventDetails(REASONS.itemPress, event));
+			store.setValue(itemValue);
 			store.setOpen(false, createChangeEventDetails(REASONS.itemPress, event));
 		}
 	}

@@ -228,8 +228,11 @@ describe('<Toolbar.Input />', () => {
 		});
 
 		it('handles interactions', async () => {
-			const onValueChange = vi.fn();
-			render(ToolbarPartsHarness, { scenario: 'number', onValueChange });
+			const values: number[] = [];
+			const oninput = vi.fn((event: Event) => {
+				values.push((event.currentTarget as HTMLInputElement).valueAsNumber);
+			});
+			render(ToolbarPartsHarness, { scenario: 'number', oninput });
 			const input = page.getByRole('textbox');
 
 			await userEvent.keyboard('{Tab}');
@@ -238,12 +241,12 @@ describe('<Toolbar.Input />', () => {
 
 			await userEvent.keyboard('{ArrowUp}');
 			await userEvent.keyboard('{ArrowDown}');
-			expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([6, 5]);
+			await expect.poll(() => values).toEqual([6, 5]);
 		});
 
 		it('disabled state', async () => {
-			const onValueChange = vi.fn();
-			render(ToolbarPartsHarness, { scenario: 'number', disabled: true, onValueChange });
+			const oninput = vi.fn();
+			render(ToolbarPartsHarness, { scenario: 'number', disabled: true, oninput });
 			const input = page.getByRole('textbox');
 
 			await expect.element(input).not.toHaveAttribute('disabled');
@@ -256,7 +259,8 @@ describe('<Toolbar.Input />', () => {
 
 			await userEvent.keyboard('{ArrowUp}');
 			await userEvent.keyboard('{ArrowDown}');
-			expect(onValueChange).toHaveBeenCalledTimes(0);
+			await new Promise((resolve) => setTimeout(resolve, 0));
+			expect(oninput).toHaveBeenCalledTimes(0);
 		});
 	});
 });

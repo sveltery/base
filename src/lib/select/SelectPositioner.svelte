@@ -9,7 +9,6 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFloatingNodeId } from '@sveltery/floating-ui-svelte';
-	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { toCssStyle } from '../internal/css-style.js';
 	import InternalBackdrop from '../internal/InternalBackdrop.svelte';
 	import { findItemIndex } from '../internal/listbox/itemEquality.js';
@@ -131,20 +130,19 @@
 	function itemsChanged(updateValue: boolean) {
 		const { value, multiple, isItemEqualToValue } = store.root;
 		const values = store.values;
-		const details = createChangeEventDetails(REASONS.none);
 
 		if (updateValue && !multiple && value !== null) {
 			if (findItemIndex(values, value, isItemEqualToValue) === -1) {
 				const initial = store.initialValue;
 				const hasInitial =
 					initial != null && findItemIndex(values, initial, isItemEqualToValue) !== -1;
-				store.setValue(hasInitial ? initial : null, details);
+				store.setValue(hasInitial ? initial : null);
 			}
 		}
 
 		if (updateValue && multiple && Array.isArray(value)) {
 			const next = value.filter((item) => findItemIndex(values, item, isItemEqualToValue) !== -1);
-			if (next.length !== value.length) store.setValue(next, details);
+			if (next.length !== value.length) store.setValue(next);
 		}
 
 		if (store.open && alignItemWithTriggerActive) {

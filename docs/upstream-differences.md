@@ -269,6 +269,53 @@ Local: Slider marks its Field filled, because a range input always has a value. 
 
 Test: `src/lib/slider/Slider.svelte.spec.ts` (`marks the Field filled, as a range input always has a value`).
 
+### Select submits through a hidden select
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/select/root/SelectRoot.tsx`. Select renders a hidden `<input>` for one value, or one per value when `multiple`. `name`, `form`, `autocomplete`, `required` and `disabled` are the only native props it takes, and `onValueChange` is a cancelable callback. `Field.Root name` beats the root's own `name`.
+
+Local, signed off by the owner (2026-10-21):
+
+- Select renders one hidden `<select>`, `multiple` when the select is. Every native `<select>` attribute and handler on `Select.Root` goes to it, so `oninput` and `onchange` fire there. It fires `input` and `change` once the new value is selected, so a listener on the form, such as SvelteKit's, reads the new value.
+- Its options are the current and default values and the items it knows from `items` or the mounted list, each labelled like the item. The server marks the current options `selected`, so a form submits the value without JavaScript. In the browser the `selected` attribute marks the defaults, which a native reset restores.
+- While a single select has no value, its first option is empty, so `required` reports `valueMissing`. The popup needs JavaScript to open, so `required` reaches the hidden select only in the browser.
+- Browser autofill selects an option of the hidden select, and Select takes the matching item. It no longer matches typed text against labels: the browser matches the option's value or label.
+- `onValueChange` is removed. Use `bind:value` or the native events.
+- The root's own `name`, including one from a SvelteKit remote form's `.as('select')` or `.as('select multiple')` spread, beats `Field.Root name`. Inside a remote form, a select with no name binds itself to the field `Field.Root name` resolves. `type?: never` makes a spread of an input kind a type error.
+
+Test: `src/lib/select/select-ssr.spec.ts`, `src/lib/select/SelectRoot.svelte.spec.ts` (`native events`, `browser autofill`) and `src/routes/fixtures/form/remote-controls/remote-controls.e2e.ts`.
+
+### Slider props reach the thumb inputs
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/slider/root/SliderRoot.tsx` and `thumb/SliderThumb.tsx`. Rest props on Slider.Root go to the root element, and on Slider.Thumb to the thumb element. The thumb input takes only `name`, `form`, `min`, `max`, `step`, `disabled` and the value. `onValueChange` is a cancelable callback, and `onValueCommitted` reports the commit. `value` and `defaultValue` are numbers. `Field.Root name` beats the root's own `name`. A range thumb without `index` renders no value on the server.
+
+Local, signed off by the owner (2026-10-21):
+
+- Native input attributes and handlers on Slider.Root go to every thumb's `<input type="range">`, `required` included. Those on Slider.Thumb go to that thumb's input and win over the root's. `class` and `style` go to the element you see, and `host` sends other attributes there. Root `id` and Thumb `id` stay on their elements.
+- `onValueChange` and `onValueCommitted` are removed. The thumb input fires `input` while the value moves and `change` when it settles, once the input holds the new value, so a listener on the form, such as SvelteKit's, reads it. Use `bind:value` or those events.
+- `value` and `defaultValue` accept a string, as a SvelteKit remote form's `.as('range')` spread carries, and an empty string means no value. So a spread renders on the server.
+- A Slider.Thumb takes its own `value`, `defaultValue` and `name`, as a per-index spread such as `.as('range', 0)` on `price[0]` carries. The thumb moves to its `value` whenever it changes, and a form reset returns it to its `defaultValue`.
+- Inside a remote form, thumbs with no name bind themselves to the field `Field.Root name` resolves. The root's `value` or `defaultValue` decides the shape: a number binds the field, and an array binds `field[0]`, `field[1]` and so on in render order, with each item's default. A bare slider starts at the value the form holds, so the echo after a failed submit wins over the default.
+- The root's own `name`, including one from a spread, beats `Field.Root name`. `type?: 'range'` makes a spread of another input kind a type error.
+- A range thumb without `index` takes its render order until it mounts, so the server renders its value.
+
+Test: `src/lib/slider/slider-ssr.spec.ts`, `src/lib/slider/Slider.svelte.spec.ts` (`in a remote form`) and `src/routes/fixtures/form/remote-controls/remote-controls.e2e.ts`.
+
+### NumberField props reach the hidden input
+
+Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/number-field/root/NumberFieldRoot.tsx` and `input/NumberFieldInput.tsx`. Rest props on NumberField.Root go to the root element. The hidden input takes only `name`, `form`, `min`, `max`, `step`, `disabled`, `readOnly`, `required` and the value. `onValueChange` is a cancelable callback, and `onValueCommitted` reports the commit. `value` and `defaultValue` are numbers. `Field.Root name` beats the root's own `name`. The visible input carries `readOnly`.
+
+Local, signed off by the owner (2026-10-21):
+
+- Native input attributes and handlers on NumberField.Root go to the hidden `<input type="number">`. `class` and `style` go to the root element, and `host` sends other attributes there.
+- `onValueChange` and `onValueCommitted` are removed. The hidden input fires `input` when the value changes and `change` when it is committed, once the input holds the new value, so a listener on the form, such as SvelteKit's, reads it. Use `bind:value` or those events.
+- `value` and `defaultValue` accept a string, as a SvelteKit remote form's `.as('number')` spread carries, and an empty string means no value. So a spread renders on the server.
+- Inside a remote form, a number field with no name binds itself to the field `Field.Root name` resolves, and starts at the value the form holds.
+- The root's own name, including one from a spread, beats `Field.Root name`. `type?: 'number'` makes a spread of another input kind a type error.
+- The hidden input gets `required` only in the browser. Without JavaScript nobody can type into the field, so a required empty field would block the submit with no way to fill it.
+- The visible input carries `aria-readonly` instead of `readonly`, and reverts typing while read-only, so it stays in constraint validation.
+
+Test: `src/lib/number-field/number-field-ssr.spec.ts`, `src/lib/number-field/NumberField.svelte.spec.ts` (`in a remote form`, `reverts typing in a read-only input`) and `src/routes/fixtures/form/remote-controls/remote-controls.e2e.ts`.
+
 ### Form reset
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/form/Form.tsx`, `field/root/FieldRoot.tsx` and the form controls. Nothing listens for `reset`. A reset puts the native inputs back to their HTML defaults, while each control keeps its React state, so the control, its hidden input and `FormData` can disagree. Field dirty, touched and validity, and Form `errors`, stay as they were.
@@ -622,7 +669,7 @@ Local: `value` and `open` are `$bindable`. `defaultValue` stays, because Select 
 
 Upstream: a `multiple` select renders one hidden `<input>` per value.
 
-Local: one hidden `<select multiple>` holds an `<option>` per current value and per `defaultValue` entry. The current values are the options' selectedness, set after Svelte renders them. The `selected` attribute marks the defaults, so a native reset restores them. `FormData` holds the same entries as upstream. The select stays in the form when nothing is selected, so a listener on the form still hears the edit that cleared it. A user edit fires `input` and `change` from it once the options are written. The helper is `src/lib/internal/listbox/native-select.ts`.
+Local: the hidden `<select>` described in [Select submits through a hidden select](#select-submits-through-a-hidden-select) is `multiple`. `FormData` holds the same entries as upstream. The select stays in the form when nothing is selected, so a listener on the form still hears the edit that cleared it. The helper is `src/lib/internal/listbox/native-select.ts`.
 
 Test: `src/lib/select/SelectRoot.multiple.svelte.spec.ts`.
 

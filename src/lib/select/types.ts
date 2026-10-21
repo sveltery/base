@@ -1,6 +1,11 @@
 import type { Snippet } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
-import type { FullAutoFill, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+import type {
+	FullAutoFill,
+	HTMLAttributes,
+	HTMLButtonAttributes,
+	HTMLSelectAttributes
+} from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { FieldRootState } from '../field/types.js';
 import type { ItemsInput } from '../internal/listbox/resolveValueLabel.js';
@@ -37,7 +42,38 @@ export type SelectValueOf<Value, Multiple extends boolean | undefined> = Multipl
 	? Value[]
 	: Value | null;
 
-export interface SelectRootProps<Value = unknown, Multiple extends boolean | undefined = false> {
+/**
+ * Native `<select>` attributes Select.Root takes. They go to the hidden `<select>` that submits.
+ * Select.Root renders no element of its own, so it takes no `class` or `style`.
+ */
+type SelectNativeAttributes = Omit<
+	HTMLSelectAttributes,
+	| 'type'
+	| 'value'
+	| 'defaultValue'
+	| 'defaultvalue'
+	| 'bind:value'
+	| 'multiple'
+	| 'children'
+	| 'class'
+	| 'style'
+	| 'id'
+	| 'name'
+	| 'form'
+	| 'autocomplete'
+	| 'required'
+	| 'disabled'
+>;
+
+export interface SelectRootProps<
+	Value = unknown,
+	Multiple extends boolean | undefined = false
+> extends SelectNativeAttributes {
+	/**
+	 * A select carries no input type. A remote form spread of an input kind, such as `range`,
+	 * is a type error.
+	 */
+	type?: never;
 	/** The value of the select. */
 	value?: SelectValueOf<Value, Multiple>;
 	/**
@@ -47,11 +83,6 @@ export interface SelectRootProps<Value = unknown, Multiple extends boolean | und
 	 * @default null, or [] when `multiple`
 	 */
 	defaultValue?: SelectValueOf<Value, Multiple>;
-	/** Event handler called when the value of the select changes. */
-	onValueChange?: (
-		value: SelectValueOf<Value, Multiple>,
-		eventDetails: SelectChangeEventDetails
-	) => void;
 	/**
 	 * Whether the select popup is currently open.
 	 * @default false
@@ -71,21 +102,23 @@ export interface SelectRootProps<Value = unknown, Multiple extends boolean | und
 	 */
 	onOpenChangeComplete?: (open: boolean) => void;
 	/** Identifies the field when a form is submitted. */
-	name?: string;
+	name?: string | null;
 	/**
-	 * Identifies the form that owns the hidden input.
+	 * Identifies the form that owns the hidden `<select>`.
 	 * Useful when the select is rendered outside the form.
 	 */
-	form?: string;
+	form?: string | null;
 	/** Provides a hint to the browser for autofill. */
 	autocomplete?: FullAutoFill | null;
 	/** The id of the Select. */
 	id?: string;
 	/**
 	 * Whether the user must choose a value before submitting a form.
+	 * The hidden `<select>` gets `required` once the page is interactive, because the popup
+	 * needs JavaScript to open.
 	 * @default false
 	 */
-	required?: boolean;
+	required?: boolean | null;
 	/**
 	 * Whether the user should be unable to choose a different option from the select popup.
 	 * @default false
@@ -95,7 +128,7 @@ export interface SelectRootProps<Value = unknown, Multiple extends boolean | und
 	 * Whether the component should ignore user interaction.
 	 * @default false
 	 */
-	disabled?: boolean;
+	disabled?: boolean | null;
 	/**
 	 * Whether multiple items can be selected.
 	 * @default false

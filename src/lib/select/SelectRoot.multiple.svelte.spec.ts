@@ -11,6 +11,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { renderBound } from '../../tests/bound-render.svelte.js';
 import { nextFrame, wait } from '../../tests/select-events.js';
+import { nativeSelect, selectedValues } from '../../tests/select-native.js';
 import SelectHarness, { type HarnessItem } from '../../tests/SelectHarness.svelte';
 
 const trigger = () => page.getByTestId('trigger');
@@ -18,7 +19,6 @@ const option = (name: string) => page.getByRole('option', { name, exact: true })
 const listbox = () => page.getByRole('listbox');
 const named = (...values: string[]): HarnessItem[] => values.map((value) => ({ value }));
 const abc = named('a', 'b', 'c');
-const hiddenInput = () => document.querySelector<HTMLInputElement>('input[aria-hidden="true"]')!;
 const submittedOptions = (name: string) =>
 	[...document.querySelectorAll<HTMLSelectElement>(`select[name="${name}"]`)].flatMap((select) =>
 		[...select.selectedOptions].map((entry) => entry.value)
@@ -82,11 +82,11 @@ describe('Select.Root', () => {
 		});
 
 		it('removes selections replaced without changing the item count', async () => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			const props = live({
 				value: ['a', 'c'],
 				open: true,
-				root: { multiple: true, onValueChange },
+				root: { multiple: true, onchange },
 				items: abc
 			});
 
@@ -95,32 +95,32 @@ describe('Select.Root', () => {
 
 			await update(props, { items: named('a', 'b', 'd') });
 
-			await expect.poll(() => onValueChange.mock.lastCall?.[0]).toEqual(['a']);
+			await expect.poll(() => selectedValues()).toEqual(['a']);
 			await expect.element(option('a')).toHaveAttribute('data-selected', '');
 			await expect.element(option('d')).not.toHaveAttribute('data-selected');
 		});
 
 		it('should allow multiple selections when multiple is true', async () => {
-			const onValueChange = vi.fn();
-			live({ value: [], root: { multiple: true, onValueChange }, items: abc });
+			const onchange = vi.fn();
+			live({ value: [], root: { multiple: true, onchange }, items: abc });
 
 			await openSelect();
 			await userEvent.click(option('a'));
-			expect(onValueChange.mock.calls[0][0]).toEqual(['a']);
+			await expect.poll(() => selectedValues()).toEqual(['a']);
 			await expect.element(option('a')).toHaveAttribute('data-selected', '');
 
 			await userEvent.click(option('b'));
-			expect(onValueChange.mock.calls[1][0]).toEqual(['a', 'b']);
+			await expect.poll(() => selectedValues()).toEqual(['a', 'b']);
 			await expect.element(option('a')).toHaveAttribute('data-selected', '');
 			await expect.element(option('b')).toHaveAttribute('data-selected', '');
 			await expect.element(listbox()).toBeVisible();
 		});
 
 		it('keeps the selection when items are added and none of the selected ones are removed', async () => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			const props = live({
 				open: true,
-				root: { multiple: true, defaultValue: ['a'], onValueChange },
+				root: { multiple: true, defaultValue: ['a'], onchange },
 				items: named('a', 'b')
 			});
 			await expect.element(option('a')).toHaveAttribute('data-selected', '');
@@ -128,13 +128,14 @@ describe('Select.Root', () => {
 			await update(props, { items: abc });
 			await expect.element(option('c')).toBeInTheDocument();
 
-			expect(onValueChange).not.toHaveBeenCalled();
+			await tick();
+			expect(onchange).not.toHaveBeenCalled();
 			await expect.element(option('a')).toHaveAttribute('data-selected', '');
 		});
 
 		it('should deselect items when clicked again in multiple mode', async () => {
-			const onValueChange = vi.fn();
-			live({ value: ['a', 'b'], root: { multiple: true, onValueChange }, items: abc });
+			const onchange = vi.fn();
+			live({ value: ['a', 'b'], root: { multiple: true, onchange }, items: abc });
 
 			await openSelect();
 			await expect.element(option('a')).toHaveAttribute('data-selected', '');
@@ -142,7 +143,7 @@ describe('Select.Root', () => {
 
 			await userEvent.click(option('a'));
 
-			expect(onValueChange.mock.calls[0][0]).toEqual(['b']);
+			await expect.poll(() => selectedValues()).toEqual(['b']);
 			await expect.element(option('a')).not.toHaveAttribute('data-selected');
 			await expect.element(option('b')).toHaveAttribute('data-selected', '');
 		});
@@ -381,25 +382,26 @@ describe('Select.Root', () => {
 			render(SelectHarness, { root: { multiple: true, name: 'select' }, items: abc });
 
 			expect(submittedOptions('select')).toEqual([]);
-			expect(hiddenInput().value).toBe('');
+			expect(nativeSelect().value).toBe('');
 		});
 
-		it('does not mark the hidden input as required when selection exists', async () => {
+		it('satisfies required while a selection exists', async () => {
 			render(SelectHarness, {
 				value: ['a'],
 				root: { multiple: true, required: true, name: 'select' }
 			});
 
-			expect(hiddenInput().hasAttribute('required')).toBe(false);
+			expect(nativeSelect().required).toBe(true);
+			expect(nativeSelect().validity.valueMissing).toBe(false);
 		});
 
-		it('keeps the hidden input required when no selection exists', async () => {
+		it('reports valueMissing while no selection exists', async () => {
 			render(SelectHarness, {
 				value: [],
 				root: { multiple: true, required: true, name: 'select' }
 			});
 
-			expect(hiddenInput().hasAttribute('required')).toBe(true);
+			expect(nativeSelect().validity.valueMissing).toBe(true);
 		});
 
 		it('should not close popup when selecting items in multiple mode', async () => {

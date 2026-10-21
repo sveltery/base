@@ -28,16 +28,21 @@ export function queueValueEvent(
 		const unchanged = next === (type === 'input' ? previous : (stateAtChange.get(input) ?? next));
 		if (type === 'change') stateAtChange.delete(input);
 		if (!input.isConnected || unchanged) return;
-		dispatching = true;
-		try {
-			input.dispatchEvent(new Event(type, { bubbles: true }));
-		} finally {
-			dispatching = false;
-		}
+		dispatchValueEvent(input, type);
 	});
 }
 
-/** True while `queueValueEvent` dispatches. The control's own listeners skip that event. */
+/** Fires a bubbling `type` from `target`. The control's own listeners skip it. */
+export function dispatchValueEvent(target: EventTarget, type: 'input' | 'change') {
+	dispatching = true;
+	try {
+		target.dispatchEvent(new Event(type, { bubbles: true }));
+	} finally {
+		dispatching = false;
+	}
+}
+
+/** True while a control fires its own value event. The control's own listeners skip that event. */
 export function dispatchingValueEvent() {
 	return dispatching;
 }

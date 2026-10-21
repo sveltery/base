@@ -2,33 +2,13 @@
 // MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes } from 'svelte/elements';
-import type { BaseUIChangeEventDetails, BaseUIGenericEventDetails, REASONS } from '@sveltery/utils';
+import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 import type { FieldRootState } from '../field/types.js';
 import type { RenderSnippet } from '../internal/render-children.js';
 
 export type SliderOrientation = 'horizontal' | 'vertical';
 export type SliderThumbAlignment = 'center' | 'edge' | 'edge-client-only';
 export type SliderThumbCollisionBehavior = 'push' | 'swap' | 'none';
-
-export type SliderChangeEventReason =
-	| typeof REASONS.inputChange
-	| typeof REASONS.trackPress
-	| typeof REASONS.drag
-	| typeof REASONS.keyboard
-	| typeof REASONS.none;
-
-export type SliderCommitEventReason = SliderChangeEventReason;
-
-export interface SliderChangeEventCustomProperties {
-	/** The index of the active thumb at the time of the change. */
-	activeThumbIndex: number;
-}
-
-export type SliderChangeEventDetails = BaseUIChangeEventDetails<SliderChangeEventReason> &
-	SliderChangeEventCustomProperties;
-
-export type SliderCommitEventDetails = BaseUIGenericEventDetails<SliderCommitEventReason>;
 
 export type SliderValue = number | readonly number[];
 
@@ -57,15 +37,46 @@ export interface SliderRootState extends FieldRootState {
 	values: readonly number[];
 }
 
-export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+/**
+ * Native input attributes that Slider parts send to the `<input type="range">` of each thumb.
+ * The parts own the value, the range and the thumb's ARIA.
+ */
+type SliderInputAttributes = Omit<
+	HTMLInputAttributes,
+	| 'type'
+	| 'value'
+	| 'defaultValue'
+	| 'defaultvalue'
+	| 'bind:value'
+	| 'children'
+	| 'class'
+	| 'style'
+	| 'id'
+	| 'name'
+	| 'form'
+	| 'min'
+	| 'max'
+	| 'step'
+	| 'disabled'
+	| 'required'
+>;
+
+export interface SliderRootProps extends Omit<SliderInputAttributes, 'aria-labelledby'> {
+	/** Range inputs. A remote form spread of another input kind is a type error. */
+	type?: 'range';
 	/**
 	 * The uncontrolled value of the slider when it's initially rendered.
+	 * A string, as a remote form spread carries, is read as a number.
 	 *
 	 * To render a controlled slider, use `bind:value` instead.
 	 */
-	defaultValue?: SliderValue;
+	defaultValue?: SliderValue | string;
 	/** Whether the slider should ignore user interaction. @default false */
 	disabled?: boolean | null;
+	/** Whether a form needs a value for the slider. Sent to every thumb input. @default false */
+	required?: boolean | null;
+	/** The id of the root element. */
+	id?: string | null;
 	/** Options to format the value. */
 	format?: Intl.NumberFormatOptions;
 	/**
@@ -79,7 +90,7 @@ export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	min?: number;
 	/** The minimum steps between values in a range slider. @default 0 */
 	minStepsBetweenValues?: number;
-	/** Identifies the field when a form is submitted. */
+	/** Identifies the field when a form is submitted. Every thumb input submits under it. */
 	name?: string | null;
 	/**
 	 * Identifies the form that owns the slider inputs.
@@ -121,37 +132,17 @@ export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	/**
 	 * The value of the slider.
 	 * For range sliders, provide an array with one value per thumb.
+	 * A string, as a remote form spread carries, is read as a number.
 	 */
-	value?: SliderValue;
-	/**
-	 * Callback function that is fired when the slider's value changed.
-	 * Receives the new value as the first argument; the originating event is
-	 * available as `eventDetails.event`. The value is also reflected on
-	 * `eventDetails.event.target.value` for form integration.
-	 *
-	 * The `eventDetails.reason` indicates what triggered the change:
-	 *
-	 * - `'input-change'` when the hidden range input emits a change event (for example, via form integration)
-	 * - `'track-press'` when the control track is pressed
-	 * - `'drag'` while dragging a thumb
-	 * - `'keyboard'` for keyboard input
-	 * - `'none'` when the change is triggered without a specific interaction
-	 */
-	onValueChange?: (value: SliderValue, eventDetails: SliderChangeEventDetails) => void;
-	/**
-	 * Callback function that is fired when a value change is committed.
-	 * Does not fire if the value did not change, or if the change was canceled.
-	 * **Warning**: This is a generic event, not a change event.
-	 *
-	 * The `eventDetails.reason` indicates what triggered the commit:
-	 *
-	 * - `'drag'` while dragging a thumb
-	 * - `'track-press'` when the control track is pressed
-	 * - `'keyboard'` for keyboard input
-	 * - `'input-change'` when the hidden range input emits a change event (for example, via form integration)
-	 * - `'none'` when the commit occurs without a specific interaction
-	 */
-	onValueCommitted?: (value: SliderValue, eventDetails: SliderCommitEventDetails) => void;
+	value?: SliderValue | string;
+	/** Identifies the label of the slider. */
+	'aria-labelledby'?: string | null;
+	/** Classes for the root element. */
+	class?: HTMLAttributes<HTMLDivElement>['class'];
+	/** Styles for the root element. */
+	style?: HTMLAttributes<HTMLDivElement>['style'];
+	/** Attributes for the root element, such as `data-*` attributes or handlers that belong on it. */
+	host?: HTMLAttributes<HTMLDivElement>;
 	/**
 	 * Allows you to replace the component's HTML element
 	 * with a different tag, or compose it with another component.
@@ -206,17 +197,24 @@ export interface SliderLabelProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	children?: Snippet;
 }
 
-export interface SliderThumbProps extends Omit<
-	HTMLAttributes<HTMLDivElement>,
-	'children' | 'onblur' | 'onfocus' | 'onkeydown'
-> {
+export interface SliderThumbProps extends SliderInputAttributes {
+	/** A range input. A remote form spread of another input kind is a type error. */
+	type?: 'range';
+	/**
+	 * This thumb's value, as a remote form spread carries it. A string is read as a number.
+	 * When it changes, the thumb moves to it.
+	 */
+	value?: number | string;
+	/** The value this thumb returns to when its form resets. */
+	defaultValue?: number | string;
+	/** Identifies this thumb's input when a form is submitted. Defaults to the root's `name`. */
+	name?: string | null;
+	/** Identifies the form that owns this thumb's input. Defaults to the root's `form`. */
+	form?: string | null;
 	/** Whether the thumb should ignore user interaction. @default false */
 	disabled?: boolean | null;
-	/**
-	 * A string value forwarded to the [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuetext) attribute of the `input`.
-	 * Ignored when `getAriaValueText` is provided.
-	 */
-	'aria-valuetext'?: string | undefined;
+	/** The id of the thumb element. */
+	id?: string | null;
 	/**
 	 * A function which returns a string value for the [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label) attribute of the `input`.
 	 */
@@ -228,17 +226,15 @@ export interface SliderThumbProps extends Omit<
 	getAriaValueText?: ((formattedValue: string, value: number, index: number) => string) | null;
 	/**
 	 * The index of the thumb which corresponds to the index of its value in the
-	 * `value` or `defaultValue` array.
-	 * This prop is required to support server-side rendering for range sliders
-	 * with multiple thumbs.
+	 * `value` or `defaultValue` array. Without it, thumbs count in the order they render.
 	 */
 	index?: number;
-	/** A blur handler forwarded to the `input`. */
-	onblur?: (event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) => void;
-	/** A focus handler forwarded to the `input`. */
-	onfocus?: (event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) => void;
-	/** A keydown handler forwarded to the `input`. */
-	onkeydown?: (event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) => void;
+	/** Classes for the thumb element. */
+	class?: HTMLAttributes<HTMLDivElement>['class'];
+	/** Styles for the thumb element. */
+	style?: HTMLAttributes<HTMLDivElement>['style'];
+	/** Attributes for the thumb element, such as `data-*` attributes or handlers that belong on it. */
+	host?: HTMLAttributes<HTMLDivElement>;
 	/**
 	 * Allows you to replace the component's HTML element
 	 * with a different tag, or compose it with another component.

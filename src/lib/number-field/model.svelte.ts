@@ -7,12 +7,12 @@ import { formatNumber } from '../internal/formatNumber.js';
 import { queueValueEvent } from '../internal/value-events.js';
 import {
 	createChangeEventDetails,
-	createGenericEventDetails,
 	REASONS,
 	ownerDocument,
 	platform,
 	activeElement,
-	warn
+	warn,
+	type BaseUIChangeEventDetails
 } from '@sveltery/utils';
 import type { FieldContext } from '../field/model.svelte.js';
 import {
@@ -38,13 +38,29 @@ import {
 	toValidatedNumber
 } from './validate.js';
 import type {
+	Direction,
 	EventWithOptionalKeyState,
 	IncrementValueParameters,
-	NumberFieldChangeEventDetails,
-	NumberFieldChangeEventReason,
-	NumberFieldCommitEventDetails,
 	NumberFieldRootState
 } from './types.js';
+
+/** What made a value change. The model clamps and validates by it. */
+export type NumberFieldChangeEventReason =
+	| typeof REASONS.inputChange
+	| typeof REASONS.inputClear
+	| typeof REASONS.inputBlur
+	| typeof REASONS.inputPaste
+	| typeof REASONS.keyboard
+	| typeof REASONS.incrementPress
+	| typeof REASONS.decrementPress
+	| typeof REASONS.wheel
+	| typeof REASONS.scrub
+	| typeof REASONS.none;
+
+export type NumberFieldChangeEventDetails =
+	BaseUIChangeEventDetails<NumberFieldChangeEventReason> & {
+		direction?: Direction;
+	};
 
 const NAVIGATE_KEYS = new Set([
 	'Backspace',
@@ -72,10 +88,6 @@ export interface NumberFieldModelOptions {
 	getAllowWheelScrub: () => boolean;
 	getFormat: () => Intl.NumberFormatOptions | undefined;
 	getLocale: () => Intl.LocalesArgument | undefined;
-	getOnValueChange: () =>
-		((value: number | null, details: NumberFieldChangeEventDetails) => void) | undefined;
-	getOnValueCommitted: () =>
-		((value: number | null, details: NumberFieldCommitEventDetails) => void) | undefined;
 	getField: () => FieldContext;
 	getId: () => string | undefined;
 	getName: () => string | undefined;
@@ -148,9 +160,7 @@ export class NumberFieldModel {
 					event,
 					reason: REASONS.wheel
 				});
-				if (changed) {
-					this.commit(this.lastChangedValue, createGenericEventDetails(REASONS.wheel, event));
-				}
+				if (changed) this.commit();
 			};
 
 			return on(element, 'wheel', handleWheel, { passive: false });
@@ -220,9 +230,9 @@ export class NumberFieldModel {
 		};
 	}
 
-	commit(next: number | null, details: NumberFieldCommitEventDetails) {
+	/** Fires `change` from the hidden input, as a native input does when an edit settles. */
+	commit() {
 		this.hasPendingCommit = false;
-		this.options.getOnValueCommitted()?.(next, details);
 		queueValueEvent(this.hiddenInput, 'change');
 	}
 
@@ -285,11 +295,6 @@ export class NumberFieldModel {
 			validatedValue !== value ||
 			(isInputReason && (unvalidatedValue !== value || this.allowInputSync === false));
 
-		if (shouldFireChange) {
-			this.options.getOnValueChange()?.(validatedValue, details);
-			if (details.isCanceled) return false;
-		}
-
 		this.lastChangedValue = validatedValue;
 		if (shouldFireChange) {
 			const hidden = this.hiddenInput;
@@ -336,9 +341,8 @@ export class NumberFieldModel {
 		}
 		const parsed = parseNumber(typed, this.options.getLocale(), this.options.getFormat());
 		if (parsed === null) return;
-		const details = createChangeEventDetails(reason, event);
-		this.setValue(parsed, details);
-		if (!details.isCanceled) this.baseValue = parsed;
+		this.setValue(parsed, createChangeEventDetails(reason, event));
+		this.baseValue = parsed;
 	}
 
 	/** Returns false when the text must be reverted. */
@@ -379,13 +383,9 @@ export class NumberFieldModel {
 		this.followInputValue();
 
 		if (shown.trim() === '') {
-			const clearDetails = createChangeEventDetails(REASONS.inputClear, event);
-			this.setValue(null, clearDetails);
-			if (clearDetails.isCanceled) return;
+			this.setValue(null, createChangeEventDetails(REASONS.inputClear, event));
 			if (field.validationMode === 'onBlur') field.commit(null);
-			if (hadManualInput || hadPending || previous !== null) {
-				this.commit(null, createGenericEventDetails(REASONS.inputClear, event));
-			}
+			if (hadManualInput || hadPending || previous !== null) this.commit();
 			return;
 		}
 
@@ -404,15 +404,11 @@ export class NumberFieldModel {
 		const shouldCommit = hadManualInput || shouldUpdate || hadPending;
 		let committedValue = committed;
 		if (shouldUpdate) {
-			const changeDetails = createChangeEventDetails(REASONS.inputBlur, event);
-			this.setValue(committed, changeDetails);
-			if (changeDetails.isCanceled) return;
+			this.setValue(committed, createChangeEventDetails(REASONS.inputBlur, event));
 			committedValue = this.lastChangedValue;
 		}
 		if (field.validationMode === 'onBlur') field.commit(committedValue);
-		if (shouldCommit) {
-			this.commit(committedValue, createGenericEventDetails(REASONS.inputBlur, event));
-		}
+		if (shouldCommit) this.commit();
 	}
 
 	handleKeyDown(event: KeyboardEvent & { currentTarget: HTMLInputElement }) {
@@ -485,7 +481,6 @@ export class NumberFieldModel {
 		const amount = this.getStepAmount(event);
 		event.preventDefault();
 		event.stopPropagation();
-		const commitDetails = createGenericEventDetails(REASONS.keyboard, event);
 		let changed = false;
 		if (stepKey || boundary !== null) this.followInputValue();
 		if (stepKey) {
@@ -499,7 +494,7 @@ export class NumberFieldModel {
 		} else if (boundary !== null) {
 			changed = this.setValue(boundary, createChangeEventDetails(REASONS.keyboard, event));
 		}
-		if (changed) this.commit(this.lastChangedValue, commitDetails);
+		if (changed) this.commit();
 	}
 
 	handlePaste(event: ClipboardEvent & { currentTarget: HTMLInputElement }) {

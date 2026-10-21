@@ -43,12 +43,12 @@
 		},
 		{
 			"id": 4,
-			"prompt": "In a Svelte component using @sveltery/base, I have a Select of plans. Users must not be able to switch to the 'enterprise' plan from the dropdown; it should just stay on the current value. Also log every change with the reason it happened.",
-			"expected_output": "A Select that rejects 'enterprise' with a function binding or eventDetails.cancel(), and logs eventDetails.reason in onValueChange.",
+			"prompt": "In a Svelte component using @sveltery/base, I have a Select of plans. Users must not be able to switch to the 'enterprise' plan from the dropdown; it should just stay on the current value. Also log every value the user picks.",
+			"expected_output": "A Select that rejects 'enterprise' with a function binding, and logs each pick in the binding's setter or in the native onchange.",
 			"files": [],
 			"expectations": [
-				"Rejects the change with a function binding (`bind:value={() => value, (next) => ...}`) or with `eventDetails.cancel()` in `onValueChange`",
-				"Reads `eventDetails.reason` in `onValueChange` for the log",
+				"Rejects the change with a function binding (`bind:value={() => value, (next) => ...}`)",
+				"Logs the pick in the binding's setter or in the native `onchange`, not in `onValueChange`, which Select does not have",
 				"Does not use a nonexistent prop such as `preventBaseUIHandler` or `onChange`",
 				"Assembles the Select parts (Root, Trigger, Value, Portal, Positioner, Popup, List or Item) from `@sveltery/base/select`"
 			]

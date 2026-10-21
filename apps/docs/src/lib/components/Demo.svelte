@@ -170,8 +170,7 @@
 						items={Object.fromEntries(
 							variants.map(({ name }) => [name, VARIANT_LABELS[name] ?? name])
 						)}
-						value={variant.name}
-						onValueChange={(value) => selectVariant(String(value))}
+						bind:value={() => variant.name, (value) => selectVariant(String(value))}
 					>
 						<Select.Trigger class="GhostButton" data-layout="text" aria-label="Styling method">
 							<Select.Value />

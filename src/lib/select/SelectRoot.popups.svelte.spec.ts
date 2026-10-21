@@ -8,6 +8,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import SelectFieldHarness from '../../tests/SelectFieldHarness.svelte';
+import { nativeSelect } from '../../tests/select-native.js';
 import SelectHarness from '../../tests/SelectHarness.svelte';
 import SelectInPopoverHarness from '../../tests/SelectInPopoverHarness.svelte';
 import {
@@ -23,7 +24,6 @@ const ab = [{ value: 'a' }, { value: 'b' }];
 const trigger = () => page.getByTestId('trigger');
 const option = (name: string) => page.getByRole('option', { name, exact: true });
 const listbox = () => page.getByRole('listbox');
-const hiddenInput = () => document.querySelector<HTMLInputElement>('input[aria-hidden="true"]')!;
 
 const positionerRect = () => {
 	const { top, left } = page.getByTestId('positioner').element().getBoundingClientRect();
@@ -504,51 +504,55 @@ describe('Select.Root', () => {
 		});
 
 		it('does not commit a value when an item is clicked', async () => {
-			const onValueChange = vi.fn();
-			render(SelectHarness, { root: { onValueChange, readonly: true }, items: ab });
+			const onchange = vi.fn();
+			render(SelectHarness, { root: { onchange, readonly: true }, items: ab });
 			await userEvent.click(trigger());
 			await userEvent.click(option('b'));
-			expect(onValueChange).not.toHaveBeenCalled();
+			await tick();
+			expect(onchange).not.toHaveBeenCalled();
 			await expect.element(option('b')).not.toHaveAttribute('data-selected');
 			expect(page.getByTestId('value').element().textContent).toBe('');
 		});
 
 		it('does not commit a value with Enter on a highlighted item', async () => {
-			const onValueChange = vi.fn();
-			render(SelectHarness, { root: { onValueChange, readonly: true }, items: ab });
+			const onchange = vi.fn();
+			render(SelectHarness, { root: { onchange, readonly: true }, items: ab });
 			(trigger().element() as HTMLElement).focus();
 			await userEvent.keyboard('{ArrowDown}');
 			await expect.element(listbox()).toBeVisible();
 			await userEvent.keyboard('{Enter}');
-			expect(onValueChange).not.toHaveBeenCalled();
+			await tick();
+			expect(onchange).not.toHaveBeenCalled();
 			expect(page.getByTestId('value').element().textContent).toBe('');
 		});
 
 		it('does not commit a value with typeahead on a closed trigger', async () => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			render(SelectHarness, {
-				root: { onValueChange, readonly: true },
+				root: { onchange, readonly: true },
 				items: [{ value: 'apple' }, { value: 'banana' }]
 			});
 			(trigger().element() as HTMLElement).focus();
 			await userEvent.keyboard('b');
 			await tick();
-			expect(onValueChange).not.toHaveBeenCalled();
+			await tick();
+			expect(onchange).not.toHaveBeenCalled();
 			expect(page.getByTestId('value').element().textContent).toBe('');
 		});
 
 		it('moves the highlight with typeahead while the popup is open', async () => {
-			const onValueChange = vi.fn();
+			const onchange = vi.fn();
 			render(SelectHarness, {
 				open: true,
-				root: { onValueChange, readonly: true },
+				root: { onchange, readonly: true },
 				items: [{ value: 'apple' }, { value: 'banana' }]
 			});
 			await expect.element(option('apple')).toBeVisible();
 			(option('apple').element() as HTMLElement).focus();
 			await userEvent.keyboard('b');
 			await expect.element(option('banana')).toHaveAttribute('data-highlighted');
-			expect(onValueChange).not.toHaveBeenCalled();
+			await tick();
+			expect(onchange).not.toHaveBeenCalled();
 			expect(page.getByTestId('value').element().textContent).toBe('');
 		});
 	});
@@ -561,14 +565,14 @@ describe('Select.Root', () => {
 
 		it('sets a hidden input id when name is not provided', async () => {
 			render(SelectHarness, { root: { id: 'test-id' } });
-			expect(hiddenInput().id).toBe('test-id-hidden-input');
-			expect(hiddenInput().hasAttribute('name')).toBe(false);
+			expect(nativeSelect().id).toBe('test-id-hidden-input');
+			expect(nativeSelect().hasAttribute('name')).toBe(false);
 		});
 
 		it('does not set a hidden input id when name is provided', async () => {
 			render(SelectHarness, { root: { id: 'test-id', name: 'country' } });
-			expect(hiddenInput().getAttribute('name')).toBe('country');
-			expect(hiddenInput().hasAttribute('id')).toBe(false);
+			expect(nativeSelect().getAttribute('name')).toBe('country');
+			expect(nativeSelect().hasAttribute('id')).toBe(false);
 		});
 	});
 
@@ -586,7 +590,7 @@ describe('Select.Root', () => {
 
 		it('takes name from Field.Root', async () => {
 			render(SelectFieldHarness, { field: { name: 'field-select' }, select: { items: ab } });
-			expect(hiddenInput().getAttribute('name')).toBe('field-select');
+			expect(nativeSelect().getAttribute('name')).toBe('field-select');
 		});
 	});
 

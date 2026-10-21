@@ -8,13 +8,13 @@
 </script>
 
 {#if scenario === 'plain'}
-	<Slider.Root locale="en-US" defaultValue={30} data-testid="root">
+	<Slider.Root locale="en-US" defaultValue={30} host={{ 'data-testid': 'root' }}>
 		<Slider.Control data-testid="control">
 			<Slider.Thumb />
 		</Slider.Control>
 	</Slider.Root>
 {:else if scenario === 'labelled'}
-	<Slider.Root locale="en-US" defaultValue={30} data-testid="root">
+	<Slider.Root locale="en-US" defaultValue={30} host={{ 'data-testid': 'root' }}>
 		<Slider.Label data-testid="label">Volume</Slider.Label>
 		<Slider.Control>
 			<Slider.Thumb />
@@ -36,7 +36,7 @@
 	</Slider.Root>
 	<output data-testid="value">{value}</output>
 {:else if scenario === 'disabled'}
-	<Slider.Root locale="en-US" defaultValue={30} disabled data-testid="root">
+	<Slider.Root locale="en-US" defaultValue={30} disabled host={{ 'data-testid': 'root' }}>
 		<Slider.Control>
 			<Slider.Thumb />
 		</Slider.Control>
@@ -46,8 +46,16 @@
 		<Slider.Control data-testid="control" style="width: 200px; height: 20px;">
 			<Slider.Track style="height: 100%;">
 				<Slider.Indicator data-testid="indicator" />
-				<Slider.Thumb index={0} data-testid="thumb" style="width: 20px; height: 20px;" />
-				<Slider.Thumb index={1} data-testid="thumb" style="width: 20px; height: 20px;" />
+				<Slider.Thumb
+					index={0}
+					host={{ 'data-testid': 'thumb' }}
+					style="width: 20px; height: 20px;"
+				/>
+				<Slider.Thumb
+					index={1}
+					host={{ 'data-testid': 'thumb' }}
+					style="width: 20px; height: 20px;"
+				/>
 			</Slider.Track>
 		</Slider.Control>
 	</Slider.Root>

@@ -8,6 +8,8 @@ import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from 
 import { render } from 'vitest-browser-svelte';
 import NumberFieldHarness from '../../tests/NumberFieldHarness.svelte';
 import PreventedHandlerHarness from '../../tests/PreventedHandlerHarness.svelte';
+import RemoteControlHarness from '../../tests/RemoteControlHarness.svelte';
+import { kitFields } from '../../tests/kit-fields.js';
 
 function control() {
 	return page.getByTestId('control');
@@ -31,6 +33,26 @@ function hiddenNumber(name = 'qty') {
 	const input = document.querySelector(`input[type="number"][name="${name}"]`);
 	if (!(input instanceof HTMLInputElement)) throw new Error('expected a hidden number input');
 	return input;
+}
+
+/** Lets the queued `input` and `change` events fire. */
+function settle() {
+	return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
+/**
+ * A native `input` or `change` handler for the hidden number input that records the value at
+ * each event. `then` runs with that value.
+ */
+function valueEvents(then?: (value: number | null) => void) {
+	const values: (number | null)[] = [];
+	const spy = vi.fn((event: Event) => {
+		const input = event.currentTarget as HTMLInputElement;
+		const value = input.value === '' ? null : input.valueAsNumber;
+		values.push(value);
+		then?.(value);
+	});
+	return Object.assign(spy, { values });
 }
 
 /** How many times the harness's `validate` ran. */
@@ -109,14 +131,14 @@ describe('<NumberField />', () => {
 	});
 
 	it('applies a hidden input event without a change event', async () => {
-		const onValueChange = vi.fn();
-		render(NumberFieldHarness, { scenario: 'plain', onValueChange });
+		const oninput = valueEvents();
+		render(NumberFieldHarness, { scenario: 'plain', oninput });
 		const hidden = document.querySelector('input[type="number"]');
 		if (!(hidden instanceof HTMLInputElement)) throw new Error('expected a hidden number input');
 		hidden.value = '9';
 		hidden.dispatchEvent(new Event('input', { bubbles: true }));
-		expect(onValueChange).toHaveBeenCalledTimes(1);
-		expect(onValueChange.mock.lastCall?.[0]).toBe(9);
+		expect(oninput).toHaveBeenCalledTimes(1);
+		expect(oninput.values.at(-1)).toBe(9);
 		await expect.element(control()).toHaveValue('9');
 	});
 
@@ -133,8 +155,8 @@ describe('<NumberField />', () => {
 	});
 
 	it('repeats a held increment until the pointer is released', async () => {
-		const onValueCommitted = vi.fn();
-		const onValueChange = vi.fn((value: number | null) => {
+		const onchange = valueEvents();
+		const oninput = valueEvents((value) => {
 			if (value !== 6) return;
 			// Release after the tick that reached 6 finishes and before the next one, as a user would.
 			queueMicrotask(() =>
@@ -143,41 +165,39 @@ describe('<NumberField />', () => {
 					.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'mouse' }))
 			);
 		});
-		render(NumberFieldHarness, { scenario: 'plain', onValueChange, onValueCommitted });
+		render(NumberFieldHarness, { scenario: 'plain', oninput, onchange });
 		holdIncrease();
 		await expect.element(control()).toHaveValue('6');
 		await new Promise((resolve) => setTimeout(resolve, 180));
-		expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([5, 6]);
-		expect(onValueCommitted.mock.calls.map(([value]) => value)).toEqual([6]);
+		expect(oninput.values).toEqual([5, 6]);
+		expect(onchange.values).toEqual([6]);
 	});
 
 	it('stops a held increment when the field unmounts', async () => {
-		const onValueChange = vi.fn();
-		const view = render(NumberFieldHarness, { scenario: 'plain', onValueChange });
+		const oninput = valueEvents();
+		const view = render(NumberFieldHarness, { scenario: 'plain', oninput });
 		holdIncrease();
-		await expect.poll(() => onValueChange.mock.calls.length).toBeGreaterThan(1);
+		await expect.poll(() => oninput.mock.calls.length).toBeGreaterThan(1);
 		view.unmount();
-		const callsAtUnmount = onValueChange.mock.calls.length;
+		const callsAtUnmount = oninput.mock.calls.length;
 		await new Promise((resolve) => setTimeout(resolve, 180));
 		expect(document.querySelector('[data-testid="control"]')).toBeNull();
-		expect(onValueChange.mock.calls.length).toBe(callsAtUnmount);
+		expect(oninput.mock.calls.length).toBe(callsAtUnmount);
 	});
 
 	it('steps up and down from a click', async () => {
-		const onValueChange = vi.fn();
-		const onValueCommitted = vi.fn();
-		render(NumberFieldHarness, { scenario: 'plain', onValueChange, onValueCommitted });
+		const oninput = valueEvents();
+		const onchange = valueEvents();
+		render(NumberFieldHarness, { scenario: 'plain', oninput, onchange });
 
 		await userEvent.click(increase().element());
 		await expect.element(control()).toHaveValue('5');
-		expect(onValueChange).toHaveBeenCalled();
-		expect(onValueChange.mock.lastCall?.[0]).toBe(5);
-		expect(onValueChange.mock.lastCall?.[1].reason).toBe('increment-press');
-		expect(onValueCommitted.mock.lastCall?.[0]).toBe(5);
+		expect(oninput).toHaveBeenCalled();
+		expect(oninput.values.at(-1)).toBe(5);
+		expect(onchange.values.at(-1)).toBe(5);
 
 		await userEvent.click(decrease().element());
 		await expect.element(control()).toHaveValue('4');
-		expect(onValueCommitted.mock.lastCall?.[1].reason).toBe('decrement-press');
 	});
 
 	it('seeds an empty field at 0 when increased', async () => {
@@ -203,27 +223,14 @@ describe('<NumberField />', () => {
 	});
 
 	it('types a number and commits it on blur', async () => {
-		const onValueCommitted = vi.fn();
-		render(NumberFieldHarness, { scenario: 'plain', onValueCommitted });
+		const onchange = valueEvents();
+		render(NumberFieldHarness, { scenario: 'plain', onchange });
 		const input = control().element() as HTMLInputElement;
 		input.focus();
 		await userEvent.fill(input, '12');
 		input.blur();
 		await expect.element(control()).toHaveValue('12');
-		expect(onValueCommitted.mock.lastCall?.[0]).toBe(12);
-		expect(onValueCommitted.mock.lastCall?.[1].reason).toBe('input-blur');
-	});
-
-	it('does not commit a canceled keyboard change', async () => {
-		const onValueChange = vi.fn((_value: number | null, details: { cancel: () => void }) => {
-			details.cancel();
-		});
-		const onValueCommitted = vi.fn();
-		render(NumberFieldHarness, { scenario: 'plain', onValueChange, onValueCommitted });
-		(control().element() as HTMLElement).focus();
-		await userEvent.keyboard('{ArrowUp}');
-		await expect.element(control()).toHaveValue('4');
-		expect(onValueCommitted).not.toHaveBeenCalled();
+		expect(onchange.values.at(-1)).toBe(12);
 	});
 
 	it('steps with ArrowUp and ArrowDown', async () => {
@@ -258,21 +265,23 @@ describe('<NumberField />', () => {
 	});
 
 	it('sets the disabled attribute on a disabled increment and does not step', async () => {
-		const onValueChange = vi.fn();
-		render(NumberFieldHarness, { scenario: 'increment-disabled', onValueChange });
+		const oninput = valueEvents();
+		render(NumberFieldHarness, { scenario: 'increment-disabled', oninput });
 		await expect.element(increase()).toHaveAttribute('disabled');
 		increase()
 			.element()
 			.dispatchEvent(
 				new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType: 'mouse' })
 			);
-		expect(onValueChange).not.toHaveBeenCalled();
+		expect(oninput).not.toHaveBeenCalled();
 		await expect.element(control()).toHaveValue('0');
 	});
 
-	it('marks read-only steppers with aria-disabled and no aria-readonly', async () => {
+	it('marks a read-only input with aria-readonly and its steppers with aria-disabled', async () => {
 		render(NumberFieldHarness, { scenario: 'readonly' });
-		await expect.element(control()).toHaveAttribute('readonly');
+		// Not `readonly`, which would take the input out of constraint validation.
+		await expect.element(control()).toHaveAttribute('aria-readonly', 'true');
+		await expect.element(control()).not.toHaveAttribute('readonly');
 		await expect.element(increase()).toHaveAttribute('aria-disabled', 'true');
 		await expect.element(increase()).not.toHaveAttribute('disabled');
 		await expect.element(increase()).not.toHaveAttribute('aria-readonly');
@@ -283,6 +292,17 @@ describe('<NumberField />', () => {
 				new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType: 'mouse' })
 			);
 		await expect.element(control()).toHaveValue('4');
+	});
+
+	it('reverts typing in a read-only input', async () => {
+		const oninput = valueEvents();
+		render(NumberFieldHarness, { scenario: 'readonly', oninput });
+		const input = control().element() as HTMLInputElement;
+		input.value = '7';
+		input.dispatchEvent(new InputEvent('input', { bubbles: true, data: '7' }));
+		await expect.element(control()).toHaveValue('4');
+		await settle();
+		expect(oninput).not.toHaveBeenCalled();
 	});
 
 	it('marks the input required and names the hidden number input', async () => {
@@ -306,12 +326,12 @@ describe('<NumberField />', () => {
 	});
 
 	it('lets typed text exceed max when allowOutOfRange is set', async () => {
-		const onValueChange = vi.fn();
-		render(NumberFieldHarness, { scenario: 'out-of-range', onValueChange });
+		const oninput = valueEvents();
+		render(NumberFieldHarness, { scenario: 'out-of-range', oninput });
 		const input = control().element() as HTMLInputElement;
 		input.focus();
 		await userEvent.fill(input, '9');
-		expect(onValueChange.mock.lastCall?.[0]).toBe(9);
+		expect(oninput.values.at(-1)).toBe(9);
 		await expect.element(control()).toHaveValue('9');
 		await expect.element(increase()).toHaveAttribute('disabled');
 		await userEvent.click(decrease().element());
@@ -332,8 +352,8 @@ describe('<NumberField />', () => {
 	});
 
 	it('pastes a number over the selection', async () => {
-		const onValueChange = vi.fn();
-		render(NumberFieldHarness, { scenario: 'paste', onValueChange });
+		const oninput = valueEvents();
+		render(NumberFieldHarness, { scenario: 'paste', oninput });
 		const input = control().element() as HTMLInputElement;
 		input.focus();
 		input.select();
@@ -342,15 +362,15 @@ describe('<NumberField />', () => {
 		input.dispatchEvent(
 			new ClipboardEvent('paste', { bubbles: true, cancelable: true, clipboardData: data })
 		);
-		expect(onValueChange.mock.lastCall?.[0]).toBe(20);
-		expect(onValueChange.mock.lastCall?.[1].reason).toBe('input-paste');
 		await expect.element(control()).toHaveValue('20');
+		await settle();
+		expect(oninput.values).toEqual([20]);
 	});
 
 	it('warns and keeps the value when the clipboard cannot be read', async () => {
 		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-		const onValueChange = vi.fn();
-		render(NumberFieldHarness, { scenario: 'paste', onValueChange });
+		const oninput = valueEvents();
+		render(NumberFieldHarness, { scenario: 'paste', oninput });
 		const input = control().element() as HTMLInputElement;
 		const before = input.value;
 		const event = new ClipboardEvent('paste', { bubbles: true, cancelable: true });
@@ -364,26 +384,25 @@ describe('<NumberField />', () => {
 			'Base UI: <NumberField.Input> could not read clipboard text during paste handling.'
 		);
 		expect(event.defaultPrevented).toBe(false);
-		expect(onValueChange).not.toHaveBeenCalled();
+		expect(oninput).not.toHaveBeenCalled();
 		expect(input.value).toBe(before);
 		warn.mockRestore();
 	});
 
 	it('changes the focused value from the wheel and commits it', async () => {
-		const onValueChange = vi.fn();
-		const onValueCommitted = vi.fn();
+		const oninput = valueEvents();
+		const onchange = valueEvents();
 		render(NumberFieldHarness, {
 			scenario: 'wheel',
-			onValueChange,
-			onValueCommitted
+			oninput,
+			onchange
 		});
 		const input = control().element() as HTMLInputElement;
 		input.focus();
 		input.dispatchEvent(new WheelEvent('wheel', { deltaY: -1, cancelable: true, bubbles: true }));
 		await expect.element(control()).toHaveValue('11');
-		expect(onValueChange.mock.lastCall?.[0]).toBe(11);
-		expect(onValueChange.mock.lastCall?.[1].reason).toBe('wheel');
-		expect(onValueCommitted.mock.lastCall?.[0]).toBe(11);
+		expect(oninput.values.at(-1)).toBe(11);
+		expect(onchange.values.at(-1)).toBe(11);
 	});
 
 	it('associates a field label and marks the value filled', async () => {
@@ -499,8 +518,8 @@ describe('<NumberField />', () => {
 		});
 
 		it('changes the value while dragging and shows the cursor', async () => {
-			const onValueChange = vi.fn();
-			render(NumberFieldHarness, { scenario: 'scrub', onValueChange });
+			const oninput = valueEvents();
+			render(NumberFieldHarness, { scenario: 'scrub', oninput });
 			const area = page.getByTestId('scrub').element();
 			area.dispatchEvent(
 				new PointerEvent('pointerdown', {
@@ -522,7 +541,6 @@ describe('<NumberField />', () => {
 				})
 			);
 			await expect.element(control()).toHaveValue('5');
-			expect(onValueChange.mock.lastCall?.[1].reason).toBe('scrub');
 			window.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, cancelable: true }));
 			await expect.element(page.getByTestId('root')).not.toHaveAttribute('data-scrubbing');
 		});
@@ -593,32 +611,32 @@ describe('NumberField consumer preventDefault', () => {
 	});
 
 	it('skips the blur commit when onblur calls preventDefault', async () => {
-		const onValueCommitted = vi.fn();
+		const onchange = valueEvents();
 		render(PreventedHandlerHarness, {
 			part: 'number',
-			onValueCommitted,
+			onchange,
 			handlers: { onblur: prevent }
 		});
 		await userEvent.type(control(), '5');
 		await userEvent.tab();
 		await expect.element(page.getByRole('button', { name: 'After' })).toHaveFocus();
-		expect(onValueCommitted.mock.calls.length).toBe(0);
+		expect(onchange.mock.calls.length).toBe(0);
 		await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-touched');
 	});
 
 	it('skips the value change when oninput calls preventDefault', async () => {
-		const onValueChange = vi.fn();
+		const oninput = valueEvents();
 		render(PreventedHandlerHarness, {
 			part: 'number',
-			onValueChange,
+			oninput,
 			handlers: { oninput: prevent }
 		});
 		await userEvent.type(control(), '5');
-		expect([hiddenNumber().value, onValueChange.mock.calls.length]).toEqual(['', 0]);
+		expect([hiddenNumber().value, oninput.mock.calls.length]).toEqual(['', 0]);
 	});
 
 	it('keeps a held increment running when onmouseleave calls preventDefault', async () => {
-		const onValueChange = vi.fn((value: number | null) => {
+		const oninput = valueEvents((value) => {
 			if (value === 4) {
 				window.dispatchEvent(
 					new PointerEvent('pointerup', { bubbles: true, pointerType: 'mouse' })
@@ -627,21 +645,21 @@ describe('NumberField consumer preventDefault', () => {
 		});
 		render(PreventedHandlerHarness, {
 			part: 'number',
-			onValueChange,
+			oninput,
 			stepperHandlers: { onmouseleave: prevent }
 		});
 		await userEvent.hover(increase());
 		holdIncrease();
 		await userEvent.hover(control());
 		await expect.element(control()).toHaveValue('4');
-		expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([0, 1, 2, 3, 4]);
+		expect(oninput.values).toEqual([0, 1, 2, 3, 4]);
 	});
 
 	it('keeps a held increment stopped when the mouse re-enters after onmouseenter called preventDefault', async () => {
-		const onValueChange = vi.fn();
+		const oninput = valueEvents();
 		render(PreventedHandlerHarness, {
 			part: 'number',
-			onValueChange,
+			oninput,
 			stepperHandlers: { onmouseenter: prevent }
 		});
 		await userEvent.hover(increase());
@@ -649,15 +667,15 @@ describe('NumberField consumer preventDefault', () => {
 		await userEvent.hover(control());
 		await userEvent.hover(increase());
 		await new Promise((resolve) => setTimeout(resolve, 600));
-		expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([0]);
+		expect(oninput.values).toEqual([0]);
 		window.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'mouse' }));
 	});
 
 	it('stops a held increment when the mouse leaves after ontouchstart called preventDefault', async () => {
-		const onValueChange = vi.fn();
+		const oninput = valueEvents();
 		render(PreventedHandlerHarness, {
 			part: 'number',
-			onValueChange,
+			oninput,
 			stepperHandlers: { ontouchstart: prevent }
 		});
 		await userEvent.hover(increase());
@@ -667,7 +685,66 @@ describe('NumberField consumer preventDefault', () => {
 			.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, cancelable: true }));
 		await userEvent.hover(control());
 		await new Promise((resolve) => setTimeout(resolve, 600));
-		expect(onValueChange.mock.calls.map(([value]) => value)).toEqual([0]);
+		expect(oninput.values).toEqual([0]);
 		window.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'mouse' }));
+	});
+});
+
+describe('in a remote form', () => {
+	function input() {
+		return page.getByTestId('input');
+	}
+
+	it('follows the string value of a number spread whenever the form changes it', async () => {
+		const values = $state<Record<string, unknown>>({ seats: 4 });
+		const fields = kitFields(values);
+		render(RemoteControlHarness, {
+			props: { fields, name: 'seats', control: 'number', spread: fields.seats.as('number') }
+		});
+		const hidden = hiddenNumber('n:seats/form');
+		await expect.element(input()).toHaveValue('4');
+		expect(hidden.value).toBe('4');
+
+		await userEvent.click(page.getByTestId('increment'));
+		await expect.element(input()).toHaveValue('5');
+		expect(hidden.value).toBe('5');
+
+		values.seats = 9;
+		await expect.element(input()).toHaveValue('9');
+		expect(hidden.value).toBe('9');
+	});
+
+	it('names a bare number field from its Field and starts at the value the form holds', async () => {
+		render(RemoteControlHarness, {
+			props: {
+				fields: kitFields({ seats: 7 }),
+				name: 'seats',
+				control: 'number',
+				props: { defaultValue: 3 }
+			}
+		});
+		await expect.element(input()).toHaveValue('7');
+		expect(hiddenNumber('n:seats/form').value).toBe('7');
+		expect(document.querySelectorAll('input[name="n:seats/form"]')).toHaveLength(1);
+	});
+
+	it('fires input after the hidden input holds the value, for a form listener', async () => {
+		const read: string[] = [];
+		const listen = (event: Event) => {
+			if (event.target instanceof HTMLInputElement && event.target.type === 'number')
+				read.push(`${event.type}:${event.target.name}=${event.target.value}`);
+		};
+		document.addEventListener('input', listen);
+		document.addEventListener('change', listen);
+		onTestFinished(() => {
+			document.removeEventListener('input', listen);
+			document.removeEventListener('change', listen);
+		});
+		const fields = kitFields({ seats: 4 });
+		render(RemoteControlHarness, {
+			props: { fields, name: 'seats', control: 'number', spread: fields.seats.as('number') }
+		});
+		await userEvent.click(page.getByTestId('increment'));
+		await expect.poll(() => read).toEqual(['input:n:seats/form=5', 'change:n:seats/form=5']);
 	});
 });

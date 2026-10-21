@@ -228,6 +228,53 @@ const groups: ProduceGroupItem[] = [
 
 <DemoSelectGrouped />
 
+### Native attributes and events
+
+`<Select.Root>` renders a hidden `<select>` that submits the value. It is `multiple` when the select is. Native `<select>` attributes and handlers on `<Select.Root>`, such as `name`, `form`, `autocomplete`, `oninput` and `onchange`, go to that hidden `<select>`. It fires real `input` and `change` events when the value changes, so read the value from the event or use `bind:value`:
+
+```svelte title="Reading the value"
+<script lang="ts">
+	let sort = $state<string | null>('newest');
+</script>
+
+<Select.Root {items} name="sort" bind:value={sort} onchange={() => refresh()}>
+	<!-- ... -->
+</Select.Root>
+```
+
+The server renders the current options as `selected`, so a form submits the value without JavaScript. While there is no value, the first option is empty, so a `required` select reports `valueMissing`. The popup needs JavaScript to open, so the hidden `<select>` gets `required` only once the page is interactive.
+
+### Form integration
+
+Use [Field](/components/field) to handle label associations and form integration. A `<Field.Label>` next to the trigger needs `nativeLabel={false}`, because the trigger is a button:
+
+```svelte title="Using Select in a form"
+<Form>
+	<Field.Root name="language">
+		<Field.Label nativeLabel={false}>Language</Field.Label>
+		<Select.Root {items} required>
+			<!-- ... -->
+		</Select.Root>
+		<Field.Error />
+	</Field.Root>
+</Form>
+```
+
+With a SvelteKit remote form, spread the field's `select` props onto `<Select.Root>`. A multiple select takes `select multiple`. The spread names the hidden `<select>` and holds its value, and a spread of another input kind is a type error:
+
+```svelte title="Using Select in a remote form"
+<Form form={settings}>
+	<Field.Root name="language">
+		<Field.Label nativeLabel={false}>Language</Field.Label>
+		<!-- @highlight -->
+		<Select.Root {...settings.fields.language.as('select')} {items} required>
+			<!-- ... -->
+		</Select.Root>
+		<Field.Error />
+	</Field.Root>
+</Form>
+```
+
 ## API reference
 
 <script>

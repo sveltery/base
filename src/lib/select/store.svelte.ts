@@ -58,8 +58,8 @@ export interface SelectStoreOptions {
 	floatingId: string;
 	/** Reads the root's props. Each field is a getter. */
 	root: SelectRootReading;
-	/** The root's cancelable value write. */
-	commitValue: (next: unknown, details: SelectChangeEventDetails) => void;
+	/** The root's value write. */
+	commitValue: (next: unknown) => void;
 	/** Field bookkeeping when focus or a press outside closes the popup. */
 	onDismissedOutside: () => void;
 	onOpenChange: () =>
@@ -251,8 +251,8 @@ export class SelectStore extends PopupStore<SelectChangeReason> {
 		return compareItemEquality(itemValue, value, isItemEqualToValue);
 	}
 
-	setValue(next: unknown, details: SelectChangeEventDetails) {
-		this.#options.commitValue(next, details);
+	setValue(next: unknown) {
+		this.#options.commitValue(next);
 	}
 
 	override setOpen(nextOpen: boolean, eventDetails: SelectChangeEventDetails) {

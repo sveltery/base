@@ -1168,6 +1168,9 @@ A numeric input element with increment and decrement buttons, and a scrub area.
 - Sections:
   - Usage guidelines
   - Anatomy
+  - Examples
+    - Native attributes and events
+    - Form integration
   - API reference
     - Root
     - ScrubArea
@@ -1178,7 +1181,7 @@ A numeric input element with increment and decrement buttons, and a scrub area.
     - Increment
 - Exports:
   - Number Field - Root
-    - Props: allowOutOfRange, allowWheelScrub, defaultValue, disabled, form, format, id, largeStep, locale, max, min, name, onValueChange, onValueCommitted, readonly, render, required, smallStep, snapOnStep, step, value
+    - Props: allowOutOfRange, allowWheelScrub, class, defaultValue, disabled, form, format, host, id, largeStep, locale, max, min, name, readonly, render, required, smallStep, snapOnStep, step, style, type, value
     - Data Attributes: data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-readonly, data-required, data-scrubbing, data-touched, data-valid
   - Number Field - Input
     - Props: aria-roledescription, render
@@ -1516,6 +1519,8 @@ A common form component for choosing a predefined value in a dropdown menu.
     - Multiple selection
     - Object values
     - Grouped
+    - Native attributes and events
+    - Form integration
   - API reference
     - Root
     - Label
@@ -1538,7 +1543,7 @@ A common form component for choosing a predefined value in a dropdown menu.
     - Separator
 - Exports:
   - Select - Root
-    - Props: autocomplete, defaultOpen, defaultValue, disabled, form, highlightItemOnHover, id, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, modal, multiple, name, onOpenChange, onOpenChangeComplete, onValueChange, open, readonly, required, value
+    - Props: autocomplete, defaultOpen, defaultValue, disabled, form, highlightItemOnHover, id, isItemEqualToValue, itemToStringLabel, itemToStringValue, items, modal, multiple, name, onOpenChange, onOpenChangeComplete, open, readonly, required, value
   - Select - Trigger
     - Props: disabled, id, nativeButton, render
     - Data Attributes: data-dirty, data-disabled, data-filled, data-focused, data-invalid, data-placeholder, data-popup-open, data-popup-side, data-pressed, data-readonly, data-required, data-touched, data-valid
@@ -1633,6 +1638,7 @@ An easily stylable range input.
     - Marks
     - Thumb alignment
     - Vertical
+    - Native attributes and events
     - Form integration
   - API reference
     - Root
@@ -1644,7 +1650,7 @@ An easily stylable range input.
     - Thumb
 - Exports:
   - Slider - Root
-    - Props: defaultValue, disabled, form, format, largeStep, locale, max, min, minStepsBetweenValues, name, onValueChange, onValueCommitted, orientation, render, step, thumbAlignment, thumbCollisionBehavior, value
+    - Props: aria-labelledby, class, defaultValue, disabled, form, format, host, id, largeStep, locale, max, min, minStepsBetweenValues, name, orientation, render, required, step, style, thumbAlignment, thumbCollisionBehavior, type, value
     - Data Attributes: data-dirty, data-disabled, data-dragging, data-focused, data-invalid, data-orientation, data-touched, data-valid
   - Slider - Value
     - Props: aria-live, children, render
@@ -1656,7 +1662,7 @@ An easily stylable range input.
     - Props: render
     - Data Attributes: data-dirty, data-disabled, data-dragging, data-focused, data-invalid, data-orientation, data-touched, data-valid
   - Slider - Thumb
-    - Props: aria-valuetext, disabled, getAriaLabel, getAriaValueText, index, onblur, onfocus, onkeydown, render
+    - Props: class, defaultValue, disabled, form, getAriaLabel, getAriaValueText, host, id, index, name, render, style, type, value
     - Data Attributes: data-dirty, data-disabled, data-dragging, data-focused, data-index, data-invalid, data-orientation, data-touched, data-valid
   - Slider - Control
     - Props: render

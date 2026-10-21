@@ -64,9 +64,14 @@ export interface FieldContext {
 	clearExternalErrors: () => void;
 	/**
 	 * Props for a control that has no spread, from the remote form's `.as()` at this field's
-	 * path. `undefined` outside a remote form or without a name.
+	 * path, or at `index` below it for one item of an array field. `undefined` outside a remote
+	 * form or without a name.
 	 */
-	bindRemote: (type: string, option?: unknown) => Record<string, unknown> | undefined;
+	bindRemote: (
+		type: string,
+		option?: unknown,
+		index?: number
+	) => Record<string, unknown> | undefined;
 	/** In a remote form: the field's value as the form holds it, which the server render echoes back. */
 	readonly remoteValue: unknown;
 	readonly dirty: boolean;
@@ -298,12 +303,14 @@ export class FieldRootModel implements FieldContext {
 		return resolveFieldNode(fields, parseFieldPath(name));
 	}
 
-	bindRemote(type: string, option?: unknown) {
+	bindRemote(type: string, option?: unknown, index?: number) {
 		// Kit's `.as()` needs the value of these types, and a control without a spread has none.
 		if (option === undefined && (type === 'radio' || type === 'submit' || type === 'hidden')) {
 			return undefined;
 		}
-		return this.remoteNode?.as?.(type, option);
+		const node = this.remoteNode;
+		const target = index === undefined ? node : resolveFieldNode(node, [index]);
+		return target?.as?.(type, option);
 	}
 
 	get remoteValue(): unknown {

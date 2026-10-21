@@ -57,6 +57,25 @@ const countryRoot = {
 
 describe('Combobox.Root', () => {
 	describe('Form', () => {
+		it.each([
+			{ name: 'a single value', multiple: false, inputInside: false, tagName: 'INPUT' },
+			{ name: 'multiple values', multiple: true, inputInside: false, tagName: 'SELECT' },
+			{ name: 'an input inside the popup', multiple: false, inputInside: true, tagName: 'INPUT' }
+		])('names one control for $name', async ({ multiple, inputInside, tagName }) => {
+			render(ComboboxHarness, {
+				items: ab,
+				inputInside,
+				portal: { keepMounted: true },
+				root: { name: 'pick', multiple, defaultValue: multiple ? ['a'] : 'a' }
+			});
+			await tick();
+
+			const named = document.querySelectorAll('[name="pick"]');
+			expect(named).toHaveLength(1);
+			expect(named[0].tagName).toBe(tagName);
+			expect(named[0]).toHaveAttribute('aria-hidden', 'true');
+		});
+
 		it('submits the stringified value to onFormSubmit with itemToStringValue', async () => {
 			const onFormSubmit = vi.fn();
 			render(ComboboxFieldHarness, {

@@ -5,14 +5,14 @@
 
 	let {
 		scenario = 'plain',
-		onValueChange,
-		onValueCommitted,
+		oninput,
+		onchange,
 		onScrubClick
 	}: {
 		scenario?: string;
 		onScrubClick?: (event: MouseEvent) => void;
-		onValueChange?: (value: number | null, details: { cancel: () => void; reason: string }) => void;
-		onValueCommitted?: (value: number | null, details: { reason: string }) => void;
+		oninput?: (event: Event & { currentTarget: EventTarget & HTMLInputElement }) => void;
+		onchange?: (event: Event & { currentTarget: EventTarget & HTMLInputElement }) => void;
 	} = $props();
 
 	let bound = $state<number | null>(4);
@@ -39,7 +39,7 @@
 </script>
 
 {#if scenario === 'plain'}
-	<NumberField.Root locale="en-US" defaultValue={4} {onValueChange} {onValueCommitted}>
+	<NumberField.Root locale="en-US" defaultValue={4} {oninput} {onchange}>
 		<NumberField.Group data-testid="group">
 			<NumberField.Decrement />
 			<NumberField.Input data-testid="control" />
@@ -47,7 +47,7 @@
 		</NumberField.Group>
 	</NumberField.Root>
 {:else if scenario === 'empty'}
-	<NumberField.Root locale="en-US" {onValueChange}>
+	<NumberField.Root locale="en-US" {oninput}>
 		<NumberField.Input data-testid="control" />
 		<NumberField.Increment />
 	</NumberField.Root>
@@ -64,13 +64,13 @@
 	</NumberField.Root>
 	<output data-testid="value">{bound}</output>
 {:else if scenario === 'disabled'}
-	<NumberField.Root locale="en-US" defaultValue={4} disabled data-testid="root">
+	<NumberField.Root locale="en-US" defaultValue={4} disabled host={{ 'data-testid': 'root' }}>
 		<NumberField.Input data-testid="control" />
 		<NumberField.Increment />
 		<NumberField.Decrement />
 	</NumberField.Root>
 {:else if scenario === 'increment-disabled'}
-	<NumberField.Root locale="en-US" defaultValue={0} {onValueChange}>
+	<NumberField.Root locale="en-US" defaultValue={0} {oninput}>
 		<NumberField.Input data-testid="control" />
 		<NumberField.Increment disabled />
 	</NumberField.Root>
@@ -104,21 +104,15 @@
 		<NumberField.Input data-testid="control" />
 	</NumberField.Root>
 {:else if scenario === 'wheel'}
-	<NumberField.Root
-		locale="en-US"
-		defaultValue={10}
-		allowWheelScrub
-		{onValueChange}
-		{onValueCommitted}
-	>
+	<NumberField.Root locale="en-US" defaultValue={10} allowWheelScrub {oninput} {onchange}>
 		<NumberField.Input data-testid="control" />
 	</NumberField.Root>
 {:else if scenario === 'paste'}
-	<NumberField.Root locale="en-US" defaultValue={10} {onValueChange}>
+	<NumberField.Root locale="en-US" defaultValue={10} {oninput}>
 		<NumberField.Input data-testid="control" />
 	</NumberField.Root>
 {:else if scenario === 'out-of-range'}
-	<NumberField.Root locale="en-US" defaultValue={1} max={5} allowOutOfRange {onValueChange}>
+	<NumberField.Root locale="en-US" defaultValue={1} max={5} allowOutOfRange {oninput}>
 		<NumberField.Input data-testid="control" />
 		<NumberField.Decrement />
 		<NumberField.Increment />
@@ -160,9 +154,9 @@
 	<NumberField.Root
 		locale="en-US"
 		defaultValue={0}
-		data-testid="root"
-		{onValueChange}
-		{onValueCommitted}
+		host={{ 'data-testid': 'root' }}
+		{oninput}
+		{onchange}
 	>
 		<NumberField.Input data-testid="control" />
 		<NumberField.ScrubArea data-testid="scrub">
@@ -199,7 +193,7 @@
 		</NumberField.ScrubArea>
 	</NumberField.Root>
 {:else if scenario === 'render'}
-	<NumberField.Root locale="en-US" defaultValue={1} data-testid="root">
+	<NumberField.Root locale="en-US" defaultValue={1} host={{ 'data-testid': 'root' }}>
 		{#snippet render(props, fieldState, snippetChildren)}
 			<div {...props} data-rendered="true" data-value={String(fieldState.value)}>
 				{@render snippetChildren?.()}
