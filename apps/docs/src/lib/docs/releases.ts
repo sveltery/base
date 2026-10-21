@@ -1,6 +1,17 @@
 /** Sveltery Base releases, newest first. Highlights take code spans and links. */
 export const releases = [
 	{
+		version: 'v0.4.0',
+		date: '2026-10-21',
+		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.4.0',
+		highlights: [
+			'Breaking: `Form` no longer takes `onFormSubmit`, and `Field.Control` and `Input` no longer take `onValueChange`. Read `FormData` in `onsubmit` and use `bind:value`. `novalidate` now defaults to `false`.',
+			'Breaking: `onCheckedChange`, `onValueChange` on `CheckboxGroup`, `RadioGroup`, `Select`, `Slider` and `NumberField`, `onValueCommitted`, and `nativeButton` are removed. Use `bind:checked`, `bind:value` or native events.',
+			'`Checkbox`, `Switch` and `Radio` render real inputs, `CheckboxGroup` and `RadioGroup` render a `<fieldset>`, and `Select`, `Slider` and `NumberField` submit through native inputs, so forms work without JavaScript.',
+			'`Form` takes a SvelteKit remote form, `Field.Root` `name` is a path that scopes its issues, and `Form.Error` shows form-level messages. See [Forms](/handbook/forms) and [SvelteKit](/handbook/sveltekit).'
+		]
+	},
+	{
 		version: 'v0.3.0',
 		date: '2026-10-21',
 		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.3.0',
