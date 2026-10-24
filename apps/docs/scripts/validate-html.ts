@@ -11,7 +11,9 @@ const overrides: Record<string, RuleConfig> = {
 	// `Slider.Label` labels the input through `aria-labelledby` only after hydration.
 	'/components/slider': { 'input-missing-label': 'off' },
 	// Combobox renders one id on both its input and its trigger during SSR.
-	'/handbook/forms': { 'no-dup-id': 'off' }
+	'/handbook/forms': { 'no-dup-id': 'off' },
+	// Questionnaire.Input renders `form=""` to keep an unselected draft out of the form, as @shadcn/react does.
+	'/extras/questionnaire': { 'attribute-allowed-values': 'off' }
 };
 
 // `mui:recommended` from `@mui/internal-code-infra/brokenLinksChecker`, which upstream's

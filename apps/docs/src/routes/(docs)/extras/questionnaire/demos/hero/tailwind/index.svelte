@@ -37,7 +37,7 @@
 				<Questionnaire.ChoiceLabel>Large</Questionnaire.ChoiceLabel>
 			</Questionnaire.Choice>
 		</Questionnaire.Choices>
-		<Questionnaire.Error class="text-sm text-red-800 dark:text-red-400" />
+		<Questionnaire.Error class="text-sm text-red-700 dark:text-red-400" />
 	</Questionnaire.Item>
 	<Questionnaire.Item name="notes" class="flex flex-col gap-2">
 		<Questionnaire.Title class="text-base font-bold text-neutral-950 dark:text-white">
