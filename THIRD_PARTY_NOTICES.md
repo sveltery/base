@@ -604,3 +604,32 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## cmdk
+
+`src/lib/command` ports [cmdk](https://github.com/pacocoursey/cmdk) v1.1.1, commit `dd2250ed608443e8f32bafc5fa2d1d07a3746aa3`. It moved from Sveltery UI's `@sveltery/command` package.
+
+- `src/lib/command/Command{Root,Input,List,Empty,Group,GroupItems,Item,Separator,Loading}.svelte`, `PartAnchor.svelte`, `root-state.svelte.ts`, `item-state.svelte.ts`, `parts.svelte.ts`, `rank.ts`, `utils.ts` and `data-attributes.ts` from `cmdk/src/index.tsx`: the parts, their attributes and roles, filtering and ranking, selection and keyboard handling. The ranking, registration and DOM handling are rewritten for Svelte.
+- `src/lib/command/command-score.ts` from `cmdk/src/command-score.ts`, with TypeScript types added.
+
+MIT License
+
+Copyright (c) 2022 Paco Coursey
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

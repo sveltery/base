@@ -974,3 +974,45 @@ Test: `src/lib/input-otp/InputOTPRoot.svelte.spec.ts` (`binds the value and call
 Pin: `81ccdb48c010d800b24942aa231909f0c971b1ca`, `packages/input-otp/src/sync-timeouts.ts` and `use-pwm-badge.tsx`. `syncTimeouts` starts three timeouts on every value or focus change and never clears them.
 
 Local: the sync timeouts still stack as upstream's do, in a `TimeoutManager` that clears them when the root is destroyed. The password-manager check uses `ScopedTimeout` and `ScopedInterval`.
+
+## Command
+
+Pin: cmdk v1.1.1, `dd2250ed608443e8f32bafc5fa2d1d07a3746aa3`, `cmdk/src/index.tsx`. The parts render cmdk's elements, `cmdk-*` attributes, roles and ARIA, and `data-selected` and `data-disabled` keep cmdk's `"true"` and `"false"` values, because Sveltery UI's styles select them. While searching, the items that do not match unmount and the rest render in cmdk's ranked order. The port moved from Sveltery UI's `@sveltery/command` 0.2.0, where it shipped first.
+
+### Selection and ranking
+
+Local: where cmdk misbehaves, the port keeps the working behavior.
+
+- `aria-activedescendant` always names the selected item. cmdk leaves it out when the menu opens and names the previous item after a search.
+- Results are in score order whatever the previous search was. cmdk ranks the items a search brings back below the ones already shown.
+- Clearing the search restores the declared order. cmdk keeps the last ranked order for items that stayed mounted.
+- Groups are ordered by their best match while searching. cmdk means to, but its lookup never finds the group.
+- A group that holds only force-mounted items stays visible while searching. cmdk hides it.
+- Selection follows the item, not its value. Items that share a value are each reachable, and only the picked one is selected. Writing the bound `value` selects the first item with that value, unless the selected item already has it.
+- Only the menu in use moves focus. cmdk moves focus to its input when any menu's input or root has focus.
+
+Test: `src/lib/command/Command.svelte.spec.ts` and `src/lib/command/rank.spec.ts`.
+
+### Scrolling and `onValueChange`
+
+Local: only keyboard moves and a new search scroll the selection into view. The automatic selection on mount, the pointer, a click and a write to the bound `value` do not, so an inline menu does not scroll the page when it mounts. `onValueChange` fires for every change of the selected value, including the automatic selection on mount and on search, whether or not `value` is bound. cmdk calls it only when `value` is controlled.
+
+Test: `src/lib/command/Command.svelte.spec.ts` (`scrolls keyboard and search selections into view` and `selects the first item on mount and reports it`).
+
+### Svelte props and handlers
+
+Local: Root binds `value` and takes `defaultValue`, and Input binds `value` for the search and takes the native `defaultValue`. They replace cmdk's controlled `value`, `defaultValue` and `onValueChange` on Input. `getCommandState()` replaces `useCommandState(selector)`. There is no `asChild`. Root `onkeydown` and Item `onclick` and `onpointermove` run before the part's own handling, and `event.preventDefault()` skips it. cmdk replaces those handlers.
+
+Test: `src/lib/command/Command.svelte.spec.ts` (`Command props that cmdk has and Svelte names`).
+
+### Server rendering
+
+Local: the server renders the full list. Nothing is filtered, ordered or selected until Root mounts, so the server markup and the first client render match, and hydration adopts the server's nodes. Empty renders only after mount, and `getCommandState().count` reads 0 until then.
+
+Test: `src/lib/command/command-ssr.spec.ts` and the hydration case in `src/routes/fixtures/command/command.e2e.ts`.
+
+### Parts render in their List or Group
+
+Local: Svelte cannot move the nodes it renders, so List and each Group render their parts themselves, in ranked order, and each part leaves only a comment where it is written. An element wrapped around an Item, Group, Separator, Empty or Loading stays empty. Other markup written in List or Group renders before its parts. Context set between List or Group and an Item does not reach the Item's content. A `{#each}` or `{#if}` around parts works.
+
+Test: `src/lib/command/Command.svelte.spec.ts` (`Command outside the usual layout`).
