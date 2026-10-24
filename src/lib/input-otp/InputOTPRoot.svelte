@@ -211,11 +211,7 @@
 			if (!input) return;
 			// Dispatching input clears the browser's :autofill state.
 			input.dispatchEvent(new Event('input'));
-			const { selectionStart: s, selectionEnd: e, selectionDirection: dir } = input;
-			if (s !== null && e !== null) {
-				setMirror(s, e);
-				previousSelection = [s, e, dir];
-			}
+			onDocumentSelectionChange();
 		});
 	});
 
