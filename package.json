@@ -194,6 +194,11 @@
 			"svelte": "./dist/progress/index.js",
 			"default": "./dist/progress/index.js"
 		},
+		"./questionnaire": {
+			"types": "./dist/questionnaire/index.d.ts",
+			"svelte": "./dist/questionnaire/index.js",
+			"default": "./dist/questionnaire/index.js"
+		},
 		"./radio": {
 			"types": "./dist/radio/index.d.ts",
 			"svelte": "./dist/radio/index.js",
@@ -285,6 +290,7 @@
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",
 		"@sveltery/floating-ui-svelte": "workspace:*",
 		"@sveltery/utils": "workspace:*",
+		"@types/jsdom": "^30.0.0",
 		"@types/node": "^24",
 		"@types/react": "19.2.18",
 		"@types/react-dom": "19.2.4",
