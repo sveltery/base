@@ -58,8 +58,7 @@ export default defineConfig({
 				test: {
 					name: 'jsdom',
 					environment: 'jsdom',
-					include: jsdomTests,
-					passWithNoTests: true
+					include: jsdomTests
 				}
 			},
 
