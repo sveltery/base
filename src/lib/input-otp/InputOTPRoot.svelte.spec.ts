@@ -224,6 +224,25 @@ describe('InputOTP', () => {
 	});
 
 	describe('native Svelte', () => {
+		it('moves the selection left when ArrowLeft lands before the post-change sync runs', async () => {
+			vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval'] });
+			try {
+				render(InputOTPHarness);
+				await userEvent.type(input(), '1234');
+				await userEvent.keyboard('{ArrowLeft}');
+				await selected(3, 4);
+
+				// ArrowLeft collapses the caret first. The pending sync timeouts then run before
+				// selectionchange does.
+				(input().element() as HTMLInputElement).setSelectionRange(3, 3);
+				vi.runOnlyPendingTimers();
+
+				await selected(2, 3);
+			} finally {
+				vi.useRealTimers();
+			}
+		});
+
 		it('binds the value and calls onComplete once when the last slot fills', async () => {
 			const onComplete = vi.fn();
 			render(InputOTPHarness, { onComplete });

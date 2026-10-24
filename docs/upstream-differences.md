@@ -975,6 +975,14 @@ Pin: `81ccdb48c010d800b24942aa231909f0c971b1ca`, `packages/input-otp/src/sync-ti
 
 Local: the sync timeouts still stack as upstream's do, in a `TimeoutManager` that clears them when the root is destroyed. The password-manager check uses `ScopedTimeout` and `ScopedInterval`.
 
+### Sync timeouts run the selection handler
+
+Pin: `81ccdb48c010d800b24942aa231909f0c971b1ca`, `packages/input-otp/src/input.tsx`. Each sync timeout copies the input's raw selection into the mirrored selection and into the previous selection that the `selectionchange` handler reads to tell a backward caret move from a forward one. When an arrow key lands in the 50 ms after a value or focus change, a timeout can record the collapsed caret before `selectionchange` runs. The handler then reads the move as forward, and ArrowLeft leaves the highlighted slot where it was.
+
+Local: each sync timeout calls the `selectionchange` handler, which widens a collapsed caret to its slot and records the result, so a later `selectionchange` sees a range and keeps it. The handler clears the mirror once focus has left the input, so after a blur `data-input-otp-mss` and `data-input-otp-mse` are absent where upstream keeps the last selection. No React fixture case asserts either behavior.
+
+Test: `src/lib/input-otp/InputOTPRoot.svelte.spec.ts` (`moves the selection left when ArrowLeft lands before the post-change sync runs`).
+
 ## Command
 
 Pin: cmdk v1.1.1, `dd2250ed608443e8f32bafc5fa2d1d07a3746aa3`, `cmdk/src/index.tsx`. The parts render cmdk's elements, `cmdk-*` attributes, roles and ARIA, and `data-selected` and `data-disabled` keep cmdk's `"true"` and `"false"` values, because Sveltery UI's styles select them. While searching, the items that do not match unmount and the rest render in cmdk's ranked order. The port moved from Sveltery UI's `@sveltery/command` 0.2.0, where it shipped first.
