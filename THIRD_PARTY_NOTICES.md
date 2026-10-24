@@ -489,6 +489,10 @@ Parts of this package derive from [`@shadcn/react`](https://github.com/shadcn-ui
 - `src/lib/questionnaire/collection.ts`, `utils.ts`, `types.ts` and `index.ts` from the files of the same names in `packages/react/src/questionnaire`
 - `src/lib/questionnaire/data-attributes.ts` from the state attributes in `packages/react/src/questionnaire/components.tsx`
 - `src/lib/questionnaire/*.spec.ts` and the fixtures in `src/routes/fixtures/questionnaire` from `packages/react/src/questionnaire/questionnaire.test.tsx`
+- `src/lib/message-scroller/geometry.ts` and `geometry.test.ts`, copied from `packages/react/src/message-scroller/geometry.ts` and `geometry.test.ts` with `.js` suffixes added to their imports
+- `src/lib/message-scroller/scroller.svelte.ts` from `packages/react/src/message-scroller/use-message-scroller-controller.ts` and `use-message-scroller-commands.ts`
+- `src/lib/message-scroller/MessageScroller*.svelte`, `types.ts` and `data-attributes.ts` from `packages/react/src/message-scroller/components.tsx` and `types.ts`
+- `src/lib/message-scroller/MessageScroller.svelte.spec.ts` from `packages/react/src/message-scroller/message-scroller.test.tsx`
 
 MIT License
 

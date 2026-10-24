@@ -19,7 +19,7 @@ Base also holds the headless parts that [Sveltery UI](https://github.com/svelter
 - Base has two OTP inputs. OTPField is the Base UI part. InputOTP ports input-otp, because Sveltery UI's input OTP is built on it.
 - A part with an optional peer dependency, such as date-fns for the day picker, is a subpath only. Do not export it from `src/lib/index.ts`. `node scripts/check-optional-peers.mjs` (run by `pnpm lint`) fails when the root barrel exports a folder that imports a package marked optional in `peerDependenciesMeta`.
 - Docs pages go in the Extras section, `apps/docs/src/routes/(docs)/extras`. `apps/docs/scripts/compare-nav.ts` compares only the sections Base UI has.
-- Upstream files copied without changes go in `upstreamCopies` in `eslint.config.js`, so they keep upstream's code. The `jsdom` Vitest project runs the upstream unit tests copied with them, `src/lib/resizable/**/*.test.ts`.
+- Upstream files copied without changes go in `upstreamCopies` in `eslint.config.js`, so they keep upstream's code. List them in `.prettierignore` too, so Prettier keeps upstream's formatting. The `jsdom` Vitest project runs the upstream unit tests copied with them, `src/lib/resizable/**/*.test.ts`.
 
 ## Port the intent, not the React code
 

@@ -35,7 +35,10 @@ const upstreamCopies = [
 	'src/lib/resizable/engine/utils/**',
 	'src/lib/resizable/engine/vendor/**',
 	'src/lib/resizable/engine/components/group/sortByElementOffset*.ts',
-	'src/lib/resizable/engine/components/group/auto-save/**'
+	'src/lib/resizable/engine/components/group/auto-save/**',
+	// Copied from @shadcn/react as is.
+	'src/lib/message-scroller/geometry.ts',
+	'src/lib/message-scroller/geometry.test.ts'
 ];
 
 export default defineConfig(
