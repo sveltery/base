@@ -911,3 +911,18 @@ Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`. React's element types have no `
 Local: Svelte's element types accept `null` for every attribute, and each part's `render` snippet receives those types as `props`. Parts that render a host element and declare `disabled`, `id`, `name`, `form`, `required` or `readonly` accept `null` too, and treat it as an absent attribute, as `<button disabled={null}>` does. A part's render snippet can therefore spread `props` onto another part on the same element, such as `Popover.Trigger` onto `Button`. `Select.Root`, `Combobox.Root`, `Autocomplete.Root`, `Tooltip.Root`, `Menu.Root` and `Menu.SubmenuRoot` render no host element and keep their types without `null`.
 
 Test: `type-probes/render/PartAsPart.svelte`, `src/lib/button/Button.svelte.spec.ts` (`renders a popover trigger and opens its popover`, `treats disabled={null} as false in the render state`), `src/lib/field/null-id.svelte.spec.ts`, `type-probes/render/MenuPartAsPart.svelte`, `src/lib/menu/Menu.svelte.spec.ts` (`treats null id and disabled as absent`).
+
+## DayPicker
+
+Pin: react-day-picker v9.8.1, `bd55df2e3a4917f4c368020f3ef64f60b6882627`, `src/DayPicker.tsx`, `src/useCalendar.ts`, `src/useFocus.ts`, `src/useSelection.ts`, `src/selection`, `src/helpers`, `src/utils`, `src/formatters` and `src/labels`. `selected` with `onSelect` is controlled, and `selected` without `onSelect` is the initial value of an uncontrolled selection. `month` with `onMonthChange` is controlled, and `defaultMonth` is the initial month. `components` replaces any rendered part with a React component. `className`, `style`, `styles` and `modifiersStyles` style the parts.
+
+Local: `src/lib/day-picker`, from `@sveltery/day-picker` 0.2.0 in sveltery/ui. `@sveltery/base/day-picker` exports `DayPicker`, `DayPickerState`, `DateLib`, `defaultClassNames`, `defaultFormatters`, `defaultLabels` and `DayPickerDataAttributes`. It imports `date-fns` and `@date-fns/tz`, which are optional peers, so it is a subpath only and `src/lib/index.ts` does not export it.
+
+- `selected` and `month` are `$bindable` props, and the component writes each change in the click, key or change handler before it calls `onSelect` or `onMonthChange`. `defaultSelected` is added beside `selected`, as on a Base UI part. It and `defaultMonth` are read once, at mount. react-day-picker v9 has no `defaultSelected`.
+- `components` becomes snippet props: `root`, `chevron`, `dayButton`, `weekNumber` and `footer`. Each snippet receives the attributes to spread on its element, and `dayButton` and `weekNumber` also receive the formatted `text`. The other parts are not replaceable.
+- `class` replaces `className`, `autofocus` replaces `autoFocus`, and `style` is a CSS string. `styles` and `modifiersStyles` are not ported. Style the parts through `classNames`, `modifiersClassNames` or the `data-*` attributes.
+- `locale` takes a date-fns locale. `dateLib`, `numerals`, `useAdditionalDayOfYearTokens` and `useAdditionalWeekYearTokens` are not ported, and only the Gregorian calendar is ported, without the `persian`, `jalali` and `utc` entries.
+- `animate`, `broadcastCalendar`, `onDayKeyUp`, `onDayPointerEnter`, `onDayPointerLeave` and the `onDayTouch*` callbacks are not ported. The props upstream deprecates (`fromDate`, `fromMonth`, `fromYear`, `toDate`, `toMonth`, `toYear`, `initialFocus`, `onDayKeyPress` and `onWeekNumberClick`) are not ported.
+- A `timeZone` change does not move the displayed month back to the initial month. Upstream resets it in an effect.
+
+Test: `src/lib/day-picker/*.test.ts`, `src/lib/day-picker/DayPicker.svelte.spec.ts` and `src/routes/fixtures/day-picker/day-picker.e2e.ts`, which runs each case against react-day-picker 9.8.1.
