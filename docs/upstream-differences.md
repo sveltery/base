@@ -948,3 +948,29 @@ Pin: react-resizable-panels v4.5.8 (`119437b6a973c10b6513613eb9453fc9fb850259`),
 Local: `scripts/resizable/patches/0002-resize-accepts-size-units.patch` converts every unit from the measured group, with the change upstream made in [4.7.3](https://github.com/bvaughn/react-resizable-panels/commit/e8dd4300a1db74b127d91e77fc81b16ed0bd4af8). `0001-cursor-style-type.patch` types the cursor style as a string, so the engine does not import `csstype`.
 
 Test: `src/lib/resizable/Resizable.svelte.spec.ts` (`resizes a panel to a size in pixels and rem`), `src/lib/resizable/engine/global/utils/getImperativePanelMethods.test.ts` (`units`).
+
+## InputOTP
+
+Source: input-otp v1.4.2 (`81ccdb48c010d800b24942aa231909f0c971b1ca`), `packages/input-otp/src`. Upstream exports `OTPInput`, `OTPInputContext`, the `REGEXP_ONLY_*` patterns and the `RenderProps` and `SlotProps` types. Its React fixture is `src/routes/fixtures/input-otp/react-reference.ts`, which mounts the `input-otp` package.
+
+Test: `src/lib/input-otp/InputOTPRoot.svelte.spec.ts`, `src/routes/fixtures/input-otp/input-otp.e2e.ts`.
+
+### Names
+
+Pin: `81ccdb48c010d800b24942aa231909f0c971b1ca`, `packages/input-otp/src/input.tsx` and `types.ts`.
+
+Local: `OTPInput` is `InputOTP.Root`. `OTPInputContext` is `getInputOTPContext()`. `RenderProps` is `InputOTPRootState` and `SlotProps` is `InputOTPSlotState`. Props use HTML names: `maxLength` is `maxlength`, `inputMode` is `inputmode` and `autoFocus` is `autofocus`. `containerClassName` is `containerClass`. `render` keeps upstream's meaning: it receives the state and draws the slots, and does not replace the root element as a Base UI part's `render` does.
+
+### Value and the input element
+
+Pin: `81ccdb48c010d800b24942aa231909f0c971b1ca`, `packages/input-otp/src/input.tsx`. Upstream takes `value` with `onChange`, or an uncontrolled `defaultValue`, and forwards its `ref` to the input.
+
+Local: `bind:value` replaces `value` and `onChange`, and `defaultValue` is the code an empty binding starts from. There is no `onChange` or `ref`. Rest props, attachments included, go to the input, so `{@attach}` on `InputOTP.Root` reaches it.
+
+Test: `src/lib/input-otp/InputOTPRoot.svelte.spec.ts` (`binds the value and calls onComplete once when the last slot fills`, `passes consumer attachments to the input`).
+
+### Timers clear when the root is destroyed
+
+Pin: `81ccdb48c010d800b24942aa231909f0c971b1ca`, `packages/input-otp/src/sync-timeouts.ts` and `use-pwm-badge.tsx`. `syncTimeouts` starts three timeouts on every value or focus change and never clears them.
+
+Local: the sync timeouts still stack as upstream's do, in a `TimeoutManager` that clears them when the root is destroyed. The password-manager check uses `ScopedTimeout` and `ScopedInterval`.

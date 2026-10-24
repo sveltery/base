@@ -45,3 +45,4 @@ export * from './combobox/index.js';
 export * from './autocomplete/index.js';
 export * from './questionnaire/index.js';
 export * from './resizable/index.js';
+export * from './input-otp/index.js';

@@ -13,7 +13,9 @@ const overrides: Record<string, RuleConfig> = {
 	// Combobox renders one id on both its input and its trigger during SSR.
 	'/handbook/forms': { 'no-dup-id': 'off' },
 	// Questionnaire.Input renders `form=""` to keep an unselected draft out of the form, as @shadcn/react does.
-	'/extras/questionnaire': { 'attribute-allowed-values': 'off' }
+	'/extras/questionnaire': { 'attribute-allowed-values': 'off' },
+	// InputOTP.Root renders its `<noscript>` fallback `<style>` beside the input, as input-otp does.
+	'/extras/input-otp': { 'element-permitted-content': 'off' }
 };
 
 // `mui:recommended` from `@mui/internal-code-infra/brokenLinksChecker`, which upstream's
