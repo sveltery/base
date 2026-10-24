@@ -44,7 +44,7 @@ A bound `value` that names no item is kept, for example while items load, and se
 ## Keyboard
 
 | Key                                                                                        | Action                                                        |
-| :----------------------------------------------------------------------------------------- | :------------------------------------------------------------ |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
 | <kbd>ArrowDown</kbd>, <kbd>ArrowUp</kbd>                                                   | Next or previous item. Wraps around with `loop`.              |
 | <kbd>Ctrl</kbd>+<kbd>N</kbd> or <kbd>J</kbd>, <kbd>Ctrl</kbd>+<kbd>P</kbd> or <kbd>K</kbd> | Same as ArrowDown and ArrowUp, unless `vimBindings` is false. |
 | <kbd>Meta</kbd> with any of the above                                                      | Last or first item.                                           |
