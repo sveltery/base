@@ -926,3 +926,25 @@ Local: `src/lib/day-picker`, from `@sveltery/day-picker` 0.2.0 in sveltery/ui. `
 - A `timeZone` change does not move the displayed month back to the initial month. Upstream resets it in an effect.
 
 Test: `src/lib/day-picker/*.test.ts`, `src/lib/day-picker/DayPicker.svelte.spec.ts` and `src/routes/fixtures/day-picker/day-picker.e2e.ts`, which runs each case against react-day-picker 9.8.1.
+
+## Resizable
+
+`@sveltery/base/resizable` follows react-resizable-panels v4.5.8, not Base UI. `scripts/resizable/sync-upstream.mjs` copies the framework-free engine into `src/lib/resizable/engine` and applies `scripts/resizable/patches`. The parts are Svelte rewrites of upstream's React components.
+
+### Public surface
+
+Pin: react-resizable-panels v4.5.8 (`119437b6a973c10b6513613eb9453fc9fb850259`), `lib/index.ts`. Upstream exports `Group`, `Panel` and `Separator`, the `useDefaultLayout`, `useGroupRef`, `usePanelRef`, `useGroupCallbackRef` and `usePanelCallbackRef` hooks, and `isCoarsePointer`. Each part takes an `elementRef`, `Group` takes a `groupRef` and `Panel` a `panelRef` that receive its imperative handle. `className` and `style` are React props.
+
+Local: the parts are `Resizable.Group`, `Resizable.Panel` and `Resizable.Separator`, because Base already exports `Separator`. `bind:this` on a group gives `getLayout()` and `setLayout()` (`ResizableGroupActions`), and on a panel `collapse()`, `expand()`, `getSize()`, `isCollapsed()` and `resize()` (`ResizablePanelActions`), in place of `groupRef` and `panelRef`. An attachment on a part reaches its element, in place of `elementRef`. The `use*Ref` hooks are not ported, because `bind:this` does their job. `class` and `style` are HTML attributes, and `style` is a string. The exported types carry a `Resizable` prefix: `ResizableLayout`, `ResizableLayoutStorage`, `ResizableOrientation`, `ResizablePanelSize` and `ResizableSizeUnit`. `useDefaultLayout` keeps its name and its options. Its debounce timer is a `ScopedTimeout`, so it is cleared when the component that called it is destroyed.
+
+Rationale: Base parts are namespaces, take HTML prop names and have no ref props (AGENTS.md). Sveltery UI's `BlockViewer` resizes a panel from a toggle group, which `bind:this` covers.
+
+Test: `src/lib/resizable/Resizable.svelte.spec.ts` (`applies a layout set through bind:this after validating it`, `collapses, expands and resizes a panel through bind:this`, `gives an attachment the group element`), `src/routes/fixtures/resizable/resizable.e2e.ts`.
+
+### Panel resize takes every size unit
+
+Pin: react-resizable-panels v4.5.8 (`119437b6a973c10b6513613eb9453fc9fb850259`), `lib/global/utils/getImperativePanelMethods.ts`. `resize()` reads a string with `parseFloat`, so `resize('300px')` sets the panel to 300 percent, which the layout then clamps, and `resize('10rem')` to 10 percent. Its own documentation says the method takes pixels, `rem`, `em`, `vh` and `vw`.
+
+Local: `scripts/resizable/patches/0002-resize-accepts-size-units.patch` converts every unit from the measured group, with the change upstream made in [4.7.3](https://github.com/bvaughn/react-resizable-panels/commit/e8dd4300a1db74b127d91e77fc81b16ed0bd4af8). `0001-cursor-style-type.patch` types the cursor style as a string, so the engine does not import `csstype`.
+
+Test: `src/lib/resizable/Resizable.svelte.spec.ts` (`resizes a panel to a size in pixels and rem`), `src/lib/resizable/engine/global/utils/getImperativePanelMethods.test.ts` (`units`).
