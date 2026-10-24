@@ -1,6 +1,6 @@
 {
 	"name": "@sveltery/base",
-	"version": "0.4.0",
+	"version": "0.5.0",
 	"description": "Experimental, unofficial Svelte 5 port of Base UI components.",
 	"license": "MIT",
 	"homepage": "https://base.sveltery.dev",

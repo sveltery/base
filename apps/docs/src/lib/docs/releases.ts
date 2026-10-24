@@ -1,6 +1,17 @@
 /** Sveltery Base releases, newest first. Highlights take code spans and links. */
 export const releases = [
 	{
+		version: 'v0.5.0',
+		date: '2026-10-24',
+		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.5.0',
+		highlights: [
+			'Six new subpaths hold the headless parts Sveltery UI used to ship itself. See [Extras](/extras).',
+			'`@sveltery/base/command` ports cmdk, `@sveltery/base/day-picker` ports react-day-picker, `@sveltery/base/resizable` ports react-resizable-panels, and `@sveltery/base/input-otp` ports input-otp.',
+			'`@sveltery/base/message-scroller` and `@sveltery/base/questionnaire` port the parts of the same name from `@shadcn/react`.',
+			'`day-picker` needs the optional peers `date-fns` and `@date-fns/tz`. Import it from `@sveltery/base/day-picker`. The root `@sveltery/base` export does not include it.'
+		]
+	},
+	{
 		version: 'v0.4.0',
 		date: '2026-10-21',
 		url: 'https://www.npmjs.com/package/@sveltery/base/v/0.4.0',
