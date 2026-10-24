@@ -226,35 +226,35 @@
 	);
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		const input = event.currentTarget;
-		const next = input.value.slice(0, maxlength);
+		const field = event.currentTarget;
+		const next = field.value.slice(0, maxlength);
 		if (next !== code && !(next.length > 0 && regexp && !regexp.test(next))) {
 			// Deleting moves no selection, so selectionchange has to be raised by hand.
 			if (next.length < code.length) document.dispatchEvent(new Event('selectionchange'));
 			value = next;
 		}
-		if (input.value !== code) input.value = code;
+		if (field.value !== code) field.value = code;
 		oninput?.(event);
 	}
 
 	function handlePaste(event: ClipboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		const input = event.currentTarget;
+		const field = event.currentTarget;
 		const isIOS = window.CSS?.supports?.('-webkit-touch-callout', 'none');
 		if ((pasteTransformer || isIOS) && event.clipboardData) {
 			const pasted = event.clipboardData.getData('text/plain');
 			const content = pasteTransformer ? pasteTransformer(pasted) : pasted;
 			event.preventDefault();
-			const start = input.selectionStart ?? 0;
-			const end = input.selectionEnd ?? start;
+			const start = field.selectionStart ?? 0;
+			const end = field.selectionEnd ?? start;
 			const next = (code.slice(0, start) + content + code.slice(start !== end ? end : start)).slice(
 				0,
 				maxlength
 			);
 			if (!(next.length > 0 && regexp && !regexp.test(next))) {
-				input.value = next;
+				field.value = next;
 				value = next;
 				const selectionStart = Math.min(next.length, maxlength - 1);
-				input.setSelectionRange(selectionStart, next.length);
+				field.setSelectionRange(selectionStart, next.length);
 				setMirror(selectionStart, next.length);
 			}
 		}
@@ -262,10 +262,10 @@
 	}
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
-		const input = event.currentTarget;
-		const start = Math.min(input.value.length, maxlength - 1);
-		input.setSelectionRange(start, input.value.length);
-		setMirror(start, input.value.length);
+		const field = event.currentTarget;
+		const start = Math.min(field.value.length, maxlength - 1);
+		field.setSelectionRange(start, field.value.length);
+		setMirror(start, field.value.length);
 		isFocused = true;
 		onfocus?.(event);
 	}
