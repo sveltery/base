@@ -4,6 +4,7 @@
 
 - Questionnaire [New] - ([Outline](#questionnaire), [Contents](./questionnaire/+page.md))
 - Day Picker [New] - ([Outline](#day-picker), [Contents](./day-picker/+page.md))
+- Message Scroller [New] - ([Outline](#message-scroller), [Contents](./message-scroller/+page.md))
 - Resizable [New] - ([Outline](#resizable), [Contents](./resizable/+page.md))
 - Input OTP [New] - ([Outline](#input-otp), [Contents](./input-otp/+page.md))
 - Command [New] - ([Outline](#command), [Contents](./command/+page.md))
@@ -112,6 +113,49 @@ A calendar that shows one or more months and selects a single day, several days 
 </details>
 
 [Read more](./day-picker/+page.md)
+
+## Message Scroller
+
+A chat transcript that follows new messages, anchors each turn and keeps the reader's place.
+
+<details>
+
+<summary>Outline</summary>
+
+- Sections:
+  - Anatomy
+  - Examples
+    - Anchoring turns
+    - Avoiding a flash on reload
+    - Reading scroll state
+  - API reference
+    - Provider
+    - Root
+    - Viewport
+    - Content
+    - Item
+    - Button
+- Exports:
+  - Message Scroller - Root
+    - Data Attributes: data-autoscrolling, data-pending-scroll, data-scrollable
+  - Message Scroller - Provider
+    - Props: autoScroll, defaultScrollPosition, scrollEdgeThreshold, scrollMargin, scrollPreviousItemPeek
+  - Message Scroller - Item
+    - Props: messageId, scrollAnchor
+    - Data Attributes: data-message-id, data-scroll-anchor
+  - Message Scroller - Content
+    - Props: spacerClass
+  - Message Scroller - Viewport
+    - Props: preserveScrollOnPrepend
+    - Data Attributes: data-autoscrolling, data-pending-scroll, data-scrollable
+  - Message Scroller - Button
+    - Props: behavior, direction, render
+    - Data Attributes: data-active
+- Types: MessageScroller.Button.Props, MessageScroller.Button.State, MessageScroller.Content.Props, MessageScroller.Content.State, MessageScroller.Item.Props, MessageScroller.Item.State, MessageScroller.Provider.Props, MessageScroller.Provider.State, MessageScroller.Root.Props, MessageScroller.Root.State, MessageScroller.Viewport.Props, MessageScroller.Viewport.State
+
+</details>
+
+[Read more](./message-scroller/+page.md)
 
 ## Resizable
 

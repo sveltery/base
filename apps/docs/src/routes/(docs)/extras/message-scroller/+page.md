@@ -71,4 +71,26 @@ For the `'end'` and `'last-anchor'` opening positions, the root and the viewport
 	import { TypesMessageScroller } from './types';
 </script>
 
-<TypesMessageScroller />
+### Provider
+
+<TypesMessageScroller.Provider />
+
+### Root
+
+<TypesMessageScroller.Root />
+
+### Viewport
+
+<TypesMessageScroller.Viewport />
+
+### Content
+
+<TypesMessageScroller.Content />
+
+### Item
+
+<TypesMessageScroller.Item />
+
+### Button
+
+<TypesMessageScroller.Button />
