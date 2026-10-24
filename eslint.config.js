@@ -26,6 +26,9 @@ const restrictedImports = [
 	}
 ];
 
+/** Files copied from an upstream without changes. They keep upstream's code, so its lint findings stay. */
+const upstreamCopies = [];
+
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
 	{
@@ -106,6 +109,20 @@ export default defineConfig(
 			'sveltery/no-previous-value-effect': 'off'
 		}
 	},
+	...(upstreamCopies.length
+		? [
+				{
+					files: upstreamCopies,
+					rules: {
+						'no-useless-assignment': 'off',
+						'@typescript-eslint/no-unused-vars': 'off',
+						'sveltery/no-previous-value-effect': 'off',
+						'sveltery/no-state-updater': 'off',
+						'sveltery/no-unscoped-timer': 'off'
+					}
+				}
+			]
+		: []),
 	{
 		// React useState in the shared reference helpers. `setCalls`, `setValues`,
 		// and `setSubmitted` take React's functional updater. Other project rules

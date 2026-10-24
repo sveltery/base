@@ -2,6 +2,25 @@
 
 Sveltery Base is a Svelte 5 port of [Base UI](https://base-ui.com/), pinned to v1.9.0 commit `ad7ecda5296b0295b41a51ecb01fce6204acd099`. The repository is a pnpm workspace. The base library is the root package, in `src/lib`. Fixtures and their React Base UI references are `src/routes/fixtures`. `packages/utils` (`@sveltery/utils`) holds the shared helpers that Base UI keeps in `@base-ui/utils`. `packages/floating-ui-svelte` (`@sveltery/floating-ui-svelte`) holds the Svelte version of Base UI's floating-ui fork. Packages never import the base library, and the base library imports a package only by its name. [docs/porting.md](docs/porting.md) is the rulebook for turning Base UI code into Svelte. Read it before you port anything.
 
+## Headless parts for Sveltery UI
+
+Base also holds the headless parts that [Sveltery UI](https://github.com/sveltery/ui) needs and Base UI does not have. Hugo Hsi, the owner, signed off on this scope on 2026-10-24, along with any deviation from Base UI that Sveltery UI needs. These parts are ports of other libraries:
+
+| Upstream                                                                    | Subpath                                                           |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| [cmdk](https://github.com/pacocoursey/cmdk)                                 | `@sveltery/base/command`                                          |
+| [react-day-picker](https://github.com/gpbl/react-day-picker)                | `@sveltery/base/day-picker`                                       |
+| [react-resizable-panels](https://github.com/bvaughn/react-resizable-panels) | `@sveltery/base/resizable`                                        |
+| [input-otp](https://github.com/guilhermerodz/input-otp)                     | `@sveltery/base/input-otp`                                        |
+| [@shadcn/react](https://github.com/shadcn-ui/ui)                            | `@sveltery/base/message-scroller`, `@sveltery/base/questionnaire` |
+
+- Each part follows its own upstream, not Base UI. Its paired React fixture mounts that upstream, which is a devDependency at the version the port follows.
+- The rules below still apply. Props use HTML and Svelte names, such as `maxlength`, not `maxLength`. Read an element with `bind:this` or a `render` snippet, not a `ref` prop.
+- Base has two OTP inputs. OTPField is the Base UI part. InputOTP ports input-otp, because Sveltery UI's input OTP is built on it.
+- A part with an optional peer dependency, such as date-fns for the day picker, is a subpath only. Do not export it from `src/lib/index.ts`. `node scripts/check-optional-peers.mjs` (run by `pnpm lint`) fails when the root barrel exports a folder that imports a package marked optional in `peerDependenciesMeta`.
+- Docs pages go in the Extras section, `apps/docs/src/routes/(docs)/extras`. `apps/docs/scripts/compare-nav.ts` compares only the sections Base UI has.
+- Upstream files copied without changes go in `upstreamCopies` in `eslint.config.js`, so they keep upstream's code. The `jsdom` Vitest project runs the upstream unit tests copied with them, `src/lib/resizable/**/*.test.ts`.
+
 ## Port the intent, not the React code
 
 - Port every behavior Base UI intends: roles, ARIA and `data-*` state, keyboard and pointer handling, focus, cancellation through `eventDetails.cancel()`, validation and cleanup.
@@ -38,7 +57,7 @@ Form, Field and Fieldset follow Base UI's API, with the differences the owner si
 
 ## Attribution
 
-Keep the MIT attribution header on ported files and update [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The header names the Base UI version the file follows. A file whose header still says v1.8.0 follows upstream code that changed in v1.9.0 and is not ported yet. `node scripts/provenance-bump.mjs` lists those files with the upstream commits that block them, and moves a header once the file follows the pin.
+Keep the MIT attribution header on ported files and update [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The header names the Base UI version the file follows. A part ported from another upstream uses the same header with that upstream's name, version, path and commit, such as `Derived from cmdk v1.1.1 src/index.tsx (commit dd2250e). MIT, see THIRD_PARTY_NOTICES.md.` The docs read a part's description from the header text before `Derived from`. Each upstream has its own `## <upstream>` section in THIRD_PARTY_NOTICES.md, with its file list and license text. A file whose header still says v1.8.0 follows upstream code that changed in v1.9.0 and is not ported yet. `node scripts/provenance-bump.mjs` lists those files with the upstream commits that block them, and moves a header once the file follows the pin.
 
 ## Verify
 

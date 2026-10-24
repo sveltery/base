@@ -222,12 +222,10 @@ export function renderPageIndex({ title, pages, tail }: PageIndex, route: string
 		`# ${title}`,
 		'',
 		LIST_MARKER,
-		'',
-		...list,
-		'',
+		// The markers are link definitions, which Prettier keeps together when no content separates them.
+		...(list.length ? ['', ...list, ''] : []),
 		generatedMarker(route),
-		'',
-		...details,
+		...(details.length ? ['', ...details] : []),
 		END_MARKER,
 		'',
 		tail
