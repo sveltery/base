@@ -801,6 +801,24 @@ Test: `src/lib/autocomplete/AutocompleteRoot.svelte.spec.ts`, `src/lib/autocompl
 
 `describeConformance` (ref forwarding, render-prop cloning), the `React.startTransition` unmount case, and the `store.test.tsx` cases that observe React store transactions, `useStore` re-reads and ref callbacks during commit have no Svelte counterpart here. Upstream's click-open highlight case fires a click that neither focuses nor opens, so the local case asserts the highlight after a real click. The validation-ref case runs without its Switch, because each control registers its own input. The `onChange` and `onBlur` validation cases that upstream skips in a browser run here.
 
+## Questionnaire
+
+Source: `packages/react/src/questionnaire` in `@shadcn/react` v0.3.1 (`30a58d4498f270af1c1e981a7d78a15cf5740841`). The React fixture runs `@shadcn/react@0.3.1`. The port came from `@sveltery/svelte/questionnaire` in Sveltery UI.
+
+### Public surface
+
+Pin: `30a58d4498f270af1c1e981a7d78a15cf5740841`, `packages/react/src/questionnaire/index.ts`, `components.tsx` and `types.ts`.
+
+Local: the same `Questionnaire` namespace and part names. Props use Svelte names: `novalidate`, `onchange`, `oninput`, `onsubmit` and `onreset`. Root's `item`, Choice's `checked` and Input's `value` are `$bindable`, beside `defaultItem`, `defaultChecked` and `defaultValue`. Input reports typing through `oninput`, where upstream uses React's `onChange`. `render` is a snippet that receives the props, the state and the children. ChoiceInput's and Input's snippets receive no children. There is no `ref`. Each part with state attributes exports a `*DataAttributes` object.
+
+### Reset clears a text answer
+
+Pin: `30a58d4498f270af1c1e981a7d78a15cf5740841`, `packages/react/src/questionnaire/use-questionnaire-input.ts`. A form reset deselects the text answer, and React renders `form=""` on the input before the native reset runs. The input leaves the form, so the reset skips it and its text stays, while the input reports `data-empty`.
+
+Local: Svelte applies `form=""` after the native reset, so the reset empties the input. Its text and its `data-empty` agree.
+
+Test: `src/routes/fixtures/questionnaire/questionnaire.e2e.ts` (`reset clears answers and returns to the first item`).
+
 ## Scrollbar-hiding style
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/utils/styles.tsx`. ScrollArea.Root and Select.Popup render `<style href precedence="base-ui:low">`. React 19 hoists it into the head of the root's document or shadow root, keyed by `href`, and never removes it. The server prints it once in the head.

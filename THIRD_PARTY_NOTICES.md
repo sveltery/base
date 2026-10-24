@@ -478,3 +478,36 @@ Fonts in `apps/docs/static/fonts` are under the SIL Open Font License 1.1. The l
 
 - Paper Mono, by the Paper Mono project authors (https://github.com/paper-design/paper-mono)
 - Instrument Sans, by the Instrument Sans project authors (https://github.com/Instrument/instrument-sans)
+
+## @shadcn/react
+
+Parts of this package derive from [`@shadcn/react`](https://github.com/shadcn-ui/ui/tree/main/packages/react) v0.3.1, commit `30a58d4498f270af1c1e981a7d78a15cf5740841`:
+
+- `src/lib/questionnaire/Questionnaire*.svelte` from `packages/react/src/questionnaire/components.tsx`
+- `src/lib/questionnaire/root-state.svelte.ts` from `packages/react/src/questionnaire/use-questionnaire-root.ts`
+- `src/lib/questionnaire/item-state.svelte.ts` from `packages/react/src/questionnaire/use-questionnaire-item.ts`, `use-questionnaire-choice.ts` and `use-questionnaire-input.ts`
+- `src/lib/questionnaire/collection.ts`, `utils.ts`, `types.ts` and `index.ts` from the files of the same names in `packages/react/src/questionnaire`
+- `src/lib/questionnaire/data-attributes.ts` from the state attributes in `packages/react/src/questionnaire/components.tsx`
+- `src/lib/questionnaire/*.spec.ts` and the fixtures in `src/routes/fixtures/questionnaire` from `packages/react/src/questionnaire/questionnaire.test.tsx`
+
+MIT License
+
+Copyright (c) 2023 shadcn
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
