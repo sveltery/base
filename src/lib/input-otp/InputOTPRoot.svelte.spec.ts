@@ -10,6 +10,19 @@ import InputOTPContextHarness from '../../tests/InputOTPContextHarness.svelte';
 
 const input = () => page.getByRole('textbox');
 
+// userEvent sends keys faster than selectionchange can widen the caret, so each step waits for
+// the selection the slots mirror before the next key.
+async function selected(start: number, end: number) {
+	await expect.element(input()).toHaveAttribute('data-input-otp-mss', String(start));
+	await expect.element(input()).toHaveAttribute('data-input-otp-mse', String(end));
+	await expect
+		.poll(() => {
+			const field = input().element() as HTMLInputElement;
+			return [field.selectionStart, field.selectionEnd];
+		})
+		.toEqual([start, end]);
+}
+
 describe('InputOTP', () => {
 	describe('Base tests - Typing', () => {
 		it('should start as empty value', async () => {
@@ -31,8 +44,8 @@ describe('InputOTP', () => {
 		it('should prevent typing greater than max length', async () => {
 			render(InputOTPHarness);
 
-			// userEvent.type sends keys before selectionchange selects the last slot. The e2e types all seven.
 			await userEvent.type(input(), '123456');
+			await selected(5, 6);
 			await userEvent.keyboard('7');
 			await expect.element(input()).toHaveValue('123457');
 		});
@@ -44,6 +57,7 @@ describe('InputOTP', () => {
 
 			await userEvent.type(input(), '123');
 			await userEvent.keyboard('{ArrowLeft}');
+			await selected(2, 3);
 			await userEvent.keyboard('1');
 			await expect.element(input()).toHaveValue('121');
 		});
@@ -60,8 +74,8 @@ describe('InputOTP', () => {
 		it('should replace last char if another one is pressed', async () => {
 			render(InputOTPHarness);
 
-			// userEvent.type sends keys before selectionchange selects the last slot. The e2e types all seven.
 			await userEvent.type(input(), '123456');
+			await selected(5, 6);
 			await userEvent.keyboard('7');
 			await expect.element(input()).toHaveValue('123457');
 		});
@@ -84,7 +98,11 @@ describe('InputOTP', () => {
 			await userEvent.type(input(), '123456');
 			await expect.element(input()).toHaveValue('123456');
 
-			await userEvent.keyboard('{ArrowLeft}{ArrowLeft}');
+			await selected(5, 6);
+			await userEvent.keyboard('{ArrowLeft}');
+			await selected(4, 5);
+			await userEvent.keyboard('{ArrowLeft}');
+			await selected(3, 4);
 			await userEvent.keyboard('{Control>}{Backspace}{/Control}');
 			await expect.element(input()).toHaveValue('12356');
 		});
@@ -97,12 +115,21 @@ describe('InputOTP', () => {
 			await userEvent.type(input(), '123456');
 			await expect.element(input()).toHaveValue('123456');
 
+			await selected(5, 6);
 			await userEvent.keyboard('{Delete}');
 			await expect.element(input()).toHaveValue('12345');
-			await userEvent.keyboard('{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}');
+			await selected(5, 5);
+			for (const start of [4, 3, 2, 1, 0]) {
+				await userEvent.keyboard('{ArrowLeft}');
+				await selected(start, start + 1);
+			}
 			await userEvent.keyboard('{Delete}');
 			await expect.element(input()).toHaveValue('2345');
-			await userEvent.keyboard('{ArrowRight}{ArrowRight}');
+			await selected(0, 1);
+			await userEvent.keyboard('{ArrowRight}');
+			await selected(1, 2);
+			await userEvent.keyboard('{ArrowRight}');
+			await selected(2, 3);
 			await userEvent.keyboard('{Delete}');
 			await expect.element(input()).toHaveValue('235');
 		});

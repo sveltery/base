@@ -1,12 +1,22 @@
 // Each case runs against the Svelte InputOTP and the React input-otp 1.4.2 reference.
 // The tests follow input-otp v1.4.2 apps/test/src/tests/*.spec.ts
 // (commit 81ccdb48c010d800b24942aa231909f0c971b1ca). MIT, see THIRD_PARTY_NOTICES.md.
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import { openFixture } from '../open-fixture.js';
 import type { InputOTPCase } from './cases.js';
 
 function open(page: Page, scenario: InputOTPCase, reference: boolean) {
 	return openFixture(page, 'input-otp', scenario, reference);
+}
+
+// Upstream's keys reach a local dev build slower than selectionchange. On a busy runner a key can
+// land first, so each step waits for the selection the slots mirror before the next key.
+async function selected(input: Locator, start: number, end: number) {
+	await expect(input).toHaveAttribute('data-input-otp-mss', String(start));
+	await expect(input).toHaveAttribute('data-input-otp-mse', String(end));
+	await expect
+		.poll(() => input.evaluate((el: HTMLInputElement) => [el.selectionStart, el.selectionEnd]))
+		.toEqual([start, end]);
 }
 
 for (const reference of [false, true]) {
@@ -32,8 +42,8 @@ for (const reference of [false, true]) {
 			test('should prevent typing greater than max length', async ({ page }) => {
 				await open(page, 'base', reference);
 				const input = page.getByRole('textbox');
-				// React input-otp can take the seventh key before selectionchange selects the last slot.
 				await input.pressSequentially('123456');
+				await selected(input, 5, 6);
 				await input.press('7');
 				await expect(input).toHaveValue('123457');
 			});
@@ -45,6 +55,7 @@ for (const reference of [false, true]) {
 				const input = page.getByRole('textbox');
 				await input.pressSequentially('123');
 				await input.press('ArrowLeft');
+				await selected(input, 2, 3);
 				await input.pressSequentially('1');
 				await expect(input).toHaveValue('121');
 			});
@@ -79,8 +90,11 @@ for (const reference of [false, true]) {
 				const input = page.getByRole('textbox');
 				await input.pressSequentially('123456');
 				await expect(input).toHaveValue('123456');
+				await selected(input, 5, 6);
 				await input.press('ArrowLeft');
+				await selected(input, 4, 5);
 				await input.press('ArrowLeft');
+				await selected(input, 3, 4);
 				await input.press('ControlOrMeta+Backspace');
 				await expect(input).toHaveValue('12356');
 			});
@@ -92,13 +106,21 @@ for (const reference of [false, true]) {
 				const input = page.getByRole('textbox');
 				await input.pressSequentially('123456');
 				await expect(input).toHaveValue('123456');
+				await selected(input, 5, 6);
 				await input.press('Delete');
 				await expect(input).toHaveValue('12345');
-				for (let step = 0; step < 5; step++) await input.press('ArrowLeft');
+				await selected(input, 5, 5);
+				for (const start of [4, 3, 2, 1, 0]) {
+					await input.press('ArrowLeft');
+					await selected(input, start, start + 1);
+				}
 				await input.press('Delete');
 				await expect(input).toHaveValue('2345');
+				await selected(input, 0, 1);
 				await input.press('ArrowRight');
+				await selected(input, 1, 2);
 				await input.press('ArrowRight');
+				await selected(input, 2, 3);
 				await input.press('Delete');
 				await expect(input).toHaveValue('235');
 			});
