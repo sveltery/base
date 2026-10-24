@@ -47,3 +47,4 @@ export * from './questionnaire/index.js';
 export * from './resizable/index.js';
 export * from './input-otp/index.js';
 export * from './command/index.js';
+export * from './message-scroller/index.js';

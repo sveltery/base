@@ -13,3 +13,7 @@ test-results/
 playwright-report/
 .svelte-kit/
 dist/
+
+# Copied from @shadcn/react as is
+src/lib/message-scroller/geometry.ts
+src/lib/message-scroller/geometry.test.ts

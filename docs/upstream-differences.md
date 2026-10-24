@@ -1016,3 +1016,21 @@ Test: `src/lib/command/command-ssr.spec.ts` and the hydration case in `src/route
 Local: Svelte cannot move the nodes it renders, so List and each Group render their parts themselves, in ranked order, and each part leaves only a comment where it is written. An element wrapped around an Item, Group, Separator, Empty or Loading stays empty. Other markup written in List or Group renders before its parts. Context set between List or Group and an Item does not reach the Item's content. A `{#each}` or `{#if}` around parts works.
 
 Test: `src/lib/command/Command.svelte.spec.ts` (`Command outside the usual layout`).
+
+## MessageScroller
+
+Source: `@shadcn/react` v0.3.1 `packages/react/src/message-scroller` (`30a58d4498f270af1c1e981a7d78a15cf5740841`). The React fixture runs `@shadcn/react@0.3.1`. `geometry.ts` is upstream's file with `.js` import suffixes.
+
+Pin: `30a58d4498f270af1c1e981a7d78a15cf5740841`, `packages/react/src/message-scroller/components.tsx`, `types.ts`, `use-message-scroller-controller.ts` and `use-message-scroller-commands.ts`.
+
+| Upstream                                                                                                                         | Local                                                                                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useMessageScroller()` returns `{ scrollToEnd, scrollToMessage, scrollToStart }`                                                 | `getMessageScroller()` returns a `MessageScrollerController` with the same commands and two reactive getters, `scrollable` and `visibility`. Call it during component init  |
+| `useMessageScrollerScrollable()` and `useMessageScrollerVisibility()` subscribe to stores                                        | `scroller.scrollable` and `scroller.visibility`. Visibility is tracked only while an effect or template reads it, as upstream observes only while the hook has a subscriber |
+| Turning `autoScroll` off while following leaves the scroller in its follow mode, so `scrollable.end` stays `false` over overflow | Turning `autoScroll` off releases follow. `scrollable.end` reports real overflow, so the end button shows                                                                   |
+| `MessageScroller.Button` takes `render` as an element or a function, through `useRender`                                         | `render` is a snippet that receives the props to spread and the state `{ active, direction }`                                                                               |
+| `spacerClassName`, `tabIndex`, `onClick` and `ref` props                                                                         | `spacerClass`, `tabindex` and `onclick`. There is no `ref` prop                                                                                                             |
+| A part outside the provider throws `useMessageScroller must be used within a MessageScroller.` or the item variant of that error | Every part and `getMessageScroller()` throw `getMessageScroller must be used within a MessageScroller.Provider.`                                                            |
+| The controller sets `data-scrollable` and `data-autoscrolling` on the root and the viewport with `setAttribute`                  | The parts render the same attributes from reactive state                                                                                                                    |
+
+Test: `src/lib/message-scroller/MessageScroller.svelte.spec.ts` (`arms follow when autoScroll turns on at the end and stops when it turns off`, `throws outside a Provider`), `src/lib/message-scroller/geometry.test.ts` and `src/routes/fixtures/message-scroller/message-scroller.e2e.ts`.

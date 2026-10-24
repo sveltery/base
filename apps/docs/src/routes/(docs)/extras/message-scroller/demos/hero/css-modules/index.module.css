@@ -1,0 +1,112 @@
+.Container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	width: 24rem;
+	max-width: calc(100vw - 8rem);
+}
+
+.Root {
+	position: relative;
+	height: 12rem;
+	border: 1px solid oklch(87% 0 0deg);
+	border-radius: 0.375rem;
+	background-color: white;
+
+	@media (prefers-color-scheme: dark) {
+		border-color: oklch(37.1% 0 0deg);
+		background-color: oklch(14.5% 0 0deg);
+	}
+}
+
+.Viewport {
+	height: 100%;
+	overflow-y: auto;
+	border-radius: inherit;
+
+	&[data-pending-scroll] {
+		visibility: hidden;
+	}
+
+	&:focus-visible {
+		outline: 2px solid oklch(14.5% 0 0deg);
+		outline-offset: -1px;
+
+		@media (prefers-color-scheme: dark) {
+			outline-color: white;
+		}
+	}
+}
+
+.Content {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.75rem;
+}
+
+.Item {
+	max-width: 80%;
+	padding: 0.5rem 0.75rem;
+	border-radius: 0.375rem;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	color: oklch(14.5% 0 0deg);
+	background-color: oklch(97% 0 0deg);
+
+	@media (prefers-color-scheme: dark) {
+		color: white;
+		background-color: oklch(26.9% 0 0deg);
+	}
+
+	&[data-author='user'] {
+		align-self: flex-end;
+		color: white;
+		background-color: oklch(14.5% 0 0deg);
+
+		@media (prefers-color-scheme: dark) {
+			color: oklch(14.5% 0 0deg);
+			background-color: white;
+		}
+	}
+}
+
+.Button {
+	position: absolute;
+	bottom: 0.5rem;
+	left: 50%;
+	translate: -50% 0;
+	padding: 0.25rem 0.75rem;
+	border: 1px solid oklch(87% 0 0deg);
+	border-radius: 9999px;
+	font-size: 0.75rem;
+	color: oklch(14.5% 0 0deg);
+	background-color: white;
+	transition: opacity 150ms;
+
+	&[data-active='false'] {
+		opacity: 0;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		border-color: oklch(37.1% 0 0deg);
+		color: white;
+		background-color: oklch(14.5% 0 0deg);
+	}
+}
+
+.Ask {
+	align-self: flex-start;
+	padding: 0.375rem 0.875rem;
+	border: 1px solid oklch(87% 0 0deg);
+	border-radius: 0.375rem;
+	font-size: 0.875rem;
+	color: oklch(14.5% 0 0deg);
+	background-color: oklch(98.5% 0 0deg);
+
+	@media (prefers-color-scheme: dark) {
+		border-color: oklch(37.1% 0 0deg);
+		color: white;
+		background-color: oklch(20.5% 0 0deg);
+	}
+}
