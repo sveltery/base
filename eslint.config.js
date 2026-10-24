@@ -27,7 +27,16 @@ const restrictedImports = [
 ];
 
 /** Files copied from an upstream without changes. They keep upstream's code, so its lint findings stay. */
-const upstreamCopies = [];
+const upstreamCopies = [
+	// scripts/resizable/sync-upstream.mjs writes these from react-resizable-panels.
+	'src/lib/resizable/engine/constants.ts',
+	'src/lib/resizable/engine/types.ts',
+	'src/lib/resizable/engine/global/**',
+	'src/lib/resizable/engine/utils/**',
+	'src/lib/resizable/engine/vendor/**',
+	'src/lib/resizable/engine/components/group/sortByElementOffset*.ts',
+	'src/lib/resizable/engine/components/group/auto-save/**'
+];
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),

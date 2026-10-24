@@ -541,3 +541,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## react-resizable-panels
+
+`src/lib/resizable` ports [react-resizable-panels](https://github.com/bvaughn/react-resizable-panels) v4.5.8 (commit `119437b6a973c10b6513613eb9453fc9fb850259`) by Brian Vaughn:
+
+- `src/lib/resizable/engine/constants.ts`, `types.ts`, `global/`, `utils/`, `vendor/`, `components/group/sortByElementOffset.ts` and `components/group/auto-save/` are copied from upstream's `lib` folder, with their tests, by `scripts/resizable/sync-upstream.mjs`, which applies `scripts/resizable/patches/`.
+- `src/lib/resizable/engine/components/{group,panel,separator}/types.ts` derive from upstream's `lib/components/*/types.ts`.
+- `src/lib/resizable/ResizableGroup.svelte`, `ResizablePanel.svelte`, `ResizableSeparator.svelte`, `context.ts`, `data-attributes.ts`, `types.ts` and `useDefaultLayout.svelte.ts` are Svelte rewrites of upstream's `lib/components`.
+- `src/tests/resizable-setup.ts` derives from upstream's `vitest.setup.ts`.
+- `src/lib/resizable/engine/vendor/stacking-order.ts` is upstream's fork of [stacking-order](https://github.com/Rich-Harris/stacking-order) 2.0.0 by Rich Harris (Copyright (c) Rich Harris), also under the MIT License.
+
+The MIT License (MIT)
+
+Copyright (c) 2018 Brian Vaughn
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
