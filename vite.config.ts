@@ -58,7 +58,8 @@ export default defineConfig({
 				test: {
 					name: 'jsdom',
 					environment: 'jsdom',
-					include: jsdomTests
+					include: jsdomTests,
+					setupFiles: ['./src/tests/resizable-setup.ts']
 				}
 			},
 
