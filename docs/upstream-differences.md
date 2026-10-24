@@ -2,6 +2,8 @@
 
 Intentional differences from Base UI v1.9.0 (`ad7ecda5296b0295b41a51ecb01fce6204acd099`). Each component section is owned by the pull request that ports that component. Each entry's Pin line names the upstream commit it was last checked against.
 
+The parts that Sveltery UI needs and Base UI does not have follow their own upstream: cmdk, react-day-picker, react-resizable-panels, input-otp or `@shadcn/react`. Hugo Hsi, the owner, signed off on 2026-10-24 on Base holding these parts and on any deviation from Base UI that Sveltery UI needs. Each one's section lists its differences from its own upstream, and its Pin line names that upstream's version and commit. [AGENTS.md](../AGENTS.md#headless-parts-for-sveltery-ui) lists the parts.
+
 ## Merge props
 
 Pin: `ad7ecda5296b0295b41a51ecb01fce6204acd099`, `packages/react/src/merge-props/mergeProps.ts`. `@base-ui/react` and `@base-ui/react/merge-props` export `mergeProps`, `mergePropsN`, `makeEventPreventable`, and `mergeClassNames`. The rightmost bag wins plain props. Its event handler runs first. `event.preventBaseUIHandler()` skips the handlers to its left. `preventDefault()` does not. `className` is concatenated with the rightmost class first. `style` is a React style object, and the rightmost property wins. A function argument receives the props merged so far and replaces them. Handlers that function returns are not wrapped. `ref` is not merged.

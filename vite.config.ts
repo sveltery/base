@@ -5,6 +5,9 @@ import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { chromiumLaunchOptions } from './scripts/chromium.js';
 
+// Unit tests copied from an upstream that tests against jsdom, kept as upstream wrote them.
+const jsdomTests = ['src/lib/resizable/**/*.test.ts'];
+
 export default defineConfig({
 	plugins: [
 		sveltekit({
@@ -46,7 +49,16 @@ export default defineConfig({
 					name: 'server',
 					environment: 'node',
 					include: ['{src,packages/*/src}/**/*.{test,spec}.{js,ts}', 'eslint/**/*.spec.ts'],
-					exclude: ['{src,packages/*/src}/**/*.svelte.{test,spec}.{js,ts}']
+					exclude: ['{src,packages/*/src}/**/*.svelte.{test,spec}.{js,ts}', ...jsdomTests]
+				}
+			},
+
+			{
+				extends: './vite.config.ts',
+				test: {
+					name: 'jsdom',
+					environment: 'jsdom',
+					include: jsdomTests
 				}
 			},
 

@@ -35,14 +35,14 @@ If Chromium is missing, the scripts stop and print that install command. To use 
 
 ## The layers
 
-| Step                    | Command run                                                          | What it proves                                                                       |
-| ----------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| format, lint            | `prettier --check`, `eslint` on the component and fixture            | Style, plus the rule that `src/lib` imports neither React nor SvelteKit              |
-| types                   | `pnpm check` (svelte-check)                                          | Public props and state types compile                                                 |
-| unit                    | `vitest --project server` on `src/lib/<name>` and `src/lib/internal` | Pure helpers: event details, state attributes                                        |
-| component               | `vitest --project client` on `src/lib/<name>` (real Chromium)        | Upstream `Toggle.test.tsx` assertions ported to Svelte, plus native rendering checks |
-| e2e                     | `playwright test src/routes/fixtures/<name>` against a `vite build`  | The same user path on Svelte and on React Base UI, plus SSR HTML                     |
-| package (full run only) | `pnpm run build` (svelte-package, publint)                           | The published package is well formed                                                 |
+| Step                    | Command run                                                                          | What it proves                                                                       |
+| ----------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| format, lint            | `prettier --check`, `eslint` on the component and fixture                            | Style, plus the rule that `src/lib` imports neither React nor SvelteKit              |
+| types                   | `pnpm check` (svelte-check)                                                          | Public props and state types compile                                                 |
+| unit                    | `vitest --project server --project jsdom` on `src/lib/<name>` and `src/lib/internal` | Pure helpers: event details, state attributes                                        |
+| component               | `vitest --project client` on `src/lib/<name>` (real Chromium)                        | Upstream `Toggle.test.tsx` assertions ported to Svelte, plus native rendering checks |
+| e2e                     | `playwright test src/routes/fixtures/<name>` against a `vite build`                  | The same user path on Svelte and on React Base UI, plus SSR HTML                     |
+| package (full run only) | `pnpm run build` (svelte-package, publint)                                           | The published package is well formed                                                 |
 
 All steps run even after one fails, so the summary shows every layer.
 

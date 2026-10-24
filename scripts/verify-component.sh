@@ -31,7 +31,7 @@ paths=("src/lib/$component")
 verify_step format pnpm exec prettier --check "${paths[@]}"
 verify_step lint pnpm exec eslint "${paths[@]}"
 verify_step types pnpm check
-verify_step unit pnpm exec vitest run --project server --passWithNoTests "src/lib/$component" src/lib/internal
+verify_step unit pnpm exec vitest run --project server --project jsdom --passWithNoTests "src/lib/$component" src/lib/internal
 verify_step component pnpm exec vitest run --project client "src/lib/$component"
 if [[ -d "$fixture" ]]; then
   verify_step e2e env E2E_PORT="$port" E2E_OUTPUT_DIR="$VERIFY_EVIDENCE/playwright" \

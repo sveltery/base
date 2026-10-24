@@ -30,7 +30,9 @@ const sections = {
 	Overview: 'overview',
 	Handbook: 'handbook',
 	Components: 'components',
-	Utils: 'utils'
+	Utils: 'utils',
+	// Parts Base UI does not have, which Sveltery UI needs. compare-nav.ts skips this section.
+	Extras: 'extras'
 };
 
 export default defineConfig({

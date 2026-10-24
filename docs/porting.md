@@ -166,6 +166,14 @@ A composite control draws its own markup and submits through a native input it r
 2. **The DOM is the write path.** A user edit changes the native input and fires `input`, then `change` when the edit is committed. A native click does this for checkboxes and radios. Other controls call `queueValueEvent` from `src/lib/internal/value-events.ts`.
 3. **The focusable element is the focus target.** For Checkbox, Switch and Radio that is the native input itself. Register it through `attachFieldControl` or `watchFieldControl` in `src/lib/internal/field-register-control.svelte.ts`, and mark the Field touched on blur, so `onBlur` validation and focus after a failed submit work.
 
+## Parts from other upstreams
+
+The parts that Sveltery UI needs and Base UI does not have, listed in [AGENTS.md](../AGENTS.md#headless-parts-for-sveltery-ui), port cmdk, react-day-picker, react-resizable-panels, input-otp and `@shadcn/react`. The same map applies to them. Three things differ:
+
+- The oracle is that part's upstream. Its React fixture mounts the upstream package, and a behavior difference from it goes in [docs/upstream-differences.md](upstream-differences.md) under the part's own section.
+- React prop names become HTML and Svelte names. input-otp's `maxLength` is `maxlength`, and a `ref` prop is `bind:this` or a `render` snippet. Each stateful prop is a `$bindable` prop with a `default*` prop beside it, as on a Base UI part.
+- Framework-free upstream files, such as react-resizable-panels' layout math, can be copied as is. List them in `upstreamCopies` in `eslint.config.js`, and put their upstream tests in the `jsdom` Vitest project in `vite.config.ts`.
+
 ## Gotchas
 
 1. **Do not move a block's first or last node.** An attachment that moves its node to `body` corrupts `{#if}` removal when that node is the first or last node of the block. Use a dedicated `Portal` component or `mount()`.
