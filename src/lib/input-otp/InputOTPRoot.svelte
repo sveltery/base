@@ -59,7 +59,7 @@
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { setInputOTPContext } from './context.js';
 	import { BADGE_SPACE_WIDTH, passwordManagerBadge } from './password-manager-badge.svelte.js';
-	import type { InputOTPRootProps, InputOTPRootState, InputOTPSlot } from './types.js';
+	import type { InputOTPRootProps, InputOTPRootState, InputOTPSlotState } from './types.js';
 
 	type Direction = 'forward' | 'backward' | 'none';
 
@@ -271,7 +271,7 @@
 	}
 
 	const slots = $derived(
-		Array.from({ length: maxlength }, (_, index): InputOTPSlot => {
+		Array.from({ length: maxlength }, (_, index): InputOTPSlotState => {
 			const isActive =
 				isFocused &&
 				mirrorSelectionStart !== null &&

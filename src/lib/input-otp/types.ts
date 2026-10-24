@@ -2,7 +2,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 
 /** What one slot renders. */
-export interface InputOTPSlot {
+export interface InputOTPSlotState {
 	/** Whether the selection covers this slot while the input is focused. */
 	isActive: boolean;
 	/** The character in this slot, or `null` when it is empty. */
@@ -15,7 +15,7 @@ export interface InputOTPSlot {
 
 export interface InputOTPRootState {
 	/** One entry per slot. */
-	readonly slots: InputOTPSlot[];
+	readonly slots: InputOTPSlotState[];
 	/** Whether the input is focused. */
 	readonly isFocused: boolean;
 	/** Whether the pointer is over the input and it is not disabled. */

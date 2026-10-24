@@ -959,7 +959,7 @@ Test: `src/lib/input-otp/InputOTPRoot.svelte.spec.ts`, `src/routes/fixtures/inpu
 
 Pin: `81ccdb48c010d800b24942aa231909f0c971b1ca`, `packages/input-otp/src/input.tsx` and `types.ts`.
 
-Local: `OTPInput` is `InputOTP.Root`. `OTPInputContext` is `getInputOTPContext()`. `RenderProps` is `InputOTPRootState` and `SlotProps` is `InputOTPSlot`. Props use HTML names: `maxLength` is `maxlength`, `inputMode` is `inputmode` and `autoFocus` is `autofocus`. `containerClassName` is `containerClass`. `render` keeps upstream's meaning: it receives the state and draws the slots, and does not replace the root element as a Base UI part's `render` does.
+Local: `OTPInput` is `InputOTP.Root`. `OTPInputContext` is `getInputOTPContext()`. `RenderProps` is `InputOTPRootState` and `SlotProps` is `InputOTPSlotState`. Props use HTML names: `maxLength` is `maxlength`, `inputMode` is `inputmode` and `autoFocus` is `autofocus`. `containerClassName` is `containerClass`. `render` keeps upstream's meaning: it receives the state and draws the slots, and does not replace the root element as a Base UI part's `render` does.
 
 ### Value and the input element
 

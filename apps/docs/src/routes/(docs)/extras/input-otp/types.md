@@ -50,7 +50,7 @@ Re-export of [Root](#root) props.
 ```typescript
 type InputOTPRootState = {
 	/** One entry per slot. */
-	slots: InputOTPSlot[];
+	slots: InputOTPSlotState[];
 	/** Whether the input is focused. */
 	isFocused: boolean;
 	/** Whether the pointer is over the input and it is not disabled. */
@@ -99,12 +99,12 @@ declare namespace InputOTPRootDataAttributes {
 }
 ```
 
-### InputOTPSlot
+### InputOTPSlotState
 
 What one slot renders.
 
 ```typescript
-type InputOTPSlot = {
+type InputOTPSlotState = {
 	/** Whether the selection covers this slot while the input is focused. */
 	isActive: boolean;
 	/** The character in this slot, or `null` when it is empty. */
