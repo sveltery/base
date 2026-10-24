@@ -973,4 +973,4 @@ Test: `src/lib/input-otp/InputOTPRoot.svelte.spec.ts` (`binds the value and call
 
 Pin: `81ccdb48c010d800b24942aa231909f0c971b1ca`, `packages/input-otp/src/sync-timeouts.ts` and `use-pwm-badge.tsx`. `syncTimeouts` starts three timeouts on every value or focus change and never clears them.
 
-Local: the root and the password-manager check use `ScopedTimeout` and `ScopedInterval`. A new value or focus change restarts the three sync timeouts instead of adding three more, and every timer clears when the root is destroyed.
+Local: the sync timeouts still stack as upstream's do, in a `TimeoutManager` that clears them when the root is destroyed. The password-manager check uses `ScopedTimeout` and `ScopedInterval`.

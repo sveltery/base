@@ -55,7 +55,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { on } from 'svelte/events';
-	import { ScopedTimeout } from '@sveltery/utils';
+	import { TimeoutManager } from '@sveltery/utils';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { setInputOTPContext } from './context.js';
 	import { BADGE_SPACE_WIDTH, passwordManagerBadge } from './password-manager-badge.svelte.js';
@@ -109,9 +109,12 @@
 		isFocused: () => isFocused
 	});
 
-	const syncTimers = [new ScopedTimeout(), new ScopedTimeout(), new ScopedTimeout()];
+	const syncTimers = new TimeoutManager();
+	let syncRun = 0;
+	$effect(() => () => syncTimers.clearAll());
 	function syncTimeouts(callback: () => void) {
-		[0, 10, 50].forEach((delay, index) => syncTimers[index].start(delay, callback));
+		const run = syncRun++;
+		for (const delay of [0, 10, 50]) syncTimers.start(`${run}:${delay}`, delay, callback);
 	}
 
 	function setMirror(start: number | null, end: number | null) {
