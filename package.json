@@ -109,6 +109,11 @@
 			"svelte": "./dist/csp-provider/index.js",
 			"default": "./dist/csp-provider/index.js"
 		},
+		"./day-picker": {
+			"types": "./dist/day-picker/index.d.ts",
+			"svelte": "./dist/day-picker/index.js",
+			"default": "./dist/day-picker/index.js"
+		},
 		"./dialog": {
 			"types": "./dist/dialog/index.d.ts",
 			"svelte": "./dist/dialog/index.js",
@@ -276,11 +281,21 @@
 		}
 	},
 	"peerDependencies": {
+		"@date-fns/tz": "^1.5.0",
+		"date-fns": "^4.4.0",
 		"svelte": "^5.57.1"
 	},
-	"peerDependenciesMeta": {},
+	"peerDependenciesMeta": {
+		"@date-fns/tz": {
+			"optional": true
+		},
+		"date-fns": {
+			"optional": true
+		}
+	},
 	"devDependencies": {
 		"@base-ui/react": "1.9.0",
+		"@date-fns/tz": "1.5.0",
 		"@eslint/js": "^10.0.1",
 		"@playwright/test": "^1.60.0",
 		"@shadcn/react": "0.3.1",
@@ -296,6 +311,7 @@
 		"@types/react-dom": "19.2.4",
 		"@vitest/browser-playwright": "^4.1.8",
 		"cmdk": "1.1.1",
+		"date-fns": "4.4.0",
 		"eslint": "^10.4.1",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.19.0",

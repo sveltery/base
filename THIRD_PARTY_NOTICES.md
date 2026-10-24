@@ -511,3 +511,33 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## react-day-picker
+
+`src/lib/day-picker` ports [react-day-picker](https://github.com/gpbl/react-day-picker) v9.8.1 (commit `bd55df2e3a4917f4c368020f3ef64f60b6882627`), by way of `@sveltery/day-picker` in sveltery/ui:
+
+- `src/lib/day-picker/DayPicker.svelte` and `data-attributes.ts` from `src/DayPicker.tsx` and `src/helpers/getDataAttributes.tsx`
+- `src/lib/day-picker/day-picker.svelte.ts` from `src/useCalendar.ts`, `src/useFocus.ts` and `src/useSelection.ts`
+- `src/lib/day-picker/{date-lib,grid,focus,matchers,modifiers,selection,format,class-names,types}.ts` from `src/classes`, `src/helpers`, `src/utils`, `src/selection`, `src/formatters`, `src/labels`, `src/UI.ts` and `src/types`
+
+The MIT License (MIT)
+
+Copyright (c) 2014-2025 Giampaolo Bellavite <io@gpbl.dev> and contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
